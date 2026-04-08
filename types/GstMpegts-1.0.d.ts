@@ -14,5311 +14,5701 @@ declare module "gi://GstMpegts?version=1.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type Gst from "gi://Gst?version=1.0"
 
-    
-
-    namespace GstMpegts {
-        
-
-        interface AtscEITStruct {
-            readonly $gtype: GObject.GType<AtscEIT>
-            [Symbol.hasInstance](instance: unknown): instance is AtscEIT
-        }
-
-        interface AtscEIT {
-            /**
-             * The source id
-             */
-            source_id: number
-            /**
-             * The protocol version
-             */
-            protocol_version: number
-            /**
-             * Events
-             */
-            events: AtscEITEvent[]
-        }
-
-        interface $Exports {
-            AtscEIT: AtscEITStruct
-        }
-        
-
-        interface AtscEITEventStruct {
-            readonly $gtype: GObject.GType<AtscEITEvent>
-            [Symbol.hasInstance](instance: unknown): instance is AtscEITEvent
-        }
-
-        interface AtscEITEvent {
-            /**
-             * The event id
-             */
-            event_id: number
-            /**
-             * The start time
-             */
-            start_time: number
-            /**
-             * The etm location
-             */
-            etm_location: number
-            /**
-             * The length in seconds
-             */
-            length_in_seconds: number
-            /**
-             * the titles
-             */
-            titles: AtscMultString[]
-            /**
-             * descriptors
-             */
-            descriptors: Descriptor[]
-        }
-
-        interface $Exports {
-            AtscEITEvent: AtscEITEventStruct
-        }
-        
-
-        interface AtscETTStruct {
-            readonly $gtype: GObject.GType<AtscETT>
-            [Symbol.hasInstance](instance: unknown): instance is AtscETT
-        }
-
-        interface AtscETT {
-            /**
-             */
-            ett_table_id_extension: number
-            /**
-             * The protocol version
-             */
-            protocol_version: number
-            /**
-             * The etm id
-             */
-            etm_id: number
-            /**
-             * List of texts
-             */
-            messages: AtscMultString[]
-        }
-
-        interface $Exports {
-            AtscETT: AtscETTStruct
-        }
-        
-
-        interface AtscMGTStruct {
-            readonly $gtype: GObject.GType<AtscMGT>
-            [Symbol.hasInstance](instance: unknown): instance is AtscMGT
-            /**
-             */
-            "new"(): AtscMGT
-        }
-
-        interface AtscMGT {
-            /**
-             * The protocol version
-             */
-            protocol_version: number
-            /**
-             * The numbers of subtables
-             */
-            tables_defined: number
-            /**
-             * the tables
-             */
-            tables: AtscMGTTable[]
-            /**
-             * descriptors
-             */
-            descriptors: Descriptor[]
-        }
-
-        interface $Exports {
-            AtscMGT: AtscMGTStruct
-        }
-        
-
-        interface AtscMGTTableStruct {
-            readonly $gtype: GObject.GType<AtscMGTTable>
-            [Symbol.hasInstance](instance: unknown): instance is AtscMGTTable
-        }
-
-        interface AtscMGTTable {
-            /**
-             * #GstMpegtsAtscMGTTableType
-             */
-            table_type: number
-            /**
-             * The packet ID
-             */
-            pid: number
-            /**
-             * The version number
-             */
-            version_number: number
-            /**
-             */
-            number_bytes: number
-            /**
-             * descriptors
-             */
-            descriptors: Descriptor[]
-        }
-
-        interface $Exports {
-            AtscMGTTable: AtscMGTTableStruct
-        }
-        
-
-        interface AtscMultStringStruct {
-            readonly $gtype: GObject.GType<AtscMultString>
-            [Symbol.hasInstance](instance: unknown): instance is AtscMultString
-        }
-
-        interface AtscMultString {
-            /**
-             * The ISO639 language code
-             */
-            iso_639_langcode: number[]
-            /**
-             */
-            segments: AtscStringSegment[]
-        }
-
-        interface $Exports {
-            AtscMultString: AtscMultStringStruct
-        }
-        
-
-        interface AtscRRTStruct {
-            readonly $gtype: GObject.GType<AtscRRT>
-            [Symbol.hasInstance](instance: unknown): instance is AtscRRT
-            /**
-             */
-            "new"(): AtscRRT
-        }
-
-        interface AtscRRT {
-            /**
-             * The protocol version
-             */
-            protocol_version: number
-            /**
-             * the names
-             */
-            names: AtscMultString[]
-            /**
-             * the number of dimensions defined for this rating table
-             */
-            dimensions_defined: number
-            /**
-             * A set of dimensions
-             */
-            dimensions: AtscRRTDimension[]
-            /**
-             * descriptors
-             */
-            descriptors: never[]
-        }
-
-        interface $Exports {
-            AtscRRT: AtscRRTStruct
-        }
-        
-
-        interface AtscRRTDimensionStruct {
-            readonly $gtype: GObject.GType<AtscRRTDimension>
-            [Symbol.hasInstance](instance: unknown): instance is AtscRRTDimension
-            /**
-             */
-            "new"(): AtscRRTDimension
-        }
-
-        interface AtscRRTDimension {
-            /**
-             * the names
-             */
-            names: AtscMultString[]
-            /**
-             * whether the ratings represent a graduated scale
-             */
-            graduated_scale: boolean
-            /**
-             * the number of values defined for this dimension
-             */
-            values_defined: number
-            /**
-             * set of values
-             */
-            values: AtscRRTDimensionValue[]
-        }
-
-        interface $Exports {
-            AtscRRTDimension: AtscRRTDimensionStruct
-        }
-        
-
-        interface AtscRRTDimensionValueStruct {
-            readonly $gtype: GObject.GType<AtscRRTDimensionValue>
-            [Symbol.hasInstance](instance: unknown): instance is AtscRRTDimensionValue
-            /**
-             */
-            "new"(): AtscRRTDimensionValue
-        }
-
-        interface AtscRRTDimensionValue {
-            /**
-             * the abbreviated ratings
-             */
-            abbrev_ratings: AtscMultString[]
-            /**
-             * the ratings
-             */
-            ratings: AtscMultString[]
-        }
-
-        interface $Exports {
-            AtscRRTDimensionValue: AtscRRTDimensionValueStruct
-        }
-        
-
-        interface AtscSTTStruct {
-            readonly $gtype: GObject.GType<AtscSTT>
-            [Symbol.hasInstance](instance: unknown): instance is AtscSTT
-            /**
-             */
-            "new"(): AtscSTT
-        }
-
-        interface AtscSTT {
-            /**
-             * The protocol version
-             */
-            protocol_version: number
-            /**
-             * The system time
-             */
-            system_time: number
-            /**
-             * The GPS to UTC offset
-             */
-            gps_utc_offset: number
-            /**
-             */
-            ds_status: boolean
-            /**
-             * The day of month
-             */
-            ds_dayofmonth: number
-            /**
-             * The hour
-             */
-            ds_hour: number
-            /**
-             * descriptors
-             */
-            descriptors: Descriptor[]
-            /**
-             * The UTC date and time
-             */
-            utc_datetime: Gst.DateTime
-            /**
-             */
-            get_datetime_utc(): Gst.DateTime
-        }
-
-        interface $Exports {
-            AtscSTT: AtscSTTStruct
-        }
-        
-
-        interface AtscStringSegmentStruct {
-            readonly $gtype: GObject.GType<AtscStringSegment>
-            [Symbol.hasInstance](instance: unknown): instance is AtscStringSegment
-        }
-
-        interface AtscStringSegment {
-            /**
-             * The compression type
-             */
-            compression_type: number
-            /**
-             * The mode
-             */
-            mode: number
-            /**
-             * The size of compressed data
-             */
-            compressed_data_size: number
-            /**
-             * The compressed data
-             */
-            compressed_data: number
-            /**
-             */
-            cached_string: string
-            /**
-             */
-            get_string(): string
-            /**
-             * @param string
-             * @param compression_type
-             * @param mode
-             */
-            set_string(string: string, compression_type: number, mode: number): boolean
-        }
-
-        interface $Exports {
-            AtscStringSegment: AtscStringSegmentStruct
-        }
-        
-
-        interface AtscVCTStruct {
-            readonly $gtype: GObject.GType<AtscVCT>
-            [Symbol.hasInstance](instance: unknown): instance is AtscVCT
-        }
-
-        interface AtscVCT {
-            /**
-             * The transport stream
-             */
-            transport_stream_id: number
-            /**
-             * The protocol version
-             */
-            protocol_version: number
-            /**
-             * sources
-             */
-            sources: AtscVCTSource[]
-            /**
-             * descriptors
-             */
-            descriptors: Descriptor[]
-        }
-
-        interface $Exports {
-            AtscVCT: AtscVCTStruct
-        }
-        
-
-        interface AtscVCTSourceStruct {
-            readonly $gtype: GObject.GType<AtscVCTSource>
-            [Symbol.hasInstance](instance: unknown): instance is AtscVCTSource
-        }
-
-        interface AtscVCTSource {
-            /**
-             * The short name of a source
-             */
-            short_name: string
-            /**
-             * The major channel number
-             */
-            major_channel_number: number
-            /**
-             * The minor channel number
-             */
-            minor_channel_number: number
-            /**
-             * The modulation mode
-             */
-            modulation_mode: number
-            /**
-             * The carrier frequency
-             */
-            carrier_frequency: number
-            /**
-             * The transport stream ID
-             */
-            channel_tsid: number
-            /**
-             * The program number (see #GstMpegtsPatProgram)
-             */
-            program_number: number
-            /**
-             * The ETM location
-             */
-            etm_location: number
-            /**
-             * is access controlled
-             */
-            access_controlled: boolean
-            /**
-             * is hidden
-             */
-            hidden: boolean
-            /**
-             * is path select, CVCT only
-             */
-            path_select: boolean
-            /**
-             * is out of band, CVCT only
-             */
-            out_of_band: boolean
-            /**
-             * is hide guide
-             */
-            hide_guide: boolean
-            /**
-             * The service type
-             */
-            service_type: number
-            /**
-             * The source id
-             */
-            source_id: number
-            /**
-             * an array of #GstMpegtsDescriptor
-             */
-            descriptors: Descriptor[]
-        }
-
-        interface $Exports {
-            AtscVCTSource: AtscVCTSourceStruct
-        }
-        
-
-        interface AudioPreselectionDescriptorStruct {
-            readonly $gtype: GObject.GType<AudioPreselectionDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is AudioPreselectionDescriptor
-        }
-
-        interface AudioPreselectionDescriptor {
-            /**
-             * 5-bit
-             */
-            preselection_id: number
-            /**
-             * 3-bit field
-             */
-            audio_rendering_indication: number
-            /**
-             * visually impaired
-             */
-            audio_description: boolean
-            /**
-             */
-            spoken_subtitles: boolean
-            /**
-             */
-            dialogue_enhancement: boolean
-            /**
-             */
-            interactivity_enabled: boolean
-            /**
-             */
-            language_code_present: boolean
-            /**
-             */
-            text_label_present: boolean
-            /**
-             * indicates if this PID conveys a complete audio programme
-             */
-            multi_stream_info_present: boolean
-            /**
-             */
-            future_extension: boolean
-            /**
-             * NULL terminated ISO 639 language code.
-             */
-            language_code: string
-            /**
-             */
-            message_id: number
-        }
-
-        interface $Exports {
-            AudioPreselectionDescriptor: AudioPreselectionDescriptorStruct
-        }
-        
-
-        interface BATStruct {
-            readonly $gtype: GObject.GType<BAT>
-            [Symbol.hasInstance](instance: unknown): instance is BAT
-        }
-
-        interface BAT {
-            /**
-             */
-            descriptors: Descriptor[]
-            /**
-             */
-            streams: BATStream[]
-        }
-
-        interface $Exports {
-            BAT: BATStruct
-        }
-        
-
-        interface BATStreamStruct {
-            readonly $gtype: GObject.GType<BATStream>
-            [Symbol.hasInstance](instance: unknown): instance is BATStream
-        }
-
-        interface BATStream {
-            /**
-             */
-            transport_stream_id: number
-            /**
-             */
-            original_network_id: number
-            /**
-             */
-            descriptors: never[]
-        }
-
-        interface $Exports {
-            BATStream: BATStreamStruct
-        }
-        
-
-        interface CableDeliverySystemDescriptorStruct {
-            readonly $gtype: GObject.GType<CableDeliverySystemDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is CableDeliverySystemDescriptor
-        }
-
-        interface CableDeliverySystemDescriptor {
-            /**
-             * the frequency in Hz (Hertz)
-             */
-            frequency: number
-            /**
-             * the outer FEC scheme used
-             */
-            outer_fec: CableOuterFECScheme
-            /**
-             * Modulation scheme used
-             */
-            modulation: ModulationType
-            /**
-             * Symbol rate (in symbols per second)
-             */
-            symbol_rate: number
-            /**
-             * inner FEC scheme used
-             */
-            fec_inner: DVBCodeRate
-            /**
-             */
-            free(): void
-        }
-
-        interface $Exports {
-            CableDeliverySystemDescriptor: CableDeliverySystemDescriptorStruct
-        }
-        
-
-        interface ComponentDescriptorStruct {
-            readonly $gtype: GObject.GType<ComponentDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is ComponentDescriptor
-        }
-
-        interface ComponentDescriptor {
-            /**
-             */
-            stream_content: number
-            /**
-             */
-            component_type: number
-            /**
-             */
-            component_tag: number
-            /**
-             */
-            language_code: string
-            /**
-             */
-            text: string
-        }
-
-        interface $Exports {
-            ComponentDescriptor: ComponentDescriptorStruct
-        }
-        
-
-        interface ContentStruct {
-            readonly $gtype: GObject.GType<Content>
-            [Symbol.hasInstance](instance: unknown): instance is Content
-        }
-
-        interface Content {
-            /**
-             */
-            content_nibble_1: ContentNibbleHi
-            /**
-             */
-            content_nibble_2: number
-            /**
-             */
-            user_byte: number
-        }
-
-        interface $Exports {
-            Content: ContentStruct
-        }
-        
-
-        interface DVBLinkageDescriptorStruct {
-            readonly $gtype: GObject.GType<DVBLinkageDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is DVBLinkageDescriptor
-        }
-
-        interface DVBLinkageDescriptor {
-            /**
-             * the transport id
-             */
-            transport_stream_id: number
-            /**
-             * the original network id
-             */
-            original_network_id: number
-            /**
-             * the service id
-             */
-            service_id: number
-            /**
-             * the type which @linkage_data has
-             */
-            linkage_type: DVBLinkageType
-            /**
-             * the length for @private_data_bytes
-             */
-            private_data_length: number
-            /**
-             * additional data bytes
-             */
-            private_data_bytes: number
-            /**
-             */
-            free(): void
-            /**
-             * @returns The #GstMpegtsDVBLinkageEvent or %NULL if an error happened
-             */
-            get_event(): DVBLinkageEvent | null
-            /**
-             * @returns an #GstMpegtsDVBLinkageExtendedEvent array or %NULL if an error happened
-             */
-            get_extended_event(): DVBLinkageExtendedEvent[] | null
-            /**
-             * @returns The #GstMpegtsDVBLinkageMobileHandOver or %NULL if an error happened
-             */
-            get_mobile_hand_over(): DVBLinkageMobileHandOver | null
-        }
-
-        interface $Exports {
-            DVBLinkageDescriptor: DVBLinkageDescriptorStruct
-        }
-        
-
-        interface DVBLinkageEventStruct {
-            readonly $gtype: GObject.GType<DVBLinkageEvent>
-            [Symbol.hasInstance](instance: unknown): instance is DVBLinkageEvent
-        }
-
-        interface DVBLinkageEvent {
-            /**
-             */
-            target_event_id: number
-            /**
-             */
-            target_listed: boolean
-            /**
-             */
-            event_simulcast: boolean
-        }
-
-        interface $Exports {
-            DVBLinkageEvent: DVBLinkageEventStruct
-        }
-        
-
-        interface DVBLinkageExtendedEventStruct {
-            readonly $gtype: GObject.GType<DVBLinkageExtendedEvent>
-            [Symbol.hasInstance](instance: unknown): instance is DVBLinkageExtendedEvent
-        }
-
-        interface DVBLinkageExtendedEvent {
-            /**
-             */
-            target_event_id: number
-            /**
-             */
-            target_listed: boolean
-            /**
-             */
-            event_simulcast: boolean
-            /**
-             */
-            link_type: number
-            /**
-             */
-            target_id_type: number
-            /**
-             */
-            original_network_id_flag: boolean
-            /**
-             */
-            service_id_flag: boolean
-            /**
-             */
-            user_defined_id: number
-            /**
-             */
-            target_transport_stream_id: number
-            /**
-             */
-            target_original_network_id: number
-            /**
-             */
-            target_service_id: number
-        }
-
-        interface $Exports {
-            DVBLinkageExtendedEvent: DVBLinkageExtendedEventStruct
-        }
-        
-
-        interface DVBLinkageMobileHandOverStruct {
-            readonly $gtype: GObject.GType<DVBLinkageMobileHandOver>
-            [Symbol.hasInstance](instance: unknown): instance is DVBLinkageMobileHandOver
-        }
-
-        interface DVBLinkageMobileHandOver {
-            /**
-             */
-            hand_over_type: DVBLinkageHandOverType
-            /**
-             */
-            origin_type: boolean
-            /**
-             */
-            network_id: number
-            /**
-             */
-            initial_service_id: number
-        }
-
-        interface $Exports {
-            DVBLinkageMobileHandOver: DVBLinkageMobileHandOverStruct
-        }
-        
-
-        interface DVBParentalRatingItemStruct {
-            readonly $gtype: GObject.GType<DVBParentalRatingItem>
-            [Symbol.hasInstance](instance: unknown): instance is DVBParentalRatingItem
-        }
-
-        interface DVBParentalRatingItem {
-            /**
-             */
-            country_code: string
-            /**
-             */
-            rating: number
-        }
-
-        interface $Exports {
-            DVBParentalRatingItem: DVBParentalRatingItemStruct
-        }
-        
-
-        interface DVBServiceListItemStruct {
-            readonly $gtype: GObject.GType<DVBServiceListItem>
-            [Symbol.hasInstance](instance: unknown): instance is DVBServiceListItem
-        }
-
-        interface DVBServiceListItem {
-            /**
-             * the id of a service
-             */
-            service_id: number
-            /**
-             * the type of a service
-             */
-            type: DVBServiceType
-        }
-
-        interface $Exports {
-            DVBServiceListItem: DVBServiceListItemStruct
-        }
-        
-
-        interface DataBroadcastDescriptorStruct {
-            readonly $gtype: GObject.GType<DataBroadcastDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is DataBroadcastDescriptor
-        }
-
-        interface DataBroadcastDescriptor {
-            /**
-             * the data broadcast id
-             */
-            data_broadcast_id: number
-            /**
-             * the component tag
-             */
-            component_tag: number
-            /**
-             */
-            length: number
-            /**
-             * the selector byte field
-             */
-            selector_bytes: number
-            /**
-             * language of @text
-             */
-            language_code: string
-            /**
-             * description of data broadcast
-             */
-            text: string
-            /**
-             */
-            free(): void
-        }
-
-        interface $Exports {
-            DataBroadcastDescriptor: DataBroadcastDescriptorStruct
-        }
-        
-
-        interface DescriptorStruct {
-            readonly $gtype: GObject.GType<Descriptor>
-            [Symbol.hasInstance](instance: unknown): instance is Descriptor
-            /**
-             * Creates a #GstMpegtsDescriptor with custom @tag and @data
-             * @param tag descriptor tag
-             * @param data descriptor data (after tag and length field)
-             * @returns #GstMpegtsDescriptor, or %NULL if input is invalid
-             */
-            from_custom(tag: number, data: Uint8Array): Descriptor | null
-            /**
-             * Creates a #GstMpegtsDescriptor with custom @tag, @tag_extension and @data
-             * @since 1.20
-             * @param tag descriptor tag
-             * @param tag_extension descriptor tag extension
-             * @param data descriptor data (after tag and length field)
-             * @returns #GstMpegtsDescriptor
-             */
-            from_custom_with_extension(tag: number, tag_extension: number, data: Uint8Array): Descriptor
-            /**
-             * Creates a #GstMpegtsDescriptor to be a %GST_MTS_DESC_DVB_NETWORK_NAME,
-             * with the network name @name. The data field of the #GstMpegtsDescriptor
-             * will be allocated, and transferred to the caller.
-             * @param name the network name to set
-             * @returns the #GstMpegtsDescriptor or %NULL on failure.
-             */
-            from_dvb_network_name(name: string): Descriptor | null
-            /**
-             * Fills a #GstMpegtsDescriptor to be a %GST_MTS_DESC_DVB_SERVICE.
-             * The data field of the #GstMpegtsDescriptor will be allocated,
-             * and transferred to the caller.
-             * @param service_type Service type defined as a #GstMpegtsDVBServiceType
-             * @param service_name Name of the service
-             * @param service_provider Name of the service provider
-             * @returns the #GstMpegtsDescriptor or %NULL on failure
-             */
-            from_dvb_service(service_type: DVBServiceType, service_name: string | null, service_provider: string | null): Descriptor | null
-            /**
-             * @param lang a string containing the ISO639 language
-             * @param type subtitling type
-             * @param composition composition page id
-             * @param ancillary ancillary page id
-             */
-            from_dvb_subtitling(lang: string, type: number, composition: number, ancillary: number): Descriptor
-            /**
-             * Creates a %GST_MTS_DESC_ISO_639_LANGUAGE #GstMpegtsDescriptor with
-             * a single language
-             * @param language ISO-639-2 language 3-char code
-             * @returns #GstMpegtsDescriptor, %NULL on failure
-             */
-            from_iso_639_language(language: string): Descriptor
-            /**
-             * Create a new #GstMpegtsDescriptor based on the information in @jpegxs
-             * @since 1.26
-             * @param jpegxs A #GstMpegtsJpegXsDescriptor
-             * @returns The #GstMpegtsDescriptor
-             */
-            from_jpeg_xs(jpegxs: JpegXsDescriptor): Descriptor
-            /**
-             * @since 1.26
-             * @param metadata_descriptor
-             */
-            from_metadata(metadata_descriptor: MetadataDescriptor): Descriptor
-            /**
-             * @since 1.26
-             * @param metadata_pointer_descriptor a #GstMpegtsMetadataPointerDescriptor
-             * @returns a #GstMpegtsDescriptor from the metadata pointer descriptor.
-             */
-            from_metadata_pointer(metadata_pointer_descriptor: MetadataPointerDescriptor): Descriptor
-            /**
-             * Creates a %GST_MTS_DESC_REGISTRATION #GstMpegtsDescriptor
-             * @param format_identifier a 4 character format identifier string
-             * @param additional_info pointer to optional additional info
-             * @returns #GstMpegtsDescriptor, %NULL on failure
-             */
-            from_registration(format_identifier: string, additional_info: Uint8Array | null): Descriptor
-            /**
-             * @since 1.20
-             * @param source
-             */
-            parse_audio_preselection_dump(source: AudioPreselectionDescriptor): void
-            /**
-             * @since 1.20
-             * @param source
-             */
-            parse_audio_preselection_free(source: AudioPreselectionDescriptor): void
-        }
-
-        interface Descriptor {
-            /**
-             * the type of descriptor
-             */
-            tag: number
-            /**
-             * the extended type (if @tag is 0x7f (for DVB) or 0x3f (for H.222.0))
-             */
-            tag_extension: number
-            /**
-             * the length of the descriptor content (excluding tag/length field)
-             */
-            length: number
-            /**
-             * the full descriptor data (including tag, extension, length). The first
-             * two bytes are the @tag and @length.
-             */
-            data: number
-            /**
-             * Copy the given descriptor.
-             * @since 1.26
-             * @returns A copy of `desc`.
-             */
-            copy(): Descriptor
-            /**
-             * Frees @desc
-             */
-            free(): void
-            /**
-             * Parses out a list of audio preselection from the @descriptor.
-             * @since 1.20
-             * @returns %TRUE if the parsing happened correctly, else %FALSE.,  the list of audio preselection
-             */
-            parse_audio_preselection_list(): [boolean, AudioPreselectionDescriptor[]]
-            /**
-             * Extracts the Conditional Access information from @descriptor.
-             * @returns %TRUE if parsing succeeded, else %FALSE., the type of CA system used, The PID containing ECM or EMM data, The private data
-             */
-            parse_ca(): [boolean, number, number, Uint8Array]
-            /**
-             * Extracts the cable delivery system information from @descriptor.
-             * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsCableDeliverySystemDescriptor to fill
-             */
-            parse_cable_delivery_system(): [boolean, CableDeliverySystemDescriptor]
-            /**
-             * Extracts the bouquet name from @descriptor.
-             * @returns %TRUE if parsing succeeded, else %FALSE., the bouquet name
-             */
-            parse_dvb_bouquet_name(): [boolean, string]
-            /**
-             * Extracts ca id's from @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., a list of ca identifier. Edge entry identifies the CA system. Allocations of the value of this field are found in http://www.dvbservices.com
-             */
-            parse_dvb_ca_identifier(): [boolean, number[]]
-            /**
-             * Extracts the DVB component information from @descriptor.
-             * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsComponentDescriptor to fill
-             */
-            parse_dvb_component(): [boolean, ComponentDescriptor]
-            /**
-             * Extracts the DVB content information from @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., #GstMpegtsContent
-             */
-            parse_dvb_content(): [boolean, Content[]]
-            /**
-             * Parses out the data broadcast from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., #GstMpegtsDataBroadcastDescriptor
-             */
-            parse_dvb_data_broadcast(): [boolean, DataBroadcastDescriptor]
-            /**
-             * Parses out the data broadcast id from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., the data broadcast id, the selector bytes, if present
-             */
-            parse_dvb_data_broadcast_id(): [boolean, number, Uint8Array]
-            /**
-             * Extracts the DVB extended event information from @descriptor.
-             * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsExtendedEventDescriptor to fill
-             */
-            parse_dvb_extended_event(): [boolean, ExtendedEventDescriptor]
-            /**
-             * Parses out a list of frequencies from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., %FALSE in Hz, %TRUE in kHz, a list of all frequencies in Hz/kHz depending on `offset`
-             */
-            parse_dvb_frequency_list(): [boolean, boolean, number[]]
-            /**
-             * Extracts the DVB linkage information from @descriptor.
-             * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsDVBLinkageDescriptor to fill
-             */
-            parse_dvb_linkage(): [boolean, DVBLinkageDescriptor]
-            /**
-             * Parses out the multilingual bouquet name from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE.,  a #GstMpegtsDvbMultilingualBouquetNameItem
-             */
-            parse_dvb_multilingual_bouquet_name(): [boolean, DvbMultilingualBouquetNameItem[]]
-            /**
-             * Parses out the multilingual component from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., the component tag,  a #GstMpegtsDvbMultilingualComponentItem
-             */
-            parse_dvb_multilingual_component(): [boolean, number, DvbMultilingualComponentItem[]]
-            /**
-             * Parses out the multilingual network name from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE.,  a #GstMpegtsDvbMultilingualNetworkNameItem
-             */
-            parse_dvb_multilingual_network_name(): [boolean, DvbMultilingualNetworkNameItem[]]
-            /**
-             * Parses out the multilingual service name from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE.,  a #GstMpegtsDvbMultilingualServiceNameItem
-             */
-            parse_dvb_multilingual_service_name(): [boolean, DvbMultilingualServiceNameItem[]]
-            /**
-             * Parses out the dvb network name from the @descriptor:
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., the extracted name
-             */
-            parse_dvb_network_name(): [boolean, string]
-            /**
-             * Extracts the DVB parental rating information from @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE.,  #GstMpegtsDVBParentalRatingItem
-             */
-            parse_dvb_parental_rating(): [boolean, DVBParentalRatingItem[]]
-            /**
-             * Parses out the private data specifier from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., the private data specifier id registered by http://www.dvbservices.com/, additional data or NULL
-             */
-            parse_dvb_private_data_specifier(): [boolean, number, Uint8Array]
-            /**
-             * Parses out the scrambling mode from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., This 8-bit field identifies the selected mode of the scrambling algorithm (#GstMpegtsDVBScramblingModeType). The technical details of the scrambling algorithm are available only to bona-fide users upon signature of a Non Disclosure Agreement (NDA) administered by the DVB Common Scrambling Algorithm Custodian.
-             */
-            parse_dvb_scrambling(): [boolean, DVBScramblingModeType]
-            /**
-             * Extracts the dvb service information from @descriptor.
-             * @returns %TRUE if parsing succeeded, else %FALSE., the service type, the service name, the provider name
-             */
-            parse_dvb_service(): [boolean, DVBServiceType, string, string]
-            /**
-             * Parses out a list of services from the @descriptor:
-             * @returns %TRUE if the parsing happened correctly, else %FALSE.,  the list of services
-             */
-            parse_dvb_service_list(): [boolean, DVBServiceListItem[]]
-            /**
-             * Extracts the DVB short event information from @descriptor.
-             * @returns %TRUE if parsing succeeded, else %FALSE., the language code, the event name, the event text
-             */
-            parse_dvb_short_event(): [boolean, string, string, string]
-            /**
-             * Extracts the component tag from @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., the component tag
-             */
-            parse_dvb_stream_identifier(): [boolean, number]
-            /**
-             * Parses out the stuffing bytes from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., the stuffing bytes
-             */
-            parse_dvb_stuffing(): [boolean, number]
-            /**
-             * Extracts the DVB subtitling informatio from specific table id in @descriptor.
-             *
-             * Note: Use #gst_tag_get_language_code if you want to get the the
-             * ISO 639-1 language code from the returned ISO 639-2 one.
-             * @param idx Table id of the entry to parse
-             * @returns %TRUE if parsing succeeded, else %FALSE., the language code, the type of subtitling, the composition page id, the ancillary page id
-             */
-            parse_dvb_subtitling_idx(idx: number): [boolean, string, number, number, number]
-            /**
-             * @returns The number of entries in `descriptor`
-             */
-            parse_dvb_subtitling_nb(): number
-            /**
-             * Parses out the DVB-T2 delivery system from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., #GstMpegtsT2DeliverySystemDescriptor
-             */
-            parse_dvb_t2_delivery_system(): [boolean, T2DeliverySystemDescriptor]
-            /**
-             * Parses teletext number @idx in the @descriptor. The language is in ISO639 format.
-             * @param idx The id of the teletext to get
-             * @returns FALSE on out-of-bounds and errors, a null-terminated string, #GstMpegtsDVBTeletextType, , 
-             */
-            parse_dvb_teletext_idx(idx: number): [boolean, string, DVBTeletextType, number, number]
-            /**
-             * Find the number of teletext entries in @descriptor
-             * @returns Number of teletext entries
-             */
-            parse_dvb_teletext_nb(): number
-            /**
-             * Extracts the iso 639-2 language information from @descriptor.
-             *
-             * Note: Use #gst_tag_get_language_code if you want to get the the
-             * ISO 639-1 language code from the returned ISO 639-2 one.
-             * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsISO639LanguageDescriptor to fill
-             */
-            parse_iso_639_language(): [boolean, ISO639LanguageDescriptor]
-            /**
-             * Extracts the iso 639-2 language information from specific table id in @descriptor.
-             *
-             * Note: Use #gst_tag_get_language_code if you want to get the the
-             * ISO 639-1 language code from the returned ISO 639-2 one.
-             * @param idx Table id of the language to parse
-             * @returns %TRUE if parsing succeeded, else %FALSE., 4-byte gchar array to hold the language code, the #GstMpegtsIso639AudioType to set
-             */
-            parse_iso_639_language_idx(idx: number): [boolean, string, Iso639AudioType]
-            /**
-             * @returns The number of languages in `descriptor`
-             */
-            parse_iso_639_language_nb(): number
-            /**
-             * Parses the JPEG-XS descriptor information from @descriptor:
-             * @since 1.26
-             * @returns TRUE if the information could be parsed, else FALSE., A parsed #GstMpegtsJpegXsDescriptor
-             */
-            parse_jpeg_xs(): [boolean, JpegXsDescriptor]
-            /**
-             * Extracts the logical channels from @descriptor.
-             * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsLogicalChannelDescriptor to fill
-             */
-            parse_logical_channel(): [boolean, LogicalChannelDescriptor]
-            /**
-             * Parses out the metadata descriptor from the @descriptor.
-             *
-             * See ISO/IEC 13818-1:2018 Section 2.6.60 and 2.6.61 for details.
-             * metadata_application_format is provided in Table 2-82. metadata_format is
-             * provided in Table 2-85.
-             * @since 1.24
-             * @returns %TRUE if the parsing worked correctly, else %FALSE., #GstMpegtsMetadataDescriptor
-             */
-            parse_metadata(): [boolean, MetadataDescriptor]
-            /**
-             * Extracts the metadata STD descriptor from @descriptor.
-             *
-             * See ISO/IEC 13818-1:2018 Section 2.6.62 and 2.6.63 for details.
-             * @since 1.24
-             * @param metadata_input_leak_rate
-             * @param metadata_buffer_size
-             * @param metadata_output_leak_rate
-             * @returns %TRUE if parsing succeeded, else %FALSE.
-             */
-            parse_metadata_std(metadata_input_leak_rate: number, metadata_buffer_size: number, metadata_output_leak_rate: number): boolean
-            /**
-             * Extracts the Registration information from @descriptor.
-             * @since 1.20
-             * @returns %TRUE if parsing succeeded, else %FALSE., The registration ID (in host endiannes), The additional information
-             */
-            parse_registration(): [boolean, number, Uint8Array]
-            /**
-             * Extracts the satellite delivery system information from @descriptor.
-             * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsSatelliteDeliverySystemDescriptor to fill
-             */
-            parse_satellite_delivery_system(): [boolean, SatelliteDeliverySystemDescriptor]
-            /**
-             * Parses out the terrestrial delivery system from the @descriptor.
-             * @returns %TRUE if the parsing happened correctly, else %FALSE., #GstMpegtsTerrestrialDeliverySystemDescriptor
-             */
-            parse_terrestrial_delivery_system(): [boolean, TerrestrialDeliverySystemDescriptor]
-        }
-
-        interface $Exports {
-            Descriptor: DescriptorStruct
-        }
-        
-
-        interface DvbMultilingualBouquetNameItemStruct {
-            readonly $gtype: GObject.GType<DvbMultilingualBouquetNameItem>
-            [Symbol.hasInstance](instance: unknown): instance is DvbMultilingualBouquetNameItem
-        }
-
-        interface DvbMultilingualBouquetNameItem {
-            /**
-             * the ISO 639 language code
-             */
-            language_code: string
-            /**
-             * the bouquet name
-             */
-            bouquet_name: string
-        }
-
-        interface $Exports {
-            DvbMultilingualBouquetNameItem: DvbMultilingualBouquetNameItemStruct
-        }
-        
-
-        interface DvbMultilingualComponentItemStruct {
-            readonly $gtype: GObject.GType<DvbMultilingualComponentItem>
-            [Symbol.hasInstance](instance: unknown): instance is DvbMultilingualComponentItem
-        }
-
-        interface DvbMultilingualComponentItem {
-            /**
-             * the ISO 639 language code
-             */
-            language_code: string
-            /**
-             * the component description
-             */
-            description: string
-        }
-
-        interface $Exports {
-            DvbMultilingualComponentItem: DvbMultilingualComponentItemStruct
-        }
-        
-
-        interface DvbMultilingualNetworkNameItemStruct {
-            readonly $gtype: GObject.GType<DvbMultilingualNetworkNameItem>
-            [Symbol.hasInstance](instance: unknown): instance is DvbMultilingualNetworkNameItem
-        }
-
-        interface DvbMultilingualNetworkNameItem {
-            /**
-             * the ISO 639 language code
-             */
-            language_code: string
-            /**
-             * the network name
-             */
-            network_name: string
-        }
-
-        interface $Exports {
-            DvbMultilingualNetworkNameItem: DvbMultilingualNetworkNameItemStruct
-        }
-        
-
-        interface DvbMultilingualServiceNameItemStruct {
-            readonly $gtype: GObject.GType<DvbMultilingualServiceNameItem>
-            [Symbol.hasInstance](instance: unknown): instance is DvbMultilingualServiceNameItem
-        }
-
-        interface DvbMultilingualServiceNameItem {
-            /**
-             * the ISO 639 language code
-             */
-            language_code: string
-            /**
-             * the provider name
-             */
-            provider_name: string
-            /**
-             * the service name
-             */
-            service_name: string
-        }
-
-        interface $Exports {
-            DvbMultilingualServiceNameItem: DvbMultilingualServiceNameItemStruct
-        }
-        
-
-        interface EITStruct {
-            readonly $gtype: GObject.GType<EIT>
-            [Symbol.hasInstance](instance: unknown): instance is EIT
-        }
-
-        interface EIT {
-            /**
-             */
-            transport_stream_id: number
-            /**
-             */
-            original_network_id: number
-            /**
-             */
-            segment_last_section_number: number
-            /**
-             */
-            last_table_id: number
-            /**
-             */
-            actual_stream: boolean
-            /**
-             */
-            present_following: boolean
-            /**
-             * List of events
-             */
-            events: EITEvent[]
-        }
-
-        interface $Exports {
-            EIT: EITStruct
-        }
-        
-
-        interface EITEventStruct {
-            readonly $gtype: GObject.GType<EITEvent>
-            [Symbol.hasInstance](instance: unknown): instance is EITEvent
-        }
-
-        interface EITEvent {
-            /**
-             */
-            event_id: number
-            /**
-             */
-            start_time: Gst.DateTime
-            /**
-             */
-            duration: number
-            /**
-             */
-            running_status: RunningStatus
-            /**
-             */
-            free_ca_mode: boolean
-            /**
-             * List of descriptors
-             */
-            descriptors: Descriptor[]
-        }
-
-        interface $Exports {
-            EITEvent: EITEventStruct
-        }
-        
-
-        interface ExtendedEventDescriptorStruct {
-            readonly $gtype: GObject.GType<ExtendedEventDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is ExtendedEventDescriptor
-        }
-
-        interface ExtendedEventDescriptor {
-            /**
-             */
-            descriptor_number: number
-            /**
-             */
-            last_descriptor_number: number
-            /**
-             * NULL terminated language code.
-             */
-            language_code: string
-            /**
-             * the #GstMpegtsExtendedEventItem
-             */
-            items: ExtendedEventItem[]
-            /**
-             */
-            text: string
-            /**
-             */
-            free(): void
-        }
-
-        interface $Exports {
-            ExtendedEventDescriptor: ExtendedEventDescriptorStruct
-        }
-        
-
-        interface ExtendedEventItemStruct {
-            readonly $gtype: GObject.GType<ExtendedEventItem>
-            [Symbol.hasInstance](instance: unknown): instance is ExtendedEventItem
-        }
-
-        interface ExtendedEventItem {
-            /**
-             */
-            item_description: string
-            /**
-             */
-            item: string
-        }
-
-        interface $Exports {
-            ExtendedEventItem: ExtendedEventItemStruct
-        }
-        
-
-        interface ISO639LanguageDescriptorStruct {
-            readonly $gtype: GObject.GType<ISO639LanguageDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is ISO639LanguageDescriptor
-        }
-
-        interface ISO639LanguageDescriptor {
-            /**
-             */
-            nb_language: number
-            /**
-             */
-            language: string[]
-            /**
-             */
-            audio_type: Iso639AudioType[]
-            /**
-             */
-            descriptor_free(): void
-        }
-
-        interface $Exports {
-            ISO639LanguageDescriptor: ISO639LanguageDescriptorStruct
-        }
-        
-
-        interface JpegXsDescriptorStruct {
-            readonly $gtype: GObject.GType<JpegXsDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is JpegXsDescriptor
-        }
-
-        interface JpegXsDescriptor {
-            /**
-             */
-            descriptor_version: number
-            /**
-             */
-            horizontal_size: number
-            /**
-             */
-            vertical_size: number
-            /**
-             */
-            brat: number
-            /**
-             */
-            frat: number
-            /**
-             */
-            schar: number
-            /**
-             */
-            ppih: number
-            /**
-             */
-            plev: number
-            /**
-             */
-            max_buffer_size: number
-            /**
-             */
-            buffer_model_type: number
-            /**
-             */
-            colour_primaries: number
-            /**
-             */
-            transfer_characteristics: number
-            /**
-             */
-            matrix_coefficients: number
-            /**
-             */
-            video_full_range_flag: boolean
-            /**
-             */
-            still_mode: boolean
-            /**
-             */
-            mdm_flag: boolean
-            /**
-             */
-            x_c0: number
-            /**
-             */
-            y_c0: number
-            /**
-             */
-            x_c1: number
-            /**
-             */
-            y_c1: number
-            /**
-             */
-            x_c2: number
-            /**
-             */
-            y_c2: number
-            /**
-             */
-            x_wp: number
-            /**
-             */
-            y_wp: number
-            /**
-             */
-            l_max: number
-            /**
-             */
-            l_min: number
-            /**
-             */
-            max_cll: number
-            /**
-             */
-            max_fall: number
-        }
-
-        interface $Exports {
-            JpegXsDescriptor: JpegXsDescriptorStruct
-        }
-        
-
-        interface LogicalChannelStruct {
-            readonly $gtype: GObject.GType<LogicalChannel>
-            [Symbol.hasInstance](instance: unknown): instance is LogicalChannel
-        }
-
-        interface LogicalChannel {
-            /**
-             */
-            service_id: number
-            /**
-             */
-            visible_service: boolean
-            /**
-             */
-            logical_channel_number: number
-        }
-
-        interface $Exports {
-            LogicalChannel: LogicalChannelStruct
-        }
-        
-
-        interface LogicalChannelDescriptorStruct {
-            readonly $gtype: GObject.GType<LogicalChannelDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is LogicalChannelDescriptor
-        }
-
-        interface LogicalChannelDescriptor {
-            /**
-             */
-            nb_channels: number
-            /**
-             */
-            channels: LogicalChannel[]
-        }
-
-        interface $Exports {
-            LogicalChannelDescriptor: LogicalChannelDescriptorStruct
-        }
-        
-
-        interface MetadataDescriptorStruct {
-            readonly $gtype: GObject.GType<MetadataDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is MetadataDescriptor
-        }
-
-        interface MetadataDescriptor {
-            /**
-             * specifies the application responsible for defining usage, syntax and semantics
-             */
-            metadata_application_format: MetadataApplicationFormat
-            /**
-             * indicates the format and coding of the metadata
-             */
-            metadata_format: MetadataFormat
-            /**
-             * format identifier (equivalent to registration descriptor), for example 0x4B4C4641 ('KLVA') to indicate SMPTE 336 KLV.
-             */
-            metadata_format_identifier: number
-            /**
-             * metadata service to which this metadata descriptor applies, typically 0x00
-             */
-            metadata_service_id: number
-            /**
-             * decoder flags, see ISO/IEC 13818-1:2018 Table 2-88.
-             */
-            decoder_config_flags: number
-            /**
-             * true if stream associated with this descriptor is in an ISO/IEC 13818-6 data or object carousel.
-             */
-            dsm_cc_flag: boolean
-        }
-
-        interface $Exports {
-            MetadataDescriptor: MetadataDescriptorStruct
-        }
-        
-
-        interface MetadataPointerDescriptorStruct {
-            readonly $gtype: GObject.GType<MetadataPointerDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is MetadataPointerDescriptor
-        }
-
-        interface MetadataPointerDescriptor {
-            /**
-             * specifies the application responsible for defining usage, syntax and semantics
-             */
-            metadata_application_format: MetadataApplicationFormat
-            /**
-             * indicates the format and coding of the metadata
-             */
-            metadata_format: MetadataFormat
-            /**
-             * format identifier (equivalent to registration descriptor), for example 0x4B4C4641 ('KLVA') to indicate SMPTE 336 KLV, or 0x49443320 ('ID3 ').
-             */
-            metadata_format_identifier: number
-            /**
-             * metadata service to which this metadata descriptor applies, typically 0x00
-             */
-            metadata_service_id: number
-            /**
-             * Indicates the program in which the metadata is carried.
-             */
-            program_number: number
-        }
-
-        interface $Exports {
-            MetadataPointerDescriptor: MetadataPointerDescriptorStruct
-        }
-        
-
-        interface NITStruct {
-            readonly $gtype: GObject.GType<NIT>
-            [Symbol.hasInstance](instance: unknown): instance is NIT
-            /**
-             * Allocates and initializes a #GstMpegtsNIT.
-             * @returns A newly allocated #GstMpegtsNIT
-             */
-            "new"(): NIT
-        }
-
-        interface NIT {
-            /**
-             * Whether this NIT corresponds to the actual stream
-             */
-            actual_network: boolean
-            /**
-             * ID of the network that this NIT describes
-             */
-            network_id: number
-            /**
-             * the global descriptors
-             */
-            descriptors: Descriptor[]
-            /**
-             * the streams
-             */
-            streams: NITStream[]
-        }
-
-        interface $Exports {
-            NIT: NITStruct
-        }
-        
-
-        interface NITStreamStruct {
-            readonly $gtype: GObject.GType<NITStream>
-            [Symbol.hasInstance](instance: unknown): instance is NITStream
-            /**
-             * Allocates and initializes a #GstMpegtsNITStream
-             * @returns A newly allocated #GstMpegtsNITStream
-             */
-            "new"(): NITStream
-        }
-
-        interface NITStream {
-            /**
-             */
-            transport_stream_id: number
-            /**
-             */
-            original_network_id: number
-            /**
-             */
-            descriptors: Descriptor[]
-        }
-
-        interface $Exports {
-            NITStream: NITStreamStruct
-        }
-        
-
-        interface PESMetadataMetaStruct {
-            readonly $gtype: GObject.GType<PESMetadataMeta>
-            [Symbol.hasInstance](instance: unknown): instance is PESMetadataMeta
-            /**
-             * Gets the global #GstMetaInfo describing the #GstMpegtsPESMetadataMeta meta.
-             * @since 1.24
-             * @returns The #GstMetaInfo
-             */
-            get_info(): Gst.MetaInfo
-        }
-
-        interface PESMetadataMeta {
-            /**
-             * parent #GstMeta
-             */
-            meta: Gst.Meta
-            /**
-             * metadata service identifier
-             */
-            metadata_service_id: number
-            /**
-             * bit flags, see spec for details
-             */
-            flags: number
-        }
-
-        interface $Exports {
-            PESMetadataMeta: PESMetadataMetaStruct
-        }
-        
-
-        interface PMTStruct {
-            readonly $gtype: GObject.GType<PMT>
-            [Symbol.hasInstance](instance: unknown): instance is PMT
-            /**
-             * Allocates and initializes a new #GstMpegtsPMT. #GstMpegtsPMTStream can be
-             * added to the streams array, and global PMT #GstMpegtsDescriptor to the
-             * descriptors array.
-             * @returns #GstMpegtsPMT
-             */
-            "new"(): PMT
-        }
-
-        interface PMT {
-            /**
-             * PID of the stream containing the PCR for this program.
-             */
-            pcr_pid: number
-            /**
-             * The program to which this PMT is applicable.
-             */
-            program_number: number
-            /**
-             * Array of #GstMpegtsDescriptor
-             */
-            descriptors: Descriptor[]
-            /**
-             * Array of #GstMpegtsPMTStream
-             */
-            streams: PMTStream[]
-        }
-
-        interface $Exports {
-            PMT: PMTStruct
-        }
-        
-
-        interface PMTStreamStruct {
-            readonly $gtype: GObject.GType<PMTStream>
-            [Symbol.hasInstance](instance: unknown): instance is PMTStream
-            /**
-             * Allocates and initializes a new #GstMpegtsPMTStream.
-             * @returns #GstMpegtsPMTStream
-             */
-            "new"(): PMTStream
-        }
-
-        interface PMTStream {
-            /**
-             * the type of stream. See #GstMpegtsStreamType
-             */
-            stream_type: number
-            /**
-             * the PID of the stream
-             */
-            pid: number
-            /**
-             * the descriptors of the
-             * stream
-             */
-            descriptors: Descriptor[]
-        }
-
-        interface $Exports {
-            PMTStream: PMTStreamStruct
-        }
-        
-
-        interface PatProgramStruct {
-            readonly $gtype: GObject.GType<PatProgram>
-            [Symbol.hasInstance](instance: unknown): instance is PatProgram
-            /**
-             * Allocates a new #GstMpegtsPatProgram.
-             * @returns A newly allocated #GstMpegtsPatProgram
-             */
-            "new"(): PatProgram
-        }
-
-        interface PatProgram {
-            /**
-             * the program number
-             */
-            program_number: number
-            /**
-             * the network of program map PID
-             */
-            network_or_program_map_pid: number
-        }
-
-        interface $Exports {
-            PatProgram: PatProgramStruct
-        }
-        
-
-        interface SCTESITStruct {
-            readonly $gtype: GObject.GType<SCTESIT>
-            [Symbol.hasInstance](instance: unknown): instance is SCTESIT
-            /**
-             * Allocates and initializes a #GstMpegtsSCTESIT.
-             * @returns A newly allocated #GstMpegtsSCTESIT
-             */
-            "new"(): SCTESIT
-        }
-
-        interface SCTESIT {
-            /**
-             */
-            encrypted_packet: boolean
-            /**
-             */
-            encryption_algorithm: number
-            /**
-             */
-            pts_adjustment: number
-            /**
-             */
-            cw_index: number
-            /**
-             */
-            tier: number
-            /**
-             */
-            splice_command_length: number
-            /**
-             */
-            splice_command_type: SCTESpliceCommandType
-            /**
-             */
-            splice_time_specified: boolean
-            /**
-             */
-            splice_time: number
-            /**
-             */
-            splices: never[]
-            /**
-             */
-            descriptors: never[]
-            /**
-             * When encrypted, or when encountering an unknown command type,
-             * we may still want to pass the sit through.
-             * @since 1.20
-             */
-            fully_parsed: boolean
-            /**
-             * When the SIT was constructed by the application, splice times
-             * are in running_time and must be translated before packetizing.
-             * @since 1.20
-             */
-            is_running_time: boolean
-        }
-
-        interface $Exports {
-            SCTESIT: SCTESITStruct
-        }
-        
-
-        interface SCTESpliceComponentStruct {
-            readonly $gtype: GObject.GType<SCTESpliceComponent>
-            [Symbol.hasInstance](instance: unknown): instance is SCTESpliceComponent
-            /**
-             * Allocates and initializes a #GstMpegtsSCTESpliceComponent.
-             * @since 1.20
-             * @param tag the elementary PID stream identifier
-             * @returns A newly allocated #GstMpegtsSCTESpliceComponent
-             */
-            "new"(tag: number): SCTESpliceComponent
-        }
-
-        interface SCTESpliceComponent {
-            /**
-             * the elementary PID stream containing the Splice Point
-             */
-            tag: number
-            /**
-             * Whether @splice_time was specified
-             */
-            splice_time_specified: boolean
-            /**
-             * the presentation time of the signaled splice event
-             */
-            splice_time: number
-            /**
-             * The UTC time of the signaled splice event
-             */
-            utc_splice_time: number
-        }
-
-        interface $Exports {
-            SCTESpliceComponent: SCTESpliceComponentStruct
-        }
-        
-
-        interface SCTESpliceEventStruct {
-            readonly $gtype: GObject.GType<SCTESpliceEvent>
-            [Symbol.hasInstance](instance: unknown): instance is SCTESpliceEvent
-            /**
-             * Allocates and initializes a #GstMpegtsSCTESpliceEvent.
-             * @returns A newly allocated #GstMpegtsSCTESpliceEvent
-             */
-            "new"(): SCTESpliceEvent
-        }
-
-        interface SCTESpliceEvent {
-            /**
-             */
-            insert_event: boolean
-            /**
-             */
-            splice_event_id: number
-            /**
-             */
-            splice_event_cancel_indicator: boolean
-            /**
-             */
-            out_of_network_indicator: boolean
-            /**
-             */
-            program_splice_flag: boolean
-            /**
-             */
-            duration_flag: boolean
-            /**
-             */
-            splice_immediate_flag: boolean
-            /**
-             */
-            program_splice_time_specified: boolean
-            /**
-             */
-            program_splice_time: number
-            /**
-             * The UTC time of the signaled splice event
-             * @since 1.20
-             */
-            utc_splice_time: number
-            /**
-             * Per-PID splice time information
-             * @since 1.20
-             */
-            components: never[]
-            /**
-             */
-            break_duration_auto_return: boolean
-            /**
-             */
-            break_duration: number
-            /**
-             */
-            unique_program_id: number
-            /**
-             */
-            avail_num: number
-            /**
-             */
-            avails_expected: number
-        }
-
-        interface $Exports {
-            SCTESpliceEvent: SCTESpliceEventStruct
-        }
-        
-
-        interface SDTStruct {
-            readonly $gtype: GObject.GType<SDT>
-            [Symbol.hasInstance](instance: unknown): instance is SDT
-            /**
-             * Allocates and initializes a #GstMpegtsSDT.
-             * @returns A newly allocated #GstMpegtsSDT
-             */
-            "new"(): SDT
-        }
-
-        interface SDT {
-            /**
-             * Network ID of the originating delivery system
-             */
-            original_network_id: number
-            /**
-             * True if the table describes this transport stream
-             */
-            actual_ts: boolean
-            /**
-             * ID of this transport stream
-             */
-            transport_stream_id: number
-            /**
-             * List of services
-             */
-            services: SDTService[]
-        }
-
-        interface $Exports {
-            SDT: SDTStruct
-        }
-        
-
-        interface SDTServiceStruct {
-            readonly $gtype: GObject.GType<SDTService>
-            [Symbol.hasInstance](instance: unknown): instance is SDTService
-            /**
-             * Allocates and initializes a #GstMpegtsSDTService.
-             * @returns A newly allocated #GstMpegtsSDTService
-             */
-            "new"(): SDTService
-        }
-
-        interface SDTService {
-            /**
-             * The program number this table belongs to
-             */
-            service_id: number
-            /**
-             * EIT schedule information is present in this transport stream
-             */
-            eit_schedule_flag: boolean
-            /**
-             * EIT present/following information is present in this transport stream
-             */
-            eit_present_following_flag: boolean
-            /**
-             * Status of this service
-             */
-            running_status: RunningStatus
-            /**
-             * True if one or more streams is controlled by a CA system
-             */
-            free_ca_mode: boolean
-            /**
-             * List of descriptors
-             */
-            descriptors: Descriptor[]
-        }
-
-        interface $Exports {
-            SDTService: SDTServiceStruct
-        }
-        
-
-        interface SITStruct {
-            readonly $gtype: GObject.GType<SIT>
-            [Symbol.hasInstance](instance: unknown): instance is SIT
-        }
-
-        interface SIT {
-            /**
-             * List of descriptors
-             */
-            descriptors: Descriptor[]
-            /**
-             * List of services
-             */
-            services: SITService[]
-        }
-
-        interface $Exports {
-            SIT: SITStruct
-        }
-        
-
-        interface SITServiceStruct {
-            readonly $gtype: GObject.GType<SITService>
-            [Symbol.hasInstance](instance: unknown): instance is SITService
-        }
-
-        interface SITService {
-            /**
-             * The Program number this table belongs to
-             */
-            service_id: number
-            /**
-             * Status of this service
-             */
-            running_status: RunningStatus
-            /**
-             * List of descriptors
-             */
-            descriptors: Descriptor[]
-        }
-
-        interface $Exports {
-            SITService: SITServiceStruct
-        }
-        
-
-        interface SatelliteDeliverySystemDescriptorStruct {
-            readonly $gtype: GObject.GType<SatelliteDeliverySystemDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is SatelliteDeliverySystemDescriptor
-        }
-
-        interface SatelliteDeliverySystemDescriptor {
-            /**
-             * the frequency in kHz (kiloHertz)
-             */
-            frequency: number
-            /**
-             * the orbital position in degrees
-             */
-            orbital_position: number
-            /**
-             * If %TRUE, the satellite is in the eastern part of the orbit,
-             * else in the western part.
-             */
-            west_east: boolean
-            /**
-             * The polarization of the transmitted signal
-             */
-            polarization: SatellitePolarizationType
-            /**
-             * Roll-off factor used in DVB-S2
-             */
-            roll_off: SatelliteRolloff
-            /**
-             * modulation system, %TRUE if DVB-S2, else DVB-S
-             */
-            modulation_system: boolean
-            /**
-             * Modulation scheme used
-             */
-            modulation_type: ModulationType
-            /**
-             * Symbol rate (in symbols per second)
-             */
-            symbol_rate: number
-            /**
-             * inner FEC scheme used
-             */
-            fec_inner: DVBCodeRate
-        }
-
-        interface $Exports {
-            SatelliteDeliverySystemDescriptor: SatelliteDeliverySystemDescriptorStruct
-        }
-        
-
-        interface SectionStruct {
-            readonly $gtype: GObject.GType<Section>
-            [Symbol.hasInstance](instance: unknown): instance is Section
-            /**
-             * Creates a new #GstMpegtsSection from the provided @data.
-             *
-             * Note: Ensuring @data is big enough to contain the full section is the
-             * responsibility of the caller. If it is not big enough, %NULL will be
-             * returned.
-             *
-             * Note: it is the responsibility of the caller to ensure @data does point
-             * to the beginning of the section.
-             * @param pid the PID to which this section belongs
-             * @param data a pointer to the beginning of
-            the section (i.e. the first byte should contain the `table_id` field).
-             * @returns A new #GstMpegtsSection if the data was valid, else %NULL
-             */
-            "new"(pid: number, data: Uint8Array): Section
-            /**
-             * @param mgt a #GstMpegtsAtscMGT to create the #GstMpegtsSection from
-             * @returns the #GstMpegtsSection, or %NULL if `mgt` is invalid Since: 1.18
-             */
-            from_atsc_mgt(mgt: AtscMGT): Section | null
-            /**
-             * @param rrt
-             */
-            from_atsc_rrt(rrt: AtscRRT): Section
-            /**
-             * @param stt
-             */
-            from_atsc_stt(stt: AtscSTT): Section
-            /**
-             * Ownership of @nit is taken. The data in @nit is managed by the #GstMpegtsSection
-             * @param nit a #GstMpegtsNIT to create the #GstMpegtsSection from
-             * @returns the #GstMpegtsSection, or %NULL if `nit` is invalid
-             */
-            from_nit(nit: NIT): Section | null
-            /**
-             * Creates a PAT #GstMpegtsSection from the @programs array of #GstMpegtsPatPrograms
-             * @param programs an array of #GstMpegtsPatProgram
-             * @param ts_id Transport stream ID of the PAT
-             * @returns a #GstMpegtsSection
-             */
-            from_pat(programs: PatProgram[], ts_id: number): Section
-            /**
-             * Creates a #GstMpegtsSection from @pmt that is bound to @pid
-             * @param pmt a #GstMpegtsPMT to create a #GstMpegtsSection from
-             * @param pid The PID that the #GstMpegtsPMT belongs to
-             * @returns #GstMpegtsSection, or %NULL if `pmt` is invalid
-             */
-            from_pmt(pmt: PMT, pid: number): Section | null
-            /**
-             * Ownership of @sit is taken. The data in @sit is managed by the #GstMpegtsSection
-             * @param sit a #GstMpegtsSCTESIT to create the #GstMpegtsSection from
-             * @param pid
-             * @returns the #GstMpegtsSection, or %NULL if `sit` is invalid
-             */
-            from_scte_sit(sit: SCTESIT, pid: number): Section | null
-            /**
-             * Ownership of @sdt is taken. The data in @sdt is managed by the #GstMpegtsSection
-             * @param sdt a #GstMpegtsSDT to create the #GstMpegtsSection from
-             * @returns the #GstMpegtsSection or %NULL if `sdt` is invalid
-             */
-            from_sdt(sdt: SDT): Section | null
-        }
-
-        interface Section {
-            /**
-             * The type of section.
-             */
-            section_type: SectionType
-            /**
-             * The PID on which this section was found or belongs to.
-             */
-            pid: number
-            /**
-             * The table id of this section. See %GstMpegtsSectionTableID and
-             *      derivates for more information.
-             */
-            table_id: number
-            /**
-             * This meaning differs per section. See the documentation
-             *      of the parsed section type for the meaning of this field
-             */
-            subtable_extension: number
-            /**
-             * Version of the section.
-             */
-            version_number: number
-            /**
-             * Applies to current/next stream or not
-             */
-            current_next_indicator: boolean
-            /**
-             * Number of the section (if multiple)
-             */
-            section_number: number
-            /**
-             * Number of the last expected section (if multiple)
-             */
-            last_section_number: number
-            /**
-             * Checksum (if applicable)
-             */
-            crc: number
-            /**
-             * Returns the #GstMpegtsAtscVCT contained in the @section
-             * @returns The #GstMpegtsAtscVCT contained in the section, or %NULL if an error happened.
-             */
-            get_atsc_cvct(): AtscVCT | null
-            /**
-             * Returns the #GstMpegtsAtscEIT contained in the @section.
-             * @returns The #GstMpegtsAtscEIT contained in the section, or %NULL if an error happened.
-             */
-            get_atsc_eit(): AtscEIT
-            /**
-             * Returns the #GstMpegtsAtscETT contained in the @section.
-             * @returns The #GstMpegtsAtscETT contained in the section, or %NULL if an error happened.
-             */
-            get_atsc_ett(): AtscETT
-            /**
-             * Returns the #GstMpegtsAtscMGT contained in the @section.
-             * @returns The #GstMpegtsAtscMGT contained in the section, or %NULL if an error happened.
-             */
-            get_atsc_mgt(): AtscMGT | null
-            /**
-             * Returns the #GstMpegtsAtscRRT contained in the @section.
-             * @since 1.18
-             * @returns The #GstMpegtsAtscRRT contained in the section, or %NULL if an error happened.
-             */
-            get_atsc_rrt(): AtscRRT
-            /**
-             * Returns the #GstMpegtsAtscSTT contained in the @section.
-             * @returns The #GstMpegtsAtscSTT contained in the section, or %NULL if an error happened.
-             */
-            get_atsc_stt(): AtscSTT
-            /**
-             * Returns the #GstMpegtsAtscVCT contained in the @section
-             * @returns The #GstMpegtsAtscVCT contained in the section, or %NULL if an error happened.
-             */
-            get_atsc_tvct(): AtscVCT | null
-            /**
-             * Returns the #GstMpegtsBAT contained in the @section.
-             * @returns The #GstMpegtsBAT contained in the section, or %NULL if an error happened.
-             */
-            get_bat(): BAT | null
-            /**
-             * Parses a Conditional Access Table.
-             *
-             * Returns the array of #GstMpegtsDescriptor contained in the Conditional
-             * Access Table.
-             * @returns  The array of #GstMpegtsDescriptor contained in the section, or %NULL if an error happened. Release with #g_array_unref when done.
-             */
-            get_cat(): Descriptor[] | null
-            /**
-             * Gets the original unparsed section data.
-             * @returns The original unparsed section data.
-             */
-            get_data(): GLib.Bytes
-            /**
-             * Returns the #GstMpegtsEIT contained in the @section.
-             * @returns The #GstMpegtsEIT contained in the section, or %NULL if an error happened.
-             */
-            get_eit(): EIT | null
-            /**
-             * Returns the #GstMpegtsNIT contained in the @section.
-             * @returns The #GstMpegtsNIT contained in the section, or %NULL if an error happened.
-             */
-            get_nit(): NIT | null
-            /**
-             * Parses a Program Association Table (ITU H.222.0, ISO/IEC 13818-1).
-             *
-             * Returns the array of #GstMpegtsPatProgram contained in the section.
-             *
-             * Note: The PAT `transport_stream_id` field corresponds to the
-             * "subtable_extension" field of the provided @section.
-             * @returns  The #GstMpegtsPatProgram contained in the section, or %NULL if an error happened or the `section` did not contain a valid PAT. Release with #g_ptr_array_unref when done.
-             */
-            get_pat(): PatProgram[] | null
-            /**
-             * Parses the Program Map Table contained in the @section.
-             * @returns The #GstMpegtsPMT contained in the section, or %NULL if an error happened.
-             */
-            get_pmt(): PMT | null
-            /**
-             * Returns the #GstMpegtsSCTESIT contained in the @section.
-             * @returns The #GstMpegtsSCTESIT contained in the section, or %NULL if an error happened.
-             */
-            get_scte_sit(): SCTESIT | null
-            /**
-             * Returns the #GstMpegtsSDT contained in the @section.
-             * @returns The #GstMpegtsSDT contained in the section, or %NULL if an error happened.
-             */
-            get_sdt(): SDT | null
-            /**
-             * Returns the #GstMpegtsSIT contained in the @section.
-             * @since 1.20
-             * @returns The #GstMpegtsSIT contained in the section, or %NULL if an error happened.
-             */
-            get_sit(): SIT | null
-            /**
-             * Returns the #GstDateTime of the TDT
-             * @returns The #GstDateTime contained in the section, or %NULL if an error happened. Release with #gst_date_time_unref when done.
-             */
-            get_tdt(): Gst.DateTime | null
-            /**
-             * Returns the #GstMpegtsTOT contained in the @section.
-             * @returns The #GstMpegtsTOT contained in the section, or %NULL if an error happened.
-             */
-            get_tot(): TOT | null
-            /**
-             * Parses a Transport Stream Description Table.
-             *
-             * Returns the array of #GstMpegtsDescriptor contained in the section
-             * @returns  The array of #GstMpegtsDescriptor contained in the section, or %NULL if an error happened. Release with #g_array_unref when done.
-             */
-            get_tsdt(): Descriptor[] | null
-            /**
-             * Packetize (i.e. serialize) the @section. If the data in @section has already
-             * been packetized, the data pointer is returned immediately. Otherwise, the
-             * data field is allocated and populated.
-             * @returns pointer to section data, or %NULL on failure., #gsize to hold the size of the data
-             */
-            packetize(): [number, number]
-            /**
-             * Creates a custom #GstEvent with a @GstMpegtsSection and send it the @element
-             * #GstElement.
-             * @param element The #GstElement to send to section event to
-             * @returns %TRUE if the event was sent to the element.
-             */
-            send_event(element: Gst.Element): boolean
-        }
-
-        interface $Exports {
-            Section: SectionStruct
-        }
-        
-
-        interface T2DeliverySystemCellStruct {
-            readonly $gtype: GObject.GType<T2DeliverySystemCell>
-            [Symbol.hasInstance](instance: unknown): instance is T2DeliverySystemCell
-        }
-
-        interface T2DeliverySystemCell {
-            /**
-             * id of the cell
-             */
-            cell_id: number
-            /**
-             * centre frequencies in Hz
-             */
-            centre_frequencies: number[]
-            /**
-             */
-            sub_cells: T2DeliverySystemCellExtension[]
-        }
-
-        interface $Exports {
-            T2DeliverySystemCell: T2DeliverySystemCellStruct
-        }
-        
-
-        interface T2DeliverySystemCellExtensionStruct {
-            readonly $gtype: GObject.GType<T2DeliverySystemCellExtension>
-            [Symbol.hasInstance](instance: unknown): instance is T2DeliverySystemCellExtension
-        }
-
-        interface T2DeliverySystemCellExtension {
-            /**
-             * id of the sub cell
-             */
-            cell_id_extension: number
-            /**
-             * centre frequency of the sub cell in Hz
-             */
-            transposer_frequency: number
-        }
-
-        interface $Exports {
-            T2DeliverySystemCellExtension: T2DeliverySystemCellExtensionStruct
-        }
-        
-
-        interface T2DeliverySystemDescriptorStruct {
-            readonly $gtype: GObject.GType<T2DeliverySystemDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is T2DeliverySystemDescriptor
-        }
-
-        interface T2DeliverySystemDescriptor {
-            /**
-             */
-            plp_id: number
-            /**
-             */
-            t2_system_id: number
-            /**
-             */
-            siso_miso: number
-            /**
-             */
-            bandwidth: number
-            /**
-             */
-            guard_interval: TerrestrialGuardInterval
-            /**
-             */
-            transmission_mode: TerrestrialTransmissionMode
-            /**
-             */
-            other_frequency: boolean
-            /**
-             */
-            tfs: boolean
-            /**
-             */
-            cells: T2DeliverySystemCell[]
-            /**
-             */
-            free(): void
-        }
-
-        interface $Exports {
-            T2DeliverySystemDescriptor: T2DeliverySystemDescriptorStruct
-        }
-        
-
-        interface TOTStruct {
-            readonly $gtype: GObject.GType<TOT>
-            [Symbol.hasInstance](instance: unknown): instance is TOT
-        }
-
-        interface TOT {
-            /**
-             */
-            utc_time: Gst.DateTime
-            /**
-             * List of descriptors
-             */
-            descriptors: Descriptor[]
-        }
-
-        interface $Exports {
-            TOT: TOTStruct
-        }
-        
-
-        interface TerrestrialDeliverySystemDescriptorStruct {
-            readonly $gtype: GObject.GType<TerrestrialDeliverySystemDescriptor>
-            [Symbol.hasInstance](instance: unknown): instance is TerrestrialDeliverySystemDescriptor
-        }
-
-        interface TerrestrialDeliverySystemDescriptor {
-            /**
-             * the frequency in Hz (Hertz)
-             */
-            frequency: number
-            /**
-             * the bandwidth in Hz (Hertz)
-             */
-            bandwidth: number
-            /**
-             * %TRUE High Priority %FALSE Low Priority
-             */
-            priority: boolean
-            /**
-             * %TRUE no time slicing %FALSE time slicing
-             */
-            time_slicing: boolean
-            /**
-             * %TRUE no mpe-fec is used %FALSE mpe-fec is use
-             */
-            mpe_fec: boolean
-            /**
-             * the constellation
-             */
-            constellation: ModulationType
-            /**
-             * the hierarchy
-             */
-            hierarchy: TerrestrialHierarchy
-            /**
-             */
-            code_rate_hp: DVBCodeRate
-            /**
-             */
-            code_rate_lp: DVBCodeRate
-            /**
-             */
-            guard_interval: TerrestrialGuardInterval
-            /**
-             */
-            transmission_mode: TerrestrialTransmissionMode
-            /**
-             * %TRUE more frequency are use, else not
-             */
-            other_frequency: boolean
-        }
-
-        interface $Exports {
-            TerrestrialDeliverySystemDescriptor: TerrestrialDeliverySystemDescriptorStruct
-        }
-        
-        interface ATSCDescriptorTypeEnum {
-            readonly $gtype: GObject.GType<ATSCDescriptorType>
-            /**
-             */
-            readonly "STUFFING": 128
-            /**
-             */
-            readonly "AC3": 129
-            /**
-             */
-            readonly "CAPTION_SERVICE": 134
-            /**
-             */
-            readonly "CONTENT_ADVISORY": 135
-            /**
-             */
-            readonly "EXTENDED_CHANNEL_NAME": 160
-            /**
-             */
-            readonly "SERVICE_LOCATION": 161
-            /**
-             */
-            readonly "TIME_SHIFTED_SERVICE": 162
-            /**
-             */
-            readonly "COMPONENT_NAME": 163
-            /**
-             */
-            readonly "DCC_DEPARTING_REQUEST": 168
-            /**
-             */
-            readonly "DCC_ARRIVING_REQUEST": 169
-            /**
-             */
-            readonly "REDISTRIBUTION_CONTROL": 170
-            /**
-             */
-            readonly "GENRE": 171
-            /**
-             */
-            readonly "PRIVATE_INFORMATION": 173
-            /**
-             */
-            readonly "EAC3": 204
-            /**
-             */
-            readonly "ENHANCED_SIGNALING": 178
-            /**
-             */
-            readonly "DATA_SERVICE": 164
-            /**
-             */
-            readonly "PID_COUNT": 165
-            /**
-             */
-            readonly "DOWNLOAD_DESCRIPTOR": 166
-            /**
-             */
-            readonly "MULTIPROTOCOL_ENCAPSULATION": 167
-            /**
-             */
-            readonly "MODULE_LINK": 180
-            /**
-             */
-            readonly "CRC32": 181
-            /**
-             */
-            readonly "GROUP_LINK": 184
-        }
-        type ATSCDescriptorType = ATSCDescriptorTypeEnum[Exclude<keyof ATSCDescriptorTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * These values correspond to the registered descriptor type from
-             * the various ATSC specifications.
-             *
-             * Consult the relevant specifications for more details.
-             */
-            ATSCDescriptorType: ATSCDescriptorTypeEnum
-        }
-        
-        interface ATSCStreamTypeEnum {
-            readonly $gtype: GObject.GType<ATSCStreamType>
-            /**
-             * DigiCipher II video | Identical to ITU-T Rec. H.262 | ISO/IEC 13818-2 Video
-             */
-            readonly "DCII_VIDEO": 128
-            /**
-             * ATSC A/53 Audio | AC-3
-             */
-            readonly "AUDIO_AC3": 129
-            /**
-             * SCTE-27 Subtitling
-             */
-            readonly "SUBTITLING": 130
-            /**
-             * SCTE-19 Isochronous data | Reserved
-             */
-            readonly "ISOCH_DATA": 131
-            /**
-             * SCTE-35 Splice Information Table
-             */
-            readonly "SIT": 134
-            /**
-             * E-AC-3 A/52:2018
-             */
-            readonly "AUDIO_EAC3": 135
-            /**
-             * E-AC-3 A/107 (ATSC 2.0)
-             */
-            readonly "AUDIO_DTS_HD": 136
-        }
-        type ATSCStreamType = ATSCStreamTypeEnum[Exclude<keyof ATSCStreamTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Type of mpeg-ts streams for ATSC, as defined by the ATSC Code Points
-             * Registry. For convenience, some stream types from %GstMpegtsScteStreamType
-             * are also included.
-             * @since 1.20
-             */
-            ATSCStreamType: ATSCStreamTypeEnum
-        }
-        
-        interface AtscMGTTableTypeEnum {
-            readonly $gtype: GObject.GType<AtscMGTTableType>
-            /**
-             */
-            readonly "EIT0": 256
-            /**
-             */
-            readonly "EIT127": 383
-            /**
-             */
-            readonly "ETT0": 512
-            /**
-             */
-            readonly "ETT127": 639
-        }
-        type AtscMGTTableType = AtscMGTTableTypeEnum[Exclude<keyof AtscMGTTableTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            AtscMGTTableType: AtscMGTTableTypeEnum
-        }
-        
-        interface CableOuterFECSchemeEnum {
-            readonly $gtype: GObject.GType<CableOuterFECScheme>
-            /**
-             */
-            readonly "UNDEFINED": 0
-            /**
-             */
-            readonly "NONE": 1
-            /**
-             */
-            readonly "RS_204_188": 2
-        }
-        type CableOuterFECScheme = CableOuterFECSchemeEnum[Exclude<keyof CableOuterFECSchemeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            CableOuterFECScheme: CableOuterFECSchemeEnum
-        }
-        
-        interface ComponentStreamContentEnum {
-            readonly $gtype: GObject.GType<ComponentStreamContent>
-            /**
-             */
-            readonly "MPEG2_VIDEO": 1
-            /**
-             */
-            readonly "MPEG1_LAYER2_AUDIO": 2
-            /**
-             */
-            readonly "TELETEXT_OR_SUBTITLE": 3
-            /**
-             */
-            readonly "AC_3": 4
-            /**
-             */
-            readonly "AVC": 5
-            /**
-             */
-            readonly "AAC": 6
-            /**
-             */
-            readonly "DTS": 7
-            /**
-             */
-            readonly "SRM_CPCM": 8
-        }
-        type ComponentStreamContent = ComponentStreamContentEnum[Exclude<keyof ComponentStreamContentEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ComponentStreamContent: ComponentStreamContentEnum
-        }
-        
-        interface ContentNibbleHiEnum {
-            readonly $gtype: GObject.GType<ContentNibbleHi>
-            /**
-             */
-            readonly "MOVIE_DRAMA": 1
-            /**
-             */
-            readonly "NEWS_CURRENT_AFFAIRS": 2
-            /**
-             */
-            readonly "SHOW_GAME_SHOW": 3
-            /**
-             */
-            readonly "SPORTS": 4
-            /**
-             */
-            readonly "CHILDREN_YOUTH_PROGRAM": 5
-            /**
-             */
-            readonly "MUSIC_BALLET_DANCE": 6
-            /**
-             */
-            readonly "ARTS_CULTURE": 7
-            /**
-             */
-            readonly "SOCIAL_POLITICAL_ECONOMICS": 8
-            /**
-             */
-            readonly "EDUCATION_SCIENCE_FACTUAL": 9
-            /**
-             */
-            readonly "LEISURE_HOBBIES": 10
-            /**
-             */
-            readonly "SPECIAL_CHARACTERISTICS": 11
-        }
-        type ContentNibbleHi = ContentNibbleHiEnum[Exclude<keyof ContentNibbleHiEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ContentNibbleHi: ContentNibbleHiEnum
-        }
-        
-        interface DVBCodeRateEnum {
-            readonly $gtype: GObject.GType<DVBCodeRate>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "1_2": 1
-            /**
-             */
-            readonly "2_3": 2
-            /**
-             */
-            readonly "3_4": 3
-            /**
-             */
-            readonly "4_5": 4
-            /**
-             */
-            readonly "5_6": 5
-            /**
-             */
-            readonly "6_7": 6
-            /**
-             */
-            readonly "7_8": 7
-            /**
-             */
-            readonly "8_9": 8
-            /**
-             */
-            readonly "AUTO": 9
-            /**
-             */
-            readonly "3_5": 10
-            /**
-             */
-            readonly "9_10": 11
-            /**
-             */
-            readonly "2_5": 12
-        }
-        type DVBCodeRate = DVBCodeRateEnum[Exclude<keyof DVBCodeRateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            DVBCodeRate: DVBCodeRateEnum
-        }
-        
-        interface DVBDescriptorTypeEnum {
-            readonly $gtype: GObject.GType<DVBDescriptorType>
-            /**
-             */
-            readonly "NETWORK_NAME": 64
-            /**
-             */
-            readonly "SERVICE_LIST": 65
-            /**
-             */
-            readonly "STUFFING": 66
-            /**
-             */
-            readonly "SATELLITE_DELIVERY_SYSTEM": 67
-            /**
-             */
-            readonly "CABLE_DELIVERY_SYSTEM": 68
-            /**
-             */
-            readonly "VBI_DATA": 69
-            /**
-             */
-            readonly "VBI_TELETEXT": 70
-            /**
-             */
-            readonly "BOUQUET_NAME": 71
-            /**
-             */
-            readonly "SERVICE": 72
-            /**
-             */
-            readonly "COUNTRY_AVAILABILITY": 73
-            /**
-             */
-            readonly "LINKAGE": 74
-            /**
-             */
-            readonly "NVOD_REFERENCE": 75
-            /**
-             */
-            readonly "TIME_SHIFTED_SERVICE": 76
-            /**
-             */
-            readonly "SHORT_EVENT": 77
-            /**
-             */
-            readonly "EXTENDED_EVENT": 78
-            /**
-             */
-            readonly "TIME_SHIFTED_EVENT": 79
-            /**
-             */
-            readonly "COMPONENT": 80
-            /**
-             */
-            readonly "MOSAIC": 81
-            /**
-             */
-            readonly "STREAM_IDENTIFIER": 82
-            /**
-             */
-            readonly "CA_IDENTIFIER": 83
-            /**
-             */
-            readonly "CONTENT": 84
-            /**
-             */
-            readonly "PARENTAL_RATING": 85
-            /**
-             */
-            readonly "TELETEXT": 86
-            /**
-             */
-            readonly "TELEPHONE": 87
-            /**
-             */
-            readonly "LOCAL_TIME_OFFSET": 88
-            /**
-             */
-            readonly "SUBTITLING": 89
-            /**
-             */
-            readonly "TERRESTRIAL_DELIVERY_SYSTEM": 90
-            /**
-             */
-            readonly "MULTILINGUAL_NETWORK_NAME": 91
-            /**
-             */
-            readonly "MULTILINGUAL_BOUQUET_NAME": 92
-            /**
-             */
-            readonly "MULTILINGUAL_SERVICE_NAME": 93
-            /**
-             */
-            readonly "MULTILINGUAL_COMPONENT": 94
-            /**
-             */
-            readonly "PRIVATE_DATA_SPECIFIER": 95
-            /**
-             */
-            readonly "SERVICE_MOVE": 96
-            /**
-             */
-            readonly "SHORT_SMOOTHING_BUFFER": 97
-            /**
-             */
-            readonly "FREQUENCY_LIST": 98
-            /**
-             * Partial Transport Stream descriptor. Only present in SIT Sections.
-             *
-             * See also: %GST_MPEGTS_SECTION_SIT, %GstMpegtsSIT
-             */
-            readonly "PARTIAL_TRANSPORT_STREAM": 99
-            /**
-             */
-            readonly "DATA_BROADCAST": 100
-            /**
-             */
-            readonly "SCRAMBLING": 101
-            /**
-             */
-            readonly "DATA_BROADCAST_ID": 102
-            /**
-             */
-            readonly "TRANSPORT_STREAM": 103
-            /**
-             */
-            readonly "DSNG": 104
-            /**
-             */
-            readonly "PDC": 105
-            /**
-             */
-            readonly "AC3": 106
-            /**
-             */
-            readonly "ANCILLARY_DATA": 107
-            /**
-             */
-            readonly "CELL_LIST": 108
-            /**
-             */
-            readonly "CELL_FREQUENCY_LINK": 109
-            /**
-             */
-            readonly "ANNOUNCEMENT_SUPPORT": 110
-            /**
-             */
-            readonly "APPLICATION_SIGNALLING": 111
-            /**
-             */
-            readonly "ADAPTATION_FIELD_DATA": 112
-            /**
-             */
-            readonly "SERVICE_IDENTIFIER": 113
-            /**
-             */
-            readonly "SERVICE_AVAILABILITY": 114
-            /**
-             */
-            readonly "DEFAULT_AUTHORITY": 115
-            /**
-             */
-            readonly "RELATED_CONTENT": 116
-            /**
-             */
-            readonly "TVA_ID": 117
-            /**
-             */
-            readonly "CONTENT_IDENTIFIER": 118
-            /**
-             */
-            readonly "TIMESLICE_FEC_IDENTIFIER": 119
-            /**
-             */
-            readonly "ECM_REPETITION_RATE": 120
-            /**
-             */
-            readonly "S2_SATELLITE_DELIVERY_SYSTEM": 121
-            /**
-             */
-            readonly "ENHANCED_AC3": 122
-            /**
-             */
-            readonly "DTS": 123
-            /**
-             */
-            readonly "AAC": 124
-            /**
-             */
-            readonly "XAIT_LOCATION": 125
-            /**
-             */
-            readonly "FTA_CONTENT_MANAGEMENT": 126
-            /**
-             */
-            readonly "EXTENSION": 127
-        }
-        type DVBDescriptorType = DVBDescriptorTypeEnum[Exclude<keyof DVBDescriptorTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * The type of #GstMpegtsDescriptor
-             *
-             * These values correspond to the registered descriptor type from
-             * the various DVB specifications.
-             *
-             * Consult the relevant specifications for more details.
-             */
-            DVBDescriptorType: DVBDescriptorTypeEnum
-        }
-        
-        interface DVBExtendedDescriptorTypeEnum {
-            readonly $gtype: GObject.GType<DVBExtendedDescriptorType>
-            /**
-             */
-            readonly "IMAGE_ICON": 0
-            /**
-             */
-            readonly "CPCM_DELIVERY_SIGNALLING": 1
-            /**
-             */
-            readonly "CP": 2
-            /**
-             */
-            readonly "CP_IDENTIFIER": 3
-            /**
-             */
-            readonly "T2_DELIVERY_SYSTEM": 4
-            /**
-             */
-            readonly "SH_DELIVERY_SYSTEM": 5
-            /**
-             */
-            readonly "SUPPLEMENTARY_AUDIO": 6
-            /**
-             */
-            readonly "NETWORK_CHANGE_NOTIFY": 7
-            /**
-             */
-            readonly "MESSAGE": 8
-            /**
-             */
-            readonly "TARGET_REGION": 9
-            /**
-             */
-            readonly "TARGET_REGION_NAME": 10
-            /**
-             */
-            readonly "SERVICE_RELOCATED": 11
-            /**
-             */
-            readonly "XAIT_PID": 12
-            /**
-             */
-            readonly "C2_DELIVERY_SYSTEM": 13
-            /**
-             */
-            readonly "DTS_HD_AUDIO_STREAM": 14
-            /**
-             */
-            readonly "DTS_NEUTRAL": 15
-            /**
-             */
-            readonly "VIDEO_DEPTH_RANGE": 16
-            /**
-             */
-            readonly "T2MI": 17
-            /**
-             */
-            readonly "URI_LINKAGE": 19
-            /**
-             */
-            readonly "AC4": 21
-            /**
-             * Provide all avaliable audio programme for user selection
-             * @since 1.20
-             */
-            readonly "AUDIO_PRESELECTION": 25
-        }
-        type DVBExtendedDescriptorType = DVBExtendedDescriptorTypeEnum[Exclude<keyof DVBExtendedDescriptorTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * The type of #GstMpegtsDescriptor
-             *
-             * These values correspond to the registered extended descriptor
-             * type from the various DVB specifications.
-             *
-             * Consult the relevant specifications for more details.
-             */
-            DVBExtendedDescriptorType: DVBExtendedDescriptorTypeEnum
-        }
-        
-        interface DVBLinkageHandOverTypeEnum {
-            readonly $gtype: GObject.GType<DVBLinkageHandOverType>
-            /**
-             */
-            readonly "RESERVED": 0
-            /**
-             */
-            readonly "IDENTICAL": 1
-            /**
-             */
-            readonly "LOCAL_VARIATION": 2
-            /**
-             */
-            readonly "ASSOCIATED": 3
-        }
-        type DVBLinkageHandOverType = DVBLinkageHandOverTypeEnum[Exclude<keyof DVBLinkageHandOverTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            DVBLinkageHandOverType: DVBLinkageHandOverTypeEnum
-        }
-        
-        interface DVBLinkageTypeEnum {
-            readonly $gtype: GObject.GType<DVBLinkageType>
-            /**
-             */
-            readonly "RESERVED_00": 0
-            /**
-             */
-            readonly "INFORMATION": 1
-            /**
-             */
-            readonly "EPG": 2
-            /**
-             */
-            readonly "CA_REPLACEMENT": 3
-            /**
-             */
-            readonly "TS_CONTAINING_COMPLETE_SI": 4
-            /**
-             */
-            readonly "SERVICE_REPLACEMENT": 5
-            /**
-             */
-            readonly "DATA_BROADCAST": 6
-            /**
-             */
-            readonly "RCS_MAP": 7
-            /**
-             */
-            readonly "MOBILE_HAND_OVER": 8
-            /**
-             */
-            readonly "SYSTEM_SOFTWARE_UPDATE": 9
-            /**
-             */
-            readonly "TS_CONTAINING_SSU": 10
-            /**
-             */
-            readonly "IP_MAC_NOTIFICATION": 11
-            /**
-             */
-            readonly "TS_CONTAINING_INT": 12
-            /**
-             */
-            readonly "EVENT": 13
-            /**
-             */
-            readonly "EXTENDED_EVENT": 14
-        }
-        type DVBLinkageType = DVBLinkageTypeEnum[Exclude<keyof DVBLinkageTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Linkage Type (EN 300 468 v.1.13.1)
-             */
-            DVBLinkageType: DVBLinkageTypeEnum
-        }
-        
-        interface DVBScramblingModeTypeEnum {
-            readonly $gtype: GObject.GType<DVBScramblingModeType>
-            /**
-             */
-            readonly "RESERVED": 0
-            /**
-             */
-            readonly "CSA1": 1
-            /**
-             */
-            readonly "CSA2": 2
-            /**
-             */
-            readonly "CSA3_STANDARD": 3
-            /**
-             */
-            readonly "CSA3_MINIMAL_ENHANCED": 4
-            /**
-             */
-            readonly "CSA3_FULL_ENHANCED": 5
-            /**
-             */
-            readonly "CISSA": 16
-            /**
-             */
-            readonly "ATIS_0": 112
-            /**
-             */
-            readonly "ATIS_F": 127
-        }
-        type DVBScramblingModeType = DVBScramblingModeTypeEnum[Exclude<keyof DVBScramblingModeTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            DVBScramblingModeType: DVBScramblingModeTypeEnum
-        }
-        
-        interface DVBServiceTypeEnum {
-            readonly $gtype: GObject.GType<DVBServiceType>
-            /**
-             */
-            readonly "RESERVED_00": 0
-            /**
-             */
-            readonly "DIGITAL_TELEVISION": 1
-            /**
-             */
-            readonly "DIGITAL_RADIO_SOUND": 2
-            /**
-             */
-            readonly "TELETEXT": 3
-            /**
-             */
-            readonly "NVOD_REFERENCE": 4
-            /**
-             */
-            readonly "NVOD_TIME_SHIFTED": 5
-            /**
-             */
-            readonly "MOSAIC": 6
-            /**
-             */
-            readonly "FM_RADIO": 7
-            /**
-             */
-            readonly "DVB_SRM": 8
-            /**
-             */
-            readonly "RESERVED_09": 9
-            /**
-             */
-            readonly "ADVANCED_CODEC_DIGITAL_RADIO_SOUND": 10
-            /**
-             */
-            readonly "ADVANCED_CODEC_MOSAIC": 11
-            /**
-             */
-            readonly "DATA_BROADCAST": 12
-            /**
-             */
-            readonly "RESERVED_0D_COMMON_INTERFACE": 13
-            /**
-             */
-            readonly "RCS_MAP": 14
-            /**
-             */
-            readonly "RCS_FLS": 15
-            /**
-             */
-            readonly "DVB_MHP": 16
-            /**
-             */
-            readonly "MPEG2_HD_DIGITAL_TELEVISION": 17
-            /**
-             */
-            readonly "ADVANCED_CODEC_SD_DIGITAL_TELEVISION": 22
-            /**
-             */
-            readonly "ADVANCED_CODEC_SD_NVOD_TIME_SHIFTED": 23
-            /**
-             */
-            readonly "ADVANCED_CODEC_SD_NVOD_REFERENCE": 24
-            /**
-             */
-            readonly "ADVANCED_CODEC_HD_DIGITAL_TELEVISION": 25
-            /**
-             */
-            readonly "ADVANCED_CODEC_HD_NVOD_TIME_SHIFTED": 26
-            /**
-             */
-            readonly "ADVANCED_CODEC_HD_NVOD_REFERENCE": 27
-            /**
-             */
-            readonly "ADVANCED_CODEC_STEREO_HD_DIGITAL_TELEVISION": 28
-            /**
-             */
-            readonly "ADVANCED_CODEC_STEREO_HD_NVOD_TIME_SHIFTED": 29
-            /**
-             */
-            readonly "ADVANCED_CODEC_STEREO_HD_NVOD_REFERENCE": 30
-            /**
-             */
-            readonly "RESERVED_FF": 31
-        }
-        type DVBServiceType = DVBServiceTypeEnum[Exclude<keyof DVBServiceTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * The type of service of a channel.
-             *
-             * As specified in Table 87 of ETSI EN 300 468 v1.13.1
-             */
-            DVBServiceType: DVBServiceTypeEnum
-        }
-        
-        interface DVBTeletextTypeEnum {
-            readonly $gtype: GObject.GType<DVBTeletextType>
-            /**
-             */
-            readonly "NITIAL_PAGE": 1
-            /**
-             */
-            readonly "UBTITLE_PAGE": 2
-            /**
-             */
-            readonly "DDITIONAL_INFO_PAGE": 3
-            /**
-             */
-            readonly "ROGRAMME_SCHEDULE_PAGE": 4
-            /**
-             */
-            readonly "EARING_IMPAIRED_PAGE": 5
-        }
-        type DVBTeletextType = DVBTeletextTypeEnum[Exclude<keyof DVBTeletextTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * The type of teletext page.
-             *
-             * As specified in Table 100 of ETSI EN 300 468 v1.13.1
-             */
-            DVBTeletextType: DVBTeletextTypeEnum
-        }
-        
-        interface DescriptorTypeEnum {
-            readonly $gtype: GObject.GType<DescriptorType>
-            /**
-             */
-            readonly "RESERVED_00": 0
-            /**
-             */
-            readonly "RESERVED_01": 1
-            /**
-             */
-            readonly "VIDEO_STREAM": 2
-            /**
-             */
-            readonly "AUDIO_STREAM": 3
-            /**
-             */
-            readonly "HIERARCHY": 4
-            /**
-             */
-            readonly "REGISTRATION": 5
-            /**
-             */
-            readonly "DATA_STREAM_ALIGNMENT": 6
-            /**
-             */
-            readonly "TARGET_BACKGROUND_GRID": 7
-            /**
-             */
-            readonly "VIDEO_WINDOW": 8
-            /**
-             */
-            readonly "CA": 9
-            /**
-             */
-            readonly "ISO_639_LANGUAGE": 10
-            /**
-             */
-            readonly "SYSTEM_CLOCK": 11
-            /**
-             */
-            readonly "MULTIPLEX_BUFFER_UTILISATION": 12
-            /**
-             */
-            readonly "COPYRIGHT": 13
-            /**
-             */
-            readonly "MAXIMUM_BITRATE": 14
-            /**
-             */
-            readonly "PRIVATE_DATA_INDICATOR": 15
-            /**
-             */
-            readonly "SMOOTHING_BUFFER": 16
-            /**
-             */
-            readonly "STD": 17
-            /**
-             */
-            readonly "IBP": 18
-            /**
-             */
-            readonly "DSMCC_CAROUSEL_IDENTIFIER": 19
-            /**
-             */
-            readonly "DSMCC_ASSOCIATION_TAG": 20
-            /**
-             */
-            readonly "DSMCC_DEFERRED_ASSOCIATION_TAG": 21
-            /**
-             */
-            readonly "DSMCC_NPT_REFERENCE": 23
-            /**
-             */
-            readonly "DSMCC_NPT_ENDPOINT": 24
-            /**
-             */
-            readonly "DSMCC_STREAM_MODE": 25
-            /**
-             */
-            readonly "DSMCC_STREAM_EVENT": 26
-            /**
-             */
-            readonly "MPEG4_VIDEO": 27
-            /**
-             */
-            readonly "MPEG4_AUDIO": 28
-            /**
-             */
-            readonly "IOD": 29
-            /**
-             */
-            readonly "SL": 30
-            /**
-             */
-            readonly "FMC": 31
-            /**
-             */
-            readonly "EXTERNAL_ES_ID": 32
-            /**
-             */
-            readonly "MUX_CODE": 33
-            /**
-             */
-            readonly "FMX_BUFFER_SIZE": 34
-            /**
-             */
-            readonly "MULTIPLEX_BUFFER": 35
-            /**
-             */
-            readonly "CONTENT_LABELING": 36
-            /**
-             */
-            readonly "METADATA_POINTER": 37
-            /**
-             */
-            readonly "METADATA": 38
-            /**
-             */
-            readonly "METADATA_STD": 39
-            /**
-             */
-            readonly "AVC_VIDEO": 40
-            /**
-             */
-            readonly "IPMP": 41
-            /**
-             */
-            readonly "AVC_TIMING_AND_HRD": 42
-            /**
-             */
-            readonly "MPEG2_AAC_AUDIO": 43
-            /**
-             */
-            readonly "FLEX_MUX_TIMING": 44
-            /**
-             */
-            readonly "MPEG4_TEXT": 45
-            /**
-             */
-            readonly "MPEG4_AUDIO_EXTENSION": 46
-            /**
-             */
-            readonly "AUXILIARY_VIDEO_STREAM": 47
-            /**
-             */
-            readonly "SVC_EXTENSION": 48
-            /**
-             */
-            readonly "MVC_EXTENSION": 49
-            /**
-             */
-            readonly "J2K_VIDEO": 50
-            /**
-             */
-            readonly "MVC_OPERATION_POINT": 51
-            /**
-             */
-            readonly "MPEG2_STEREOSCOPIC_VIDEO_FORMAT": 52
-            /**
-             */
-            readonly "STEREOSCOPIC_PROGRAM_INFO": 53
-            /**
-             */
-            readonly "STEREOSCOPIC_VIDEO_INFO": 54
-            /**
-             * Extension Descriptor.
-             * @since 1.26
-             */
-            readonly "EXTENSION": 63
-        }
-        type DescriptorType = DescriptorTypeEnum[Exclude<keyof DescriptorTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * The type of #GstMpegtsDescriptor
-             *
-             * These values correspond to the registered descriptor type from
-             * the base MPEG-TS specifications (ITU H.222.0 | ISO/IEC 13818-1).
-             *
-             * Consult the relevant specifications for more details.
-             */
-            DescriptorType: DescriptorTypeEnum
-        }
-        
-        interface ExtendedDescriptorTypeEnum {
-            readonly $gtype: GObject.GType<ExtendedDescriptorType>
-            /**
-             */
-            readonly "MTS_DESC_EXT_JXS_VIDEO": 20
-        }
-        type ExtendedDescriptorType = ExtendedDescriptorTypeEnum[Exclude<keyof ExtendedDescriptorTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * The type of an extended descriptor
-             *
-             * The values correpond to the registered extended descriptor types from the
-             * base ISO 13818 / ITU H.222.0 specifications
-             *
-             * Consult the specification for more details
-             * @since 1.26
-             */
-            ExtendedDescriptorType: ExtendedDescriptorTypeEnum
-        }
-        
-        interface HdmvStreamTypeEnum {
-            readonly $gtype: GObject.GType<HdmvStreamType>
-            /**
-             */
-            readonly "AUDIO_LPCM": 128
-            /**
-             */
-            readonly "AUDIO_AC3": 129
-            /**
-             */
-            readonly "AUDIO_DTS": 130
-            /**
-             */
-            readonly "AUDIO_AC3_TRUE_HD": 131
-            /**
-             */
-            readonly "AUDIO_AC3_PLUS": 132
-            /**
-             */
-            readonly "AUDIO_DTS_HD": 133
-            /**
-             */
-            readonly "AUDIO_DTS_HD_MASTER_AUDIO": 134
-            /**
-             */
-            readonly "AUDIO_EAC3": 135
-            /**
-             */
-            readonly "SUBPICTURE_PGS": 144
-            /**
-             */
-            readonly "IGS": 145
-            /**
-             */
-            readonly "SUBTITLE": 146
-            /**
-             */
-            readonly "AUDIO_AC3_PLUS_SECONDARY": 161
-            /**
-             */
-            readonly "AUDIO_DTS_HD_SECONDARY": 162
-        }
-        type HdmvStreamType = HdmvStreamTypeEnum[Exclude<keyof HdmvStreamTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Type of mpeg-ts streams for Blu-ray formats. To be matched with the
-             * stream-type of a #GstMpegtsSection.
-             * @since 1.20
-             */
-            HdmvStreamType: HdmvStreamTypeEnum
-        }
-        
-        interface ISDBDescriptorTypeEnum {
-            readonly $gtype: GObject.GType<ISDBDescriptorType>
-            /**
-             */
-            readonly "HIERARCHICAL_TRANSMISSION": 192
-            /**
-             */
-            readonly "DIGITAL_COPY_CONTROL": 193
-            /**
-             */
-            readonly "NETWORK_IDENTIFICATION": 194
-            /**
-             */
-            readonly "PARTIAL_TS_TIME": 195
-            /**
-             */
-            readonly "AUDIO_COMPONENT": 196
-            /**
-             */
-            readonly "HYPERLINK": 197
-            /**
-             */
-            readonly "TARGET_REGION": 198
-            /**
-             */
-            readonly "DATA_CONTENT": 199
-            /**
-             */
-            readonly "VIDEO_DECODE_CONTROL": 200
-            /**
-             */
-            readonly "DOWNLOAD_CONTENT": 201
-            /**
-             */
-            readonly "CA_EMM_TS": 202
-            /**
-             */
-            readonly "CA_CONTRACT_INFORMATION": 203
-            /**
-             */
-            readonly "CA_SERVICE": 204
-            /**
-             */
-            readonly "TS_INFORMATION": 205
-            /**
-             */
-            readonly "EXTENDED_BROADCASTER": 206
-            /**
-             */
-            readonly "LOGO_TRANSMISSION": 207
-            /**
-             */
-            readonly "BASIC_LOCAL_EVENT": 208
-            /**
-             */
-            readonly "REFERENCE": 209
-            /**
-             */
-            readonly "NODE_RELATION": 210
-            /**
-             */
-            readonly "SHORT_NODE_INFORMATION": 211
-            /**
-             */
-            readonly "STC_REFERENCE": 212
-            /**
-             */
-            readonly "SERIES": 213
-            /**
-             */
-            readonly "EVENT_GROUP": 214
-            /**
-             */
-            readonly "SI_PARAMETER": 215
-            /**
-             */
-            readonly "BROADCASTER_NAME": 216
-            /**
-             */
-            readonly "COMPONENT_GROUP": 217
-            /**
-             */
-            readonly "SI_PRIME_TS": 218
-            /**
-             */
-            readonly "BOARD_INFORMATION": 219
-            /**
-             */
-            readonly "LDT_LINKAGE": 220
-            /**
-             */
-            readonly "CONNECTED_TRANSMISSION": 221
-            /**
-             */
-            readonly "CONTENT_AVAILABILITY": 222
-            /**
-             */
-            readonly "SERVICE_GROUP": 224
-        }
-        type ISDBDescriptorType = ISDBDescriptorTypeEnum[Exclude<keyof ISDBDescriptorTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * These values correspond to the registered descriptor type from
-             * the various ISDB specifications.
-             *
-             * Consult the relevant specifications for more details.
-             */
-            ISDBDescriptorType: ISDBDescriptorTypeEnum
-        }
-        
-        interface Iso639AudioTypeEnum {
-            readonly $gtype: GObject.GType<Iso639AudioType>
-            /**
-             */
-            readonly "UNDEFINED": 0
-            /**
-             */
-            readonly "CLEAN_EFFECTS": 1
-            /**
-             */
-            readonly "HEARING_IMPAIRED": 2
-            /**
-             */
-            readonly "VISUAL_IMPAIRED_COMMENTARY": 3
-        }
-        type Iso639AudioType = Iso639AudioTypeEnum[Exclude<keyof Iso639AudioTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            Iso639AudioType: Iso639AudioTypeEnum
-        }
-        
-        interface MetadataApplicationFormatEnum {
-            readonly $gtype: GObject.GType<MetadataApplicationFormat>
-            /**
-             */
-            readonly "ISAN": 16
-            /**
-             */
-            readonly "VSAN": 17
-            /**
-             */
-            readonly "IDENTIFIER_FIELD": 65535
-        }
-        type MetadataApplicationFormat = MetadataApplicationFormatEnum[Exclude<keyof MetadataApplicationFormatEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * @GST_MPEGTS_METADATA_APPLICATION_FORMAT_ISAN ISO 15706-1 (ISAN) encoded in its binary form
-             * @GST_MPEGTS_METADATA_APPLICATION_FORMAT_VSAN ISO 15706-2 (V-ISAN) encoded in its binary form
-             * @GST_MPEGTS_METADATA_APPLICATION_FORMAT_IDENTIFIER_FIELD Defined by the metadata_application_format_identifier field
-             *
-             * metadata_application_format valid values. See ISO/IEC 13818-1:2023(E) Table 2-84.
-             * @since 1.26
-             */
-            MetadataApplicationFormat: MetadataApplicationFormatEnum
-        }
-        
-        interface MetadataFormatEnum {
-            readonly $gtype: GObject.GType<MetadataFormat>
-            /**
-             * ISO/IEC 15938-1 TeM.
-             * @since 1.24
-             */
-            readonly "TEM": 16
-            /**
-             * ISO/IEC 15938-1 BiM.
-             * @since 1.24
-             */
-            readonly "BIM": 17
-            /**
-             * Defined by metadata application format.
-             * @since 1.24
-             */
-            readonly "APPLICATION_FORMAT": 63
-            /**
-             * Defined by metadata_format_identifier field.
-             * @since 1.24
-             */
-            readonly "IDENTIFIER_FIELD": 255
-        }
-        type MetadataFormat = MetadataFormatEnum[Exclude<keyof MetadataFormatEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * metadata_descriptor metadata_format valid values. See ISO/IEC 13818-1:2018(E) Table 2-85.
-             * @since 1.24
-             */
-            MetadataFormat: MetadataFormatEnum
-        }
-        
-        interface MiscDescriptorTypeEnum {
-            readonly $gtype: GObject.GType<MiscDescriptorType>
-            /**
-             */
-            readonly "MTS_DESC_DTG_LOGICAL_CHANNEL": 131
-        }
-        type MiscDescriptorType = MiscDescriptorTypeEnum[Exclude<keyof MiscDescriptorTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * The type of #GstMpegtsDescriptor
-             *
-             * These values correspond to miscellaneous descriptor types that are
-             * not yet identified from known specifications.
-             */
-            MiscDescriptorType: MiscDescriptorTypeEnum
-        }
-        
-        interface ModulationTypeEnum {
-            readonly $gtype: GObject.GType<ModulationType>
-            /**
-             */
-            readonly "QPSK": 0
-            /**
-             */
-            readonly "QAM_16": 1
-            /**
-             */
-            readonly "QAM_32": 2
-            /**
-             */
-            readonly "QAM_64": 3
-            /**
-             */
-            readonly "QAM_128": 4
-            /**
-             */
-            readonly "QAM_256": 5
-            /**
-             */
-            readonly "QAM_AUTO": 6
-            /**
-             */
-            readonly "VSB_8": 7
-            /**
-             */
-            readonly "VSB_16": 8
-            /**
-             */
-            readonly "PSK_8": 9
-            /**
-             */
-            readonly "APSK_16": 10
-            /**
-             */
-            readonly "APSK_32": 11
-            /**
-             */
-            readonly "DQPSK": 12
-            /**
-             */
-            readonly "QAM_4_NR_": 13
-            /**
-             */
-            readonly "NONE": 14
-        }
-        type ModulationType = ModulationTypeEnum[Exclude<keyof ModulationTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ModulationType: ModulationTypeEnum
-        }
-        
-        interface RunningStatusEnum {
-            readonly $gtype: GObject.GType<RunningStatus>
-            /**
-             */
-            readonly "UNDEFINED": 0
-            /**
-             */
-            readonly "NOT_RUNNING": 1
-            /**
-             */
-            readonly "STARTS_IN_FEW_SECONDS": 2
-            /**
-             */
-            readonly "PAUSING": 3
-            /**
-             */
-            readonly "RUNNING": 4
-            /**
-             */
-            readonly "OFF_AIR": 5
-        }
-        type RunningStatus = RunningStatusEnum[Exclude<keyof RunningStatusEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Running status of a service.
-             *
-             * Corresponds to table 6 of ETSI EN 300 468 (v1.13.0)
-             */
-            RunningStatus: RunningStatusEnum
-        }
-        
-        interface SCTEDescriptorTypeEnum {
-            readonly $gtype: GObject.GType<SCTEDescriptorType>
-            /**
-             */
-            readonly "STUFFING": 128
-            /**
-             */
-            readonly "AC3": 129
-            /**
-             */
-            readonly "FRAME_RATE": 130
-            /**
-             */
-            readonly "EXTENDED_VIDEO": 131
-            /**
-             */
-            readonly "COMPONENT_NAME": 132
-            /**
-             */
-            readonly "FREQUENCY_SPEC": 144
-            /**
-             */
-            readonly "MODULATION_PARAMS": 145
-            /**
-             */
-            readonly "TRANSPORT_STREAM_ID": 146
-        }
-        type SCTEDescriptorType = SCTEDescriptorTypeEnum[Exclude<keyof SCTEDescriptorTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * These values correspond to the ones defined by SCTE (amongst other in ANSI/SCTE 57)
-             * @since 1.20
-             */
-            SCTEDescriptorType: SCTEDescriptorTypeEnum
-        }
-        
-        interface SCTESpliceCommandTypeEnum {
-            readonly $gtype: GObject.GType<SCTESpliceCommandType>
-            /**
-             */
-            readonly "NULL": 0
-            /**
-             */
-            readonly "SCHEDULE": 4
-            /**
-             */
-            readonly "INSERT": 5
-            /**
-             */
-            readonly "TIME": 6
-            /**
-             */
-            readonly "BANDWIDTH": 7
-            /**
-             */
-            readonly "PRIVATE": 255
-        }
-        type SCTESpliceCommandType = SCTESpliceCommandTypeEnum[Exclude<keyof SCTESpliceCommandTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            SCTESpliceCommandType: SCTESpliceCommandTypeEnum
-        }
-        
-        interface SCTESpliceDescriptorEnum {
-            readonly $gtype: GObject.GType<SCTESpliceDescriptor>
-            /**
-             */
-            readonly "AVAIL": 0
-            /**
-             */
-            readonly "DTMF": 1
-            /**
-             */
-            readonly "SEGMENTATION": 2
-            /**
-             */
-            readonly "TIME": 3
-            /**
-             */
-            readonly "AUDIO": 4
-        }
-        type SCTESpliceDescriptor = SCTESpliceDescriptorEnum[Exclude<keyof SCTESpliceDescriptorEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            SCTESpliceDescriptor: SCTESpliceDescriptorEnum
-        }
-        
-        interface SatellitePolarizationTypeEnum {
-            readonly $gtype: GObject.GType<SatellitePolarizationType>
-            /**
-             */
-            readonly "LINEAR_HORIZONTAL": 0
-            /**
-             */
-            readonly "LINEAR_VERTICAL": 1
-            /**
-             */
-            readonly "CIRCULAR_LEFT": 2
-            /**
-             */
-            readonly "CIRCULAR_RIGHT": 3
-        }
-        type SatellitePolarizationType = SatellitePolarizationTypeEnum[Exclude<keyof SatellitePolarizationTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            SatellitePolarizationType: SatellitePolarizationTypeEnum
-        }
-        
-        interface SatelliteRolloffEnum {
-            readonly $gtype: GObject.GType<SatelliteRolloff>
-            /**
-             */
-            readonly "35": 0
-            /**
-             */
-            readonly "20": 1
-            /**
-             */
-            readonly "25": 2
-            /**
-             */
-            readonly "RESERVED": 3
-            /**
-             */
-            readonly "AUTO": 4
-        }
-        type SatelliteRolloff = SatelliteRolloffEnum[Exclude<keyof SatelliteRolloffEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            SatelliteRolloff: SatelliteRolloffEnum
-        }
-        
-        interface ScteStreamTypeEnum {
-            readonly $gtype: GObject.GType<ScteStreamType>
-            /**
-             * SCTE-27 Subtitling
-             */
-            readonly "SUBTITLING": 130
-            /**
-             * SCTE-19 Isochronous data
-             */
-            readonly "ISOCH_DATA": 131
-            /**
-             * SCTE-35 Splice Information Table
-             */
-            readonly "SIT": 134
-            /**
-             * SCTE-07 Data Service or
-             * Network Resource Table
-             */
-            readonly "DST_NRT": 149
-            /**
-             * Type B - DSM-CC Data Carousel
-             * [IEC 13818-6])
-             */
-            readonly "DSMCC_DCB": 176
-            /**
-             * Enhanced Television Application
-             * Signaling (OC-SP-ETV-AM1.0.1-120614)
-             */
-            readonly "SIGNALING": 192
-            /**
-             * SCTE-07 Synchronous data
-             */
-            readonly "SYNC_DATA": 194
-            /**
-             * SCTE-53 Asynchronous data
-             */
-            readonly "ASYNC_DATA": 195
-        }
-        type ScteStreamType = ScteStreamTypeEnum[Exclude<keyof ScteStreamTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Type of mpeg-ts streams for SCTE. Most users would want to use the
-             * #GstMpegtsATSCStreamType instead since it also covers these stream types
-             */
-            ScteStreamType: ScteStreamTypeEnum
-        }
-        
-        interface SectionATSCTableIDEnum {
-            readonly $gtype: GObject.GType<SectionATSCTableID>
-            /**
-             * Master Guide Table (MGT)
-             */
-            readonly "MASTER_GUIDE": 199
-            /**
-             * Terrestrial Virtual Channel Table (TVCT)
-             */
-            readonly "TERRESTRIAL_VIRTUAL_CHANNEL": 200
-            /**
-             * Cable Virtual Channel Table (CVCT)
-             */
-            readonly "CABLE_VIRTUAL_CHANNEL": 201
-            /**
-             * Rating Region Table (RRT)
-             */
-            readonly "RATING_REGION": 202
-            /**
-             * Event Information Table (EIT)
-             */
-            readonly "EVENT_INFORMATION": 203
-            /**
-             * Extended Text Table (ETT)
-             */
-            readonly "CHANNEL_OR_EVENT_EXTENDED_TEXT": 204
-            /**
-             * System Time Table (STT)
-             */
-            readonly "SYSTEM_TIME": 205
-            /**
-             * A/90: Data Event Table (DET)
-             */
-            readonly "DATA_EVENT": 206
-            /**
-             * A/90: Data Service Table (DST)
-             */
-            readonly "DATA_SERVICE": 207
-            /**
-             * A/57B: Program Identifier Table.
-             * @since 1.20
-             */
-            readonly "PROGRAM_IDENTIFIER": 208
-            /**
-             * A/90: Network Resources Table (NRT)
-             */
-            readonly "NETWORK_RESOURCE": 209
-            /**
-             * A/90: Long Term Service Table (LTST)
-             */
-            readonly "LONG_TERM_SERVICE": 210
-            /**
-             * Directed Channel Change Table (DCCT)
-             */
-            readonly "DIRECTED_CHANNEL_CHANGE": 211
-            /**
-             * Directed Channel Change Selection Code Table (DCCSCT)
-             */
-            readonly "DIRECTED_CHANNEL_CHANGE_SECTION_CODE": 212
-            /**
-             */
-            readonly "AGGREGATE_EVENT_INFORMATION": 214
-            /**
-             */
-            readonly "AGGREGATE_EXTENDED_TEXT": 215
-            /**
-             */
-            readonly "AGGREGATE_DATA_EVENT": 217
-            /**
-             * A/81: Satellite Virtual Channel Table
-             */
-            readonly "SATELLITE_VIRTUAL_CHANNEL": 218
-        }
-        type SectionATSCTableID = SectionATSCTableIDEnum[Exclude<keyof SectionATSCTableIDEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Values for a #GstMpegtsSection table_id.
-             *
-             * These are the registered ATSC section `table_id` variants. Unless specified
-             * otherwise, they are defined in the "ATSC A/65" specification.
-             *
-             * see also: #GstMpegtsSectionTableID and other variants.
-             */
-            SectionATSCTableID: SectionATSCTableIDEnum
-        }
-        
-        interface SectionDVBTableIDEnum {
-            readonly $gtype: GObject.GType<SectionDVBTableID>
-            /**
-             * Network Information Table (NIT), Actual Network
-             */
-            readonly "NETWORK_INFORMATION_ACTUAL_NETWORK": 64
-            /**
-             * Network Information Table (NIT), Other Network
-             */
-            readonly "NETWORK_INFORMATION_OTHER_NETWORK": 65
-            /**
-             * Service Description Table (SDT), Actual Transport Stream
-             */
-            readonly "SERVICE_DESCRIPTION_ACTUAL_TS": 66
-            /**
-             * Service Description Table (SDT), Other Transport Stream
-             */
-            readonly "SERVICE_DESCRIPTION_OTHER_TS": 70
-            /**
-             * Bouquet Association Table (BAT)
-             */
-            readonly "BOUQUET_ASSOCIATION": 74
-            /**
-             * ETSI TS 102 006: Update Notification Table (UNT)
-             * @since 1.20
-             */
-            readonly "UPDATE_NOTIFICATION": 75
-            /**
-             * ETSI EN 303 560: Downloadable Font Info
-             * @since 1.20
-             */
-            readonly "DOWNLOADABLE_FONT_INFO": 76
-            /**
-             * Event Information Table (EIT), Actual Transport Stream, present/following
-             */
-            readonly "EVENT_INFORMATION_ACTUAL_TS_PRESENT": 78
-            /**
-             * Event Information Table (EIT), Other Transport Stream, present/following
-             */
-            readonly "EVENT_INFORMATION_OTHER_TS_PRESENT": 79
-            /**
-             * Event Information Table (EIT), Actual Transport Stream, Schedule (first)
-             */
-            readonly "EVENT_INFORMATION_ACTUAL_TS_SCHEDULE_1": 80
-            /**
-             * Event Information Table (EIT), Actual Transport Stream, Schedule (last)
-             */
-            readonly "EVENT_INFORMATION_ACTUAL_TS_SCHEDULE_N": 95
-            /**
-             * Event Information Table (EIT), Other Transport Stream, Schedule (first)
-             */
-            readonly "EVENT_INFORMATION_OTHER_TS_SCHEDULE_1": 96
-            /**
-             * Event Information Table (EIT), Other Transport Stream, Schedule (last)
-             */
-            readonly "EVENT_INFORMATION_OTHER_TS_SCHEDULE_N": 111
-            /**
-             * Time Date Table (TDT)
-             */
-            readonly "TIME_DATE": 112
-            /**
-             * Running Status Table (RST)
-             */
-            readonly "RUNNING_STATUS": 113
-            /**
-             * Stuffing Table (ST)
-             */
-            readonly "STUFFING": 114
-            /**
-             * Time Offset Table (TOT)
-             */
-            readonly "TIME_OFFSET": 115
-            /**
-             * ETSI TS 102 323: Application Information Table (AIT)
-             */
-            readonly "APPLICATION_INFORMATION_TABLE": 116
-            /**
-             * ETSI TS 102 323: Container Section
-             */
-            readonly "CONTAINER": 117
-            /**
-             * ETSI TS 102 323: Related Content Table (RCT)
-             */
-            readonly "RELATED_CONTENT": 118
-            /**
-             * ETSI TS 102 323: Content Identifier Table (CIT)
-             */
-            readonly "CONTENT_IDENTIFIER": 119
-            /**
-             * ETSI TS 301 192: MPE-FEC Section
-             */
-            readonly "MPE_FEC": 120
-            /**
-             * ETSI 103 323: Resolution Provider Notification Table (RNT)
-             */
-            readonly "RESOLUTION_NOTIFICATION": 121
-            /**
-             * ETSI TS 102 772: MPE-IFEC Section
-             */
-            readonly "MPE_IFEC": 122
-            /**
-             * ETSI TS 102 809: Protection Message Section
-             * @since 1.20
-             */
-            readonly "PROTECTION_MESSAGE": 123
-            /**
-             * Discontinuity Information Table (DIT)
-             */
-            readonly "DISCONTINUITY_INFORMATION": 126
-            /**
-             * Selection Information Table (SIT)
-             */
-            readonly "SELECTION_INFORMATION": 127
-            /**
-             * ETSI TR 289: CA Message Table (CMT): ECM 0
-             */
-            readonly "CA_MESSAGE_ECM_0": 128
-            /**
-             * ETSI TR 289: CA Message Table (CMT): ECM 1
-             */
-            readonly "CA_MESSAGE_ECM_1": 129
-            /**
-             * ETSI TR 289: CA Message Table (CMT): CA System Private (First)
-             */
-            readonly "CA_MESSAGE_SYSTEM_PRIVATE_1": 130
-            /**
-             * ETSI TR 289: CA Message Table (CMT): CA System Private (Last)
-             */
-            readonly "CA_MESSAGE_SYSTEM_PRIVATE_N": 143
-            /**
-             */
-            readonly "SCT": 160
-            /**
-             */
-            readonly "FCT": 161
-            /**
-             */
-            readonly "TCT": 162
-            /**
-             */
-            readonly "SPT": 163
-            /**
-             */
-            readonly "CMT": 164
-            /**
-             */
-            readonly "TBTP": 165
-            /**
-             */
-            readonly "PCR_PACKET_PAYLOAD": 166
-            /**
-             */
-            readonly "TRANSMISSION_MODE_SUPPORT_PAYLOAD": 170
-            /**
-             */
-            readonly "TIM": 176
-            /**
-             */
-            readonly "LL_FEC_PARITY_DATA_TABLE": 177
-        }
-        type SectionDVBTableID = SectionDVBTableIDEnum[Exclude<keyof SectionDVBTableIDEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Values for a #GstMpegtsSection table_id.
-             *
-             * These are the registered DVB table_id variants. Unless specified otherwise,
-             * they come from the DVB Specification for SI (ETSI EN 300 468).
-             *
-             * see also: #GstMpegtsSectionTableID
-             */
-            SectionDVBTableID: SectionDVBTableIDEnum
-        }
-        
-        interface SectionSCTETableIDEnum {
-            readonly $gtype: GObject.GType<SectionSCTETableID>
-            /**
-             * SCTE-18 Emergency Alert System
-             */
-            readonly "EAS": 216
-            /**
-             * CL-SP-ETV-AM 1.0.1 EBIF message
-             */
-            readonly "EBIF": 224
-            /**
-             */
-            readonly "RESERVED": 225
-            /**
-             * CL-SP-ETV-AM 1.0.1 EBIF Int. Signaling Sect.
-             */
-            readonly "EISS": 226
-            /**
-             * CL-SP-ETV-AM 1.0.1 DSMCC DII message
-             */
-            readonly "DII": 227
-            /**
-             * CL-SP-ETV-AM 1.0.1 DSMCC Data Download Block
-             */
-            readonly "DDB": 228
-            /**
-             * SCTE-35 splice information is carried in a
-             * section stream on a separate PID in the program’s Map Table (PMT) allowing
-             * Splice Event notifications to remain associated with the program and pass
-             * through multiplexers.
-             */
-            readonly "SPLICE": 252
-        }
-        type SectionSCTETableID = SectionSCTETableIDEnum[Exclude<keyof SectionSCTETableIDEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Values for a #GstMpegtsSection table_id.
-             *
-             * These are the registered SCTE table_id variants.
-             *
-             * see also: #GstMpegtsSectionTableID
-             */
-            SectionSCTETableID: SectionSCTETableIDEnum
-        }
-        
-        interface SectionTableIDEnum {
-            readonly $gtype: GObject.GType<SectionTableID>
-            /**
-             * Program Association Table (PAT)
-             */
-            readonly "PROGRAM_ASSOCIATION": 0
-            /**
-             * Conditional Access Table (CAT)
-             */
-            readonly "CONDITIONAL_ACCESS": 1
-            /**
-             * Program Map Table (PMT)
-             */
-            readonly "TS_PROGRAM_MAP": 2
-            /**
-             * Transport Stream Description Table
-             */
-            readonly "TS_DESCRIPTION": 3
-            /**
-             * ISO/IEC 14496 Scene Description Table
-             */
-            readonly "14496_SCENE_DESCRIPTION": 4
-            /**
-             * ISO/IEC 14496 Object Descriptor Table
-             */
-            readonly "14496_OBJET_DESCRIPTOR": 5
-            /**
-             * Metadata Section
-             */
-            readonly "METADATA": 6
-            /**
-             * IPMP Control Information
-             */
-            readonly "IPMP_CONTROL_INFORMATION": 7
-            /**
-             * ISO/IEC 14496 Section.
-             * @since 1.20
-             */
-            readonly "14496_SECTION": 8
-            /**
-             * ISO/IEC 23001-11 (Green Access Unit) Section.
-             * @since 1.20
-             */
-            readonly "23001_11_SECTION": 9
-            /**
-             * ISO/ISO 23001-10 (Quality Access Unit) Section.
-             * @since 1.20
-             */
-            readonly "23001_10_SECTION": 10
-            /**
-             * DSM-CC Multi-Protocol Encapsulated (MPE) Data
-             */
-            readonly "DSM_CC_MULTIPROTO_ENCAPSULATED_DATA": 58
-            /**
-             * DSM-CC U-N Messages
-             */
-            readonly "DSM_CC_U_N_MESSAGES": 59
-            /**
-             * DSM-CC Download Data Messages
-             */
-            readonly "DSM_CC_DOWNLOAD_DATA_MESSAGES": 60
-            /**
-             * DSM-CC Stream Descriptors
-             */
-            readonly "DSM_CC_STREAM_DESCRIPTORS": 61
-            /**
-             * DSM-CC Private Data
-             */
-            readonly "DSM_CC_PRIVATE_DATA": 62
-            /**
-             * DSM-CC Addressable Section
-             */
-            readonly "DSM_CC_ADDRESSABLE_SECTIONS": 63
-            /**
-             * Unset section table_id (value is forbidden to use in actual sections)
-             */
-            readonly "UNSET": 255
-        }
-        type SectionTableID = SectionTableIDEnum[Exclude<keyof SectionTableIDEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Values for a #GstMpegtsSection table_id
-             *
-             * These are the registered ITU H.222.0 | ISO/IEC 13818-1 table_id variants.
-             *
-             * see also #GstMpegtsSectionATSCTableID, #GstMpegtsSectionDVBTableID, and
-             * #GstMpegtsSectionSCTETableID
-             */
-            SectionTableID: SectionTableIDEnum
-        }
-        
-        interface SectionTypeEnum {
-            readonly $gtype: GObject.GType<SectionType>
-            /**
-             * Unknown section type
-             */
-            readonly "UNKNOWN": 0
-            /**
-             * Program Association Table (ISO/IEC 13818-1)
-             */
-            readonly "PAT": 1
-            /**
-             * Program Map Table (ISO/IEC 13818-1)
-             */
-            readonly "PMT": 2
-            /**
-             * Conditional Access Table (ISO/IEC 13818-1)
-             */
-            readonly "CAT": 3
-            /**
-             * Transport Stream Description Table (ISO/IEC 13818-1)
-             */
-            readonly "TSDT": 4
-            /**
-             * Event Information Table (EN 300 468)
-             */
-            readonly "EIT": 5
-            /**
-             * Network Information Table (ISO/IEC 13818-1 / EN 300 468)
-             */
-            readonly "NIT": 6
-            /**
-             * Bouquet Association Table ((EN 300 468)
-             */
-            readonly "BAT": 7
-            /**
-             * Service Description Table (EN 300 468)
-             */
-            readonly "SDT": 8
-            /**
-             * Time and Date Table (EN 300 468)
-             */
-            readonly "TDT": 9
-            /**
-             * Time Offset Table (EN 300 468)
-             */
-            readonly "TOT": 10
-            /**
-             * Selection Information Table (EN 300 468)
-             * @since 1.20
-             */
-            readonly "SIT": 11
-            /**
-             * ATSC Terrestrial Virtual Channel Table (A65)
-             */
-            readonly "ATSC_TVCT": 12
-            /**
-             * ATSC Cable Virtual Channel Table (A65)
-             */
-            readonly "ATSC_CVCT": 13
-            /**
-             * ATSC Master Guide Table (A65)
-             */
-            readonly "ATSC_MGT": 14
-            /**
-             * ATSC Extended Text Table (A65)
-             */
-            readonly "ATSC_ETT": 15
-            /**
-             * ATSC Event Information Table (A65)
-             */
-            readonly "ATSC_EIT": 16
-            /**
-             * ATSC System Time Table (A65)
-             */
-            readonly "ATSC_STT": 17
-            /**
-             * ATSC Rating Region Table (A65)
-             */
-            readonly "ATSC_RRT": 18
-            /**
-             * SCTE Splice Information Table (SCTE-35)
-             */
-            readonly "SCTE_SIT": 19
-        }
-        type SectionType = SectionTypeEnum[Exclude<keyof SectionTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Types of #GstMpegtsSection that the library handles. This covers all the
-             * MPEG-TS and derivate specification that the library can properly identify and
-             * use.
-             */
-            SectionType: SectionTypeEnum
-        }
-        
-        interface StreamTypeEnum {
-            readonly $gtype: GObject.GType<StreamType>
-            /**
-             * ITU-T | ISO/IEC Reserved
-             */
-            readonly "RESERVED_00": 0
-            /**
-             * ISO/IEC 11172-2 Video (i.e. MPEG-1 Video)
-             */
-            readonly "VIDEO_MPEG1": 1
-            /**
-             * Rec. ITU-T H.262 | ISO/IEC 13818-2
-             *       Video or ISO/IEC 11172-2 constrained parameter video stream (i.e.
-             *       MPEG-2 Video)
-             */
-            readonly "VIDEO_MPEG2": 2
-            /**
-             * ISO/IEC 11172-3 Audio
-             */
-            readonly "AUDIO_MPEG1": 3
-            /**
-             * ISO/IEC 13818-3 Audio
-             */
-            readonly "AUDIO_MPEG2": 4
-            /**
-             * private sections
-             */
-            readonly "PRIVATE_SECTIONS": 5
-            /**
-             * PES packets containing private data
-             */
-            readonly "PRIVATE_PES_PACKETS": 6
-            /**
-             * ISO/IEC 13522 MHEG
-             */
-            readonly "MHEG": 7
-            /**
-             * Annex A DSM-CC
-             */
-            readonly "DSM_CC": 8
-            /**
-             * Rec. ITU-T H.222.1
-             */
-            readonly "H_222_1": 9
-            /**
-             * ISO/IEC 13818-6 type A
-             */
-            readonly "DSMCC_A": 10
-            /**
-             * ISO/IEC 13818-6 type B
-             */
-            readonly "DSMCC_B": 11
-            /**
-             * ISO/IEC 13818-6 type C
-             */
-            readonly "DSMCC_C": 12
-            /**
-             * ISO/IEC 13818-6 type D
-             */
-            readonly "DSMCC_D": 13
-            /**
-             * auxiliary streams
-             */
-            readonly "AUXILIARY": 14
-            /**
-             * ISO/IEC 13818-7 Audio (AAC) with ADTS
-             *       transport syntax
-             */
-            readonly "AUDIO_AAC_ADTS": 15
-            /**
-             * ISO/IEC 14496-2 Visual (MPEG-4 Video)
-             */
-            readonly "VIDEO_MPEG4": 16
-            /**
-             * ISO/IEC 14496-3 Audio (AAC) with the LATM
-             *       transport syntax as defined in ISO/IEC 14496-3
-             */
-            readonly "AUDIO_AAC_LATM": 17
-            /**
-             * ISO/IEC 14496-1
-             *       SL-packetized stream or FlexMux stream carried in PES packets
-             */
-            readonly "SL_FLEXMUX_PES_PACKETS": 18
-            /**
-             * ISO/IEC 14496-1 SL-packetized
-             *       stream or FlexMux stream carried in ISO/IEC 14496_sections
-             */
-            readonly "SL_FLEXMUX_SECTIONS": 19
-            /**
-             * ISO/IEC 13818-6 Synchronized
-             *       Download Protocol
-             */
-            readonly "SYNCHRONIZED_DOWNLOAD": 20
-            /**
-             * Metadata carried in PES packets
-             */
-            readonly "METADATA_PES_PACKETS": 21
-            /**
-             * Metadata carried in metadata_sections
-             */
-            readonly "METADATA_SECTIONS": 22
-            /**
-             * Metadata carried in ISO/IEC
-             *       13818-6 Data Carousel
-             */
-            readonly "METADATA_DATA_CAROUSEL": 23
-            /**
-             * Metadata carried in
-             *       ISO/IEC 13818-6 Object Carousel
-             */
-            readonly "METADATA_OBJECT_CAROUSEL": 24
-            /**
-             * Metadata carried in
-             *       ISO/IEC 13818-6 Synchronized Download Protocol
-             */
-            readonly "METADATA_SYNCHRONIZED_DOWNLOAD": 25
-            /**
-             * IPMP stream (defined in ISO/IEC 13818-11,
-             *       MPEG-2 IPMP)
-             */
-            readonly "MPEG2_IPMP": 26
-            /**
-             * AVC video stream conforming to one or
-             * more profiles defined in Annex A of Rec. ITU-T H.264 | ISO/IEC 14496-10 or
-             * AVC video sub-bitstream of SVC as defined in 2.1.78 or MVC base view
-             * sub-bitstream, as defined in 2.1.85, or AVC video sub-bitstream of MVC, as
-             * defined in 2.1.88
-             */
-            readonly "VIDEO_H264": 27
-            /**
-             * ISO/IEC 14496-3 (AAC) Audio, without
-             *       using any additional transport syntax, such as DST, ALS and SLS
-             */
-            readonly "AUDIO_AAC_CLEAN": 28
-            /**
-             * ISO/IEC 14496-17 Text
-             */
-            readonly "MPEG4_TIMED_TEXT": 29
-            /**
-             * Auxiliary video stream as defined in
-             * ISO/IEC 23002-3
-             */
-            readonly "VIDEO_RVC": 30
-            /**
-             * SVC video sub-bitstream
-             * of an AVC video stream conforming to one or more profiles defined in Annex G
-             * of Rec. ITU-T H.264 | ISO/IEC 14496-10
-             */
-            readonly "VIDEO_H264_SVC_SUB_BITSTREAM": 31
-            /**
-             * MVC video sub-bitstream
-             * of an AVC video stream conforming to one or more profiles defined in Annex H
-             * of Rec. ITU-T H.264 | ISO/IEC 14496-10
-             */
-            readonly "VIDEO_H264_MVC_SUB_BITSTREAM": 32
-            /**
-             * Video stream conforming to one or more
-             *       profiles as defined in Rec. ITU-T T.800 | ISO/IEC 15444-1 (i.e. JPEG 2000)
-             */
-            readonly "VIDEO_JP2K": 33
-            /**
-             * Additional view
-             * Rec. ITU-T H.262 | ISO/IEC 13818-2 video stream for service-compatible
-             * stereoscopic 3D services
-             */
-            readonly "VIDEO_MPEG2_STEREO_ADDITIONAL_VIEW": 34
-            /**
-             * Additional view
-             * Rec. ITU-T H.264 | ISO/IEC 14496-10 video stream conforming to one or more
-             * profiles defined in Annex A for service-compatible stereoscopic 3D services
-             */
-            readonly "VIDEO_H264_STEREO_ADDITIONAL_VIEW": 35
-            /**
-             * Rec. ITU-T H.265 | ISO/IEC 23008-2 video
-             *      stream or an HEVC temporal video sub-bitstream
-             */
-            readonly "VIDEO_HEVC": 36
-            /**
-             * JPEG-XS stream type
-             * @since 1.26
-             */
-            readonly "VIDEO_JPEG_XS": 50
-            /**
-             * VVC/H.266 video stream type
-             * @since 1.26
-             */
-            readonly "VIDEO_VVC": 51
-            /**
-             * IPMP stream
-             */
-            readonly "IPMP_STREAM": 127
-            /**
-             * User Private stream id (used for VC-1) as defined by SMPTE RP227.
-             * @since 1.20
-             */
-            readonly "USER_PRIVATE_EA": 234
-        }
-        type StreamType = StreamTypeEnum[Exclude<keyof StreamTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Type of MPEG-TS stream type.
-             *
-             * These values correspond to the base standard registered types. Depending
-             * on the variant of mpeg-ts being used (Bluray, ATSC, DVB, ...), other
-             * types might also be used, but will not conflict with these.
-             *
-             * Corresponds to table 2-34 of ITU H.222.0 | ISO/IEC 13818-1
-             */
-            StreamType: StreamTypeEnum
-        }
-        
-        interface TerrestrialGuardIntervalEnum {
-            readonly $gtype: GObject.GType<TerrestrialGuardInterval>
-            /**
-             */
-            readonly "1_32": 0
-            /**
-             */
-            readonly "1_16": 1
-            /**
-             */
-            readonly "1_8": 2
-            /**
-             */
-            readonly "1_4": 3
-            /**
-             */
-            readonly "AUTO": 4
-            /**
-             */
-            readonly "1_128": 5
-            /**
-             */
-            readonly "19_128": 6
-            /**
-             */
-            readonly "19_256": 7
-            /**
-             */
-            readonly "PN420": 8
-            /**
-             */
-            readonly "PN595": 9
-            /**
-             */
-            readonly "PN945": 10
-        }
-        type TerrestrialGuardInterval = TerrestrialGuardIntervalEnum[Exclude<keyof TerrestrialGuardIntervalEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            TerrestrialGuardInterval: TerrestrialGuardIntervalEnum
-        }
-        
-        interface TerrestrialHierarchyEnum {
-            readonly $gtype: GObject.GType<TerrestrialHierarchy>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "1": 1
-            /**
-             */
-            readonly "2": 2
-            /**
-             */
-            readonly "4": 3
-            /**
-             */
-            readonly "AUTO": 4
-        }
-        type TerrestrialHierarchy = TerrestrialHierarchyEnum[Exclude<keyof TerrestrialHierarchyEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            TerrestrialHierarchy: TerrestrialHierarchyEnum
-        }
-        
-        interface TerrestrialTransmissionModeEnum {
-            readonly $gtype: GObject.GType<TerrestrialTransmissionMode>
-            /**
-             */
-            readonly "2K": 0
-            /**
-             */
-            readonly "8K": 1
-            /**
-             */
-            readonly "AUTO": 2
-            /**
-             */
-            readonly "4K": 3
-            /**
-             */
-            readonly "1K": 4
-            /**
-             */
-            readonly "16K": 5
-            /**
-             */
-            readonly "32K": 6
-            /**
-             */
-            readonly "C1": 7
-            /**
-             */
-            readonly "C3780": 8
-        }
-        type TerrestrialTransmissionMode = TerrestrialTransmissionModeEnum[Exclude<keyof TerrestrialTransmissionModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            TerrestrialTransmissionMode: TerrestrialTransmissionModeEnum
-        }
-        
-        interface RegistrationIdBitfield {
-            readonly $gtype: GObject.GType<RegistrationId>
-            /**
-             * Undefined registration id
-             */
-            readonly "0": 0
-            /**
-             * Audio AC-3, ATSC A/52
-             */
-            readonly "AC_3": 1094921523
-            /**
-             * SCTE 35, "Digital Program Insertion Cueing Message"
-             */
-            readonly "CUEI": 1129661769
-            /**
-             * Dirac Video codec
-             */
-            readonly "DRAC": 1685217635
-            /**
-             * DTS Audio
-             */
-            readonly "DTS1": 1146377009
-            /**
-             * DTS Audio
-             */
-            readonly "DTS2": 1146377010
-            /**
-             * DTS Audio
-             */
-            readonly "DTS3": 1146377011
-            /**
-             * SMPTE 302M, Mapping of AES3 Data in mpeg-ts
-             */
-            readonly "BSSD": 1112757060
-            /**
-             * Enhanced AC-3 (i.e. EAC3)
-             */
-            readonly "EAC3": 1161904947
-            /**
-             * Cablelabs ETV
-             */
-            readonly "ETV1": 1163154993
-            /**
-             * ATSC A/53 compliant stream (i.e. ATSC)
-             */
-            readonly "GA94": 1195456820
-            /**
-             * Blu-ray, "System Description Blu-ray Disc
-             *             Read-Only Format part 3 Audio Visual Basic Specifications"
-             */
-            readonly "HDMV": 1212435798
-            /**
-             * SMPTE RP217 : Non-synchronized Mapping of KLV
-             *             Packets in mpeg-ts
-             */
-            readonly "KLVA": 1263294017
-            /**
-             * Opus Audio
-             */
-            readonly "OPUS": 1330664787
-            /**
-             * HDV (Sony)
-             */
-            readonly "TSHV": 1414744150
-            /**
-             * Video VC-1, SMPTE RP227 "VC-1 Bitstream Transport Encodings"
-             */
-            readonly "VC_1": 1447243057
-            /**
-             * Audio AC-4, ETSI 103 190-2
-             */
-            readonly "AC_4": 1094921524
-            /**
-             * HEVC / h265
-             */
-            readonly "OTHER_HEVC": 1212503619
-        }
-        type RegistrationId = number
-        interface $Exports {
-            /**
-             * Well-known registration ids, expressed as native-endian 32bit integers. These
-             * are used in descriptors of type %GST_MTS_DESC_REGISTRATION. Unless specified
-             * otherwise (by use of the "OTHER" prefix), they are all registered by the
-             * [SMPTE Registration Authority](https://smpte-ra.org/) or specified in
-             * "official" documentation for the given format.
-             * @since 1.20
-             */
-            RegistrationId: RegistrationIdBitfield
-        }
-        /**
-         * @param section
-         */
-        type PacketizeFunc = (section: Section) => boolean
-
-        interface $Exports {
-            __name__: "GstMpegts"
-            __version: "1.0"
-            /**
-             * Creates and adds a #GstMpegtsPESMetadataMeta to a @buffer.
-             * @since 1.24
-             * @param buffer a #GstBuffer
-             * @returns a newly created #GstMpegtsPESMetadataMeta
-             */
-            buffer_add_mpegts_pes_metadata_meta(buffer: Gst.Buffer): PESMetadataMeta
-            /**
-             * Creates a #GstMpegtsDescriptor with custom @tag and @data
-             * @param tag descriptor tag
-             * @param data descriptor data (after tag and length field)
-             * @returns #GstMpegtsDescriptor, or %NULL if input is invalid
-             */
-            descriptor_from_custom(tag: number, data: Uint8Array): Descriptor | null
-            /**
-             * Creates a #GstMpegtsDescriptor with custom @tag, @tag_extension and @data
-             * @since 1.20
-             * @param tag descriptor tag
-             * @param tag_extension descriptor tag extension
-             * @param data descriptor data (after tag and length field)
-             * @returns #GstMpegtsDescriptor
-             */
-            descriptor_from_custom_with_extension(tag: number, tag_extension: number, data: Uint8Array): Descriptor
-            /**
-             * Creates a #GstMpegtsDescriptor to be a %GST_MTS_DESC_DVB_NETWORK_NAME,
-             * with the network name @name. The data field of the #GstMpegtsDescriptor
-             * will be allocated, and transferred to the caller.
-             * @param name the network name to set
-             * @returns the #GstMpegtsDescriptor or %NULL on failure.
-             */
-            descriptor_from_dvb_network_name(name: string): Descriptor | null
-            /**
-             * Fills a #GstMpegtsDescriptor to be a %GST_MTS_DESC_DVB_SERVICE.
-             * The data field of the #GstMpegtsDescriptor will be allocated,
-             * and transferred to the caller.
-             * @param service_type Service type defined as a #GstMpegtsDVBServiceType
-             * @param service_name Name of the service
-             * @param service_provider Name of the service provider
-             * @returns the #GstMpegtsDescriptor or %NULL on failure
-             */
-            descriptor_from_dvb_service(service_type: DVBServiceType, service_name: string | null, service_provider: string | null): Descriptor | null
-            /**
-             * @param lang a string containing the ISO639 language
-             * @param type subtitling type
-             * @param composition composition page id
-             * @param ancillary ancillary page id
-             */
-            descriptor_from_dvb_subtitling(lang: string, type: number, composition: number, ancillary: number): Descriptor
-            /**
-             * Creates a %GST_MTS_DESC_ISO_639_LANGUAGE #GstMpegtsDescriptor with
-             * a single language
-             * @param language ISO-639-2 language 3-char code
-             * @returns #GstMpegtsDescriptor, %NULL on failure
-             */
-            descriptor_from_iso_639_language(language: string): Descriptor
-            /**
-             * Create a new #GstMpegtsDescriptor based on the information in @jpegxs
-             * @since 1.26
-             * @param jpegxs A #GstMpegtsJpegXsDescriptor
-             * @returns The #GstMpegtsDescriptor
-             */
-            descriptor_from_jpeg_xs(jpegxs: JpegXsDescriptor): Descriptor
-            /**
-             * @since 1.26
-             * @param metadata_descriptor
-             */
-            descriptor_from_metadata(metadata_descriptor: MetadataDescriptor): Descriptor
-            /**
-             * @since 1.26
-             * @param metadata_pointer_descriptor a #GstMpegtsMetadataPointerDescriptor
-             * @returns a #GstMpegtsDescriptor from the metadata pointer descriptor.
-             */
-            descriptor_from_metadata_pointer(metadata_pointer_descriptor: MetadataPointerDescriptor): Descriptor
-            /**
-             * Creates a %GST_MTS_DESC_REGISTRATION #GstMpegtsDescriptor
-             * @param format_identifier a 4 character format identifier string
-             * @param additional_info pointer to optional additional info
-             * @returns #GstMpegtsDescriptor, %NULL on failure
-             */
-            descriptor_from_registration(format_identifier: string, additional_info: Uint8Array | null): Descriptor
-            /**
-             * @since 1.20
-             * @param source
-             */
-            descriptor_parse_audio_preselection_dump(source: AudioPreselectionDescriptor): void
-            /**
-             * @since 1.20
-             * @param source
-             */
-            descriptor_parse_audio_preselection_free(source: AudioPreselectionDescriptor): void
-            /**
-             * @param source
-             */
-            dvb_component_descriptor_free(source: ComponentDescriptor): void
-            /**
-             * Creates a new #GstEvent for a #GstMpegtsSection.
-             * @since 1.20
-             * @param section The #GstMpegtsSection to put in a message
-             * @returns The new custom #GstEvent.
-             */
-            event_new_mpegts_section(section: Section): Gst.Event
-            /**
-             * Extracts the #GstMpegtsSection contained in the @event #GstEvent
-             * @param event #GstEvent containing a #GstMpegtsSection
-             * @returns The extracted #GstMpegtsSection , or %NULL if the event did not contain a valid #GstMpegtsSection.
-             */
-            event_parse_mpegts_section(event: Gst.Event): Section | null
-            /**
-             * Finds the first descriptor of type @tag in the array.
-             *
-             * Note: To look for descriptors that can be present more than once in an
-             * array of descriptors, iterate the #GArray manually.
-             * @param descriptors an array
-            of #GstMpegtsDescriptor
-             * @param tag the tag to look for
-             * @returns the first descriptor matching `tag`, else %NULL.
-             */
-            find_descriptor(descriptors: Descriptor[], tag: number): Descriptor | null
-            /**
-             * Finds the first descriptor of type @tag with @tag_extension in the array.
-             *
-             * Note: To look for descriptors that can be present more than once in an
-             * array of descriptors, iterate the #GArray manually.
-             * @since 1.20
-             * @param descriptors an array
-            of #GstMpegtsDescriptor
-             * @param tag the tag to look for
-             * @param tag_extension
-             * @returns the first descriptor matchin `tag` with `tag_extension`, else %NULL.
-             */
-            find_descriptor_with_extension(descriptors: Descriptor[], tag: number, tag_extension: number): Descriptor | null
-            /**
-             * Initializes the MPEG-TS helper library. Must be called before any
-             * usage.
-             */
-            initialize(): void
-            /**
-             * Creates a new #GstMessage for a @GstMpegtsSection.
-             * @param parent The creator of the message
-             * @param section The #GstMpegtsSection to put in a message
-             * @returns The new #GstMessage to be posted, or %NULL if the section is not valid.
-             */
-            message_new_mpegts_section(parent: Gst.Object, section: Section): Gst.Message | null
-            /**
-             * Returns the #GstMpegtsSection contained in a message.
-             * @param message a #GstMessage
-             * @returns the contained #GstMpegtsSection, or %NULL.
-             */
-            message_parse_mpegts_section(message: Gst.Message): Section | null
-            /**
-             * Parses the descriptors present in @buffer and returns them as an
-             * array.
-             *
-             * Note: The data provided in @buffer will not be copied.
-             * @param buffer descriptors to parse
-             * @param buf_len Size of @buffer
-             * @returns an array of the parsed descriptors or %NULL if there was an error.  Release with #g_array_unref when done with it.
-             */
-            parse_descriptors(buffer: number, buf_len: number): Descriptor[] | null
-            /**
-             * Allocates a new #GPtrArray for #GstMpegtsPatProgram. The array can be filled
-             * and then converted to a PAT section with gst_mpegts_section_from_pat().
-             * @returns A newly allocated #GPtrArray
-             */
-            pat_new(): PatProgram[]
-            /**
-             * Return the #GType associated with #GstMpegtsPESMetadataMeta
-             * @since 1.24
-             * @returns a #GType
-             */
-            pes_metadata_meta_api_get_type(): GObject.GType
-            /**
-             * Gets the global #GstMetaInfo describing the #GstMpegtsPESMetadataMeta meta.
-             * @since 1.24
-             * @returns The #GstMetaInfo
-             */
-            pes_metadata_meta_get_info(): Gst.MetaInfo
-            /**
-             * Allocates and initializes a new INSERT command #GstMpegtsSCTESIT
-             * setup to cancel the specified @event_id.
-             * @param event_id The event ID to cancel.
-             * @returns A newly allocated #GstMpegtsSCTESIT
-             */
-            scte_cancel_new(event_id: number): SCTESIT
-            /**
-             * Allocates and initializes a NULL command #GstMpegtsSCTESIT.
-             * @returns A newly allocated #GstMpegtsSCTESIT
-             */
-            scte_null_new(): SCTESIT
-            /**
-             * Allocates and initializes a new "Splice In" INSERT command
-             * #GstMpegtsSCTESIT for the given @event_id and @splice_time.
-             *
-             * If the @splice_time is #G_MAXUINT64 then the event will be
-             * immediate as opposed to for the target @splice_time.
-             * @param event_id The event ID.
-             * @param splice_time The running time for the splice event
-             * @returns A newly allocated #GstMpegtsSCTESIT
-             */
-            scte_splice_in_new(event_id: number, splice_time: Gst.ClockTime): SCTESIT
-            /**
-             * Allocates and initializes a new "Splice Out" INSERT command
-             * #GstMpegtsSCTESIT for the given @event_id, @splice_time and
-             * @duration.
-             *
-             * If the @splice_time is #G_MAXUINT64 then the event will be
-             * immediate as opposed to for the target @splice_time.
-             *
-             * If the @duration is 0 it won't be specified in the event.
-             * @param event_id The event ID.
-             * @param splice_time The running time for the splice event
-             * @param duration The optional duration.
-             * @returns A newly allocated #GstMpegtsSCTESIT
-             */
-            scte_splice_out_new(event_id: number, splice_time: Gst.ClockTime, duration: Gst.ClockTime): SCTESIT
-            /**
-             * @param mgt a #GstMpegtsAtscMGT to create the #GstMpegtsSection from
-             * @returns the #GstMpegtsSection, or %NULL if `mgt` is invalid Since: 1.18
-             */
-            section_from_atsc_mgt(mgt: AtscMGT): Section | null
-            /**
-             * @param rrt
-             */
-            section_from_atsc_rrt(rrt: AtscRRT): Section
-            /**
-             * @param stt
-             */
-            section_from_atsc_stt(stt: AtscSTT): Section
-            /**
-             * Ownership of @nit is taken. The data in @nit is managed by the #GstMpegtsSection
-             * @param nit a #GstMpegtsNIT to create the #GstMpegtsSection from
-             * @returns the #GstMpegtsSection, or %NULL if `nit` is invalid
-             */
-            section_from_nit(nit: NIT): Section | null
-            /**
-             * Creates a PAT #GstMpegtsSection from the @programs array of #GstMpegtsPatPrograms
-             * @param programs an array of #GstMpegtsPatProgram
-             * @param ts_id Transport stream ID of the PAT
-             * @returns a #GstMpegtsSection
-             */
-            section_from_pat(programs: PatProgram[], ts_id: number): Section
-            /**
-             * Creates a #GstMpegtsSection from @pmt that is bound to @pid
-             * @param pmt a #GstMpegtsPMT to create a #GstMpegtsSection from
-             * @param pid The PID that the #GstMpegtsPMT belongs to
-             * @returns #GstMpegtsSection, or %NULL if `pmt` is invalid
-             */
-            section_from_pmt(pmt: PMT, pid: number): Section | null
-            /**
-             * Ownership of @sit is taken. The data in @sit is managed by the #GstMpegtsSection
-             * @param sit a #GstMpegtsSCTESIT to create the #GstMpegtsSection from
-             * @param pid
-             * @returns the #GstMpegtsSection, or %NULL if `sit` is invalid
-             */
-            section_from_scte_sit(sit: SCTESIT, pid: number): Section | null
-            /**
-             * Ownership of @sdt is taken. The data in @sdt is managed by the #GstMpegtsSection
-             * @param sdt a #GstMpegtsSDT to create the #GstMpegtsSection from
-             * @returns the #GstMpegtsSection or %NULL if `sdt` is invalid
-             */
-            section_from_sdt(sdt: SDT): Section | null
-        }
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
+        
+
+        namespace GstMpegts {
+            
+
+            interface AtscEITStruct {
+                readonly $gtype: GObject.GType<AtscEIT>
+                new (fields?: {
+                    source_id?: number
+                    protocol_version?: number
+                    events?: AtscEITEvent[]
+                }): AtscEIT
+            }
+
+            interface AtscEIT {
+                /**
+                 * The source id
+                 */
+                source_id: number
+                /**
+                 * The protocol version
+                 */
+                protocol_version: number
+                /**
+                 * Events
+                 */
+                events: AtscEITEvent[]
+            }
+
+            interface $Exports {
+                AtscEIT: AtscEITStruct
+            }
+            
+
+            interface AtscEITEventStruct {
+                readonly $gtype: GObject.GType<AtscEITEvent>
+                new (fields?: {
+                    event_id?: number
+                    start_time?: number
+                    etm_location?: number
+                    length_in_seconds?: number
+                    titles?: AtscMultString[]
+                    descriptors?: Descriptor[]
+                }): AtscEITEvent
+            }
+
+            interface AtscEITEvent {
+                /**
+                 * The event id
+                 */
+                event_id: number
+                /**
+                 * The start time
+                 */
+                start_time: number
+                /**
+                 * The etm location
+                 */
+                etm_location: number
+                /**
+                 * The length in seconds
+                 */
+                length_in_seconds: number
+                /**
+                 * the titles
+                 */
+                titles: AtscMultString[]
+                /**
+                 * descriptors
+                 */
+                descriptors: Descriptor[]
+            }
+
+            interface $Exports {
+                AtscEITEvent: AtscEITEventStruct
+            }
+            
+
+            interface AtscETTStruct {
+                readonly $gtype: GObject.GType<AtscETT>
+                new (fields?: {
+                    ett_table_id_extension?: number
+                    protocol_version?: number
+                    etm_id?: number
+                    messages?: AtscMultString[]
+                }): AtscETT
+            }
+
+            interface AtscETT {
+                /**
+                 */
+                ett_table_id_extension: number
+                /**
+                 * The protocol version
+                 */
+                protocol_version: number
+                /**
+                 * The etm id
+                 */
+                etm_id: number
+                /**
+                 * List of texts
+                 */
+                messages: AtscMultString[]
+            }
+
+            interface $Exports {
+                AtscETT: AtscETTStruct
+            }
+            
+
+            interface AtscMGTStruct {
+                readonly $gtype: GObject.GType<AtscMGT>
+                new (fields?: {
+                    protocol_version?: number
+                    tables_defined?: number
+                    tables?: AtscMGTTable[]
+                    descriptors?: Descriptor[]
+                }): AtscMGT
+                /**
+                 */
+                "new"(): AtscMGT
+            }
+
+            interface AtscMGT {
+                /**
+                 * The protocol version
+                 */
+                protocol_version: number
+                /**
+                 * The numbers of subtables
+                 */
+                tables_defined: number
+                /**
+                 * the tables
+                 */
+                tables: AtscMGTTable[]
+                /**
+                 * descriptors
+                 */
+                descriptors: Descriptor[]
+            }
+
+            interface $Exports {
+                AtscMGT: AtscMGTStruct
+            }
+            
+
+            interface AtscMGTTableStruct {
+                readonly $gtype: GObject.GType<AtscMGTTable>
+                new (fields?: {
+                    table_type?: number
+                    pid?: number
+                    version_number?: number
+                    number_bytes?: number
+                    descriptors?: Descriptor[]
+                }): AtscMGTTable
+            }
+
+            interface AtscMGTTable {
+                /**
+                 * #GstMpegtsAtscMGTTableType
+                 */
+                table_type: number
+                /**
+                 * The packet ID
+                 */
+                pid: number
+                /**
+                 * The version number
+                 */
+                version_number: number
+                /**
+                 */
+                number_bytes: number
+                /**
+                 * descriptors
+                 */
+                descriptors: Descriptor[]
+            }
+
+            interface $Exports {
+                AtscMGTTable: AtscMGTTableStruct
+            }
+            
+
+            interface AtscMultStringStruct {
+                readonly $gtype: GObject.GType<AtscMultString>
+                new (fields?: {
+                    iso_639_langcode?: number[]
+                    segments?: AtscStringSegment[]
+                }): AtscMultString
+            }
+
+            interface AtscMultString {
+                /**
+                 * The ISO639 language code
+                 */
+                iso_639_langcode: number[]
+                /**
+                 */
+                segments: AtscStringSegment[]
+            }
+
+            interface $Exports {
+                AtscMultString: AtscMultStringStruct
+            }
+            
+
+            interface AtscRRTStruct {
+                readonly $gtype: GObject.GType<AtscRRT>
+                new (fields?: {
+                    protocol_version?: number
+                    names?: AtscMultString[]
+                    dimensions_defined?: number
+                    dimensions?: AtscRRTDimension[]
+                    descriptors?: never[]
+                }): AtscRRT
+                /**
+                 */
+                "new"(): AtscRRT
+            }
+
+            interface AtscRRT {
+                /**
+                 * The protocol version
+                 */
+                protocol_version: number
+                /**
+                 * the names
+                 */
+                names: AtscMultString[]
+                /**
+                 * the number of dimensions defined for this rating table
+                 */
+                dimensions_defined: number
+                /**
+                 * A set of dimensions
+                 */
+                dimensions: AtscRRTDimension[]
+                /**
+                 * descriptors
+                 */
+                descriptors: never[]
+            }
+
+            interface $Exports {
+                AtscRRT: AtscRRTStruct
+            }
+            
+
+            interface AtscRRTDimensionStruct {
+                readonly $gtype: GObject.GType<AtscRRTDimension>
+                new (fields?: {
+                    names?: AtscMultString[]
+                    graduated_scale?: boolean
+                    values_defined?: number
+                    values?: AtscRRTDimensionValue[]
+                }): AtscRRTDimension
+                /**
+                 */
+                "new"(): AtscRRTDimension
+            }
+
+            interface AtscRRTDimension {
+                /**
+                 * the names
+                 */
+                names: AtscMultString[]
+                /**
+                 * whether the ratings represent a graduated scale
+                 */
+                graduated_scale: boolean
+                /**
+                 * the number of values defined for this dimension
+                 */
+                values_defined: number
+                /**
+                 * set of values
+                 */
+                values: AtscRRTDimensionValue[]
+            }
+
+            interface $Exports {
+                AtscRRTDimension: AtscRRTDimensionStruct
+            }
+            
+
+            interface AtscRRTDimensionValueStruct {
+                readonly $gtype: GObject.GType<AtscRRTDimensionValue>
+                new (fields?: {
+                    abbrev_ratings?: AtscMultString[]
+                    ratings?: AtscMultString[]
+                }): AtscRRTDimensionValue
+                /**
+                 */
+                "new"(): AtscRRTDimensionValue
+            }
+
+            interface AtscRRTDimensionValue {
+                /**
+                 * the abbreviated ratings
+                 */
+                abbrev_ratings: AtscMultString[]
+                /**
+                 * the ratings
+                 */
+                ratings: AtscMultString[]
+            }
+
+            interface $Exports {
+                AtscRRTDimensionValue: AtscRRTDimensionValueStruct
+            }
+            
+
+            interface AtscSTTStruct {
+                readonly $gtype: GObject.GType<AtscSTT>
+                new (fields?: {
+                    protocol_version?: number
+                    system_time?: number
+                    gps_utc_offset?: number
+                    ds_status?: boolean
+                    ds_dayofmonth?: number
+                    ds_hour?: number
+                    descriptors?: Descriptor[]
+                    utc_datetime?: Gst.DateTime
+                }): AtscSTT
+                /**
+                 */
+                "new"(): AtscSTT
+            }
+
+            interface AtscSTT {
+                /**
+                 * The protocol version
+                 */
+                protocol_version: number
+                /**
+                 * The system time
+                 */
+                system_time: number
+                /**
+                 * The GPS to UTC offset
+                 */
+                gps_utc_offset: number
+                /**
+                 */
+                ds_status: boolean
+                /**
+                 * The day of month
+                 */
+                ds_dayofmonth: number
+                /**
+                 * The hour
+                 */
+                ds_hour: number
+                /**
+                 * descriptors
+                 */
+                descriptors: Descriptor[]
+                /**
+                 * The UTC date and time
+                 */
+                utc_datetime: Gst.DateTime
+                /**
+                 */
+                get_datetime_utc(): Gst.DateTime
+            }
+
+            interface $Exports {
+                AtscSTT: AtscSTTStruct
+            }
+            
+
+            interface AtscStringSegmentStruct {
+                readonly $gtype: GObject.GType<AtscStringSegment>
+                new (fields?: {
+                    compression_type?: number
+                    mode?: number
+                    compressed_data_size?: number
+                    compressed_data?: number
+                    cached_string?: string
+                }): AtscStringSegment
+            }
+
+            interface AtscStringSegment {
+                /**
+                 * The compression type
+                 */
+                compression_type: number
+                /**
+                 * The mode
+                 */
+                mode: number
+                /**
+                 * The size of compressed data
+                 */
+                compressed_data_size: number
+                /**
+                 * The compressed data
+                 */
+                compressed_data: number
+                /**
+                 */
+                cached_string: string
+                /**
+                 */
+                get_string(): string
+                /**
+                 * @param string
+                 * @param compression_type
+                 * @param mode
+                 */
+                set_string(string: string, compression_type: number, mode: number): boolean
+            }
+
+            interface $Exports {
+                AtscStringSegment: AtscStringSegmentStruct
+            }
+            
+
+            interface AtscVCTStruct {
+                readonly $gtype: GObject.GType<AtscVCT>
+                new (fields?: {
+                    transport_stream_id?: number
+                    protocol_version?: number
+                    sources?: AtscVCTSource[]
+                    descriptors?: Descriptor[]
+                }): AtscVCT
+            }
+
+            interface AtscVCT {
+                /**
+                 * The transport stream
+                 */
+                transport_stream_id: number
+                /**
+                 * The protocol version
+                 */
+                protocol_version: number
+                /**
+                 * sources
+                 */
+                sources: AtscVCTSource[]
+                /**
+                 * descriptors
+                 */
+                descriptors: Descriptor[]
+            }
+
+            interface $Exports {
+                AtscVCT: AtscVCTStruct
+            }
+            
+
+            interface AtscVCTSourceStruct {
+                readonly $gtype: GObject.GType<AtscVCTSource>
+                new (fields?: {
+                    short_name?: string
+                    major_channel_number?: number
+                    minor_channel_number?: number
+                    modulation_mode?: number
+                    carrier_frequency?: number
+                    channel_tsid?: number
+                    program_number?: number
+                    etm_location?: number
+                    access_controlled?: boolean
+                    hidden?: boolean
+                    path_select?: boolean
+                    out_of_band?: boolean
+                    hide_guide?: boolean
+                    service_type?: number
+                    source_id?: number
+                    descriptors?: Descriptor[]
+                }): AtscVCTSource
+            }
+
+            interface AtscVCTSource {
+                /**
+                 * The short name of a source
+                 */
+                short_name: string
+                /**
+                 * The major channel number
+                 */
+                major_channel_number: number
+                /**
+                 * The minor channel number
+                 */
+                minor_channel_number: number
+                /**
+                 * The modulation mode
+                 */
+                modulation_mode: number
+                /**
+                 * The carrier frequency
+                 */
+                carrier_frequency: number
+                /**
+                 * The transport stream ID
+                 */
+                channel_tsid: number
+                /**
+                 * The program number (see #GstMpegtsPatProgram)
+                 */
+                program_number: number
+                /**
+                 * The ETM location
+                 */
+                etm_location: number
+                /**
+                 * is access controlled
+                 */
+                access_controlled: boolean
+                /**
+                 * is hidden
+                 */
+                hidden: boolean
+                /**
+                 * is path select, CVCT only
+                 */
+                path_select: boolean
+                /**
+                 * is out of band, CVCT only
+                 */
+                out_of_band: boolean
+                /**
+                 * is hide guide
+                 */
+                hide_guide: boolean
+                /**
+                 * The service type
+                 */
+                service_type: number
+                /**
+                 * The source id
+                 */
+                source_id: number
+                /**
+                 * an array of #GstMpegtsDescriptor
+                 */
+                descriptors: Descriptor[]
+            }
+
+            interface $Exports {
+                AtscVCTSource: AtscVCTSourceStruct
+            }
+            
+
+            interface AudioPreselectionDescriptorStruct {
+                readonly $gtype: GObject.GType<AudioPreselectionDescriptor>
+                new (fields?: {
+                    preselection_id?: number
+                    audio_rendering_indication?: number
+                    audio_description?: boolean
+                    spoken_subtitles?: boolean
+                    dialogue_enhancement?: boolean
+                    interactivity_enabled?: boolean
+                    language_code_present?: boolean
+                    text_label_present?: boolean
+                    multi_stream_info_present?: boolean
+                    future_extension?: boolean
+                    language_code?: string
+                    message_id?: number
+                }): AudioPreselectionDescriptor
+            }
+
+            interface AudioPreselectionDescriptor {
+                /**
+                 * 5-bit
+                 */
+                preselection_id: number
+                /**
+                 * 3-bit field
+                 */
+                audio_rendering_indication: number
+                /**
+                 * visually impaired
+                 */
+                audio_description: boolean
+                /**
+                 */
+                spoken_subtitles: boolean
+                /**
+                 */
+                dialogue_enhancement: boolean
+                /**
+                 */
+                interactivity_enabled: boolean
+                /**
+                 */
+                language_code_present: boolean
+                /**
+                 */
+                text_label_present: boolean
+                /**
+                 * indicates if this PID conveys a complete audio programme
+                 */
+                multi_stream_info_present: boolean
+                /**
+                 */
+                future_extension: boolean
+                /**
+                 * NULL terminated ISO 639 language code.
+                 */
+                language_code: string
+                /**
+                 */
+                message_id: number
+            }
+
+            interface $Exports {
+                AudioPreselectionDescriptor: AudioPreselectionDescriptorStruct
+            }
+            
+
+            interface BATStruct {
+                readonly $gtype: GObject.GType<BAT>
+                new (fields?: {
+                    descriptors?: Descriptor[]
+                    streams?: BATStream[]
+                }): BAT
+            }
+
+            interface BAT {
+                /**
+                 */
+                descriptors: Descriptor[]
+                /**
+                 */
+                streams: BATStream[]
+            }
+
+            interface $Exports {
+                BAT: BATStruct
+            }
+            
+
+            interface BATStreamStruct {
+                readonly $gtype: GObject.GType<BATStream>
+                new (fields?: {
+                    transport_stream_id?: number
+                    original_network_id?: number
+                    descriptors?: never[]
+                }): BATStream
+            }
+
+            interface BATStream {
+                /**
+                 */
+                transport_stream_id: number
+                /**
+                 */
+                original_network_id: number
+                /**
+                 */
+                descriptors: never[]
+            }
+
+            interface $Exports {
+                BATStream: BATStreamStruct
+            }
+            
+
+            interface CableDeliverySystemDescriptorStruct {
+                readonly $gtype: GObject.GType<CableDeliverySystemDescriptor>
+                new (fields?: {
+                    frequency?: number
+                    outer_fec?: CableOuterFECScheme
+                    modulation?: ModulationType
+                    symbol_rate?: number
+                    fec_inner?: DVBCodeRate
+                }): CableDeliverySystemDescriptor
+            }
+
+            interface CableDeliverySystemDescriptor {
+                /**
+                 * the frequency in Hz (Hertz)
+                 */
+                frequency: number
+                /**
+                 * the outer FEC scheme used
+                 */
+                outer_fec: CableOuterFECScheme
+                /**
+                 * Modulation scheme used
+                 */
+                modulation: ModulationType
+                /**
+                 * Symbol rate (in symbols per second)
+                 */
+                symbol_rate: number
+                /**
+                 * inner FEC scheme used
+                 */
+                fec_inner: DVBCodeRate
+                /**
+                 */
+                free(): void
+            }
+
+            interface $Exports {
+                CableDeliverySystemDescriptor: CableDeliverySystemDescriptorStruct
+            }
+            
+
+            interface ComponentDescriptorStruct {
+                readonly $gtype: GObject.GType<ComponentDescriptor>
+                new (fields?: {
+                    stream_content?: number
+                    component_type?: number
+                    component_tag?: number
+                    language_code?: string
+                    text?: string
+                }): ComponentDescriptor
+            }
+
+            interface ComponentDescriptor {
+                /**
+                 */
+                stream_content: number
+                /**
+                 */
+                component_type: number
+                /**
+                 */
+                component_tag: number
+                /**
+                 */
+                language_code: string
+                /**
+                 */
+                text: string
+            }
+
+            interface $Exports {
+                ComponentDescriptor: ComponentDescriptorStruct
+            }
+            
+
+            interface ContentStruct {
+                readonly $gtype: GObject.GType<Content>
+                new (fields?: {
+                    content_nibble_1?: ContentNibbleHi
+                    content_nibble_2?: number
+                    user_byte?: number
+                }): Content
+            }
+
+            interface Content {
+                /**
+                 */
+                content_nibble_1: ContentNibbleHi
+                /**
+                 */
+                content_nibble_2: number
+                /**
+                 */
+                user_byte: number
+            }
+
+            interface $Exports {
+                Content: ContentStruct
+            }
+            
+
+            interface DVBLinkageDescriptorStruct {
+                readonly $gtype: GObject.GType<DVBLinkageDescriptor>
+                new (fields?: {
+                    transport_stream_id?: number
+                    original_network_id?: number
+                    service_id?: number
+                    linkage_type?: DVBLinkageType
+                    private_data_length?: number
+                    private_data_bytes?: number
+                }): DVBLinkageDescriptor
+            }
+
+            interface DVBLinkageDescriptor {
+                /**
+                 * the transport id
+                 */
+                transport_stream_id: number
+                /**
+                 * the original network id
+                 */
+                original_network_id: number
+                /**
+                 * the service id
+                 */
+                service_id: number
+                /**
+                 * the type which `linkage_data` has
+                 */
+                linkage_type: DVBLinkageType
+                /**
+                 * the length for `private_data_bytes`
+                 */
+                private_data_length: number
+                /**
+                 * additional data bytes
+                 */
+                private_data_bytes: number
+                /**
+                 */
+                free(): void
+                /**
+                 * @returns The #GstMpegtsDVBLinkageEvent or %NULL if an error happened
+                 */
+                get_event(): DVBLinkageEvent | null
+                /**
+                 * @returns an #GstMpegtsDVBLinkageExtendedEvent array or %NULL if an error happened
+                 */
+                get_extended_event(): DVBLinkageExtendedEvent[] | null
+                /**
+                 * @returns The #GstMpegtsDVBLinkageMobileHandOver or %NULL if an error happened
+                 */
+                get_mobile_hand_over(): DVBLinkageMobileHandOver | null
+            }
+
+            interface $Exports {
+                DVBLinkageDescriptor: DVBLinkageDescriptorStruct
+            }
+            
+
+            interface DVBLinkageEventStruct {
+                readonly $gtype: GObject.GType<DVBLinkageEvent>
+                new (fields?: {
+                    target_event_id?: number
+                    target_listed?: boolean
+                    event_simulcast?: boolean
+                }): DVBLinkageEvent
+            }
+
+            interface DVBLinkageEvent {
+                /**
+                 */
+                target_event_id: number
+                /**
+                 */
+                target_listed: boolean
+                /**
+                 */
+                event_simulcast: boolean
+            }
+
+            interface $Exports {
+                DVBLinkageEvent: DVBLinkageEventStruct
+            }
+            
+
+            interface DVBLinkageExtendedEventStruct {
+                readonly $gtype: GObject.GType<DVBLinkageExtendedEvent>
+                new (fields?: {
+                    target_event_id?: number
+                    target_listed?: boolean
+                    event_simulcast?: boolean
+                    link_type?: number
+                    target_id_type?: number
+                    original_network_id_flag?: boolean
+                    service_id_flag?: boolean
+                    user_defined_id?: number
+                    target_transport_stream_id?: number
+                    target_original_network_id?: number
+                    target_service_id?: number
+                }): DVBLinkageExtendedEvent
+            }
+
+            interface DVBLinkageExtendedEvent {
+                /**
+                 */
+                target_event_id: number
+                /**
+                 */
+                target_listed: boolean
+                /**
+                 */
+                event_simulcast: boolean
+                /**
+                 */
+                link_type: number
+                /**
+                 */
+                target_id_type: number
+                /**
+                 */
+                original_network_id_flag: boolean
+                /**
+                 */
+                service_id_flag: boolean
+                /**
+                 */
+                user_defined_id: number
+                /**
+                 */
+                target_transport_stream_id: number
+                /**
+                 */
+                target_original_network_id: number
+                /**
+                 */
+                target_service_id: number
+            }
+
+            interface $Exports {
+                DVBLinkageExtendedEvent: DVBLinkageExtendedEventStruct
+            }
+            
+
+            interface DVBLinkageMobileHandOverStruct {
+                readonly $gtype: GObject.GType<DVBLinkageMobileHandOver>
+                new (fields?: {
+                    hand_over_type?: DVBLinkageHandOverType
+                    origin_type?: boolean
+                    network_id?: number
+                    initial_service_id?: number
+                }): DVBLinkageMobileHandOver
+            }
+
+            interface DVBLinkageMobileHandOver {
+                /**
+                 */
+                hand_over_type: DVBLinkageHandOverType
+                /**
+                 */
+                origin_type: boolean
+                /**
+                 */
+                network_id: number
+                /**
+                 */
+                initial_service_id: number
+            }
+
+            interface $Exports {
+                DVBLinkageMobileHandOver: DVBLinkageMobileHandOverStruct
+            }
+            
+
+            interface DVBParentalRatingItemStruct {
+                readonly $gtype: GObject.GType<DVBParentalRatingItem>
+                new (fields?: {
+                    country_code?: string
+                    rating?: number
+                }): DVBParentalRatingItem
+            }
+
+            interface DVBParentalRatingItem {
+                /**
+                 */
+                country_code: string
+                /**
+                 */
+                rating: number
+            }
+
+            interface $Exports {
+                DVBParentalRatingItem: DVBParentalRatingItemStruct
+            }
+            
+
+            interface DVBServiceListItemStruct {
+                readonly $gtype: GObject.GType<DVBServiceListItem>
+                new (fields?: {
+                    service_id?: number
+                    type?: DVBServiceType
+                }): DVBServiceListItem
+            }
+
+            interface DVBServiceListItem {
+                /**
+                 * the id of a service
+                 */
+                service_id: number
+                /**
+                 * the type of a service
+                 */
+                type: DVBServiceType
+            }
+
+            interface $Exports {
+                DVBServiceListItem: DVBServiceListItemStruct
+            }
+            
+
+            interface DataBroadcastDescriptorStruct {
+                readonly $gtype: GObject.GType<DataBroadcastDescriptor>
+                new (fields?: {
+                    data_broadcast_id?: number
+                    component_tag?: number
+                    length?: number
+                    selector_bytes?: number
+                    language_code?: string
+                    text?: string
+                }): DataBroadcastDescriptor
+            }
+
+            interface DataBroadcastDescriptor {
+                /**
+                 * the data broadcast id
+                 */
+                data_broadcast_id: number
+                /**
+                 * the component tag
+                 */
+                component_tag: number
+                /**
+                 */
+                length: number
+                /**
+                 * the selector byte field
+                 */
+                selector_bytes: number
+                /**
+                 * language of `text`
+                 */
+                language_code: string
+                /**
+                 * description of data broadcast
+                 */
+                text: string
+                /**
+                 */
+                free(): void
+            }
+
+            interface $Exports {
+                DataBroadcastDescriptor: DataBroadcastDescriptorStruct
+            }
+            
+
+            interface DescriptorStruct {
+                readonly $gtype: GObject.GType<Descriptor>
+                new (fields?: {
+                    tag?: number
+                    tag_extension?: number
+                    length?: number
+                    data?: number
+                }): Descriptor
+                /**
+                 * Creates a #GstMpegtsDescriptor with custom `tag` and `data`
+                 * @param tag descriptor tag
+                 * @param data descriptor data (after tag and length field)
+                 * @returns #GstMpegtsDescriptor, or %NULL if input is invalid
+                 */
+                from_custom(tag: number, data: Uint8Array): Descriptor | null
+                /**
+                 * Creates a #GstMpegtsDescriptor with custom `tag`, `tag_extension` and `data`
+                 * @since 1.20
+                 * @param tag descriptor tag
+                 * @param tag_extension descriptor tag extension
+                 * @param data descriptor data (after tag and length field)
+                 * @returns #GstMpegtsDescriptor
+                 */
+                from_custom_with_extension(tag: number, tag_extension: number, data: Uint8Array): Descriptor
+                /**
+                 * Creates a #GstMpegtsDescriptor to be a %GST_MTS_DESC_DVB_NETWORK_NAME,
+                 * with the network name `name`. The data field of the #GstMpegtsDescriptor
+                 * will be allocated, and transferred to the caller.
+                 * @param name the network name to set
+                 * @returns the #GstMpegtsDescriptor or %NULL on failure.
+                 */
+                from_dvb_network_name(name: string): Descriptor | null
+                /**
+                 * Fills a #GstMpegtsDescriptor to be a %GST_MTS_DESC_DVB_SERVICE.
+                 * The data field of the #GstMpegtsDescriptor will be allocated,
+                 * and transferred to the caller.
+                 * @param service_type Service type defined as a #GstMpegtsDVBServiceType
+                 * @param service_name Name of the service
+                 * @param service_provider Name of the service provider
+                 * @returns the #GstMpegtsDescriptor or %NULL on failure
+                 */
+                from_dvb_service(service_type: DVBServiceType, service_name: string | null, service_provider: string | null): Descriptor | null
+                /**
+                 * @param lang a string containing the ISO639 language
+                 * @param type subtitling type
+                 * @param composition composition page id
+                 * @param ancillary ancillary page id
+                 */
+                from_dvb_subtitling(lang: string, type: number, composition: number, ancillary: number): Descriptor
+                /**
+                 * Creates a %GST_MTS_DESC_ISO_639_LANGUAGE #GstMpegtsDescriptor with
+                 * a single language
+                 * @param language ISO-639-2 language 3-char code
+                 * @returns #GstMpegtsDescriptor, %NULL on failure
+                 */
+                from_iso_639_language(language: string): Descriptor
+                /**
+                 * Create a new #GstMpegtsDescriptor based on the information in `jpegxs`
+                 * @since 1.26
+                 * @param jpegxs A #GstMpegtsJpegXsDescriptor
+                 * @returns The #GstMpegtsDescriptor
+                 */
+                from_jpeg_xs(jpegxs: JpegXsDescriptor): Descriptor
+                /**
+                 * @since 1.26
+                 * @param metadata_descriptor
+                 */
+                from_metadata(metadata_descriptor: MetadataDescriptor): Descriptor
+                /**
+                 * @since 1.26
+                 * @param metadata_pointer_descriptor a #GstMpegtsMetadataPointerDescriptor
+                 * @returns a #GstMpegtsDescriptor from the metadata pointer descriptor.
+                 */
+                from_metadata_pointer(metadata_pointer_descriptor: MetadataPointerDescriptor): Descriptor
+                /**
+                 * Creates a %GST_MTS_DESC_REGISTRATION #GstMpegtsDescriptor
+                 * @param format_identifier a 4 character format identifier string
+                 * @param additional_info pointer to optional additional info
+                 * @returns #GstMpegtsDescriptor, %NULL on failure
+                 */
+                from_registration(format_identifier: string, additional_info: Uint8Array | null): Descriptor
+                /**
+                 * @since 1.20
+                 * @param source
+                 */
+                parse_audio_preselection_dump(source: AudioPreselectionDescriptor): void
+                /**
+                 * @since 1.20
+                 * @param source
+                 */
+                parse_audio_preselection_free(source: AudioPreselectionDescriptor): void
+            }
+
+            interface Descriptor {
+                /**
+                 * the type of descriptor
+                 */
+                tag: number
+                /**
+                 * the extended type (if `tag` is 0x7f (for DVB) or 0x3f (for H.222.0))
+                 */
+                tag_extension: number
+                /**
+                 * the length of the descriptor content (excluding tag/length field)
+                 */
+                length: number
+                /**
+                 * the full descriptor data (including tag, extension, length). The first
+                 * two bytes are the `tag` and `length`.
+                 */
+                data: number
+                /**
+                 * Copy the given descriptor.
+                 * @since 1.26
+                 * @returns A copy of `desc`.
+                 */
+                copy(): Descriptor
+                /**
+                 * Frees `desc`
+                 */
+                free(): void
+                /**
+                 * Parses out a list of audio preselection from the `descriptor`.
+                 * @since 1.20
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE.,  the list of audio preselection
+                 */
+                parse_audio_preselection_list(): [boolean, AudioPreselectionDescriptor[]]
+                /**
+                 * Extracts the Conditional Access information from `descriptor`.
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the type of CA system used, The PID containing ECM or EMM data, The private data
+                 */
+                parse_ca(): [boolean, number, number, Uint8Array]
+                /**
+                 * Extracts the cable delivery system information from `descriptor`.
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsCableDeliverySystemDescriptor to fill
+                 */
+                parse_cable_delivery_system(): [boolean, CableDeliverySystemDescriptor]
+                /**
+                 * Extracts the bouquet name from `descriptor`.
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the bouquet name
+                 */
+                parse_dvb_bouquet_name(): [boolean, string]
+                /**
+                 * Extracts ca id's from `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., a list of ca identifier. Edge entry identifies the CA system. Allocations of the value of this field are found in http://www.dvbservices.com
+                 */
+                parse_dvb_ca_identifier(): [boolean, number[]]
+                /**
+                 * Extracts the DVB component information from `descriptor`.
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsComponentDescriptor to fill
+                 */
+                parse_dvb_component(): [boolean, ComponentDescriptor]
+                /**
+                 * Extracts the DVB content information from `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., #GstMpegtsContent
+                 */
+                parse_dvb_content(): [boolean, Content[]]
+                /**
+                 * Parses out the data broadcast from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., #GstMpegtsDataBroadcastDescriptor
+                 */
+                parse_dvb_data_broadcast(): [boolean, DataBroadcastDescriptor]
+                /**
+                 * Parses out the data broadcast id from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., the data broadcast id, the selector bytes, if present
+                 */
+                parse_dvb_data_broadcast_id(): [boolean, number, Uint8Array]
+                /**
+                 * Extracts the DVB extended event information from `descriptor`.
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsExtendedEventDescriptor to fill
+                 */
+                parse_dvb_extended_event(): [boolean, ExtendedEventDescriptor]
+                /**
+                 * Parses out a list of frequencies from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., %FALSE in Hz, %TRUE in kHz, a list of all frequencies in Hz/kHz depending on `offset`
+                 */
+                parse_dvb_frequency_list(): [boolean, boolean, number[]]
+                /**
+                 * Extracts the DVB linkage information from `descriptor`.
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsDVBLinkageDescriptor to fill
+                 */
+                parse_dvb_linkage(): [boolean, DVBLinkageDescriptor]
+                /**
+                 * Parses out the multilingual bouquet name from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE.,  a #GstMpegtsDvbMultilingualBouquetNameItem
+                 */
+                parse_dvb_multilingual_bouquet_name(): [boolean, DvbMultilingualBouquetNameItem[]]
+                /**
+                 * Parses out the multilingual component from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., the component tag,  a #GstMpegtsDvbMultilingualComponentItem
+                 */
+                parse_dvb_multilingual_component(): [boolean, number, DvbMultilingualComponentItem[]]
+                /**
+                 * Parses out the multilingual network name from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE.,  a #GstMpegtsDvbMultilingualNetworkNameItem
+                 */
+                parse_dvb_multilingual_network_name(): [boolean, DvbMultilingualNetworkNameItem[]]
+                /**
+                 * Parses out the multilingual service name from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE.,  a #GstMpegtsDvbMultilingualServiceNameItem
+                 */
+                parse_dvb_multilingual_service_name(): [boolean, DvbMultilingualServiceNameItem[]]
+                /**
+                 * Parses out the dvb network name from the `descriptor`:
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., the extracted name
+                 */
+                parse_dvb_network_name(): [boolean, string]
+                /**
+                 * Extracts the DVB parental rating information from `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE.,  #GstMpegtsDVBParentalRatingItem
+                 */
+                parse_dvb_parental_rating(): [boolean, DVBParentalRatingItem[]]
+                /**
+                 * Parses out the private data specifier from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., the private data specifier id registered by http://www.dvbservices.com/, additional data or NULL
+                 */
+                parse_dvb_private_data_specifier(): [boolean, number, Uint8Array]
+                /**
+                 * Parses out the scrambling mode from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., This 8-bit field identifies the selected mode of the scrambling algorithm (#GstMpegtsDVBScramblingModeType). The technical details of the scrambling algorithm are available only to bona-fide users upon signature of a Non Disclosure Agreement (NDA) administered by the DVB Common Scrambling Algorithm Custodian.
+                 */
+                parse_dvb_scrambling(): [boolean, DVBScramblingModeType]
+                /**
+                 * Extracts the dvb service information from `descriptor`.
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the service type, the service name, the provider name
+                 */
+                parse_dvb_service(): [boolean, DVBServiceType, string, string]
+                /**
+                 * Parses out a list of services from the `descriptor`:
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE.,  the list of services
+                 */
+                parse_dvb_service_list(): [boolean, DVBServiceListItem[]]
+                /**
+                 * Extracts the DVB short event information from `descriptor`.
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the language code, the event name, the event text
+                 */
+                parse_dvb_short_event(): [boolean, string, string, string]
+                /**
+                 * Extracts the component tag from `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., the component tag
+                 */
+                parse_dvb_stream_identifier(): [boolean, number]
+                /**
+                 * Parses out the stuffing bytes from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., the stuffing bytes
+                 */
+                parse_dvb_stuffing(): [boolean, number]
+                /**
+                 * Extracts the DVB subtitling informatio from specific table id in `descriptor`.
+                 *
+                 * Note: Use #gst_tag_get_language_code if you want to get the the
+                 * ISO 639-1 language code from the returned ISO 639-2 one.
+                 * @param idx Table id of the entry to parse
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the language code, the type of subtitling, the composition page id, the ancillary page id
+                 */
+                parse_dvb_subtitling_idx(idx: number): [boolean, string, number, number, number]
+                /**
+                 * @returns The number of entries in `descriptor`
+                 */
+                parse_dvb_subtitling_nb(): number
+                /**
+                 * Parses out the DVB-T2 delivery system from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., #GstMpegtsT2DeliverySystemDescriptor
+                 */
+                parse_dvb_t2_delivery_system(): [boolean, T2DeliverySystemDescriptor]
+                /**
+                 * Parses teletext number `idx` in the `descriptor`. The language is in ISO639 format.
+                 * @param idx The id of the teletext to get
+                 * @returns FALSE on out-of-bounds and errors, a null-terminated string, #GstMpegtsDVBTeletextType, , 
+                 */
+                parse_dvb_teletext_idx(idx: number): [boolean, string, DVBTeletextType, number, number]
+                /**
+                 * Find the number of teletext entries in `descriptor`
+                 * @returns Number of teletext entries
+                 */
+                parse_dvb_teletext_nb(): number
+                /**
+                 * Extracts the iso 639-2 language information from `descriptor`.
+                 *
+                 * Note: Use #gst_tag_get_language_code if you want to get the the
+                 * ISO 639-1 language code from the returned ISO 639-2 one.
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsISO639LanguageDescriptor to fill
+                 */
+                parse_iso_639_language(): [boolean, ISO639LanguageDescriptor]
+                /**
+                 * Extracts the iso 639-2 language information from specific table id in `descriptor`.
+                 *
+                 * Note: Use #gst_tag_get_language_code if you want to get the the
+                 * ISO 639-1 language code from the returned ISO 639-2 one.
+                 * @param idx Table id of the language to parse
+                 * @returns %TRUE if parsing succeeded, else %FALSE., 4-byte gchar array to hold the language code, the #GstMpegtsIso639AudioType to set
+                 */
+                parse_iso_639_language_idx(idx: number): [boolean, string, Iso639AudioType]
+                /**
+                 * @returns The number of languages in `descriptor`
+                 */
+                parse_iso_639_language_nb(): number
+                /**
+                 * Parses the JPEG-XS descriptor information from `descriptor`:
+                 * @since 1.26
+                 * @returns TRUE if the information could be parsed, else FALSE., A parsed #GstMpegtsJpegXsDescriptor
+                 */
+                parse_jpeg_xs(): [boolean, JpegXsDescriptor]
+                /**
+                 * Extracts the logical channels from `descriptor`.
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsLogicalChannelDescriptor to fill
+                 */
+                parse_logical_channel(): [boolean, LogicalChannelDescriptor]
+                /**
+                 * Parses out the metadata descriptor from the `descriptor`.
+                 *
+                 * See ISO/IEC 13818-1:2018 Section 2.6.60 and 2.6.61 for details.
+                 * metadata_application_format is provided in Table 2-82. metadata_format is
+                 * provided in Table 2-85.
+                 * @since 1.24
+                 * @returns %TRUE if the parsing worked correctly, else %FALSE., #GstMpegtsMetadataDescriptor
+                 */
+                parse_metadata(): [boolean, MetadataDescriptor]
+                /**
+                 * Extracts the metadata STD descriptor from `descriptor`.
+                 *
+                 * See ISO/IEC 13818-1:2018 Section 2.6.62 and 2.6.63 for details.
+                 * @since 1.24
+                 * @param metadata_input_leak_rate
+                 * @param metadata_buffer_size
+                 * @param metadata_output_leak_rate
+                 * @returns %TRUE if parsing succeeded, else %FALSE.
+                 */
+                parse_metadata_std(metadata_input_leak_rate: number, metadata_buffer_size: number, metadata_output_leak_rate: number): boolean
+                /**
+                 * Extracts the Registration information from `descriptor`.
+                 * @since 1.20
+                 * @returns %TRUE if parsing succeeded, else %FALSE., The registration ID (in host endiannes), The additional information
+                 */
+                parse_registration(): [boolean, number, Uint8Array]
+                /**
+                 * Extracts the satellite delivery system information from `descriptor`.
+                 * @returns %TRUE if parsing succeeded, else %FALSE., the #GstMpegtsSatelliteDeliverySystemDescriptor to fill
+                 */
+                parse_satellite_delivery_system(): [boolean, SatelliteDeliverySystemDescriptor]
+                /**
+                 * Parses out the terrestrial delivery system from the `descriptor`.
+                 * @returns %TRUE if the parsing happened correctly, else %FALSE., #GstMpegtsTerrestrialDeliverySystemDescriptor
+                 */
+                parse_terrestrial_delivery_system(): [boolean, TerrestrialDeliverySystemDescriptor]
+            }
+
+            interface $Exports {
+                Descriptor: DescriptorStruct
+            }
+            
+
+            interface DvbMultilingualBouquetNameItemStruct {
+                readonly $gtype: GObject.GType<DvbMultilingualBouquetNameItem>
+                new (fields?: {
+                    language_code?: string
+                    bouquet_name?: string
+                }): DvbMultilingualBouquetNameItem
+            }
+
+            interface DvbMultilingualBouquetNameItem {
+                /**
+                 * the ISO 639 language code
+                 */
+                language_code: string
+                /**
+                 * the bouquet name
+                 */
+                bouquet_name: string
+            }
+
+            interface $Exports {
+                DvbMultilingualBouquetNameItem: DvbMultilingualBouquetNameItemStruct
+            }
+            
+
+            interface DvbMultilingualComponentItemStruct {
+                readonly $gtype: GObject.GType<DvbMultilingualComponentItem>
+                new (fields?: {
+                    language_code?: string
+                    description?: string
+                }): DvbMultilingualComponentItem
+            }
+
+            interface DvbMultilingualComponentItem {
+                /**
+                 * the ISO 639 language code
+                 */
+                language_code: string
+                /**
+                 * the component description
+                 */
+                description: string
+            }
+
+            interface $Exports {
+                DvbMultilingualComponentItem: DvbMultilingualComponentItemStruct
+            }
+            
+
+            interface DvbMultilingualNetworkNameItemStruct {
+                readonly $gtype: GObject.GType<DvbMultilingualNetworkNameItem>
+                new (fields?: {
+                    language_code?: string
+                    network_name?: string
+                }): DvbMultilingualNetworkNameItem
+            }
+
+            interface DvbMultilingualNetworkNameItem {
+                /**
+                 * the ISO 639 language code
+                 */
+                language_code: string
+                /**
+                 * the network name
+                 */
+                network_name: string
+            }
+
+            interface $Exports {
+                DvbMultilingualNetworkNameItem: DvbMultilingualNetworkNameItemStruct
+            }
+            
+
+            interface DvbMultilingualServiceNameItemStruct {
+                readonly $gtype: GObject.GType<DvbMultilingualServiceNameItem>
+                new (fields?: {
+                    language_code?: string
+                    provider_name?: string
+                    service_name?: string
+                }): DvbMultilingualServiceNameItem
+            }
+
+            interface DvbMultilingualServiceNameItem {
+                /**
+                 * the ISO 639 language code
+                 */
+                language_code: string
+                /**
+                 * the provider name
+                 */
+                provider_name: string
+                /**
+                 * the service name
+                 */
+                service_name: string
+            }
+
+            interface $Exports {
+                DvbMultilingualServiceNameItem: DvbMultilingualServiceNameItemStruct
+            }
+            
+
+            interface EITStruct {
+                readonly $gtype: GObject.GType<EIT>
+                new (fields?: {
+                    transport_stream_id?: number
+                    original_network_id?: number
+                    segment_last_section_number?: number
+                    last_table_id?: number
+                    actual_stream?: boolean
+                    present_following?: boolean
+                    events?: EITEvent[]
+                }): EIT
+            }
+
+            interface EIT {
+                /**
+                 */
+                transport_stream_id: number
+                /**
+                 */
+                original_network_id: number
+                /**
+                 */
+                segment_last_section_number: number
+                /**
+                 */
+                last_table_id: number
+                /**
+                 */
+                actual_stream: boolean
+                /**
+                 */
+                present_following: boolean
+                /**
+                 * List of events
+                 */
+                events: EITEvent[]
+            }
+
+            interface $Exports {
+                EIT: EITStruct
+            }
+            
+
+            interface EITEventStruct {
+                readonly $gtype: GObject.GType<EITEvent>
+                new (fields?: {
+                    event_id?: number
+                    start_time?: Gst.DateTime
+                    duration?: number
+                    running_status?: RunningStatus
+                    free_ca_mode?: boolean
+                    descriptors?: Descriptor[]
+                }): EITEvent
+            }
+
+            interface EITEvent {
+                /**
+                 */
+                event_id: number
+                /**
+                 */
+                start_time: Gst.DateTime
+                /**
+                 */
+                duration: number
+                /**
+                 */
+                running_status: RunningStatus
+                /**
+                 */
+                free_ca_mode: boolean
+                /**
+                 * List of descriptors
+                 */
+                descriptors: Descriptor[]
+            }
+
+            interface $Exports {
+                EITEvent: EITEventStruct
+            }
+            
+
+            interface ExtendedEventDescriptorStruct {
+                readonly $gtype: GObject.GType<ExtendedEventDescriptor>
+                new (fields?: {
+                    descriptor_number?: number
+                    last_descriptor_number?: number
+                    language_code?: string
+                    items?: ExtendedEventItem[]
+                    text?: string
+                }): ExtendedEventDescriptor
+            }
+
+            interface ExtendedEventDescriptor {
+                /**
+                 */
+                descriptor_number: number
+                /**
+                 */
+                last_descriptor_number: number
+                /**
+                 * NULL terminated language code.
+                 */
+                language_code: string
+                /**
+                 * the #GstMpegtsExtendedEventItem
+                 */
+                items: ExtendedEventItem[]
+                /**
+                 */
+                text: string
+                /**
+                 */
+                free(): void
+            }
+
+            interface $Exports {
+                ExtendedEventDescriptor: ExtendedEventDescriptorStruct
+            }
+            
+
+            interface ExtendedEventItemStruct {
+                readonly $gtype: GObject.GType<ExtendedEventItem>
+                new (fields?: {
+                    item_description?: string
+                    item?: string
+                }): ExtendedEventItem
+            }
+
+            interface ExtendedEventItem {
+                /**
+                 */
+                item_description: string
+                /**
+                 */
+                item: string
+            }
+
+            interface $Exports {
+                ExtendedEventItem: ExtendedEventItemStruct
+            }
+            
+
+            interface ISO639LanguageDescriptorStruct {
+                readonly $gtype: GObject.GType<ISO639LanguageDescriptor>
+                new (fields?: {
+                    nb_language?: number
+                    language?: string[]
+                    audio_type?: Iso639AudioType[]
+                }): ISO639LanguageDescriptor
+            }
+
+            interface ISO639LanguageDescriptor {
+                /**
+                 */
+                nb_language: number
+                /**
+                 */
+                language: string[]
+                /**
+                 */
+                audio_type: Iso639AudioType[]
+                /**
+                 */
+                descriptor_free(): void
+            }
+
+            interface $Exports {
+                ISO639LanguageDescriptor: ISO639LanguageDescriptorStruct
+            }
+            
+
+            interface JpegXsDescriptorStruct {
+                readonly $gtype: GObject.GType<JpegXsDescriptor>
+                new (fields?: {
+                    descriptor_version?: number
+                    horizontal_size?: number
+                    vertical_size?: number
+                    brat?: number
+                    frat?: number
+                    schar?: number
+                    ppih?: number
+                    plev?: number
+                    max_buffer_size?: number
+                    buffer_model_type?: number
+                    colour_primaries?: number
+                    transfer_characteristics?: number
+                    matrix_coefficients?: number
+                    video_full_range_flag?: boolean
+                    still_mode?: boolean
+                    mdm_flag?: boolean
+                    x_c0?: number
+                    y_c0?: number
+                    x_c1?: number
+                    y_c1?: number
+                    x_c2?: number
+                    y_c2?: number
+                    x_wp?: number
+                    y_wp?: number
+                    l_max?: number
+                    l_min?: number
+                    max_cll?: number
+                    max_fall?: number
+                }): JpegXsDescriptor
+            }
+
+            interface JpegXsDescriptor {
+                /**
+                 */
+                descriptor_version: number
+                /**
+                 */
+                horizontal_size: number
+                /**
+                 */
+                vertical_size: number
+                /**
+                 */
+                brat: number
+                /**
+                 */
+                frat: number
+                /**
+                 */
+                schar: number
+                /**
+                 */
+                ppih: number
+                /**
+                 */
+                plev: number
+                /**
+                 */
+                max_buffer_size: number
+                /**
+                 */
+                buffer_model_type: number
+                /**
+                 */
+                colour_primaries: number
+                /**
+                 */
+                transfer_characteristics: number
+                /**
+                 */
+                matrix_coefficients: number
+                /**
+                 */
+                video_full_range_flag: boolean
+                /**
+                 */
+                still_mode: boolean
+                /**
+                 */
+                mdm_flag: boolean
+                /**
+                 */
+                x_c0: number
+                /**
+                 */
+                y_c0: number
+                /**
+                 */
+                x_c1: number
+                /**
+                 */
+                y_c1: number
+                /**
+                 */
+                x_c2: number
+                /**
+                 */
+                y_c2: number
+                /**
+                 */
+                x_wp: number
+                /**
+                 */
+                y_wp: number
+                /**
+                 */
+                l_max: number
+                /**
+                 */
+                l_min: number
+                /**
+                 */
+                max_cll: number
+                /**
+                 */
+                max_fall: number
+            }
+
+            interface $Exports {
+                JpegXsDescriptor: JpegXsDescriptorStruct
+            }
+            
+
+            interface LogicalChannelStruct {
+                readonly $gtype: GObject.GType<LogicalChannel>
+                new (fields?: {
+                    service_id?: number
+                    visible_service?: boolean
+                    logical_channel_number?: number
+                }): LogicalChannel
+            }
+
+            interface LogicalChannel {
+                /**
+                 */
+                service_id: number
+                /**
+                 */
+                visible_service: boolean
+                /**
+                 */
+                logical_channel_number: number
+            }
+
+            interface $Exports {
+                LogicalChannel: LogicalChannelStruct
+            }
+            
+
+            interface LogicalChannelDescriptorStruct {
+                readonly $gtype: GObject.GType<LogicalChannelDescriptor>
+                new (fields?: {
+                    nb_channels?: number
+                    channels?: LogicalChannel[]
+                }): LogicalChannelDescriptor
+            }
+
+            interface LogicalChannelDescriptor {
+                /**
+                 */
+                nb_channels: number
+                /**
+                 */
+                channels: LogicalChannel[]
+            }
+
+            interface $Exports {
+                LogicalChannelDescriptor: LogicalChannelDescriptorStruct
+            }
+            
+
+            interface MetadataDescriptorStruct {
+                readonly $gtype: GObject.GType<MetadataDescriptor>
+                new (fields?: {
+                    metadata_application_format?: MetadataApplicationFormat
+                    metadata_format?: MetadataFormat
+                    metadata_format_identifier?: number
+                    metadata_service_id?: number
+                    decoder_config_flags?: number
+                    dsm_cc_flag?: boolean
+                }): MetadataDescriptor
+            }
+
+            interface MetadataDescriptor {
+                /**
+                 * specifies the application responsible for defining usage, syntax and semantics
+                 */
+                metadata_application_format: MetadataApplicationFormat
+                /**
+                 * indicates the format and coding of the metadata
+                 */
+                metadata_format: MetadataFormat
+                /**
+                 * format identifier (equivalent to registration descriptor), for example 0x4B4C4641 ('KLVA') to indicate SMPTE 336 KLV.
+                 */
+                metadata_format_identifier: number
+                /**
+                 * metadata service to which this metadata descriptor applies, typically 0x00
+                 */
+                metadata_service_id: number
+                /**
+                 * decoder flags, see ISO/IEC 13818-1:2018 Table 2-88.
+                 */
+                decoder_config_flags: number
+                /**
+                 * true if stream associated with this descriptor is in an ISO/IEC 13818-6 data or object carousel.
+                 */
+                dsm_cc_flag: boolean
+            }
+
+            interface $Exports {
+                MetadataDescriptor: MetadataDescriptorStruct
+            }
+            
+
+            interface MetadataPointerDescriptorStruct {
+                readonly $gtype: GObject.GType<MetadataPointerDescriptor>
+                new (fields?: {
+                    metadata_application_format?: MetadataApplicationFormat
+                    metadata_format?: MetadataFormat
+                    metadata_format_identifier?: number
+                    metadata_service_id?: number
+                    program_number?: number
+                }): MetadataPointerDescriptor
+            }
+
+            interface MetadataPointerDescriptor {
+                /**
+                 * specifies the application responsible for defining usage, syntax and semantics
+                 */
+                metadata_application_format: MetadataApplicationFormat
+                /**
+                 * indicates the format and coding of the metadata
+                 */
+                metadata_format: MetadataFormat
+                /**
+                 * format identifier (equivalent to registration descriptor), for example 0x4B4C4641 ('KLVA') to indicate SMPTE 336 KLV, or 0x49443320 ('ID3 ').
+                 */
+                metadata_format_identifier: number
+                /**
+                 * metadata service to which this metadata descriptor applies, typically 0x00
+                 */
+                metadata_service_id: number
+                /**
+                 * Indicates the program in which the metadata is carried.
+                 */
+                program_number: number
+            }
+
+            interface $Exports {
+                MetadataPointerDescriptor: MetadataPointerDescriptorStruct
+            }
+            
+
+            interface NITStruct {
+                readonly $gtype: GObject.GType<NIT>
+                new (fields?: {
+                    actual_network?: boolean
+                    network_id?: number
+                    descriptors?: Descriptor[]
+                    streams?: NITStream[]
+                }): NIT
+                /**
+                 * Allocates and initializes a #GstMpegtsNIT.
+                 * @returns A newly allocated #GstMpegtsNIT
+                 */
+                "new"(): NIT
+            }
+
+            interface NIT {
+                /**
+                 * Whether this NIT corresponds to the actual stream
+                 */
+                actual_network: boolean
+                /**
+                 * ID of the network that this NIT describes
+                 */
+                network_id: number
+                /**
+                 * the global descriptors
+                 */
+                descriptors: Descriptor[]
+                /**
+                 * the streams
+                 */
+                streams: NITStream[]
+            }
+
+            interface $Exports {
+                NIT: NITStruct
+            }
+            
+
+            interface NITStreamStruct {
+                readonly $gtype: GObject.GType<NITStream>
+                new (fields?: {
+                    transport_stream_id?: number
+                    original_network_id?: number
+                    descriptors?: Descriptor[]
+                }): NITStream
+                /**
+                 * Allocates and initializes a #GstMpegtsNITStream
+                 * @returns A newly allocated #GstMpegtsNITStream
+                 */
+                "new"(): NITStream
+            }
+
+            interface NITStream {
+                /**
+                 */
+                transport_stream_id: number
+                /**
+                 */
+                original_network_id: number
+                /**
+                 */
+                descriptors: Descriptor[]
+            }
+
+            interface $Exports {
+                NITStream: NITStreamStruct
+            }
+            
+
+            interface PESMetadataMetaStruct {
+                readonly $gtype: GObject.GType<PESMetadataMeta>
+                new (fields?: {
+                    meta?: Gst.Meta
+                    metadata_service_id?: number
+                    flags?: number
+                }): PESMetadataMeta
+                /**
+                 * Gets the global #GstMetaInfo describing the #GstMpegtsPESMetadataMeta meta.
+                 * @since 1.24
+                 * @returns The #GstMetaInfo
+                 */
+                get_info(): Gst.MetaInfo
+            }
+
+            interface PESMetadataMeta {
+                /**
+                 * parent #GstMeta
+                 */
+                meta: Gst.Meta
+                /**
+                 * metadata service identifier
+                 */
+                metadata_service_id: number
+                /**
+                 * bit flags, see spec for details
+                 */
+                flags: number
+            }
+
+            interface $Exports {
+                PESMetadataMeta: PESMetadataMetaStruct
+            }
+            
+
+            interface PMTStruct {
+                readonly $gtype: GObject.GType<PMT>
+                new (fields?: {
+                    pcr_pid?: number
+                    program_number?: number
+                    descriptors?: Descriptor[]
+                    streams?: PMTStream[]
+                }): PMT
+                /**
+                 * Allocates and initializes a new #GstMpegtsPMT. #GstMpegtsPMTStream can be
+                 * added to the streams array, and global PMT #GstMpegtsDescriptor to the
+                 * descriptors array.
+                 * @returns #GstMpegtsPMT
+                 */
+                "new"(): PMT
+            }
+
+            interface PMT {
+                /**
+                 * PID of the stream containing the PCR for this program.
+                 */
+                pcr_pid: number
+                /**
+                 * The program to which this PMT is applicable.
+                 */
+                program_number: number
+                /**
+                 * Array of #GstMpegtsDescriptor
+                 */
+                descriptors: Descriptor[]
+                /**
+                 * Array of #GstMpegtsPMTStream
+                 */
+                streams: PMTStream[]
+            }
+
+            interface $Exports {
+                PMT: PMTStruct
+            }
+            
+
+            interface PMTStreamStruct {
+                readonly $gtype: GObject.GType<PMTStream>
+                new (fields?: {
+                    stream_type?: number
+                    pid?: number
+                    descriptors?: Descriptor[]
+                }): PMTStream
+                /**
+                 * Allocates and initializes a new #GstMpegtsPMTStream.
+                 * @returns #GstMpegtsPMTStream
+                 */
+                "new"(): PMTStream
+            }
+
+            interface PMTStream {
+                /**
+                 * the type of stream. See #GstMpegtsStreamType
+                 */
+                stream_type: number
+                /**
+                 * the PID of the stream
+                 */
+                pid: number
+                /**
+                 * the descriptors of the
+                 * stream
+                 */
+                descriptors: Descriptor[]
+            }
+
+            interface $Exports {
+                PMTStream: PMTStreamStruct
+            }
+            
+
+            interface PatProgramStruct {
+                readonly $gtype: GObject.GType<PatProgram>
+                new (fields?: {
+                    program_number?: number
+                    network_or_program_map_pid?: number
+                }): PatProgram
+                /**
+                 * Allocates a new #GstMpegtsPatProgram.
+                 * @returns A newly allocated #GstMpegtsPatProgram
+                 */
+                "new"(): PatProgram
+            }
+
+            interface PatProgram {
+                /**
+                 * the program number
+                 */
+                program_number: number
+                /**
+                 * the network of program map PID
+                 */
+                network_or_program_map_pid: number
+            }
+
+            interface $Exports {
+                PatProgram: PatProgramStruct
+            }
+            
+
+            interface SCTESITStruct {
+                readonly $gtype: GObject.GType<SCTESIT>
+                new (fields?: {
+                    encrypted_packet?: boolean
+                    encryption_algorithm?: number
+                    pts_adjustment?: number
+                    cw_index?: number
+                    tier?: number
+                    splice_command_length?: number
+                    splice_command_type?: SCTESpliceCommandType
+                    splice_time_specified?: boolean
+                    splice_time?: number
+                    splices?: never[]
+                    descriptors?: never[]
+                    fully_parsed?: boolean
+                    is_running_time?: boolean
+                }): SCTESIT
+                /**
+                 * Allocates and initializes a #GstMpegtsSCTESIT.
+                 * @returns A newly allocated #GstMpegtsSCTESIT
+                 */
+                "new"(): SCTESIT
+            }
+
+            interface SCTESIT {
+                /**
+                 */
+                encrypted_packet: boolean
+                /**
+                 */
+                encryption_algorithm: number
+                /**
+                 */
+                pts_adjustment: number
+                /**
+                 */
+                cw_index: number
+                /**
+                 */
+                tier: number
+                /**
+                 */
+                splice_command_length: number
+                /**
+                 */
+                splice_command_type: SCTESpliceCommandType
+                /**
+                 */
+                splice_time_specified: boolean
+                /**
+                 */
+                splice_time: number
+                /**
+                 */
+                splices: never[]
+                /**
+                 */
+                descriptors: never[]
+                /**
+                 * When encrypted, or when encountering an unknown command type,
+                 * we may still want to pass the sit through.
+                 * @since 1.20
+                 */
+                fully_parsed: boolean
+                /**
+                 * When the SIT was constructed by the application, splice times
+                 * are in running_time and must be translated before packetizing.
+                 * @since 1.20
+                 */
+                is_running_time: boolean
+            }
+
+            interface $Exports {
+                SCTESIT: SCTESITStruct
+            }
+            
+
+            interface SCTESpliceComponentStruct {
+                readonly $gtype: GObject.GType<SCTESpliceComponent>
+                new (fields?: {
+                    tag?: number
+                    splice_time_specified?: boolean
+                    splice_time?: number
+                    utc_splice_time?: number
+                }): SCTESpliceComponent
+                /**
+                 * Allocates and initializes a #GstMpegtsSCTESpliceComponent.
+                 * @since 1.20
+                 * @param tag the elementary PID stream identifier
+                 * @returns A newly allocated #GstMpegtsSCTESpliceComponent
+                 */
+                "new"(tag: number): SCTESpliceComponent
+            }
+
+            interface SCTESpliceComponent {
+                /**
+                 * the elementary PID stream containing the Splice Point
+                 */
+                tag: number
+                /**
+                 * Whether `splice_time` was specified
+                 */
+                splice_time_specified: boolean
+                /**
+                 * the presentation time of the signaled splice event
+                 */
+                splice_time: number
+                /**
+                 * The UTC time of the signaled splice event
+                 */
+                utc_splice_time: number
+            }
+
+            interface $Exports {
+                SCTESpliceComponent: SCTESpliceComponentStruct
+            }
+            
+
+            interface SCTESpliceEventStruct {
+                readonly $gtype: GObject.GType<SCTESpliceEvent>
+                new (fields?: {
+                    insert_event?: boolean
+                    splice_event_id?: number
+                    splice_event_cancel_indicator?: boolean
+                    out_of_network_indicator?: boolean
+                    program_splice_flag?: boolean
+                    duration_flag?: boolean
+                    splice_immediate_flag?: boolean
+                    program_splice_time_specified?: boolean
+                    program_splice_time?: number
+                    utc_splice_time?: number
+                    components?: never[]
+                    break_duration_auto_return?: boolean
+                    break_duration?: number
+                    unique_program_id?: number
+                    avail_num?: number
+                    avails_expected?: number
+                }): SCTESpliceEvent
+                /**
+                 * Allocates and initializes a #GstMpegtsSCTESpliceEvent.
+                 * @returns A newly allocated #GstMpegtsSCTESpliceEvent
+                 */
+                "new"(): SCTESpliceEvent
+            }
+
+            interface SCTESpliceEvent {
+                /**
+                 */
+                insert_event: boolean
+                /**
+                 */
+                splice_event_id: number
+                /**
+                 */
+                splice_event_cancel_indicator: boolean
+                /**
+                 */
+                out_of_network_indicator: boolean
+                /**
+                 */
+                program_splice_flag: boolean
+                /**
+                 */
+                duration_flag: boolean
+                /**
+                 */
+                splice_immediate_flag: boolean
+                /**
+                 */
+                program_splice_time_specified: boolean
+                /**
+                 */
+                program_splice_time: number
+                /**
+                 * The UTC time of the signaled splice event
+                 * @since 1.20
+                 */
+                utc_splice_time: number
+                /**
+                 * Per-PID splice time information
+                 * @since 1.20
+                 */
+                components: never[]
+                /**
+                 */
+                break_duration_auto_return: boolean
+                /**
+                 */
+                break_duration: number
+                /**
+                 */
+                unique_program_id: number
+                /**
+                 */
+                avail_num: number
+                /**
+                 */
+                avails_expected: number
+            }
+
+            interface $Exports {
+                SCTESpliceEvent: SCTESpliceEventStruct
+            }
+            
+
+            interface SDTStruct {
+                readonly $gtype: GObject.GType<SDT>
+                new (fields?: {
+                    original_network_id?: number
+                    actual_ts?: boolean
+                    transport_stream_id?: number
+                    services?: SDTService[]
+                }): SDT
+                /**
+                 * Allocates and initializes a #GstMpegtsSDT.
+                 * @returns A newly allocated #GstMpegtsSDT
+                 */
+                "new"(): SDT
+            }
+
+            interface SDT {
+                /**
+                 * Network ID of the originating delivery system
+                 */
+                original_network_id: number
+                /**
+                 * True if the table describes this transport stream
+                 */
+                actual_ts: boolean
+                /**
+                 * ID of this transport stream
+                 */
+                transport_stream_id: number
+                /**
+                 * List of services
+                 */
+                services: SDTService[]
+            }
+
+            interface $Exports {
+                SDT: SDTStruct
+            }
+            
+
+            interface SDTServiceStruct {
+                readonly $gtype: GObject.GType<SDTService>
+                new (fields?: {
+                    service_id?: number
+                    eit_schedule_flag?: boolean
+                    eit_present_following_flag?: boolean
+                    running_status?: RunningStatus
+                    free_ca_mode?: boolean
+                    descriptors?: Descriptor[]
+                }): SDTService
+                /**
+                 * Allocates and initializes a #GstMpegtsSDTService.
+                 * @returns A newly allocated #GstMpegtsSDTService
+                 */
+                "new"(): SDTService
+            }
+
+            interface SDTService {
+                /**
+                 * The program number this table belongs to
+                 */
+                service_id: number
+                /**
+                 * EIT schedule information is present in this transport stream
+                 */
+                eit_schedule_flag: boolean
+                /**
+                 * EIT present/following information is present in this transport stream
+                 */
+                eit_present_following_flag: boolean
+                /**
+                 * Status of this service
+                 */
+                running_status: RunningStatus
+                /**
+                 * True if one or more streams is controlled by a CA system
+                 */
+                free_ca_mode: boolean
+                /**
+                 * List of descriptors
+                 */
+                descriptors: Descriptor[]
+            }
+
+            interface $Exports {
+                SDTService: SDTServiceStruct
+            }
+            
+
+            interface SITStruct {
+                readonly $gtype: GObject.GType<SIT>
+                new (fields?: {
+                    descriptors?: Descriptor[]
+                    services?: SITService[]
+                }): SIT
+            }
+
+            interface SIT {
+                /**
+                 * List of descriptors
+                 */
+                descriptors: Descriptor[]
+                /**
+                 * List of services
+                 */
+                services: SITService[]
+            }
+
+            interface $Exports {
+                SIT: SITStruct
+            }
+            
+
+            interface SITServiceStruct {
+                readonly $gtype: GObject.GType<SITService>
+                new (fields?: {
+                    service_id?: number
+                    running_status?: RunningStatus
+                    descriptors?: Descriptor[]
+                }): SITService
+            }
+
+            interface SITService {
+                /**
+                 * The Program number this table belongs to
+                 */
+                service_id: number
+                /**
+                 * Status of this service
+                 */
+                running_status: RunningStatus
+                /**
+                 * List of descriptors
+                 */
+                descriptors: Descriptor[]
+            }
+
+            interface $Exports {
+                SITService: SITServiceStruct
+            }
+            
+
+            interface SatelliteDeliverySystemDescriptorStruct {
+                readonly $gtype: GObject.GType<SatelliteDeliverySystemDescriptor>
+                new (fields?: {
+                    frequency?: number
+                    orbital_position?: number
+                    west_east?: boolean
+                    polarization?: SatellitePolarizationType
+                    roll_off?: SatelliteRolloff
+                    modulation_system?: boolean
+                    modulation_type?: ModulationType
+                    symbol_rate?: number
+                    fec_inner?: DVBCodeRate
+                }): SatelliteDeliverySystemDescriptor
+            }
+
+            interface SatelliteDeliverySystemDescriptor {
+                /**
+                 * the frequency in kHz (kiloHertz)
+                 */
+                frequency: number
+                /**
+                 * the orbital position in degrees
+                 */
+                orbital_position: number
+                /**
+                 * If %TRUE, the satellite is in the eastern part of the orbit,
+                 * else in the western part.
+                 */
+                west_east: boolean
+                /**
+                 * The polarization of the transmitted signal
+                 */
+                polarization: SatellitePolarizationType
+                /**
+                 * Roll-off factor used in DVB-S2
+                 */
+                roll_off: SatelliteRolloff
+                /**
+                 * modulation system, %TRUE if DVB-S2, else DVB-S
+                 */
+                modulation_system: boolean
+                /**
+                 * Modulation scheme used
+                 */
+                modulation_type: ModulationType
+                /**
+                 * Symbol rate (in symbols per second)
+                 */
+                symbol_rate: number
+                /**
+                 * inner FEC scheme used
+                 */
+                fec_inner: DVBCodeRate
+            }
+
+            interface $Exports {
+                SatelliteDeliverySystemDescriptor: SatelliteDeliverySystemDescriptorStruct
+            }
+            
+
+            interface SectionStruct {
+                readonly $gtype: GObject.GType<Section>
+                new (fields?: {
+                    section_type?: SectionType
+                    pid?: number
+                    table_id?: number
+                    subtable_extension?: number
+                    version_number?: number
+                    current_next_indicator?: boolean
+                    section_number?: number
+                    last_section_number?: number
+                    crc?: number
+                }): Section
+                /**
+                 * Creates a new #GstMpegtsSection from the provided `data`.
+                 *
+                 * Note: Ensuring `data` is big enough to contain the full section is the
+                 * responsibility of the caller. If it is not big enough, %NULL will be
+                 * returned.
+                 *
+                 * Note: it is the responsibility of the caller to ensure `data` does point
+                 * to the beginning of the section.
+                 * @param pid the PID to which this section belongs
+                 * @param data a pointer to the beginning of the section (i.e. the first byte should contain the `table_id` field).
+                 * @returns A new #GstMpegtsSection if the data was valid, else %NULL
+                 */
+                "new"(pid: number, data: Uint8Array): Section
+                /**
+                 * @param mgt a #GstMpegtsAtscMGT to create the #GstMpegtsSection from
+                 * @returns the #GstMpegtsSection, or %NULL if `mgt` is invalid Since: 1.18
+                 */
+                from_atsc_mgt(mgt: AtscMGT): Section | null
+                /**
+                 * @param rrt
+                 */
+                from_atsc_rrt(rrt: AtscRRT): Section
+                /**
+                 * @param stt
+                 */
+                from_atsc_stt(stt: AtscSTT): Section
+                /**
+                 * Ownership of `nit` is taken. The data in `nit` is managed by the #GstMpegtsSection
+                 * @param nit a #GstMpegtsNIT to create the #GstMpegtsSection from
+                 * @returns the #GstMpegtsSection, or %NULL if `nit` is invalid
+                 */
+                from_nit(nit: NIT): Section | null
+                /**
+                 * Creates a PAT #GstMpegtsSection from the `programs` array of #GstMpegtsPatPrograms
+                 * @param programs an array of #GstMpegtsPatProgram
+                 * @param ts_id Transport stream ID of the PAT
+                 * @returns a #GstMpegtsSection
+                 */
+                from_pat(programs: PatProgram[], ts_id: number): Section
+                /**
+                 * Creates a #GstMpegtsSection from `pmt` that is bound to `pid`
+                 * @param pmt a #GstMpegtsPMT to create a #GstMpegtsSection from
+                 * @param pid The PID that the #GstMpegtsPMT belongs to
+                 * @returns #GstMpegtsSection, or %NULL if `pmt` is invalid
+                 */
+                from_pmt(pmt: PMT, pid: number): Section | null
+                /**
+                 * Ownership of `sit` is taken. The data in `sit` is managed by the #GstMpegtsSection
+                 * @param sit a #GstMpegtsSCTESIT to create the #GstMpegtsSection from
+                 * @param pid
+                 * @returns the #GstMpegtsSection, or %NULL if `sit` is invalid
+                 */
+                from_scte_sit(sit: SCTESIT, pid: number): Section | null
+                /**
+                 * Ownership of `sdt` is taken. The data in `sdt` is managed by the #GstMpegtsSection
+                 * @param sdt a #GstMpegtsSDT to create the #GstMpegtsSection from
+                 * @returns the #GstMpegtsSection or %NULL if `sdt` is invalid
+                 */
+                from_sdt(sdt: SDT): Section | null
+            }
+
+            interface Section {
+                /**
+                 * The type of section.
+                 */
+                section_type: SectionType
+                /**
+                 * The PID on which this section was found or belongs to.
+                 */
+                pid: number
+                /**
+                 * The table id of this section. See %GstMpegtsSectionTableID and
+                 *      derivates for more information.
+                 */
+                table_id: number
+                /**
+                 * This meaning differs per section. See the documentation
+                 *      of the parsed section type for the meaning of this field
+                 */
+                subtable_extension: number
+                /**
+                 * Version of the section.
+                 */
+                version_number: number
+                /**
+                 * Applies to current/next stream or not
+                 */
+                current_next_indicator: boolean
+                /**
+                 * Number of the section (if multiple)
+                 */
+                section_number: number
+                /**
+                 * Number of the last expected section (if multiple)
+                 */
+                last_section_number: number
+                /**
+                 * Checksum (if applicable)
+                 */
+                crc: number
+                /**
+                 * Returns the #GstMpegtsAtscVCT contained in the `section`
+                 * @returns The #GstMpegtsAtscVCT contained in the section, or %NULL if an error happened.
+                 */
+                get_atsc_cvct(): AtscVCT | null
+                /**
+                 * Returns the #GstMpegtsAtscEIT contained in the `section`.
+                 * @returns The #GstMpegtsAtscEIT contained in the section, or %NULL if an error happened.
+                 */
+                get_atsc_eit(): AtscEIT
+                /**
+                 * Returns the #GstMpegtsAtscETT contained in the `section`.
+                 * @returns The #GstMpegtsAtscETT contained in the section, or %NULL if an error happened.
+                 */
+                get_atsc_ett(): AtscETT
+                /**
+                 * Returns the #GstMpegtsAtscMGT contained in the `section`.
+                 * @returns The #GstMpegtsAtscMGT contained in the section, or %NULL if an error happened.
+                 */
+                get_atsc_mgt(): AtscMGT | null
+                /**
+                 * Returns the #GstMpegtsAtscRRT contained in the `section`.
+                 * @since 1.18
+                 * @returns The #GstMpegtsAtscRRT contained in the section, or %NULL if an error happened.
+                 */
+                get_atsc_rrt(): AtscRRT
+                /**
+                 * Returns the #GstMpegtsAtscSTT contained in the `section`.
+                 * @returns The #GstMpegtsAtscSTT contained in the section, or %NULL if an error happened.
+                 */
+                get_atsc_stt(): AtscSTT
+                /**
+                 * Returns the #GstMpegtsAtscVCT contained in the `section`
+                 * @returns The #GstMpegtsAtscVCT contained in the section, or %NULL if an error happened.
+                 */
+                get_atsc_tvct(): AtscVCT | null
+                /**
+                 * Returns the #GstMpegtsBAT contained in the `section`.
+                 * @returns The #GstMpegtsBAT contained in the section, or %NULL if an error happened.
+                 */
+                get_bat(): BAT | null
+                /**
+                 * Parses a Conditional Access Table.
+                 *
+                 * Returns the array of #GstMpegtsDescriptor contained in the Conditional
+                 * Access Table.
+                 * @returns  The array of #GstMpegtsDescriptor contained in the section, or %NULL if an error happened. Release with #g_array_unref when done.
+                 */
+                get_cat(): Descriptor[] | null
+                /**
+                 * Gets the original unparsed section data.
+                 * @returns The original unparsed section data.
+                 */
+                get_data(): GLib.Bytes
+                /**
+                 * Returns the #GstMpegtsEIT contained in the `section`.
+                 * @returns The #GstMpegtsEIT contained in the section, or %NULL if an error happened.
+                 */
+                get_eit(): EIT | null
+                /**
+                 * Returns the #GstMpegtsNIT contained in the `section`.
+                 * @returns The #GstMpegtsNIT contained in the section, or %NULL if an error happened.
+                 */
+                get_nit(): NIT | null
+                /**
+                 * Parses a Program Association Table (ITU H.222.0, ISO/IEC 13818-1).
+                 *
+                 * Returns the array of #GstMpegtsPatProgram contained in the section.
+                 *
+                 * Note: The PAT `transport_stream_id` field corresponds to the
+                 * "subtable_extension" field of the provided `section`.
+                 * @returns  The #GstMpegtsPatProgram contained in the section, or %NULL if an error happened or the `section` did not contain a valid PAT. Release with #g_ptr_array_unref when done.
+                 */
+                get_pat(): PatProgram[] | null
+                /**
+                 * Parses the Program Map Table contained in the `section`.
+                 * @returns The #GstMpegtsPMT contained in the section, or %NULL if an error happened.
+                 */
+                get_pmt(): PMT | null
+                /**
+                 * Returns the #GstMpegtsSCTESIT contained in the `section`.
+                 * @returns The #GstMpegtsSCTESIT contained in the section, or %NULL if an error happened.
+                 */
+                get_scte_sit(): SCTESIT | null
+                /**
+                 * Returns the #GstMpegtsSDT contained in the `section`.
+                 * @returns The #GstMpegtsSDT contained in the section, or %NULL if an error happened.
+                 */
+                get_sdt(): SDT | null
+                /**
+                 * Returns the #GstMpegtsSIT contained in the `section`.
+                 * @since 1.20
+                 * @returns The #GstMpegtsSIT contained in the section, or %NULL if an error happened.
+                 */
+                get_sit(): SIT | null
+                /**
+                 * Returns the #GstDateTime of the TDT
+                 * @returns The #GstDateTime contained in the section, or %NULL if an error happened. Release with #gst_date_time_unref when done.
+                 */
+                get_tdt(): Gst.DateTime | null
+                /**
+                 * Returns the #GstMpegtsTOT contained in the `section`.
+                 * @returns The #GstMpegtsTOT contained in the section, or %NULL if an error happened.
+                 */
+                get_tot(): TOT | null
+                /**
+                 * Parses a Transport Stream Description Table.
+                 *
+                 * Returns the array of #GstMpegtsDescriptor contained in the section
+                 * @returns  The array of #GstMpegtsDescriptor contained in the section, or %NULL if an error happened. Release with #g_array_unref when done.
+                 */
+                get_tsdt(): Descriptor[] | null
+                /**
+                 * Packetize (i.e. serialize) the `section`. If the data in `section` has already
+                 * been packetized, the data pointer is returned immediately. Otherwise, the
+                 * data field is allocated and populated.
+                 * @returns pointer to section data, or %NULL on failure., #gsize to hold the size of the data
+                 */
+                packetize(): [number, number]
+                /**
+                 * Creates a custom #GstEvent with a `GstMpegtsSection` and send it the `element`
+                 * #GstElement.
+                 * @param element The #GstElement to send to section event to
+                 * @returns %TRUE if the event was sent to the element.
+                 */
+                send_event(element: Gst.Element): boolean
+            }
+
+            interface $Exports {
+                Section: SectionStruct
+            }
+            
+
+            interface T2DeliverySystemCellStruct {
+                readonly $gtype: GObject.GType<T2DeliverySystemCell>
+                new (fields?: {
+                    cell_id?: number
+                    centre_frequencies?: number[]
+                    sub_cells?: T2DeliverySystemCellExtension[]
+                }): T2DeliverySystemCell
+            }
+
+            interface T2DeliverySystemCell {
+                /**
+                 * id of the cell
+                 */
+                cell_id: number
+                /**
+                 * centre frequencies in Hz
+                 */
+                centre_frequencies: number[]
+                /**
+                 */
+                sub_cells: T2DeliverySystemCellExtension[]
+            }
+
+            interface $Exports {
+                T2DeliverySystemCell: T2DeliverySystemCellStruct
+            }
+            
+
+            interface T2DeliverySystemCellExtensionStruct {
+                readonly $gtype: GObject.GType<T2DeliverySystemCellExtension>
+                new (fields?: {
+                    cell_id_extension?: number
+                    transposer_frequency?: number
+                }): T2DeliverySystemCellExtension
+            }
+
+            interface T2DeliverySystemCellExtension {
+                /**
+                 * id of the sub cell
+                 */
+                cell_id_extension: number
+                /**
+                 * centre frequency of the sub cell in Hz
+                 */
+                transposer_frequency: number
+            }
+
+            interface $Exports {
+                T2DeliverySystemCellExtension: T2DeliverySystemCellExtensionStruct
+            }
+            
+
+            interface T2DeliverySystemDescriptorStruct {
+                readonly $gtype: GObject.GType<T2DeliverySystemDescriptor>
+                new (fields?: {
+                    plp_id?: number
+                    t2_system_id?: number
+                    siso_miso?: number
+                    bandwidth?: number
+                    guard_interval?: TerrestrialGuardInterval
+                    transmission_mode?: TerrestrialTransmissionMode
+                    other_frequency?: boolean
+                    tfs?: boolean
+                    cells?: T2DeliverySystemCell[]
+                }): T2DeliverySystemDescriptor
+            }
+
+            interface T2DeliverySystemDescriptor {
+                /**
+                 */
+                plp_id: number
+                /**
+                 */
+                t2_system_id: number
+                /**
+                 */
+                siso_miso: number
+                /**
+                 */
+                bandwidth: number
+                /**
+                 */
+                guard_interval: TerrestrialGuardInterval
+                /**
+                 */
+                transmission_mode: TerrestrialTransmissionMode
+                /**
+                 */
+                other_frequency: boolean
+                /**
+                 */
+                tfs: boolean
+                /**
+                 */
+                cells: T2DeliverySystemCell[]
+                /**
+                 */
+                free(): void
+            }
+
+            interface $Exports {
+                T2DeliverySystemDescriptor: T2DeliverySystemDescriptorStruct
+            }
+            
+
+            interface TOTStruct {
+                readonly $gtype: GObject.GType<TOT>
+                new (fields?: {
+                    utc_time?: Gst.DateTime
+                    descriptors?: Descriptor[]
+                }): TOT
+            }
+
+            interface TOT {
+                /**
+                 */
+                utc_time: Gst.DateTime
+                /**
+                 * List of descriptors
+                 */
+                descriptors: Descriptor[]
+            }
+
+            interface $Exports {
+                TOT: TOTStruct
+            }
+            
+
+            interface TerrestrialDeliverySystemDescriptorStruct {
+                readonly $gtype: GObject.GType<TerrestrialDeliverySystemDescriptor>
+                new (fields?: {
+                    frequency?: number
+                    bandwidth?: number
+                    priority?: boolean
+                    time_slicing?: boolean
+                    mpe_fec?: boolean
+                    constellation?: ModulationType
+                    hierarchy?: TerrestrialHierarchy
+                    code_rate_hp?: DVBCodeRate
+                    code_rate_lp?: DVBCodeRate
+                    guard_interval?: TerrestrialGuardInterval
+                    transmission_mode?: TerrestrialTransmissionMode
+                    other_frequency?: boolean
+                }): TerrestrialDeliverySystemDescriptor
+            }
+
+            interface TerrestrialDeliverySystemDescriptor {
+                /**
+                 * the frequency in Hz (Hertz)
+                 */
+                frequency: number
+                /**
+                 * the bandwidth in Hz (Hertz)
+                 */
+                bandwidth: number
+                /**
+                 * %TRUE High Priority %FALSE Low Priority
+                 */
+                priority: boolean
+                /**
+                 * %TRUE no time slicing %FALSE time slicing
+                 */
+                time_slicing: boolean
+                /**
+                 * %TRUE no mpe-fec is used %FALSE mpe-fec is use
+                 */
+                mpe_fec: boolean
+                /**
+                 * the constellation
+                 */
+                constellation: ModulationType
+                /**
+                 * the hierarchy
+                 */
+                hierarchy: TerrestrialHierarchy
+                /**
+                 */
+                code_rate_hp: DVBCodeRate
+                /**
+                 */
+                code_rate_lp: DVBCodeRate
+                /**
+                 */
+                guard_interval: TerrestrialGuardInterval
+                /**
+                 */
+                transmission_mode: TerrestrialTransmissionMode
+                /**
+                 * %TRUE more frequency are use, else not
+                 */
+                other_frequency: boolean
+            }
+
+            interface $Exports {
+                TerrestrialDeliverySystemDescriptor: TerrestrialDeliverySystemDescriptorStruct
+            }
+            
+            interface ATSCDescriptorTypeEnum {
+                readonly $gtype: GObject.GType<ATSCDescriptorType>
+                /**
+                 */
+                readonly "STUFFING": 128
+                /**
+                 */
+                readonly "AC3": 129
+                /**
+                 */
+                readonly "CAPTION_SERVICE": 134
+                /**
+                 */
+                readonly "CONTENT_ADVISORY": 135
+                /**
+                 */
+                readonly "EXTENDED_CHANNEL_NAME": 160
+                /**
+                 */
+                readonly "SERVICE_LOCATION": 161
+                /**
+                 */
+                readonly "TIME_SHIFTED_SERVICE": 162
+                /**
+                 */
+                readonly "COMPONENT_NAME": 163
+                /**
+                 */
+                readonly "DCC_DEPARTING_REQUEST": 168
+                /**
+                 */
+                readonly "DCC_ARRIVING_REQUEST": 169
+                /**
+                 */
+                readonly "REDISTRIBUTION_CONTROL": 170
+                /**
+                 */
+                readonly "GENRE": 171
+                /**
+                 */
+                readonly "PRIVATE_INFORMATION": 173
+                /**
+                 */
+                readonly "EAC3": 204
+                /**
+                 */
+                readonly "ENHANCED_SIGNALING": 178
+                /**
+                 */
+                readonly "DATA_SERVICE": 164
+                /**
+                 */
+                readonly "PID_COUNT": 165
+                /**
+                 */
+                readonly "DOWNLOAD_DESCRIPTOR": 166
+                /**
+                 */
+                readonly "MULTIPROTOCOL_ENCAPSULATION": 167
+                /**
+                 */
+                readonly "MODULE_LINK": 180
+                /**
+                 */
+                readonly "CRC32": 181
+                /**
+                 */
+                readonly "GROUP_LINK": 184
+            }
+            type ATSCDescriptorType = ATSCDescriptorTypeEnum[Exclude<keyof ATSCDescriptorTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * These values correspond to the registered descriptor type from
+                 * the various ATSC specifications.
+                 *
+                 * Consult the relevant specifications for more details.
+                 */
+                ATSCDescriptorType: ATSCDescriptorTypeEnum
+            }
+            
+            interface ATSCStreamTypeEnum {
+                readonly $gtype: GObject.GType<ATSCStreamType>
+                /**
+                 * DigiCipher II video | Identical to ITU-T Rec. H.262 | ISO/IEC 13818-2 Video
+                 */
+                readonly "DCII_VIDEO": 128
+                /**
+                 * ATSC A/53 Audio | AC-3
+                 */
+                readonly "AUDIO_AC3": 129
+                /**
+                 * SCTE-27 Subtitling
+                 */
+                readonly "SUBTITLING": 130
+                /**
+                 * SCTE-19 Isochronous data | Reserved
+                 */
+                readonly "ISOCH_DATA": 131
+                /**
+                 * SCTE-35 Splice Information Table
+                 */
+                readonly "SIT": 134
+                /**
+                 * E-AC-3 A/52:2018
+                 */
+                readonly "AUDIO_EAC3": 135
+                /**
+                 * E-AC-3 A/107 (ATSC 2.0)
+                 */
+                readonly "AUDIO_DTS_HD": 136
+            }
+            type ATSCStreamType = ATSCStreamTypeEnum[Exclude<keyof ATSCStreamTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Type of mpeg-ts streams for ATSC, as defined by the ATSC Code Points
+                 * Registry. For convenience, some stream types from %GstMpegtsScteStreamType
+                 * are also included.
+                 * @since 1.20
+                 */
+                ATSCStreamType: ATSCStreamTypeEnum
+            }
+            
+            interface AtscMGTTableTypeEnum {
+                readonly $gtype: GObject.GType<AtscMGTTableType>
+                /**
+                 */
+                readonly "EIT0": 256
+                /**
+                 */
+                readonly "EIT127": 383
+                /**
+                 */
+                readonly "ETT0": 512
+                /**
+                 */
+                readonly "ETT127": 639
+            }
+            type AtscMGTTableType = AtscMGTTableTypeEnum[Exclude<keyof AtscMGTTableTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                AtscMGTTableType: AtscMGTTableTypeEnum
+            }
+            
+            interface CableOuterFECSchemeEnum {
+                readonly $gtype: GObject.GType<CableOuterFECScheme>
+                /**
+                 */
+                readonly "UNDEFINED": 0
+                /**
+                 */
+                readonly "NONE": 1
+                /**
+                 */
+                readonly "RS_204_188": 2
+            }
+            type CableOuterFECScheme = CableOuterFECSchemeEnum[Exclude<keyof CableOuterFECSchemeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                CableOuterFECScheme: CableOuterFECSchemeEnum
+            }
+            
+            interface ComponentStreamContentEnum {
+                readonly $gtype: GObject.GType<ComponentStreamContent>
+                /**
+                 */
+                readonly "MPEG2_VIDEO": 1
+                /**
+                 */
+                readonly "MPEG1_LAYER2_AUDIO": 2
+                /**
+                 */
+                readonly "TELETEXT_OR_SUBTITLE": 3
+                /**
+                 */
+                readonly "AC_3": 4
+                /**
+                 */
+                readonly "AVC": 5
+                /**
+                 */
+                readonly "AAC": 6
+                /**
+                 */
+                readonly "DTS": 7
+                /**
+                 */
+                readonly "SRM_CPCM": 8
+            }
+            type ComponentStreamContent = ComponentStreamContentEnum[Exclude<keyof ComponentStreamContentEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ComponentStreamContent: ComponentStreamContentEnum
+            }
+            
+            interface ContentNibbleHiEnum {
+                readonly $gtype: GObject.GType<ContentNibbleHi>
+                /**
+                 */
+                readonly "MOVIE_DRAMA": 1
+                /**
+                 */
+                readonly "NEWS_CURRENT_AFFAIRS": 2
+                /**
+                 */
+                readonly "SHOW_GAME_SHOW": 3
+                /**
+                 */
+                readonly "SPORTS": 4
+                /**
+                 */
+                readonly "CHILDREN_YOUTH_PROGRAM": 5
+                /**
+                 */
+                readonly "MUSIC_BALLET_DANCE": 6
+                /**
+                 */
+                readonly "ARTS_CULTURE": 7
+                /**
+                 */
+                readonly "SOCIAL_POLITICAL_ECONOMICS": 8
+                /**
+                 */
+                readonly "EDUCATION_SCIENCE_FACTUAL": 9
+                /**
+                 */
+                readonly "LEISURE_HOBBIES": 10
+                /**
+                 */
+                readonly "SPECIAL_CHARACTERISTICS": 11
+            }
+            type ContentNibbleHi = ContentNibbleHiEnum[Exclude<keyof ContentNibbleHiEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ContentNibbleHi: ContentNibbleHiEnum
+            }
+            
+            interface DVBCodeRateEnum {
+                readonly $gtype: GObject.GType<DVBCodeRate>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "1_2": 1
+                /**
+                 */
+                readonly "2_3": 2
+                /**
+                 */
+                readonly "3_4": 3
+                /**
+                 */
+                readonly "4_5": 4
+                /**
+                 */
+                readonly "5_6": 5
+                /**
+                 */
+                readonly "6_7": 6
+                /**
+                 */
+                readonly "7_8": 7
+                /**
+                 */
+                readonly "8_9": 8
+                /**
+                 */
+                readonly "AUTO": 9
+                /**
+                 */
+                readonly "3_5": 10
+                /**
+                 */
+                readonly "9_10": 11
+                /**
+                 */
+                readonly "2_5": 12
+            }
+            type DVBCodeRate = DVBCodeRateEnum[Exclude<keyof DVBCodeRateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                DVBCodeRate: DVBCodeRateEnum
+            }
+            
+            interface DVBDescriptorTypeEnum {
+                readonly $gtype: GObject.GType<DVBDescriptorType>
+                /**
+                 */
+                readonly "NETWORK_NAME": 64
+                /**
+                 */
+                readonly "SERVICE_LIST": 65
+                /**
+                 */
+                readonly "STUFFING": 66
+                /**
+                 */
+                readonly "SATELLITE_DELIVERY_SYSTEM": 67
+                /**
+                 */
+                readonly "CABLE_DELIVERY_SYSTEM": 68
+                /**
+                 */
+                readonly "VBI_DATA": 69
+                /**
+                 */
+                readonly "VBI_TELETEXT": 70
+                /**
+                 */
+                readonly "BOUQUET_NAME": 71
+                /**
+                 */
+                readonly "SERVICE": 72
+                /**
+                 */
+                readonly "COUNTRY_AVAILABILITY": 73
+                /**
+                 */
+                readonly "LINKAGE": 74
+                /**
+                 */
+                readonly "NVOD_REFERENCE": 75
+                /**
+                 */
+                readonly "TIME_SHIFTED_SERVICE": 76
+                /**
+                 */
+                readonly "SHORT_EVENT": 77
+                /**
+                 */
+                readonly "EXTENDED_EVENT": 78
+                /**
+                 */
+                readonly "TIME_SHIFTED_EVENT": 79
+                /**
+                 */
+                readonly "COMPONENT": 80
+                /**
+                 */
+                readonly "MOSAIC": 81
+                /**
+                 */
+                readonly "STREAM_IDENTIFIER": 82
+                /**
+                 */
+                readonly "CA_IDENTIFIER": 83
+                /**
+                 */
+                readonly "CONTENT": 84
+                /**
+                 */
+                readonly "PARENTAL_RATING": 85
+                /**
+                 */
+                readonly "TELETEXT": 86
+                /**
+                 */
+                readonly "TELEPHONE": 87
+                /**
+                 */
+                readonly "LOCAL_TIME_OFFSET": 88
+                /**
+                 */
+                readonly "SUBTITLING": 89
+                /**
+                 */
+                readonly "TERRESTRIAL_DELIVERY_SYSTEM": 90
+                /**
+                 */
+                readonly "MULTILINGUAL_NETWORK_NAME": 91
+                /**
+                 */
+                readonly "MULTILINGUAL_BOUQUET_NAME": 92
+                /**
+                 */
+                readonly "MULTILINGUAL_SERVICE_NAME": 93
+                /**
+                 */
+                readonly "MULTILINGUAL_COMPONENT": 94
+                /**
+                 */
+                readonly "PRIVATE_DATA_SPECIFIER": 95
+                /**
+                 */
+                readonly "SERVICE_MOVE": 96
+                /**
+                 */
+                readonly "SHORT_SMOOTHING_BUFFER": 97
+                /**
+                 */
+                readonly "FREQUENCY_LIST": 98
+                /**
+                 * Partial Transport Stream descriptor. Only present in SIT Sections.
+                 *
+                 * See also: %GST_MPEGTS_SECTION_SIT, %GstMpegtsSIT
+                 */
+                readonly "PARTIAL_TRANSPORT_STREAM": 99
+                /**
+                 */
+                readonly "DATA_BROADCAST": 100
+                /**
+                 */
+                readonly "SCRAMBLING": 101
+                /**
+                 */
+                readonly "DATA_BROADCAST_ID": 102
+                /**
+                 */
+                readonly "TRANSPORT_STREAM": 103
+                /**
+                 */
+                readonly "DSNG": 104
+                /**
+                 */
+                readonly "PDC": 105
+                /**
+                 */
+                readonly "AC3": 106
+                /**
+                 */
+                readonly "ANCILLARY_DATA": 107
+                /**
+                 */
+                readonly "CELL_LIST": 108
+                /**
+                 */
+                readonly "CELL_FREQUENCY_LINK": 109
+                /**
+                 */
+                readonly "ANNOUNCEMENT_SUPPORT": 110
+                /**
+                 */
+                readonly "APPLICATION_SIGNALLING": 111
+                /**
+                 */
+                readonly "ADAPTATION_FIELD_DATA": 112
+                /**
+                 */
+                readonly "SERVICE_IDENTIFIER": 113
+                /**
+                 */
+                readonly "SERVICE_AVAILABILITY": 114
+                /**
+                 */
+                readonly "DEFAULT_AUTHORITY": 115
+                /**
+                 */
+                readonly "RELATED_CONTENT": 116
+                /**
+                 */
+                readonly "TVA_ID": 117
+                /**
+                 */
+                readonly "CONTENT_IDENTIFIER": 118
+                /**
+                 */
+                readonly "TIMESLICE_FEC_IDENTIFIER": 119
+                /**
+                 */
+                readonly "ECM_REPETITION_RATE": 120
+                /**
+                 */
+                readonly "S2_SATELLITE_DELIVERY_SYSTEM": 121
+                /**
+                 */
+                readonly "ENHANCED_AC3": 122
+                /**
+                 */
+                readonly "DTS": 123
+                /**
+                 */
+                readonly "AAC": 124
+                /**
+                 */
+                readonly "XAIT_LOCATION": 125
+                /**
+                 */
+                readonly "FTA_CONTENT_MANAGEMENT": 126
+                /**
+                 */
+                readonly "EXTENSION": 127
+            }
+            type DVBDescriptorType = DVBDescriptorTypeEnum[Exclude<keyof DVBDescriptorTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * The type of #GstMpegtsDescriptor
+                 *
+                 * These values correspond to the registered descriptor type from
+                 * the various DVB specifications.
+                 *
+                 * Consult the relevant specifications for more details.
+                 */
+                DVBDescriptorType: DVBDescriptorTypeEnum
+            }
+            
+            interface DVBExtendedDescriptorTypeEnum {
+                readonly $gtype: GObject.GType<DVBExtendedDescriptorType>
+                /**
+                 */
+                readonly "IMAGE_ICON": 0
+                /**
+                 */
+                readonly "CPCM_DELIVERY_SIGNALLING": 1
+                /**
+                 */
+                readonly "CP": 2
+                /**
+                 */
+                readonly "CP_IDENTIFIER": 3
+                /**
+                 */
+                readonly "T2_DELIVERY_SYSTEM": 4
+                /**
+                 */
+                readonly "SH_DELIVERY_SYSTEM": 5
+                /**
+                 */
+                readonly "SUPPLEMENTARY_AUDIO": 6
+                /**
+                 */
+                readonly "NETWORK_CHANGE_NOTIFY": 7
+                /**
+                 */
+                readonly "MESSAGE": 8
+                /**
+                 */
+                readonly "TARGET_REGION": 9
+                /**
+                 */
+                readonly "TARGET_REGION_NAME": 10
+                /**
+                 */
+                readonly "SERVICE_RELOCATED": 11
+                /**
+                 */
+                readonly "XAIT_PID": 12
+                /**
+                 */
+                readonly "C2_DELIVERY_SYSTEM": 13
+                /**
+                 */
+                readonly "DTS_HD_AUDIO_STREAM": 14
+                /**
+                 */
+                readonly "DTS_NEUTRAL": 15
+                /**
+                 */
+                readonly "VIDEO_DEPTH_RANGE": 16
+                /**
+                 */
+                readonly "T2MI": 17
+                /**
+                 */
+                readonly "URI_LINKAGE": 19
+                /**
+                 */
+                readonly "AC4": 21
+                /**
+                 * Provide all avaliable audio programme for user selection
+                 * @since 1.20
+                 */
+                readonly "AUDIO_PRESELECTION": 25
+            }
+            type DVBExtendedDescriptorType = DVBExtendedDescriptorTypeEnum[Exclude<keyof DVBExtendedDescriptorTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * The type of #GstMpegtsDescriptor
+                 *
+                 * These values correspond to the registered extended descriptor
+                 * type from the various DVB specifications.
+                 *
+                 * Consult the relevant specifications for more details.
+                 */
+                DVBExtendedDescriptorType: DVBExtendedDescriptorTypeEnum
+            }
+            
+            interface DVBLinkageHandOverTypeEnum {
+                readonly $gtype: GObject.GType<DVBLinkageHandOverType>
+                /**
+                 */
+                readonly "RESERVED": 0
+                /**
+                 */
+                readonly "IDENTICAL": 1
+                /**
+                 */
+                readonly "LOCAL_VARIATION": 2
+                /**
+                 */
+                readonly "ASSOCIATED": 3
+            }
+            type DVBLinkageHandOverType = DVBLinkageHandOverTypeEnum[Exclude<keyof DVBLinkageHandOverTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                DVBLinkageHandOverType: DVBLinkageHandOverTypeEnum
+            }
+            
+            interface DVBLinkageTypeEnum {
+                readonly $gtype: GObject.GType<DVBLinkageType>
+                /**
+                 */
+                readonly "RESERVED_00": 0
+                /**
+                 */
+                readonly "INFORMATION": 1
+                /**
+                 */
+                readonly "EPG": 2
+                /**
+                 */
+                readonly "CA_REPLACEMENT": 3
+                /**
+                 */
+                readonly "TS_CONTAINING_COMPLETE_SI": 4
+                /**
+                 */
+                readonly "SERVICE_REPLACEMENT": 5
+                /**
+                 */
+                readonly "DATA_BROADCAST": 6
+                /**
+                 */
+                readonly "RCS_MAP": 7
+                /**
+                 */
+                readonly "MOBILE_HAND_OVER": 8
+                /**
+                 */
+                readonly "SYSTEM_SOFTWARE_UPDATE": 9
+                /**
+                 */
+                readonly "TS_CONTAINING_SSU": 10
+                /**
+                 */
+                readonly "IP_MAC_NOTIFICATION": 11
+                /**
+                 */
+                readonly "TS_CONTAINING_INT": 12
+                /**
+                 */
+                readonly "EVENT": 13
+                /**
+                 */
+                readonly "EXTENDED_EVENT": 14
+            }
+            type DVBLinkageType = DVBLinkageTypeEnum[Exclude<keyof DVBLinkageTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Linkage Type (EN 300 468 v.1.13.1)
+                 */
+                DVBLinkageType: DVBLinkageTypeEnum
+            }
+            
+            interface DVBScramblingModeTypeEnum {
+                readonly $gtype: GObject.GType<DVBScramblingModeType>
+                /**
+                 */
+                readonly "RESERVED": 0
+                /**
+                 */
+                readonly "CSA1": 1
+                /**
+                 */
+                readonly "CSA2": 2
+                /**
+                 */
+                readonly "CSA3_STANDARD": 3
+                /**
+                 */
+                readonly "CSA3_MINIMAL_ENHANCED": 4
+                /**
+                 */
+                readonly "CSA3_FULL_ENHANCED": 5
+                /**
+                 */
+                readonly "CISSA": 16
+                /**
+                 */
+                readonly "ATIS_0": 112
+                /**
+                 */
+                readonly "ATIS_F": 127
+            }
+            type DVBScramblingModeType = DVBScramblingModeTypeEnum[Exclude<keyof DVBScramblingModeTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                DVBScramblingModeType: DVBScramblingModeTypeEnum
+            }
+            
+            interface DVBServiceTypeEnum {
+                readonly $gtype: GObject.GType<DVBServiceType>
+                /**
+                 */
+                readonly "RESERVED_00": 0
+                /**
+                 */
+                readonly "DIGITAL_TELEVISION": 1
+                /**
+                 */
+                readonly "DIGITAL_RADIO_SOUND": 2
+                /**
+                 */
+                readonly "TELETEXT": 3
+                /**
+                 */
+                readonly "NVOD_REFERENCE": 4
+                /**
+                 */
+                readonly "NVOD_TIME_SHIFTED": 5
+                /**
+                 */
+                readonly "MOSAIC": 6
+                /**
+                 */
+                readonly "FM_RADIO": 7
+                /**
+                 */
+                readonly "DVB_SRM": 8
+                /**
+                 */
+                readonly "RESERVED_09": 9
+                /**
+                 */
+                readonly "ADVANCED_CODEC_DIGITAL_RADIO_SOUND": 10
+                /**
+                 */
+                readonly "ADVANCED_CODEC_MOSAIC": 11
+                /**
+                 */
+                readonly "DATA_BROADCAST": 12
+                /**
+                 */
+                readonly "RESERVED_0D_COMMON_INTERFACE": 13
+                /**
+                 */
+                readonly "RCS_MAP": 14
+                /**
+                 */
+                readonly "RCS_FLS": 15
+                /**
+                 */
+                readonly "DVB_MHP": 16
+                /**
+                 */
+                readonly "MPEG2_HD_DIGITAL_TELEVISION": 17
+                /**
+                 */
+                readonly "ADVANCED_CODEC_SD_DIGITAL_TELEVISION": 22
+                /**
+                 */
+                readonly "ADVANCED_CODEC_SD_NVOD_TIME_SHIFTED": 23
+                /**
+                 */
+                readonly "ADVANCED_CODEC_SD_NVOD_REFERENCE": 24
+                /**
+                 */
+                readonly "ADVANCED_CODEC_HD_DIGITAL_TELEVISION": 25
+                /**
+                 */
+                readonly "ADVANCED_CODEC_HD_NVOD_TIME_SHIFTED": 26
+                /**
+                 */
+                readonly "ADVANCED_CODEC_HD_NVOD_REFERENCE": 27
+                /**
+                 */
+                readonly "ADVANCED_CODEC_STEREO_HD_DIGITAL_TELEVISION": 28
+                /**
+                 */
+                readonly "ADVANCED_CODEC_STEREO_HD_NVOD_TIME_SHIFTED": 29
+                /**
+                 */
+                readonly "ADVANCED_CODEC_STEREO_HD_NVOD_REFERENCE": 30
+                /**
+                 */
+                readonly "RESERVED_FF": 31
+            }
+            type DVBServiceType = DVBServiceTypeEnum[Exclude<keyof DVBServiceTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * The type of service of a channel.
+                 *
+                 * As specified in Table 87 of ETSI EN 300 468 v1.13.1
+                 */
+                DVBServiceType: DVBServiceTypeEnum
+            }
+            
+            interface DVBTeletextTypeEnum {
+                readonly $gtype: GObject.GType<DVBTeletextType>
+                /**
+                 */
+                readonly "NITIAL_PAGE": 1
+                /**
+                 */
+                readonly "UBTITLE_PAGE": 2
+                /**
+                 */
+                readonly "DDITIONAL_INFO_PAGE": 3
+                /**
+                 */
+                readonly "ROGRAMME_SCHEDULE_PAGE": 4
+                /**
+                 */
+                readonly "EARING_IMPAIRED_PAGE": 5
+            }
+            type DVBTeletextType = DVBTeletextTypeEnum[Exclude<keyof DVBTeletextTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * The type of teletext page.
+                 *
+                 * As specified in Table 100 of ETSI EN 300 468 v1.13.1
+                 */
+                DVBTeletextType: DVBTeletextTypeEnum
+            }
+            
+            interface DescriptorTypeEnum {
+                readonly $gtype: GObject.GType<DescriptorType>
+                /**
+                 */
+                readonly "RESERVED_00": 0
+                /**
+                 */
+                readonly "RESERVED_01": 1
+                /**
+                 */
+                readonly "VIDEO_STREAM": 2
+                /**
+                 */
+                readonly "AUDIO_STREAM": 3
+                /**
+                 */
+                readonly "HIERARCHY": 4
+                /**
+                 */
+                readonly "REGISTRATION": 5
+                /**
+                 */
+                readonly "DATA_STREAM_ALIGNMENT": 6
+                /**
+                 */
+                readonly "TARGET_BACKGROUND_GRID": 7
+                /**
+                 */
+                readonly "VIDEO_WINDOW": 8
+                /**
+                 */
+                readonly "CA": 9
+                /**
+                 */
+                readonly "ISO_639_LANGUAGE": 10
+                /**
+                 */
+                readonly "SYSTEM_CLOCK": 11
+                /**
+                 */
+                readonly "MULTIPLEX_BUFFER_UTILISATION": 12
+                /**
+                 */
+                readonly "COPYRIGHT": 13
+                /**
+                 */
+                readonly "MAXIMUM_BITRATE": 14
+                /**
+                 */
+                readonly "PRIVATE_DATA_INDICATOR": 15
+                /**
+                 */
+                readonly "SMOOTHING_BUFFER": 16
+                /**
+                 */
+                readonly "STD": 17
+                /**
+                 */
+                readonly "IBP": 18
+                /**
+                 */
+                readonly "DSMCC_CAROUSEL_IDENTIFIER": 19
+                /**
+                 */
+                readonly "DSMCC_ASSOCIATION_TAG": 20
+                /**
+                 */
+                readonly "DSMCC_DEFERRED_ASSOCIATION_TAG": 21
+                /**
+                 */
+                readonly "DSMCC_NPT_REFERENCE": 23
+                /**
+                 */
+                readonly "DSMCC_NPT_ENDPOINT": 24
+                /**
+                 */
+                readonly "DSMCC_STREAM_MODE": 25
+                /**
+                 */
+                readonly "DSMCC_STREAM_EVENT": 26
+                /**
+                 */
+                readonly "MPEG4_VIDEO": 27
+                /**
+                 */
+                readonly "MPEG4_AUDIO": 28
+                /**
+                 */
+                readonly "IOD": 29
+                /**
+                 */
+                readonly "SL": 30
+                /**
+                 */
+                readonly "FMC": 31
+                /**
+                 */
+                readonly "EXTERNAL_ES_ID": 32
+                /**
+                 */
+                readonly "MUX_CODE": 33
+                /**
+                 */
+                readonly "FMX_BUFFER_SIZE": 34
+                /**
+                 */
+                readonly "MULTIPLEX_BUFFER": 35
+                /**
+                 */
+                readonly "CONTENT_LABELING": 36
+                /**
+                 */
+                readonly "METADATA_POINTER": 37
+                /**
+                 */
+                readonly "METADATA": 38
+                /**
+                 */
+                readonly "METADATA_STD": 39
+                /**
+                 */
+                readonly "AVC_VIDEO": 40
+                /**
+                 */
+                readonly "IPMP": 41
+                /**
+                 */
+                readonly "AVC_TIMING_AND_HRD": 42
+                /**
+                 */
+                readonly "MPEG2_AAC_AUDIO": 43
+                /**
+                 */
+                readonly "FLEX_MUX_TIMING": 44
+                /**
+                 */
+                readonly "MPEG4_TEXT": 45
+                /**
+                 */
+                readonly "MPEG4_AUDIO_EXTENSION": 46
+                /**
+                 */
+                readonly "AUXILIARY_VIDEO_STREAM": 47
+                /**
+                 */
+                readonly "SVC_EXTENSION": 48
+                /**
+                 */
+                readonly "MVC_EXTENSION": 49
+                /**
+                 */
+                readonly "J2K_VIDEO": 50
+                /**
+                 */
+                readonly "MVC_OPERATION_POINT": 51
+                /**
+                 */
+                readonly "MPEG2_STEREOSCOPIC_VIDEO_FORMAT": 52
+                /**
+                 */
+                readonly "STEREOSCOPIC_PROGRAM_INFO": 53
+                /**
+                 */
+                readonly "STEREOSCOPIC_VIDEO_INFO": 54
+                /**
+                 * Extension Descriptor.
+                 * @since 1.26
+                 */
+                readonly "EXTENSION": 63
+            }
+            type DescriptorType = DescriptorTypeEnum[Exclude<keyof DescriptorTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * The type of #GstMpegtsDescriptor
+                 *
+                 * These values correspond to the registered descriptor type from
+                 * the base MPEG-TS specifications (ITU H.222.0 | ISO/IEC 13818-1).
+                 *
+                 * Consult the relevant specifications for more details.
+                 */
+                DescriptorType: DescriptorTypeEnum
+            }
+            
+            interface ExtendedDescriptorTypeEnum {
+                readonly $gtype: GObject.GType<ExtendedDescriptorType>
+                /**
+                 */
+                readonly "MTS_DESC_EXT_JXS_VIDEO": 20
+            }
+            type ExtendedDescriptorType = ExtendedDescriptorTypeEnum[Exclude<keyof ExtendedDescriptorTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * The type of an extended descriptor
+                 *
+                 * The values correpond to the registered extended descriptor types from the
+                 * base ISO 13818 / ITU H.222.0 specifications
+                 *
+                 * Consult the specification for more details
+                 * @since 1.26
+                 */
+                ExtendedDescriptorType: ExtendedDescriptorTypeEnum
+            }
+            
+            interface HdmvStreamTypeEnum {
+                readonly $gtype: GObject.GType<HdmvStreamType>
+                /**
+                 */
+                readonly "AUDIO_LPCM": 128
+                /**
+                 */
+                readonly "AUDIO_AC3": 129
+                /**
+                 */
+                readonly "AUDIO_DTS": 130
+                /**
+                 */
+                readonly "AUDIO_AC3_TRUE_HD": 131
+                /**
+                 */
+                readonly "AUDIO_AC3_PLUS": 132
+                /**
+                 */
+                readonly "AUDIO_DTS_HD": 133
+                /**
+                 */
+                readonly "AUDIO_DTS_HD_MASTER_AUDIO": 134
+                /**
+                 */
+                readonly "AUDIO_EAC3": 135
+                /**
+                 */
+                readonly "SUBPICTURE_PGS": 144
+                /**
+                 */
+                readonly "IGS": 145
+                /**
+                 */
+                readonly "SUBTITLE": 146
+                /**
+                 */
+                readonly "AUDIO_AC3_PLUS_SECONDARY": 161
+                /**
+                 */
+                readonly "AUDIO_DTS_HD_SECONDARY": 162
+            }
+            type HdmvStreamType = HdmvStreamTypeEnum[Exclude<keyof HdmvStreamTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Type of mpeg-ts streams for Blu-ray formats. To be matched with the
+                 * stream-type of a #GstMpegtsSection.
+                 * @since 1.20
+                 */
+                HdmvStreamType: HdmvStreamTypeEnum
+            }
+            
+            interface ISDBDescriptorTypeEnum {
+                readonly $gtype: GObject.GType<ISDBDescriptorType>
+                /**
+                 */
+                readonly "HIERARCHICAL_TRANSMISSION": 192
+                /**
+                 */
+                readonly "DIGITAL_COPY_CONTROL": 193
+                /**
+                 */
+                readonly "NETWORK_IDENTIFICATION": 194
+                /**
+                 */
+                readonly "PARTIAL_TS_TIME": 195
+                /**
+                 */
+                readonly "AUDIO_COMPONENT": 196
+                /**
+                 */
+                readonly "HYPERLINK": 197
+                /**
+                 */
+                readonly "TARGET_REGION": 198
+                /**
+                 */
+                readonly "DATA_CONTENT": 199
+                /**
+                 */
+                readonly "VIDEO_DECODE_CONTROL": 200
+                /**
+                 */
+                readonly "DOWNLOAD_CONTENT": 201
+                /**
+                 */
+                readonly "CA_EMM_TS": 202
+                /**
+                 */
+                readonly "CA_CONTRACT_INFORMATION": 203
+                /**
+                 */
+                readonly "CA_SERVICE": 204
+                /**
+                 */
+                readonly "TS_INFORMATION": 205
+                /**
+                 */
+                readonly "EXTENDED_BROADCASTER": 206
+                /**
+                 */
+                readonly "LOGO_TRANSMISSION": 207
+                /**
+                 */
+                readonly "BASIC_LOCAL_EVENT": 208
+                /**
+                 */
+                readonly "REFERENCE": 209
+                /**
+                 */
+                readonly "NODE_RELATION": 210
+                /**
+                 */
+                readonly "SHORT_NODE_INFORMATION": 211
+                /**
+                 */
+                readonly "STC_REFERENCE": 212
+                /**
+                 */
+                readonly "SERIES": 213
+                /**
+                 */
+                readonly "EVENT_GROUP": 214
+                /**
+                 */
+                readonly "SI_PARAMETER": 215
+                /**
+                 */
+                readonly "BROADCASTER_NAME": 216
+                /**
+                 */
+                readonly "COMPONENT_GROUP": 217
+                /**
+                 */
+                readonly "SI_PRIME_TS": 218
+                /**
+                 */
+                readonly "BOARD_INFORMATION": 219
+                /**
+                 */
+                readonly "LDT_LINKAGE": 220
+                /**
+                 */
+                readonly "CONNECTED_TRANSMISSION": 221
+                /**
+                 */
+                readonly "CONTENT_AVAILABILITY": 222
+                /**
+                 */
+                readonly "SERVICE_GROUP": 224
+            }
+            type ISDBDescriptorType = ISDBDescriptorTypeEnum[Exclude<keyof ISDBDescriptorTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * These values correspond to the registered descriptor type from
+                 * the various ISDB specifications.
+                 *
+                 * Consult the relevant specifications for more details.
+                 */
+                ISDBDescriptorType: ISDBDescriptorTypeEnum
+            }
+            
+            interface Iso639AudioTypeEnum {
+                readonly $gtype: GObject.GType<Iso639AudioType>
+                /**
+                 */
+                readonly "UNDEFINED": 0
+                /**
+                 */
+                readonly "CLEAN_EFFECTS": 1
+                /**
+                 */
+                readonly "HEARING_IMPAIRED": 2
+                /**
+                 */
+                readonly "VISUAL_IMPAIRED_COMMENTARY": 3
+            }
+            type Iso639AudioType = Iso639AudioTypeEnum[Exclude<keyof Iso639AudioTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                Iso639AudioType: Iso639AudioTypeEnum
+            }
+            
+            interface MetadataApplicationFormatEnum {
+                readonly $gtype: GObject.GType<MetadataApplicationFormat>
+                /**
+                 */
+                readonly "ISAN": 16
+                /**
+                 */
+                readonly "VSAN": 17
+                /**
+                 */
+                readonly "IDENTIFIER_FIELD": 65535
+            }
+            type MetadataApplicationFormat = MetadataApplicationFormatEnum[Exclude<keyof MetadataApplicationFormatEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 *  `GST_MPEGTS_METADATA_APPLICATION_FORMAT_ISAN` ISO 15706-1 (ISAN) encoded in its binary form
+                 *  `GST_MPEGTS_METADATA_APPLICATION_FORMAT_VSAN` ISO 15706-2 (V-ISAN) encoded in its binary form
+                 *  `GST_MPEGTS_METADATA_APPLICATION_FORMAT_IDENTIFIER_FIELD` Defined by the metadata_application_format_identifier field
+                 *
+                 * metadata_application_format valid values. See ISO/IEC 13818-1:2023(E) Table 2-84.
+                 * @since 1.26
+                 */
+                MetadataApplicationFormat: MetadataApplicationFormatEnum
+            }
+            
+            interface MetadataFormatEnum {
+                readonly $gtype: GObject.GType<MetadataFormat>
+                /**
+                 * ISO/IEC 15938-1 TeM.
+                 * @since 1.24
+                 */
+                readonly "TEM": 16
+                /**
+                 * ISO/IEC 15938-1 BiM.
+                 * @since 1.24
+                 */
+                readonly "BIM": 17
+                /**
+                 * Defined by metadata application format.
+                 * @since 1.24
+                 */
+                readonly "APPLICATION_FORMAT": 63
+                /**
+                 * Defined by metadata_format_identifier field.
+                 * @since 1.24
+                 */
+                readonly "IDENTIFIER_FIELD": 255
+            }
+            type MetadataFormat = MetadataFormatEnum[Exclude<keyof MetadataFormatEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * metadata_descriptor metadata_format valid values. See ISO/IEC 13818-1:2018(E) Table 2-85.
+                 * @since 1.24
+                 */
+                MetadataFormat: MetadataFormatEnum
+            }
+            
+            interface MiscDescriptorTypeEnum {
+                readonly $gtype: GObject.GType<MiscDescriptorType>
+                /**
+                 */
+                readonly "MTS_DESC_DTG_LOGICAL_CHANNEL": 131
+            }
+            type MiscDescriptorType = MiscDescriptorTypeEnum[Exclude<keyof MiscDescriptorTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * The type of #GstMpegtsDescriptor
+                 *
+                 * These values correspond to miscellaneous descriptor types that are
+                 * not yet identified from known specifications.
+                 */
+                MiscDescriptorType: MiscDescriptorTypeEnum
+            }
+            
+            interface ModulationTypeEnum {
+                readonly $gtype: GObject.GType<ModulationType>
+                /**
+                 */
+                readonly "QPSK": 0
+                /**
+                 */
+                readonly "QAM_16": 1
+                /**
+                 */
+                readonly "QAM_32": 2
+                /**
+                 */
+                readonly "QAM_64": 3
+                /**
+                 */
+                readonly "QAM_128": 4
+                /**
+                 */
+                readonly "QAM_256": 5
+                /**
+                 */
+                readonly "QAM_AUTO": 6
+                /**
+                 */
+                readonly "VSB_8": 7
+                /**
+                 */
+                readonly "VSB_16": 8
+                /**
+                 */
+                readonly "PSK_8": 9
+                /**
+                 */
+                readonly "APSK_16": 10
+                /**
+                 */
+                readonly "APSK_32": 11
+                /**
+                 */
+                readonly "DQPSK": 12
+                /**
+                 */
+                readonly "QAM_4_NR_": 13
+                /**
+                 */
+                readonly "NONE": 14
+            }
+            type ModulationType = ModulationTypeEnum[Exclude<keyof ModulationTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ModulationType: ModulationTypeEnum
+            }
+            
+            interface RunningStatusEnum {
+                readonly $gtype: GObject.GType<RunningStatus>
+                /**
+                 */
+                readonly "UNDEFINED": 0
+                /**
+                 */
+                readonly "NOT_RUNNING": 1
+                /**
+                 */
+                readonly "STARTS_IN_FEW_SECONDS": 2
+                /**
+                 */
+                readonly "PAUSING": 3
+                /**
+                 */
+                readonly "RUNNING": 4
+                /**
+                 */
+                readonly "OFF_AIR": 5
+            }
+            type RunningStatus = RunningStatusEnum[Exclude<keyof RunningStatusEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Running status of a service.
+                 *
+                 * Corresponds to table 6 of ETSI EN 300 468 (v1.13.0)
+                 */
+                RunningStatus: RunningStatusEnum
+            }
+            
+            interface SCTEDescriptorTypeEnum {
+                readonly $gtype: GObject.GType<SCTEDescriptorType>
+                /**
+                 */
+                readonly "STUFFING": 128
+                /**
+                 */
+                readonly "AC3": 129
+                /**
+                 */
+                readonly "FRAME_RATE": 130
+                /**
+                 */
+                readonly "EXTENDED_VIDEO": 131
+                /**
+                 */
+                readonly "COMPONENT_NAME": 132
+                /**
+                 */
+                readonly "FREQUENCY_SPEC": 144
+                /**
+                 */
+                readonly "MODULATION_PARAMS": 145
+                /**
+                 */
+                readonly "TRANSPORT_STREAM_ID": 146
+            }
+            type SCTEDescriptorType = SCTEDescriptorTypeEnum[Exclude<keyof SCTEDescriptorTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * These values correspond to the ones defined by SCTE (amongst other in ANSI/SCTE 57)
+                 * @since 1.20
+                 */
+                SCTEDescriptorType: SCTEDescriptorTypeEnum
+            }
+            
+            interface SCTESpliceCommandTypeEnum {
+                readonly $gtype: GObject.GType<SCTESpliceCommandType>
+                /**
+                 */
+                readonly "NULL": 0
+                /**
+                 */
+                readonly "SCHEDULE": 4
+                /**
+                 */
+                readonly "INSERT": 5
+                /**
+                 */
+                readonly "TIME": 6
+                /**
+                 */
+                readonly "BANDWIDTH": 7
+                /**
+                 */
+                readonly "PRIVATE": 255
+            }
+            type SCTESpliceCommandType = SCTESpliceCommandTypeEnum[Exclude<keyof SCTESpliceCommandTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                SCTESpliceCommandType: SCTESpliceCommandTypeEnum
+            }
+            
+            interface SCTESpliceDescriptorEnum {
+                readonly $gtype: GObject.GType<SCTESpliceDescriptor>
+                /**
+                 */
+                readonly "AVAIL": 0
+                /**
+                 */
+                readonly "DTMF": 1
+                /**
+                 */
+                readonly "SEGMENTATION": 2
+                /**
+                 */
+                readonly "TIME": 3
+                /**
+                 */
+                readonly "AUDIO": 4
+            }
+            type SCTESpliceDescriptor = SCTESpliceDescriptorEnum[Exclude<keyof SCTESpliceDescriptorEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                SCTESpliceDescriptor: SCTESpliceDescriptorEnum
+            }
+            
+            interface SatellitePolarizationTypeEnum {
+                readonly $gtype: GObject.GType<SatellitePolarizationType>
+                /**
+                 */
+                readonly "LINEAR_HORIZONTAL": 0
+                /**
+                 */
+                readonly "LINEAR_VERTICAL": 1
+                /**
+                 */
+                readonly "CIRCULAR_LEFT": 2
+                /**
+                 */
+                readonly "CIRCULAR_RIGHT": 3
+            }
+            type SatellitePolarizationType = SatellitePolarizationTypeEnum[Exclude<keyof SatellitePolarizationTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                SatellitePolarizationType: SatellitePolarizationTypeEnum
+            }
+            
+            interface SatelliteRolloffEnum {
+                readonly $gtype: GObject.GType<SatelliteRolloff>
+                /**
+                 */
+                readonly "35": 0
+                /**
+                 */
+                readonly "20": 1
+                /**
+                 */
+                readonly "25": 2
+                /**
+                 */
+                readonly "RESERVED": 3
+                /**
+                 */
+                readonly "AUTO": 4
+            }
+            type SatelliteRolloff = SatelliteRolloffEnum[Exclude<keyof SatelliteRolloffEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                SatelliteRolloff: SatelliteRolloffEnum
+            }
+            
+            interface ScteStreamTypeEnum {
+                readonly $gtype: GObject.GType<ScteStreamType>
+                /**
+                 * SCTE-27 Subtitling
+                 */
+                readonly "SUBTITLING": 130
+                /**
+                 * SCTE-19 Isochronous data
+                 */
+                readonly "ISOCH_DATA": 131
+                /**
+                 * SCTE-35 Splice Information Table
+                 */
+                readonly "SIT": 134
+                /**
+                 * SCTE-07 Data Service or
+                 * Network Resource Table
+                 */
+                readonly "DST_NRT": 149
+                /**
+                 * Type B - DSM-CC Data Carousel
+                 * [IEC 13818-6])
+                 */
+                readonly "DSMCC_DCB": 176
+                /**
+                 * Enhanced Television Application
+                 * Signaling (OC-SP-ETV-AM1.0.1-120614)
+                 */
+                readonly "SIGNALING": 192
+                /**
+                 * SCTE-07 Synchronous data
+                 */
+                readonly "SYNC_DATA": 194
+                /**
+                 * SCTE-53 Asynchronous data
+                 */
+                readonly "ASYNC_DATA": 195
+            }
+            type ScteStreamType = ScteStreamTypeEnum[Exclude<keyof ScteStreamTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Type of mpeg-ts streams for SCTE. Most users would want to use the
+                 * #GstMpegtsATSCStreamType instead since it also covers these stream types
+                 */
+                ScteStreamType: ScteStreamTypeEnum
+            }
+            
+            interface SectionATSCTableIDEnum {
+                readonly $gtype: GObject.GType<SectionATSCTableID>
+                /**
+                 * Master Guide Table (MGT)
+                 */
+                readonly "MASTER_GUIDE": 199
+                /**
+                 * Terrestrial Virtual Channel Table (TVCT)
+                 */
+                readonly "TERRESTRIAL_VIRTUAL_CHANNEL": 200
+                /**
+                 * Cable Virtual Channel Table (CVCT)
+                 */
+                readonly "CABLE_VIRTUAL_CHANNEL": 201
+                /**
+                 * Rating Region Table (RRT)
+                 */
+                readonly "RATING_REGION": 202
+                /**
+                 * Event Information Table (EIT)
+                 */
+                readonly "EVENT_INFORMATION": 203
+                /**
+                 * Extended Text Table (ETT)
+                 */
+                readonly "CHANNEL_OR_EVENT_EXTENDED_TEXT": 204
+                /**
+                 * System Time Table (STT)
+                 */
+                readonly "SYSTEM_TIME": 205
+                /**
+                 * A/90: Data Event Table (DET)
+                 */
+                readonly "DATA_EVENT": 206
+                /**
+                 * A/90: Data Service Table (DST)
+                 */
+                readonly "DATA_SERVICE": 207
+                /**
+                 * A/57B: Program Identifier Table.
+                 * @since 1.20
+                 */
+                readonly "PROGRAM_IDENTIFIER": 208
+                /**
+                 * A/90: Network Resources Table (NRT)
+                 */
+                readonly "NETWORK_RESOURCE": 209
+                /**
+                 * A/90: Long Term Service Table (LTST)
+                 */
+                readonly "LONG_TERM_SERVICE": 210
+                /**
+                 * Directed Channel Change Table (DCCT)
+                 */
+                readonly "DIRECTED_CHANNEL_CHANGE": 211
+                /**
+                 * Directed Channel Change Selection Code Table (DCCSCT)
+                 */
+                readonly "DIRECTED_CHANNEL_CHANGE_SECTION_CODE": 212
+                /**
+                 */
+                readonly "AGGREGATE_EVENT_INFORMATION": 214
+                /**
+                 */
+                readonly "AGGREGATE_EXTENDED_TEXT": 215
+                /**
+                 */
+                readonly "AGGREGATE_DATA_EVENT": 217
+                /**
+                 * A/81: Satellite Virtual Channel Table
+                 */
+                readonly "SATELLITE_VIRTUAL_CHANNEL": 218
+            }
+            type SectionATSCTableID = SectionATSCTableIDEnum[Exclude<keyof SectionATSCTableIDEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Values for a #GstMpegtsSection table_id.
+                 *
+                 * These are the registered ATSC section `table_id` variants. Unless specified
+                 * otherwise, they are defined in the "ATSC A/65" specification.
+                 *
+                 * see also: #GstMpegtsSectionTableID and other variants.
+                 */
+                SectionATSCTableID: SectionATSCTableIDEnum
+            }
+            
+            interface SectionDVBTableIDEnum {
+                readonly $gtype: GObject.GType<SectionDVBTableID>
+                /**
+                 * Network Information Table (NIT), Actual Network
+                 */
+                readonly "NETWORK_INFORMATION_ACTUAL_NETWORK": 64
+                /**
+                 * Network Information Table (NIT), Other Network
+                 */
+                readonly "NETWORK_INFORMATION_OTHER_NETWORK": 65
+                /**
+                 * Service Description Table (SDT), Actual Transport Stream
+                 */
+                readonly "SERVICE_DESCRIPTION_ACTUAL_TS": 66
+                /**
+                 * Service Description Table (SDT), Other Transport Stream
+                 */
+                readonly "SERVICE_DESCRIPTION_OTHER_TS": 70
+                /**
+                 * Bouquet Association Table (BAT)
+                 */
+                readonly "BOUQUET_ASSOCIATION": 74
+                /**
+                 * ETSI TS 102 006: Update Notification Table (UNT)
+                 * @since 1.20
+                 */
+                readonly "UPDATE_NOTIFICATION": 75
+                /**
+                 * ETSI EN 303 560: Downloadable Font Info
+                 * @since 1.20
+                 */
+                readonly "DOWNLOADABLE_FONT_INFO": 76
+                /**
+                 * Event Information Table (EIT), Actual Transport Stream, present/following
+                 */
+                readonly "EVENT_INFORMATION_ACTUAL_TS_PRESENT": 78
+                /**
+                 * Event Information Table (EIT), Other Transport Stream, present/following
+                 */
+                readonly "EVENT_INFORMATION_OTHER_TS_PRESENT": 79
+                /**
+                 * Event Information Table (EIT), Actual Transport Stream, Schedule (first)
+                 */
+                readonly "EVENT_INFORMATION_ACTUAL_TS_SCHEDULE_1": 80
+                /**
+                 * Event Information Table (EIT), Actual Transport Stream, Schedule (last)
+                 */
+                readonly "EVENT_INFORMATION_ACTUAL_TS_SCHEDULE_N": 95
+                /**
+                 * Event Information Table (EIT), Other Transport Stream, Schedule (first)
+                 */
+                readonly "EVENT_INFORMATION_OTHER_TS_SCHEDULE_1": 96
+                /**
+                 * Event Information Table (EIT), Other Transport Stream, Schedule (last)
+                 */
+                readonly "EVENT_INFORMATION_OTHER_TS_SCHEDULE_N": 111
+                /**
+                 * Time Date Table (TDT)
+                 */
+                readonly "TIME_DATE": 112
+                /**
+                 * Running Status Table (RST)
+                 */
+                readonly "RUNNING_STATUS": 113
+                /**
+                 * Stuffing Table (ST)
+                 */
+                readonly "STUFFING": 114
+                /**
+                 * Time Offset Table (TOT)
+                 */
+                readonly "TIME_OFFSET": 115
+                /**
+                 * ETSI TS 102 323: Application Information Table (AIT)
+                 */
+                readonly "APPLICATION_INFORMATION_TABLE": 116
+                /**
+                 * ETSI TS 102 323: Container Section
+                 */
+                readonly "CONTAINER": 117
+                /**
+                 * ETSI TS 102 323: Related Content Table (RCT)
+                 */
+                readonly "RELATED_CONTENT": 118
+                /**
+                 * ETSI TS 102 323: Content Identifier Table (CIT)
+                 */
+                readonly "CONTENT_IDENTIFIER": 119
+                /**
+                 * ETSI TS 301 192: MPE-FEC Section
+                 */
+                readonly "MPE_FEC": 120
+                /**
+                 * ETSI 103 323: Resolution Provider Notification Table (RNT)
+                 */
+                readonly "RESOLUTION_NOTIFICATION": 121
+                /**
+                 * ETSI TS 102 772: MPE-IFEC Section
+                 */
+                readonly "MPE_IFEC": 122
+                /**
+                 * ETSI TS 102 809: Protection Message Section
+                 * @since 1.20
+                 */
+                readonly "PROTECTION_MESSAGE": 123
+                /**
+                 * Discontinuity Information Table (DIT)
+                 */
+                readonly "DISCONTINUITY_INFORMATION": 126
+                /**
+                 * Selection Information Table (SIT)
+                 */
+                readonly "SELECTION_INFORMATION": 127
+                /**
+                 * ETSI TR 289: CA Message Table (CMT): ECM 0
+                 */
+                readonly "CA_MESSAGE_ECM_0": 128
+                /**
+                 * ETSI TR 289: CA Message Table (CMT): ECM 1
+                 */
+                readonly "CA_MESSAGE_ECM_1": 129
+                /**
+                 * ETSI TR 289: CA Message Table (CMT): CA System Private (First)
+                 */
+                readonly "CA_MESSAGE_SYSTEM_PRIVATE_1": 130
+                /**
+                 * ETSI TR 289: CA Message Table (CMT): CA System Private (Last)
+                 */
+                readonly "CA_MESSAGE_SYSTEM_PRIVATE_N": 143
+                /**
+                 */
+                readonly "SCT": 160
+                /**
+                 */
+                readonly "FCT": 161
+                /**
+                 */
+                readonly "TCT": 162
+                /**
+                 */
+                readonly "SPT": 163
+                /**
+                 */
+                readonly "CMT": 164
+                /**
+                 */
+                readonly "TBTP": 165
+                /**
+                 */
+                readonly "PCR_PACKET_PAYLOAD": 166
+                /**
+                 */
+                readonly "TRANSMISSION_MODE_SUPPORT_PAYLOAD": 170
+                /**
+                 */
+                readonly "TIM": 176
+                /**
+                 */
+                readonly "LL_FEC_PARITY_DATA_TABLE": 177
+            }
+            type SectionDVBTableID = SectionDVBTableIDEnum[Exclude<keyof SectionDVBTableIDEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Values for a #GstMpegtsSection table_id.
+                 *
+                 * These are the registered DVB table_id variants. Unless specified otherwise,
+                 * they come from the DVB Specification for SI (ETSI EN 300 468).
+                 *
+                 * see also: #GstMpegtsSectionTableID
+                 */
+                SectionDVBTableID: SectionDVBTableIDEnum
+            }
+            
+            interface SectionSCTETableIDEnum {
+                readonly $gtype: GObject.GType<SectionSCTETableID>
+                /**
+                 * SCTE-18 Emergency Alert System
+                 */
+                readonly "EAS": 216
+                /**
+                 * CL-SP-ETV-AM 1.0.1 EBIF message
+                 */
+                readonly "EBIF": 224
+                /**
+                 */
+                readonly "RESERVED": 225
+                /**
+                 * CL-SP-ETV-AM 1.0.1 EBIF Int. Signaling Sect.
+                 */
+                readonly "EISS": 226
+                /**
+                 * CL-SP-ETV-AM 1.0.1 DSMCC DII message
+                 */
+                readonly "DII": 227
+                /**
+                 * CL-SP-ETV-AM 1.0.1 DSMCC Data Download Block
+                 */
+                readonly "DDB": 228
+                /**
+                 * SCTE-35 splice information is carried in a
+                 * section stream on a separate PID in the program’s Map Table (PMT) allowing
+                 * Splice Event notifications to remain associated with the program and pass
+                 * through multiplexers.
+                 */
+                readonly "SPLICE": 252
+            }
+            type SectionSCTETableID = SectionSCTETableIDEnum[Exclude<keyof SectionSCTETableIDEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Values for a #GstMpegtsSection table_id.
+                 *
+                 * These are the registered SCTE table_id variants.
+                 *
+                 * see also: #GstMpegtsSectionTableID
+                 */
+                SectionSCTETableID: SectionSCTETableIDEnum
+            }
+            
+            interface SectionTableIDEnum {
+                readonly $gtype: GObject.GType<SectionTableID>
+                /**
+                 * Program Association Table (PAT)
+                 */
+                readonly "PROGRAM_ASSOCIATION": 0
+                /**
+                 * Conditional Access Table (CAT)
+                 */
+                readonly "CONDITIONAL_ACCESS": 1
+                /**
+                 * Program Map Table (PMT)
+                 */
+                readonly "TS_PROGRAM_MAP": 2
+                /**
+                 * Transport Stream Description Table
+                 */
+                readonly "TS_DESCRIPTION": 3
+                /**
+                 * ISO/IEC 14496 Scene Description Table
+                 */
+                readonly "14496_SCENE_DESCRIPTION": 4
+                /**
+                 * ISO/IEC 14496 Object Descriptor Table
+                 */
+                readonly "14496_OBJET_DESCRIPTOR": 5
+                /**
+                 * Metadata Section
+                 */
+                readonly "METADATA": 6
+                /**
+                 * IPMP Control Information
+                 */
+                readonly "IPMP_CONTROL_INFORMATION": 7
+                /**
+                 * ISO/IEC 14496 Section.
+                 * @since 1.20
+                 */
+                readonly "14496_SECTION": 8
+                /**
+                 * ISO/IEC 23001-11 (Green Access Unit) Section.
+                 * @since 1.20
+                 */
+                readonly "23001_11_SECTION": 9
+                /**
+                 * ISO/ISO 23001-10 (Quality Access Unit) Section.
+                 * @since 1.20
+                 */
+                readonly "23001_10_SECTION": 10
+                /**
+                 * DSM-CC Multi-Protocol Encapsulated (MPE) Data
+                 */
+                readonly "DSM_CC_MULTIPROTO_ENCAPSULATED_DATA": 58
+                /**
+                 * DSM-CC U-N Messages
+                 */
+                readonly "DSM_CC_U_N_MESSAGES": 59
+                /**
+                 * DSM-CC Download Data Messages
+                 */
+                readonly "DSM_CC_DOWNLOAD_DATA_MESSAGES": 60
+                /**
+                 * DSM-CC Stream Descriptors
+                 */
+                readonly "DSM_CC_STREAM_DESCRIPTORS": 61
+                /**
+                 * DSM-CC Private Data
+                 */
+                readonly "DSM_CC_PRIVATE_DATA": 62
+                /**
+                 * DSM-CC Addressable Section
+                 */
+                readonly "DSM_CC_ADDRESSABLE_SECTIONS": 63
+                /**
+                 * Unset section table_id (value is forbidden to use in actual sections)
+                 */
+                readonly "UNSET": 255
+            }
+            type SectionTableID = SectionTableIDEnum[Exclude<keyof SectionTableIDEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Values for a #GstMpegtsSection table_id
+                 *
+                 * These are the registered ITU H.222.0 | ISO/IEC 13818-1 table_id variants.
+                 *
+                 * see also #GstMpegtsSectionATSCTableID, #GstMpegtsSectionDVBTableID, and
+                 * #GstMpegtsSectionSCTETableID
+                 */
+                SectionTableID: SectionTableIDEnum
+            }
+            
+            interface SectionTypeEnum {
+                readonly $gtype: GObject.GType<SectionType>
+                /**
+                 * Unknown section type
+                 */
+                readonly "UNKNOWN": 0
+                /**
+                 * Program Association Table (ISO/IEC 13818-1)
+                 */
+                readonly "PAT": 1
+                /**
+                 * Program Map Table (ISO/IEC 13818-1)
+                 */
+                readonly "PMT": 2
+                /**
+                 * Conditional Access Table (ISO/IEC 13818-1)
+                 */
+                readonly "CAT": 3
+                /**
+                 * Transport Stream Description Table (ISO/IEC 13818-1)
+                 */
+                readonly "TSDT": 4
+                /**
+                 * Event Information Table (EN 300 468)
+                 */
+                readonly "EIT": 5
+                /**
+                 * Network Information Table (ISO/IEC 13818-1 / EN 300 468)
+                 */
+                readonly "NIT": 6
+                /**
+                 * Bouquet Association Table ((EN 300 468)
+                 */
+                readonly "BAT": 7
+                /**
+                 * Service Description Table (EN 300 468)
+                 */
+                readonly "SDT": 8
+                /**
+                 * Time and Date Table (EN 300 468)
+                 */
+                readonly "TDT": 9
+                /**
+                 * Time Offset Table (EN 300 468)
+                 */
+                readonly "TOT": 10
+                /**
+                 * Selection Information Table (EN 300 468)
+                 * @since 1.20
+                 */
+                readonly "SIT": 11
+                /**
+                 * ATSC Terrestrial Virtual Channel Table (A65)
+                 */
+                readonly "ATSC_TVCT": 12
+                /**
+                 * ATSC Cable Virtual Channel Table (A65)
+                 */
+                readonly "ATSC_CVCT": 13
+                /**
+                 * ATSC Master Guide Table (A65)
+                 */
+                readonly "ATSC_MGT": 14
+                /**
+                 * ATSC Extended Text Table (A65)
+                 */
+                readonly "ATSC_ETT": 15
+                /**
+                 * ATSC Event Information Table (A65)
+                 */
+                readonly "ATSC_EIT": 16
+                /**
+                 * ATSC System Time Table (A65)
+                 */
+                readonly "ATSC_STT": 17
+                /**
+                 * ATSC Rating Region Table (A65)
+                 */
+                readonly "ATSC_RRT": 18
+                /**
+                 * SCTE Splice Information Table (SCTE-35)
+                 */
+                readonly "SCTE_SIT": 19
+            }
+            type SectionType = SectionTypeEnum[Exclude<keyof SectionTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Types of #GstMpegtsSection that the library handles. This covers all the
+                 * MPEG-TS and derivate specification that the library can properly identify and
+                 * use.
+                 */
+                SectionType: SectionTypeEnum
+            }
+            
+            interface StreamTypeEnum {
+                readonly $gtype: GObject.GType<StreamType>
+                /**
+                 * ITU-T | ISO/IEC Reserved
+                 */
+                readonly "RESERVED_00": 0
+                /**
+                 * ISO/IEC 11172-2 Video (i.e. MPEG-1 Video)
+                 */
+                readonly "VIDEO_MPEG1": 1
+                /**
+                 * Rec. ITU-T H.262 | ISO/IEC 13818-2
+                 *       Video or ISO/IEC 11172-2 constrained parameter video stream (i.e.
+                 *       MPEG-2 Video)
+                 */
+                readonly "VIDEO_MPEG2": 2
+                /**
+                 * ISO/IEC 11172-3 Audio
+                 */
+                readonly "AUDIO_MPEG1": 3
+                /**
+                 * ISO/IEC 13818-3 Audio
+                 */
+                readonly "AUDIO_MPEG2": 4
+                /**
+                 * private sections
+                 */
+                readonly "PRIVATE_SECTIONS": 5
+                /**
+                 * PES packets containing private data
+                 */
+                readonly "PRIVATE_PES_PACKETS": 6
+                /**
+                 * ISO/IEC 13522 MHEG
+                 */
+                readonly "MHEG": 7
+                /**
+                 * Annex A DSM-CC
+                 */
+                readonly "DSM_CC": 8
+                /**
+                 * Rec. ITU-T H.222.1
+                 */
+                readonly "H_222_1": 9
+                /**
+                 * ISO/IEC 13818-6 type A
+                 */
+                readonly "DSMCC_A": 10
+                /**
+                 * ISO/IEC 13818-6 type B
+                 */
+                readonly "DSMCC_B": 11
+                /**
+                 * ISO/IEC 13818-6 type C
+                 */
+                readonly "DSMCC_C": 12
+                /**
+                 * ISO/IEC 13818-6 type D
+                 */
+                readonly "DSMCC_D": 13
+                /**
+                 * auxiliary streams
+                 */
+                readonly "AUXILIARY": 14
+                /**
+                 * ISO/IEC 13818-7 Audio (AAC) with ADTS
+                 *       transport syntax
+                 */
+                readonly "AUDIO_AAC_ADTS": 15
+                /**
+                 * ISO/IEC 14496-2 Visual (MPEG-4 Video)
+                 */
+                readonly "VIDEO_MPEG4": 16
+                /**
+                 * ISO/IEC 14496-3 Audio (AAC) with the LATM
+                 *       transport syntax as defined in ISO/IEC 14496-3
+                 */
+                readonly "AUDIO_AAC_LATM": 17
+                /**
+                 * ISO/IEC 14496-1
+                 *       SL-packetized stream or FlexMux stream carried in PES packets
+                 */
+                readonly "SL_FLEXMUX_PES_PACKETS": 18
+                /**
+                 * ISO/IEC 14496-1 SL-packetized
+                 *       stream or FlexMux stream carried in ISO/IEC 14496_sections
+                 */
+                readonly "SL_FLEXMUX_SECTIONS": 19
+                /**
+                 * ISO/IEC 13818-6 Synchronized
+                 *       Download Protocol
+                 */
+                readonly "SYNCHRONIZED_DOWNLOAD": 20
+                /**
+                 * Metadata carried in PES packets
+                 */
+                readonly "METADATA_PES_PACKETS": 21
+                /**
+                 * Metadata carried in metadata_sections
+                 */
+                readonly "METADATA_SECTIONS": 22
+                /**
+                 * Metadata carried in ISO/IEC
+                 *       13818-6 Data Carousel
+                 */
+                readonly "METADATA_DATA_CAROUSEL": 23
+                /**
+                 * Metadata carried in
+                 *       ISO/IEC 13818-6 Object Carousel
+                 */
+                readonly "METADATA_OBJECT_CAROUSEL": 24
+                /**
+                 * Metadata carried in
+                 *       ISO/IEC 13818-6 Synchronized Download Protocol
+                 */
+                readonly "METADATA_SYNCHRONIZED_DOWNLOAD": 25
+                /**
+                 * IPMP stream (defined in ISO/IEC 13818-11,
+                 *       MPEG-2 IPMP)
+                 */
+                readonly "MPEG2_IPMP": 26
+                /**
+                 * AVC video stream conforming to one or
+                 * more profiles defined in Annex A of Rec. ITU-T H.264 | ISO/IEC 14496-10 or
+                 * AVC video sub-bitstream of SVC as defined in 2.1.78 or MVC base view
+                 * sub-bitstream, as defined in 2.1.85, or AVC video sub-bitstream of MVC, as
+                 * defined in 2.1.88
+                 */
+                readonly "VIDEO_H264": 27
+                /**
+                 * ISO/IEC 14496-3 (AAC) Audio, without
+                 *       using any additional transport syntax, such as DST, ALS and SLS
+                 */
+                readonly "AUDIO_AAC_CLEAN": 28
+                /**
+                 * ISO/IEC 14496-17 Text
+                 */
+                readonly "MPEG4_TIMED_TEXT": 29
+                /**
+                 * Auxiliary video stream as defined in
+                 * ISO/IEC 23002-3
+                 */
+                readonly "VIDEO_RVC": 30
+                /**
+                 * SVC video sub-bitstream
+                 * of an AVC video stream conforming to one or more profiles defined in Annex G
+                 * of Rec. ITU-T H.264 | ISO/IEC 14496-10
+                 */
+                readonly "VIDEO_H264_SVC_SUB_BITSTREAM": 31
+                /**
+                 * MVC video sub-bitstream
+                 * of an AVC video stream conforming to one or more profiles defined in Annex H
+                 * of Rec. ITU-T H.264 | ISO/IEC 14496-10
+                 */
+                readonly "VIDEO_H264_MVC_SUB_BITSTREAM": 32
+                /**
+                 * Video stream conforming to one or more
+                 *       profiles as defined in Rec. ITU-T T.800 | ISO/IEC 15444-1 (i.e. JPEG 2000)
+                 */
+                readonly "VIDEO_JP2K": 33
+                /**
+                 * Additional view
+                 * Rec. ITU-T H.262 | ISO/IEC 13818-2 video stream for service-compatible
+                 * stereoscopic 3D services
+                 */
+                readonly "VIDEO_MPEG2_STEREO_ADDITIONAL_VIEW": 34
+                /**
+                 * Additional view
+                 * Rec. ITU-T H.264 | ISO/IEC 14496-10 video stream conforming to one or more
+                 * profiles defined in Annex A for service-compatible stereoscopic 3D services
+                 */
+                readonly "VIDEO_H264_STEREO_ADDITIONAL_VIEW": 35
+                /**
+                 * Rec. ITU-T H.265 | ISO/IEC 23008-2 video
+                 *      stream or an HEVC temporal video sub-bitstream
+                 */
+                readonly "VIDEO_HEVC": 36
+                /**
+                 * JPEG-XS stream type
+                 * @since 1.26
+                 */
+                readonly "VIDEO_JPEG_XS": 50
+                /**
+                 * VVC/H.266 video stream type
+                 * @since 1.26
+                 */
+                readonly "VIDEO_VVC": 51
+                /**
+                 * IPMP stream
+                 */
+                readonly "IPMP_STREAM": 127
+                /**
+                 * User Private stream id (used for VC-1) as defined by SMPTE RP227.
+                 * @since 1.20
+                 */
+                readonly "USER_PRIVATE_EA": 234
+            }
+            type StreamType = StreamTypeEnum[Exclude<keyof StreamTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Type of MPEG-TS stream type.
+                 *
+                 * These values correspond to the base standard registered types. Depending
+                 * on the variant of mpeg-ts being used (Bluray, ATSC, DVB, ...), other
+                 * types might also be used, but will not conflict with these.
+                 *
+                 * Corresponds to table 2-34 of ITU H.222.0 | ISO/IEC 13818-1
+                 */
+                StreamType: StreamTypeEnum
+            }
+            
+            interface TerrestrialGuardIntervalEnum {
+                readonly $gtype: GObject.GType<TerrestrialGuardInterval>
+                /**
+                 */
+                readonly "1_32": 0
+                /**
+                 */
+                readonly "1_16": 1
+                /**
+                 */
+                readonly "1_8": 2
+                /**
+                 */
+                readonly "1_4": 3
+                /**
+                 */
+                readonly "AUTO": 4
+                /**
+                 */
+                readonly "1_128": 5
+                /**
+                 */
+                readonly "19_128": 6
+                /**
+                 */
+                readonly "19_256": 7
+                /**
+                 */
+                readonly "PN420": 8
+                /**
+                 */
+                readonly "PN595": 9
+                /**
+                 */
+                readonly "PN945": 10
+            }
+            type TerrestrialGuardInterval = TerrestrialGuardIntervalEnum[Exclude<keyof TerrestrialGuardIntervalEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                TerrestrialGuardInterval: TerrestrialGuardIntervalEnum
+            }
+            
+            interface TerrestrialHierarchyEnum {
+                readonly $gtype: GObject.GType<TerrestrialHierarchy>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "1": 1
+                /**
+                 */
+                readonly "2": 2
+                /**
+                 */
+                readonly "4": 3
+                /**
+                 */
+                readonly "AUTO": 4
+            }
+            type TerrestrialHierarchy = TerrestrialHierarchyEnum[Exclude<keyof TerrestrialHierarchyEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                TerrestrialHierarchy: TerrestrialHierarchyEnum
+            }
+            
+            interface TerrestrialTransmissionModeEnum {
+                readonly $gtype: GObject.GType<TerrestrialTransmissionMode>
+                /**
+                 */
+                readonly "2K": 0
+                /**
+                 */
+                readonly "8K": 1
+                /**
+                 */
+                readonly "AUTO": 2
+                /**
+                 */
+                readonly "4K": 3
+                /**
+                 */
+                readonly "1K": 4
+                /**
+                 */
+                readonly "16K": 5
+                /**
+                 */
+                readonly "32K": 6
+                /**
+                 */
+                readonly "C1": 7
+                /**
+                 */
+                readonly "C3780": 8
+            }
+            type TerrestrialTransmissionMode = TerrestrialTransmissionModeEnum[Exclude<keyof TerrestrialTransmissionModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                TerrestrialTransmissionMode: TerrestrialTransmissionModeEnum
+            }
+            
+            interface RegistrationIdBitfield {
+                readonly $gtype: GObject.GType<RegistrationId>
+                /**
+                 * Undefined registration id
+                 */
+                readonly "0": 0
+                /**
+                 * Audio AC-3, ATSC A/52
+                 */
+                readonly "AC_3": 1094921523
+                /**
+                 * SCTE 35, "Digital Program Insertion Cueing Message"
+                 */
+                readonly "CUEI": 1129661769
+                /**
+                 * Dirac Video codec
+                 */
+                readonly "DRAC": 1685217635
+                /**
+                 * DTS Audio
+                 */
+                readonly "DTS1": 1146377009
+                /**
+                 * DTS Audio
+                 */
+                readonly "DTS2": 1146377010
+                /**
+                 * DTS Audio
+                 */
+                readonly "DTS3": 1146377011
+                /**
+                 * SMPTE 302M, Mapping of AES3 Data in mpeg-ts
+                 */
+                readonly "BSSD": 1112757060
+                /**
+                 * Enhanced AC-3 (i.e. EAC3)
+                 */
+                readonly "EAC3": 1161904947
+                /**
+                 * Cablelabs ETV
+                 */
+                readonly "ETV1": 1163154993
+                /**
+                 * ATSC A/53 compliant stream (i.e. ATSC)
+                 */
+                readonly "GA94": 1195456820
+                /**
+                 * Blu-ray, "System Description Blu-ray Disc
+                 *             Read-Only Format part 3 Audio Visual Basic Specifications"
+                 */
+                readonly "HDMV": 1212435798
+                /**
+                 * SMPTE RP217 : Non-synchronized Mapping of KLV
+                 *             Packets in mpeg-ts
+                 */
+                readonly "KLVA": 1263294017
+                /**
+                 * Opus Audio
+                 */
+                readonly "OPUS": 1330664787
+                /**
+                 * HDV (Sony)
+                 */
+                readonly "TSHV": 1414744150
+                /**
+                 * Video VC-1, SMPTE RP227 "VC-1 Bitstream Transport Encodings"
+                 */
+                readonly "VC_1": 1447243057
+                /**
+                 * Audio AC-4, ETSI 103 190-2
+                 */
+                readonly "AC_4": 1094921524
+                /**
+                 * HEVC / h265
+                 */
+                readonly "OTHER_HEVC": 1212503619
+            }
+            type RegistrationId = number
+            interface $Exports {
+                /**
+                 * Well-known registration ids, expressed as native-endian 32bit integers. These
+                 * are used in descriptors of type %GST_MTS_DESC_REGISTRATION. Unless specified
+                 * otherwise (by use of the "OTHER" prefix), they are all registered by the
+                 * [SMPTE Registration Authority](https://smpte-ra.org/) or specified in
+                 * "official" documentation for the given format.
+                 * @since 1.20
+                 */
+                RegistrationId: RegistrationIdBitfield
+            }
+            /**
+             * @param section
+             */
+            type PacketizeFunc = (section: Section) => boolean
+
+            interface $Exports {
+                __name__: "GstMpegts"
+                __version__: "1.0"
+                /**
+                 * Creates and adds a #GstMpegtsPESMetadataMeta to a `buffer`.
+                 * @since 1.24
+                 * @param buffer a #GstBuffer
+                 * @returns a newly created #GstMpegtsPESMetadataMeta
+                 */
+                buffer_add_mpegts_pes_metadata_meta(buffer: Gst.Buffer): PESMetadataMeta
+                /**
+                 * Creates a #GstMpegtsDescriptor with custom `tag` and `data`
+                 * @param tag descriptor tag
+                 * @param data descriptor data (after tag and length field)
+                 * @returns #GstMpegtsDescriptor, or %NULL if input is invalid
+                 */
+                descriptor_from_custom(tag: number, data: Uint8Array): Descriptor | null
+                /**
+                 * Creates a #GstMpegtsDescriptor with custom `tag`, `tag_extension` and `data`
+                 * @since 1.20
+                 * @param tag descriptor tag
+                 * @param tag_extension descriptor tag extension
+                 * @param data descriptor data (after tag and length field)
+                 * @returns #GstMpegtsDescriptor
+                 */
+                descriptor_from_custom_with_extension(tag: number, tag_extension: number, data: Uint8Array): Descriptor
+                /**
+                 * Creates a #GstMpegtsDescriptor to be a %GST_MTS_DESC_DVB_NETWORK_NAME,
+                 * with the network name `name`. The data field of the #GstMpegtsDescriptor
+                 * will be allocated, and transferred to the caller.
+                 * @param name the network name to set
+                 * @returns the #GstMpegtsDescriptor or %NULL on failure.
+                 */
+                descriptor_from_dvb_network_name(name: string): Descriptor | null
+                /**
+                 * Fills a #GstMpegtsDescriptor to be a %GST_MTS_DESC_DVB_SERVICE.
+                 * The data field of the #GstMpegtsDescriptor will be allocated,
+                 * and transferred to the caller.
+                 * @param service_type Service type defined as a #GstMpegtsDVBServiceType
+                 * @param service_name Name of the service
+                 * @param service_provider Name of the service provider
+                 * @returns the #GstMpegtsDescriptor or %NULL on failure
+                 */
+                descriptor_from_dvb_service(service_type: DVBServiceType, service_name: string | null, service_provider: string | null): Descriptor | null
+                /**
+                 * @param lang a string containing the ISO639 language
+                 * @param type subtitling type
+                 * @param composition composition page id
+                 * @param ancillary ancillary page id
+                 */
+                descriptor_from_dvb_subtitling(lang: string, type: number, composition: number, ancillary: number): Descriptor
+                /**
+                 * Creates a %GST_MTS_DESC_ISO_639_LANGUAGE #GstMpegtsDescriptor with
+                 * a single language
+                 * @param language ISO-639-2 language 3-char code
+                 * @returns #GstMpegtsDescriptor, %NULL on failure
+                 */
+                descriptor_from_iso_639_language(language: string): Descriptor
+                /**
+                 * Create a new #GstMpegtsDescriptor based on the information in `jpegxs`
+                 * @since 1.26
+                 * @param jpegxs A #GstMpegtsJpegXsDescriptor
+                 * @returns The #GstMpegtsDescriptor
+                 */
+                descriptor_from_jpeg_xs(jpegxs: JpegXsDescriptor): Descriptor
+                /**
+                 * @since 1.26
+                 * @param metadata_descriptor
+                 */
+                descriptor_from_metadata(metadata_descriptor: MetadataDescriptor): Descriptor
+                /**
+                 * @since 1.26
+                 * @param metadata_pointer_descriptor a #GstMpegtsMetadataPointerDescriptor
+                 * @returns a #GstMpegtsDescriptor from the metadata pointer descriptor.
+                 */
+                descriptor_from_metadata_pointer(metadata_pointer_descriptor: MetadataPointerDescriptor): Descriptor
+                /**
+                 * Creates a %GST_MTS_DESC_REGISTRATION #GstMpegtsDescriptor
+                 * @param format_identifier a 4 character format identifier string
+                 * @param additional_info pointer to optional additional info
+                 * @returns #GstMpegtsDescriptor, %NULL on failure
+                 */
+                descriptor_from_registration(format_identifier: string, additional_info: Uint8Array | null): Descriptor
+                /**
+                 * @since 1.20
+                 * @param source
+                 */
+                descriptor_parse_audio_preselection_dump(source: AudioPreselectionDescriptor): void
+                /**
+                 * @since 1.20
+                 * @param source
+                 */
+                descriptor_parse_audio_preselection_free(source: AudioPreselectionDescriptor): void
+                /**
+                 * @param source
+                 */
+                dvb_component_descriptor_free(source: ComponentDescriptor): void
+                /**
+                 * Creates a new #GstEvent for a #GstMpegtsSection.
+                 * @since 1.20
+                 * @param section The #GstMpegtsSection to put in a message
+                 * @returns The new custom #GstEvent.
+                 */
+                event_new_mpegts_section(section: Section): Gst.Event
+                /**
+                 * Extracts the #GstMpegtsSection contained in the `event` #GstEvent
+                 * @param event #GstEvent containing a #GstMpegtsSection
+                 * @returns The extracted #GstMpegtsSection , or %NULL if the event did not contain a valid #GstMpegtsSection.
+                 */
+                event_parse_mpegts_section(event: Gst.Event): Section | null
+                /**
+                 * Finds the first descriptor of type `tag` in the array.
+                 *
+                 * Note: To look for descriptors that can be present more than once in an
+                 * array of descriptors, iterate the #GArray manually.
+                 * @param descriptors an array of #GstMpegtsDescriptor
+                 * @param tag the tag to look for
+                 * @returns the first descriptor matching `tag`, else %NULL.
+                 */
+                find_descriptor(descriptors: Descriptor[], tag: number): Descriptor | null
+                /**
+                 * Finds the first descriptor of type `tag` with `tag_extension` in the array.
+                 *
+                 * Note: To look for descriptors that can be present more than once in an
+                 * array of descriptors, iterate the #GArray manually.
+                 * @since 1.20
+                 * @param descriptors an array of #GstMpegtsDescriptor
+                 * @param tag the tag to look for
+                 * @param tag_extension
+                 * @returns the first descriptor matchin `tag` with `tag_extension`, else %NULL.
+                 */
+                find_descriptor_with_extension(descriptors: Descriptor[], tag: number, tag_extension: number): Descriptor | null
+                /**
+                 * Initializes the MPEG-TS helper library. Must be called before any
+                 * usage.
+                 */
+                initialize(): void
+                /**
+                 * Creates a new #GstMessage for a `GstMpegtsSection`.
+                 * @param parent The creator of the message
+                 * @param section The #GstMpegtsSection to put in a message
+                 * @returns The new #GstMessage to be posted, or %NULL if the section is not valid.
+                 */
+                message_new_mpegts_section(parent: Gst.Object, section: Section): Gst.Message | null
+                /**
+                 * Returns the #GstMpegtsSection contained in a message.
+                 * @param message a #GstMessage
+                 * @returns the contained #GstMpegtsSection, or %NULL.
+                 */
+                message_parse_mpegts_section(message: Gst.Message): Section | null
+                /**
+                 * Parses the descriptors present in `buffer` and returns them as an
+                 * array.
+                 *
+                 * Note: The data provided in `buffer` will not be copied.
+                 * @param buffer descriptors to parse
+                 * @param buf_len Size of `buffer`
+                 * @returns an array of the parsed descriptors or %NULL if there was an error.  Release with #g_array_unref when done with it.
+                 */
+                parse_descriptors(buffer: number, buf_len: number): Descriptor[] | null
+                /**
+                 * Allocates a new #GPtrArray for #GstMpegtsPatProgram. The array can be filled
+                 * and then converted to a PAT section with gst_mpegts_section_from_pat().
+                 * @returns A newly allocated #GPtrArray
+                 */
+                pat_new(): PatProgram[]
+                /**
+                 * Return the #GType associated with #GstMpegtsPESMetadataMeta
+                 * @since 1.24
+                 * @returns a #GType
+                 */
+                pes_metadata_meta_api_get_type(): GObject.GType
+                /**
+                 * Gets the global #GstMetaInfo describing the #GstMpegtsPESMetadataMeta meta.
+                 * @since 1.24
+                 * @returns The #GstMetaInfo
+                 */
+                pes_metadata_meta_get_info(): Gst.MetaInfo
+                /**
+                 * Allocates and initializes a new INSERT command #GstMpegtsSCTESIT
+                 * setup to cancel the specified `event_id`.
+                 * @param event_id The event ID to cancel.
+                 * @returns A newly allocated #GstMpegtsSCTESIT
+                 */
+                scte_cancel_new(event_id: number): SCTESIT
+                /**
+                 * Allocates and initializes a NULL command #GstMpegtsSCTESIT.
+                 * @returns A newly allocated #GstMpegtsSCTESIT
+                 */
+                scte_null_new(): SCTESIT
+                /**
+                 * Allocates and initializes a new "Splice In" INSERT command
+                 * #GstMpegtsSCTESIT for the given `event_id` and `splice_time`.
+                 *
+                 * If the `splice_time` is #G_MAXUINT64 then the event will be
+                 * immediate as opposed to for the target `splice_time`.
+                 * @param event_id The event ID.
+                 * @param splice_time The running time for the splice event
+                 * @returns A newly allocated #GstMpegtsSCTESIT
+                 */
+                scte_splice_in_new(event_id: number, splice_time: Gst.ClockTime): SCTESIT
+                /**
+                 * Allocates and initializes a new "Splice Out" INSERT command
+                 * #GstMpegtsSCTESIT for the given `event_id`, `splice_time` and
+                 *  `duration`.
+                 *
+                 * If the `splice_time` is #G_MAXUINT64 then the event will be
+                 * immediate as opposed to for the target `splice_time`.
+                 *
+                 * If the `duration` is 0 it won't be specified in the event.
+                 * @param event_id The event ID.
+                 * @param splice_time The running time for the splice event
+                 * @param duration The optional duration.
+                 * @returns A newly allocated #GstMpegtsSCTESIT
+                 */
+                scte_splice_out_new(event_id: number, splice_time: Gst.ClockTime, duration: Gst.ClockTime): SCTESIT
+                /**
+                 * @param mgt a #GstMpegtsAtscMGT to create the #GstMpegtsSection from
+                 * @returns the #GstMpegtsSection, or %NULL if `mgt` is invalid Since: 1.18
+                 */
+                section_from_atsc_mgt(mgt: AtscMGT): Section | null
+                /**
+                 * @param rrt
+                 */
+                section_from_atsc_rrt(rrt: AtscRRT): Section
+                /**
+                 * @param stt
+                 */
+                section_from_atsc_stt(stt: AtscSTT): Section
+                /**
+                 * Ownership of `nit` is taken. The data in `nit` is managed by the #GstMpegtsSection
+                 * @param nit a #GstMpegtsNIT to create the #GstMpegtsSection from
+                 * @returns the #GstMpegtsSection, or %NULL if `nit` is invalid
+                 */
+                section_from_nit(nit: NIT): Section | null
+                /**
+                 * Creates a PAT #GstMpegtsSection from the `programs` array of #GstMpegtsPatPrograms
+                 * @param programs an array of #GstMpegtsPatProgram
+                 * @param ts_id Transport stream ID of the PAT
+                 * @returns a #GstMpegtsSection
+                 */
+                section_from_pat(programs: PatProgram[], ts_id: number): Section
+                /**
+                 * Creates a #GstMpegtsSection from `pmt` that is bound to `pid`
+                 * @param pmt a #GstMpegtsPMT to create a #GstMpegtsSection from
+                 * @param pid The PID that the #GstMpegtsPMT belongs to
+                 * @returns #GstMpegtsSection, or %NULL if `pmt` is invalid
+                 */
+                section_from_pmt(pmt: PMT, pid: number): Section | null
+                /**
+                 * Ownership of `sit` is taken. The data in `sit` is managed by the #GstMpegtsSection
+                 * @param sit a #GstMpegtsSCTESIT to create the #GstMpegtsSection from
+                 * @param pid
+                 * @returns the #GstMpegtsSection, or %NULL if `sit` is invalid
+                 */
+                section_from_scte_sit(sit: SCTESIT, pid: number): Section | null
+                /**
+                 * Ownership of `sdt` is taken. The data in `sdt` is managed by the #GstMpegtsSection
+                 * @param sdt a #GstMpegtsSDT to create the #GstMpegtsSection from
+                 * @returns the #GstMpegtsSection or %NULL if `sdt` is invalid
+                 */
+                section_from_sdt(sdt: SDT): Section | null
+            }
+        }
+
+        const GstMpegts: GstMpegts.$Exports
     }
 
-    const GstMpegts: GstMpegts.$Exports
-    export default GstMpegts
+    export default GI.GstMpegts
 }

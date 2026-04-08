@@ -14,2466 +14,2475 @@ declare module "gi://Nice?version=0.1" {
     import type GObject from "gi://GObject?version=2.0"
     import type Gio from "gi://Gio?version=2.0"
 
-    
-
-    namespace Nice {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace Agent {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+        namespace Nice {
+            
+
+            namespace Agent {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                    /**
+                     * This signal is fired whenever a stream has finished gathering its
+                     * candidates after a call to nice_agent_gather_candidates()
+                     * @param stream_id The ID of the stream
+                     */
+                    "candidate-gathering-done"(stream_id: number): void
+                    /**
+                     * This signal is fired whenever a component’s state changes. There are many
+                     * valid state transitions.
+                     *
+                     * ![State transition diagram](states.png)
+                     * @param stream_id The ID of the stream
+                     * @param component_id The ID of the component
+                     * @param state The new #NiceComponentState of the component
+                     */
+                    "component-state-changed"(stream_id: number, component_id: number, state: number): void
+                    /**
+                     * This signal is fired when we received our first binding request from
+                     * the peer.
+                     * @param stream_id The ID of the stream
+                     */
+                    "initial-binding-request-received"(stream_id: number): void
+                    /**
+                     * This signal is fired when the agent discovers a new local candidate.
+                     * When this signal is emitted, a matching #NiceAgent::new-candidate-full is
+                     * also emitted with the candidate.
+                     *
+                     * See also: #NiceAgent::candidate-gathering-done,
+                     * #NiceAgent::new-candidate-full
+                     * @deprecated since 0.1.8 Use #NiceAgent::new-candidate-full
+                     * @param stream_id The ID of the stream
+                     * @param component_id The ID of the component
+                     * @param foundation The foundation of the new candidate
+                     */
+                    "new-candidate"(stream_id: number, component_id: number, foundation: string): void
+                    /**
+                     * This signal is fired when the agent discovers a new local candidate.
+                     * When this signal is emitted, a matching #NiceAgent::new-candidate is
+                     * also emitted with the candidate's foundation.
+                     *
+                     * See also: #NiceAgent::candidate-gathering-done,
+                     * #NiceAgent::new-candidate
+                     * @since 0.1.8
+                     * @param candidate The new #NiceCandidate
+                     */
+                    "new-candidate-full"(candidate: Candidate): void
+                    /**
+                     * This signal is fired when the agent discovers a new remote
+                     * candidate.  This can happen with peer reflexive candidates.  When
+                     * this signal is emitted, a matching
+                     * #NiceAgent::new-remote-candidate-full is also emitted with the
+                     * candidate.
+                     *
+                     * See also: #NiceAgent::new-remote-candidate-full
+                     * @deprecated since 0.1.8 Use #NiceAgent::new-remote-candidate-full
+                     * @param stream_id The ID of the stream
+                     * @param component_id The ID of the component
+                     * @param foundation The foundation of the new candidate
+                     */
+                    "new-remote-candidate"(stream_id: number, component_id: number, foundation: string): void
+                    /**
+                     * This signal is fired when the agent discovers a new remote candidate.
+                     * This can happen with peer reflexive candidates.
+                     * When this signal is emitted, a matching #NiceAgent::new-remote-candidate is
+                     * also emitted with the candidate's foundation.
+                     *
+                     * See also: #NiceAgent::new-remote-candidate
+                     * @since 0.1.8
+                     * @param candidate The new #NiceCandidate
+                     */
+                    "new-remote-candidate-full"(candidate: Candidate): void
+                    /**
+                     * This signal is fired once a candidate pair is selected for data
+                     * transfer for a stream's component This is emitted along with
+                     * #NiceAgent::new-selected-pair-full which has the whole candidate,
+                     * the Foundation of a Candidate is not a unique identifier.
+                     *
+                     * See also: #NiceAgent::new-selected-pair-full
+                     * @deprecated since 0.1.8 Use #NiceAgent::new-selected-pair-full
+                     * @param stream_id The ID of the stream
+                     * @param component_id The ID of the component
+                     * @param lfoundation The local foundation of the selected candidate pair
+                     * @param rfoundation The remote foundation of the selected candidate pair
+                     */
+                    "new-selected-pair"(stream_id: number, component_id: number, lfoundation: string, rfoundation: string): void
+                    /**
+                     * This signal is fired once a candidate pair is selected for data
+                     * transfer for a stream's component. This is emitted along with
+                     * #NiceAgent::new-selected-pair.
+                     *
+                     * See also: #NiceAgent::new-selected-pair
+                     * @since 0.1.8
+                     * @param stream_id The ID of the stream
+                     * @param component_id The ID of the component
+                     * @param lcandidate The local #NiceCandidate of the selected candidate pair
+                     * @param rcandidate The remote #NiceCandidate of the selected candidate pair
+                     */
+                    "new-selected-pair-full"(stream_id: number, component_id: number, lcandidate: Candidate, rcandidate: Candidate): void
+                    /**
+                     * This signal is fired on #NiceAgent when the underlying transport becomes writable.
+                     * This signal is only emitted when the nice_agent_send() function returns less
+                     * bytes than requested to send (or -1) and once when the connection
+                     * is established.
+                     *
+                     * Note: Since 0.1.23 this signal also fires for non-reliable transports.
+                     * See https://gitlab.freedesktop.org/libnice/libnice/-/issues/202.
+                     * @since 0.0.11
+                     * @param stream_id The ID of the stream
+                     * @param component_id The ID of the component
+                     */
+                    "reliable-transport-writable"(stream_id: number, component_id: number): void
+                    /**
+                     * This signal is fired whenever one or more streams are removed from the
+                     *  `agent`.
+                     * @since 0.1.5
+                     * @param stream_ids An array of unsigned integer stream IDs, ending with a 0 ID
+                     */
+                    "streams-removed"(stream_ids: number[]): void
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "bytestream-tcp": boolean
+                    "close-forced": boolean
+                    "compatibility": number
+                    "consent-freshness": boolean
+                    "controlling-mode": boolean
+                    "force-relay": boolean
+                    "full-mode": boolean
+                    "ice-tcp": boolean
+                    "ice-trickle": boolean
+                    "ice-udp": boolean
+                    "idle-timeout": number
+                    "keepalive-conncheck": boolean
+                    "main-context": never
+                    "max-connectivity-checks": number
+                    "proxy-extra-headers": Record<string, string>
+                    "proxy-ip": string
+                    "proxy-password": string
+                    "proxy-port": number
+                    "proxy-type": number
+                    "proxy-username": string
+                    "reliable": boolean
+                    "stun-initial-timeout": number
+                    "stun-max-retransmissions": number
+                    "stun-pacing-timer": number
+                    "stun-reliable-timeout": number
+                    "stun-server": string
+                    "stun-server-port": number
+                    "support-renomination": boolean
+                    "upnp": boolean
+                    "upnp-timeout": number
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "bytestream-tcp": boolean
+                    "consent-freshness": boolean
+                    "controlling-mode": boolean
+                    "force-relay": boolean
+                    "ice-tcp": boolean
+                    "ice-trickle": boolean
+                    "ice-udp": boolean
+                    "idle-timeout": number
+                    "keepalive-conncheck": boolean
+                    "max-connectivity-checks": number
+                    "proxy-extra-headers": Record<string, string>
+                    "proxy-ip": string
+                    "proxy-password": string
+                    "proxy-port": number
+                    "proxy-type": number
+                    "proxy-username": string
+                    "stun-initial-timeout": number
+                    "stun-max-retransmissions": number
+                    "stun-pacing-timer": number
+                    "stun-reliable-timeout": number
+                    "stun-server": string
+                    "stun-server-port": number
+                    "support-renomination": boolean
+                    "upnp": boolean
+                    "upnp-timeout": number
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                    "close-forced": boolean
+                    "compatibility": number
+                    "full-mode": boolean
+                    "main-context": never
+                    "reliable": boolean
+                }
+            }
+
+            interface Agent extends GObject.Object {
+                readonly $signals: Agent.SignalSignatures
+                readonly $readableProperties: Agent.ReadableProperties
+                readonly $writableProperties: Agent.WritableProperties
+                readonly $constructOnlyProperties: Agent.ConstructOnlyProperties
                 /**
-                 * This signal is fired whenever a stream has finished gathering its
-                 * candidates after a call to nice_agent_gather_candidates()
-                 * @param stream_id The ID of the stream
-                 */
-                "candidate-gathering-done"(stream_id: number): void
-                /**
-                 * This signal is fired whenever a component’s state changes. There are many
-                 * valid state transitions.
-                 *
-                 * ![State transition diagram](states.png)
-                 * @param stream_id The ID of the stream
-                 * @param component_id The ID of the component
-                 * @param state The new #NiceComponentState of the component
-                 */
-                "component-state-changed"(stream_id: number, component_id: number, state: number): void
-                /**
-                 * This signal is fired when we received our first binding request from
-                 * the peer.
-                 * @param stream_id The ID of the stream
-                 */
-                "initial-binding-request-received"(stream_id: number): void
-                /**
-                 * This signal is fired when the agent discovers a new local candidate.
-                 * When this signal is emitted, a matching #NiceAgent::new-candidate-full is
-                 * also emitted with the candidate.
-                 *
-                 * See also: #NiceAgent::candidate-gathering-done,
-                 * #NiceAgent::new-candidate-full
-                 * @deprecated since 0.1.8 Use #NiceAgent::new-candidate-full
-                 * @param stream_id The ID of the stream
-                 * @param component_id The ID of the component
-                 * @param foundation The foundation of the new candidate
-                 */
-                "new-candidate"(stream_id: number, component_id: number, foundation: string): void
-                /**
-                 * This signal is fired when the agent discovers a new local candidate.
-                 * When this signal is emitted, a matching #NiceAgent::new-candidate is
-                 * also emitted with the candidate's foundation.
-                 *
-                 * See also: #NiceAgent::candidate-gathering-done,
-                 * #NiceAgent::new-candidate
+                 * This property defines whether receive/send operations over a TCP socket, in
+                 * reliable mode, are considered as packetized or as bytestream.
+                 * In unreliable mode, every send/recv is considered as packetized, and
+                 * this property is ignored and cannot be set.
+                 * <para>
+                 * In reliable mode, this property will always return %TRUE in the
+                 * %NICE_COMPATIBILITY_GOOGLE compatibility mode.
+                 * </para>
+                 * If the property is %TRUE, the stream is considered in bytestream mode
+                 * and data can be read with any receive size. If the property is %FALSE, then
+                 * the stream is considered packetized and each receive will return one packet
+                 * of the same size as what was sent from the peer. If in packetized mode,
+                 * then doing a receive with a size smaller than the packet, will cause the
+                 * remaining bytes in the packet to be dropped, breaking the reliability
+                 * of the stream.
                  * @since 0.1.8
-                 * @param candidate The new #NiceCandidate
+                 * @default FALSE
                  */
-                "new-candidate-full"(candidate: Candidate): void
+                get bytestreamTcp(): boolean
+                set bytestreamTcp(value: boolean)
                 /**
-                 * This signal is fired when the agent discovers a new remote
-                 * candidate.  This can happen with peer reflexive candidates.  When
-                 * this signal is emitted, a matching
-                 * #NiceAgent::new-remote-candidate-full is also emitted with the
-                 * candidate.
-                 *
-                 * See also: #NiceAgent::new-remote-candidate-full
-                 * @deprecated since 0.1.8 Use #NiceAgent::new-remote-candidate-full
-                 * @param stream_id The ID of the stream
-                 * @param component_id The ID of the component
-                 * @param foundation The foundation of the new candidate
+                 * Whether to omit performing retransmissions and wait for a response for the 0-lifetime
+                 * refresh request that is sent by nice_agent_close_async(). This favors a quick shutdown of
+                 * the agent at the risk of lingering TURN server port allocations.
+                 * @since 0.1.23
+                 * @default FALSE
                  */
-                "new-remote-candidate"(stream_id: number, component_id: number, foundation: string): void
+                get closeForced(): boolean
+                set closeForced(value: boolean)
                 /**
-                 * This signal is fired when the agent discovers a new remote candidate.
-                 * This can happen with peer reflexive candidates.
-                 * When this signal is emitted, a matching #NiceAgent::new-remote-candidate is
-                 * also emitted with the candidate's foundation.
+                 * The Nice agent can work in various compatibility modes depending on
+                 * what the application/peer needs.
+                 * <para> See also: #NiceCompatibility</para>
+                 * @default 0
+                 */
+                get compatibility(): number
+                set compatibility(value: number)
+                /**
+                 * Whether to perform periodic consent freshness checks as specified in
+                 * RFC 7675.  When %TRUE, the agent will periodically send binding requests
+                 * to the peer to maintain the consent to send with the peer.  On receipt
+                 * of any authenticated error response, a component will immediately move
+                 * to the failed state.
                  *
-                 * See also: #NiceAgent::new-remote-candidate
+                 * Setting this property to %TRUE implies that 'keepalive-conncheck' should
+                 * be %TRUE as well.
+                 * @since 0.1.19
+                 * @default FALSE
+                 */
+                get consentFreshness(): boolean
+                set consentFreshness(value: boolean)
+                /**
+                 * Whether the agent has the controlling role. This property should
+                 * be modified before gathering candidates, any modification occuring
+                 * later will be hold until ICE is restarted.
+                 * @default FALSE
+                 */
+                get controllingMode(): boolean
+                set controllingMode(value: boolean)
+                /**
+                 * Force all traffic to go through a relay for added privacy, this
+                 * allows hiding the local IP address. When this is enabled, so
+                 * local candidates are available before relay servers have been set
+                 * with nice_agent_set_relay_info().
+                 * @since 0.1.14
+                 * @default FALSE
+                 */
+                get forceRelay(): boolean
+                set forceRelay(value: boolean)
+                /**
+                 * @default TRUE
+                 */
+                get fullMode(): boolean
+                set fullMode(value: boolean)
+                /**
+                 * Whether the agent should use ICE-TCP when gathering candidates.
+                 * If the option is disabled, no TCP candidates will be generated. If the
+                 * agent is in reliable mode, then pseudotcp will need to be used over UDP
+                 * candidates.
+                 * <para>
+                 * This option should be set before gathering candidates and should not be
+                 * modified afterwards.
+                 * </para>
+                 * The #NiceAgent:ice-tcp property can be set at the same time as the
+                 * #NiceAgent:ice-udp property, but both cannot be unset at the same time.
+                 * If #NiceAgent:ice-udp is set to %FALSE, then this property cannot be set
+                 * to %FALSE as well.
+                 * <note>
+                 *    <para>
+                 *    ICE-TCP is only supported for %NICE_COMPATIBILITY_RFC5245,
+                 *    %NICE_COMPATIBILITY_OC2007 and %NICE_COMPATIBILITY_OC2007R2 compatibility
+                 *    modes.
+                 *    </para>
+                 * </note>
                  * @since 0.1.8
-                 * @param candidate The new #NiceCandidate
+                 * @default TRUE
                  */
-                "new-remote-candidate-full"(candidate: Candidate): void
+                get iceTcp(): boolean
+                set iceTcp(value: boolean)
                 /**
-                 * This signal is fired once a candidate pair is selected for data
-                 * transfer for a stream's component This is emitted along with
-                 * #NiceAgent::new-selected-pair-full which has the whole candidate,
-                 * the Foundation of a Candidate is not a unique identifier.
-                 *
-                 * See also: #NiceAgent::new-selected-pair-full
-                 * @deprecated since 0.1.8 Use #NiceAgent::new-selected-pair-full
-                 * @param stream_id The ID of the stream
-                 * @param component_id The ID of the component
-                 * @param lfoundation The local foundation of the selected candidate pair
-                 * @param rfoundation The remote foundation of the selected candidate pair
+                 * Whether to perform Trickle ICE as per draft-ietf-ice-trickle-ice-21.
+                 * When %TRUE, the agent will postpone changing a component state to
+                 * %NICE_COMPONENT_STATE_FAILED until nice_agent_peer_candidate_gathering_done()
+                 * has been called with the ID of the component's stream.
+                 * @since 0.1.16
+                 * @default FALSE
                  */
-                "new-selected-pair"(stream_id: number, component_id: number, lfoundation: string, rfoundation: string): void
+                get iceTrickle(): boolean
+                set iceTrickle(value: boolean)
                 /**
-                 * This signal is fired once a candidate pair is selected for data
-                 * transfer for a stream's component. This is emitted along with
-                 * #NiceAgent::new-selected-pair.
-                 *
-                 * See also: #NiceAgent::new-selected-pair
+                 * Whether the agent should use ICE-UDP when gathering candidates.
+                 * If the option is disabled, no UDP candidates will be generated. If the
+                 * agent is in reliable mode, then pseudotcp will not be used since pseudotcp
+                 * works on top of UDP candidates.
+                 * <para>
+                 * This option should be set before gathering candidates and should not be
+                 * modified afterwards.
+                 * </para>
+                 * The #NiceAgent:ice-udp property can be set at the same time as the
+                 * #NiceAgent:ice-tcp property, but both cannot be unset at the same time.
+                 * If #NiceAgent:ice-tcp is set to %FALSE, then this property cannot be set
+                 * to %FALSE as well.
                  * @since 0.1.8
-                 * @param stream_id The ID of the stream
-                 * @param component_id The ID of the component
-                 * @param lcandidate The local #NiceCandidate of the selected candidate pair
-                 * @param rcandidate The remote #NiceCandidate of the selected candidate pair
+                 * @default TRUE
                  */
-                "new-selected-pair-full"(stream_id: number, component_id: number, lcandidate: Candidate, rcandidate: Candidate): void
+                get iceUdp(): boolean
+                set iceUdp(value: boolean)
                 /**
-                 * This signal is fired on #NiceAgent when the underlying transport becomes writable.
-                 * This signal is only emitted when the nice_agent_send() function returns less
-                 * bytes than requested to send (or -1) and once when the connection
-                 * is established.
+                 * A final timeout in msec, launched when the agent becomes idle,
+                 * before stopping its activity.
                  *
-                 * Note: Since 0.1.23 this signal also fires for non-reliable transports.
-                 * See https://gitlab.freedesktop.org/libnice/libnice/-/issues/202.
+                 * This timer will delay the decision to set a component as failed.
+                 * This delay is added to reduce the chance to see the agent receiving
+                 * new stun activity just after the conncheck list has been declared
+                 * failed (some valid pairs, no nominated pair, and no in-progress
+                 * pairs), reactiviting conncheck activity, and causing a (valid)
+                 * state transitions like that: connecting -> failed -> connecting ->
+                 * connected -> ready.  Such transitions are not buggy per-se, but may
+                 * break the test-suite, that counts precisely the number of time each
+                 * state has been set, and doesnt expect these transcient failed
+                 * states.
+                 *
+                 * This timer is also useful when the agent is in controlled mode and
+                 * the other controlling peer takes some time to elect its nominated
+                 * pair (this may be the case for SfB peers).
+                 *
+                 * This timer is *NOT* part if the RFC5245, as this situation is not
+                 * covered in sect 8.1.2 "Updating States", but deals with a real
+                 * use-case, where a controlled agent can not wait forever for the
+                 * other peer to make a nomination decision.
+                 *
+                 * Also note that the value of this timeout will not delay the
+                 * emission of 'connected' and 'ready' agent signals, and will not
+                 * slow down the behaviour of the agent when the peer agent works
+                 * in a timely manner.
+                 * @since 0.1.17
+                 * @default 5000
+                 */
+                get idleTimeout(): number
+                set idleTimeout(value: number)
+                /**
+                 * Use binding requests as keepalives instead of binding
+                 * indications. This means that the keepalives may time out which
+                 * will change the component state to %NICE_COMPONENT_STATE_FAILED.
+                 *
+                 * Enabing this is a slight violation of RFC 5245 section 10 which
+                 * recommends using Binding Indications for keepalives.
+                 *
+                 * This is always enabled if the compatibility mode is
+                 * %NICE_COMPATIBILITY_GOOGLE.
+                 *
+                 * This is always enabled if the 'consent-freshness' property is %TRUE
+                 * @since 0.1.8
+                 * @default FALSE
+                 */
+                get keepaliveConncheck(): boolean
+                set keepaliveConncheck(value: boolean)
+                /**
+                 * A GLib main context is needed for all timeouts used by libnice.
+                 * This is a property being set by the nice_agent_new() call.
+                 */
+                get mainContext(): never
+                set mainContext(value: never)
+                /**
+                 * @default 0
+                 */
+                get maxConnectivityChecks(): number
+                set maxConnectivityChecks(value: number)
+                /**
+                 * Optional extra headers to append to the HTTP proxy CONNECT request.
+                 * Provided as key/value-pairs in hash table corresponding to
+                 * header-name/header-value.
+                 * @since 0.1.20
+                 */
+                get proxyExtraHeaders(): Record<string, string>
+                set proxyExtraHeaders(value: Record<string, string>)
+                /**
+                 * The proxy server IP used to bypass a proxy firewall
+                 * @since 0.0.4
+                 * @default NULL
+                 */
+                get proxyIp(): string
+                set proxyIp(value: string)
+                /**
+                 * The password used to authenticate with the proxy
+                 * @since 0.0.4
+                 * @default NULL
+                 */
+                get proxyPassword(): string
+                set proxyPassword(value: string)
+                /**
+                 * The proxy server port used to bypass a proxy firewall
+                 * @since 0.0.4
+                 * @default 1
+                 */
+                get proxyPort(): number
+                set proxyPort(value: number)
+                /**
+                 * The type of proxy set in the proxy-ip property
+                 * @since 0.0.4
+                 * @default 0
+                 */
+                get proxyType(): number
+                set proxyType(value: number)
+                /**
+                 * The username used to authenticate with the proxy
+                 * @since 0.0.4
+                 * @default NULL
+                 */
+                get proxyUsername(): string
+                set proxyUsername(value: string)
+                /**
+                 * Whether the agent is providing a reliable transport of messages (through
+                 * ICE-TCP or PseudoTCP over ICE-UDP)
                  * @since 0.0.11
+                 * @default FALSE
+                 */
+                get reliable(): boolean
+                set reliable(value: boolean)
+                /**
+                 * The initial timeout (msecs) of the STUN binding requests
+                 * used in the gathering stage, to find our local candidates.
+                 * This property is described as 'RTO' in the RFC 5389 and RFC 5245.
+                 * This timeout is doubled for each retransmission, until
+                 * #NiceAgent:stun-max-retransmissions have been done,
+                 * with an exception for the last restransmission, where the timeout is
+                 * divided by two instead (RFC 5389 indicates that a customisable
+                 * multiplier 'Rm' to 'RTO' should be used).
+                 * @since 0.1.15
+                 * @default 500
+                 */
+                get stunInitialTimeout(): number
+                set stunInitialTimeout(value: number)
+                /**
+                 * The maximum number of retransmissions of the STUN binding requests
+                 * used in the gathering stage, to find our local candidates, and used
+                 * in the connection check stage, to test the validity of each
+                 * constructed pair. This property is described as 'Rc' in the RFC
+                 * 5389, with a default value of 7. The timeout of each STUN request
+                 * is doubled for each retransmission, so the choice of this value has
+                 * a direct impact on the time needed to move from the CONNECTED state
+                 * to the READY state, and on the time needed to complete the GATHERING
+                 * state.
+                 * @since 0.1.15
+                 * @default 3
+                 */
+                get stunMaxRetransmissions(): number
+                set stunMaxRetransmissions(value: number)
+                /**
+                 * @default 20
+                 */
+                get stunPacingTimer(): number
+                set stunPacingTimer(value: number)
+                /**
+                 * The initial timeout of the STUN binding requests used
+                 * for a reliable timer.
+                 * @since 0.1.15
+                 * @default 2000
+                 */
+                get stunReliableTimeout(): number
+                set stunReliableTimeout(value: number)
+                /**
+                 * @default NULL
+                 */
+                get stunServer(): string
+                set stunServer(value: string)
+                /**
+                 * @default 1
+                 */
+                get stunServerPort(): number
+                set stunServerPort(value: number)
+                /**
+                 * Support RENOMINATION STUN attribute proposed here:
+                 * https://tools.ietf.org/html/draft-thatcher-ice-renomination-00 As
+                 * soon as RENOMINATION attribute is received from remote
+                 * candidate's address, corresponding candidates pair gets
+                 * selected. This is specific to Google Chrome/libWebRTC.
+                 * @default FALSE
+                 */
+                get supportRenomination(): boolean
+                set supportRenomination(value: boolean)
+                /**
+                 * Whether the agent should use UPnP to open a port in the router and
+                 * get the external IP
+                 * @since 0.0.7
+                 * @default TRUE
+                 */
+                get upnp(): boolean
+                set upnp(value: boolean)
+                /**
+                 * The maximum amount of time (in milliseconds) to wait for UPnP discovery to
+                 * finish before signaling the #NiceAgent::candidate-gathering-done signal
+                 * @since 0.0.7
+                 * @default 200
+                 */
+                get upnpTimeout(): number
+                set upnpTimeout(value: number)
+                /**
+                 * Add a local address from which to derive local host candidates for
+                 * candidate gathering.
+                 * <para>
+                 * Since 0.0.5, if this method is not called, libnice will automatically
+                 * discover the local addresses available
+                 * </para>
+                 *
+                 * See also: nice_agent_gather_candidates()
+                 * @param addr The address to listen to If the port is 0, then a random port will be chosen by the system
+                 * @returns %TRUE on success, %FALSE on fatal (memory allocation) errors
+                 */
+                add_local_address(addr: Address): boolean
+                /**
+                 * Adds a data stream to `agent` containing `n_components` components. The
+                 * returned stream ID is guaranteed to be positive on success.
+                 * @param n_components The number of components to add to the stream
+                 * @returns The ID of the new stream, 0 on failure
+                 */
+                add_stream(n_components: number): number
+                /**
+                 * Asynchronously closes resources the agent has allocated on remote servers.
+                 *
+                 * The agent will call the callback in the current #GMainContext in
+                 * which this function is called. The #GAsyncResult in the callback
+                 * can be ignored as this operation never fails.
+                 *
+                 * Calling this function before freeing the agent makes sure the allocated relay
+                 * ports aren't left behind on TURN server but properly removed.
+                 * @since 0.1.16
+                 * @param callback A callback that will be called when the closing is  complete
+                 */
+                close_async(callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Notifies the agent that consent to receive has been revoked.  This will
+                 * cause the component to fail with 403 'Forbidden' all incoming STUN binding
+                 * requests as specified in RFC 7675.
+                 *
+                 * A stream with a component in the consent-lost state can be reused by
+                 * performing an ice restart with nice_agent_restart() or
+                 * nice_agent_restart_stream().
+                 *
+                 * Calling the function only has an effect when `agent` has been created with
+                 *  `NICE_AGENT_OPTION_CONSENT_FRESHNESS`.
+                 * @since 0.1.19
                  * @param stream_id The ID of the stream
                  * @param component_id The ID of the component
+                 * @returns %FALSE if the stream or component could not be found or consent     freshness is not enabled, %TRUE otherwise
                  */
-                "reliable-transport-writable"(stream_id: number, component_id: number): void
+                consent_lost(stream_id: number, component_id: number): boolean
                 /**
-                 * This signal is fired whenever one or more streams are removed from the
-                 * @agent.
-                 * @since 0.1.5
-                 * @param stream_ids An array of
-                unsigned integer stream IDs, ending with a 0 ID
+                 * Forget all the relay servers previously added using
+                 * nice_agent_set_relay_info(). Currently connected streams will keep
+                 * using the relay as long as they have not been restarted and haven't
+                 * succesfully negotiated a different path.
+                 * @since 0.1.6
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @returns %FALSE if the component could not be found, %TRUE otherwise
                  */
-                "streams-removed"(stream_ids: number[]): void
+                forget_relays(stream_id: number, component_id: number): boolean
+                /**
+                 * Allocate and start listening on local candidate ports and start the remote
+                 * candidate gathering process.
+                 * Once done, #NiceAgent::candidate-gathering-done is called for the stream.
+                 * As soon as this function is called, #NiceAgent::new-candidate signals may be
+                 * emitted, even before this function returns.
+                 *
+                 * nice_agent_get_local_candidates() will only return non-empty results after
+                 * calling this function.
+                 *
+                 * <para>See also: nice_agent_add_local_address()</para>
+                 * <para>See also: nice_agent_set_port_range()</para>
+                 * @param stream_id The ID of the stream to start
+                 * @returns %FALSE if the stream ID is invalid or if a host candidate couldn't be allocated on the requested interfaces/ports; %TRUE otherwise   <note>    <para>     Local addresses can be previously set with nice_agent_add_local_address()   </para>   <para>     Since 0.0.5, If no local address was previously added, then the nice agent     will automatically detect the local address using     nice_interfaces_get_local_ips()    </para>  </note>
+                 */
+                gather_candidates(stream_id: number): boolean
+                /**
+                 * Generate an SDP string representing a local candidate.
+                 *
+                 * <para>See also: nice_agent_parse_remote_candidate_sdp() </para>
+                 * <para>See also: nice_agent_generate_local_sdp() </para>
+                 * <para>See also: nice_agent_generate_local_stream_sdp() </para>
+                 * @since 0.1.4
+                 * @param candidate The candidate to generate
+                 * @returns A string representing the SDP for the candidate. Must be freed with g_free() once done.
+                 */
+                generate_local_candidate_sdp(candidate: Candidate): string
+                /**
+                 * Generate an SDP string containing the local candidates and credentials for
+                 * all streams and components in the agent.
+                 *
+                 *  <note>
+                 *    <para>
+                 *      The SDP will not contain any codec lines and the 'm' line will not list
+                 *      any payload types.
+                 *    </para>
+                 *    <para>
+                 *     It is highly recommended to set names on the streams prior to calling this
+                 *     function. Unnamed streams will show up as '-' in the 'm' line, but the SDP
+                 *     will not be parseable with nice_agent_parse_remote_sdp() if a stream is
+                 *     unnamed.
+                 *    </para>
+                 *    <para>
+                 *      The default candidate in the SDP will be selected based on the lowest
+                 *      priority candidate for the first component.
+                 *    </para>
+                 *  </note>
+                 *
+                 * <para>See also: nice_agent_set_stream_name() </para>
+                 * <para>See also: nice_agent_parse_remote_sdp() </para>
+                 * <para>See also: nice_agent_generate_local_stream_sdp() </para>
+                 * <para>See also: nice_agent_generate_local_candidate_sdp() </para>
+                 * <para>See also: nice_agent_get_default_local_candidate() </para>
+                 * @since 0.1.4
+                 * @returns A string representing the local SDP. Must be freed with g_free() once done.
+                 */
+                generate_local_sdp(): string
+                /**
+                 * Generate an SDP string containing the local candidates and credentials
+                 * for a stream.
+                 *
+                 *  <note>
+                 *    <para>
+                 *      The SDP will not contain any codec lines and the 'm' line will not list
+                 *      any payload types.
+                 *    </para>
+                 *    <para>
+                 *     It is highly recommended to set the name of the stream prior to calling this
+                 *     function. Unnamed streams will show up as '-' in the 'm' line.
+                 *    </para>
+                 *    <para>
+                 *      The default candidate in the SDP will be selected based on the lowest
+                 *      priority candidate.
+                 *    </para>
+                 *  </note>
+                 *
+                 * <para>See also: nice_agent_set_stream_name() </para>
+                 * <para>See also: nice_agent_parse_remote_stream_sdp() </para>
+                 * <para>See also: nice_agent_generate_local_sdp() </para>
+                 * <para>See also: nice_agent_generate_local_candidate_sdp() </para>
+                 * <para>See also: nice_agent_get_default_local_candidate() </para>
+                 * @since 0.1.4
+                 * @param stream_id The ID of the stream
+                 * @param include_non_ice Whether or not to include non ICE specific lines (m=, c= and a=rtcp: lines)
+                 * @returns A string representing the local SDP for the stream. Must be freed with g_free() once done.
+                 */
+                generate_local_stream_sdp(stream_id: number, include_non_ice: boolean): string
+                /**
+                 * Retrieves the current state of a component.
+                 * @since 0.1.8
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @returns the #NiceComponentState of the component and %NICE_COMPONENT_STATE_FAILED if the component was invalid.
+                 */
+                get_component_state(stream_id: number, component_id: number): ComponentState
+                /**
+                 * This helper function will return the recommended default candidate to be
+                 * used for non-ICE compatible clients. This will usually be the candidate
+                 * with the lowest priority, since it will be the longest path but the one with
+                 * the most chances of success.
+                 * <note>
+                 *      <para>
+                 *      This function is only useful in order to manually generate the
+                 *      local SDP
+                 *      </para>
+                 * </note>
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @returns The candidate to be used as the default candidate, or %NULL in case of error. Must be freed with nice_candidate_free() once done.
+                 */
+                get_default_local_candidate(stream_id: number, component_id: number): Candidate
+                /**
+                 * Gets a #GIOStream wrapper around the given stream and component in
+                 *  `agent`. The I/O stream will be valid for as long as `stream_id` is valid.
+                 * The #GInputStream and #GOutputStream implement #GPollableInputStream and
+                 * #GPollableOutputStream.
+                 *
+                 * This function may only be called on reliable #NiceAgents. It is a
+                 * programming error to try and create an I/O stream wrapper for an
+                 * unreliable stream.
+                 * @since 0.1.5
+                 * @param stream_id The ID of the stream to wrap
+                 * @param component_id The ID of the component to wrap
+                 * @returns A #GIOStream.
+                 */
+                get_io_stream(stream_id: number, component_id: number): Gio.IOStream
+                /**
+                 * Retrieve from the agent the list of all local candidates
+                 * for a stream's component
+                 *
+                 *  <note>
+                 *    <para>
+                 *      The caller owns the returned GSList as well as the candidates contained
+                 *      within it.
+                 *      To get full results, the client should wait for the
+                 *      #NiceAgent::candidate-gathering-done signal.
+                 *    </para>
+                 *  </note>
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @returns a #GSList of #NiceCandidate objects representing the local candidates of `agent`
+                 */
+                get_local_candidates(stream_id: number, component_id: number): Candidate[]
+                /**
+                 * Gets the local credentials for stream `stream_id`. This may be called any time
+                 * after creating a stream using nice_agent_add_stream().
+                 *
+                 * An error will be returned if this is called for a non-existent stream, or if
+                 * either of `ufrag` or `pwd` are %NULL.
+                 * @param stream_id The ID of the stream
+                 * @returns %TRUE on success, %FALSE on error., return location for a nul-terminated string containing an ICE username fragment; must be freed with g_free(), return location for a nul-terminated string containing an ICE password; must be freed with g_free()
+                 */
+                get_local_credentials(stream_id: number): [boolean, string, string]
+                /**
+                 * Get a list of the remote candidates set on a stream's component
+                 *
+                 *  <note>
+                 *    <para>
+                 *      The caller owns the returned GSList as well as the candidates contained
+                 *      within it.
+                 *    </para>
+                 *    <para>
+                 *      The list of remote candidates can change during processing.
+                 *      The client should register for the #NiceAgent::new-remote-candidate signal
+                 *      to get notified of new remote candidates.
+                 *    </para>
+                 *  </note>
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @returns a #GSList of #NiceCandidates objects representing the remote candidates set on the `agent`
+                 */
+                get_remote_candidates(stream_id: number, component_id: number): Candidate[]
+                /**
+                 * Retreive the selected candidate pair for media transmission
+                 * for a given stream's component.
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @param local The local selected candidate
+                 * @param remote The remote selected candidate
+                 * @returns %TRUE on success, %FALSE if there is no selected candidate pair
+                 */
+                get_selected_pair(stream_id: number, component_id: number, local: Candidate, remote: Candidate): boolean
+                /**
+                 * Retreive the local socket associated with the selected candidate pair
+                 * for media transmission for a given stream's component.
+                 *
+                 * This is useful for adding ICE support to legacy applications that already
+                 * have a protocol that maintains a connection. If the socket is duplicated
+                 * before unrefing the agent, the application can take over and continue to use
+                 * it. New applications are encouraged to use the built in libnice stream
+                 * handling instead and let libnice handle the connection maintenance.
+                 *
+                 * Users of this method are encouraged to not use a TURN relay or any kind
+                 * of proxy, as in this case, the socket will not be available to the
+                 * application because the packets are encapsulated.
+                 * @since 0.1.5
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @returns pointer to the #GSocket, or %NULL if there is no selected candidate or if the selected candidate is a relayed candidate.
+                 */
+                get_selected_socket(stream_id: number, component_id: number): Gio.Socket | null
+                /**
+                 * Each component can have multiple sockets, this is an API to retrieve them all
+                 * to be able to set properties. Most of the sockets for a component are created when
+                 * calling nice_agent_gather_candidates(), so this API should be called right after to
+                 * able to set properties on the sockets before they are used.
+                 *
+                 * These sockets can be a mix of UDP & TCP sockets depending on the compatibility mode
+                 * and options that have been set.
+                 * @since 0.1.17
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @returns An array containing all of the sockets for this component. Free with g_ptr_array_unref() when done.
+                 */
+                get_sockets(stream_id: number, component_id: number): Gio.Socket[]
+                /**
+                 * This function will return the name assigned to a stream.
+                 *
+                 * <para>See also: nice_agent_set_stream_name()</para>
+                 * @since 0.1.4
+                 * @param stream_id The ID of the stream to change
+                 * @returns The name of the stream. The name is only valid while the stream exists or until it changes through a call to nice_agent_set_stream_name().
+                 */
+                get_stream_name(stream_id: number): string
+                /**
+                 * Parse an SDP string and extracts the candidate from it.
+                 *
+                 * <para>See also: nice_agent_generate_local_candidate_sdp() </para>
+                 * <para>See also: nice_agent_parse_remote_sdp() </para>
+                 * <para>See also: nice_agent_parse_remote_stream_sdp() </para>
+                 * @since 0.1.4
+                 * @param stream_id The ID of the stream the candidate belongs to
+                 * @param sdp The remote SDP to parse
+                 * @returns The parsed candidate or %NULL if there was an error.
+                 */
+                parse_remote_candidate_sdp(stream_id: number, sdp: string): Candidate
+                /**
+                 * Parse an SDP string and extracts candidates and credentials from it and sets
+                 * them on the agent.
+                 *
+                 * <para>See also: nice_agent_set_stream_name() </para>
+                 * <para>See also: nice_agent_generate_local_sdp() </para>
+                 * <para>See also: nice_agent_parse_remote_stream_sdp() </para>
+                 * <para>See also: nice_agent_parse_remote_candidate_sdp() </para>
+                 * @since 0.1.4
+                 * @param sdp The remote SDP to parse
+                 * @returns The number of candidates added, negative on errors
+                 */
+                parse_remote_sdp(sdp: string): number
+                /**
+                 * Parse an SDP string representing a single stream and extracts candidates
+                 * and credentials from it.
+                 *
+                 * <para>See also: nice_agent_generate_local_stream_sdp() </para>
+                 * <para>See also: nice_agent_parse_remote_sdp() </para>
+                 * <para>See also: nice_agent_parse_remote_candidate_sdp() </para>
+                 * @since 0.1.4
+                 * @param stream_id The ID of the stream to parse
+                 * @param sdp The remote SDP to parse
+                 * @param ufrag Pointer to store the ice ufrag if non %NULL. Must be freed with g_free() after use
+                 * @param pwd Pointer to store the ice password if non %NULL. Must be freed with g_free() after use
+                 * @returns A #GSList of candidates parsed from the SDP, or %NULL in case of errors
+                 */
+                parse_remote_stream_sdp(stream_id: number, sdp: string, ufrag: string, pwd: string): Candidate[]
+                /**
+                 * Notifies the agent that the remote peer has concluded candidate gathering and
+                 * thus no more remote candidates are expected to arrive for `stream_id`.
+                 *
+                 * This will allow the stream components without a successful connectivity check
+                 * to stop waiting for more candidates to come and finally transit into
+                 * %NICE_COMPONENT_STATE_FAILED.
+                 *
+                 * Calling the function has an effect only when #NiceAgent:trickle-ice is %TRUE.
+                 * @since 0.1.16
+                 * @param stream_id The ID of the stream
+                 * @returns %FALSE if the stream could not be found, %TRUE otherwise
+                 */
+                peer_candidate_gathering_done(stream_id: number): boolean
+                /**
+                 * A single-message version of nice_agent_recv_messages().
+                 * @throws {GLib.Error}
+                 * @since 0.1.5
+                 * @param stream_id the ID of the stream to receive on
+                 * @param component_id the ID of the component to receive on
+                 * @param cancellable a #GCancellable to allow the operation to be cancelled from another thread, or %NULL
+                 * @returns the number of bytes written to `buf` on success (guaranteed to be greater than 0 unless `buf_len` is 0), 0 if in reliable mode and the remote peer closed the stream, or -1 on error, caller-allocated buffer to write the received data into, of length at least `buf_len`
+                 */
+                recv(stream_id: number, component_id: number, cancellable: Gio.Cancellable | null): [number, Uint8Array]
+                /**
+                 * Block on receiving data from the given stream/component combination on
+                 *  `agent`, returning only once exactly `n_messages` messages have been received
+                 * and written into `messages`, the stream is closed by the other end or by
+                 * calling nice_agent_remove_stream(), or `cancellable` is cancelled.
+                 *
+                 * Any STUN packets received will not be added to `messages`; instead,
+                 * they'll be passed for processing to #NiceAgent itself. Since #NiceAgent
+                 * does not poll for messages on its own, it's therefore essential to keep
+                 * calling this function for ICE connection establishment to work.
+                 *
+                 * In the non-error case, in reliable mode, this will block until all buffers in
+                 * all `n_messages` have been filled with received data (i.e. `messages` is
+                 * treated as a large, flat array of buffers). In non-reliable mode, it will
+                 * block until `n_messages` messages have been received, each of which does not
+                 * have to fill all the buffers in its #NiceInputMessage. In the non-reliable
+                 * case, each #NiceInputMessage must have enough buffers to contain an entire
+                 * message (65536 bytes), or any excess data may be silently dropped.
+                 *
+                 * For each received message, #NiceInputMessage::length will be set to the
+                 * number of valid bytes stored in the message’s buffers. The bytes are stored
+                 * sequentially in the buffers; there are no gaps apart from at the end of the
+                 * buffer array (in non-reliable mode). If non-%NULL on input,
+                 * #NiceInputMessage::from will have the address of the sending peer stored in
+                 * it. The base addresses, sizes, and number of buffers in each message will not
+                 * be modified in any case.
+                 *
+                 * This must not be used in combination with nice_agent_attach_recv() on the
+                 * same stream/component pair.
+                 *
+                 * If the stream/component pair doesn’t exist, or if a suitable candidate socket
+                 * hasn’t yet been selected for it, a %G_IO_ERROR_BROKEN_PIPE error will be
+                 * returned. A %G_IO_ERROR_CANCELLED error will be returned if the operation was
+                 * cancelled. %G_IO_ERROR_FAILED will be returned for other errors.
+                 * @throws {GLib.Error}
+                 * @since 0.1.5
+                 * @param stream_id the ID of the stream to receive on
+                 * @param component_id the ID of the component to receive on
+                 * @param cancellable a #GCancellable to allow the operation to be cancelled from another thread, or %NULL
+                 * @returns the number of valid messages written to `messages` on success (guaranteed to be greater than 0 unless `n_messages` is 0), 0 if the remote peer closed the stream, or -1 on error, caller-allocated array of #NiceInputMessages to write the received messages into, of length at least `n_messages`
+                 */
+                recv_messages(stream_id: number, component_id: number, cancellable: Gio.Cancellable | null): [number, InputMessage[]]
+                /**
+                 * Try to receive data from the given stream/component combination on `agent`,
+                 * without blocking. If receiving data would block, -1 is returned and
+                 * %G_IO_ERROR_WOULD_BLOCK is set in `error`. If any other error occurs, -1 is
+                 * returned and `error` is set accordingly. Otherwise, 0 is returned if (and only
+                 * if) `n_messages` is 0. In all other cases, the number of valid messages stored
+                 * in `messages` is returned, and will be greater than 0.
+                 *
+                 * This function behaves similarly to nice_agent_recv_messages(), except that it
+                 * will not block on filling (in reliable mode) or receiving (in non-reliable
+                 * mode) exactly `n_messages` messages. In reliable mode, it will receive bytes
+                 * into `messages` until it would block; in non-reliable mode, it will receive
+                 * messages until it would block.
+                 *
+                 * Any STUN packets received will not be added to `messages`; instead,
+                 * they'll be passed for processing to #NiceAgent itself. Since #NiceAgent
+                 * does not poll for messages on its own, it's therefore essential to keep
+                 * calling this function for ICE connection establishment to work.
+                 *
+                 * As this function is non-blocking, `cancellable` is included only for parity
+                 * with nice_agent_recv_messages(). If `cancellable` is cancelled before this
+                 * function is called, a %G_IO_ERROR_CANCELLED error will be returned
+                 * immediately.
+                 *
+                 * This must not be used in combination with nice_agent_attach_recv() on the
+                 * same stream/component pair.
+                 * @throws {GLib.Error}
+                 * @since 0.1.5
+                 * @param stream_id the ID of the stream to receive on
+                 * @param component_id the ID of the component to receive on
+                 * @param cancellable a #GCancellable to allow the operation to be cancelled from another thread, or %NULL
+                 * @returns the number of valid messages written to `messages` on success (guaranteed to be greater than 0 unless `n_messages` is 0), 0 if in reliable mode and the remote peer closed the stream, or -1 on error, caller-allocated array of #NiceInputMessages to write the received messages into, of length at least `n_messages`
+                 */
+                recv_messages_nonblocking(stream_id: number, component_id: number, cancellable: Gio.Cancellable | null): [number, InputMessage[]]
+                /**
+                 * A single-message version of nice_agent_recv_messages_nonblocking().
+                 * @throws {GLib.Error}
+                 * @since 0.1.5
+                 * @param stream_id the ID of the stream to receive on
+                 * @param component_id the ID of the component to receive on
+                 * @param cancellable a #GCancellable to allow the operation to be cancelled from another thread, or %NULL
+                 * @returns the number of bytes received into `buf` on success (guaranteed to be greater than 0 unless `buf_len` is 0), 0 if in reliable mode and the remote peer closed the stream, or -1 on error, caller-allocated buffer to write the received data into, of length at least `buf_len`
+                 */
+                recv_nonblocking(stream_id: number, component_id: number, cancellable: Gio.Cancellable | null): [number, Uint8Array]
+                /**
+                 * Remove and free a previously created data stream from `agent`. If any I/O
+                 * streams have been created using nice_agent_get_io_stream(), they should be
+                 * closed completely using g_io_stream_close() before this is called, or they
+                 * will get broken pipe errors.
+                 * @param stream_id The ID of the stream to remove
+                 */
+                remove_stream(stream_id: number): void
+                /**
+                 * Restarts the session as defined in ICE draft 19. This function
+                 * needs to be called both when initiating (ICE spec section 9.1.1.1.
+                 * "ICE Restarts"), as well as when reacting (spec section 9.2.1.1.
+                 * "Detecting ICE Restart") to a restart.
+                 *
+                 * If consent-freshness has been enabled on `agent`, as specified in RFC7675
+                 * then restarting streams will restore the local consent.
+                 * @returns %TRUE on success %FALSE on error
+                 */
+                restart(): boolean
+                /**
+                 * Restarts a single stream as defined in RFC 5245. This function
+                 * needs to be called both when initiating (ICE spec section 9.1.1.1.
+                 * "ICE Restarts"), as well as when reacting (spec section 9.2.1.1.
+                 * "Detecting ICE Restart") to a restart.
+                 *
+                 * Unlike nice_agent_restart(), this applies to a single stream. It also
+                 * does not generate a new tie breaker.
+                 *
+                 * If consent-freshness has been enabled on `agent`, as specified in RFC7675
+                 * then restart `stream_id` will restore the local consent for that stream.
+                 * @since 0.1.6
+                 * @param stream_id The ID of the stream
+                 * @returns %TRUE on success %FALSE on error
+                 */
+                restart_stream(stream_id: number): boolean
+                /**
+                 * Sends a data payload over a stream's component.
+                 *
+                 *  <note>
+                 *    <para>
+                 *      Component state MUST be NICE_COMPONENT_STATE_READY, or as a special case,
+                 *      in any state if component was in READY state before and was then restarted
+                 *    </para>
+                 *    <para>
+                 *    In reliable mode, the -1 error value means either that you are not yet
+                 *    connected or that the send buffer is full (equivalent to EWOULDBLOCK).
+                 *    In both cases, you simply need to wait for the
+                 *    #NiceAgent::reliable-transport-writable signal to be fired before resending
+                 *    the data.
+                 *    </para>
+                 *    <para>
+                 *    In non-reliable mode, it will virtually never happen with UDP sockets, but
+                 *    it might happen if the active candidate is a TURN-TCP connection that got
+                 *    disconnected.
+                 *    </para>
+                 *    <para>
+                 *    In both reliable and non-reliable mode, a -1 error code could also mean that
+                 *    the stream_id and/or component_id are invalid.
+                 *    </para>
+                 * </note>
+                 * @param stream_id The ID of the stream to send to
+                 * @param component_id The ID of the component to send to
+                 * @param len The length of the buffer to send
+                 * @param buf The buffer of data to send
+                 * @returns The number of bytes sent, or negative error code
+                 */
+                send(stream_id: number, component_id: number, len: number, buf: string): number
+                /**
+                 * Sends multiple messages on the socket identified by the given
+                 * stream/component pair. Transmission is non-blocking, so a
+                 * %G_IO_ERROR_WOULD_BLOCK error may be returned if the send buffer is full.
+                 *
+                 * As with nice_agent_send(), the given component must be in
+                 * %NICE_COMPONENT_STATE_READY or, as a special case, in any state if it was
+                 * previously ready and was then restarted.
+                 *
+                 * On success, the number of messages written to the socket will be returned,
+                 * which may be less than `n_messages` if transmission would have blocked
+                 * part-way through. Zero will be returned if `n_messages` is zero, or if
+                 * transmission would have blocked on the first message.
+                 *
+                 * In reliable mode, it is instead recommended to use
+                 * nice_agent_send().  The return value can be less than `n_messages`
+                 * or 0 even if it is still possible to send a partial message. In
+                 * this case, "nice-agent-writable" will never be triggered, so the
+                 * application would have to use nice_agent_sent() to fill the buffer or have
+                 * to retry sending at a later point.
+                 *
+                 * On failure, -1 will be returned and `error` will be set. If the #NiceAgent is
+                 * reliable and the socket is not yet connected, %G_IO_ERROR_BROKEN_PIPE will be
+                 * returned; if the write buffer is full, %G_IO_ERROR_WOULD_BLOCK will be
+                 * returned. In both cases, wait for the #NiceAgent::reliable-transport-writable
+                 * signal before trying again. If the given `stream_id` or `component_id` are
+                 * invalid or not yet connected, %G_IO_ERROR_BROKEN_PIPE will be returned.
+                 * %G_IO_ERROR_FAILED will be returned for other errors.
+                 * @throws {GLib.Error}
+                 * @since 0.1.5
+                 * @param stream_id the ID of the stream to send to
+                 * @param component_id the ID of the component to send to
+                 * @param messages array of messages to send, of at least `n_messages` entries in length
+                 * @param cancellable a #GCancellable to cancel the operation from another thread, or %NULL
+                 * @returns the number of messages sent (may be zero), or -1 on error
+                 */
+                send_messages_nonblocking(stream_id: number, component_id: number, messages: OutputMessage[], cancellable: Gio.Cancellable | null): number
+                /**
+                 * Sets the local credentials for stream `stream_id`.
+                 *
+                 *  <note>
+                 *    <para>
+                 *      This is only effective before ICE negotiation has started.
+                 *    </para>
+                 *  </note>
+                 *
+                 * Since 0.1.11
+                 * @param stream_id The ID of the stream
+                 * @param ufrag nul-terminated string containing an ICE username fragment    (length must be between 22 and 256 chars)
+                 * @param pwd nul-terminated string containing an ICE password    (length must be between 4 and 256 chars)
+                 * @returns %TRUE on success, %FALSE on error.
+                 */
+                set_local_credentials(stream_id: number, ufrag: string, pwd: string): boolean
+                /**
+                 * Sets a preferred port range for allocating host candidates.
+                 * <para>
+                 * If a local host candidate cannot be created on that port
+                 * range, then the nice_agent_gather_candidates() call will fail.
+                 * </para>
+                 * <para>
+                 * This MUST be called before nice_agent_gather_candidates()
+                 * </para>
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @param min_port The minimum port to use
+                 * @param max_port The maximum port to use
+                 */
+                set_port_range(stream_id: number, component_id: number, min_port: number, max_port: number): void
+                /**
+                 * Sets the settings for using a relay server during the candidate discovery.
+                 * This may be called multiple times to add multiple relay servers to the
+                 * discovery process; one TCP and one UDP, for example.
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @param server_ip The address of the TURN server
+                 * @param server_port The port of the TURN server
+                 * @param username The TURN username to use for the allocate
+                 * @param password The TURN password to use for the allocate
+                 * @param type The type of relay to use
+                 * @returns %TRUE if the TURN settings were accepted. %FALSE if the address was invalid.
+                 */
+                set_relay_info(stream_id: number, component_id: number, server_ip: string, server_port: number, username: string, password: string, type: RelayType): boolean
+                /**
+                 * Sets, adds or updates the remote candidates for a component of a stream.
+                 *
+                 *  <note>
+                 *    <para>
+                 *     NICE_AGENT_MAX_REMOTE_CANDIDATES is the absolute maximum limit
+                 *     for remote candidates.
+                 *    </para>
+                 *    <para>
+                 *    You must first call nice_agent_gather_candidates() and wait for the
+                 *    #NiceAgent::candidate-gathering-done signale before
+                 *    calling nice_agent_set_remote_candidates()
+                 *    </para>
+                 *    <para>
+                 *     Since 0.1.3, there is no need to wait for the candidate-gathering-done signal.
+                 *     Remote candidates can be set even while gathering local candidates.
+                 *     Newly discovered local candidates will automatically be paired with
+                 *     existing remote candidates.
+                 *    </para>
+                 *  </note>
+                 * @param stream_id The ID of the stream the candidates are for
+                 * @param component_id The ID of the component the candidates are for
+                 * @param candidates a #GSList of #NiceCandidate items describing each candidate to add
+                 * @returns The number of candidates added, negative on errors (memory allocation error or invalid component)
+                 */
+                set_remote_candidates(stream_id: number, component_id: number, candidates: Candidate[]): number
+                /**
+                 * Sets the remote credentials for stream `stream_id`.
+                 *
+                 *  <note>
+                 *    <para>
+                 *      Stream credentials do not override per-candidate credentials if set
+                 *    </para>
+                 *    <para>
+                 *      Due to the native of peer-reflexive candidates, any agent using a per-stream
+                 *      credentials (RFC5245, WLM2009, OC2007R2 and DRAFT19) instead of
+                 *      per-candidate credentials (GOOGLE, MSN, OC2007), must
+                 *      use the nice_agent_set_remote_credentials() API instead of setting the
+                 *      username and password on the candidates.
+                 *    </para>
+                 *  </note>
+                 * @param stream_id The ID of the stream
+                 * @param ufrag nul-terminated string containing an ICE username fragment    (length must be between 22 and 256 chars)
+                 * @param pwd nul-terminated string containing an ICE password    (length must be between 4 and 256 chars)
+                 * @returns %TRUE on success, %FALSE on error.
+                 */
+                set_remote_credentials(stream_id: number, ufrag: string, pwd: string): boolean
+                /**
+                 * Sets the selected candidate pair for media transmission
+                 * for a given stream's component. Calling this function will
+                 * disable all further ICE processing (connection check,
+                 * state machine updates, etc). Note that keepalives will
+                 * continue to be sent.
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @param lfoundation The local foundation of the candidate to use
+                 * @param rfoundation The remote foundation of the candidate to use
+                 * @returns %TRUE on success, %FALSE if the candidate pair cannot be found
+                 */
+                set_selected_pair(stream_id: number, component_id: number, lfoundation: string, rfoundation: string): boolean
+                /**
+                 * Sets the selected remote candidate for media transmission
+                 * for a given stream's component. This is used to force the selection of
+                 * a specific remote candidate even when connectivity checks are failing
+                 * (e.g. non-ICE compatible candidates).
+                 * Calling this function will disable all further ICE processing
+                 * (connection check, state machine updates, etc). Note that keepalives will
+                 * continue to be sent.
+                 * @param stream_id The ID of the stream
+                 * @param component_id The ID of the component
+                 * @param candidate The #NiceCandidate to select
+                 * @returns %TRUE on success, %FALSE on failure
+                 */
+                set_selected_remote_candidate(stream_id: number, component_id: number, candidate: Candidate): boolean
+                /**
+                 * This function will set the value of the SOFTWARE attribute to be added to
+                 * STUN requests, responses and error responses sent during connectivity checks.
+                 * <para>
+                 * The SOFTWARE attribute will only be added in the #NICE_COMPATIBILITY_RFC5245
+                 * and #NICE_COMPATIBILITY_WLM2009 compatibility modes.
+                 *
+                 * </para>
+                 * <note>
+                 *      <para>
+                 *        The `software` argument will be appended with the libnice version before
+                 *        being sent.
+                 *      </para>
+                 *      <para>
+                 *        The `software` argument must be in UTF-8 encoding and only the first
+                 *        128 characters will be sent.
+                 *      </para>
+                 *    </note>
+                 * @since 0.0.10
+                 * @param software The value of the SOFTWARE attribute to add.
+                 */
+                set_software(software: string): void
+                /**
+                 * This function will assign a media type to a stream. The only values
+                 * that can be used to produce a valid SDP are: "audio", "video",
+                 * "text", "application", "image" and "message".
+                 *
+                 * This is only useful when parsing and generating an SDP of the
+                 * candidates.
+                 *
+                 * <para>See also: nice_agent_generate_local_sdp()</para>
+                 * <para>See also: nice_agent_parse_remote_sdp()</para>
+                 * <para>See also: nice_agent_get_stream_name()</para>
+                 * @since 0.1.4
+                 * @param stream_id The ID of the stream to change
+                 * @param name The new name of the stream or %NULL
+                 * @returns %TRUE if the name has been set. %FALSE in case of error (invalid stream or duplicate name).
+                 */
+                set_stream_name(stream_id: number, name: string): boolean
+                /**
+                 * Sets the IP_TOS and/or IPV6_TCLASS field on the stream's sockets' options
+                 * @since 0.0.9
+                 * @param stream_id The ID of the stream
+                 * @param tos The ToS to set
+                 */
+                set_stream_tos(stream_id: number, tos: number): void
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "bytestream-tcp": boolean
-                "close-forced": boolean
-                "compatibility": number
-                "consent-freshness": boolean
-                "controlling-mode": boolean
-                "force-relay": boolean
-                "full-mode": boolean
-                "ice-tcp": boolean
-                "ice-trickle": boolean
-                "ice-udp": boolean
-                "idle-timeout": number
-                "keepalive-conncheck": boolean
-                "main-context": never
-                "max-connectivity-checks": number
-                "proxy-extra-headers": Record<string, string>
-                "proxy-ip": string
-                "proxy-password": string
-                "proxy-port": number
-                "proxy-type": number
-                "proxy-username": string
-                "reliable": boolean
-                "stun-initial-timeout": number
-                "stun-max-retransmissions": number
-                "stun-pacing-timer": number
-                "stun-reliable-timeout": number
-                "stun-server": string
-                "stun-server-port": number
-                "support-renomination": boolean
-                "upnp": boolean
-                "upnp-timeout": number
+            interface AgentClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Agent>
+                readonly prototype: Agent
+
+                new (props?: Partial<GObject.ConstructorProps<Agent>>): Agent
+                /**
+                 * Create a new #NiceAgent.
+                 * The returned object must be freed with g_object_unref()
+                 * @param ctx The Glib Mainloop Context to use for timers
+                 * @param compat The compatibility mode of the agent
+                 * @returns The new agent GObject
+                 */
+                "new"(ctx: GLib.MainContext, compat: Compatibility): Agent
+                /**
+                 * Create a new #NiceAgent with parameters that must be be defined at
+                 * construction time.
+                 * The returned object must be freed with g_object_unref()
+                 * <para> See also: #NiceNominationMode and #NiceAgentOption</para>
+                 * @since 0.1.15
+                 * @param ctx The Glib Mainloop Context to use for timers
+                 * @param compat The compatibility mode of the agent
+                 * @param flags Flags to set the properties
+                 * @returns The new agent GObject
+                 */
+                new_full(ctx: GLib.MainContext, compat: Compatibility, flags: AgentOption): Agent
+                /**
+                 * Create a new #NiceAgent in reliable mode. If the connectivity is established
+                 * through ICE-UDP, then a #PseudoTcpSocket will be transparently used to
+                 * ensure reliability of the messages.
+                 * The returned object must be freed with g_object_unref()
+                 * <para> See also: #NiceAgent::reliable-transport-writable </para>
+                 * @since 0.0.11
+                 * @param ctx The Glib Mainloop Context to use for timers
+                 * @param compat The compatibility mode of the agent
+                 * @returns The new agent GObject
+                 */
+                new_reliable(ctx: GLib.MainContext, compat: Compatibility): Agent
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "bytestream-tcp": boolean
-                "consent-freshness": boolean
-                "controlling-mode": boolean
-                "force-relay": boolean
-                "ice-tcp": boolean
-                "ice-trickle": boolean
-                "ice-udp": boolean
-                "idle-timeout": number
-                "keepalive-conncheck": boolean
-                "max-connectivity-checks": number
-                "proxy-extra-headers": Record<string, string>
-                "proxy-ip": string
-                "proxy-password": string
-                "proxy-port": number
-                "proxy-type": number
-                "proxy-username": string
-                "stun-initial-timeout": number
-                "stun-max-retransmissions": number
-                "stun-pacing-timer": number
-                "stun-reliable-timeout": number
-                "stun-server": string
-                "stun-server-port": number
-                "support-renomination": boolean
-                "upnp": boolean
-                "upnp-timeout": number
+            interface $Exports {
+                /**
+                 * The #NiceAgent is the main GObject of the libnice library and represents
+                 * the ICE agent.
+                 */
+                Agent: AgentClass
+            }
+            
+
+            namespace PseudoTcpSocket {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "ack-delay": number
+                    "callbacks": never
+                    "conversation": number
+                    "no-delay": boolean
+                    "rcv-buf": number
+                    "snd-buf": number
+                    "state": number
+                    "support-fin-ack": boolean
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "ack-delay": number
+                    "callbacks": never
+                    "no-delay": boolean
+                    "rcv-buf": number
+                    "snd-buf": number
+                    "state": number
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                    "conversation": number
+                    "support-fin-ack": boolean
+                }
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-                "close-forced": boolean
-                "compatibility": number
-                "full-mode": boolean
-                "main-context": never
-                "reliable": boolean
+            interface PseudoTcpSocket extends GObject.Object {
+                readonly $signals: PseudoTcpSocket.SignalSignatures
+                readonly $readableProperties: PseudoTcpSocket.ReadableProperties
+                readonly $writableProperties: PseudoTcpSocket.WritableProperties
+                readonly $constructOnlyProperties: PseudoTcpSocket.ConstructOnlyProperties
+                /**
+                 * @default 100
+                 */
+                get ackDelay(): number
+                set ackDelay(value: number)
+                /**
+                 */
+                get callbacks(): never
+                set callbacks(value: never)
+                /**
+                 * @default 0
+                 */
+                get conversation(): number
+                set conversation(value: number)
+                /**
+                 * @default TRUE
+                 */
+                get noDelay(): boolean
+                set noDelay(value: boolean)
+                /**
+                 * @default 61440
+                 */
+                get rcvBuf(): number
+                set rcvBuf(value: number)
+                /**
+                 * @default 92160
+                 */
+                get sndBuf(): number
+                set sndBuf(value: number)
+                /**
+                 * @default 0
+                 */
+                get state(): number
+                set state(value: number)
+                /**
+                 * Whether to support the FIN–ACK extension to the pseudo-TCP protocol for
+                 * this socket. The extension is only compatible with other libnice pseudo-TCP
+                 * stacks, and not with Jingle pseudo-TCP stacks. If enabled, support is
+                 * negotiatied on connection setup, so it is safe for a #PseudoTcpSocket with
+                 * support enabled to be used with one with it disabled, or with a Jingle
+                 * pseudo-TCP socket which doesn’t support it at all.
+                 *
+                 * Support is enabled by default.
+                 * @since 0.1.8
+                 * @default TRUE
+                 */
+                get supportFinAck(): boolean
+                set supportFinAck(value: boolean)
+                /**
+                 * Returns if there is space in the send buffer to send any data.
+                 * @since 0.1.5
+                 * @returns %TRUE if data can be sent, %FALSE otherwise
+                 */
+                can_send(): boolean
+                /**
+                 * Close the socket for sending. If `force` is set to %FALSE, the socket will
+                 * finish sending pending data before closing. If it is set to %TRUE, the socket
+                 * will discard pending data and close the connection immediately (sending a TCP
+                 * RST segment).
+                 *
+                 * The socket will be closed in both directions – sending and receiving – and
+                 * any pending received data must be read before calling this function, by
+                 * calling pseudo_tcp_socket_recv() until it blocks. If any pending data is in
+                 * the receive buffer when pseudo_tcp_socket_close() is called, a TCP RST
+                 * segment will be sent to the peer to notify it of the data loss.
+                 *
+                 *  <note>
+                 *    <para>
+                 *      The %PseudoTcpCallbacks:PseudoTcpClosed callback will not be called once
+                 *      the socket gets closed. It is only used for aborted connection.
+                 *      Instead, the socket gets closed when the pseudo_tcp_socket_get_next_clock()
+                 *      function returns FALSE.
+                 *    </para>
+                 *  </note>
+                 *
+                 * <para> See also: pseudo_tcp_socket_get_next_clock() </para>
+                 * @since 0.0.11
+                 * @param force %TRUE to close the socket forcefully, %FALSE to close it gracefully
+                 */
+                close(force: boolean): void
+                /**
+                 * Connects the #PseudoTcpSocket to the peer with the same conversation id.
+                 * The connection will only be successful after the
+                 * %PseudoTcpCallbacks:PseudoTcpOpened callback is called
+                 * @since 0.0.11
+                 * @returns %TRUE on success, %FALSE on failure (not in %TCP_LISTEN state) <para> See also: pseudo_tcp_socket_get_error() </para>
+                 */
+                connect(): boolean
+                /**
+                 * Gets the number of bytes of data in the buffer that can be read without
+                 * receiving more packets from the network.
+                 * @since 0.1.5
+                 * @returns The number of bytes or -1 if the connection is not established
+                 */
+                get_available_bytes(): number
+                /**
+                 * Gets the number of bytes of space available in the transmission buffer.
+                 * @since 0.1.5
+                 * @returns The number of bytes, or 0 if the connection is not established.
+                 */
+                get_available_send_space(): number
+                /**
+                 * Return the last encountered error.
+                 *
+                 *  <note>
+                 *    <para>
+                 *      The return value can be :
+                 *      <para>
+                 *        EINVAL (for pseudo_tcp_socket_connect()).
+                 *      </para>
+                 *      <para>
+                 *        EWOULDBLOCK or ENOTCONN (for pseudo_tcp_socket_recv() and
+                 *        pseudo_tcp_socket_send()).
+                 *      </para>
+                 *    </para>
+                 *  </note>
+                 * @since 0.0.11
+                 * @returns The error code <para> See also: pseudo_tcp_socket_connect() </para> <para> See also: pseudo_tcp_socket_recv() </para> <para> See also: pseudo_tcp_socket_send() </para>
+                 */
+                get_error(): number
+                /**
+                 * Call this to determine the timeout needed before the next time call
+                 * to pseudo_tcp_socket_notify_clock() should be made.
+                 * @since 0.0.11
+                 * @param timeout A pointer to be filled with the new timeout.
+                 * @returns %TRUE if `timeout` was filled, %FALSE if the socket is closed and ready to be destroyed.  <para> See also: pseudo_tcp_socket_notify_clock() </para>
+                 */
+                get_next_clock(timeout: number): boolean
+                /**
+                 * Gets whether the socket is closed, with the shutdown handshake completed,
+                 * and both peers no longer able to read or write data to the connection.
+                 * @since 0.1.8
+                 * @returns %TRUE if the socket is closed in both directions, %FALSE otherwise
+                 */
+                is_closed(): boolean
+                /**
+                 * Gets whether the socket has been closed on the remote peer’s side of the
+                 * connection (i.e. whether pseudo_tcp_socket_close() has been called there).
+                 * This is guaranteed to return %TRUE if pseudo_tcp_socket_is_closed() returns
+                 * %TRUE. It will not return %TRUE after pseudo_tcp_socket_close() is called
+                 * until a FIN segment is received from the remote peer.
+                 * @since 0.1.8
+                 * @returns %TRUE if the remote peer has closed its side of the connection, %FALSE otherwise
+                 */
+                is_closed_remotely(): boolean
+                /**
+                 * Start the processing of receiving data, pending data or syn/acks.
+                 * Call this based on timeout value returned by
+                 * pseudo_tcp_socket_get_next_clock().
+                 * It's ok to call this too frequently.
+                 *
+                 * <para> See also: pseudo_tcp_socket_get_next_clock() </para>
+                 * @since 0.0.11
+                 */
+                notify_clock(): void
+                /**
+                 * Notify the #PseudoTcpSocket that a new message has arrived, and enqueue the
+                 * data in its buffers to the #PseudoTcpSocket’s receive buffer.
+                 * @since 0.1.5
+                 * @param message A #NiceInputMessage containing the received data.
+                 * @returns %TRUE if the packet was processed successfully, %FALSE otherwise
+                 */
+                notify_message(message: InputMessage): boolean
+                /**
+                 * Set the MTU of the socket
+                 * @since 0.0.11
+                 * @param mtu The new MTU of the socket
+                 */
+                notify_mtu(mtu: number): void
+                /**
+                 * Notify the #PseudoTcpSocket when a new packet arrives
+                 * @since 0.0.11
+                 * @param buffer The buffer containing the received data
+                 * @param len The length of `buffer`
+                 * @returns %TRUE if the packet was processed successfully, %FALSE otherwise
+                 */
+                notify_packet(buffer: string, len: number): boolean
+                /**
+                 * Receive data from the socket.
+                 *
+                 *  <note>
+                 *    <para>
+                 *      Only call this on the %PseudoTcpCallbacks:PseudoTcpReadable callback.
+                 *    </para>
+                 *    <para>
+                 *      This function should be called in a loop. If this function does not
+                 *      return -1 with EWOULDBLOCK as the error, the
+                 *      %PseudoTcpCallbacks:PseudoTcpReadable callback will not be called again.
+                 *    </para>
+                 *  </note>
+                 * @since 0.0.11
+                 * @param buffer The buffer to fill with received data
+                 * @param len The length of `buffer`
+                 * @returns The number of bytes received or -1 in case of error <para> See also: pseudo_tcp_socket_get_error() </para>
+                 */
+                recv(buffer: string, len: number): number
+                /**
+                 * Send data on the socket.
+                 *
+                 *  <note>
+                 *    <para>
+                 *      If this function return -1 with EWOULDBLOCK as the error, or if the return
+                 *      value is lower than `len`, then the %PseudoTcpCallbacks:PseudoTcpWritable
+                 *      callback will be called when the socket will become writable.
+                 *    </para>
+                 *  </note>
+                 * @since 0.0.11
+                 * @param buffer The buffer with data to send
+                 * @param len The length of `buffer`
+                 * @returns The number of bytes sent or -1 in case of error <para> See also: pseudo_tcp_socket_get_error() </para>
+                 */
+                send(buffer: string, len: number): number
+                /**
+                 * Sets the current monotonic time to be used by the TCP socket when calculating
+                 * timeouts and expiry times. If this function is not called, or is called with
+                 *  `current_time` as zero, g_get_monotonic_time() will be used. Otherwise, the
+                 * specified `current_time` will be used until it is updated by calling this
+                 * function again.
+                 *
+                 * This function is intended for testing only, and should not be used in
+                 * production code.
+                 * @since 0.1.8
+                 * @param current_time Current monotonic time, in milliseconds; or zero to use the system monotonic clock.
+                 */
+                set_time(current_time: number): void
+                /**
+                 * Shut down sending, receiving, or both on the socket, depending on the value
+                 * of `how`. The behaviour of pseudo_tcp_socket_send() and
+                 * pseudo_tcp_socket_recv() will immediately change after this function returns
+                 * (depending on the value of `how`), though the socket may continue to process
+                 * network traffic in the background even if sending or receiving data is
+                 * forbidden.
+                 *
+                 * This is equivalent to the POSIX shutdown() function. Setting `how` to
+                 * %PSEUDO_TCP_SHUTDOWN_RDWR is equivalent to calling pseudo_tcp_socket_close().
+                 * @since 0.1.8
+                 * @param how The directions of the connection to shut down.
+                 */
+                shutdown(how: PseudoTcpShutdown): void
+            }
+
+            interface PseudoTcpSocketClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<PseudoTcpSocket>
+                readonly prototype: PseudoTcpSocket
+
+                new (props?: Partial<GObject.ConstructorProps<PseudoTcpSocket>>): PseudoTcpSocket
+                /**
+                 * Creates a new #PseudoTcpSocket for the specified conversation
+                 *
+                 *  <note>
+                 *    <para>
+                 *      The `callbacks` must be non-NULL, in order to get notified of packets the
+                 *      socket needs to send.
+                 *    </para>
+                 *    <para>
+                 *      If the `callbacks` structure was dynamicly allocated, it can be freed
+                 *      after the call `pseudo_tcp_socket_new`
+                 *    </para>
+                 *  </note>
+                 * @since 0.0.11
+                 * @param conversation The conversation id for the socket.
+                 * @param callbacks A pointer to the #PseudoTcpCallbacks structure for getting notified of the #PseudoTcpSocket events.
+                 * @returns The new #PseudoTcpSocket object, %NULL on error
+                 */
+                "new"(conversation: number, callbacks: PseudoTcpCallbacks): PseudoTcpSocket
+            }
+
+            interface $Exports {
+                /**
+                 * The #PseudoTcpSocket is the GObject implementing the Pseudo TCP Socket
+                 * @since 0.0.11
+                 */
+                PseudoTcpSocket: PseudoTcpSocketClass
+            }
+            
+
+            interface AddressStruct {
+                readonly $gtype: GObject.GType<Address>
+                new (fields?: {
+                }): Address
+                /**
+                 * Create a new #NiceAddress with undefined address
+                 * You must free it with nice_address_free()
+                 * @returns The new #NiceAddress
+                 */
+                "new"(): Address
+            }
+
+            interface Address {
+                /**
+                 * Fills the sockaddr structure `sin` with the address contained in `addr`
+                 * @param sin The sockaddr to fill
+                 */
+                copy_to_sockaddr(sin: never | null): void
+                /**
+                 * Creates a new #NiceAddress with the same address as `addr`
+                 * @returns The new #NiceAddress
+                 */
+                dup(): Address
+                /**
+                 * Transforms the address `addr` into a newly allocated human readable string
+                 * @since 0.1.20
+                 * @returns the address string
+                 */
+                dup_string(): string
+                /**
+                 * Compares two #NiceAddress structures to see if they contain the same address
+                 * and the same port.
+                 * @param b Second #NiceAddress to compare
+                 * @returns %TRUE if `a` and `b` are the same address, %FALSE if they are different
+                 */
+                equal(b: Address): boolean
+                /**
+                 * Compares two #NiceAddress structures to see if they contain the same address,
+                 * ignoring the port.
+                 * @since 0.1.8
+                 * @param b Second #NiceAddress to compare
+                 * @returns %TRUE if `a` and `b` are the same address, %FALSE if they are different
+                 */
+                equal_no_port(b: Address): boolean
+                /**
+                 * Frees a #NiceAddress created with nice_address_new() or nice_address_dup()
+                 */
+                free(): void
+                /**
+                 * Retreive the port of `addr`
+                 * @returns The port of `addr`
+                 */
+                get_port(): number
+                /**
+                 * Initialize a #NiceAddress into an undefined address
+                 */
+                init(): void
+                /**
+                 * Returns the IP version of the address
+                 * @returns 4 for IPv4, 6 for IPv6 and 0 for undefined address
+                 */
+                ip_version(): number
+                /**
+                 * Verifies if the address in `addr` is a link-local address or not
+                 * @since 0.1.19
+                 * @returns %TRUE if `addr` is a link-local address, %FALSE otherwise
+                 */
+                is_linklocal(): boolean
+                /**
+                 * Verifies if the address in `addr` is a private address or not
+                 * @returns %TRUE if `addr` is a private address, %FALSE otherwise
+                 */
+                is_private(): boolean
+                /**
+                 * Validate whether the #NiceAddress `addr` is a valid IPv4 or IPv6 address
+                 * @returns %TRUE if `addr` is valid, %FALSE otherwise
+                 */
+                is_valid(): boolean
+                /**
+                 * Sets an IPv4 or IPv6 address from the sockaddr structure `sin`
+                 * @param sin The sockaddr to set
+                 */
+                set_from_sockaddr(sin: never | null): void
+                /**
+                 * Sets an IPv4 or IPv6 address from the string `str`
+                 * @param str The string to set
+                 * @returns %TRUE if success, %FALSE on error
+                 */
+                set_from_string(str: string): boolean
+                /**
+                 * Set `addr` to an IPv4 address using the data from `addr_ipv4`
+                 *
+                 *  <note>
+                 *   <para>
+                 *    This function will reset the port to 0, so make sure you call it before
+                 *    nice_address_set_port()
+                 *   </para>
+                 *  </note>
+                 * @param addr_ipv4 The IPv4 address
+                 */
+                set_ipv4(addr_ipv4: number): void
+                /**
+                 * Set `addr` to an IPv6 address using the data from `addr_ipv6`
+                 *
+                 *  <note>
+                 *   <para>
+                 *    This function will reset the port to 0, so make sure you call it before
+                 *    nice_address_set_port()
+                 *   </para>
+                 *  </note>
+                 * @param addr_ipv6 The IPv6 address
+                 */
+                set_ipv6(addr_ipv6: number): void
+                /**
+                 * Set the port of `addr` to `port`
+                 * @param port The port to set
+                 */
+                set_port(port: number): void
+            }
+
+            interface $Exports {
+                Address: AddressStruct
+            }
+            
+
+            interface CandidateStruct {
+                readonly $gtype: GObject.GType<Candidate>
+                new (fields?: {
+                    type?: CandidateType
+                    transport?: CandidateTransport
+                    addr?: Address
+                    base_addr?: Address
+                    priority?: number
+                    stream_id?: number
+                    component_id?: number
+                    foundation?: number[]
+                    username?: string
+                    password?: string
+                }): Candidate
+                /**
+                 * Creates a new candidate. Must be freed with nice_candidate_free()
+                 * @param type The #NiceCandidateType of the candidate to create
+                 * @returns A new #NiceCandidate
+                 */
+                "new"(type: CandidateType): Candidate
+                /**
+                 * Useful for debugging functions, just returns a static string with the
+                 * candidate transport.
+                 * @since 0.1.19
+                 * @param transport a #NiceCandidateTransport
+                 * @returns a static string with the candidate transport
+                 */
+                transport_to_string(transport: CandidateTransport): string
+                /**
+                 * Useful for debugging functions, just returns a static string with the
+                 * candidate type.
+                 * @since 0.1.19
+                 * @param type a #NiceCandidateType
+                 * @returns a static string with the candidate type
+                 */
+                type_to_string(type: CandidateType): string
+            }
+
+            interface Candidate {
+                /**
+                 * The type of candidate
+                 */
+                type: CandidateType
+                /**
+                 * The transport being used for the candidate
+                 */
+                transport: CandidateTransport
+                /**
+                 * The #NiceAddress of the candidate
+                 */
+                addr: Address
+                /**
+                 * The #NiceAddress of the base address used by the candidate
+                 */
+                base_addr: Address
+                /**
+                 * The priority of the candidate <emphasis> see note </emphasis>
+                 */
+                priority: number
+                /**
+                 * The ID of the stream to which belongs the candidate
+                 */
+                stream_id: number
+                /**
+                 * The ID of the component to which belongs the candidate
+                 */
+                component_id: number
+                /**
+                 * The foundation of the candidate
+                 */
+                foundation: number[]
+                /**
+                 * The candidate-specific username to use (overrides the one set
+                 * by nice_agent_set_local_credentials() or nice_agent_set_remote_credentials())
+                 */
+                username: string
+                /**
+                 * The candidate-specific password to use (overrides the one set
+                 * by nice_agent_set_local_credentials() or nice_agent_set_remote_credentials())
+                 */
+                password: string
+                /**
+                 * Makes a copy of a #NiceCandidate
+                 * @returns A new #NiceCandidate, a copy of `candidate`
+                 */
+                copy(): Candidate
+                /**
+                 * Verifies that the candidates point to the same place, meaning they have
+                 * the same transport and the same address. It ignores all other aspects.
+                 * @since 0.1.15
+                 * @param candidate2 A candidate
+                 * @returns %TRUE if the candidates point to the same place
+                 */
+                equal_target(candidate2: Candidate): boolean
+                /**
+                 * Frees a #NiceCandidate
+                 */
+                free(): void
+                /**
+                 * In case the given candidate is relayed through a TURN server, use this utility function to get
+                 * its address.
+                 * @since 0.1.19
+                 * @param addr The #NiceAddress to fill
+                 */
+                relay_address(addr: Address): void
+                /**
+                 * In case the given candidate server-reflexive, use this utility function to get its address. The
+                 * address will be filled only if the candidate was generated using an STUN server.
+                 * @since 0.1.20
+                 * @param addr The #NiceAddress to fill
+                 * @returns TRUE if it's a STUN created ICE candidate, or FALSE if the reflexed's server was not STUN.
+                 */
+                stun_server_address(addr: Address): boolean
+            }
+
+            interface $Exports {
+                Candidate: CandidateStruct
+            }
+            
+
+            interface InputMessageStruct {
+                readonly $gtype: GObject.GType<InputMessage>
+                new (fields?: {
+                    buffers?: Gio.InputVector[]
+                    n_buffers?: number
+                    from?: Address
+                    length?: number
+                }): InputMessage
+            }
+
+            interface InputMessage {
+                /**
+                 * unowned array of #GInputVector buffers to
+                 * store data in for this message
+                 */
+                buffers: Gio.InputVector[]
+                /**
+                 * number of #GInputVectors in `buffers`, or -1 to indicate `buffers`
+                 * is %NULL-terminated
+                 */
+                n_buffers: number
+                /**
+                 * return location to store the address of the peer who
+                 * transmitted the message, or %NULL
+                 */
+                from: Address
+                /**
+                 * total number of valid bytes contiguously stored in `buffers`
+                 */
+                length: number
+            }
+
+            interface $Exports {
+                InputMessage: InputMessageStruct
+            }
+            
+
+            interface OutputMessageStruct {
+                readonly $gtype: GObject.GType<OutputMessage>
+                new (fields?: {
+                    buffers?: Gio.OutputVector[]
+                    n_buffers?: number
+                }): OutputMessage
+            }
+
+            interface OutputMessage {
+                /**
+                 * unowned array of #GOutputVector buffers
+                 * which contain data to transmit for this message
+                 */
+                buffers: Gio.OutputVector[]
+                /**
+                 * number of #GOutputVectors in `buffers`, or -1 to indicate `buffers`
+                 * is %NULL-terminated
+                 */
+                n_buffers: number
+            }
+
+            interface $Exports {
+                OutputMessage: OutputMessageStruct
+            }
+            
+
+            interface PseudoTcpCallbacksStruct {
+                readonly $gtype: GObject.GType<PseudoTcpCallbacks>
+                new (fields?: {
+                    user_data?: never
+                }): PseudoTcpCallbacks
+            }
+
+            interface PseudoTcpCallbacks {
+                /**
+                 * A user defined pointer to be passed to the callbacks
+                 */
+                user_data: never
+            }
+
+            interface $Exports {
+                PseudoTcpCallbacks: PseudoTcpCallbacksStruct
+            }
+            
+            interface CandidateTransportEnum {
+                readonly $gtype: GObject.GType<CandidateTransport>
+                /**
+                 * UDP transport
+                 */
+                readonly "UDP": 0
+                /**
+                 * TCP Active transport
+                 */
+                readonly "TCP_ACTIVE": 1
+                /**
+                 * TCP Passive transport
+                 */
+                readonly "TCP_PASSIVE": 2
+                /**
+                 * TCP Simultaneous-Open transport
+                 */
+                readonly "TCP_SO": 3
+            }
+            type CandidateTransport = CandidateTransportEnum[Exclude<keyof CandidateTransportEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * An enum representing the type of transport to use
+                 */
+                CandidateTransport: CandidateTransportEnum
+            }
+            
+            interface CandidateTypeEnum {
+                readonly $gtype: GObject.GType<CandidateType>
+                /**
+                 * A host candidate
+                 */
+                readonly "HOST": 0
+                /**
+                 * A server reflexive candidate (or a NAT-assisted candidate)
+                 */
+                readonly "SERVER_REFLEXIVE": 1
+                /**
+                 * A peer reflexive candidate
+                 */
+                readonly "PEER_REFLEXIVE": 2
+                /**
+                 * A relay candidate
+                 */
+                readonly "RELAYED": 3
+            }
+            type CandidateType = CandidateTypeEnum[Exclude<keyof CandidateTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * An enum representing the type of a candidate
+                 */
+                CandidateType: CandidateTypeEnum
+            }
+            
+            interface CompatibilityEnum {
+                readonly $gtype: GObject.GType<Compatibility>
+                /**
+                 * Use compatibility with the RFC5245 ICE-UDP specs
+                 * and RFC6544 ICE-TCP specs
+                 */
+                readonly "RFC5245": 0
+                /**
+                 * Use compatibility for ICE Draft 19 specs
+                 */
+                readonly "DRAFT19": 0
+                /**
+                 * Use compatibility for Google Talk specs
+                 */
+                readonly "GOOGLE": 1
+                /**
+                 * Use compatibility for MSN Messenger specs
+                 */
+                readonly "MSN": 2
+                /**
+                 * Use compatibility with Windows Live Messenger
+                 * 2009
+                 */
+                readonly "WLM2009": 3
+                /**
+                 * Use compatibility with Microsoft Office Communicator 2007
+                 */
+                readonly "OC2007": 4
+                /**
+                 * Use compatibility with Microsoft Office Communicator 2007 R2
+                 */
+                readonly "OC2007R2": 5
+                /**
+                 * Dummy last compatibility mode
+                 */
+                readonly "LAST": 5
+            }
+            type Compatibility = CompatibilityEnum[Exclude<keyof CompatibilityEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * An enum to specify which compatible specifications the #NiceAgent should use.
+                 * Use with nice_agent_new()
+                 *
+                 * <warning>@NICE_COMPATIBILITY_DRAFT19 is deprecated and should not be used
+                 * in newly-written code. It is kept for compatibility reasons and
+                 * represents the same compatibility as `NICE_COMPATIBILITY_RFC5245` </warning>
+                 *  <note>
+                 *    <para>
+                 *    If `NICE_COMPATIBILITY_RFC5245` compatibility mode is used for a non-reliable
+                 *    agent, then ICE-UDP will be used with higher priority and ICE-TCP will also
+                 *    be used when the UDP connectivity fails. If it is used with a reliable agent,
+                 *    then ICE-UDP will be used with the TCP-Over-UDP (#PseudoTcpSocket) if ICE-TCP
+                 *    fails and ICE-UDP succeeds.
+                 *   </para>
+                 *  </note>
+                 */
+                Compatibility: CompatibilityEnum
+            }
+            
+            interface ComponentStateEnum {
+                readonly $gtype: GObject.GType<ComponentState>
+                /**
+                 * No activity scheduled
+                 */
+                readonly "DISCONNECTED": 0
+                /**
+                 * Gathering local candidates
+                 */
+                readonly "GATHERING": 1
+                /**
+                 * Establishing connectivity
+                 */
+                readonly "CONNECTING": 2
+                /**
+                 * At least one working candidate pair
+                 */
+                readonly "CONNECTED": 3
+                /**
+                 * ICE concluded, candidate pair selection
+                 * is now final
+                 */
+                readonly "READY": 4
+                /**
+                 * Connectivity checks have been completed,
+                 * but connectivity was not established
+                 */
+                readonly "FAILED": 5
+                /**
+                 * Dummy state
+                 */
+                readonly "LAST": 6
+            }
+            type ComponentState = ComponentStateEnum[Exclude<keyof ComponentStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * An enum representing the state of a component.
+                 * <para> See also: #NiceAgent::component-state-changed </para>
+                 */
+                ComponentState: ComponentStateEnum
+            }
+            
+            interface ComponentTypeEnum {
+                readonly $gtype: GObject.GType<ComponentType>
+                /**
+                 * RTP Component type
+                 */
+                readonly "RTP": 1
+                /**
+                 * RTCP Component type
+                 */
+                readonly "RTCP": 2
+            }
+            type ComponentType = ComponentTypeEnum[Exclude<keyof ComponentTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Convenience enum representing the type of a component for use as the
+                 * component_id for RTP/RTCP usages.
+                 *  <example>
+                 *    <title>Example of use.</title>
+                 *    <programlisting>
+                 *    nice_agent_send (agent, stream_id, NICE_COMPONENT_TYPE_RTP, len, buf);
+                 *    </programlisting>
+                 *   </example>
+                 */
+                ComponentType: ComponentTypeEnum
+            }
+            
+            interface NominationModeEnum {
+                readonly $gtype: GObject.GType<NominationMode>
+                /**
+                 * Regular nomination mode
+                 */
+                readonly "REGULAR": 0
+                /**
+                 * Aggressive nomination mode
+                 */
+                readonly "AGGRESSIVE": 1
+            }
+            type NominationMode = NominationModeEnum[Exclude<keyof NominationModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * An enum to specity the kind of nomination mode to use by
+                 * the agent, as described in RFC 5245. Two modes exists,
+                 * regular and aggressive. They differ by the way the controlling
+                 * agent chooses to put the USE-CANDIDATE attribute in its STUN
+                 * messages. The aggressive mode is supposed to nominate a pair
+                 * faster, than the regular mode, potentially causing the nominated
+                 * pair to change until the connection check completes.
+                 * @since 0.1.15
+                 */
+                NominationMode: NominationModeEnum
+            }
+            
+            interface ProxyTypeEnum {
+                readonly $gtype: GObject.GType<ProxyType>
+                /**
+                 * Do not use a proxy
+                 */
+                readonly "NONE": 0
+                /**
+                 * Use a SOCKS5 proxy
+                 */
+                readonly "SOCKS5": 1
+                /**
+                 * Use an HTTP proxy
+                 */
+                readonly "HTTP": 2
+                /**
+                 * Dummy last proxy type
+                 */
+                readonly "LAST": 2
+            }
+            type ProxyType = ProxyTypeEnum[Exclude<keyof ProxyTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * An enum to specify which proxy type to use for relaying.
+                 * Note that the proxies will only be used with TCP TURN relaying.
+                 * <para> See also: #NiceAgent:proxy-type </para>
+                 * @since 0.0.4
+                 */
+                ProxyType: ProxyTypeEnum
+            }
+            
+            interface PseudoTcpDebugLevelEnum {
+                readonly $gtype: GObject.GType<PseudoTcpDebugLevel>
+                /**
+                 * Disable debug messages
+                 */
+                readonly "NONE": 0
+                /**
+                 * Enable basic debug messages
+                 */
+                readonly "NORMAL": 1
+                /**
+                 * Enable verbose debug messages
+                 */
+                readonly "VERBOSE": 2
+            }
+            type PseudoTcpDebugLevel = PseudoTcpDebugLevelEnum[Exclude<keyof PseudoTcpDebugLevelEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Valid values of debug levels to be set.
+                 * @since 0.0.11
+                 */
+                PseudoTcpDebugLevel: PseudoTcpDebugLevelEnum
+            }
+            
+            interface PseudoTcpShutdownEnum {
+                readonly $gtype: GObject.GType<PseudoTcpShutdown>
+                /**
+                 * Shut down the local reader only
+                 */
+                readonly "RD": 0
+                /**
+                 * Shut down the local writer only
+                 */
+                readonly "WR": 1
+                /**
+                 * Shut down both reading and writing
+                 */
+                readonly "RDWR": 2
+            }
+            type PseudoTcpShutdown = PseudoTcpShutdownEnum[Exclude<keyof PseudoTcpShutdownEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Options for which parts of a connection to shut down when calling
+                 * pseudo_tcp_socket_shutdown(). These correspond to the values passed to POSIX
+                 * shutdown().
+                 * @since 0.1.8
+                 */
+                PseudoTcpShutdown: PseudoTcpShutdownEnum
+            }
+            
+            interface PseudoTcpStateEnum {
+                readonly $gtype: GObject.GType<PseudoTcpState>
+                /**
+                 * The socket's initial state. The socket isn't connected and is
+                 * listening for an incoming connection
+                 */
+                readonly "LISTEN": 0
+                /**
+                 * The socket has sent a connection request (SYN) packet and is
+                 * waiting for an answer
+                 */
+                readonly "SYN_SENT": 1
+                /**
+                 * The socket has received a connection request (SYN) packet.
+                 */
+                readonly "SYN_RECEIVED": 2
+                /**
+                 * The socket is connected
+                 */
+                readonly "ESTABLISHED": 3
+                /**
+                 * The socket has been closed
+                 */
+                readonly "CLOSED": 4
+                /**
+                 * The socket has been closed locally but not remotely
+                 * (Since: 0.1.8)
+                 */
+                readonly "FIN_WAIT_1": 5
+                /**
+                 * The socket has been closed locally but not remotely
+                 * (Since: 0.1.8)
+                 */
+                readonly "FIN_WAIT_2": 6
+                /**
+                 * The socket has been closed locally and remotely
+                 * (Since: 0.1.8)
+                 */
+                readonly "CLOSING": 7
+                /**
+                 * The socket has been closed locally and remotely
+                 * (Since: 0.1.8)
+                 */
+                readonly "TIME_WAIT": 8
+                /**
+                 * The socket has been closed remotely but not locally
+                 * (Since: 0.1.8)
+                 */
+                readonly "CLOSE_WAIT": 9
+                /**
+                 * The socket has been closed locally and remotely
+                 * (Since: 0.1.8)
+                 */
+                readonly "LAST_ACK": 10
+            }
+            type PseudoTcpState = PseudoTcpStateEnum[Exclude<keyof PseudoTcpStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * An enum representing the state of the #PseudoTcpSocket. These states
+                 * correspond to the TCP states in RFC 793.
+                 * <para> See also: #PseudoTcpSocket:state </para>
+                 * @since 0.0.11
+                 */
+                PseudoTcpState: PseudoTcpStateEnum
+            }
+            
+            interface PseudoTcpWriteResultEnum {
+                readonly $gtype: GObject.GType<PseudoTcpWriteResult>
+                /**
+                 * The write operation was successful
+                 */
+                readonly "SUCCESS": 0
+                /**
+                 * The socket type requires that message be sent atomically
+                 * and the size of the message to be sent made this impossible.
+                 */
+                readonly "TOO_LARGE": 1
+                /**
+                 * There was an error sending the message
+                 */
+                readonly "FAIL": 2
+            }
+            type PseudoTcpWriteResult = PseudoTcpWriteResultEnum[Exclude<keyof PseudoTcpWriteResultEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * An enum representing the result value of the write operation requested by
+                 * the #PseudoTcpSocket.
+                 * <para> See also: %PseudoTcpCallbacks:WritePacket </para>
+                 * @since 0.0.11
+                 */
+                PseudoTcpWriteResult: PseudoTcpWriteResultEnum
+            }
+            
+            interface RelayTypeEnum {
+                readonly $gtype: GObject.GType<RelayType>
+                /**
+                 * A TURN relay using UDP
+                 */
+                readonly "UDP": 0
+                /**
+                 * A TURN relay using TCP
+                 */
+                readonly "TCP": 1
+                /**
+                 * A TURN relay using TLS over TCP
+                 */
+                readonly "TLS": 2
+            }
+            type RelayType = RelayTypeEnum[Exclude<keyof RelayTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * An enum representing the type of relay to use
+                 */
+                RelayType: RelayTypeEnum
+            }
+            
+            interface AgentOptionBitfield {
+                readonly $gtype: GObject.GType<AgentOption>
+                /**
+                 * No enabled options (Since: 0.1.19)
+                 */
+                readonly "NONE": 0
+                /**
+                 * Enables regular nomination, default
+                 *  is aggrssive mode (see #NiceNominationMode).
+                 */
+                readonly "REGULAR_NOMINATION": 1
+                /**
+                 * Enables reliable mode, possibly using PseudoTCP, *  see nice_agent_new_reliable().
+                 */
+                readonly "RELIABLE": 2
+                /**
+                 * Enable lite mode
+                 */
+                readonly "LITE_MODE": 4
+                /**
+                 * Enable ICE trickle mode
+                 */
+                readonly "ICE_TRICKLE": 8
+                /**
+                 * Enable renomination triggered by NOMINATION STUN attribute
+                 * proposed here: https://tools.ietf.org/html/draft-thatcher-ice-renomination-00
+                 */
+                readonly "SUPPORT_RENOMINATION": 16
+                /**
+                 * Enable RFC 7675 consent freshness support. (Since: 0.1.19)
+                 */
+                readonly "CONSENT_FRESHNESS": 32
+                /**
+                 * Use bytestream mode for reliable TCP connections. (Since: 0.1.20)
+                 */
+                readonly "BYTESTREAM_TCP": 64
+                /**
+                 * When removing TURN port allocations on TURN server,
+                 * don't do retransmissions and don't wait for a response. (Since: 0.1.23)
+                 */
+                readonly "CLOSE_FORCED": 128
+            }
+            type AgentOption = number
+            interface $Exports {
+                /**
+                 * These are options that can be passed to nice_agent_new_full(). They set
+                 * various properties on the agent. Not including them sets the property to
+                 * the other value.
+                 * @since 0.1.15
+                 */
+                AgentOption: AgentOptionBitfield
+            }
+            /**
+             * Callback function when data is received on a component
+             * @param agent The #NiceAgent Object
+             * @param stream_id The id of the stream
+             * @param component_id The id of the component of the stream        which received the data
+             * @param len The length of the data
+             * @param buf The buffer containing the data received
+             */
+            type AgentRecvFunc = (agent: Agent, stream_id: number, component_id: number, len: number, buf: string) => void
+
+            interface $Exports {
+                __name__: "Nice"
+                __version__: "0.1"
+                AGENT_MAX_REMOTE_CANDIDATES: 25
+                CANDIDATE_MAX_FOUNDATION: 33
+                CANDIDATE_MAX_LOCAL_ADDRESSES: 64
+                CANDIDATE_MAX_TURN_SERVERS: 8
+                /**
+                 * Useful for debugging functions, just returns a static string with the
+                 * candidate transport.
+                 * @since 0.1.19
+                 * @param transport a #NiceCandidateTransport
+                 * @returns a static string with the candidate transport
+                 */
+                candidate_transport_to_string(transport: CandidateTransport): string
+                /**
+                 * Useful for debugging functions, just returns a static string with the
+                 * candidate type.
+                 * @since 0.1.19
+                 * @param type a #NiceCandidateType
+                 * @returns a static string with the candidate type
+                 */
+                candidate_type_to_string(type: CandidateType): string
+                /**
+                 * Returns a string representation of the state, generally to use in debug
+                 * messages.
+                 * @since 0.1.6
+                 * @param state a #NiceComponentState
+                 * @returns a string representation of `state`
+                 */
+                component_state_to_string(state: ComponentState): string
+                /**
+                 * Disables libnice debug output to the terminal
+                 * @param with_stun Also disable stun debugging messages
+                 */
+                debug_disable(with_stun: boolean): void
+                /**
+                 * Enables libnice debug output to the terminal. Note that the
+                 * `G_MESSAGES_DEBUG` and `NICE_DEBUG` environment variables must be set to the
+                 * set of logging domains to print, in order for any output to be printed. Set
+                 * them to `all` to print all debugging messages, or any of the following
+                 * domains:
+                 * - `libnice-stun`
+                 * - `libnice-tests`
+                 * - `libnice-socket`
+                 * - `libnice`
+                 * - `libnice-pseudotcp`
+                 * - `libnice-pseudotcp-verbose`
+                 * @param with_stun Also enable STUN debugging messages
+                 */
+                debug_enable(with_stun: boolean): void
+                /**
+                 * Returns the interface index match the local address passed. This can
+                 * by used for APIs that need a specific address.
+                 * @since 0.1.20
+                 * @param addr A #NiceAddress for a local interface
+                 * @returns The interface index or 0 on error
+                 */
+                interfaces_get_if_index_by_addr(addr: Address): number
+                /**
+                 * Retrieves the IP address of an interface by its name. If this fails, %NULL
+                 * is returned.
+                 * @param interface_name name of local interface
+                 * @returns a newly-allocated string with the IP address
+                 */
+                interfaces_get_ip_for_interface(interface_name: string): string | null
+                /**
+                 * Get the list of local interfaces
+                 * @returns a newly-allocated #GList of strings. The caller must free it.
+                 */
+                interfaces_get_local_interfaces(): string[]
+                /**
+                 * Get a list of local ipv4 interface addresses
+                 * @param include_loopback Include any loopback devices
+                 * @returns a newly-allocated #GList of strings. The caller must free it.
+                 */
+                interfaces_get_local_ips(include_loopback: boolean): string[]
+                /**
+                 * Sets the debug level to enable/disable normal/verbose debug messages.
+                 * @since 0.0.11
+                 * @param level The level of debug to set
+                 */
+                pseudo_tcp_set_debug_level(level: PseudoTcpDebugLevel): void
             }
         }
 
-        interface Agent extends GObject.Object {
-            readonly $signals: Agent.SignalSignatures
-            readonly $readableProperties: Agent.ReadableProperties
-            readonly $writableProperties: Agent.WritableProperties
-            readonly $constructOnlyProperties: Agent.ConstructOnlyProperties
-            /**
-             * This property defines whether receive/send operations over a TCP socket, in
-             * reliable mode, are considered as packetized or as bytestream.
-             * In unreliable mode, every send/recv is considered as packetized, and
-             * this property is ignored and cannot be set.
-             * <para>
-             * In reliable mode, this property will always return %TRUE in the
-             * %NICE_COMPATIBILITY_GOOGLE compatibility mode.
-             * </para>
-             * If the property is %TRUE, the stream is considered in bytestream mode
-             * and data can be read with any receive size. If the property is %FALSE, then
-             * the stream is considered packetized and each receive will return one packet
-             * of the same size as what was sent from the peer. If in packetized mode,
-             * then doing a receive with a size smaller than the packet, will cause the
-             * remaining bytes in the packet to be dropped, breaking the reliability
-             * of the stream.
-             * @since 0.1.8
-             * @default FALSE
-             */
-            get bytestreamTcp(): boolean
-            set bytestreamTcp(value: boolean)
-            /**
-             * Whether to omit performing retransmissions and wait for a response for the 0-lifetime
-             * refresh request that is sent by nice_agent_close_async(). This favors a quick shutdown of
-             * the agent at the risk of lingering TURN server port allocations.
-             * @since 0.1.23
-             * @default FALSE
-             */
-            get closeForced(): boolean
-            set closeForced(value: boolean)
-            /**
-             * The Nice agent can work in various compatibility modes depending on
-             * what the application/peer needs.
-             * <para> See also: #NiceCompatibility</para>
-             * @default 0
-             */
-            get compatibility(): number
-            set compatibility(value: number)
-            /**
-             * Whether to perform periodic consent freshness checks as specified in
-             * RFC 7675.  When %TRUE, the agent will periodically send binding requests
-             * to the peer to maintain the consent to send with the peer.  On receipt
-             * of any authenticated error response, a component will immediately move
-             * to the failed state.
-             *
-             * Setting this property to %TRUE implies that 'keepalive-conncheck' should
-             * be %TRUE as well.
-             * @since 0.1.19
-             * @default FALSE
-             */
-            get consentFreshness(): boolean
-            set consentFreshness(value: boolean)
-            /**
-             * Whether the agent has the controlling role. This property should
-             * be modified before gathering candidates, any modification occuring
-             * later will be hold until ICE is restarted.
-             * @default FALSE
-             */
-            get controllingMode(): boolean
-            set controllingMode(value: boolean)
-            /**
-             * Force all traffic to go through a relay for added privacy, this
-             * allows hiding the local IP address. When this is enabled, so
-             * local candidates are available before relay servers have been set
-             * with nice_agent_set_relay_info().
-             * @since 0.1.14
-             * @default FALSE
-             */
-            get forceRelay(): boolean
-            set forceRelay(value: boolean)
-            /**
-             * @default TRUE
-             */
-            get fullMode(): boolean
-            set fullMode(value: boolean)
-            /**
-             * Whether the agent should use ICE-TCP when gathering candidates.
-             * If the option is disabled, no TCP candidates will be generated. If the
-             * agent is in reliable mode, then pseudotcp will need to be used over UDP
-             * candidates.
-             * <para>
-             * This option should be set before gathering candidates and should not be
-             * modified afterwards.
-             * </para>
-             * The #NiceAgent:ice-tcp property can be set at the same time as the
-             * #NiceAgent:ice-udp property, but both cannot be unset at the same time.
-             * If #NiceAgent:ice-udp is set to %FALSE, then this property cannot be set
-             * to %FALSE as well.
-             * <note>
-             *    <para>
-             *    ICE-TCP is only supported for %NICE_COMPATIBILITY_RFC5245,
-             *    %NICE_COMPATIBILITY_OC2007 and %NICE_COMPATIBILITY_OC2007R2 compatibility
-             *    modes.
-             *    </para>
-             * </note>
-             * @since 0.1.8
-             * @default TRUE
-             */
-            get iceTcp(): boolean
-            set iceTcp(value: boolean)
-            /**
-             * Whether to perform Trickle ICE as per draft-ietf-ice-trickle-ice-21.
-             * When %TRUE, the agent will postpone changing a component state to
-             * %NICE_COMPONENT_STATE_FAILED until nice_agent_peer_candidate_gathering_done()
-             * has been called with the ID of the component's stream.
-             * @since 0.1.16
-             * @default FALSE
-             */
-            get iceTrickle(): boolean
-            set iceTrickle(value: boolean)
-            /**
-             * Whether the agent should use ICE-UDP when gathering candidates.
-             * If the option is disabled, no UDP candidates will be generated. If the
-             * agent is in reliable mode, then pseudotcp will not be used since pseudotcp
-             * works on top of UDP candidates.
-             * <para>
-             * This option should be set before gathering candidates and should not be
-             * modified afterwards.
-             * </para>
-             * The #NiceAgent:ice-udp property can be set at the same time as the
-             * #NiceAgent:ice-tcp property, but both cannot be unset at the same time.
-             * If #NiceAgent:ice-tcp is set to %FALSE, then this property cannot be set
-             * to %FALSE as well.
-             * @since 0.1.8
-             * @default TRUE
-             */
-            get iceUdp(): boolean
-            set iceUdp(value: boolean)
-            /**
-             * A final timeout in msec, launched when the agent becomes idle,
-             * before stopping its activity.
-             *
-             * This timer will delay the decision to set a component as failed.
-             * This delay is added to reduce the chance to see the agent receiving
-             * new stun activity just after the conncheck list has been declared
-             * failed (some valid pairs, no nominated pair, and no in-progress
-             * pairs), reactiviting conncheck activity, and causing a (valid)
-             * state transitions like that: connecting -> failed -> connecting ->
-             * connected -> ready.  Such transitions are not buggy per-se, but may
-             * break the test-suite, that counts precisely the number of time each
-             * state has been set, and doesnt expect these transcient failed
-             * states.
-             *
-             * This timer is also useful when the agent is in controlled mode and
-             * the other controlling peer takes some time to elect its nominated
-             * pair (this may be the case for SfB peers).
-             *
-             * This timer is *NOT* part if the RFC5245, as this situation is not
-             * covered in sect 8.1.2 "Updating States", but deals with a real
-             * use-case, where a controlled agent can not wait forever for the
-             * other peer to make a nomination decision.
-             *
-             * Also note that the value of this timeout will not delay the
-             * emission of 'connected' and 'ready' agent signals, and will not
-             * slow down the behaviour of the agent when the peer agent works
-             * in a timely manner.
-             * @since 0.1.17
-             * @default 5000
-             */
-            get idleTimeout(): number
-            set idleTimeout(value: number)
-            /**
-             * Use binding requests as keepalives instead of binding
-             * indications. This means that the keepalives may time out which
-             * will change the component state to %NICE_COMPONENT_STATE_FAILED.
-             *
-             * Enabing this is a slight violation of RFC 5245 section 10 which
-             * recommends using Binding Indications for keepalives.
-             *
-             * This is always enabled if the compatibility mode is
-             * %NICE_COMPATIBILITY_GOOGLE.
-             *
-             * This is always enabled if the 'consent-freshness' property is %TRUE
-             * @since 0.1.8
-             * @default FALSE
-             */
-            get keepaliveConncheck(): boolean
-            set keepaliveConncheck(value: boolean)
-            /**
-             * A GLib main context is needed for all timeouts used by libnice.
-             * This is a property being set by the nice_agent_new() call.
-             */
-            get mainContext(): never
-            set mainContext(value: never)
-            /**
-             * @default 0
-             */
-            get maxConnectivityChecks(): number
-            set maxConnectivityChecks(value: number)
-            /**
-             * Optional extra headers to append to the HTTP proxy CONNECT request.
-             * Provided as key/value-pairs in hash table corresponding to
-             * header-name/header-value.
-             * @since 0.1.20
-             */
-            get proxyExtraHeaders(): Record<string, string>
-            set proxyExtraHeaders(value: Record<string, string>)
-            /**
-             * The proxy server IP used to bypass a proxy firewall
-             * @since 0.0.4
-             * @default NULL
-             */
-            get proxyIp(): string
-            set proxyIp(value: string)
-            /**
-             * The password used to authenticate with the proxy
-             * @since 0.0.4
-             * @default NULL
-             */
-            get proxyPassword(): string
-            set proxyPassword(value: string)
-            /**
-             * The proxy server port used to bypass a proxy firewall
-             * @since 0.0.4
-             * @default 1
-             */
-            get proxyPort(): number
-            set proxyPort(value: number)
-            /**
-             * The type of proxy set in the proxy-ip property
-             * @since 0.0.4
-             * @default 0
-             */
-            get proxyType(): number
-            set proxyType(value: number)
-            /**
-             * The username used to authenticate with the proxy
-             * @since 0.0.4
-             * @default NULL
-             */
-            get proxyUsername(): string
-            set proxyUsername(value: string)
-            /**
-             * Whether the agent is providing a reliable transport of messages (through
-             * ICE-TCP or PseudoTCP over ICE-UDP)
-             * @since 0.0.11
-             * @default FALSE
-             */
-            get reliable(): boolean
-            set reliable(value: boolean)
-            /**
-             * The initial timeout (msecs) of the STUN binding requests
-             * used in the gathering stage, to find our local candidates.
-             * This property is described as 'RTO' in the RFC 5389 and RFC 5245.
-             * This timeout is doubled for each retransmission, until
-             * #NiceAgent:stun-max-retransmissions have been done,
-             * with an exception for the last restransmission, where the timeout is
-             * divided by two instead (RFC 5389 indicates that a customisable
-             * multiplier 'Rm' to 'RTO' should be used).
-             * @since 0.1.15
-             * @default 500
-             */
-            get stunInitialTimeout(): number
-            set stunInitialTimeout(value: number)
-            /**
-             * The maximum number of retransmissions of the STUN binding requests
-             * used in the gathering stage, to find our local candidates, and used
-             * in the connection check stage, to test the validity of each
-             * constructed pair. This property is described as 'Rc' in the RFC
-             * 5389, with a default value of 7. The timeout of each STUN request
-             * is doubled for each retransmission, so the choice of this value has
-             * a direct impact on the time needed to move from the CONNECTED state
-             * to the READY state, and on the time needed to complete the GATHERING
-             * state.
-             * @since 0.1.15
-             * @default 3
-             */
-            get stunMaxRetransmissions(): number
-            set stunMaxRetransmissions(value: number)
-            /**
-             * @default 20
-             */
-            get stunPacingTimer(): number
-            set stunPacingTimer(value: number)
-            /**
-             * The initial timeout of the STUN binding requests used
-             * for a reliable timer.
-             * @since 0.1.15
-             * @default 2000
-             */
-            get stunReliableTimeout(): number
-            set stunReliableTimeout(value: number)
-            /**
-             * @default NULL
-             */
-            get stunServer(): string
-            set stunServer(value: string)
-            /**
-             * @default 1
-             */
-            get stunServerPort(): number
-            set stunServerPort(value: number)
-            /**
-             * Support RENOMINATION STUN attribute proposed here:
-             * https://tools.ietf.org/html/draft-thatcher-ice-renomination-00 As
-             * soon as RENOMINATION attribute is received from remote
-             * candidate's address, corresponding candidates pair gets
-             * selected. This is specific to Google Chrome/libWebRTC.
-             * @default FALSE
-             */
-            get supportRenomination(): boolean
-            set supportRenomination(value: boolean)
-            /**
-             * Whether the agent should use UPnP to open a port in the router and
-             * get the external IP
-             * @since 0.0.7
-             * @default TRUE
-             */
-            get upnp(): boolean
-            set upnp(value: boolean)
-            /**
-             * The maximum amount of time (in milliseconds) to wait for UPnP discovery to
-             * finish before signaling the #NiceAgent::candidate-gathering-done signal
-             * @since 0.0.7
-             * @default 200
-             */
-            get upnpTimeout(): number
-            set upnpTimeout(value: number)
-            /**
-             * Add a local address from which to derive local host candidates for
-             * candidate gathering.
-             * <para>
-             * Since 0.0.5, if this method is not called, libnice will automatically
-             * discover the local addresses available
-             * </para>
-             *
-             * See also: nice_agent_gather_candidates()
-             * @param addr The address to listen to
-            If the port is 0, then a random port will be chosen by the system
-             * @returns %TRUE on success, %FALSE on fatal (memory allocation) errors
-             */
-            add_local_address(addr: Address): boolean
-            /**
-             * Adds a data stream to @agent containing @n_components components. The
-             * returned stream ID is guaranteed to be positive on success.
-             * @param n_components The number of components to add to the stream
-             * @returns The ID of the new stream, 0 on failure
-             */
-            add_stream(n_components: number): number
-            /**
-             * Asynchronously closes resources the agent has allocated on remote servers.
-             *
-             * The agent will call the callback in the current #GMainContext in
-             * which this function is called. The #GAsyncResult in the callback
-             * can be ignored as this operation never fails.
-             *
-             * Calling this function before freeing the agent makes sure the allocated relay
-             * ports aren't left behind on TURN server but properly removed.
-             * @since 0.1.16
-             * @param callback A callback that will be called when the closing is
-             complete
-             */
-            close_async(callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Notifies the agent that consent to receive has been revoked.  This will
-             * cause the component to fail with 403 'Forbidden' all incoming STUN binding
-             * requests as specified in RFC 7675.
-             *
-             * A stream with a component in the consent-lost state can be reused by
-             * performing an ice restart with nice_agent_restart() or
-             * nice_agent_restart_stream().
-             *
-             * Calling the function only has an effect when @agent has been created with
-             * @NICE_AGENT_OPTION_CONSENT_FRESHNESS.
-             * @since 0.1.19
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @returns %FALSE if the stream or component could not be found or consent     freshness is not enabled, %TRUE otherwise
-             */
-            consent_lost(stream_id: number, component_id: number): boolean
-            /**
-             * Forget all the relay servers previously added using
-             * nice_agent_set_relay_info(). Currently connected streams will keep
-             * using the relay as long as they have not been restarted and haven't
-             * succesfully negotiated a different path.
-             * @since 0.1.6
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @returns %FALSE if the component could not be found, %TRUE otherwise
-             */
-            forget_relays(stream_id: number, component_id: number): boolean
-            /**
-             * Allocate and start listening on local candidate ports and start the remote
-             * candidate gathering process.
-             * Once done, #NiceAgent::candidate-gathering-done is called for the stream.
-             * As soon as this function is called, #NiceAgent::new-candidate signals may be
-             * emitted, even before this function returns.
-             *
-             * nice_agent_get_local_candidates() will only return non-empty results after
-             * calling this function.
-             *
-             * <para>See also: nice_agent_add_local_address()</para>
-             * <para>See also: nice_agent_set_port_range()</para>
-             * @param stream_id The ID of the stream to start
-             * @returns %FALSE if the stream ID is invalid or if a host candidate couldn't be allocated on the requested interfaces/ports; %TRUE otherwise   <note>    <para>     Local addresses can be previously set with nice_agent_add_local_address()   </para>   <para>     Since 0.0.5, If no local address was previously added, then the nice agent     will automatically detect the local address using     nice_interfaces_get_local_ips()    </para>  </note>
-             */
-            gather_candidates(stream_id: number): boolean
-            /**
-             * Generate an SDP string representing a local candidate.
-             *
-             * <para>See also: nice_agent_parse_remote_candidate_sdp() </para>
-             * <para>See also: nice_agent_generate_local_sdp() </para>
-             * <para>See also: nice_agent_generate_local_stream_sdp() </para>
-             * @since 0.1.4
-             * @param candidate The candidate to generate
-             * @returns A string representing the SDP for the candidate. Must be freed with g_free() once done.
-             */
-            generate_local_candidate_sdp(candidate: Candidate): string
-            /**
-             * Generate an SDP string containing the local candidates and credentials for
-             * all streams and components in the agent.
-             *
-             *  <note>
-             *    <para>
-             *      The SDP will not contain any codec lines and the 'm' line will not list
-             *      any payload types.
-             *    </para>
-             *    <para>
-             *     It is highly recommended to set names on the streams prior to calling this
-             *     function. Unnamed streams will show up as '-' in the 'm' line, but the SDP
-             *     will not be parseable with nice_agent_parse_remote_sdp() if a stream is
-             *     unnamed.
-             *    </para>
-             *    <para>
-             *      The default candidate in the SDP will be selected based on the lowest
-             *      priority candidate for the first component.
-             *    </para>
-             *  </note>
-             *
-             * <para>See also: nice_agent_set_stream_name() </para>
-             * <para>See also: nice_agent_parse_remote_sdp() </para>
-             * <para>See also: nice_agent_generate_local_stream_sdp() </para>
-             * <para>See also: nice_agent_generate_local_candidate_sdp() </para>
-             * <para>See also: nice_agent_get_default_local_candidate() </para>
-             * @since 0.1.4
-             * @returns A string representing the local SDP. Must be freed with g_free() once done.
-             */
-            generate_local_sdp(): string
-            /**
-             * Generate an SDP string containing the local candidates and credentials
-             * for a stream.
-             *
-             *  <note>
-             *    <para>
-             *      The SDP will not contain any codec lines and the 'm' line will not list
-             *      any payload types.
-             *    </para>
-             *    <para>
-             *     It is highly recommended to set the name of the stream prior to calling this
-             *     function. Unnamed streams will show up as '-' in the 'm' line.
-             *    </para>
-             *    <para>
-             *      The default candidate in the SDP will be selected based on the lowest
-             *      priority candidate.
-             *    </para>
-             *  </note>
-             *
-             * <para>See also: nice_agent_set_stream_name() </para>
-             * <para>See also: nice_agent_parse_remote_stream_sdp() </para>
-             * <para>See also: nice_agent_generate_local_sdp() </para>
-             * <para>See also: nice_agent_generate_local_candidate_sdp() </para>
-             * <para>See also: nice_agent_get_default_local_candidate() </para>
-             * @since 0.1.4
-             * @param stream_id The ID of the stream
-             * @param include_non_ice Whether or not to include non ICE specific lines
-            (m=, c= and a=rtcp: lines)
-             * @returns A string representing the local SDP for the stream. Must be freed with g_free() once done.
-             */
-            generate_local_stream_sdp(stream_id: number, include_non_ice: boolean): string
-            /**
-             * Retrieves the current state of a component.
-             * @since 0.1.8
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @returns the #NiceComponentState of the component and %NICE_COMPONENT_STATE_FAILED if the component was invalid.
-             */
-            get_component_state(stream_id: number, component_id: number): ComponentState
-            /**
-             * This helper function will return the recommended default candidate to be
-             * used for non-ICE compatible clients. This will usually be the candidate
-             * with the lowest priority, since it will be the longest path but the one with
-             * the most chances of success.
-             * <note>
-             *      <para>
-             *      This function is only useful in order to manually generate the
-             *      local SDP
-             *      </para>
-             * </note>
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @returns The candidate to be used as the default candidate, or %NULL in case of error. Must be freed with nice_candidate_free() once done.
-             */
-            get_default_local_candidate(stream_id: number, component_id: number): Candidate
-            /**
-             * Gets a #GIOStream wrapper around the given stream and component in
-             * @agent. The I/O stream will be valid for as long as @stream_id is valid.
-             * The #GInputStream and #GOutputStream implement #GPollableInputStream and
-             * #GPollableOutputStream.
-             *
-             * This function may only be called on reliable #NiceAgents. It is a
-             * programming error to try and create an I/O stream wrapper for an
-             * unreliable stream.
-             * @since 0.1.5
-             * @param stream_id The ID of the stream to wrap
-             * @param component_id The ID of the component to wrap
-             * @returns A #GIOStream.
-             */
-            get_io_stream(stream_id: number, component_id: number): Gio.IOStream
-            /**
-             * Retrieve from the agent the list of all local candidates
-             * for a stream's component
-             *
-             *  <note>
-             *    <para>
-             *      The caller owns the returned GSList as well as the candidates contained
-             *      within it.
-             *      To get full results, the client should wait for the
-             *      #NiceAgent::candidate-gathering-done signal.
-             *    </para>
-             *  </note>
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @returns a #GSList of #NiceCandidate objects representing the local candidates of `agent`
-             */
-            get_local_candidates(stream_id: number, component_id: number): Candidate[]
-            /**
-             * Gets the local credentials for stream @stream_id. This may be called any time
-             * after creating a stream using nice_agent_add_stream().
-             *
-             * An error will be returned if this is called for a non-existent stream, or if
-             * either of @ufrag or @pwd are %NULL.
-             * @param stream_id The ID of the stream
-             * @returns %TRUE on success, %FALSE on error., return location for a nul-terminated string containing an ICE username fragment; must be freed with g_free(), return location for a nul-terminated string containing an ICE password; must be freed with g_free()
-             */
-            get_local_credentials(stream_id: number): [boolean, string, string]
-            /**
-             * Get a list of the remote candidates set on a stream's component
-             *
-             *  <note>
-             *    <para>
-             *      The caller owns the returned GSList as well as the candidates contained
-             *      within it.
-             *    </para>
-             *    <para>
-             *      The list of remote candidates can change during processing.
-             *      The client should register for the #NiceAgent::new-remote-candidate signal
-             *      to get notified of new remote candidates.
-             *    </para>
-             *  </note>
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @returns a #GSList of #NiceCandidates objects representing the remote candidates set on the `agent`
-             */
-            get_remote_candidates(stream_id: number, component_id: number): Candidate[]
-            /**
-             * Retreive the selected candidate pair for media transmission
-             * for a given stream's component.
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @param local The local selected candidate
-             * @param remote The remote selected candidate
-             * @returns %TRUE on success, %FALSE if there is no selected candidate pair
-             */
-            get_selected_pair(stream_id: number, component_id: number, local: Candidate, remote: Candidate): boolean
-            /**
-             * Retreive the local socket associated with the selected candidate pair
-             * for media transmission for a given stream's component.
-             *
-             * This is useful for adding ICE support to legacy applications that already
-             * have a protocol that maintains a connection. If the socket is duplicated
-             * before unrefing the agent, the application can take over and continue to use
-             * it. New applications are encouraged to use the built in libnice stream
-             * handling instead and let libnice handle the connection maintenance.
-             *
-             * Users of this method are encouraged to not use a TURN relay or any kind
-             * of proxy, as in this case, the socket will not be available to the
-             * application because the packets are encapsulated.
-             * @since 0.1.5
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @returns pointer to the #GSocket, or %NULL if there is no selected candidate or if the selected candidate is a relayed candidate.
-             */
-            get_selected_socket(stream_id: number, component_id: number): Gio.Socket | null
-            /**
-             * Each component can have multiple sockets, this is an API to retrieve them all
-             * to be able to set properties. Most of the sockets for a component are created when
-             * calling nice_agent_gather_candidates(), so this API should be called right after to
-             * able to set properties on the sockets before they are used.
-             *
-             * These sockets can be a mix of UDP & TCP sockets depending on the compatibility mode
-             * and options that have been set.
-             * @since 0.1.17
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @returns An array containing all of the sockets for this component. Free with g_ptr_array_unref() when done.
-             */
-            get_sockets(stream_id: number, component_id: number): Gio.Socket[]
-            /**
-             * This function will return the name assigned to a stream.
-             *
-             * <para>See also: nice_agent_set_stream_name()</para>
-             * @since 0.1.4
-             * @param stream_id The ID of the stream to change
-             * @returns The name of the stream. The name is only valid while the stream exists or until it changes through a call to nice_agent_set_stream_name().
-             */
-            get_stream_name(stream_id: number): string
-            /**
-             * Parse an SDP string and extracts the candidate from it.
-             *
-             * <para>See also: nice_agent_generate_local_candidate_sdp() </para>
-             * <para>See also: nice_agent_parse_remote_sdp() </para>
-             * <para>See also: nice_agent_parse_remote_stream_sdp() </para>
-             * @since 0.1.4
-             * @param stream_id The ID of the stream the candidate belongs to
-             * @param sdp The remote SDP to parse
-             * @returns The parsed candidate or %NULL if there was an error.
-             */
-            parse_remote_candidate_sdp(stream_id: number, sdp: string): Candidate
-            /**
-             * Parse an SDP string and extracts candidates and credentials from it and sets
-             * them on the agent.
-             *
-             * <para>See also: nice_agent_set_stream_name() </para>
-             * <para>See also: nice_agent_generate_local_sdp() </para>
-             * <para>See also: nice_agent_parse_remote_stream_sdp() </para>
-             * <para>See also: nice_agent_parse_remote_candidate_sdp() </para>
-             * @since 0.1.4
-             * @param sdp The remote SDP to parse
-             * @returns The number of candidates added, negative on errors
-             */
-            parse_remote_sdp(sdp: string): number
-            /**
-             * Parse an SDP string representing a single stream and extracts candidates
-             * and credentials from it.
-             *
-             * <para>See also: nice_agent_generate_local_stream_sdp() </para>
-             * <para>See also: nice_agent_parse_remote_sdp() </para>
-             * <para>See also: nice_agent_parse_remote_candidate_sdp() </para>
-             * @since 0.1.4
-             * @param stream_id The ID of the stream to parse
-             * @param sdp The remote SDP to parse
-             * @param ufrag Pointer to store the ice ufrag if non %NULL. Must be freed with
-            g_free() after use
-             * @param pwd Pointer to store the ice password if non %NULL. Must be freed with
-            g_free() after use
-             * @returns A #GSList of candidates parsed from the SDP, or %NULL in case of errors
-             */
-            parse_remote_stream_sdp(stream_id: number, sdp: string, ufrag: string, pwd: string): Candidate[]
-            /**
-             * Notifies the agent that the remote peer has concluded candidate gathering and
-             * thus no more remote candidates are expected to arrive for @stream_id.
-             *
-             * This will allow the stream components without a successful connectivity check
-             * to stop waiting for more candidates to come and finally transit into
-             * %NICE_COMPONENT_STATE_FAILED.
-             *
-             * Calling the function has an effect only when #NiceAgent:trickle-ice is %TRUE.
-             * @since 0.1.16
-             * @param stream_id The ID of the stream
-             * @returns %FALSE if the stream could not be found, %TRUE otherwise
-             */
-            peer_candidate_gathering_done(stream_id: number): boolean
-            /**
-             * A single-message version of nice_agent_recv_messages().
-             * @throws {GLib.Error}
-             * @since 0.1.5
-             * @param stream_id the ID of the stream to receive on
-             * @param component_id the ID of the component to receive on
-             * @param cancellable a #GCancellable to allow the operation to be
-            cancelled from another thread, or %NULL
-             * @returns the number of bytes written to `buf` on success (guaranteed to be greater than 0 unless `buf_len` is 0), 0 if in reliable mode and the remote peer closed the stream, or -1 on error, caller-allocated buffer to write the received data into, of length at least `buf_len`
-             */
-            recv(stream_id: number, component_id: number, cancellable: Gio.Cancellable | null): [number, Uint8Array]
-            /**
-             * Block on receiving data from the given stream/component combination on
-             * @agent, returning only once exactly @n_messages messages have been received
-             * and written into @messages, the stream is closed by the other end or by
-             * calling nice_agent_remove_stream(), or @cancellable is cancelled.
-             *
-             * Any STUN packets received will not be added to @messages; instead,
-             * they'll be passed for processing to #NiceAgent itself. Since #NiceAgent
-             * does not poll for messages on its own, it's therefore essential to keep
-             * calling this function for ICE connection establishment to work.
-             *
-             * In the non-error case, in reliable mode, this will block until all buffers in
-             * all @n_messages have been filled with received data (i.e. @messages is
-             * treated as a large, flat array of buffers). In non-reliable mode, it will
-             * block until @n_messages messages have been received, each of which does not
-             * have to fill all the buffers in its #NiceInputMessage. In the non-reliable
-             * case, each #NiceInputMessage must have enough buffers to contain an entire
-             * message (65536 bytes), or any excess data may be silently dropped.
-             *
-             * For each received message, #NiceInputMessage::length will be set to the
-             * number of valid bytes stored in the message’s buffers. The bytes are stored
-             * sequentially in the buffers; there are no gaps apart from at the end of the
-             * buffer array (in non-reliable mode). If non-%NULL on input,
-             * #NiceInputMessage::from will have the address of the sending peer stored in
-             * it. The base addresses, sizes, and number of buffers in each message will not
-             * be modified in any case.
-             *
-             * This must not be used in combination with nice_agent_attach_recv() on the
-             * same stream/component pair.
-             *
-             * If the stream/component pair doesn’t exist, or if a suitable candidate socket
-             * hasn’t yet been selected for it, a %G_IO_ERROR_BROKEN_PIPE error will be
-             * returned. A %G_IO_ERROR_CANCELLED error will be returned if the operation was
-             * cancelled. %G_IO_ERROR_FAILED will be returned for other errors.
-             * @throws {GLib.Error}
-             * @since 0.1.5
-             * @param stream_id the ID of the stream to receive on
-             * @param component_id the ID of the component to receive on
-             * @param cancellable a #GCancellable to allow the operation to be
-            cancelled from another thread, or %NULL
-             * @returns the number of valid messages written to `messages` on success (guaranteed to be greater than 0 unless `n_messages` is 0), 0 if the remote peer closed the stream, or -1 on error, caller-allocated array of #NiceInputMessages to write the received messages into, of length at least `n_messages`
-             */
-            recv_messages(stream_id: number, component_id: number, cancellable: Gio.Cancellable | null): [number, InputMessage[]]
-            /**
-             * Try to receive data from the given stream/component combination on @agent,
-             * without blocking. If receiving data would block, -1 is returned and
-             * %G_IO_ERROR_WOULD_BLOCK is set in @error. If any other error occurs, -1 is
-             * returned and @error is set accordingly. Otherwise, 0 is returned if (and only
-             * if) @n_messages is 0. In all other cases, the number of valid messages stored
-             * in @messages is returned, and will be greater than 0.
-             *
-             * This function behaves similarly to nice_agent_recv_messages(), except that it
-             * will not block on filling (in reliable mode) or receiving (in non-reliable
-             * mode) exactly @n_messages messages. In reliable mode, it will receive bytes
-             * into @messages until it would block; in non-reliable mode, it will receive
-             * messages until it would block.
-             *
-             * Any STUN packets received will not be added to @messages; instead,
-             * they'll be passed for processing to #NiceAgent itself. Since #NiceAgent
-             * does not poll for messages on its own, it's therefore essential to keep
-             * calling this function for ICE connection establishment to work.
-             *
-             * As this function is non-blocking, @cancellable is included only for parity
-             * with nice_agent_recv_messages(). If @cancellable is cancelled before this
-             * function is called, a %G_IO_ERROR_CANCELLED error will be returned
-             * immediately.
-             *
-             * This must not be used in combination with nice_agent_attach_recv() on the
-             * same stream/component pair.
-             * @throws {GLib.Error}
-             * @since 0.1.5
-             * @param stream_id the ID of the stream to receive on
-             * @param component_id the ID of the component to receive on
-             * @param cancellable a #GCancellable to allow the operation to be
-            cancelled from another thread, or %NULL
-             * @returns the number of valid messages written to `messages` on success (guaranteed to be greater than 0 unless `n_messages` is 0), 0 if in reliable mode and the remote peer closed the stream, or -1 on error, caller-allocated array of #NiceInputMessages to write the received messages into, of length at least `n_messages`
-             */
-            recv_messages_nonblocking(stream_id: number, component_id: number, cancellable: Gio.Cancellable | null): [number, InputMessage[]]
-            /**
-             * A single-message version of nice_agent_recv_messages_nonblocking().
-             * @throws {GLib.Error}
-             * @since 0.1.5
-             * @param stream_id the ID of the stream to receive on
-             * @param component_id the ID of the component to receive on
-             * @param cancellable a #GCancellable to allow the operation to be
-            cancelled from another thread, or %NULL
-             * @returns the number of bytes received into `buf` on success (guaranteed to be greater than 0 unless `buf_len` is 0), 0 if in reliable mode and the remote peer closed the stream, or -1 on error, caller-allocated buffer to write the received data into, of length at least `buf_len`
-             */
-            recv_nonblocking(stream_id: number, component_id: number, cancellable: Gio.Cancellable | null): [number, Uint8Array]
-            /**
-             * Remove and free a previously created data stream from @agent. If any I/O
-             * streams have been created using nice_agent_get_io_stream(), they should be
-             * closed completely using g_io_stream_close() before this is called, or they
-             * will get broken pipe errors.
-             * @param stream_id The ID of the stream to remove
-             */
-            remove_stream(stream_id: number): void
-            /**
-             * Restarts the session as defined in ICE draft 19. This function
-             * needs to be called both when initiating (ICE spec section 9.1.1.1.
-             * "ICE Restarts"), as well as when reacting (spec section 9.2.1.1.
-             * "Detecting ICE Restart") to a restart.
-             *
-             * If consent-freshness has been enabled on @agent, as specified in RFC7675
-             * then restarting streams will restore the local consent.
-             * @returns %TRUE on success %FALSE on error
-             */
-            restart(): boolean
-            /**
-             * Restarts a single stream as defined in RFC 5245. This function
-             * needs to be called both when initiating (ICE spec section 9.1.1.1.
-             * "ICE Restarts"), as well as when reacting (spec section 9.2.1.1.
-             * "Detecting ICE Restart") to a restart.
-             *
-             * Unlike nice_agent_restart(), this applies to a single stream. It also
-             * does not generate a new tie breaker.
-             *
-             * If consent-freshness has been enabled on @agent, as specified in RFC7675
-             * then restart @stream_id will restore the local consent for that stream.
-             * @since 0.1.6
-             * @param stream_id The ID of the stream
-             * @returns %TRUE on success %FALSE on error
-             */
-            restart_stream(stream_id: number): boolean
-            /**
-             * Sends a data payload over a stream's component.
-             *
-             *  <note>
-             *    <para>
-             *      Component state MUST be NICE_COMPONENT_STATE_READY, or as a special case,
-             *      in any state if component was in READY state before and was then restarted
-             *    </para>
-             *    <para>
-             *    In reliable mode, the -1 error value means either that you are not yet
-             *    connected or that the send buffer is full (equivalent to EWOULDBLOCK).
-             *    In both cases, you simply need to wait for the
-             *    #NiceAgent::reliable-transport-writable signal to be fired before resending
-             *    the data.
-             *    </para>
-             *    <para>
-             *    In non-reliable mode, it will virtually never happen with UDP sockets, but
-             *    it might happen if the active candidate is a TURN-TCP connection that got
-             *    disconnected.
-             *    </para>
-             *    <para>
-             *    In both reliable and non-reliable mode, a -1 error code could also mean that
-             *    the stream_id and/or component_id are invalid.
-             *    </para>
-             * </note>
-             * @param stream_id The ID of the stream to send to
-             * @param component_id The ID of the component to send to
-             * @param len The length of the buffer to send
-             * @param buf The buffer of data to send
-             * @returns The number of bytes sent, or negative error code
-             */
-            send(stream_id: number, component_id: number, len: number, buf: string): number
-            /**
-             * Sends multiple messages on the socket identified by the given
-             * stream/component pair. Transmission is non-blocking, so a
-             * %G_IO_ERROR_WOULD_BLOCK error may be returned if the send buffer is full.
-             *
-             * As with nice_agent_send(), the given component must be in
-             * %NICE_COMPONENT_STATE_READY or, as a special case, in any state if it was
-             * previously ready and was then restarted.
-             *
-             * On success, the number of messages written to the socket will be returned,
-             * which may be less than @n_messages if transmission would have blocked
-             * part-way through. Zero will be returned if @n_messages is zero, or if
-             * transmission would have blocked on the first message.
-             *
-             * In reliable mode, it is instead recommended to use
-             * nice_agent_send().  The return value can be less than @n_messages
-             * or 0 even if it is still possible to send a partial message. In
-             * this case, "nice-agent-writable" will never be triggered, so the
-             * application would have to use nice_agent_sent() to fill the buffer or have
-             * to retry sending at a later point.
-             *
-             * On failure, -1 will be returned and @error will be set. If the #NiceAgent is
-             * reliable and the socket is not yet connected, %G_IO_ERROR_BROKEN_PIPE will be
-             * returned; if the write buffer is full, %G_IO_ERROR_WOULD_BLOCK will be
-             * returned. In both cases, wait for the #NiceAgent::reliable-transport-writable
-             * signal before trying again. If the given @stream_id or @component_id are
-             * invalid or not yet connected, %G_IO_ERROR_BROKEN_PIPE will be returned.
-             * %G_IO_ERROR_FAILED will be returned for other errors.
-             * @throws {GLib.Error}
-             * @since 0.1.5
-             * @param stream_id the ID of the stream to send to
-             * @param component_id the ID of the component to send to
-             * @param messages array of messages to send, of at least
-            @n_messages entries in length
-             * @param cancellable a #GCancellable to cancel the operation from
-            another thread, or %NULL
-             * @returns the number of messages sent (may be zero), or -1 on error
-             */
-            send_messages_nonblocking(stream_id: number, component_id: number, messages: OutputMessage[], cancellable: Gio.Cancellable | null): number
-            /**
-             * Sets the local credentials for stream @stream_id.
-             *
-             *  <note>
-             *    <para>
-             *      This is only effective before ICE negotiation has started.
-             *    </para>
-             *  </note>
-             *
-             * Since 0.1.11
-             * @param stream_id The ID of the stream
-             * @param ufrag nul-terminated string containing an ICE username fragment
-               (length must be between 22 and 256 chars)
-             * @param pwd nul-terminated string containing an ICE password
-               (length must be between 4 and 256 chars)
-             * @returns %TRUE on success, %FALSE on error.
-             */
-            set_local_credentials(stream_id: number, ufrag: string, pwd: string): boolean
-            /**
-             * Sets a preferred port range for allocating host candidates.
-             * <para>
-             * If a local host candidate cannot be created on that port
-             * range, then the nice_agent_gather_candidates() call will fail.
-             * </para>
-             * <para>
-             * This MUST be called before nice_agent_gather_candidates()
-             * </para>
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @param min_port The minimum port to use
-             * @param max_port The maximum port to use
-             */
-            set_port_range(stream_id: number, component_id: number, min_port: number, max_port: number): void
-            /**
-             * Sets the settings for using a relay server during the candidate discovery.
-             * This may be called multiple times to add multiple relay servers to the
-             * discovery process; one TCP and one UDP, for example.
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @param server_ip The address of the TURN server
-             * @param server_port The port of the TURN server
-             * @param username The TURN username to use for the allocate
-             * @param password The TURN password to use for the allocate
-             * @param type The type of relay to use
-             * @returns %TRUE if the TURN settings were accepted. %FALSE if the address was invalid.
-             */
-            set_relay_info(stream_id: number, component_id: number, server_ip: string, server_port: number, username: string, password: string, type: RelayType): boolean
-            /**
-             * Sets, adds or updates the remote candidates for a component of a stream.
-             *
-             *  <note>
-             *    <para>
-             *     NICE_AGENT_MAX_REMOTE_CANDIDATES is the absolute maximum limit
-             *     for remote candidates.
-             *    </para>
-             *    <para>
-             *    You must first call nice_agent_gather_candidates() and wait for the
-             *    #NiceAgent::candidate-gathering-done signale before
-             *    calling nice_agent_set_remote_candidates()
-             *    </para>
-             *    <para>
-             *     Since 0.1.3, there is no need to wait for the candidate-gathering-done signal.
-             *     Remote candidates can be set even while gathering local candidates.
-             *     Newly discovered local candidates will automatically be paired with
-             *     existing remote candidates.
-             *    </para>
-             *  </note>
-             * @param stream_id The ID of the stream the candidates are for
-             * @param component_id The ID of the component the candidates are for
-             * @param candidates a #GSList of
-            #NiceCandidate items describing each candidate to add
-             * @returns The number of candidates added, negative on errors (memory allocation error or invalid component)
-             */
-            set_remote_candidates(stream_id: number, component_id: number, candidates: Candidate[]): number
-            /**
-             * Sets the remote credentials for stream @stream_id.
-             *
-             *  <note>
-             *    <para>
-             *      Stream credentials do not override per-candidate credentials if set
-             *    </para>
-             *    <para>
-             *      Due to the native of peer-reflexive candidates, any agent using a per-stream
-             *      credentials (RFC5245, WLM2009, OC2007R2 and DRAFT19) instead of
-             *      per-candidate credentials (GOOGLE, MSN, OC2007), must
-             *      use the nice_agent_set_remote_credentials() API instead of setting the
-             *      username and password on the candidates.
-             *    </para>
-             *  </note>
-             * @param stream_id The ID of the stream
-             * @param ufrag nul-terminated string containing an ICE username fragment
-               (length must be between 22 and 256 chars)
-             * @param pwd nul-terminated string containing an ICE password
-               (length must be between 4 and 256 chars)
-             * @returns %TRUE on success, %FALSE on error.
-             */
-            set_remote_credentials(stream_id: number, ufrag: string, pwd: string): boolean
-            /**
-             * Sets the selected candidate pair for media transmission
-             * for a given stream's component. Calling this function will
-             * disable all further ICE processing (connection check,
-             * state machine updates, etc). Note that keepalives will
-             * continue to be sent.
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @param lfoundation The local foundation of the candidate to use
-             * @param rfoundation The remote foundation of the candidate to use
-             * @returns %TRUE on success, %FALSE if the candidate pair cannot be found
-             */
-            set_selected_pair(stream_id: number, component_id: number, lfoundation: string, rfoundation: string): boolean
-            /**
-             * Sets the selected remote candidate for media transmission
-             * for a given stream's component. This is used to force the selection of
-             * a specific remote candidate even when connectivity checks are failing
-             * (e.g. non-ICE compatible candidates).
-             * Calling this function will disable all further ICE processing
-             * (connection check, state machine updates, etc). Note that keepalives will
-             * continue to be sent.
-             * @param stream_id The ID of the stream
-             * @param component_id The ID of the component
-             * @param candidate The #NiceCandidate to select
-             * @returns %TRUE on success, %FALSE on failure
-             */
-            set_selected_remote_candidate(stream_id: number, component_id: number, candidate: Candidate): boolean
-            /**
-             * This function will set the value of the SOFTWARE attribute to be added to
-             * STUN requests, responses and error responses sent during connectivity checks.
-             * <para>
-             * The SOFTWARE attribute will only be added in the #NICE_COMPATIBILITY_RFC5245
-             * and #NICE_COMPATIBILITY_WLM2009 compatibility modes.
-             *
-             * </para>
-             * <note>
-             *      <para>
-             *        The @software argument will be appended with the libnice version before
-             *        being sent.
-             *      </para>
-             *      <para>
-             *        The @software argument must be in UTF-8 encoding and only the first
-             *        128 characters will be sent.
-             *      </para>
-             *    </note>
-             * @since 0.0.10
-             * @param software The value of the SOFTWARE attribute to add.
-             */
-            set_software(software: string): void
-            /**
-             * This function will assign a media type to a stream. The only values
-             * that can be used to produce a valid SDP are: "audio", "video",
-             * "text", "application", "image" and "message".
-             *
-             * This is only useful when parsing and generating an SDP of the
-             * candidates.
-             *
-             * <para>See also: nice_agent_generate_local_sdp()</para>
-             * <para>See also: nice_agent_parse_remote_sdp()</para>
-             * <para>See also: nice_agent_get_stream_name()</para>
-             * @since 0.1.4
-             * @param stream_id The ID of the stream to change
-             * @param name The new name of the stream or %NULL
-             * @returns %TRUE if the name has been set. %FALSE in case of error (invalid stream or duplicate name).
-             */
-            set_stream_name(stream_id: number, name: string): boolean
-            /**
-             * Sets the IP_TOS and/or IPV6_TCLASS field on the stream's sockets' options
-             * @since 0.0.9
-             * @param stream_id The ID of the stream
-             * @param tos The ToS to set
-             */
-            set_stream_tos(stream_id: number, tos: number): void
-        }
-
-        interface AgentClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Agent>
-            readonly prototype: Agent
-
-            new (props?: Partial<GObject.ConstructorProps<Agent>>): Agent
-            /**
-             * Create a new #NiceAgent.
-             * The returned object must be freed with g_object_unref()
-             * @param ctx The Glib Mainloop Context to use for timers
-             * @param compat The compatibility mode of the agent
-             * @returns The new agent GObject
-             */
-            "new"(ctx: GLib.MainContext, compat: Compatibility): Agent
-            /**
-             * Create a new #NiceAgent with parameters that must be be defined at
-             * construction time.
-             * The returned object must be freed with g_object_unref()
-             * <para> See also: #NiceNominationMode and #NiceAgentOption</para>
-             * @since 0.1.15
-             * @param ctx The Glib Mainloop Context to use for timers
-             * @param compat The compatibility mode of the agent
-             * @param flags Flags to set the properties
-             * @returns The new agent GObject
-             */
-            new_full(ctx: GLib.MainContext, compat: Compatibility, flags: AgentOption): Agent
-            /**
-             * Create a new #NiceAgent in reliable mode. If the connectivity is established
-             * through ICE-UDP, then a #PseudoTcpSocket will be transparently used to
-             * ensure reliability of the messages.
-             * The returned object must be freed with g_object_unref()
-             * <para> See also: #NiceAgent::reliable-transport-writable </para>
-             * @since 0.0.11
-             * @param ctx The Glib Mainloop Context to use for timers
-             * @param compat The compatibility mode of the agent
-             * @returns The new agent GObject
-             */
-            new_reliable(ctx: GLib.MainContext, compat: Compatibility): Agent
-        }
-
-        interface $Exports {
-            /**
-             * The #NiceAgent is the main GObject of the libnice library and represents
-             * the ICE agent.
-             */
-            Agent: AgentClass
-        }
-        
-
-        namespace PseudoTcpSocket {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "ack-delay": number
-                "callbacks": never
-                "conversation": number
-                "no-delay": boolean
-                "rcv-buf": number
-                "snd-buf": number
-                "state": number
-                "support-fin-ack": boolean
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "ack-delay": number
-                "callbacks": never
-                "no-delay": boolean
-                "rcv-buf": number
-                "snd-buf": number
-                "state": number
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-                "conversation": number
-                "support-fin-ack": boolean
-            }
-        }
-
-        interface PseudoTcpSocket extends GObject.Object {
-            readonly $signals: PseudoTcpSocket.SignalSignatures
-            readonly $readableProperties: PseudoTcpSocket.ReadableProperties
-            readonly $writableProperties: PseudoTcpSocket.WritableProperties
-            readonly $constructOnlyProperties: PseudoTcpSocket.ConstructOnlyProperties
-            /**
-             * @default 100
-             */
-            get ackDelay(): number
-            set ackDelay(value: number)
-            /**
-             */
-            get callbacks(): never
-            set callbacks(value: never)
-            /**
-             * @default 0
-             */
-            get conversation(): number
-            set conversation(value: number)
-            /**
-             * @default TRUE
-             */
-            get noDelay(): boolean
-            set noDelay(value: boolean)
-            /**
-             * @default 61440
-             */
-            get rcvBuf(): number
-            set rcvBuf(value: number)
-            /**
-             * @default 92160
-             */
-            get sndBuf(): number
-            set sndBuf(value: number)
-            /**
-             * @default 0
-             */
-            get state(): number
-            set state(value: number)
-            /**
-             * Whether to support the FIN–ACK extension to the pseudo-TCP protocol for
-             * this socket. The extension is only compatible with other libnice pseudo-TCP
-             * stacks, and not with Jingle pseudo-TCP stacks. If enabled, support is
-             * negotiatied on connection setup, so it is safe for a #PseudoTcpSocket with
-             * support enabled to be used with one with it disabled, or with a Jingle
-             * pseudo-TCP socket which doesn’t support it at all.
-             *
-             * Support is enabled by default.
-             * @since 0.1.8
-             * @default TRUE
-             */
-            get supportFinAck(): boolean
-            set supportFinAck(value: boolean)
-            /**
-             * Returns if there is space in the send buffer to send any data.
-             * @since 0.1.5
-             * @returns %TRUE if data can be sent, %FALSE otherwise
-             */
-            can_send(): boolean
-            /**
-             * Close the socket for sending. If @force is set to %FALSE, the socket will
-             * finish sending pending data before closing. If it is set to %TRUE, the socket
-             * will discard pending data and close the connection immediately (sending a TCP
-             * RST segment).
-             *
-             * The socket will be closed in both directions – sending and receiving – and
-             * any pending received data must be read before calling this function, by
-             * calling pseudo_tcp_socket_recv() until it blocks. If any pending data is in
-             * the receive buffer when pseudo_tcp_socket_close() is called, a TCP RST
-             * segment will be sent to the peer to notify it of the data loss.
-             *
-             *  <note>
-             *    <para>
-             *      The %PseudoTcpCallbacks:PseudoTcpClosed callback will not be called once
-             *      the socket gets closed. It is only used for aborted connection.
-             *      Instead, the socket gets closed when the pseudo_tcp_socket_get_next_clock()
-             *      function returns FALSE.
-             *    </para>
-             *  </note>
-             *
-             * <para> See also: pseudo_tcp_socket_get_next_clock() </para>
-             * @since 0.0.11
-             * @param force %TRUE to close the socket forcefully, %FALSE to close it gracefully
-             */
-            close(force: boolean): void
-            /**
-             * Connects the #PseudoTcpSocket to the peer with the same conversation id.
-             * The connection will only be successful after the
-             * %PseudoTcpCallbacks:PseudoTcpOpened callback is called
-             * @since 0.0.11
-             * @returns %TRUE on success, %FALSE on failure (not in %TCP_LISTEN state) <para> See also: pseudo_tcp_socket_get_error() </para>
-             */
-            connect(): boolean
-            /**
-             * Gets the number of bytes of data in the buffer that can be read without
-             * receiving more packets from the network.
-             * @since 0.1.5
-             * @returns The number of bytes or -1 if the connection is not established
-             */
-            get_available_bytes(): number
-            /**
-             * Gets the number of bytes of space available in the transmission buffer.
-             * @since 0.1.5
-             * @returns The number of bytes, or 0 if the connection is not established.
-             */
-            get_available_send_space(): number
-            /**
-             * Return the last encountered error.
-             *
-             *  <note>
-             *    <para>
-             *      The return value can be :
-             *      <para>
-             *        EINVAL (for pseudo_tcp_socket_connect()).
-             *      </para>
-             *      <para>
-             *        EWOULDBLOCK or ENOTCONN (for pseudo_tcp_socket_recv() and
-             *        pseudo_tcp_socket_send()).
-             *      </para>
-             *    </para>
-             *  </note>
-             * @since 0.0.11
-             * @returns The error code <para> See also: pseudo_tcp_socket_connect() </para> <para> See also: pseudo_tcp_socket_recv() </para> <para> See also: pseudo_tcp_socket_send() </para>
-             */
-            get_error(): number
-            /**
-             * Call this to determine the timeout needed before the next time call
-             * to pseudo_tcp_socket_notify_clock() should be made.
-             * @since 0.0.11
-             * @param timeout A pointer to be filled with the new timeout.
-             * @returns %TRUE if `timeout` was filled, %FALSE if the socket is closed and ready to be destroyed.  <para> See also: pseudo_tcp_socket_notify_clock() </para>
-             */
-            get_next_clock(timeout: number): boolean
-            /**
-             * Gets whether the socket is closed, with the shutdown handshake completed,
-             * and both peers no longer able to read or write data to the connection.
-             * @since 0.1.8
-             * @returns %TRUE if the socket is closed in both directions, %FALSE otherwise
-             */
-            is_closed(): boolean
-            /**
-             * Gets whether the socket has been closed on the remote peer’s side of the
-             * connection (i.e. whether pseudo_tcp_socket_close() has been called there).
-             * This is guaranteed to return %TRUE if pseudo_tcp_socket_is_closed() returns
-             * %TRUE. It will not return %TRUE after pseudo_tcp_socket_close() is called
-             * until a FIN segment is received from the remote peer.
-             * @since 0.1.8
-             * @returns %TRUE if the remote peer has closed its side of the connection, %FALSE otherwise
-             */
-            is_closed_remotely(): boolean
-            /**
-             * Start the processing of receiving data, pending data or syn/acks.
-             * Call this based on timeout value returned by
-             * pseudo_tcp_socket_get_next_clock().
-             * It's ok to call this too frequently.
-             *
-             * <para> See also: pseudo_tcp_socket_get_next_clock() </para>
-             * @since 0.0.11
-             */
-            notify_clock(): void
-            /**
-             * Notify the #PseudoTcpSocket that a new message has arrived, and enqueue the
-             * data in its buffers to the #PseudoTcpSocket’s receive buffer.
-             * @since 0.1.5
-             * @param message A #NiceInputMessage containing the received data.
-             * @returns %TRUE if the packet was processed successfully, %FALSE otherwise
-             */
-            notify_message(message: InputMessage): boolean
-            /**
-             * Set the MTU of the socket
-             * @since 0.0.11
-             * @param mtu The new MTU of the socket
-             */
-            notify_mtu(mtu: number): void
-            /**
-             * Notify the #PseudoTcpSocket when a new packet arrives
-             * @since 0.0.11
-             * @param buffer The buffer containing the received data
-             * @param len The length of @buffer
-             * @returns %TRUE if the packet was processed successfully, %FALSE otherwise
-             */
-            notify_packet(buffer: string, len: number): boolean
-            /**
-             * Receive data from the socket.
-             *
-             *  <note>
-             *    <para>
-             *      Only call this on the %PseudoTcpCallbacks:PseudoTcpReadable callback.
-             *    </para>
-             *    <para>
-             *      This function should be called in a loop. If this function does not
-             *      return -1 with EWOULDBLOCK as the error, the
-             *      %PseudoTcpCallbacks:PseudoTcpReadable callback will not be called again.
-             *    </para>
-             *  </note>
-             * @since 0.0.11
-             * @param buffer The buffer to fill with received data
-             * @param len The length of @buffer
-             * @returns The number of bytes received or -1 in case of error <para> See also: pseudo_tcp_socket_get_error() </para>
-             */
-            recv(buffer: string, len: number): number
-            /**
-             * Send data on the socket.
-             *
-             *  <note>
-             *    <para>
-             *      If this function return -1 with EWOULDBLOCK as the error, or if the return
-             *      value is lower than @len, then the %PseudoTcpCallbacks:PseudoTcpWritable
-             *      callback will be called when the socket will become writable.
-             *    </para>
-             *  </note>
-             * @since 0.0.11
-             * @param buffer The buffer with data to send
-             * @param len The length of @buffer
-             * @returns The number of bytes sent or -1 in case of error <para> See also: pseudo_tcp_socket_get_error() </para>
-             */
-            send(buffer: string, len: number): number
-            /**
-             * Sets the current monotonic time to be used by the TCP socket when calculating
-             * timeouts and expiry times. If this function is not called, or is called with
-             * @current_time as zero, g_get_monotonic_time() will be used. Otherwise, the
-             * specified @current_time will be used until it is updated by calling this
-             * function again.
-             *
-             * This function is intended for testing only, and should not be used in
-             * production code.
-             * @since 0.1.8
-             * @param current_time Current monotonic time, in milliseconds; or zero to use the
-            system monotonic clock.
-             */
-            set_time(current_time: number): void
-            /**
-             * Shut down sending, receiving, or both on the socket, depending on the value
-             * of @how. The behaviour of pseudo_tcp_socket_send() and
-             * pseudo_tcp_socket_recv() will immediately change after this function returns
-             * (depending on the value of @how), though the socket may continue to process
-             * network traffic in the background even if sending or receiving data is
-             * forbidden.
-             *
-             * This is equivalent to the POSIX shutdown() function. Setting @how to
-             * %PSEUDO_TCP_SHUTDOWN_RDWR is equivalent to calling pseudo_tcp_socket_close().
-             * @since 0.1.8
-             * @param how The directions of the connection to shut down.
-             */
-            shutdown(how: PseudoTcpShutdown): void
-        }
-
-        interface PseudoTcpSocketClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<PseudoTcpSocket>
-            readonly prototype: PseudoTcpSocket
-
-            new (props?: Partial<GObject.ConstructorProps<PseudoTcpSocket>>): PseudoTcpSocket
-            /**
-             * Creates a new #PseudoTcpSocket for the specified conversation
-             *
-             *  <note>
-             *    <para>
-             *      The @callbacks must be non-NULL, in order to get notified of packets the
-             *      socket needs to send.
-             *    </para>
-             *    <para>
-             *      If the @callbacks structure was dynamicly allocated, it can be freed
-             *      after the call @pseudo_tcp_socket_new
-             *    </para>
-             *  </note>
-             * @since 0.0.11
-             * @param conversation The conversation id for the socket.
-             * @param callbacks A pointer to the #PseudoTcpCallbacks structure for getting
-            notified of the #PseudoTcpSocket events.
-             * @returns The new #PseudoTcpSocket object, %NULL on error
-             */
-            "new"(conversation: number, callbacks: PseudoTcpCallbacks): PseudoTcpSocket
-        }
-
-        interface $Exports {
-            /**
-             * The #PseudoTcpSocket is the GObject implementing the Pseudo TCP Socket
-             * @since 0.0.11
-             */
-            PseudoTcpSocket: PseudoTcpSocketClass
-        }
-        
-
-        interface AddressStruct {
-            readonly $gtype: GObject.GType<Address>
-            [Symbol.hasInstance](instance: unknown): instance is Address
-            /**
-             * Create a new #NiceAddress with undefined address
-             * You must free it with nice_address_free()
-             * @returns The new #NiceAddress
-             */
-            "new"(): Address
-        }
-
-        interface Address {
-            /**
-             * Fills the sockaddr structure @sin with the address contained in @addr
-             * @param sin The sockaddr to fill
-             */
-            copy_to_sockaddr(sin: never | null): void
-            /**
-             * Creates a new #NiceAddress with the same address as @addr
-             * @returns The new #NiceAddress
-             */
-            dup(): Address
-            /**
-             * Transforms the address @addr into a newly allocated human readable string
-             * @since 0.1.20
-             * @returns the address string
-             */
-            dup_string(): string
-            /**
-             * Compares two #NiceAddress structures to see if they contain the same address
-             * and the same port.
-             * @param b Second #NiceAddress to compare
-             * @returns %TRUE if `a` and `b` are the same address, %FALSE if they are different
-             */
-            equal(b: Address): boolean
-            /**
-             * Compares two #NiceAddress structures to see if they contain the same address,
-             * ignoring the port.
-             * @since 0.1.8
-             * @param b Second #NiceAddress to compare
-             * @returns %TRUE if `a` and `b` are the same address, %FALSE if they are different
-             */
-            equal_no_port(b: Address): boolean
-            /**
-             * Frees a #NiceAddress created with nice_address_new() or nice_address_dup()
-             */
-            free(): void
-            /**
-             * Retreive the port of @addr
-             * @returns The port of `addr`
-             */
-            get_port(): number
-            /**
-             * Initialize a #NiceAddress into an undefined address
-             */
-            init(): void
-            /**
-             * Returns the IP version of the address
-             * @returns 4 for IPv4, 6 for IPv6 and 0 for undefined address
-             */
-            ip_version(): number
-            /**
-             * Verifies if the address in @addr is a link-local address or not
-             * @since 0.1.19
-             * @returns %TRUE if `addr` is a link-local address, %FALSE otherwise
-             */
-            is_linklocal(): boolean
-            /**
-             * Verifies if the address in @addr is a private address or not
-             * @returns %TRUE if `addr` is a private address, %FALSE otherwise
-             */
-            is_private(): boolean
-            /**
-             * Validate whether the #NiceAddress @addr is a valid IPv4 or IPv6 address
-             * @returns %TRUE if `addr` is valid, %FALSE otherwise
-             */
-            is_valid(): boolean
-            /**
-             * Sets an IPv4 or IPv6 address from the sockaddr structure @sin
-             * @param sin The sockaddr to set
-             */
-            set_from_sockaddr(sin: never | null): void
-            /**
-             * Sets an IPv4 or IPv6 address from the string @str
-             * @param str The string to set
-             * @returns %TRUE if success, %FALSE on error
-             */
-            set_from_string(str: string): boolean
-            /**
-             * Set @addr to an IPv4 address using the data from @addr_ipv4
-             *
-             *  <note>
-             *   <para>
-             *    This function will reset the port to 0, so make sure you call it before
-             *    nice_address_set_port()
-             *   </para>
-             *  </note>
-             * @param addr_ipv4 The IPv4 address
-             */
-            set_ipv4(addr_ipv4: number): void
-            /**
-             * Set @addr to an IPv6 address using the data from @addr_ipv6
-             *
-             *  <note>
-             *   <para>
-             *    This function will reset the port to 0, so make sure you call it before
-             *    nice_address_set_port()
-             *   </para>
-             *  </note>
-             * @param addr_ipv6 The IPv6 address
-             */
-            set_ipv6(addr_ipv6: number): void
-            /**
-             * Set the port of @addr to @port
-             * @param port The port to set
-             */
-            set_port(port: number): void
-        }
-
-        interface $Exports {
-            Address: AddressStruct
-        }
-        
-
-        interface CandidateStruct {
-            readonly $gtype: GObject.GType<Candidate>
-            [Symbol.hasInstance](instance: unknown): instance is Candidate
-            /**
-             * Creates a new candidate. Must be freed with nice_candidate_free()
-             * @param type The #NiceCandidateType of the candidate to create
-             * @returns A new #NiceCandidate
-             */
-            "new"(type: CandidateType): Candidate
-            /**
-             * Useful for debugging functions, just returns a static string with the
-             * candidate transport.
-             * @since 0.1.19
-             * @param transport a #NiceCandidateTransport
-             * @returns a static string with the candidate transport
-             */
-            transport_to_string(transport: CandidateTransport): string
-            /**
-             * Useful for debugging functions, just returns a static string with the
-             * candidate type.
-             * @since 0.1.19
-             * @param type a #NiceCandidateType
-             * @returns a static string with the candidate type
-             */
-            type_to_string(type: CandidateType): string
-        }
-
-        interface Candidate {
-            /**
-             * The type of candidate
-             */
-            type: CandidateType
-            /**
-             * The transport being used for the candidate
-             */
-            transport: CandidateTransport
-            /**
-             * The #NiceAddress of the candidate
-             */
-            addr: Address
-            /**
-             * The #NiceAddress of the base address used by the candidate
-             */
-            base_addr: Address
-            /**
-             * The priority of the candidate <emphasis> see note </emphasis>
-             */
-            priority: number
-            /**
-             * The ID of the stream to which belongs the candidate
-             */
-            stream_id: number
-            /**
-             * The ID of the component to which belongs the candidate
-             */
-            component_id: number
-            /**
-             * The foundation of the candidate
-             */
-            foundation: number[]
-            /**
-             * The candidate-specific username to use (overrides the one set
-             * by nice_agent_set_local_credentials() or nice_agent_set_remote_credentials())
-             */
-            username: string
-            /**
-             * The candidate-specific password to use (overrides the one set
-             * by nice_agent_set_local_credentials() or nice_agent_set_remote_credentials())
-             */
-            password: string
-            /**
-             * Makes a copy of a #NiceCandidate
-             * @returns A new #NiceCandidate, a copy of `candidate`
-             */
-            copy(): Candidate
-            /**
-             * Verifies that the candidates point to the same place, meaning they have
-             * the same transport and the same address. It ignores all other aspects.
-             * @since 0.1.15
-             * @param candidate2 A candidate
-             * @returns %TRUE if the candidates point to the same place
-             */
-            equal_target(candidate2: Candidate): boolean
-            /**
-             * Frees a #NiceCandidate
-             */
-            free(): void
-            /**
-             * In case the given candidate is relayed through a TURN server, use this utility function to get
-             * its address.
-             * @since 0.1.19
-             * @param addr The #NiceAddress to fill
-             */
-            relay_address(addr: Address): void
-            /**
-             * In case the given candidate server-reflexive, use this utility function to get its address. The
-             * address will be filled only if the candidate was generated using an STUN server.
-             * @since 0.1.20
-             * @param addr The #NiceAddress to fill
-             * @returns TRUE if it's a STUN created ICE candidate, or FALSE if the reflexed's server was not STUN.
-             */
-            stun_server_address(addr: Address): boolean
-        }
-
-        interface $Exports {
-            Candidate: CandidateStruct
-        }
-        
-
-        interface InputMessageStruct {
-            readonly $gtype: GObject.GType<InputMessage>
-            [Symbol.hasInstance](instance: unknown): instance is InputMessage
-        }
-
-        interface InputMessage {
-            /**
-             * unowned array of #GInputVector buffers to
-             * store data in for this message
-             */
-            buffers: Gio.InputVector[]
-            /**
-             * number of #GInputVectors in @buffers, or -1 to indicate @buffers
-             * is %NULL-terminated
-             */
-            n_buffers: number
-            /**
-             * return location to store the address of the peer who
-             * transmitted the message, or %NULL
-             */
-            from: Address
-            /**
-             * total number of valid bytes contiguously stored in @buffers
-             */
-            length: number
-        }
-
-        interface $Exports {
-            InputMessage: InputMessageStruct
-        }
-        
-
-        interface OutputMessageStruct {
-            readonly $gtype: GObject.GType<OutputMessage>
-            [Symbol.hasInstance](instance: unknown): instance is OutputMessage
-        }
-
-        interface OutputMessage {
-            /**
-             * unowned array of #GOutputVector buffers
-             * which contain data to transmit for this message
-             */
-            buffers: Gio.OutputVector[]
-            /**
-             * number of #GOutputVectors in @buffers, or -1 to indicate @buffers
-             * is %NULL-terminated
-             */
-            n_buffers: number
-        }
-
-        interface $Exports {
-            OutputMessage: OutputMessageStruct
-        }
-        
-
-        interface PseudoTcpCallbacksStruct {
-            readonly $gtype: GObject.GType<PseudoTcpCallbacks>
-            [Symbol.hasInstance](instance: unknown): instance is PseudoTcpCallbacks
-        }
-
-        interface PseudoTcpCallbacks {
-            /**
-             * A user defined pointer to be passed to the callbacks
-             */
-            user_data: never
-        }
-
-        interface $Exports {
-            PseudoTcpCallbacks: PseudoTcpCallbacksStruct
-        }
-        
-        interface CandidateTransportEnum {
-            readonly $gtype: GObject.GType<CandidateTransport>
-            /**
-             * UDP transport
-             */
-            readonly "UDP": 0
-            /**
-             * TCP Active transport
-             */
-            readonly "TCP_ACTIVE": 1
-            /**
-             * TCP Passive transport
-             */
-            readonly "TCP_PASSIVE": 2
-            /**
-             * TCP Simultaneous-Open transport
-             */
-            readonly "TCP_SO": 3
-        }
-        type CandidateTransport = CandidateTransportEnum[Exclude<keyof CandidateTransportEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * An enum representing the type of transport to use
-             */
-            CandidateTransport: CandidateTransportEnum
-        }
-        
-        interface CandidateTypeEnum {
-            readonly $gtype: GObject.GType<CandidateType>
-            /**
-             * A host candidate
-             */
-            readonly "HOST": 0
-            /**
-             * A server reflexive candidate (or a NAT-assisted candidate)
-             */
-            readonly "SERVER_REFLEXIVE": 1
-            /**
-             * A peer reflexive candidate
-             */
-            readonly "PEER_REFLEXIVE": 2
-            /**
-             * A relay candidate
-             */
-            readonly "RELAYED": 3
-        }
-        type CandidateType = CandidateTypeEnum[Exclude<keyof CandidateTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * An enum representing the type of a candidate
-             */
-            CandidateType: CandidateTypeEnum
-        }
-        
-        interface CompatibilityEnum {
-            readonly $gtype: GObject.GType<Compatibility>
-            /**
-             * Use compatibility with the RFC5245 ICE-UDP specs
-             * and RFC6544 ICE-TCP specs
-             */
-            readonly "RFC5245": 0
-            /**
-             * Use compatibility for ICE Draft 19 specs
-             */
-            readonly "DRAFT19": 0
-            /**
-             * Use compatibility for Google Talk specs
-             */
-            readonly "GOOGLE": 1
-            /**
-             * Use compatibility for MSN Messenger specs
-             */
-            readonly "MSN": 2
-            /**
-             * Use compatibility with Windows Live Messenger
-             * 2009
-             */
-            readonly "WLM2009": 3
-            /**
-             * Use compatibility with Microsoft Office Communicator 2007
-             */
-            readonly "OC2007": 4
-            /**
-             * Use compatibility with Microsoft Office Communicator 2007 R2
-             */
-            readonly "OC2007R2": 5
-            /**
-             * Dummy last compatibility mode
-             */
-            readonly "LAST": 5
-        }
-        type Compatibility = CompatibilityEnum[Exclude<keyof CompatibilityEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * An enum to specify which compatible specifications the #NiceAgent should use.
-             * Use with nice_agent_new()
-             *
-             * <warning>@NICE_COMPATIBILITY_DRAFT19 is deprecated and should not be used
-             * in newly-written code. It is kept for compatibility reasons and
-             * represents the same compatibility as @NICE_COMPATIBILITY_RFC5245 </warning>
-             *  <note>
-             *    <para>
-             *    If @NICE_COMPATIBILITY_RFC5245 compatibility mode is used for a non-reliable
-             *    agent, then ICE-UDP will be used with higher priority and ICE-TCP will also
-             *    be used when the UDP connectivity fails. If it is used with a reliable agent,
-             *    then ICE-UDP will be used with the TCP-Over-UDP (#PseudoTcpSocket) if ICE-TCP
-             *    fails and ICE-UDP succeeds.
-             *   </para>
-             *  </note>
-             */
-            Compatibility: CompatibilityEnum
-        }
-        
-        interface ComponentStateEnum {
-            readonly $gtype: GObject.GType<ComponentState>
-            /**
-             * No activity scheduled
-             */
-            readonly "DISCONNECTED": 0
-            /**
-             * Gathering local candidates
-             */
-            readonly "GATHERING": 1
-            /**
-             * Establishing connectivity
-             */
-            readonly "CONNECTING": 2
-            /**
-             * At least one working candidate pair
-             */
-            readonly "CONNECTED": 3
-            /**
-             * ICE concluded, candidate pair selection
-             * is now final
-             */
-            readonly "READY": 4
-            /**
-             * Connectivity checks have been completed,
-             * but connectivity was not established
-             */
-            readonly "FAILED": 5
-            /**
-             * Dummy state
-             */
-            readonly "LAST": 6
-        }
-        type ComponentState = ComponentStateEnum[Exclude<keyof ComponentStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * An enum representing the state of a component.
-             * <para> See also: #NiceAgent::component-state-changed </para>
-             */
-            ComponentState: ComponentStateEnum
-        }
-        
-        interface ComponentTypeEnum {
-            readonly $gtype: GObject.GType<ComponentType>
-            /**
-             * RTP Component type
-             */
-            readonly "RTP": 1
-            /**
-             * RTCP Component type
-             */
-            readonly "RTCP": 2
-        }
-        type ComponentType = ComponentTypeEnum[Exclude<keyof ComponentTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Convenience enum representing the type of a component for use as the
-             * component_id for RTP/RTCP usages.
-             *  <example>
-             *    <title>Example of use.</title>
-             *    <programlisting>
-             *    nice_agent_send (agent, stream_id, NICE_COMPONENT_TYPE_RTP, len, buf);
-             *    </programlisting>
-             *   </example>
-             */
-            ComponentType: ComponentTypeEnum
-        }
-        
-        interface NominationModeEnum {
-            readonly $gtype: GObject.GType<NominationMode>
-            /**
-             * Regular nomination mode
-             */
-            readonly "REGULAR": 0
-            /**
-             * Aggressive nomination mode
-             */
-            readonly "AGGRESSIVE": 1
-        }
-        type NominationMode = NominationModeEnum[Exclude<keyof NominationModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * An enum to specity the kind of nomination mode to use by
-             * the agent, as described in RFC 5245. Two modes exists,
-             * regular and aggressive. They differ by the way the controlling
-             * agent chooses to put the USE-CANDIDATE attribute in its STUN
-             * messages. The aggressive mode is supposed to nominate a pair
-             * faster, than the regular mode, potentially causing the nominated
-             * pair to change until the connection check completes.
-             * @since 0.1.15
-             */
-            NominationMode: NominationModeEnum
-        }
-        
-        interface ProxyTypeEnum {
-            readonly $gtype: GObject.GType<ProxyType>
-            /**
-             * Do not use a proxy
-             */
-            readonly "NONE": 0
-            /**
-             * Use a SOCKS5 proxy
-             */
-            readonly "SOCKS5": 1
-            /**
-             * Use an HTTP proxy
-             */
-            readonly "HTTP": 2
-            /**
-             * Dummy last proxy type
-             */
-            readonly "LAST": 2
-        }
-        type ProxyType = ProxyTypeEnum[Exclude<keyof ProxyTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * An enum to specify which proxy type to use for relaying.
-             * Note that the proxies will only be used with TCP TURN relaying.
-             * <para> See also: #NiceAgent:proxy-type </para>
-             * @since 0.0.4
-             */
-            ProxyType: ProxyTypeEnum
-        }
-        
-        interface PseudoTcpDebugLevelEnum {
-            readonly $gtype: GObject.GType<PseudoTcpDebugLevel>
-            /**
-             * Disable debug messages
-             */
-            readonly "NONE": 0
-            /**
-             * Enable basic debug messages
-             */
-            readonly "NORMAL": 1
-            /**
-             * Enable verbose debug messages
-             */
-            readonly "VERBOSE": 2
-        }
-        type PseudoTcpDebugLevel = PseudoTcpDebugLevelEnum[Exclude<keyof PseudoTcpDebugLevelEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Valid values of debug levels to be set.
-             * @since 0.0.11
-             */
-            PseudoTcpDebugLevel: PseudoTcpDebugLevelEnum
-        }
-        
-        interface PseudoTcpShutdownEnum {
-            readonly $gtype: GObject.GType<PseudoTcpShutdown>
-            /**
-             * Shut down the local reader only
-             */
-            readonly "RD": 0
-            /**
-             * Shut down the local writer only
-             */
-            readonly "WR": 1
-            /**
-             * Shut down both reading and writing
-             */
-            readonly "RDWR": 2
-        }
-        type PseudoTcpShutdown = PseudoTcpShutdownEnum[Exclude<keyof PseudoTcpShutdownEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Options for which parts of a connection to shut down when calling
-             * pseudo_tcp_socket_shutdown(). These correspond to the values passed to POSIX
-             * shutdown().
-             * @since 0.1.8
-             */
-            PseudoTcpShutdown: PseudoTcpShutdownEnum
-        }
-        
-        interface PseudoTcpStateEnum {
-            readonly $gtype: GObject.GType<PseudoTcpState>
-            /**
-             * The socket's initial state. The socket isn't connected and is
-             * listening for an incoming connection
-             */
-            readonly "LISTEN": 0
-            /**
-             * The socket has sent a connection request (SYN) packet and is
-             * waiting for an answer
-             */
-            readonly "SYN_SENT": 1
-            /**
-             * The socket has received a connection request (SYN) packet.
-             */
-            readonly "SYN_RECEIVED": 2
-            /**
-             * The socket is connected
-             */
-            readonly "ESTABLISHED": 3
-            /**
-             * The socket has been closed
-             */
-            readonly "CLOSED": 4
-            /**
-             * The socket has been closed locally but not remotely
-             * (Since: 0.1.8)
-             */
-            readonly "FIN_WAIT_1": 5
-            /**
-             * The socket has been closed locally but not remotely
-             * (Since: 0.1.8)
-             */
-            readonly "FIN_WAIT_2": 6
-            /**
-             * The socket has been closed locally and remotely
-             * (Since: 0.1.8)
-             */
-            readonly "CLOSING": 7
-            /**
-             * The socket has been closed locally and remotely
-             * (Since: 0.1.8)
-             */
-            readonly "TIME_WAIT": 8
-            /**
-             * The socket has been closed remotely but not locally
-             * (Since: 0.1.8)
-             */
-            readonly "CLOSE_WAIT": 9
-            /**
-             * The socket has been closed locally and remotely
-             * (Since: 0.1.8)
-             */
-            readonly "LAST_ACK": 10
-        }
-        type PseudoTcpState = PseudoTcpStateEnum[Exclude<keyof PseudoTcpStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * An enum representing the state of the #PseudoTcpSocket. These states
-             * correspond to the TCP states in RFC 793.
-             * <para> See also: #PseudoTcpSocket:state </para>
-             * @since 0.0.11
-             */
-            PseudoTcpState: PseudoTcpStateEnum
-        }
-        
-        interface PseudoTcpWriteResultEnum {
-            readonly $gtype: GObject.GType<PseudoTcpWriteResult>
-            /**
-             * The write operation was successful
-             */
-            readonly "SUCCESS": 0
-            /**
-             * The socket type requires that message be sent atomically
-             * and the size of the message to be sent made this impossible.
-             */
-            readonly "TOO_LARGE": 1
-            /**
-             * There was an error sending the message
-             */
-            readonly "FAIL": 2
-        }
-        type PseudoTcpWriteResult = PseudoTcpWriteResultEnum[Exclude<keyof PseudoTcpWriteResultEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * An enum representing the result value of the write operation requested by
-             * the #PseudoTcpSocket.
-             * <para> See also: %PseudoTcpCallbacks:WritePacket </para>
-             * @since 0.0.11
-             */
-            PseudoTcpWriteResult: PseudoTcpWriteResultEnum
-        }
-        
-        interface RelayTypeEnum {
-            readonly $gtype: GObject.GType<RelayType>
-            /**
-             * A TURN relay using UDP
-             */
-            readonly "UDP": 0
-            /**
-             * A TURN relay using TCP
-             */
-            readonly "TCP": 1
-            /**
-             * A TURN relay using TLS over TCP
-             */
-            readonly "TLS": 2
-        }
-        type RelayType = RelayTypeEnum[Exclude<keyof RelayTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * An enum representing the type of relay to use
-             */
-            RelayType: RelayTypeEnum
-        }
-        
-        interface AgentOptionBitfield {
-            readonly $gtype: GObject.GType<AgentOption>
-            /**
-             * No enabled options (Since: 0.1.19)
-             */
-            readonly "NONE": 0
-            /**
-             * Enables regular nomination, default
-             *  is aggrssive mode (see #NiceNominationMode).
-             */
-            readonly "REGULAR_NOMINATION": 1
-            /**
-             * Enables reliable mode, possibly using PseudoTCP, *  see nice_agent_new_reliable().
-             */
-            readonly "RELIABLE": 2
-            /**
-             * Enable lite mode
-             */
-            readonly "LITE_MODE": 4
-            /**
-             * Enable ICE trickle mode
-             */
-            readonly "ICE_TRICKLE": 8
-            /**
-             * Enable renomination triggered by NOMINATION STUN attribute
-             * proposed here: https://tools.ietf.org/html/draft-thatcher-ice-renomination-00
-             */
-            readonly "SUPPORT_RENOMINATION": 16
-            /**
-             * Enable RFC 7675 consent freshness support. (Since: 0.1.19)
-             */
-            readonly "CONSENT_FRESHNESS": 32
-            /**
-             * Use bytestream mode for reliable TCP connections. (Since: 0.1.20)
-             */
-            readonly "BYTESTREAM_TCP": 64
-            /**
-             * When removing TURN port allocations on TURN server,
-             * don't do retransmissions and don't wait for a response. (Since: 0.1.23)
-             */
-            readonly "CLOSE_FORCED": 128
-        }
-        type AgentOption = number
-        interface $Exports {
-            /**
-             * These are options that can be passed to nice_agent_new_full(). They set
-             * various properties on the agent. Not including them sets the property to
-             * the other value.
-             * @since 0.1.15
-             */
-            AgentOption: AgentOptionBitfield
-        }
-        /**
-         * Callback function when data is received on a component
-         * @param agent The #NiceAgent Object
-         * @param stream_id The id of the stream
-         * @param component_id The id of the component of the stream
-               which received the data
-         * @param len The length of the data
-         * @param buf The buffer containing the data received
-         */
-        type AgentRecvFunc = (agent: Agent, stream_id: number, component_id: number, len: number, buf: string) => void
-
-        interface $Exports {
-            __name__: "Nice"
-            __version: "0.1"
-            AGENT_MAX_REMOTE_CANDIDATES: 25
-            CANDIDATE_MAX_FOUNDATION: 33
-            CANDIDATE_MAX_LOCAL_ADDRESSES: 64
-            CANDIDATE_MAX_TURN_SERVERS: 8
-            /**
-             * Useful for debugging functions, just returns a static string with the
-             * candidate transport.
-             * @since 0.1.19
-             * @param transport a #NiceCandidateTransport
-             * @returns a static string with the candidate transport
-             */
-            candidate_transport_to_string(transport: CandidateTransport): string
-            /**
-             * Useful for debugging functions, just returns a static string with the
-             * candidate type.
-             * @since 0.1.19
-             * @param type a #NiceCandidateType
-             * @returns a static string with the candidate type
-             */
-            candidate_type_to_string(type: CandidateType): string
-            /**
-             * Returns a string representation of the state, generally to use in debug
-             * messages.
-             * @since 0.1.6
-             * @param state a #NiceComponentState
-             * @returns a string representation of `state`
-             */
-            component_state_to_string(state: ComponentState): string
-            /**
-             * Disables libnice debug output to the terminal
-             * @param with_stun Also disable stun debugging messages
-             */
-            debug_disable(with_stun: boolean): void
-            /**
-             * Enables libnice debug output to the terminal. Note that the
-             * `G_MESSAGES_DEBUG` and `NICE_DEBUG` environment variables must be set to the
-             * set of logging domains to print, in order for any output to be printed. Set
-             * them to `all` to print all debugging messages, or any of the following
-             * domains:
-             * - `libnice-stun`
-             * - `libnice-tests`
-             * - `libnice-socket`
-             * - `libnice`
-             * - `libnice-pseudotcp`
-             * - `libnice-pseudotcp-verbose`
-             * @param with_stun Also enable STUN debugging messages
-             */
-            debug_enable(with_stun: boolean): void
-            /**
-             * Returns the interface index match the local address passed. This can
-             * by used for APIs that need a specific address.
-             * @since 0.1.20
-             * @param addr A #NiceAddress for a local interface
-             * @returns The interface index or 0 on error
-             */
-            interfaces_get_if_index_by_addr(addr: Address): number
-            /**
-             * Retrieves the IP address of an interface by its name. If this fails, %NULL
-             * is returned.
-             * @param interface_name name of local interface
-             * @returns a newly-allocated string with the IP address
-             */
-            interfaces_get_ip_for_interface(interface_name: string): string | null
-            /**
-             * Get the list of local interfaces
-             * @returns a newly-allocated #GList of strings. The caller must free it.
-             */
-            interfaces_get_local_interfaces(): string[]
-            /**
-             * Get a list of local ipv4 interface addresses
-             * @param include_loopback Include any loopback devices
-             * @returns a newly-allocated #GList of strings. The caller must free it.
-             */
-            interfaces_get_local_ips(include_loopback: boolean): string[]
-            /**
-             * Sets the debug level to enable/disable normal/verbose debug messages.
-             * @since 0.0.11
-             * @param level The level of debug to set
-             */
-            pseudo_tcp_set_debug_level(level: PseudoTcpDebugLevel): void
-        }
+        const Nice: Nice.$Exports
     }
 
-    const Nice: Nice.$Exports
-    export default Nice
+    export default GI.Nice
 }

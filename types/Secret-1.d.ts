@@ -14,1911 +14,2009 @@ declare module "gi://Secret?version=1" {
     import type GObject from "gi://GObject?version=2.0"
     import type Gio from "gi://Gio?version=2.0"
 
-    
-
-    namespace Secret {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace Collection {
-            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
+        namespace Secret {
+            
+
+            namespace Collection {
+                interface SignalSignatures extends Gio.DBusProxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gio.DBusProxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties {
+                    "created": number
+                    "flags": CollectionFlags
+                    "label": string
+                    "locked": boolean
+                    "modified": number
+                    "service": Service
+                }
+
+                interface WritableProperties extends Gio.DBusProxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties {
+                    "created": number
+                    "label": string
+                    "locked": boolean
+                    "modified": number
+                }
+
+                interface ConstructOnlyProperties extends Gio.DBusProxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
+                    "flags": CollectionFlags
+                    "service": Service
+                }
             }
 
-            interface ReadableProperties extends Gio.DBusProxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties {
-                "created": number
-                "flags": CollectionFlags
-                "label": string
-                "locked": boolean
-                "modified": number
-                "service": Service
-            }
-
-            interface WritableProperties extends Gio.DBusProxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties {
-                "created": number
-                "label": string
-                "locked": boolean
-                "modified": number
-            }
-
-            interface ConstructOnlyProperties extends Gio.DBusProxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
-                "flags": CollectionFlags
-                "service": Service
-            }
-        }
-
-        interface Collection extends Gio.DBusProxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
-            readonly $signals: Collection.SignalSignatures
-            readonly $readableProperties: Collection.ReadableProperties
-            readonly $writableProperties: Collection.WritableProperties
-            readonly $constructOnlyProperties: Collection.ConstructOnlyProperties
-            /**
-             * The date and time (in seconds since the UNIX epoch) that this
-             * collection was created.
-             * @default 0
-             */
-            get created(): number
-            set created(value: number)
-            /**
-             * A set of flags describing which parts of the secret collection have
-             * been initialized.
-             * @default SECRET_COLLECTION_NONE
-             */
-            get flags(): CollectionFlags
-            set flags(value: CollectionFlags)
-            /**
-             * The human readable label for the collection.
-             *
-             * Setting this property will result in the label of the collection being
-             * set asynchronously. To properly track the changing of the label use the
-             * [method@Collection.set_label] function.
-             * @default NULL
-             */
-            get label(): string
-            set label(value: string)
-            /**
-             * Whether the collection is locked or not.
-             *
-             * To lock or unlock a collection use the [method@Service.lock] or
-             * [method@Service.unlock] functions.
-             * @default TRUE
-             */
-            get locked(): boolean
-            set locked(value: boolean)
-            /**
-             * The date and time (in seconds since the UNIX epoch) that this
-             * collection was last modified.
-             * @default 0
-             */
-            get modified(): number
-            set modified(value: number)
-            /**
-             * The [class@Service] object that this collection is associated with and
-             * uses to interact with the actual D-Bus Secret Service.
-             */
-            get service(): Service
-            set service(value: Service)
-            /**
-             * Delete this collection.
-             *
-             * This method returns immediately and completes asynchronously. The secret
-             * service may prompt the user. [method@Service.prompt] will be used to handle
-             * any prompts that show up.
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            delete(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete operation to delete this collection.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to the callback
-             * @returns whether the collection was successfully deleted or not
-             */
-            delete_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Delete this collection.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads. The secret service may prompt the user. [method@Service.prompt] will
-             * be used to handle any prompts that show up.
-             * @throws {GLib.Error}
-             * @param cancellable optional cancellation object
-             * @returns whether the collection was successfully deleted or not
-             */
-            delete_sync(cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Get the created date and time of the collection.
-             *
-             * The return value is the number of seconds since the unix epoch, January 1st
-             * 1970.
-             * @returns the created date and time
-             */
-            get_created(): number
-            /**
-             * Get the flags representing what features of the #SecretCollection proxy
-             * have been initialized.
-             *
-             * Use [method@Collection.load_items] to initialize further features and change
-             * the flags.
-             * @returns the flags for features initialized
-             */
-            get_flags(): CollectionFlags
-            /**
-             * Get the list of items in this collection.
-             * @returns a list of items, when   done, the list should be freed with [func@GLib.List.free], and each item   should be released with [method@GObject.Object.unref]
-             */
-            get_items(): Item[]
-            /**
-             * Get the label of this collection.
-             * @returns the label, which should be freed with   [func@GLib.free]
-             */
-            get_label(): string
-            /**
-             * Get whether the collection is locked or not.
-             *
-             * Use [method@Service.lock] or [method@Service.unlock] to lock or unlock the
-             * collection.
-             * @returns whether the collection is locked or not
-             */
-            get_locked(): boolean
-            /**
-             * Get the modified date and time of the collection.
-             *
-             * The return value is the number of seconds since the unix epoch, January 1st
-             * 1970.
-             * @returns the modified date and time
-             */
-            get_modified(): number
-            /**
-             * Get the Secret Service object that this collection was created with.
-             * @returns the Secret Service object
-             */
-            get_service(): Service
-            /**
-             * Ensure that the #SecretCollection proxy has loaded all the items present
-             * in the Secret Service.
-             *
-             * This affects the result of [method@Collection.get_items].
-             *
-             * For collections returned from [method@Service.get_collections] the items will
-             * have already been loaded.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            load_items(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete an asynchronous operation to ensure that the #SecretCollection proxy
-             * has loaded all the items present in the Secret Service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns whether the load was successful or not
-             */
-            load_items_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Ensure that the #SecretCollection proxy has loaded all the items present
-             * in the Secret Service. This affects the result of
-             * [method@Collection.get_items].
-             *
-             * For collections returned from [method@Service.get_collections] the items
-             * will have already been loaded.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param cancellable optional cancellation object
-             * @returns whether the load was successful or not
-             */
-            load_items_sync(cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Refresh the properties on this collection. This fires off a request to
-             * refresh, and the properties will be updated later.
-             *
-             * Calling this method is not normally necessary, as the secret service
-             * will notify the client when properties change.
-             */
-            refresh(): void
-            /**
-             * Search for items matching the @attributes in the @collection.
-             * The @attributes should be a table of string keys and string values.
-             *
-             * If %SECRET_SEARCH_ALL is set in @flags, then all the items matching the
-             * search will be returned. Otherwise only the first item will be returned.
-             * This is almost always the unlocked item that was most recently stored.
-             *
-             * If %SECRET_SEARCH_UNLOCK is set in @flags, then items will be unlocked
-             * if necessary. In either case, locked and unlocked items will match the
-             * search and be returned. If the unlock fails, the search does not fail.
-             *
-             * If %SECRET_SEARCH_LOAD_SECRETS is set in @flags, then the items will have
-             * their secret values loaded and available via [method@Item.get_secret].
-             *
-             * This function returns immediately and completes asynchronously.
-             * @param schema the schema for the attributes
-             * @param attributes search for items matching these attributes
-             * @param flags search option flags
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            search(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to search for items in a collection.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to callback
-             * @returns    a list of items that matched the search
-             */
-            search_finish(result: Gio.AsyncResult): Item[]
-            /**
-             * Search for items matching the @attributes in the @collection.
-             * The @attributes should be a table of string keys and string values.
-             *
-             * If %SECRET_SEARCH_ALL is set in @flags, then all the items matching the
-             * search will be returned. Otherwise only the first item will be returned.
-             * This is almost always the unlocked item that was most recently stored.
-             *
-             * If %SECRET_SEARCH_UNLOCK is set in @flags, then items will be unlocked
-             * if necessary. In either case, locked and unlocked items will match the
-             * search and be returned. If the unlock fails, the search does not fail.
-             *
-             * If %SECRET_SEARCH_LOAD_SECRETS is set in @flags, then the items will have
-             * their secret values loaded and available via [method@Item.get_secret].
-             *
-             * This function may block indefinitely. Use the asynchronous version
-             * in user interface threads.
-             * @throws {GLib.Error}
-             * @param schema the schema for the attributes
-             * @param attributes search for items matching these attributes
-             * @param flags search option flags
-             * @param cancellable optional cancellation object
-             * @returns    a list of items that matched the search
-             */
-            search_sync(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null): Item[]
-            /**
-             * Set the label of this collection.
-             *
-             * This function returns immediately and completes asynchronously.
-             * @param label a new label
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            set_label(label: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to set the label of this collection.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to callback
-             * @returns whether the change was successful or not
-             */
-            set_label_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Set the label of this collection.
-             *
-             * This function may block indefinitely. Use the asynchronous version
-             * in user interface threads.
-             * @throws {GLib.Error}
-             * @param label a new label
-             * @param cancellable optional cancellation object
-             * @returns whether the change was successful or not
-             */
-            set_label_sync(label: string, cancellable: Gio.Cancellable | null): boolean
-        }
-
-        interface CollectionClass extends Omit<Gio.DBusProxyClass, "new"> {
-            readonly $gtype: GObject.GType<Collection>
-            readonly prototype: Collection
-
-            new (props?: Partial<GObject.ConstructorProps<Collection>>): Collection
-            /**
-             * Create a new collection in the secret service.
-             *
-             * This method returns immediately and completes asynchronously. The secret
-             * service may prompt the user. [method@Service.prompt] will be used to handle
-             * any prompts that are required.
-             *
-             * An @alias is a well-known tag for a collection, such as 'default' (ie: the
-             * default collection to store items in). This allows other applications to
-             * easily identify and share a collection. If you specify an @alias, and a
-             * collection with that alias already exists, then a new collection will not
-             * be created. The previous one will be returned instead.
-             *
-             * If @service is %NULL, then [func@Service.get] will be called to get the
-             * default [class@Service] proxy.
-             * @param service a secret service object
-             * @param label label for the new collection
-             * @param alias alias to assign to the collection
-             * @param flags currently unused
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            create(service: Service | null, label: string, alias: string | null, flags: CollectionCreateFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finish operation to create a new collection in the secret service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns the new collection, which should be unreferenced   with [method@GObject.Object.unref]
-             */
-            create_finish(result: Gio.AsyncResult): Collection
-            /**
-             * Create a new collection in the secret service.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads. The secret service may prompt the user. [method@Service.prompt]
-             * will be used to handle any prompts that are required.
-             *
-             * An @alias is a well-known tag for a collection, such as `default` (ie: the
-             * default collection to store items in). This allows other applications to
-             * easily identify and share a collection. If you specify an @alias, and a
-             * collection with that alias already exists, then a new collection will not
-             * be created. The previous one will be returned instead.
-             *
-             * If @service is %NULL, then [func@Service.get_sync] will be called to get the
-             * default [class@Service] proxy.
-             * @throws {GLib.Error}
-             * @param service a secret service object
-             * @param label label for the new collection
-             * @param alias alias to assign to the collection
-             * @param flags currently unused
-             * @param cancellable optional cancellation object
-             * @returns the new collection, which should be unreferenced   with [method@GObject.Object.unref]
-             */
-            create_sync(service: Service | null, label: string, alias: string | null, flags: CollectionCreateFlags, cancellable: Gio.Cancellable | null): Collection
-            /**
-             * Lookup which collection is assigned to this alias. Aliases help determine
-             * well known collections, such as 'default'.
-             *
-             * If @service is %NULL, then [func@Service.get] will be called to get the
-             * default [class@Service] proxy.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param service a secret service object
-             * @param alias the alias to lookup
-             * @param flags options for the collection initialization
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            for_alias(service: Service | null, alias: string, flags: CollectionFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finish an asynchronous operation to lookup which collection is assigned
-             * to an alias.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to callback
-             * @returns the collection, or %NULL if none assigned to the alias
-             */
-            for_alias_finish(result: Gio.AsyncResult): Collection | null
-            /**
-             * Lookup which collection is assigned to this alias. Aliases help determine
-             * well known collections, such as `default`.
-             *
-             * If @service is %NULL, then [func@Service.get_sync] will be called to get the
-             * default [class@Service] proxy.
-             *
-             * This method may block and should not be used in user interface threads.
-             * @throws {GLib.Error}
-             * @param service a secret service object
-             * @param alias the alias to lookup
-             * @param flags options for the collection initialization
-             * @param cancellable optional cancellation object
-             * @returns the collection, or %NULL if none assigned to the alias
-             */
-            for_alias_sync(service: Service | null, alias: string, flags: CollectionFlags, cancellable: Gio.Cancellable | null): Collection | null
-        }
-
-        interface $Exports {
-            /**
-             * A proxy object representing a collection of secrets in the Secret Service.
-             *
-             * #SecretCollection represents a collection of secret items stored in the
-             * Secret Service.
-             *
-             * A collection can be in a locked or unlocked state. Use
-             * [method@SecretService.lock] or [method@SecretService.unlock] to lock or
-             * unlock the collection.
-             *
-             * Use the [property@SecretCollection:items] property or
-             * [method@SecretCollection.get_items] to lookup the items in the collection.
-             * There may not be any items exposed when the collection is locked.
-             */
-            Collection: CollectionClass
-        }
-        
-
-        namespace Item {
-            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures, Retrievable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gio.DBusProxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties, Retrievable.ReadableProperties {
-                "flags": ItemFlags
-                "locked": boolean
-                "service": Service
-            }
-
-            interface WritableProperties extends Gio.DBusProxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties, Retrievable.WritableProperties {
-                "locked": boolean
-            }
-
-            interface ConstructOnlyProperties extends Gio.DBusProxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties, Retrievable.ConstructOnlyProperties {
-                "flags": ItemFlags
-                "service": Service
-            }
-        }
-
-        interface Item extends Gio.DBusProxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable, Retrievable {
-            readonly $signals: Item.SignalSignatures
-            readonly $readableProperties: Item.ReadableProperties
-            readonly $writableProperties: Item.WritableProperties
-            readonly $constructOnlyProperties: Item.ConstructOnlyProperties
-            /**
-             * A set of flags describing which parts of the secret item have
-             * been initialized.
-             * @default SECRET_ITEM_NONE
-             */
-            get flags(): ItemFlags
-            set flags(value: ItemFlags)
-            /**
-             * Whether the item is locked or not.
-             *
-             * An item may not be independently lockable separate from other items in
-             * its collection.
-             *
-             * To lock or unlock a item use the [method@Service.lock] or
-             * [method@Service.unlock] functions.
-             * @default TRUE
-             */
-            get locked(): boolean
-            set locked(value: boolean)
-            /**
-             * The [class@Service] object that this item is associated with and
-             * uses to interact with the actual D-Bus Secret Service.
-             */
-            get service(): Service
-            set service(value: Service)
-            /**
-             * Delete this item.
-             *
-             * This method returns immediately and completes asynchronously. The secret
-             * service may prompt the user. [method@Service.prompt] will be used to handle
-             * any prompts that show up.
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            delete(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to delete the secret item.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to the callback
-             * @returns whether the item was successfully deleted or not
-             */
-            delete_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Delete this secret item.
-             *
-             * This method may block indefinitely and should not be used in user
-             * interface threads. The secret service may prompt the user.
-             * [method@Service.prompt] will be used to handle any prompts that show up.
-             * @throws {GLib.Error}
-             * @param cancellable optional cancellation object
-             * @returns whether the item was successfully deleted or not
-             */
-            delete_sync(cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Set the attributes of this item.
-             *
-             * The @attributes are a mapping of string keys to string values.
-             * Attributes are used to search for items. Attributes are not stored
-             * or transferred securely by the secret service.
-             *
-             * Do not modify the attributes returned by this method. Use
-             * [method@Item.set_attributes] instead.
-             * @returns a new reference   to the attributes, which should not be modified, and   released with [func@GLib.HashTable.unref]
-             */
-            get_attributes(): Record<string, string>
-            /**
-             * Get the created date and time of the item.
-             *
-             * The return value is the number of seconds since the unix epoch, January 1st
-             * 1970.
-             * @returns the created date and time
-             */
-            get_created(): number
-            /**
-             * Get the flags representing what features of the #SecretItem proxy
-             * have been initialized.
-             *
-             * Use [method@Item.load_secret] to initialize further features
-             * and change the flags.
-             * @returns the flags for features initialized
-             */
-            get_flags(): ItemFlags
-            /**
-             * Get the label of this item.
-             * @returns the label, which should be freed with [func@GLib.free]
-             */
-            get_label(): string
-            /**
-             * Get whether the item is locked or not.
-             *
-             * Depending on the secret service an item may not be able to be locked
-             * independently from the collection that it is in.
-             * @returns whether the item is locked or not
-             */
-            get_locked(): boolean
-            /**
-             * Get the modified date and time of the item.
-             *
-             * The return value is the number of seconds since the unix epoch, January 1st
-             * 1970.
-             * @returns the modified date and time
-             */
-            get_modified(): number
-            /**
-             * Gets the name of the schema that this item was stored with. This is also
-             * available at the `xdg:schema` attribute.
-             * @returns the schema name
-             */
-            get_schema_name(): string | null
-            /**
-             * Get the secret value of this item.
-             *
-             * If this item is locked or the secret has not yet been loaded then this will
-             * return %NULL.
-             *
-             * To load the secret call the [method@Item.load_secret] method.
-             * @returns the secret value which should be   released with [method@Value.unref], or %NULL
-             */
-            get_secret(): Value | null
-            /**
-             * Get the Secret Service object that this item was created with.
-             * @returns the Secret Service object
-             */
-            get_service(): Service
-            /**
-             * Load the secret value of this item.
-             *
-             * Each item has a single secret which might be a password or some
-             * other secret binary value.
-             *
-             * This function will fail if the secret item is locked.
-             *
-             * This function returns immediately and completes asynchronously.
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            load_secret(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to load the secret value of this item.
-             *
-             * The newly loaded secret value can be accessed by calling
-             * [method@Item.get_secret].
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to callback
-             * @returns whether the secret item successfully loaded or not
-             */
-            load_secret_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Load the secret value of this item.
-             *
-             * Each item has a single secret which might be a password or some
-             * other secret binary value.
-             *
-             * This function may block indefinitely. Use the asynchronous version
-             * in user interface threads.
-             * @throws {GLib.Error}
-             * @param cancellable optional cancellation object
-             * @returns whether the secret item successfully loaded or not
-             */
-            load_secret_sync(cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Refresh the properties on this item.
-             *
-             * This fires off a request to refresh, and the properties will be updated
-             * later.
-             *
-             * Calling this method is not normally necessary, as the secret service
-             * will notify the client when properties change.
-             */
-            refresh(): void
-            /**
-             * Set the attributes of this item.
-             *
-             * The @attributes are a mapping of string keys to string values.
-             * Attributes are used to search for items. Attributes are not stored
-             * or transferred securely by the secret service.
-             *
-             * This function returns immediately and completes asynchronously.
-             * @param schema the schema for the attributes
-             * @param attributes a new set of attributes
-             * @param cancellable optional cancellation object
-             * @param callback called when the asynchronous operation completes
-             */
-            set_attributes(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete operation to set the attributes of this item.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to the callback
-             * @returns whether the change was successful or not
-             */
-            set_attributes_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Set the attributes of this item.
-             *
-             * The @attributes are a mapping of string keys to string values.
-             * Attributes are used to search for items. Attributes are not stored
-             * or transferred securely by the secret service.
-             *
-             * This function may block indefinitely. Use the asynchronous version
-             * in user interface threads.
-             * @throws {GLib.Error}
-             * @param schema the schema for the attributes
-             * @param attributes a new set of attributes
-             * @param cancellable optional cancellation object
-             * @returns whether the change was successful or not
-             */
-            set_attributes_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Set the label of this item.
-             *
-             * This function returns immediately and completes asynchronously.
-             * @param label a new label
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            set_label(label: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to set the label of this collection.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to callback
-             * @returns whether the change was successful or not
-             */
-            set_label_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Set the label of this item.
-             *
-             * This function may block indefinitely. Use the asynchronous version
-             * in user interface threads.
-             * @throws {GLib.Error}
-             * @param label a new label
-             * @param cancellable optional cancellation object
-             * @returns whether the change was successful or not
-             */
-            set_label_sync(label: string, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Set the secret value of this item.
-             *
-             * Each item has a single secret which might be a password or some
-             * other secret binary value.
-             *
-             * This function returns immediately and completes asynchronously.
-             * @param value a new secret value
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            set_secret(value: Value, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to set the secret value of this item.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to callback
-             * @returns whether the change was successful or not
-             */
-            set_secret_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Set the secret value of this item.
-             *
-             * Each item has a single secret which might be a password or some
-             * other secret binary value.
-             *
-             * This function may block indefinitely. Use the asynchronous version
-             * in user interface threads.
-             * @throws {GLib.Error}
-             * @param value a new secret value
-             * @param cancellable optional cancellation object
-             * @returns whether the change was successful or not
-             */
-            set_secret_sync(value: Value, cancellable: Gio.Cancellable | null): boolean
-        }
-
-        interface ItemClass extends Omit<Gio.DBusProxyClass, "new"> {
-            readonly $gtype: GObject.GType<Item>
-            readonly prototype: Item
-
-            new (props?: Partial<GObject.ConstructorProps<Item>>): Item
-            /**
-             * Create a new item in the secret service.
-             *
-             * If the @flags contains %SECRET_ITEM_CREATE_REPLACE, then the secret
-             * service will search for an item matching the @attributes, and update that item
-             * instead of creating a new one.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads. The secret service may prompt the user. [method@Service.prompt]
-             * will be used to handle any prompts that are required.
-             * @param collection a secret collection to create this item in
-             * @param schema the schema for the attributes
-             * @param attributes attributes for the new item
-             * @param label label for the new item
-             * @param value secret value for the new item
-             * @param flags flags for the creation of the new item
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            create(collection: Collection, schema: Schema | null, attributes: Record<string, string>, label: string, value: Value, flags: ItemCreateFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finish operation to create a new item in the secret service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns the new item, which should be unreferenced   with [method@GObject.Object.unref]
-             */
-            create_finish(result: Gio.AsyncResult): Item
-            /**
-             * Create a new item in the secret service.
-             *
-             * If the @flags contains %SECRET_ITEM_CREATE_REPLACE, then the secret
-             * service will search for an item matching the @attributes, and update that item
-             * instead of creating a new one.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads. The secret service may prompt the user. [method@Service.prompt]
-             * will be used to handle any prompts that are required.
-             * @throws {GLib.Error}
-             * @param collection a secret collection to create this item in
-             * @param schema the schema for the attributes
-             * @param attributes attributes for the new item
-             * @param label label for the new item
-             * @param value secret value for the new item
-             * @param flags flags for the creation of the new item
-             * @param cancellable optional cancellation object
-             * @returns the new item, which should be unreferenced   with [method@GObject.Object.unref]
-             */
-            create_sync(collection: Collection, schema: Schema | null, attributes: Record<string, string>, label: string, value: Value, flags: ItemCreateFlags, cancellable: Gio.Cancellable | null): Item
-            /**
-             * Load the secret values for a secret item stored in the service.
-             *
-             * The @items must all have the same [property@Item:service] property.
-             *
-             * This function returns immediately and completes asynchronously.
-             * @param items the items to retrieve secrets for
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            load_secrets(items: Item[], cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to load the secret values for
-             * secret items stored in the service.
-             *
-             * Items that are locked will not have their secrets loaded.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to callback
-             * @returns whether the operation succeeded or not
-             */
-            load_secrets_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Load the secret values for a secret item stored in the service.
-             *
-             * The @items must all have the same [property@Item:service] property.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             *
-             * Items that are locked will not have their secrets loaded.
-             * @throws {GLib.Error}
-             * @param items the items to retrieve secrets for
-             * @param cancellable optional cancellation object
-             * @returns whether the operation succeeded or not
-             */
-            load_secrets_sync(items: Item[], cancellable: Gio.Cancellable | null): boolean
-        }
-
-        interface $Exports {
-            /**
-             * A secret item
-             *
-             * #SecretItem represents a secret item stored in the Secret Service.
-             *
-             * Each item has a value, represented by a [struct@Value], which can be
-             * retrieved by [method@Item.get_secret] or set by [method@Item.set_secret].
-             * The item is only available when the item is not locked.
-             *
-             * Items can be locked or unlocked using the [method@Service.lock] or
-             * [method@Service.unlock] functions. The Secret Service may not be able to
-             * unlock individual items, and may unlock an entire collection when a single
-             * item is unlocked.
-             *
-             * Each item has a set of attributes, which are used to locate the item later.
-             * These are not stored or transferred in a secure manner. Each attribute has
-             * a string name and a string value. Use [method@Service.search] to search for
-             * items based on their attributes, and [method@Item.set_attributes] to change
-             * the attributes associated with an item.
-             *
-             * Items can be created with [func@Item.create] or [method@Service.store].
-             */
-            Item: ItemClass
-        }
-        
-
-        namespace Prompt {
-            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gio.DBusProxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gio.DBusProxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gio.DBusProxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
-            }
-        }
-
-        interface Prompt extends Gio.DBusProxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
-            readonly $signals: Prompt.SignalSignatures
-            readonly $readableProperties: Prompt.ReadableProperties
-            readonly $writableProperties: Prompt.WritableProperties
-            readonly $constructOnlyProperties: Prompt.ConstructOnlyProperties
-            /**
-             * Runs a prompt and performs the prompting.
-             *
-             * Returns %TRUE if the prompt was completed and not dismissed.
-             *
-             * If @window_id is non-null then it is used as an XWindow id on Linux. The API
-             * expects this id to be converted to a string using the `%d` printf format. The
-             * Secret Service can make its prompt transient for the window with this id. In
-             * some Secret Service implementations this is not possible, so the behavior
-             * depending on this should degrade gracefully.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param window_id string form of XWindow id for parent window to be transient for
-             * @param return_type the variant type of the prompt result
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            perform(window_id: string | null, return_type: GLib.VariantType, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to run a prompt and perform the prompting.
-             *
-             * Returns a variant result if the prompt was completed and not dismissed. The
-             * type of result depends on the action the prompt is completing, and is
-             * defined in the Secret Service DBus API specification.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns %NULL if the prompt was dismissed or an error occurred,   a variant result if the prompt was successful
-             */
-            perform_finish(result: Gio.AsyncResult): GLib.Variant
-            /**
-             * Runs a prompt and performs the prompting.
-             *
-             * Returns a variant result if the prompt was completed and not dismissed. The
-             * type of result depends on the action the prompt is completing, and is defined
-             * in the Secret Service DBus API specification.
-             *
-             * If @window_id is non-null then it is used as an XWindow id on Linux. The API
-             * expects this id to be converted to a string using the `%d` printf format. The
-             * Secret Service can make its prompt transient for the window with this id. In
-             * some Secret Service implementations this is not possible, so the behavior
-             * depending on this should degrade gracefully.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param window_id string form of XWindow id for parent window to be transient for
-             * @param cancellable optional cancellation object
-             * @param return_type the variant type of the prompt result
-             * @returns %NULL if the prompt was dismissed or an error occurred
-             */
-            perform_sync(window_id: string | null, cancellable: Gio.Cancellable | null, return_type: GLib.VariantType): GLib.Variant
-            /**
-             * Runs a prompt and performs the prompting.
-             *
-             * Returns a variant result if the prompt was completed and not dismissed. The
-             * type of result depends on the action the prompt is completing, and is defined
-             * in the Secret Service DBus API specification.
-             *
-             * If @window_id is non-null then it is used as an XWindow id on Linux. The API
-             * expects this id to be converted to a string using the `%d` printf format. The
-             * Secret Service can make its prompt transient for the window with this id. In
-             * some Secret Service implementations this is not possible, so the behavior
-             * depending on this should degrade gracefully.
-             *
-             * This runs the dialog in a recursive mainloop. When run from a user interface
-             * thread, this means the user interface will remain responsive. Care should be
-             * taken that appropriate user interface actions are disabled while running the
-             * prompt.
-             * @throws {GLib.Error}
-             * @param window_id string form of XWindow id for parent window to be transient for
-             * @param cancellable optional cancellation object
-             * @param return_type the variant type of the prompt result
-             * @returns %NULL if the prompt was dismissed or an error occurred
-             */
-            run(window_id: string | null, cancellable: Gio.Cancellable | null, return_type: GLib.VariantType): GLib.Variant
-        }
-
-        interface PromptClass extends Omit<Gio.DBusProxyClass, "new"> {
-            readonly $gtype: GObject.GType<Prompt>
-            readonly prototype: Prompt
-
-            new (props?: Partial<GObject.ConstructorProps<Prompt>>): Prompt
-        }
-
-        interface $Exports {
-            /**
-             * A prompt in the Service
-             *
-             * A proxy object representing a prompt that the Secret Service will display
-             * to the user.
-             *
-             * Certain actions on the Secret Service require user prompting to complete,
-             * such as creating a collection, or unlocking a collection. When such a prompt
-             * is necessary, then a #SecretPrompt object is created by this library, and
-             * passed to the [method@Service.prompt] method. In this way it is handled
-             * automatically.
-             *
-             * In order to customize prompt handling, override the
-             * [vfunc@Service.prompt_async] and [vfunc@Service.prompt_finish] virtual
-             * methods of the [class@Service] class.
-             */
-            Prompt: PromptClass
-        }
-        
-
-        namespace Service {
-            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures, Backend.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gio.DBusProxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties, Backend.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gio.DBusProxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties, Backend.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gio.DBusProxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties, Backend.ConstructOnlyProperties {
-            }
-        }
-
-        interface Service extends Gio.DBusProxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable, Backend {
-            readonly $signals: Service.SignalSignatures
-            readonly $readableProperties: Service.ReadableProperties
-            readonly $writableProperties: Service.WritableProperties
-            readonly $constructOnlyProperties: Service.ConstructOnlyProperties
-            /**
-             * Remove unlocked items which match the attributes from the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * If @service is %NULL, then [func@Service.get] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param schema the schema for the attributes
-             * @param attributes the attribute keys and values
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            clear(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finish asynchronous operation to remove items from the secret
-             * service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns whether items were removed or not
-             */
-            clear_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Remove unlocked items which match the attributes from the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * If @service is %NULL, then [func@Service.get_sync] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param schema the schema for the attributes
-             * @param attributes the attribute keys and values
-             * @param cancellable optional cancellation object
-             * @returns whether items were removed or not
-             */
-            clear_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Create a new item in a secret service collection and return its D-Bus
-             * object path.
-             *
-             * It is often easier to use [func@password_store_sync] or [func@Item.create_sync]
-             * rather than using this function. Using this method requires that you setup
-             * a correct hash table of D-Bus @properties for the new collection.
-             *
-             * If the @flags contains %SECRET_ITEM_CREATE_REPLACE, then the secret
-             * service will search for an item matching the @attributes, and update that item
-             * instead of creating a new one.
-             *
-             * @properties is a set of properties for the new collection. The keys in the
-             * hash table should be interface.property strings like
-             * `org.freedesktop.Secret.Item.Label`. The values
-             * in the hash table should be [struct@GLib.Variant] values of the properties.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads. The secret service may prompt the user. [method@Service.prompt]
-             * will be used to handle any prompts that are required.
-             * @throws {GLib.Error}
-             * @param collection_path the D-Bus path of the collection in which to create item
-             * @param properties hash table of D-Bus properties
-              for the new collection
-             * @param value the secret value to store in the item
-             * @param flags flags for the creation of the new item
-             * @param cancellable optional cancellation object
-             * @returns a new string containing the D-Bus object path   of the item
-             */
-            create_item_dbus_path_sync(collection_path: string, properties: Record<string, GLib.Variant>, value: Value, flags: ItemCreateFlags, cancellable: Gio.Cancellable | null): string
-            /**
-             * Decode a [struct@Value] into [struct@GLib.Variant] received with the Secret Service
-             * DBus API.
-             *
-             * The [struct@GLib.Variant] should have a `(oayays)` signature.
-             *
-             * A session must have already been established by the [class@Service], and
-             * the encoded secret must be valid for that session.
-             * @param value the encoded secret
-             * @returns the decoded secret value
-             */
-            decode_dbus_secret(value: GLib.Variant): Value
-            /**
-             * Encodes a [struct@Value] into [struct@GLib.Variant] for use with the Secret
-             * Service DBus API.
-             *
-             * The resulting [struct@GLib.Variant] will have a `(oayays)` signature.
-             *
-             * A session must have already been established by the [class@Service].
-             * @param value the secret value
-             * @returns the encoded secret
-             */
-            encode_dbus_secret(value: Value): GLib.Variant
-            /**
-             * Ensure that the #SecretService proxy has established a session with the
-             * Secret Service.
-             *
-             * This session is used to transfer secrets.
-             *
-             * It is not normally necessary to call this method, as the session is
-             * established as necessary. You can also pass the %SECRET_SERVICE_OPEN_SESSION
-             * to [func@Service.get] in order to ensure that a session has been established
-             * by the time you get the #SecretService proxy.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            ensure_session(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finish an asynchronous operation to ensure that the #SecretService proxy
-             * has established a session with the Secret Service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns whether a session is established or not
-             */
-            ensure_session_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Ensure that the #SecretService proxy has established a session with the
-             * Secret Service.
-             *
-             * This session is used to transfer secrets.
-             *
-             * It is not normally necessary to call this method, as the session is
-             * established as necessary. You can also pass the %SECRET_SERVICE_OPEN_SESSION
-             * to [func@Service.get_sync] in order to ensure that a session has been
-             * established by the time you get the #SecretService proxy.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param cancellable optional cancellation object
-             * @returns whether a session is established or not
-             */
-            ensure_session_sync(cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Get the GObject type for collections instantiated by this service.
-             *
-             * This will always be either [class@Collection] or derived from it.
-             * @returns the gobject type for collections
-             */
-            get_collection_gtype(): GObject.GType
-            /**
-             * Get a list of [class@Collection] objects representing all the collections
-             * in the secret service.
-             *
-             * If the %SECRET_SERVICE_LOAD_COLLECTIONS flag was not specified when
-             * initializing #SecretService proxy object, then this method will return
-             * %NULL. Use [method@Service.load_collections] to load the collections.
-             * @returns a   list of the collections in the secret service
-             */
-            get_collections(): Collection[] | null
-            /**
-             * Get the flags representing what features of the #SecretService proxy
-             * have been initialized.
-             *
-             * Use [method@Service.ensure_session] or [method@Service.load_collections]
-             * to initialize further features and change the flags.
-             * @returns the flags for features initialized
-             */
-            get_flags(): ServiceFlags
-            /**
-             * Get the GObject type for items instantiated by this service.
-             *
-             * This will always be either [class@Item] or derived from it.
-             * @returns the gobject type for items
-             */
-            get_item_gtype(): GObject.GType
-            /**
-             * Get the set of algorithms being used to transfer secrets between this
-             * secret service proxy and the Secret Service itself.
-             *
-             * This will be %NULL if no session has been established. Use
-             * [method@Service.ensure_session] to establish a session.
-             * @returns a string representing the algorithms for transferring   secrets
-             */
-            get_session_algorithms(): string | null
-            /**
-             * Get the D-Bus object path of the session object being used to transfer
-             * secrets between this secret service proxy and the Secret Service itself.
-             *
-             * This will be %NULL if no session has been established. Use
-             * [method@Service.ensure_session] to establish a session.
-             * @returns a string representing the D-Bus object path of the   session
-             */
-            get_session_dbus_path(): string | null
-            /**
-             * Ensure that the #SecretService proxy has loaded all the collections present
-             * in the Secret Service.
-             *
-             * This affects the result of [method@Service.get_collections].
-             *
-             * You can also pass the %SECRET_SERVICE_LOAD_COLLECTIONS to
-             * [func@Service.get_sync] in order to ensure that the collections have been
-             * loaded by the time you get the #SecretService proxy.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            load_collections(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete an asynchronous operation to ensure that the #SecretService proxy
-             * has loaded all the collections present in the Secret Service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns whether the load was successful or not
-             */
-            load_collections_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Ensure that the #SecretService proxy has loaded all the collections present
-             * in the Secret Service.
-             *
-             * This affects the result of [method@Service.get_collections].
-             *
-             * You can also pass the %SECRET_SERVICE_LOAD_COLLECTIONS to
-             * [func@Service.get_sync] in order to ensure that the collections have been
-             * loaded by the time you get the #SecretService proxy.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param cancellable optional cancellation object
-             * @returns whether the load was successful or not
-             */
-            load_collections_sync(cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Lock items or collections in the secret service.
-             *
-             * The secret service may not be able to lock items individually, and may
-             * lock an entire collection instead.
-             *
-             * If @service is %NULL, then [func@Service.get] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * This method returns immediately and completes asynchronously. The secret
-             * service may prompt the user. [method@Service.prompt] will be used to handle
-             * any prompts that show up.
-             * @param objects the items or collections to lock
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            lock(objects: Gio.DBusProxy[], cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to lock items or collections in the secret
-             * service.
-             *
-             * The secret service may not be able to lock items individually, and may
-             * lock an entire collection instead.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to the callback
-             * @returns the number of items or collections that were locked,    location to place list of items or collections that were locked
-             */
-            lock_finish(result: Gio.AsyncResult): [number, Gio.DBusProxy[] | null]
-            /**
-             * Lock items or collections in the secret service.
-             *
-             * The secret service may not be able to lock items individually, and may
-             * lock an entire collection instead.
-             *
-             * If @service is %NULL, then [func@Service.get_sync] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * This method may block indefinitely and should not be used in user
-             * interface threads. The secret service may prompt the user.
-             * [method@Service.prompt] will be used to handle any prompts that show up.
-             * @throws {GLib.Error}
-             * @param objects the items or collections to lock
-             * @param cancellable optional cancellation object
-             * @returns the number of items or collections that were locked,    location to place list of items or collections that were locked
-             */
-            lock_sync(objects: Gio.DBusProxy[], cancellable: Gio.Cancellable | null): [number, Gio.DBusProxy[] | null]
-            /**
-             * Lookup a secret value in the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * If @service is %NULL, then [func@Service.get] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param schema the schema for the attributes
-             * @param attributes the attribute keys and values
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            lookup(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finish asynchronous operation to lookup a secret value in the secret service.
-             *
-             * If no secret is found then %NULL is returned.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns a newly allocated [struct@Value], which should be   released with [method@Value.unref], or %NULL if no secret found
-             */
-            lookup_finish(result: Gio.AsyncResult): Value
-            /**
-             * Lookup a secret value in the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * If @service is %NULL, then [func@Service.get_sync] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param schema the schema for the attributes
-             * @param attributes the attribute keys and values
-             * @param cancellable optional cancellation object
-             * @returns a newly allocated [struct@Value], which should be   released with [method@Value.unref], or %NULL if no secret found
-             */
-            lookup_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): Value
-            /**
-             * Perform prompting for a [class@Prompt].
-             *
-             * This function is called by other parts of this library to handle prompts
-             * for the various actions that can require prompting.
-             *
-             * Override the #SecretServiceClass [vfunc@Service.prompt_async] virtual method
-             * to change the behavior of the prompting. The default behavior is to simply
-             * run [method@Prompt.perform] on the prompt.
-             * @param prompt the prompt
-             * @param return_type the variant type of the prompt result
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            prompt(prompt: Prompt, return_type: GLib.VariantType | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to perform prompting for a [class@Prompt].
-             *
-             * Returns a variant result if the prompt was completed and not dismissed. The
-             * type of result depends on the action the prompt is completing, and is defined
-             * in the Secret Service DBus API specification.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns %NULL if the prompt was dismissed or an error occurred,   a variant result if the prompt was successful
-             */
-            prompt_finish(result: Gio.AsyncResult): GLib.Variant
-            /**
-             * Perform prompting for a [class@Prompt].
-             *
-             * Runs a prompt and performs the prompting. Returns a variant result if the
-             * prompt was completed and not dismissed. The type of result depends on the
-             * action the prompt is completing, and is defined in the Secret Service DBus
-             * API specification.
-             *
-             * This function is called by other parts of this library to handle prompts
-             * for the various actions that can require prompting.
-             *
-             * Override the #SecretServiceClass [vfunc@Service.prompt_sync] virtual method
-             * to change the behavior of the prompting. The default behavior is to simply
-             * run [method@Prompt.perform_sync] on the prompt with a %NULL `window_id`.
-             * @throws {GLib.Error}
-             * @param prompt the prompt
-             * @param cancellable optional cancellation object
-             * @param return_type the variant type of the prompt result
-             * @returns %NULL if the prompt was dismissed or an error occurred,   a variant result if the prompt was successful
-             */
-            prompt_sync(prompt: Prompt, cancellable: Gio.Cancellable | null, return_type: GLib.VariantType): GLib.Variant
-            /**
-             * Search for items matching the @attributes.
-             *
-             * All collections are searched. The @attributes should be a table of string
-             * keys and string values.
-             *
-             * If @service is %NULL, then [func@Service.get] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * If %SECRET_SEARCH_ALL is set in @flags, then all the items matching the
-             * search will be returned. Otherwise only the first item will be returned.
-             * This is almost always the unlocked item that was most recently stored.
-             *
-             * If %SECRET_SEARCH_UNLOCK is set in @flags, then items will be unlocked
-             * if necessary. In either case, locked and unlocked items will match the
-             * search and be returned. If the unlock fails, the search does not fail.
-             *
-             * If %SECRET_SEARCH_LOAD_SECRETS is set in @flags, then the items will have
-             * their secret values loaded and available via [method@Item.get_secret].
-             *
-             * This function returns immediately and completes asynchronously.
-             * @param schema the schema for the attributes
-             * @param attributes search for items matching these attributes
-             * @param flags search option flags
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            search(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to search for items.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to callback
-             * @returns    a list of items that matched the search
-             */
-            search_finish(result: Gio.AsyncResult): Item[]
-            /**
-             * Search for items matching the @attributes.
-             *
-             * All collections are searched. The @attributes should be a table of string
-             * keys and string values.
-             *
-             * If @service is %NULL, then [func@Service.get_sync] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * If %SECRET_SEARCH_ALL is set in @flags, then all the items matching the
-             * search will be returned. Otherwise only the first item will be returned.
-             * This is almost always the unlocked item that was most recently stored.
-             *
-             * If %SECRET_SEARCH_UNLOCK is set in @flags, then items will be unlocked
-             * if necessary. In either case, locked and unlocked items will match the
-             * search and be returned. If the unlock fails, the search does not fail.
-             *
-             * If %SECRET_SEARCH_LOAD_SECRETS is set in @flags, then the items' secret
-             * values will be loaded for any unlocked items. Loaded item secret values
-             * are available via [method@Item.get_secret]. If the load of a secret values
-             * fail, then the
-             *
-             * This function may block indefinitely. Use the asynchronous version
-             * in user interface threads.
-             * @throws {GLib.Error}
-             * @param schema the schema for the attributes
-             * @param attributes search for items matching these attributes
-             * @param flags search option flags
-             * @param cancellable optional cancellation object
-             * @returns    a list of items that matched the search
-             */
-            search_sync(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null): Item[]
-            /**
-             * Assign a collection to this alias.
-             *
-             * Aliases help determine well known collections, such as 'default'.
-             *
-             * If @service is %NULL, then [func@Service.get] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param alias the alias to assign the collection to
-             * @param collection the collection to assign to the alias
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            set_alias(alias: string, collection: Collection | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finish an asynchronous operation to assign a collection to an alias.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to callback
-             * @returns %TRUE if successful
-             */
-            set_alias_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Assign a collection to this alias. Aliases help determine
-             * well known collections, such as 'default'.
-             *
-             * If @service is %NULL, then [func@Service.get_sync] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * This method may block and should not be used in user interface threads.
-             * @throws {GLib.Error}
-             * @param alias the alias to assign the collection to
-             * @param collection the collection to assign to the alias
-             * @param cancellable optional cancellation object
-             * @returns %TRUE if successful
-             */
-            set_alias_sync(alias: string, collection: Collection | null, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Store a secret value in the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * If the attributes match a secret item already stored in the collection, then
-             * the item will be updated with these new values.
-             *
-             * If @service is %NULL, then [func@Service.get] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * If @collection is not specified, then the default collection will be
-             * used. Use [const@COLLECTION_SESSION] to store the password in the session
-             * collection, which doesn't get stored across login sessions.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param schema the schema to use to check attributes
-             * @param attributes the attribute keys and values
-             * @param collection a collection alias, or D-Bus object path of the
-              collection where to store the secret
-             * @param label label for the secret
-             * @param value the secret value
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            store(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finish asynchronous operation to store a secret value in the secret service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns whether the storage was successful or not
-             */
-            store_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Store a secret value in the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * If the attributes match a secret item already stored in the collection, then
-             * the item will be updated with these new values.
-             *
-             * If @collection is %NULL, then the default collection will be
-             * used. Use [const@COLLECTION_SESSION] to store the password in the session
-             * collection, which doesn't get stored across login sessions.
-             *
-             * If @service is %NULL, then [func@Service.get_sync] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param schema the schema for the attributes
-             * @param attributes the attribute keys and values
-             * @param collection a collection alias, or D-Bus object path of the
-              collection where to store the secret
-             * @param label label for the secret
-             * @param value the secret value
-             * @param cancellable optional cancellation object
-             * @returns whether the storage was successful or not
-             */
-            store_sync(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Unlock items or collections in the secret service.
-             *
-             * The secret service may not be able to unlock items individually, and may
-             * unlock an entire collection instead.
-             *
-             * If @service is %NULL, then [func@Service.get] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * This method may block indefinitely and should not be used in user
-             * interface threads. The secret service may prompt the user.
-             * [method@Service.prompt] will be used to handle any prompts that show up.
-             * @param objects the items or collections to unlock
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            unlock(objects: Gio.DBusProxy[], cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to unlock items or collections in the secret
-             * service.
-             *
-             * The secret service may not be able to unlock items individually, and may
-             * unlock an entire collection instead.
-             * @throws {GLib.Error}
-             * @param result asynchronous result passed to the callback
-             * @returns the number of items or collections that were unlocked,    location to place list of items or collections that were unlocked
-             */
-            unlock_finish(result: Gio.AsyncResult): [number, Gio.DBusProxy[] | null]
-            /**
-             * Unlock items or collections in the secret service.
-             *
-             * The secret service may not be able to unlock items individually, and may
-             * unlock an entire collection instead.
-             *
-             * If @service is %NULL, then [func@Service.get_sync] will be called to get
-             * the default [class@Service] proxy.
-             *
-             * This method may block indefinitely and should not be used in user
-             * interface threads. The secret service may prompt the user.
-             * [method@Service.prompt] will be used to handle any prompts that show up.
-             * @throws {GLib.Error}
-             * @param objects the items or collections to unlock
-             * @param cancellable optional cancellation object
-             * @returns the number of items or collections that were unlocked,    location to place list of items or collections that were unlocked
-             */
-            unlock_sync(objects: Gio.DBusProxy[], cancellable: Gio.Cancellable | null): [number, Gio.DBusProxy[] | null]
-            /**
-             * Get the GObject type for collections instantiated by this service.
-             *
-             * This will always be either [class@Collection] or derived from it.
-             * @returns the gobject type for collections
-             */
-            vfunc_get_collection_gtype(): GObject.GType
-            /**
-             * Get the GObject type for items instantiated by this service.
-             *
-             * This will always be either [class@Item] or derived from it.
-             * @returns the gobject type for items
-             */
-            vfunc_get_item_gtype(): GObject.GType
-            /**
-             * called to perform asynchronous prompting when necessary
-             * @param prompt
-             * @param return_type
-             * @param cancellable
-             * @param callback
-             */
-            vfunc_prompt_async(prompt: Prompt, return_type: GLib.VariantType, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to perform prompting for a [class@Prompt].
-             *
-             * Returns a variant result if the prompt was completed and not dismissed. The
-             * type of result depends on the action the prompt is completing, and is defined
-             * in the Secret Service DBus API specification.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns %NULL if the prompt was dismissed or an error occurred,   a variant result if the prompt was successful
-             */
-            vfunc_prompt_finish(result: Gio.AsyncResult): GLib.Variant
-            /**
-             * Perform prompting for a [class@Prompt].
-             *
-             * Runs a prompt and performs the prompting. Returns a variant result if the
-             * prompt was completed and not dismissed. The type of result depends on the
-             * action the prompt is completing, and is defined in the Secret Service DBus
-             * API specification.
-             *
-             * This function is called by other parts of this library to handle prompts
-             * for the various actions that can require prompting.
-             *
-             * Override the #SecretServiceClass [vfunc@Service.prompt_sync] virtual method
-             * to change the behavior of the prompting. The default behavior is to simply
-             * run [method@Prompt.perform_sync] on the prompt with a %NULL `window_id`.
-             * @throws {GLib.Error}
-             * @param prompt the prompt
-             * @param cancellable optional cancellation object
-             * @param return_type the variant type of the prompt result
-             * @returns %NULL if the prompt was dismissed or an error occurred,   a variant result if the prompt was successful
-             */
-            vfunc_prompt_sync(prompt: Prompt, cancellable: Gio.Cancellable | null, return_type: GLib.VariantType): GLib.Variant
-        }
-
-        interface ServiceClass extends Omit<Gio.DBusProxyClass, "new"> {
-            readonly $gtype: GObject.GType<Service>
-            readonly prototype: Service
-
-            new (props?: Partial<GObject.ConstructorProps<Service>>): Service
-            /**
-             * Disconnect the default #SecretService proxy returned by [func@Service.get]
-             * and [func@Service.get_sync].
-             *
-             * It is not necessary to call this function, but you may choose to do so at
-             * program exit. It is useful for testing that memory is not leaked.
-             *
-             * This function is safe to call at any time. But if other objects in this
-             * library are still referenced, then this will not result in all memory
-             * being freed.
-             */
-            disconnect(): void
-            /**
-             * Get a #SecretService proxy for the Secret Service.
-             *
-             * If such a proxy object already exists, then the same proxy is returned.
-             *
-             * If @flags contains any flags of which parts of the secret service to
-             * ensure are initialized, then those will be initialized before completing.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param flags flags for which service functionality to ensure is initialized
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            get(flags: ServiceFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete an asynchronous operation to get a #SecretService proxy for the
-             * Secret Service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns a new reference to a #SecretService proxy, which   should be released with [method@GObject.Object.unref].
-             */
-            get_finish(result: Gio.AsyncResult): Service
-            /**
-             * Get a #SecretService proxy for the Secret Service.
-             *
-             * If such a proxy object already exists, then the same proxy is returned.
-             *
-             * If @flags contains any flags of which parts of the secret service to
-             * ensure are initialized, then those will be initialized before returning.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param flags flags for which service functionality to ensure is initialized
-             * @param cancellable optional cancellation object
-             * @returns a new reference to a #SecretService proxy, which   should be released with [method@GObject.Object.unref].
-             */
-            get_sync(flags: ServiceFlags, cancellable: Gio.Cancellable | null): Service
-            /**
-             * Create a new #SecretService proxy for the Secret Service.
-             *
-             * This function is rarely used, see [func@Service.get] instead.
-             *
-             * The @service_gtype argument should be set to %SECRET_TYPE_SERVICE or a the type
-             * of a derived class.
-             *
-             * If @flags contains any flags of which parts of the secret service to
-             * ensure are initialized, then those will be initialized before returning.
-             *
-             * If @service_bus_name is %NULL then the default is used.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param service_gtype the GType of the new secret service
-             * @param service_bus_name the D-Bus service name of the secret service
-             * @param flags flags for which service functionality to ensure is initialized
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            open(service_gtype: (GObject.GType | { $gtype: GObject.GType }), service_bus_name: string | null, flags: ServiceFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete an asynchronous operation to create a new #SecretService proxy for
-             * the Secret Service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns a new reference to a #SecretService proxy, which   should be released with [method@GObject.Object.unref].
-             */
-            open_finish(result: Gio.AsyncResult): Service
-            /**
-             * Create a new #SecretService proxy for the Secret Service.
-             *
-             * This function is rarely used, see [func@Service.get_sync] instead.
-             *
-             * The @service_gtype argument should be set to %SECRET_TYPE_SERVICE or a the
-             * type of a derived class.
-             *
-             * If @flags contains any flags of which parts of the secret service to
-             * ensure are initialized, then those will be initialized before returning.
-             *
-             * If @service_bus_name is %NULL then the default is used.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param service_gtype the GType of the new secret service
-             * @param service_bus_name the D-Bus service name of the secret service
-             * @param flags flags for which service functionality to ensure is initialized
-             * @param cancellable optional cancellation object
-             * @returns a new reference to a #SecretService proxy, which   should be released with [method@GObject.Object.unref].
-             */
-            open_sync(service_gtype: (GObject.GType | { $gtype: GObject.GType }), service_bus_name: string | null, flags: ServiceFlags, cancellable: Gio.Cancellable | null): Service
-        }
-
-        interface $Exports {
-            /**
-             * A proxy object representing the Secret Service.
-             *
-             * A #SecretService object either represents an implementation of the
-             * [`org.freedesktop.Secret`](https://specifications.freedesktop.org/secret-service/latest/)
-             * D-Bus service or a file that is encrypted using a master secret that was
-             * provided by the
-             * [secret portal](https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Secret.html).
-             *
-             * Normally a single #SecretService object can be shared between multiple
-             * callers. The [func@Service.get] method is used to access this #SecretService
-             * object. If a new independent #SecretService object is required, use
-             * [func@Service.open].
-             *
-             * In order to securely transfer secrets to the Sercret Service, a session
-             * is established. This session can be established while initializing a
-             * #SecretService object by passing the %SECRET_SERVICE_OPEN_SESSION flag
-             * to the [func@Service.get] or [func@Service.open] functions. In order to
-             * establish a session on an already existing #SecretService, use the
-             * [method@Service.ensure_session] function.
-             *
-             * To search for items, use the [method@Service.search] method.
-             *
-             * Multiple collections can exist in the Secret Service, each of which contains
-             * secret items. In order to instantiate [class@Collection] objects which
-             * represent those collections while initializing a #SecretService then pass
-             * the %SECRET_SERVICE_LOAD_COLLECTIONS flag to the [func@Service.get] or
-             * [func@Service.open] functions. In order to establish a session on an already
-             * existing #SecretService, use the [method@Service.load_collections] function.
-             * To access the list of collections use [method@Service.get_collections].
-             *
-             * Certain actions on the Secret Service require user prompting to complete,
-             * such as creating a collection, or unlocking a collection. When such a prompt
-             * is necessary, then a [class@Prompt] object is created by this library, and
-             * passed to the [method@Service.prompt] method. In this way it is handled
-             * automatically.
-             *
-             * In order to customize prompt handling, override the
-             * [vfunc@Service.prompt_async] and [vfunc@Service.prompt_finish] virtual
-             * methods of the #SecretService class.
-             */
-            Service: ServiceClass
-        }
-        
-
-        namespace Backend {
-            interface SignalSignatures extends Gio.AsyncInitable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gio.AsyncInitable.ReadableProperties {
-                "flags": ServiceFlags
-            }
-
-            interface WritableProperties extends Gio.AsyncInitable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gio.AsyncInitable.ConstructOnlyProperties {
-                "flags": ServiceFlags
-            }
-
-            interface Interface extends Gio.AsyncInitable {
+            interface Collection extends Gio.DBusProxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
+                readonly $signals: Collection.SignalSignatures
+                readonly $readableProperties: Collection.ReadableProperties
+                readonly $writableProperties: Collection.WritableProperties
+                readonly $constructOnlyProperties: Collection.ConstructOnlyProperties
                 /**
-                 * implementation of [func@password_clear], required
-                 * @param schema
-                 * @param attributes
-                 * @param cancellable
-                 * @param callback
+                 * The date and time (in seconds since the UNIX epoch) that this
+                 * collection was created.
+                 * @default 0
                  */
-                vfunc_clear(schema: Schema, attributes: Record<never, never>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                get created(): number
+                set created(value: number)
                 /**
-                 * implementation of [func@password_clear_finish], required
+                 * A set of flags describing which parts of the secret collection have
+                 * been initialized.
+                 * @default SECRET_COLLECTION_NONE
+                 */
+                get flags(): CollectionFlags
+                set flags(value: CollectionFlags)
+                /**
+                 * The human readable label for the collection.
+                 *
+                 * Setting this property will result in the label of the collection being
+                 * set asynchronously. To properly track the changing of the label use the
+                 * {@link Collection.set_label} function.
+                 * @default NULL
+                 */
+                get label(): string
+                set label(value: string)
+                /**
+                 * Whether the collection is locked or not.
+                 *
+                 * To lock or unlock a collection use the {@link Service.lock} or
+                 * {@link Service.unlock} functions.
+                 * @default TRUE
+                 */
+                get locked(): boolean
+                set locked(value: boolean)
+                /**
+                 * The date and time (in seconds since the UNIX epoch) that this
+                 * collection was last modified.
+                 * @default 0
+                 */
+                get modified(): number
+                set modified(value: number)
+                /**
+                 * The {@link Service} object that this collection is associated with and
+                 * uses to interact with the actual D-Bus Secret Service.
+                 */
+                get service(): Service
+                set service(value: Service)
+                /**
+                 * Delete this collection.
+                 *
+                 * This method returns immediately and completes asynchronously. The secret
+                 * service may prompt the user. {@link Service.prompt} will be used to handle
+                 * any prompts that show up.
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                delete(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete operation to delete this collection.
                  * @throws {GLib.Error}
-                 * @param result
+                 * @param result asynchronous result passed to the callback
+                 * @returns whether the collection was successfully deleted or not
                  */
-                vfunc_clear_finish(result: Gio.AsyncResult): boolean
+                delete_finish(result: Gio.AsyncResult): boolean
                 /**
-                 * implementation of reinitialization step in constructor, optional
-                 * @param flags
-                 * @param cancellable
-                 * @param callback
-                 */
-                vfunc_ensure_for_flags(flags: BackendFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-                /**
-                 * implementation of reinitialization step in constructor, optional
+                 * Delete this collection.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads. The secret service may prompt the user. {@link Service.prompt} will
+                 * be used to handle any prompts that show up.
                  * @throws {GLib.Error}
-                 * @param result
+                 * @param cancellable optional cancellation object
+                 * @returns whether the collection was successfully deleted or not
                  */
-                vfunc_ensure_for_flags_finish(result: Gio.AsyncResult): boolean
+                delete_sync(cancellable: Gio.Cancellable | null): boolean
                 /**
-                 * implementation of [func@password_lookup], required
-                 * @param schema
-                 * @param attributes
-                 * @param cancellable
-                 * @param callback
+                 * Get the created date and time of the collection.
+                 *
+                 * The return value is the number of seconds since the unix epoch, January 1st
+                 * 1970.
+                 * @returns the created date and time
                  */
-                vfunc_lookup(schema: Schema, attributes: Record<never, never>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                get_created(): number
                 /**
-                 * implementation of [func@password_lookup_finish], required
+                 * Get the flags representing what features of the #SecretCollection proxy
+                 * have been initialized.
+                 *
+                 * Use {@link Collection.load_items} to initialize further features and change
+                 * the flags.
+                 * @returns the flags for features initialized
+                 */
+                get_flags(): CollectionFlags
+                /**
+                 * Get the list of items in this collection.
+                 * @returns a list of items, when   done, the list should be freed with {@link GLib.List.free}, and each item   should be released with {@link GObject.Object.unref}
+                 */
+                get_items(): Item[]
+                /**
+                 * Get the label of this collection.
+                 * @returns the label, which should be freed with   {@link GLib.free}
+                 */
+                get_label(): string
+                /**
+                 * Get whether the collection is locked or not.
+                 *
+                 * Use {@link Service.lock} or {@link Service.unlock} to lock or unlock the
+                 * collection.
+                 * @returns whether the collection is locked or not
+                 */
+                get_locked(): boolean
+                /**
+                 * Get the modified date and time of the collection.
+                 *
+                 * The return value is the number of seconds since the unix epoch, January 1st
+                 * 1970.
+                 * @returns the modified date and time
+                 */
+                get_modified(): number
+                /**
+                 * Get the Secret Service object that this collection was created with.
+                 * @returns the Secret Service object
+                 */
+                get_service(): Service
+                /**
+                 * Ensure that the #SecretCollection proxy has loaded all the items present
+                 * in the Secret Service.
+                 *
+                 * This affects the result of {@link Collection.get_items}.
+                 *
+                 * For collections returned from {@link Service.get_collections} the items will
+                 * have already been loaded.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                load_items(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete an asynchronous operation to ensure that the #SecretCollection proxy
+                 * has loaded all the items present in the Secret Service.
                  * @throws {GLib.Error}
-                 * @param result
+                 * @param result the asynchronous result passed to the callback
+                 * @returns whether the load was successful or not
                  */
-                vfunc_lookup_finish(result: Gio.AsyncResult): Value
+                load_items_finish(result: Gio.AsyncResult): boolean
                 /**
-                 * implementation of [func@password_search], required
-                 * @param schema
-                 * @param attributes
-                 * @param flags
-                 * @param cancellable
-                 * @param callback
-                 */
-                vfunc_search(schema: Schema, attributes: Record<never, never>, flags: SearchFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-                /**
-                 * implementation of [func@password_store], required
-                 * @param schema
-                 * @param attributes
-                 * @param collection
-                 * @param label
-                 * @param value
-                 * @param cancellable
-                 * @param callback
-                 */
-                vfunc_store(schema: Schema, attributes: Record<never, never>, collection: string, label: string, value: Value, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-                /**
-                 * implementation of [func@password_store_finish], required
+                 * Ensure that the #SecretCollection proxy has loaded all the items present
+                 * in the Secret Service. This affects the result of
+                 * {@link Collection.get_items}.
+                 *
+                 * For collections returned from {@link Service.get_collections} the items
+                 * will have already been loaded.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
                  * @throws {GLib.Error}
-                 * @param result
+                 * @param cancellable optional cancellation object
+                 * @returns whether the load was successful or not
                  */
-                vfunc_store_finish(result: Gio.AsyncResult): boolean
+                load_items_sync(cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Refresh the properties on this collection. This fires off a request to
+                 * refresh, and the properties will be updated later.
+                 *
+                 * Calling this method is not normally necessary, as the secret service
+                 * will notify the client when properties change.
+                 */
+                refresh(): void
+                /**
+                 * Search for items matching the `attributes` in the `collection`.
+                 * The `attributes` should be a table of string keys and string values.
+                 *
+                 * If %SECRET_SEARCH_ALL is set in `flags`, then all the items matching the
+                 * search will be returned. Otherwise only the first item will be returned.
+                 * This is almost always the unlocked item that was most recently stored.
+                 *
+                 * If %SECRET_SEARCH_UNLOCK is set in `flags`, then items will be unlocked
+                 * if necessary. In either case, locked and unlocked items will match the
+                 * search and be returned. If the unlock fails, the search does not fail.
+                 *
+                 * If %SECRET_SEARCH_LOAD_SECRETS is set in `flags`, then the items will have
+                 * their secret values loaded and available via {@link Item.get_secret}.
+                 *
+                 * This function returns immediately and completes asynchronously.
+                 * @param schema the schema for the attributes
+                 * @param attributes search for items matching these attributes
+                 * @param flags search option flags
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                search(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to search for items in a collection.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to callback
+                 * @returns    a list of items that matched the search
+                 */
+                search_finish(result: Gio.AsyncResult): Item[]
+                /**
+                 * Search for items matching the `attributes` in the `collection`.
+                 * The `attributes` should be a table of string keys and string values.
+                 *
+                 * If %SECRET_SEARCH_ALL is set in `flags`, then all the items matching the
+                 * search will be returned. Otherwise only the first item will be returned.
+                 * This is almost always the unlocked item that was most recently stored.
+                 *
+                 * If %SECRET_SEARCH_UNLOCK is set in `flags`, then items will be unlocked
+                 * if necessary. In either case, locked and unlocked items will match the
+                 * search and be returned. If the unlock fails, the search does not fail.
+                 *
+                 * If %SECRET_SEARCH_LOAD_SECRETS is set in `flags`, then the items will have
+                 * their secret values loaded and available via {@link Item.get_secret}.
+                 *
+                 * This function may block indefinitely. Use the asynchronous version
+                 * in user interface threads.
+                 * @throws {GLib.Error}
+                 * @param schema the schema for the attributes
+                 * @param attributes search for items matching these attributes
+                 * @param flags search option flags
+                 * @param cancellable optional cancellation object
+                 * @returns    a list of items that matched the search
+                 */
+                search_sync(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null): Item[]
+                /**
+                 * Set the label of this collection.
+                 *
+                 * This function returns immediately and completes asynchronously.
+                 * @param label a new label
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                set_label(label: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to set the label of this collection.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to callback
+                 * @returns whether the change was successful or not
+                 */
+                set_label_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Set the label of this collection.
+                 *
+                 * This function may block indefinitely. Use the asynchronous version
+                 * in user interface threads.
+                 * @throws {GLib.Error}
+                 * @param label a new label
+                 * @param cancellable optional cancellation object
+                 * @returns whether the change was successful or not
+                 */
+                set_label_sync(label: string, cancellable: Gio.Cancellable | null): boolean
             }
-        }
 
-        interface Backend extends Gio.AsyncInitable, Backend.Interface {
-            readonly $signals: Backend.SignalSignatures
-            readonly $readableProperties: Backend.ReadableProperties
-            readonly $writableProperties: Backend.WritableProperties
-            readonly $constructOnlyProperties: Backend.ConstructOnlyProperties
-            /**
-             * A set of flags describing which parts of the secret backend have
-             * been initialized.
-             * @since 0.19.0
-             * @default SECRET_SERVICE_NONE
-             */
-            get flags(): ServiceFlags
-            set flags(value: ServiceFlags)
-        }
+            interface CollectionClass extends Omit<Gio.DBusProxyClass, "new"> {
+                readonly $gtype: GObject.GType<Collection>
+                readonly prototype: Collection
 
-        interface BackendInterface {
-            readonly $gtype: GObject.GType<Backend>
-            readonly prototype: Backend
-            [Symbol.hasInstance](instance: unknown): instance is Backend
-            /**
-             * Get a #SecretBackend instance.
-             *
-             * If such a backend already exists, then the same backend is returned.
-             *
-             * If @flags contains any flags of which parts of the secret backend to
-             * ensure are initialized, then those will be initialized before completing.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @since 0.19.0
-             * @param flags flags for which service functionality to ensure is initialized
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            get(flags: BackendFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete an asynchronous operation to get a #SecretBackend.
-             * @throws {GLib.Error}
-             * @since 0.19.0
-             * @param result the asynchronous result passed to the callback
-             * @returns a new reference to a #SecretBackend proxy, which   should be released with [method@GObject.Object.unref].
-             */
-            get_finish(result: Gio.AsyncResult): Backend
-        }
-
-        interface $Exports {
-            /**
-             * #SecretBackend represents a backend implementation of password
-             * storage.
-             * @since 0.19.0
-             */
-            Backend: BackendInterface
-        }
-        
-
-        namespace Retrievable {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                new (props?: Partial<GObject.ConstructorProps<Collection>>): Collection
+                /**
+                 * Create a new collection in the secret service.
+                 *
+                 * This method returns immediately and completes asynchronously. The secret
+                 * service may prompt the user. {@link Service.prompt} will be used to handle
+                 * any prompts that are required.
+                 *
+                 * An `alias` is a well-known tag for a collection, such as 'default' (ie: the
+                 * default collection to store items in). This allows other applications to
+                 * easily identify and share a collection. If you specify an `alias`, and a
+                 * collection with that alias already exists, then a new collection will not
+                 * be created. The previous one will be returned instead.
+                 *
+                 * If `service` is %NULL, then {@link Service.get} will be called to get the
+                 * default {@link Service} proxy.
+                 * @param service a secret service object
+                 * @param label label for the new collection
+                 * @param alias alias to assign to the collection
+                 * @param flags currently unused
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                create(service: Service | null, label: string, alias: string | null, flags: CollectionCreateFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finish operation to create a new collection in the secret service.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns the new collection, which should be unreferenced   with {@link GObject.Object.unref}
+                 */
+                create_finish(result: Gio.AsyncResult): Collection
+                /**
+                 * Create a new collection in the secret service.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads. The secret service may prompt the user. {@link Service.prompt}
+                 * will be used to handle any prompts that are required.
+                 *
+                 * An `alias` is a well-known tag for a collection, such as `default` (ie: the
+                 * default collection to store items in). This allows other applications to
+                 * easily identify and share a collection. If you specify an `alias`, and a
+                 * collection with that alias already exists, then a new collection will not
+                 * be created. The previous one will be returned instead.
+                 *
+                 * If `service` is %NULL, then {@link Service.get_sync} will be called to get the
+                 * default {@link Service} proxy.
+                 * @throws {GLib.Error}
+                 * @param service a secret service object
+                 * @param label label for the new collection
+                 * @param alias alias to assign to the collection
+                 * @param flags currently unused
+                 * @param cancellable optional cancellation object
+                 * @returns the new collection, which should be unreferenced   with {@link GObject.Object.unref}
+                 */
+                create_sync(service: Service | null, label: string, alias: string | null, flags: CollectionCreateFlags, cancellable: Gio.Cancellable | null): Collection
+                /**
+                 * Lookup which collection is assigned to this alias. Aliases help determine
+                 * well known collections, such as 'default'.
+                 *
+                 * If `service` is %NULL, then {@link Service.get} will be called to get the
+                 * default {@link Service} proxy.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param service a secret service object
+                 * @param alias the alias to lookup
+                 * @param flags options for the collection initialization
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                for_alias(service: Service | null, alias: string, flags: CollectionFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finish an asynchronous operation to lookup which collection is assigned
+                 * to an alias.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to callback
+                 * @returns the collection, or %NULL if none assigned to the alias
+                 */
+                for_alias_finish(result: Gio.AsyncResult): Collection | null
+                /**
+                 * Lookup which collection is assigned to this alias. Aliases help determine
+                 * well known collections, such as `default`.
+                 *
+                 * If `service` is %NULL, then {@link Service.get_sync} will be called to get the
+                 * default {@link Service} proxy.
+                 *
+                 * This method may block and should not be used in user interface threads.
+                 * @throws {GLib.Error}
+                 * @param service a secret service object
+                 * @param alias the alias to lookup
+                 * @param flags options for the collection initialization
+                 * @param cancellable optional cancellation object
+                 * @returns the collection, or %NULL if none assigned to the alias
+                 */
+                for_alias_sync(service: Service | null, alias: string, flags: CollectionFlags, cancellable: Gio.Cancellable | null): Collection | null
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-                "attributes": Record<string, string>
-                "created": number
-                "label": string
-                "modified": number
+            interface $Exports {
+                /**
+                 * A proxy object representing a collection of secrets in the Secret Service.
+                 *
+                 * #SecretCollection represents a collection of secret items stored in the
+                 * Secret Service.
+                 *
+                 * A collection can be in a locked or unlocked state. Use
+                 * {@link SecretService.lock} or {@link SecretService.unlock} to lock or
+                 * unlock the collection.
+                 *
+                 * Use the {@link SecretCollection.items} property or
+                 * {@link SecretCollection.get_items} to lookup the items in the collection.
+                 * There may not be any items exposed when the collection is locked.
+                 */
+                Collection: CollectionClass
+            }
+            
+
+            namespace Item {
+                interface SignalSignatures extends Gio.DBusProxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures, Retrievable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gio.DBusProxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties, Retrievable.ReadableProperties {
+                    "flags": ItemFlags
+                    "locked": boolean
+                    "service": Service
+                }
+
+                interface WritableProperties extends Gio.DBusProxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties, Retrievable.WritableProperties {
+                    "locked": boolean
+                }
+
+                interface ConstructOnlyProperties extends Gio.DBusProxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties, Retrievable.ConstructOnlyProperties {
+                    "flags": ItemFlags
+                    "service": Service
+                }
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
-                "attributes": Record<string, string>
-                "created": number
-                "label": string
-                "modified": number
+            interface Item extends Gio.DBusProxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable, Retrievable {
+                readonly $signals: Item.SignalSignatures
+                readonly $readableProperties: Item.ReadableProperties
+                readonly $writableProperties: Item.WritableProperties
+                readonly $constructOnlyProperties: Item.ConstructOnlyProperties
+                /**
+                 * A set of flags describing which parts of the secret item have
+                 * been initialized.
+                 * @default SECRET_ITEM_NONE
+                 */
+                get flags(): ItemFlags
+                set flags(value: ItemFlags)
+                /**
+                 * Whether the item is locked or not.
+                 *
+                 * An item may not be independently lockable separate from other items in
+                 * its collection.
+                 *
+                 * To lock or unlock a item use the {@link Service.lock} or
+                 * {@link Service.unlock} functions.
+                 * @default TRUE
+                 */
+                get locked(): boolean
+                set locked(value: boolean)
+                /**
+                 * The {@link Service} object that this item is associated with and
+                 * uses to interact with the actual D-Bus Secret Service.
+                 */
+                get service(): Service
+                set service(value: Service)
+                /**
+                 * Delete this item.
+                 *
+                 * This method returns immediately and completes asynchronously. The secret
+                 * service may prompt the user. {@link Service.prompt} will be used to handle
+                 * any prompts that show up.
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                delete(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to delete the secret item.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to the callback
+                 * @returns whether the item was successfully deleted or not
+                 */
+                delete_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Delete this secret item.
+                 *
+                 * This method may block indefinitely and should not be used in user
+                 * interface threads. The secret service may prompt the user.
+                 * {@link Service.prompt} will be used to handle any prompts that show up.
+                 * @throws {GLib.Error}
+                 * @param cancellable optional cancellation object
+                 * @returns whether the item was successfully deleted or not
+                 */
+                delete_sync(cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Set the attributes of this item.
+                 *
+                 * The `attributes` are a mapping of string keys to string values.
+                 * Attributes are used to search for items. Attributes are not stored
+                 * or transferred securely by the secret service.
+                 *
+                 * Do not modify the attributes returned by this method. Use
+                 * {@link Item.set_attributes} instead.
+                 * @returns a new reference   to the attributes, which should not be modified, and   released with {@link GLib.HashTable.unref}
+                 */
+                get_attributes(): Record<string, string>
+                /**
+                 * Get the created date and time of the item.
+                 *
+                 * The return value is the number of seconds since the unix epoch, January 1st
+                 * 1970.
+                 * @returns the created date and time
+                 */
+                get_created(): number
+                /**
+                 * Get the flags representing what features of the #SecretItem proxy
+                 * have been initialized.
+                 *
+                 * Use {@link Item.load_secret} to initialize further features
+                 * and change the flags.
+                 * @returns the flags for features initialized
+                 */
+                get_flags(): ItemFlags
+                /**
+                 * Get the label of this item.
+                 * @returns the label, which should be freed with {@link GLib.free}
+                 */
+                get_label(): string
+                /**
+                 * Get whether the item is locked or not.
+                 *
+                 * Depending on the secret service an item may not be able to be locked
+                 * independently from the collection that it is in.
+                 * @returns whether the item is locked or not
+                 */
+                get_locked(): boolean
+                /**
+                 * Get the modified date and time of the item.
+                 *
+                 * The return value is the number of seconds since the unix epoch, January 1st
+                 * 1970.
+                 * @returns the modified date and time
+                 */
+                get_modified(): number
+                /**
+                 * Gets the name of the schema that this item was stored with. This is also
+                 * available at the `xdg:schema` attribute.
+                 * @returns the schema name
+                 */
+                get_schema_name(): string | null
+                /**
+                 * Get the secret value of this item.
+                 *
+                 * If this item is locked or the secret has not yet been loaded then this will
+                 * return %NULL.
+                 *
+                 * To load the secret call the {@link Item.load_secret} method.
+                 * @returns the secret value which should be   released with {@link Value.unref}, or %NULL
+                 */
+                get_secret(): Value | null
+                /**
+                 * Get the Secret Service object that this item was created with.
+                 * @returns the Secret Service object
+                 */
+                get_service(): Service
+                /**
+                 * Load the secret value of this item.
+                 *
+                 * Each item has a single secret which might be a password or some
+                 * other secret binary value.
+                 *
+                 * This function will fail if the secret item is locked.
+                 *
+                 * This function returns immediately and completes asynchronously.
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                load_secret(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to load the secret value of this item.
+                 *
+                 * The newly loaded secret value can be accessed by calling
+                 * {@link Item.get_secret}.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to callback
+                 * @returns whether the secret item successfully loaded or not
+                 */
+                load_secret_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Load the secret value of this item.
+                 *
+                 * Each item has a single secret which might be a password or some
+                 * other secret binary value.
+                 *
+                 * This function may block indefinitely. Use the asynchronous version
+                 * in user interface threads.
+                 * @throws {GLib.Error}
+                 * @param cancellable optional cancellation object
+                 * @returns whether the secret item successfully loaded or not
+                 */
+                load_secret_sync(cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Refresh the properties on this item.
+                 *
+                 * This fires off a request to refresh, and the properties will be updated
+                 * later.
+                 *
+                 * Calling this method is not normally necessary, as the secret service
+                 * will notify the client when properties change.
+                 */
+                refresh(): void
+                /**
+                 * Set the attributes of this item.
+                 *
+                 * The `attributes` are a mapping of string keys to string values.
+                 * Attributes are used to search for items. Attributes are not stored
+                 * or transferred securely by the secret service.
+                 *
+                 * This function returns immediately and completes asynchronously.
+                 * @param schema the schema for the attributes
+                 * @param attributes a new set of attributes
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the asynchronous operation completes
+                 */
+                set_attributes(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete operation to set the attributes of this item.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to the callback
+                 * @returns whether the change was successful or not
+                 */
+                set_attributes_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Set the attributes of this item.
+                 *
+                 * The `attributes` are a mapping of string keys to string values.
+                 * Attributes are used to search for items. Attributes are not stored
+                 * or transferred securely by the secret service.
+                 *
+                 * This function may block indefinitely. Use the asynchronous version
+                 * in user interface threads.
+                 * @throws {GLib.Error}
+                 * @param schema the schema for the attributes
+                 * @param attributes a new set of attributes
+                 * @param cancellable optional cancellation object
+                 * @returns whether the change was successful or not
+                 */
+                set_attributes_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Set the label of this item.
+                 *
+                 * This function returns immediately and completes asynchronously.
+                 * @param label a new label
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                set_label(label: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to set the label of this collection.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to callback
+                 * @returns whether the change was successful or not
+                 */
+                set_label_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Set the label of this item.
+                 *
+                 * This function may block indefinitely. Use the asynchronous version
+                 * in user interface threads.
+                 * @throws {GLib.Error}
+                 * @param label a new label
+                 * @param cancellable optional cancellation object
+                 * @returns whether the change was successful or not
+                 */
+                set_label_sync(label: string, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Set the secret value of this item.
+                 *
+                 * Each item has a single secret which might be a password or some
+                 * other secret binary value.
+                 *
+                 * This function returns immediately and completes asynchronously.
+                 * @param value a new secret value
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                set_secret(value: Value, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to set the secret value of this item.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to callback
+                 * @returns whether the change was successful or not
+                 */
+                set_secret_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Set the secret value of this item.
+                 *
+                 * Each item has a single secret which might be a password or some
+                 * other secret binary value.
+                 *
+                 * This function may block indefinitely. Use the asynchronous version
+                 * in user interface threads.
+                 * @throws {GLib.Error}
+                 * @param value a new secret value
+                 * @param cancellable optional cancellation object
+                 * @returns whether the change was successful or not
+                 */
+                set_secret_sync(value: Value, cancellable: Gio.Cancellable | null): boolean
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface ItemClass extends Omit<Gio.DBusProxyClass, "new"> {
+                readonly $gtype: GObject.GType<Item>
+                readonly prototype: Item
+
+                new (props?: Partial<GObject.ConstructorProps<Item>>): Item
+                /**
+                 * Create a new item in the secret service.
+                 *
+                 * If the `flags` contains %SECRET_ITEM_CREATE_REPLACE, then the secret
+                 * service will search for an item matching the `attributes`, and update that item
+                 * instead of creating a new one.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads. The secret service may prompt the user. {@link Service.prompt}
+                 * will be used to handle any prompts that are required.
+                 * @param collection a secret collection to create this item in
+                 * @param schema the schema for the attributes
+                 * @param attributes attributes for the new item
+                 * @param label label for the new item
+                 * @param value secret value for the new item
+                 * @param flags flags for the creation of the new item
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                create(collection: Collection, schema: Schema | null, attributes: Record<string, string>, label: string, value: Value, flags: ItemCreateFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finish operation to create a new item in the secret service.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns the new item, which should be unreferenced   with {@link GObject.Object.unref}
+                 */
+                create_finish(result: Gio.AsyncResult): Item
+                /**
+                 * Create a new item in the secret service.
+                 *
+                 * If the `flags` contains %SECRET_ITEM_CREATE_REPLACE, then the secret
+                 * service will search for an item matching the `attributes`, and update that item
+                 * instead of creating a new one.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads. The secret service may prompt the user. {@link Service.prompt}
+                 * will be used to handle any prompts that are required.
+                 * @throws {GLib.Error}
+                 * @param collection a secret collection to create this item in
+                 * @param schema the schema for the attributes
+                 * @param attributes attributes for the new item
+                 * @param label label for the new item
+                 * @param value secret value for the new item
+                 * @param flags flags for the creation of the new item
+                 * @param cancellable optional cancellation object
+                 * @returns the new item, which should be unreferenced   with {@link GObject.Object.unref}
+                 */
+                create_sync(collection: Collection, schema: Schema | null, attributes: Record<string, string>, label: string, value: Value, flags: ItemCreateFlags, cancellable: Gio.Cancellable | null): Item
+                /**
+                 * Load the secret values for a secret item stored in the service.
+                 *
+                 * The `items` must all have the same {@link Item.service} property.
+                 *
+                 * This function returns immediately and completes asynchronously.
+                 * @param items the items to retrieve secrets for
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                load_secrets(items: Item[], cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to load the secret values for
+                 * secret items stored in the service.
+                 *
+                 * Items that are locked will not have their secrets loaded.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to callback
+                 * @returns whether the operation succeeded or not
+                 */
+                load_secrets_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Load the secret values for a secret item stored in the service.
+                 *
+                 * The `items` must all have the same {@link Item.service} property.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 *
+                 * Items that are locked will not have their secrets loaded.
+                 * @throws {GLib.Error}
+                 * @param items the items to retrieve secrets for
+                 * @param cancellable optional cancellation object
+                 * @returns whether the operation succeeded or not
+                 */
+                load_secrets_sync(items: Item[], cancellable: Gio.Cancellable | null): boolean
             }
 
-            interface Interface extends GObject.Object {
+            interface $Exports {
+                /**
+                 * A secret item
+                 *
+                 * #SecretItem represents a secret item stored in the Secret Service.
+                 *
+                 * Each item has a value, represented by a {@link Value}, which can be
+                 * retrieved by {@link Item.get_secret} or set by {@link Item.set_secret}.
+                 * The item is only available when the item is not locked.
+                 *
+                 * Items can be locked or unlocked using the {@link Service.lock} or
+                 * {@link Service.unlock} functions. The Secret Service may not be able to
+                 * unlock individual items, and may unlock an entire collection when a single
+                 * item is unlocked.
+                 *
+                 * Each item has a set of attributes, which are used to locate the item later.
+                 * These are not stored or transferred in a secure manner. Each attribute has
+                 * a string name and a string value. Use {@link Service.search} to search for
+                 * items based on their attributes, and {@link Item.set_attributes} to change
+                 * the attributes associated with an item.
+                 *
+                 * Items can be created with {@link Item.create} or {@link Service.store}.
+                 */
+                Item: ItemClass
+            }
+            
+
+            namespace Prompt {
+                interface SignalSignatures extends Gio.DBusProxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gio.DBusProxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gio.DBusProxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gio.DBusProxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
+                }
+            }
+
+            interface Prompt extends Gio.DBusProxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
+                readonly $signals: Prompt.SignalSignatures
+                readonly $readableProperties: Prompt.ReadableProperties
+                readonly $writableProperties: Prompt.WritableProperties
+                readonly $constructOnlyProperties: Prompt.ConstructOnlyProperties
+                /**
+                 * Runs a prompt and performs the prompting.
+                 *
+                 * Returns %TRUE if the prompt was completed and not dismissed.
+                 *
+                 * If `window_id` is non-null then it is used as an XWindow id on Linux. The API
+                 * expects this id to be converted to a string using the `%d` printf format. The
+                 * Secret Service can make its prompt transient for the window with this id. In
+                 * some Secret Service implementations this is not possible, so the behavior
+                 * depending on this should degrade gracefully.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param window_id string form of XWindow id for parent window to be transient for
+                 * @param return_type the variant type of the prompt result
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                perform(window_id: string | null, return_type: GLib.VariantType, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to run a prompt and perform the prompting.
+                 *
+                 * Returns a variant result if the prompt was completed and not dismissed. The
+                 * type of result depends on the action the prompt is completing, and is
+                 * defined in the Secret Service DBus API specification.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns %NULL if the prompt was dismissed or an error occurred,   a variant result if the prompt was successful
+                 */
+                perform_finish(result: Gio.AsyncResult): GLib.Variant
+                /**
+                 * Runs a prompt and performs the prompting.
+                 *
+                 * Returns a variant result if the prompt was completed and not dismissed. The
+                 * type of result depends on the action the prompt is completing, and is defined
+                 * in the Secret Service DBus API specification.
+                 *
+                 * If `window_id` is non-null then it is used as an XWindow id on Linux. The API
+                 * expects this id to be converted to a string using the `%d` printf format. The
+                 * Secret Service can make its prompt transient for the window with this id. In
+                 * some Secret Service implementations this is not possible, so the behavior
+                 * depending on this should degrade gracefully.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @param window_id string form of XWindow id for parent window to be transient for
+                 * @param cancellable optional cancellation object
+                 * @param return_type the variant type of the prompt result
+                 * @returns %NULL if the prompt was dismissed or an error occurred
+                 */
+                perform_sync(window_id: string | null, cancellable: Gio.Cancellable | null, return_type: GLib.VariantType): GLib.Variant
+                /**
+                 * Runs a prompt and performs the prompting.
+                 *
+                 * Returns a variant result if the prompt was completed and not dismissed. The
+                 * type of result depends on the action the prompt is completing, and is defined
+                 * in the Secret Service DBus API specification.
+                 *
+                 * If `window_id` is non-null then it is used as an XWindow id on Linux. The API
+                 * expects this id to be converted to a string using the `%d` printf format. The
+                 * Secret Service can make its prompt transient for the window with this id. In
+                 * some Secret Service implementations this is not possible, so the behavior
+                 * depending on this should degrade gracefully.
+                 *
+                 * This runs the dialog in a recursive mainloop. When run from a user interface
+                 * thread, this means the user interface will remain responsive. Care should be
+                 * taken that appropriate user interface actions are disabled while running the
+                 * prompt.
+                 * @throws {GLib.Error}
+                 * @param window_id string form of XWindow id for parent window to be transient for
+                 * @param cancellable optional cancellation object
+                 * @param return_type the variant type of the prompt result
+                 * @returns %NULL if the prompt was dismissed or an error occurred
+                 */
+                run(window_id: string | null, cancellable: Gio.Cancellable | null, return_type: GLib.VariantType): GLib.Variant
+            }
+
+            interface PromptClass extends Omit<Gio.DBusProxyClass, "new"> {
+                readonly $gtype: GObject.GType<Prompt>
+                readonly prototype: Prompt
+
+                new (props?: Partial<GObject.ConstructorProps<Prompt>>): Prompt
+            }
+
+            interface $Exports {
+                /**
+                 * A prompt in the Service
+                 *
+                 * A proxy object representing a prompt that the Secret Service will display
+                 * to the user.
+                 *
+                 * Certain actions on the Secret Service require user prompting to complete,
+                 * such as creating a collection, or unlocking a collection. When such a prompt
+                 * is necessary, then a #SecretPrompt object is created by this library, and
+                 * passed to the {@link Service.prompt} method. In this way it is handled
+                 * automatically.
+                 *
+                 * In order to customize prompt handling, override the
+                 * {@link Service.vfunc_prompt_async} and {@link Service.vfunc_prompt_finish} virtual
+                 * methods of the {@link Service} class.
+                 */
+                Prompt: PromptClass
+            }
+            
+
+            namespace Service {
+                interface SignalSignatures extends Gio.DBusProxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures, Backend.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gio.DBusProxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties, Backend.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gio.DBusProxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties, Backend.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gio.DBusProxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties, Backend.ConstructOnlyProperties {
+                }
+            }
+
+            interface Service extends Gio.DBusProxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable, Backend {
+                readonly $signals: Service.SignalSignatures
+                readonly $readableProperties: Service.ReadableProperties
+                readonly $writableProperties: Service.WritableProperties
+                readonly $constructOnlyProperties: Service.ConstructOnlyProperties
+                /**
+                 * Remove unlocked items which match the attributes from the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * If `service` is %NULL, then {@link Service.get} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param schema the schema for the attributes
+                 * @param attributes the attribute keys and values
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                clear(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finish asynchronous operation to remove items from the secret
+                 * service.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns whether items were removed or not
+                 */
+                clear_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Remove unlocked items which match the attributes from the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * If `service` is %NULL, then {@link Service.get_sync} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @param schema the schema for the attributes
+                 * @param attributes the attribute keys and values
+                 * @param cancellable optional cancellation object
+                 * @returns whether items were removed or not
+                 */
+                clear_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Create a new item in a secret service collection and return its D-Bus
+                 * object path.
+                 *
+                 * It is often easier to use {@link password_store_sync} or {@link Item.create_sync}
+                 * rather than using this function. Using this method requires that you setup
+                 * a correct hash table of D-Bus `properties` for the new collection.
+                 *
+                 * If the `flags` contains %SECRET_ITEM_CREATE_REPLACE, then the secret
+                 * service will search for an item matching the `attributes`, and update that item
+                 * instead of creating a new one.
+                 *
+                 *  `properties` is a set of properties for the new collection. The keys in the
+                 * hash table should be interface.property strings like
+                 * `org.freedesktop.Secret.Item.Label`. The values
+                 * in the hash table should be {@link GLib.Variant} values of the properties.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads. The secret service may prompt the user. {@link Service.prompt}
+                 * will be used to handle any prompts that are required.
+                 * @throws {GLib.Error}
+                 * @param collection_path the D-Bus path of the collection in which to create item
+                 * @param properties hash table of D-Bus properties   for the new collection
+                 * @param value the secret value to store in the item
+                 * @param flags flags for the creation of the new item
+                 * @param cancellable optional cancellation object
+                 * @returns a new string containing the D-Bus object path   of the item
+                 */
+                create_item_dbus_path_sync(collection_path: string, properties: Record<string, GLib.Variant>, value: Value, flags: ItemCreateFlags, cancellable: Gio.Cancellable | null): string
+                /**
+                 * Decode a {@link Value} into {@link GLib.Variant} received with the Secret Service
+                 * DBus API.
+                 *
+                 * The {@link GLib.Variant} should have a `(oayays)` signature.
+                 *
+                 * A session must have already been established by the {@link Service}, and
+                 * the encoded secret must be valid for that session.
+                 * @param value the encoded secret
+                 * @returns the decoded secret value
+                 */
+                decode_dbus_secret(value: GLib.Variant): Value
+                /**
+                 * Encodes a {@link Value} into {@link GLib.Variant} for use with the Secret
+                 * Service DBus API.
+                 *
+                 * The resulting {@link GLib.Variant} will have a `(oayays)` signature.
+                 *
+                 * A session must have already been established by the {@link Service}.
+                 * @param value the secret value
+                 * @returns the encoded secret
+                 */
+                encode_dbus_secret(value: Value): GLib.Variant
+                /**
+                 * Ensure that the #SecretService proxy has established a session with the
+                 * Secret Service.
+                 *
+                 * This session is used to transfer secrets.
+                 *
+                 * It is not normally necessary to call this method, as the session is
+                 * established as necessary. You can also pass the %SECRET_SERVICE_OPEN_SESSION
+                 * to {@link Service.get} in order to ensure that a session has been established
+                 * by the time you get the #SecretService proxy.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                ensure_session(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finish an asynchronous operation to ensure that the #SecretService proxy
+                 * has established a session with the Secret Service.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns whether a session is established or not
+                 */
+                ensure_session_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Ensure that the #SecretService proxy has established a session with the
+                 * Secret Service.
+                 *
+                 * This session is used to transfer secrets.
+                 *
+                 * It is not normally necessary to call this method, as the session is
+                 * established as necessary. You can also pass the %SECRET_SERVICE_OPEN_SESSION
+                 * to {@link Service.get_sync} in order to ensure that a session has been
+                 * established by the time you get the #SecretService proxy.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @param cancellable optional cancellation object
+                 * @returns whether a session is established or not
+                 */
+                ensure_session_sync(cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Get the GObject type for collections instantiated by this service.
+                 *
+                 * This will always be either {@link Collection} or derived from it.
+                 * @returns the gobject type for collections
+                 */
+                get_collection_gtype(): GObject.GType
+                /**
+                 * Get a list of {@link Collection} objects representing all the collections
+                 * in the secret service.
+                 *
+                 * If the %SECRET_SERVICE_LOAD_COLLECTIONS flag was not specified when
+                 * initializing #SecretService proxy object, then this method will return
+                 * %NULL. Use {@link Service.load_collections} to load the collections.
+                 * @returns a   list of the collections in the secret service
+                 */
+                get_collections(): Collection[] | null
+                /**
+                 * Get the flags representing what features of the #SecretService proxy
+                 * have been initialized.
+                 *
+                 * Use {@link Service.ensure_session} or {@link Service.load_collections}
+                 * to initialize further features and change the flags.
+                 * @returns the flags for features initialized
+                 */
+                get_flags(): ServiceFlags
+                /**
+                 * Get the GObject type for items instantiated by this service.
+                 *
+                 * This will always be either {@link Item} or derived from it.
+                 * @returns the gobject type for items
+                 */
+                get_item_gtype(): GObject.GType
+                /**
+                 * Get the set of algorithms being used to transfer secrets between this
+                 * secret service proxy and the Secret Service itself.
+                 *
+                 * This will be %NULL if no session has been established. Use
+                 * {@link Service.ensure_session} to establish a session.
+                 * @returns a string representing the algorithms for transferring   secrets
+                 */
+                get_session_algorithms(): string | null
+                /**
+                 * Get the D-Bus object path of the session object being used to transfer
+                 * secrets between this secret service proxy and the Secret Service itself.
+                 *
+                 * This will be %NULL if no session has been established. Use
+                 * {@link Service.ensure_session} to establish a session.
+                 * @returns a string representing the D-Bus object path of the   session
+                 */
+                get_session_dbus_path(): string | null
+                /**
+                 * Ensure that the #SecretService proxy has loaded all the collections present
+                 * in the Secret Service.
+                 *
+                 * This affects the result of {@link Service.get_collections}.
+                 *
+                 * You can also pass the %SECRET_SERVICE_LOAD_COLLECTIONS to
+                 * {@link Service.get_sync} in order to ensure that the collections have been
+                 * loaded by the time you get the #SecretService proxy.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                load_collections(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete an asynchronous operation to ensure that the #SecretService proxy
+                 * has loaded all the collections present in the Secret Service.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns whether the load was successful or not
+                 */
+                load_collections_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Ensure that the #SecretService proxy has loaded all the collections present
+                 * in the Secret Service.
+                 *
+                 * This affects the result of {@link Service.get_collections}.
+                 *
+                 * You can also pass the %SECRET_SERVICE_LOAD_COLLECTIONS to
+                 * {@link Service.get_sync} in order to ensure that the collections have been
+                 * loaded by the time you get the #SecretService proxy.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @param cancellable optional cancellation object
+                 * @returns whether the load was successful or not
+                 */
+                load_collections_sync(cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Lock items or collections in the secret service.
+                 *
+                 * The secret service may not be able to lock items individually, and may
+                 * lock an entire collection instead.
+                 *
+                 * If `service` is %NULL, then {@link Service.get} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * This method returns immediately and completes asynchronously. The secret
+                 * service may prompt the user. {@link Service.prompt} will be used to handle
+                 * any prompts that show up.
+                 * @param objects the items or collections to lock
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                lock(objects: Gio.DBusProxy[], cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to lock items or collections in the secret
+                 * service.
+                 *
+                 * The secret service may not be able to lock items individually, and may
+                 * lock an entire collection instead.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to the callback
+                 * @returns the number of items or collections that were locked,    location to place list of items or collections that were locked
+                 */
+                lock_finish(result: Gio.AsyncResult): [number, Gio.DBusProxy[] | null]
+                /**
+                 * Lock items or collections in the secret service.
+                 *
+                 * The secret service may not be able to lock items individually, and may
+                 * lock an entire collection instead.
+                 *
+                 * If `service` is %NULL, then {@link Service.get_sync} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * This method may block indefinitely and should not be used in user
+                 * interface threads. The secret service may prompt the user.
+                 * {@link Service.prompt} will be used to handle any prompts that show up.
+                 * @throws {GLib.Error}
+                 * @param objects the items or collections to lock
+                 * @param cancellable optional cancellation object
+                 * @returns the number of items or collections that were locked,    location to place list of items or collections that were locked
+                 */
+                lock_sync(objects: Gio.DBusProxy[], cancellable: Gio.Cancellable | null): [number, Gio.DBusProxy[] | null]
+                /**
+                 * Lookup a secret value in the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * If `service` is %NULL, then {@link Service.get} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param schema the schema for the attributes
+                 * @param attributes the attribute keys and values
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                lookup(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finish asynchronous operation to lookup a secret value in the secret service.
+                 *
+                 * If no secret is found then %NULL is returned.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns a newly allocated {@link Value}, which should be   released with {@link Value.unref}, or %NULL if no secret found
+                 */
+                lookup_finish(result: Gio.AsyncResult): Value
+                /**
+                 * Lookup a secret value in the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * If `service` is %NULL, then {@link Service.get_sync} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @param schema the schema for the attributes
+                 * @param attributes the attribute keys and values
+                 * @param cancellable optional cancellation object
+                 * @returns a newly allocated {@link Value}, which should be   released with {@link Value.unref}, or %NULL if no secret found
+                 */
+                lookup_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): Value
+                /**
+                 * Perform prompting for a {@link Prompt}.
+                 *
+                 * This function is called by other parts of this library to handle prompts
+                 * for the various actions that can require prompting.
+                 *
+                 * Override the #SecretServiceClass {@link Service.vfunc_prompt_async} virtual method
+                 * to change the behavior of the prompting. The default behavior is to simply
+                 * run {@link Prompt.perform} on the prompt.
+                 * @param prompt the prompt
+                 * @param return_type the variant type of the prompt result
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                prompt(prompt: Prompt, return_type: GLib.VariantType | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to perform prompting for a {@link Prompt}.
+                 *
+                 * Returns a variant result if the prompt was completed and not dismissed. The
+                 * type of result depends on the action the prompt is completing, and is defined
+                 * in the Secret Service DBus API specification.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns %NULL if the prompt was dismissed or an error occurred,   a variant result if the prompt was successful
+                 */
+                prompt_finish(result: Gio.AsyncResult): GLib.Variant
+                /**
+                 * Perform prompting for a {@link Prompt}.
+                 *
+                 * Runs a prompt and performs the prompting. Returns a variant result if the
+                 * prompt was completed and not dismissed. The type of result depends on the
+                 * action the prompt is completing, and is defined in the Secret Service DBus
+                 * API specification.
+                 *
+                 * This function is called by other parts of this library to handle prompts
+                 * for the various actions that can require prompting.
+                 *
+                 * Override the #SecretServiceClass {@link Service.vfunc_prompt_sync} virtual method
+                 * to change the behavior of the prompting. The default behavior is to simply
+                 * run {@link Prompt.perform_sync} on the prompt with a %NULL `window_id`.
+                 * @throws {GLib.Error}
+                 * @param prompt the prompt
+                 * @param cancellable optional cancellation object
+                 * @param return_type the variant type of the prompt result
+                 * @returns %NULL if the prompt was dismissed or an error occurred,   a variant result if the prompt was successful
+                 */
+                prompt_sync(prompt: Prompt, cancellable: Gio.Cancellable | null, return_type: GLib.VariantType): GLib.Variant
+                /**
+                 * Search for items matching the `attributes`.
+                 *
+                 * All collections are searched. The `attributes` should be a table of string
+                 * keys and string values.
+                 *
+                 * If `service` is %NULL, then {@link Service.get} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * If %SECRET_SEARCH_ALL is set in `flags`, then all the items matching the
+                 * search will be returned. Otherwise only the first item will be returned.
+                 * This is almost always the unlocked item that was most recently stored.
+                 *
+                 * If %SECRET_SEARCH_UNLOCK is set in `flags`, then items will be unlocked
+                 * if necessary. In either case, locked and unlocked items will match the
+                 * search and be returned. If the unlock fails, the search does not fail.
+                 *
+                 * If %SECRET_SEARCH_LOAD_SECRETS is set in `flags`, then the items will have
+                 * their secret values loaded and available via {@link Item.get_secret}.
+                 *
+                 * This function returns immediately and completes asynchronously.
+                 * @param schema the schema for the attributes
+                 * @param attributes search for items matching these attributes
+                 * @param flags search option flags
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                search(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to search for items.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to callback
+                 * @returns    a list of items that matched the search
+                 */
+                search_finish(result: Gio.AsyncResult): Item[]
+                /**
+                 * Search for items matching the `attributes`.
+                 *
+                 * All collections are searched. The `attributes` should be a table of string
+                 * keys and string values.
+                 *
+                 * If `service` is %NULL, then {@link Service.get_sync} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * If %SECRET_SEARCH_ALL is set in `flags`, then all the items matching the
+                 * search will be returned. Otherwise only the first item will be returned.
+                 * This is almost always the unlocked item that was most recently stored.
+                 *
+                 * If %SECRET_SEARCH_UNLOCK is set in `flags`, then items will be unlocked
+                 * if necessary. In either case, locked and unlocked items will match the
+                 * search and be returned. If the unlock fails, the search does not fail.
+                 *
+                 * If %SECRET_SEARCH_LOAD_SECRETS is set in `flags`, then the items' secret
+                 * values will be loaded for any unlocked items. Loaded item secret values
+                 * are available via {@link Item.get_secret}. If the load of a secret values
+                 * fail, then the
+                 *
+                 * This function may block indefinitely. Use the asynchronous version
+                 * in user interface threads.
+                 * @throws {GLib.Error}
+                 * @param schema the schema for the attributes
+                 * @param attributes search for items matching these attributes
+                 * @param flags search option flags
+                 * @param cancellable optional cancellation object
+                 * @returns    a list of items that matched the search
+                 */
+                search_sync(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null): Item[]
+                /**
+                 * Assign a collection to this alias.
+                 *
+                 * Aliases help determine well known collections, such as 'default'.
+                 *
+                 * If `service` is %NULL, then {@link Service.get} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param alias the alias to assign the collection to
+                 * @param collection the collection to assign to the alias
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                set_alias(alias: string, collection: Collection | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finish an asynchronous operation to assign a collection to an alias.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to callback
+                 * @returns %TRUE if successful
+                 */
+                set_alias_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Assign a collection to this alias. Aliases help determine
+                 * well known collections, such as 'default'.
+                 *
+                 * If `service` is %NULL, then {@link Service.get_sync} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * This method may block and should not be used in user interface threads.
+                 * @throws {GLib.Error}
+                 * @param alias the alias to assign the collection to
+                 * @param collection the collection to assign to the alias
+                 * @param cancellable optional cancellation object
+                 * @returns %TRUE if successful
+                 */
+                set_alias_sync(alias: string, collection: Collection | null, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Store a secret value in the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * If the attributes match a secret item already stored in the collection, then
+                 * the item will be updated with these new values.
+                 *
+                 * If `service` is %NULL, then {@link Service.get} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * If `collection` is not specified, then the default collection will be
+                 * used. Use {@link COLLECTION_SESSION} to store the password in the session
+                 * collection, which doesn't get stored across login sessions.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param schema the schema to use to check attributes
+                 * @param attributes the attribute keys and values
+                 * @param collection a collection alias, or D-Bus object path of the   collection where to store the secret
+                 * @param label label for the secret
+                 * @param value the secret value
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                store(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finish asynchronous operation to store a secret value in the secret service.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns whether the storage was successful or not
+                 */
+                store_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Store a secret value in the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * If the attributes match a secret item already stored in the collection, then
+                 * the item will be updated with these new values.
+                 *
+                 * If `collection` is %NULL, then the default collection will be
+                 * used. Use {@link COLLECTION_SESSION} to store the password in the session
+                 * collection, which doesn't get stored across login sessions.
+                 *
+                 * If `service` is %NULL, then {@link Service.get_sync} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @param schema the schema for the attributes
+                 * @param attributes the attribute keys and values
+                 * @param collection a collection alias, or D-Bus object path of the   collection where to store the secret
+                 * @param label label for the secret
+                 * @param value the secret value
+                 * @param cancellable optional cancellation object
+                 * @returns whether the storage was successful or not
+                 */
+                store_sync(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Unlock items or collections in the secret service.
+                 *
+                 * The secret service may not be able to unlock items individually, and may
+                 * unlock an entire collection instead.
+                 *
+                 * If `service` is %NULL, then {@link Service.get} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * This method may block indefinitely and should not be used in user
+                 * interface threads. The secret service may prompt the user.
+                 * {@link Service.prompt} will be used to handle any prompts that show up.
+                 * @param objects the items or collections to unlock
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                unlock(objects: Gio.DBusProxy[], cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to unlock items or collections in the secret
+                 * service.
+                 *
+                 * The secret service may not be able to unlock items individually, and may
+                 * unlock an entire collection instead.
+                 * @throws {GLib.Error}
+                 * @param result asynchronous result passed to the callback
+                 * @returns the number of items or collections that were unlocked,    location to place list of items or collections that were unlocked
+                 */
+                unlock_finish(result: Gio.AsyncResult): [number, Gio.DBusProxy[] | null]
+                /**
+                 * Unlock items or collections in the secret service.
+                 *
+                 * The secret service may not be able to unlock items individually, and may
+                 * unlock an entire collection instead.
+                 *
+                 * If `service` is %NULL, then {@link Service.get_sync} will be called to get
+                 * the default {@link Service} proxy.
+                 *
+                 * This method may block indefinitely and should not be used in user
+                 * interface threads. The secret service may prompt the user.
+                 * {@link Service.prompt} will be used to handle any prompts that show up.
+                 * @throws {GLib.Error}
+                 * @param objects the items or collections to unlock
+                 * @param cancellable optional cancellation object
+                 * @returns the number of items or collections that were unlocked,    location to place list of items or collections that were unlocked
+                 */
+                unlock_sync(objects: Gio.DBusProxy[], cancellable: Gio.Cancellable | null): [number, Gio.DBusProxy[] | null]
+                /**
+                 * Get the GObject type for collections instantiated by this service.
+                 *
+                 * This will always be either {@link Collection} or derived from it.
+                 * @returns the gobject type for collections
+                 */
+                vfunc_get_collection_gtype(): GObject.GType
+                /**
+                 * Get the GObject type for items instantiated by this service.
+                 *
+                 * This will always be either {@link Item} or derived from it.
+                 * @returns the gobject type for items
+                 */
+                vfunc_get_item_gtype(): GObject.GType
+                /**
+                 * called to perform asynchronous prompting when necessary
+                 * @param prompt
+                 * @param return_type
+                 * @param cancellable
+                 * @param callback
+                 */
+                vfunc_prompt_async(prompt: Prompt, return_type: GLib.VariantType, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete asynchronous operation to perform prompting for a {@link Prompt}.
+                 *
+                 * Returns a variant result if the prompt was completed and not dismissed. The
+                 * type of result depends on the action the prompt is completing, and is defined
+                 * in the Secret Service DBus API specification.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns %NULL if the prompt was dismissed or an error occurred,   a variant result if the prompt was successful
+                 */
+                vfunc_prompt_finish(result: Gio.AsyncResult): GLib.Variant
+                /**
+                 * Perform prompting for a {@link Prompt}.
+                 *
+                 * Runs a prompt and performs the prompting. Returns a variant result if the
+                 * prompt was completed and not dismissed. The type of result depends on the
+                 * action the prompt is completing, and is defined in the Secret Service DBus
+                 * API specification.
+                 *
+                 * This function is called by other parts of this library to handle prompts
+                 * for the various actions that can require prompting.
+                 *
+                 * Override the #SecretServiceClass {@link Service.vfunc_prompt_sync} virtual method
+                 * to change the behavior of the prompting. The default behavior is to simply
+                 * run {@link Prompt.perform_sync} on the prompt with a %NULL `window_id`.
+                 * @throws {GLib.Error}
+                 * @param prompt the prompt
+                 * @param cancellable optional cancellation object
+                 * @param return_type the variant type of the prompt result
+                 * @returns %NULL if the prompt was dismissed or an error occurred,   a variant result if the prompt was successful
+                 */
+                vfunc_prompt_sync(prompt: Prompt, cancellable: Gio.Cancellable | null, return_type: GLib.VariantType): GLib.Variant
+            }
+
+            interface ServiceClass extends Omit<Gio.DBusProxyClass, "new"> {
+                readonly $gtype: GObject.GType<Service>
+                readonly prototype: Service
+
+                new (props?: Partial<GObject.ConstructorProps<Service>>): Service
+                /**
+                 * Disconnect the default #SecretService proxy returned by {@link Service.get}
+                 * and {@link Service.get_sync}.
+                 *
+                 * It is not necessary to call this function, but you may choose to do so at
+                 * program exit. It is useful for testing that memory is not leaked.
+                 *
+                 * This function is safe to call at any time. But if other objects in this
+                 * library are still referenced, then this will not result in all memory
+                 * being freed.
+                 */
+                disconnect(): void
+                /**
+                 * Get a #SecretService proxy for the Secret Service.
+                 *
+                 * If such a proxy object already exists, then the same proxy is returned.
+                 *
+                 * If `flags` contains any flags of which parts of the secret service to
+                 * ensure are initialized, then those will be initialized before completing.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param flags flags for which service functionality to ensure is initialized
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                get(flags: ServiceFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete an asynchronous operation to get a #SecretService proxy for the
+                 * Secret Service.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns a new reference to a #SecretService proxy, which   should be released with {@link GObject.Object.unref}.
+                 */
+                get_finish(result: Gio.AsyncResult): Service
+                /**
+                 * Get a #SecretService proxy for the Secret Service.
+                 *
+                 * If such a proxy object already exists, then the same proxy is returned.
+                 *
+                 * If `flags` contains any flags of which parts of the secret service to
+                 * ensure are initialized, then those will be initialized before returning.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @param flags flags for which service functionality to ensure is initialized
+                 * @param cancellable optional cancellation object
+                 * @returns a new reference to a #SecretService proxy, which   should be released with {@link GObject.Object.unref}.
+                 */
+                get_sync(flags: ServiceFlags, cancellable: Gio.Cancellable | null): Service
+                /**
+                 * Create a new #SecretService proxy for the Secret Service.
+                 *
+                 * This function is rarely used, see {@link Service.get} instead.
+                 *
+                 * The `service_gtype` argument should be set to %SECRET_TYPE_SERVICE or a the type
+                 * of a derived class.
+                 *
+                 * If `flags` contains any flags of which parts of the secret service to
+                 * ensure are initialized, then those will be initialized before returning.
+                 *
+                 * If `service_bus_name` is %NULL then the default is used.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param service_gtype the GType of the new secret service
+                 * @param service_bus_name the D-Bus service name of the secret service
+                 * @param flags flags for which service functionality to ensure is initialized
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                open(service_gtype: (GObject.GType | { $gtype: GObject.GType }), service_bus_name: string | null, flags: ServiceFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete an asynchronous operation to create a new #SecretService proxy for
+                 * the Secret Service.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns a new reference to a #SecretService proxy, which   should be released with {@link GObject.Object.unref}.
+                 */
+                open_finish(result: Gio.AsyncResult): Service
+                /**
+                 * Create a new #SecretService proxy for the Secret Service.
+                 *
+                 * This function is rarely used, see {@link Service.get_sync} instead.
+                 *
+                 * The `service_gtype` argument should be set to %SECRET_TYPE_SERVICE or a the
+                 * type of a derived class.
+                 *
+                 * If `flags` contains any flags of which parts of the secret service to
+                 * ensure are initialized, then those will be initialized before returning.
+                 *
+                 * If `service_bus_name` is %NULL then the default is used.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @param service_gtype the GType of the new secret service
+                 * @param service_bus_name the D-Bus service name of the secret service
+                 * @param flags flags for which service functionality to ensure is initialized
+                 * @param cancellable optional cancellation object
+                 * @returns a new reference to a #SecretService proxy, which   should be released with {@link GObject.Object.unref}.
+                 */
+                open_sync(service_gtype: (GObject.GType | { $gtype: GObject.GType }), service_bus_name: string | null, flags: ServiceFlags, cancellable: Gio.Cancellable | null): Service
+            }
+
+            interface $Exports {
+                /**
+                 * A proxy object representing the Secret Service.
+                 *
+                 * A #SecretService object either represents an implementation of the
+                 * [`org.freedesktop.Secret`](https://specifications.freedesktop.org/secret-service/latest/)
+                 * D-Bus service or a file that is encrypted using a master secret that was
+                 * provided by the
+                 * [secret portal](https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Secret.html).
+                 *
+                 * Normally a single #SecretService object can be shared between multiple
+                 * callers. The {@link Service.get} method is used to access this #SecretService
+                 * object. If a new independent #SecretService object is required, use
+                 * {@link Service.open}.
+                 *
+                 * In order to securely transfer secrets to the Sercret Service, a session
+                 * is established. This session can be established while initializing a
+                 * #SecretService object by passing the %SECRET_SERVICE_OPEN_SESSION flag
+                 * to the {@link Service.get} or {@link Service.open} functions. In order to
+                 * establish a session on an already existing #SecretService, use the
+                 * {@link Service.ensure_session} function.
+                 *
+                 * To search for items, use the {@link Service.search} method.
+                 *
+                 * Multiple collections can exist in the Secret Service, each of which contains
+                 * secret items. In order to instantiate {@link Collection} objects which
+                 * represent those collections while initializing a #SecretService then pass
+                 * the %SECRET_SERVICE_LOAD_COLLECTIONS flag to the {@link Service.get} or
+                 * {@link Service.open} functions. In order to establish a session on an already
+                 * existing #SecretService, use the {@link Service.load_collections} function.
+                 * To access the list of collections use {@link Service.get_collections}.
+                 *
+                 * Certain actions on the Secret Service require user prompting to complete,
+                 * such as creating a collection, or unlocking a collection. When such a prompt
+                 * is necessary, then a {@link Prompt} object is created by this library, and
+                 * passed to the {@link Service.prompt} method. In this way it is handled
+                 * automatically.
+                 *
+                 * In order to customize prompt handling, override the
+                 * {@link Service.vfunc_prompt_async} and {@link Service.vfunc_prompt_finish} virtual
+                 * methods of the #SecretService class.
+                 */
+                Service: ServiceClass
+            }
+            
+
+            namespace Backend {
+                interface SignalSignatures extends Gio.AsyncInitable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gio.AsyncInitable.ReadableProperties {
+                    "flags": ServiceFlags
+                }
+
+                interface WritableProperties extends Gio.AsyncInitable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gio.AsyncInitable.ConstructOnlyProperties {
+                    "flags": ServiceFlags
+                }
+
+                interface Interface extends Gio.AsyncInitable {
+                    /**
+                     * implementation of {@link password_clear}, required
+                     * @param schema
+                     * @param attributes
+                     * @param cancellable
+                     * @param callback
+                     */
+                    vfunc_clear(schema: Schema, attributes: Record<never, never>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                    /**
+                     * implementation of {@link password_clear_finish}, required
+                     * @throws {GLib.Error}
+                     * @param result
+                     */
+                    vfunc_clear_finish(result: Gio.AsyncResult): boolean
+                    /**
+                     * implementation of reinitialization step in constructor, optional
+                     * @param flags
+                     * @param cancellable
+                     * @param callback
+                     */
+                    vfunc_ensure_for_flags(flags: BackendFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                    /**
+                     * implementation of reinitialization step in constructor, optional
+                     * @throws {GLib.Error}
+                     * @param result
+                     */
+                    vfunc_ensure_for_flags_finish(result: Gio.AsyncResult): boolean
+                    /**
+                     * implementation of {@link password_lookup}, required
+                     * @param schema
+                     * @param attributes
+                     * @param cancellable
+                     * @param callback
+                     */
+                    vfunc_lookup(schema: Schema, attributes: Record<never, never>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                    /**
+                     * implementation of {@link password_lookup_finish}, required
+                     * @throws {GLib.Error}
+                     * @param result
+                     */
+                    vfunc_lookup_finish(result: Gio.AsyncResult): Value
+                    /**
+                     * implementation of {@link password_search}, required
+                     * @param schema
+                     * @param attributes
+                     * @param flags
+                     * @param cancellable
+                     * @param callback
+                     */
+                    vfunc_search(schema: Schema, attributes: Record<never, never>, flags: SearchFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                    /**
+                     * implementation of {@link password_store}, required
+                     * @param schema
+                     * @param attributes
+                     * @param collection
+                     * @param label
+                     * @param value
+                     * @param cancellable
+                     * @param callback
+                     */
+                    vfunc_store(schema: Schema, attributes: Record<never, never>, collection: string, label: string, value: Value, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                    /**
+                     * implementation of {@link password_store_finish}, required
+                     * @throws {GLib.Error}
+                     * @param result
+                     */
+                    vfunc_store_finish(result: Gio.AsyncResult): boolean
+                }
+            }
+
+            interface Backend extends Gio.AsyncInitable, Backend.Interface {
+                readonly $signals: Backend.SignalSignatures
+                readonly $readableProperties: Backend.ReadableProperties
+                readonly $writableProperties: Backend.WritableProperties
+                readonly $constructOnlyProperties: Backend.ConstructOnlyProperties
+                /**
+                 * A set of flags describing which parts of the secret backend have
+                 * been initialized.
+                 * @since 0.19.0
+                 * @default SECRET_SERVICE_NONE
+                 */
+                get flags(): ServiceFlags
+                set flags(value: ServiceFlags)
+            }
+
+            interface BackendInterface {
+                readonly $gtype: GObject.GType<Backend>
+                readonly prototype: Backend
+                [Symbol.hasInstance](instance: unknown): instance is Backend
+                /**
+                 * Get a #SecretBackend instance.
+                 *
+                 * If such a backend already exists, then the same backend is returned.
+                 *
+                 * If `flags` contains any flags of which parts of the secret backend to
+                 * ensure are initialized, then those will be initialized before completing.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @since 0.19.0
+                 * @param flags flags for which service functionality to ensure is initialized
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                get(flags: BackendFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete an asynchronous operation to get a #SecretBackend.
+                 * @throws {GLib.Error}
+                 * @since 0.19.0
+                 * @param result the asynchronous result passed to the callback
+                 * @returns a new reference to a #SecretBackend proxy, which   should be released with {@link GObject.Object.unref}.
+                 */
+                get_finish(result: Gio.AsyncResult): Backend
+            }
+
+            interface $Exports {
+                /**
+                 * #SecretBackend represents a backend implementation of password
+                 * storage.
+                 * @since 0.19.0
+                 */
+                Backend: BackendInterface
+            }
+            
+
+            namespace Retrievable {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "attributes": Record<string, string>
+                    "created": number
+                    "label": string
+                    "modified": number
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "attributes": Record<string, string>
+                    "created": number
+                    "label": string
+                    "modified": number
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+
+                interface Interface extends GObject.Object {
+                    /**
+                     * Retrieve the secret value of this object.
+                     *
+                     * Each retrievable object has a single secret which might be a
+                     * password or some other secret binary value.
+                     *
+                     * This function returns immediately and completes asynchronously.
+                     * @since 0.19.0
+                     * @param cancellable optional cancellation object
+                     * @param callback called when the operation completes
+                     */
+                    vfunc_retrieve_secret(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                    /**
+                     * Complete asynchronous operation to retrieve the secret value of this object.
+                     * @throws {GLib.Error}
+                     * @since 0.19.0
+                     * @param result asynchronous result passed to callback
+                     * @returns the secret value which should be   released with {@link Value.unref}, or %NULL
+                     */
+                    vfunc_retrieve_secret_finish(result: Gio.AsyncResult): Value | null
+                }
+            }
+
+            interface Retrievable extends GObject.Object, Retrievable.Interface {
+                readonly $signals: Retrievable.SignalSignatures
+                readonly $readableProperties: Retrievable.ReadableProperties
+                readonly $writableProperties: Retrievable.WritableProperties
+                readonly $constructOnlyProperties: Retrievable.ConstructOnlyProperties
+                /**
+                 * The attributes set on this item.
+                 *
+                 * Attributes are used to locate an item. They are not guaranteed to be
+                 * stored or transferred securely.
+                 * @since 0.19.0
+                 */
+                get attributes(): Record<string, string>
+                set attributes(value: Record<string, string>)
+                /**
+                 * The date and time (in seconds since the UNIX epoch) that this
+                 * item was created.
+                 * @since 0.19.0
+                 * @default 0
+                 */
+                get created(): number
+                set created(value: number)
+                /**
+                 * The human readable label for the item.
+                 * @since 0.19.0
+                 * @default NULL
+                 */
+                get label(): string
+                set label(value: string)
+                /**
+                 * The date and time (in seconds since the UNIX epoch) that this
+                 * item was last modified.
+                 * @since 0.19.0
+                 * @default 0
+                 */
+                get modified(): number
+                set modified(value: number)
+                /**
+                 * Get the attributes of this object.
+                 *
+                 * The attributes are a mapping of string keys to string values.
+                 * Attributes are used to search for items. Attributes are not stored
+                 * or transferred securely by the secret service.
+                 *
+                 * Do not modify the attribute returned by this method.
+                 * @since 0.19.0
+                 * @returns a new reference   to the attributes, which should not be modified, and   released with {@link GLib.HashTable.unref}
+                 */
+                get_attributes(): Record<string, string>
+                /**
+                 * Get the created date and time of the object.
+                 *
+                 * The return value is the number of seconds since the unix epoch, January 1st
+                 * 1970.
+                 * @since 0.19.0
+                 * @returns the created date and time
+                 */
+                get_created(): number
+                /**
+                 * Get the label of this item.
+                 * @since 0.19.0
+                 * @returns the label, which should be freed with {@link GLib.free}
+                 */
+                get_label(): string
+                /**
+                 * Get the modified date and time of the object.
+                 *
+                 * The return value is the number of seconds since the unix epoch, January 1st
+                 * 1970.
+                 * @since 0.19.0
+                 * @returns the modified date and time
+                 */
+                get_modified(): number
                 /**
                  * Retrieve the secret value of this object.
                  *
@@ -1930,992 +2028,913 @@ declare module "gi://Secret?version=1" {
                  * @param cancellable optional cancellation object
                  * @param callback called when the operation completes
                  */
-                vfunc_retrieve_secret(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                retrieve_secret(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
                 /**
                  * Complete asynchronous operation to retrieve the secret value of this object.
                  * @throws {GLib.Error}
                  * @since 0.19.0
                  * @param result asynchronous result passed to callback
-                 * @returns the secret value which should be   released with [method@Value.unref], or %NULL
+                 * @returns the secret value which should be   released with {@link Value.unref}, or %NULL
                  */
-                vfunc_retrieve_secret_finish(result: Gio.AsyncResult): Value | null
+                retrieve_secret_finish(result: Gio.AsyncResult): Value | null
+                /**
+                 * Retrieve the secret value of this object synchronously.
+                 *
+                 * Each retrievable object has a single secret which might be a
+                 * password or some other secret binary value.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @since 0.19.0
+                 * @param cancellable optional cancellation object
+                 * @returns the secret value which should be   released with {@link Value.unref}, or %NULL
+                 */
+                retrieve_secret_sync(cancellable: Gio.Cancellable | null): Value | null
             }
-        }
 
-        interface Retrievable extends GObject.Object, Retrievable.Interface {
-            readonly $signals: Retrievable.SignalSignatures
-            readonly $readableProperties: Retrievable.ReadableProperties
-            readonly $writableProperties: Retrievable.WritableProperties
-            readonly $constructOnlyProperties: Retrievable.ConstructOnlyProperties
-            /**
-             * The attributes set on this item.
-             *
-             * Attributes are used to locate an item. They are not guaranteed to be
-             * stored or transferred securely.
-             * @since 0.19.0
-             */
-            get attributes(): Record<string, string>
-            set attributes(value: Record<string, string>)
-            /**
-             * The date and time (in seconds since the UNIX epoch) that this
-             * item was created.
-             * @since 0.19.0
-             * @default 0
-             */
-            get created(): number
-            set created(value: number)
-            /**
-             * The human readable label for the item.
-             * @since 0.19.0
-             * @default NULL
-             */
-            get label(): string
-            set label(value: string)
-            /**
-             * The date and time (in seconds since the UNIX epoch) that this
-             * item was last modified.
-             * @since 0.19.0
-             * @default 0
-             */
-            get modified(): number
-            set modified(value: number)
-            /**
-             * Get the attributes of this object.
-             *
-             * The attributes are a mapping of string keys to string values.
-             * Attributes are used to search for items. Attributes are not stored
-             * or transferred securely by the secret service.
-             *
-             * Do not modify the attribute returned by this method.
-             * @since 0.19.0
-             * @returns a new reference   to the attributes, which should not be modified, and   released with [func@GLib.HashTable.unref]
-             */
-            get_attributes(): Record<string, string>
-            /**
-             * Get the created date and time of the object.
-             *
-             * The return value is the number of seconds since the unix epoch, January 1st
-             * 1970.
-             * @since 0.19.0
-             * @returns the created date and time
-             */
-            get_created(): number
-            /**
-             * Get the label of this item.
-             * @since 0.19.0
-             * @returns the label, which should be freed with [func@GLib.free]
-             */
-            get_label(): string
-            /**
-             * Get the modified date and time of the object.
-             *
-             * The return value is the number of seconds since the unix epoch, January 1st
-             * 1970.
-             * @since 0.19.0
-             * @returns the modified date and time
-             */
-            get_modified(): number
-            /**
-             * Retrieve the secret value of this object.
-             *
-             * Each retrievable object has a single secret which might be a
-             * password or some other secret binary value.
-             *
-             * This function returns immediately and completes asynchronously.
-             * @since 0.19.0
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            retrieve_secret(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete asynchronous operation to retrieve the secret value of this object.
-             * @throws {GLib.Error}
-             * @since 0.19.0
-             * @param result asynchronous result passed to callback
-             * @returns the secret value which should be   released with [method@Value.unref], or %NULL
-             */
-            retrieve_secret_finish(result: Gio.AsyncResult): Value | null
-            /**
-             * Retrieve the secret value of this object synchronously.
-             *
-             * Each retrievable object has a single secret which might be a
-             * password or some other secret binary value.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @since 0.19.0
-             * @param cancellable optional cancellation object
-             * @returns the secret value which should be   released with [method@Value.unref], or %NULL
-             */
-            retrieve_secret_sync(cancellable: Gio.Cancellable | null): Value | null
-        }
+            interface RetrievableInterface {
+                readonly $gtype: GObject.GType<Retrievable>
+                readonly prototype: Retrievable
+                [Symbol.hasInstance](instance: unknown): instance is Retrievable
+            }
 
-        interface RetrievableInterface {
-            readonly $gtype: GObject.GType<Retrievable>
-            readonly prototype: Retrievable
-            [Symbol.hasInstance](instance: unknown): instance is Retrievable
-        }
+            interface $Exports {
+                /**
+                 * A read-only view of a secret item in the Secret Service.
+                 *
+                 * #SecretRetrievable provides a read-only view of a secret item
+                 * stored in the Secret Service.
+                 *
+                 * Each item has a value, represented by a {@link Value}, which can be
+                 * retrieved by {@link Retrievable.retrieve_secret} and
+                 * {@link Retrievable.retrieve_secret_finish}.
+                 * @since 0.19.0
+                 */
+                Retrievable: RetrievableInterface
+            }
+            
 
-        interface $Exports {
-            /**
-             * A read-only view of a secret item in the Secret Service.
-             *
-             * #SecretRetrievable provides a read-only view of a secret item
-             * stored in the Secret Service.
-             *
-             * Each item has a value, represented by a [struct@Value], which can be
-             * retrieved by [method@Retrievable.retrieve_secret] and
-             * [method@Retrievable.retrieve_secret_finish].
-             * @since 0.19.0
-             */
-            Retrievable: RetrievableInterface
-        }
-        
+            interface CollectionPrivateStruct {
+                readonly $gtype: GObject.GType<CollectionPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is CollectionPrivate
+            }
 
-        interface CollectionPrivateStruct {
-            readonly $gtype: GObject.GType<CollectionPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is CollectionPrivate
-        }
+            interface CollectionPrivate {
+            }
 
-        interface CollectionPrivate {
-        }
+            interface $Exports {
+                CollectionPrivate: CollectionPrivateStruct
+            }
+            
 
-        interface $Exports {
-            CollectionPrivate: CollectionPrivateStruct
-        }
-        
+            interface ItemPrivateStruct {
+                readonly $gtype: GObject.GType<ItemPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is ItemPrivate
+            }
 
-        interface ItemPrivateStruct {
-            readonly $gtype: GObject.GType<ItemPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is ItemPrivate
-        }
+            interface ItemPrivate {
+            }
 
-        interface ItemPrivate {
-        }
+            interface $Exports {
+                ItemPrivate: ItemPrivateStruct
+            }
+            
 
-        interface $Exports {
-            ItemPrivate: ItemPrivateStruct
-        }
-        
+            interface PromptPrivateStruct {
+                readonly $gtype: GObject.GType<PromptPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is PromptPrivate
+            }
 
-        interface PromptPrivateStruct {
-            readonly $gtype: GObject.GType<PromptPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is PromptPrivate
-        }
+            interface PromptPrivate {
+            }
 
-        interface PromptPrivate {
-        }
+            interface $Exports {
+                PromptPrivate: PromptPrivateStruct
+            }
+            
 
-        interface $Exports {
-            PromptPrivate: PromptPrivateStruct
-        }
-        
+            interface SchemaStruct {
+                readonly $gtype: GObject.GType<Schema>
+                new (fields?: {
+                    name?: string
+                    flags?: SchemaFlags
+                    attributes?: SchemaAttribute[]
+                }): Schema
+                /**
+                 * Using this function is not normally necessary from C code. This is useful
+                 * for constructing #SecretSchema structures in bindings.
+                 *
+                 * A schema represents a set of attributes that are stored with an item. These
+                 * schemas are used for interoperability between various services storing the
+                 * same types of items.
+                 *
+                 * Each schema has an `name` like `org.gnome.keyring.NetworkPassword`, and
+                 * defines a set of attributes names, and types (string, integer, boolean) for
+                 * those attributes.
+                 *
+                 * Each key in the `attributes` table should be a attribute name strings, and
+                 * the values in the table should be integers from the {@link SchemaAttributeType}
+                 * enumeration, representing the attribute type for each attribute name.
+                 *
+                 * Normally when looking up passwords only those with matching schema names are
+                 * returned. If the schema `flags` contain the %SECRET_SCHEMA_DONT_MATCH_NAME flag,
+                 * then lookups will not check that the schema name matches that on the item, only
+                 * the schema's attributes are matched. This is useful when you are looking up items
+                 * that are not stored by the libsecret library. Other libraries such as libgnome-keyring
+                 * don't store the schema name.
+                 * @param name the dotted name of the schema
+                 * @param flags the flags for the schema
+                 * @param attribute_names_and_types the attribute names and types of those attributes
+                 * @returns the new schema, which should be unreferenced with   {@link Schema.unref} when done
+                 */
+                "new"(name: string, flags: SchemaFlags, attribute_names_and_types: Record<string, SchemaAttributeType>): Schema
+            }
 
-        interface SchemaStruct {
-            readonly $gtype: GObject.GType<Schema>
-            [Symbol.hasInstance](instance: unknown): instance is Schema
-            /**
-             * Using this function is not normally necessary from C code. This is useful
-             * for constructing #SecretSchema structures in bindings.
-             *
-             * A schema represents a set of attributes that are stored with an item. These
-             * schemas are used for interoperability between various services storing the
-             * same types of items.
-             *
-             * Each schema has an @name like `org.gnome.keyring.NetworkPassword`, and
-             * defines a set of attributes names, and types (string, integer, boolean) for
-             * those attributes.
-             *
-             * Each key in the @attributes table should be a attribute name strings, and
-             * the values in the table should be integers from the [enum@SchemaAttributeType]
-             * enumeration, representing the attribute type for each attribute name.
-             *
-             * Normally when looking up passwords only those with matching schema names are
-             * returned. If the schema @flags contain the %SECRET_SCHEMA_DONT_MATCH_NAME flag,
-             * then lookups will not check that the schema name matches that on the item, only
-             * the schema's attributes are matched. This is useful when you are looking up items
-             * that are not stored by the libsecret library. Other libraries such as libgnome-keyring
-             * don't store the schema name.
-             * @param name the dotted name of the schema
-             * @param flags the flags for the schema
-             * @param attribute_names_and_types the attribute names and types of those attributes
-             * @returns the new schema, which should be unreferenced with   [method@Schema.unref] when done
-             */
-            "new"(name: string, flags: SchemaFlags, attribute_names_and_types: Record<string, SchemaAttributeType>): Schema
-        }
+            interface Schema {
+                /**
+                 * the dotted name of the schema
+                 */
+                name: string
+                /**
+                 * flags for the schema
+                 */
+                flags: SchemaFlags
+                /**
+                 * the attribute names and types of those attributes
+                 */
+                attributes: SchemaAttribute[]
+                /**
+                 * Adds a reference to the #SecretSchema.
+                 *
+                 * It is not normally necessary to call this function from C code, and is
+                 * mainly present for the sake of bindings. If the `schema` was statically
+                 * allocated, then this function will copy the schema.
+                 * @returns the referenced schema, which should be later   unreferenced with {@link Schema.unref}
+                 */
+                ref(): Schema
+                /**
+                 * Releases a reference to the #SecretSchema.
+                 *
+                 * If the last reference is released then the schema will be freed.
+                 *
+                 * It is not normally necessary to call this function from C code, and is
+                 * mainly present for the sake of bindings. It is an error to call this for
+                 * a `schema` that was statically allocated.
+                 */
+                unref(): void
+            }
 
-        interface Schema {
-            /**
-             * the dotted name of the schema
-             */
-            name: string
-            /**
-             * flags for the schema
-             */
-            flags: SchemaFlags
-            /**
-             * the attribute names and types of those attributes
-             */
-            attributes: SchemaAttribute[]
-            /**
-             * Adds a reference to the #SecretSchema.
-             *
-             * It is not normally necessary to call this function from C code, and is
-             * mainly present for the sake of bindings. If the @schema was statically
-             * allocated, then this function will copy the schema.
-             * @returns the referenced schema, which should be later   unreferenced with [method@Schema.unref]
-             */
-            ref(): Schema
-            /**
-             * Releases a reference to the #SecretSchema.
-             *
-             * If the last reference is released then the schema will be freed.
-             *
-             * It is not normally necessary to call this function from C code, and is
-             * mainly present for the sake of bindings. It is an error to call this for
-             * a @schema that was statically allocated.
-             */
-            unref(): void
-        }
+            interface $Exports {
+                Schema: SchemaStruct
+            }
+            
 
-        interface $Exports {
-            Schema: SchemaStruct
-        }
-        
+            interface SchemaAttributeStruct {
+                readonly $gtype: GObject.GType<SchemaAttribute>
+                new (fields?: {
+                    name?: string
+                    type?: SchemaAttributeType
+                }): SchemaAttribute
+            }
 
-        interface SchemaAttributeStruct {
-            readonly $gtype: GObject.GType<SchemaAttribute>
-            [Symbol.hasInstance](instance: unknown): instance is SchemaAttribute
-        }
+            interface SchemaAttribute {
+                /**
+                 * name of the attribute
+                 */
+                name: string
+                /**
+                 * the type of the attribute
+                 */
+                type: SchemaAttributeType
+            }
 
-        interface SchemaAttribute {
-            /**
-             * name of the attribute
-             */
-            name: string
-            /**
-             * the type of the attribute
-             */
-            type: SchemaAttributeType
-        }
+            interface $Exports {
+                SchemaAttribute: SchemaAttributeStruct
+            }
+            
 
-        interface $Exports {
-            SchemaAttribute: SchemaAttributeStruct
-        }
-        
+            interface ServicePrivateStruct {
+                readonly $gtype: GObject.GType<ServicePrivate>
+                [Symbol.hasInstance](instance: unknown): instance is ServicePrivate
+            }
 
-        interface ServicePrivateStruct {
-            readonly $gtype: GObject.GType<ServicePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is ServicePrivate
-        }
+            interface ServicePrivate {
+            }
 
-        interface ServicePrivate {
-        }
+            interface $Exports {
+                ServicePrivate: ServicePrivateStruct
+            }
+            
 
-        interface $Exports {
-            ServicePrivate: ServicePrivateStruct
-        }
-        
+            interface ValueStruct {
+                readonly $gtype: GObject.GType<Value>
+                /**
+                 * Create a #SecretValue for the secret data passed in.
+                 *
+                 * The secret data is copied into non-pageable 'secure' memory.
+                 *
+                 * If the length is less than zero, then `secret` is assumed to be
+                 * null-terminated.
+                 * @param secret the secret data
+                 * @param length the length of the data
+                 * @param content_type the content type of the data
+                 * @returns the new #SecretValue
+                 */
+                new (secret: string, length: number, content_type: string): Value
+                /**
+                 * Create a #SecretValue for the secret data passed in.
+                 *
+                 * The secret data is copied into non-pageable 'secure' memory.
+                 *
+                 * If the length is less than zero, then `secret` is assumed to be
+                 * null-terminated.
+                 * @param secret the secret data
+                 * @param length the length of the data
+                 * @param content_type the content type of the data
+                 * @returns the new #SecretValue
+                 */
+                "new"(secret: string, length: number, content_type: string): Value
+                /**
+                 * Create a #SecretValue for the secret data passed in.
+                 *
+                 * The secret data is not copied, and will later be freed with the `destroy`
+                 * function.
+                 *
+                 * If the length is less than zero, then `secret` is assumed to be
+                 * null-terminated.
+                 * @param secret the secret data
+                 * @param length the length of the data
+                 * @param content_type the content type of the data
+                 * @param destroy function to call to free the secret data
+                 * @returns the new #SecretValue
+                 */
+                new_full(secret: string, length: number, content_type: string, destroy: GLib.DestroyNotify): Value
+            }
 
-        interface ValueStruct {
-            readonly $gtype: GObject.GType<Value>
-            [Symbol.hasInstance](instance: unknown): instance is Value
-            /**
-             * Create a #SecretValue for the secret data passed in.
-             *
-             * The secret data is copied into non-pageable 'secure' memory.
-             *
-             * If the length is less than zero, then @secret is assumed to be
-             * null-terminated.
-             * @param secret the secret data
-             * @param length the length of the data
-             * @param content_type the content type of the data
-             * @returns the new #SecretValue
-             */
-            "new"(secret: string, length: number, content_type: string): Value
-            /**
-             * Create a #SecretValue for the secret data passed in.
-             *
-             * The secret data is not copied, and will later be freed with the @destroy
-             * function.
-             *
-             * If the length is less than zero, then @secret is assumed to be
-             * null-terminated.
-             * @param secret the secret data
-             * @param length the length of the data
-             * @param content_type the content type of the data
-             * @param destroy function to call to free the secret data
-             * @returns the new #SecretValue
-             */
-            new_full(secret: string, length: number, content_type: string, destroy: GLib.DestroyNotify): Value
-        }
+            interface Value {
+                /**
+                 * Get the secret data in the #SecretValue.
+                 *
+                 * The value is not necessarily null-terminated unless it was created with
+                 * {@link Value.new} or a null-terminated string was passed to
+                 * {@link Value.new_full}.
+                 * @returns the secret data
+                 */
+                get(): Uint8Array
+                /**
+                 * Get the content type of the secret value, such as
+                 * `text/plain`.
+                 * @returns the content type
+                 */
+                get_content_type(): string
+                /**
+                 * Get the secret data in the #SecretValue if it contains a textual
+                 * value.
+                 *
+                 * The content type must be `text/plain`.
+                 * @returns the value
+                 */
+                get_text(): string | null
+                /**
+                 * Add another reference to the #SecretValue.
+                 *
+                 * For each reference {@link Value.unref} should be called to unreference the
+                 * value.
+                 * @returns the value
+                 */
+                ref(): Value
+                /**
+                 * Unreference a #SecretValue.
+                 *
+                 * When the last reference is gone, then the value will be freed.
+                 */
+                unref(): void
+                /**
+                 * Unreference a #SecretValue and steal the secret data in
+                 * #SecretValue as nonpageable memory.
+                 * @since 0.19.0
+                 * @returns a new password string stored in nonpageable memory   which must be freed with {@link password_free} when done, the length of the secret
+                 */
+                unref_to_password(length: number): [string, number]
+            }
 
-        interface Value {
-            /**
-             * Get the secret data in the #SecretValue.
-             *
-             * The value is not necessarily null-terminated unless it was created with
-             * [ctor@Value.new] or a null-terminated string was passed to
-             * [ctor@Value.new_full].
-             * @returns the secret data
-             */
-            get(): Uint8Array
-            /**
-             * Get the content type of the secret value, such as
-             * `text/plain`.
-             * @returns the content type
-             */
-            get_content_type(): string
-            /**
-             * Get the secret data in the #SecretValue if it contains a textual
-             * value.
-             *
-             * The content type must be `text/plain`.
-             * @returns the value
-             */
-            get_text(): string | null
-            /**
-             * Add another reference to the #SecretValue.
-             *
-             * For each reference [method@Value.unref] should be called to unreference the
-             * value.
-             * @returns the value
-             */
-            ref(): Value
-            /**
-             * Unreference a #SecretValue.
-             *
-             * When the last reference is gone, then the value will be freed.
-             */
-            unref(): void
-            /**
-             * Unreference a #SecretValue and steal the secret data in
-             * #SecretValue as nonpageable memory.
-             * @since 0.19.0
-             * @returns a new password string stored in nonpageable memory   which must be freed with [func@password_free] when done, the length of the secret
-             */
-            unref_to_password(): [string, number]
-        }
-
-        interface $Exports {
-            Value: ValueStruct
-        }
-        
-        interface BackendFlagsEnum {
-            readonly $gtype: GObject.GType<BackendFlags>
-            /**
-             * no flags for initializing the #SecretBackend
-             */
-            readonly "NONE": 0
-            /**
-             * establish a session for transfer of secrets
-             *   while initializing the #SecretBackend
-             */
-            readonly "OPEN_SESSION": 2
-            /**
-             * load collections while initializing the
-             *   #SecretBackend
-             */
-            readonly "LOAD_COLLECTIONS": 4
-        }
-        type BackendFlags = BackendFlagsEnum[Exclude<keyof BackendFlagsEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Flags which determine which parts of the #SecretBackend are initialized.
-             * @since 0.19.0
-             */
-            BackendFlags: BackendFlagsEnum
-        }
-        
-        interface ErrorEnum {
-            readonly $gtype: GObject.GType<Error>
-            /**
-             * received an invalid data or message from the Secret
-             *   Service
-             */
-            readonly "PROTOCOL": 1
-            /**
-             * the item or collection is locked and the operation
-             *   cannot be performed
-             */
-            readonly "IS_LOCKED": 2
-            /**
-             * no such item or collection found in the Secret
-             *   Service
-             */
-            readonly "NO_SUCH_OBJECT": 3
-            /**
-             * a relevant item or collection already exists
-             */
-            readonly "ALREADY_EXISTS": 4
-            /**
-             * the file format is not valid
-             */
-            readonly "INVALID_FILE_FORMAT": 5
-            /**
-             * the xdg:schema attribute of the table does not match the schema name
-             * @since 0.21.2
-             */
-            readonly "MISMATCHED_SCHEMA": 6
-            /**
-             * attribute contained in table not found in corresponding schema
-             * @since 0.21.2
-             */
-            readonly "NO_MATCHING_ATTRIBUTE": 7
-            /**
-             * attribute could not be parsed according to its type reported in the table's
-             * schema
-             * @since 0.21.2
-             */
-            readonly "WRONG_TYPE": 8
-            /**
-             * attribute list passed to secret_attributes_validate has no elements to
-             * validate
-             * @since 0.21.2
-             */
-            readonly "EMPTY_TABLE": 9
-        }
-        type Error = ErrorEnum[Exclude<keyof ErrorEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Errors returned by the Secret Service.
-             *
-             * None of the errors are appropriate for display to the user. It is up to the
-             * application to handle them appropriately.
-             */
-            Error: ErrorEnum
-            /**
-         * Get the error quark.
-         * @returns the quark
-         */
-        get_quark: () => GLib.Quark
-        }
-        
-        interface SchemaAttributeTypeEnum {
-            readonly $gtype: GObject.GType<SchemaAttributeType>
-            /**
-             * a utf-8 string attribute
-             */
-            readonly "STRING": 0
-            /**
-             * an integer attribute, stored as a decimal
-             */
-            readonly "INTEGER": 1
-            /**
-             * a boolean attribute, stored as 'true' or 'false'
-             */
-            readonly "BOOLEAN": 2
-        }
-        type SchemaAttributeType = SchemaAttributeTypeEnum[Exclude<keyof SchemaAttributeTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * The type of an attribute in a [struct@SecretSchema].
-             *
-             * Attributes are stored as strings in the Secret Service, and the attribute
-             * types simply define standard ways to store integer and boolean values as
-             * strings.
-             */
-            SchemaAttributeType: SchemaAttributeTypeEnum
-        }
-        
-        interface SchemaTypeEnum {
-            readonly $gtype: GObject.GType<SchemaType>
-            /**
-             * Personal passwords
-             */
-            readonly "NOTE": 0
-            /**
-             * Network passwords from older
-             *    libgnome-keyring storage
-             */
-            readonly "COMPAT_NETWORK": 1
-        }
-        type SchemaType = SchemaTypeEnum[Exclude<keyof SchemaTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Different types of schemas for storing secrets, intended for use with
-             * [func@get_schema].
-             *
-             * ## @SECRET_SCHEMA_NOTE
-             *
-             * A predefined schema for personal passwords stored by the user in the
-             * password manager. This schema has no attributes, and the items are not
-             * meant to be used automatically by applications.
-             *
-             * When used to search for items using this schema, it will only match
-             * items that have the same schema. Items stored via libgnome-keyring with the
-             * `GNOME_KEYRING_ITEM_NOTE` item type will match.
-             *
-             * ## @SECRET_SCHEMA_COMPAT_NETWORK
-             *
-             * A predefined schema that is compatible with items stored via the
-             * libgnome-keyring 'network password' functions. This is meant to be used by
-             * applications migrating from libgnome-keyring which stored their secrets as
-             * 'network passwords'. It is not recommended that new code use this schema.
-             *
-             * When used to search for items using this schema, it will only match
-             * items that have the same schema. Items stored via libgnome-keyring with the
-             * `GNOME_KEYRING_ITEM_NETWORK_PASSWORD` item type will match.
-             *
-             * The following attributes exist in the schema:
-             *
-             * ### Attributes:
-             *
-             * <table>
-             *     <tr>
-             *         <td><tt>user</tt>:</td>
-             *         <td>The user name (string).</td>
-             *     </tr>
-             *     <tr>
-             *         <td><tt>domain</tt>:</td>
-             *         <td>The login domain or realm (string).</td></tr>
-             *     <tr>
-             *         <td><tt>object</tt>:</td>
-             *         <td>The object or path (string).</td>
-             *     </tr>
-             *     <tr>
-             *         <td><tt>protocol</tt>:</td>
-             *         <td>The protocol (a string like 'http').</td>
-             *     </tr>
-             *     <tr>
-             *         <td><tt>port</tt>:</td>
-             *         <td>The network port (integer).</td>
-             *     </tr>
-             *     <tr>
-             *         <td><tt>server</tt>:</td>
-             *         <td>The hostname or server (string).</td>
-             *     </tr>
-             *     <tr>
-             *         <td><tt>authtype</tt>:</td>
-             *         <td>The authentication type (string).</td>
-             *     </tr>
-             * </table>
-             * @since 0.18.6
-             */
-            SchemaType: SchemaTypeEnum
-        }
-        
-        interface CollectionCreateFlagsBitfield {
-            readonly $gtype: GObject.GType<CollectionCreateFlags>
-            /**
-             * no flags
-             */
-            readonly "NONE": 0
-        }
-        type CollectionCreateFlags = number
-        interface $Exports {
-            /**
-             * Flags for [func@Collection.create].
-             */
-            CollectionCreateFlags: CollectionCreateFlagsBitfield
-        }
-        
-        interface CollectionFlagsBitfield {
-            readonly $gtype: GObject.GType<CollectionFlags>
-            /**
-             * no flags
-             */
-            readonly "NONE": 0
-            /**
-             * items have or should be loaded
-             */
-            readonly "LOAD_ITEMS": 2
-        }
-        type CollectionFlags = number
-        interface $Exports {
-            /**
-             * Flags which determine which parts of the #SecretCollection proxy are initialized.
-             */
-            CollectionFlags: CollectionFlagsBitfield
-        }
-        
-        interface ItemCreateFlagsBitfield {
-            readonly $gtype: GObject.GType<ItemCreateFlags>
-            /**
-             * no flags
-             */
-            readonly "NONE": 0
-            /**
-             * replace an item with the same attributes.
-             */
-            readonly "REPLACE": 2
-        }
-        type ItemCreateFlags = number
-        interface $Exports {
-            /**
-             * Flags for [func@Item.create].
-             */
-            ItemCreateFlags: ItemCreateFlagsBitfield
-        }
-        
-        interface ItemFlagsBitfield {
-            readonly $gtype: GObject.GType<ItemFlags>
-            /**
-             * no flags
-             */
-            readonly "NONE": 0
-            /**
-             * a secret has been (or should be) loaded for #SecretItem
-             */
-            readonly "LOAD_SECRET": 2
-        }
-        type ItemFlags = number
-        interface $Exports {
-            /**
-             * Flags which determine which parts of the #SecretItem proxy are initialized.
-             */
-            ItemFlags: ItemFlagsBitfield
-        }
-        
-        interface SchemaFlagsBitfield {
-            readonly $gtype: GObject.GType<SchemaFlags>
-            /**
-             * no flags for the schema
-             */
-            readonly "NONE": 0
-            /**
-             * don't match the schema name when looking up or
-             *   removing passwords
-             */
-            readonly "DONT_MATCH_NAME": 2
-        }
-        type SchemaFlags = number
-        interface $Exports {
-            /**
-             * Flags for a #SecretSchema definition.
-             */
-            SchemaFlags: SchemaFlagsBitfield
-        }
-        
-        interface SearchFlagsBitfield {
-            readonly $gtype: GObject.GType<SearchFlags>
-            /**
-             * no flags
-             */
-            readonly "NONE": 0
-            /**
-             * all the items matching the search will be returned, instead of just the first one
-             */
-            readonly "ALL": 2
-            /**
-             * unlock locked items while searching
-             */
-            readonly "UNLOCK": 4
-            /**
-             * while searching load secrets for items that are not locked
-             */
-            readonly "LOAD_SECRETS": 8
-        }
-        type SearchFlags = number
-        interface $Exports {
-            /**
-             * Various flags to be used with [method@Service.search] and [method@Service.search_sync].
-             */
-            SearchFlags: SearchFlagsBitfield
-        }
-        
-        interface ServiceFlagsBitfield {
-            readonly $gtype: GObject.GType<ServiceFlags>
-            /**
-             * no flags for initializing the #SecretService
-             */
-            readonly "NONE": 0
-            /**
-             * establish a session for transfer of secrets
-             *   while initializing the #SecretService
-             */
-            readonly "OPEN_SESSION": 2
-            /**
-             * load collections while initializing the
-             *   #SecretService
-             */
-            readonly "LOAD_COLLECTIONS": 4
-        }
-        type ServiceFlags = number
-        interface $Exports {
-            /**
-             * Flags which determine which parts of the #SecretService proxy are initialized
-             * during a [func@Service.get] or [func@Service.open] operation.
-             */
-            ServiceFlags: ServiceFlagsBitfield
-        }
-
-        interface $Exports {
-            __name__: "Secret"
-            __version: "1"
-            BACKEND_EXTENSION_POINT_NAME: "secret-backend"
-            COLLECTION_DEFAULT: "default"
-            COLLECTION_SESSION: "session"
-            MAJOR_VERSION: 0
-            MICRO_VERSION: 7
-            MINOR_VERSION: 21
-            /**
-             * Check if attributes are valid according to the provided schema.
-             *
-             * Verifies schema name if available, attribute names and parsing
-             * of attribute values.
-             * @throws {GLib.Error}
-             * @since 0.21.2
-             * @param schema the schema for the attributes
-             * @param attributes the attributes to be validated
-             * @returns whether or not the given attributes table is valid
-             */
-            attributes_validate(schema: Schema, attributes: Record<never, never>): boolean
-            /**
-             * Get a #SecretBackend instance.
-             *
-             * If such a backend already exists, then the same backend is returned.
-             *
-             * If @flags contains any flags of which parts of the secret backend to
-             * ensure are initialized, then those will be initialized before completing.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @since 0.19.0
-             * @param flags flags for which service functionality to ensure is initialized
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            backend_get(flags: BackendFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Complete an asynchronous operation to get a #SecretBackend.
-             * @throws {GLib.Error}
-             * @since 0.19.0
-             * @param result the asynchronous result passed to the callback
-             * @returns a new reference to a #SecretBackend proxy, which   should be released with [method@GObject.Object.unref].
-             */
-            backend_get_finish(result: Gio.AsyncResult): Backend
-            /**
+            interface $Exports {
+                Value: ValueStruct
+            }
+            
+            interface BackendFlagsEnum {
+                readonly $gtype: GObject.GType<BackendFlags>
+                /**
+                 * no flags for initializing the #SecretBackend
+                 */
+                readonly "NONE": 0
+                /**
+                 * establish a session for transfer of secrets
+                 *   while initializing the #SecretBackend
+                 */
+                readonly "OPEN_SESSION": 2
+                /**
+                 * load collections while initializing the
+                 *   #SecretBackend
+                 */
+                readonly "LOAD_COLLECTIONS": 4
+            }
+            type BackendFlags = BackendFlagsEnum[Exclude<keyof BackendFlagsEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Flags which determine which parts of the #SecretBackend are initialized.
+                 * @since 0.19.0
+                 */
+                BackendFlags: BackendFlagsEnum
+            }
+            
+            interface ErrorEnum {
+                readonly $gtype: GObject.GType<Error>
+                /**
+                 * received an invalid data or message from the Secret
+                 *   Service
+                 */
+                readonly "PROTOCOL": 1
+                /**
+                 * the item or collection is locked and the operation
+                 *   cannot be performed
+                 */
+                readonly "IS_LOCKED": 2
+                /**
+                 * no such item or collection found in the Secret
+                 *   Service
+                 */
+                readonly "NO_SUCH_OBJECT": 3
+                /**
+                 * a relevant item or collection already exists
+                 */
+                readonly "ALREADY_EXISTS": 4
+                /**
+                 * the file format is not valid
+                 */
+                readonly "INVALID_FILE_FORMAT": 5
+                /**
+                 * the xdg:schema attribute of the table does not match the schema name
+                 * @since 0.21.2
+                 */
+                readonly "MISMATCHED_SCHEMA": 6
+                /**
+                 * attribute contained in table not found in corresponding schema
+                 * @since 0.21.2
+                 */
+                readonly "NO_MATCHING_ATTRIBUTE": 7
+                /**
+                 * attribute could not be parsed according to its type reported in the table's
+                 * schema
+                 * @since 0.21.2
+                 */
+                readonly "WRONG_TYPE": 8
+                /**
+                 * attribute list passed to secret_attributes_validate has no elements to
+                 * validate
+                 * @since 0.21.2
+                 */
+                readonly "EMPTY_TABLE": 9
+            }
+            type Error = ErrorEnum[Exclude<keyof ErrorEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Errors returned by the Secret Service.
+                 *
+                 * None of the errors are appropriate for display to the user. It is up to the
+                 * application to handle them appropriately.
+                 */
+                Error: ErrorEnum
+                /**
              * Get the error quark.
              * @returns the quark
              */
-            error_get_quark(): GLib.Quark
-            /**
-             * Get a secret storage schema of the given @type.
-             *
-             * C code may access the schemas (such as %SECRET_SCHEMA_NOTE) directly, but
-             * language bindings cannot, and must use this accessor.
-             * @since 0.18.6
-             * @param type type of schema to get
-             * @returns schema type
-             */
-            get_schema(type: SchemaType): Schema
-            /**
-             * Finish an asynchronous operation to remove passwords from the secret
-             * service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns whether any passwords were removed
-             */
-            password_clear_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Remove unlocked matching passwords from the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * All unlocked items that match the attributes will be deleted.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param schema the schema for the attributes
-             * @param attributes the attribute keys and values
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            password_clear(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Remove unlocked matching passwords from the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * All unlocked items that match the attributes will be deleted.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param schema the schema for the attributes
-             * @param attributes the attribute keys and values
-             * @param cancellable optional cancellation object
-             * @returns whether any passwords were removed
-             */
-            password_clear_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Finish an asynchronous operation to lookup a password in the secret service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns a new password string which should be freed with   [func@password_free] or may be freed with [func@GLib.free] when done
-             */
-            password_lookup_finish(result: Gio.AsyncResult): string
-            /**
-             * Lookup a password in the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * If no secret is found then %NULL is returned.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param schema the schema for attributes
-             * @param attributes the attribute keys and values
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            password_lookup(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Lookup a password in the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * If no secret is found then %NULL is returned.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param schema the schema for attributes
-             * @param attributes the attribute keys and values
-             * @param cancellable optional cancellation object
-             * @returns a new password string which should be freed with   [func@password_free] or may be freed with [func@GLib.free] when done
-             */
-            password_lookup_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): string
-            /**
-             * Finish an asynchronous operation to search for items in the secret service.
-             * @throws {GLib.Error}
-             * @since 0.19.0
-             * @param result the asynchronous result passed to the callback
-             * @returns a list of   [iface@Retrievable] containing attributes of the matched items
-             */
-            password_search_finish(result: Gio.AsyncResult): Retrievable[]
-            /**
-             * Search for items in the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @since 0.19.0
-             * @param schema the schema for attributes
-             * @param attributes the attribute keys and values
-             * @param flags search option flags
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            password_search(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Search for items in the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * If no secret is found then %NULL is returned.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @since 0.19.0
-             * @param schema the schema for attributes
-             * @param attributes the attribute keys and values
-             * @param flags search option flags
-             * @param cancellable optional cancellation object
-             * @returns a list of   [iface@Retrievable] containing attributes of the matched items
-             */
-            password_search_sync(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null): Retrievable[]
-            /**
-             * Finish asynchronous operation to store a password in the secret service.
-             * @throws {GLib.Error}
-             * @param result the asynchronous result passed to the callback
-             * @returns whether the storage was successful or not
-             */
-            password_store_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Store a password in the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * If the attributes match a secret item already stored in the collection, then
-             * the item will be updated with these new values.
-             *
-             * If @collection is %NULL, then the default collection will be
-             * used. Use [const@COLLECTION_SESSION] to store the password in the session
-             * collection, which doesn't get stored across login sessions.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @param schema the schema for attributes
-             * @param attributes the attribute keys and values
-             * @param collection a collection alias, or D-Bus object path of the
-              collection where to store the secret
-             * @param label label for the secret
-             * @param password the null-terminated password to store
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            password_store(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, password: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Store a password in the secret service.
-             *
-             * This is similar to [func@password_storev], but takes a
-             * [struct@Value] as the argument instead of a null-terminated password.
-             *
-             * This method will return immediately and complete asynchronously.
-             * @since 0.19.0
-             * @param schema the schema for attributes
-             * @param attributes the attribute keys and values
-             * @param collection a collection alias, or D-Bus object path of the
-              collection where to store the secret
-             * @param label label for the secret
-             * @param value a [struct@Value]
-             * @param cancellable optional cancellation object
-             * @param callback called when the operation completes
-             */
-            password_store_binary(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Store a password in the secret service.
-             *
-             * This is similar to [func@password_storev_sync], but takes a [struct@Value] as
-             * the argument instead of a null-terminated passwords.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @since 0.19.0
-             * @param schema the schema for attributes
-             * @param attributes the attribute keys and values
-             * @param collection a collection alias, or D-Bus object path of the
-              collection where to store the secret
-             * @param label label for the secret
-             * @param value a [struct@Value]
-             * @param cancellable optional cancellation object
-             * @returns whether the storage was successful or not
-             */
-            password_store_binary_sync(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Store a password in the secret service.
-             *
-             * The @attributes should be a set of key and value string pairs.
-             *
-             * If the attributes match a secret item already stored in the collection, then
-             * the item will be updated with these new values.
-             *
-             * If @collection is %NULL, then the default collection will be
-             * used. Use [const@COLLECTION_SESSION] to store the password in the session
-             * collection, which doesn't get stored across login sessions.
-             *
-             * This method may block indefinitely and should not be used in user interface
-             * threads.
-             * @throws {GLib.Error}
-             * @param schema the schema for attributes
-             * @param attributes the attribute keys and values
-             * @param collection a collection alias, or D-Bus object path of the
-              collection where to store the secret
-             * @param label label for the secret
-             * @param password the null-terminated password to store
-             * @param cancellable optional cancellation object
-             * @returns whether the storage was successful or not
-             */
-            password_store_sync(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, password: string, cancellable: Gio.Cancellable | null): boolean
-            /**
-             * Clear the memory used by a password.
-             * @param password password to clear
-             */
-            password_wipe(password: string | null): void
+            get_quark: () => GLib.Quark
+            }
+            
+            interface SchemaAttributeTypeEnum {
+                readonly $gtype: GObject.GType<SchemaAttributeType>
+                /**
+                 * a utf-8 string attribute
+                 */
+                readonly "STRING": 0
+                /**
+                 * an integer attribute, stored as a decimal
+                 */
+                readonly "INTEGER": 1
+                /**
+                 * a boolean attribute, stored as 'true' or 'false'
+                 */
+                readonly "BOOLEAN": 2
+            }
+            type SchemaAttributeType = SchemaAttributeTypeEnum[Exclude<keyof SchemaAttributeTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * The type of an attribute in a {@link SecretSchema}.
+                 *
+                 * Attributes are stored as strings in the Secret Service, and the attribute
+                 * types simply define standard ways to store integer and boolean values as
+                 * strings.
+                 */
+                SchemaAttributeType: SchemaAttributeTypeEnum
+            }
+            
+            interface SchemaTypeEnum {
+                readonly $gtype: GObject.GType<SchemaType>
+                /**
+                 * Personal passwords
+                 */
+                readonly "NOTE": 0
+                /**
+                 * Network passwords from older
+                 *    libgnome-keyring storage
+                 */
+                readonly "COMPAT_NETWORK": 1
+            }
+            type SchemaType = SchemaTypeEnum[Exclude<keyof SchemaTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Different types of schemas for storing secrets, intended for use with
+                 * {@link get_schema}.
+                 *
+                 * ## `SECRET_SCHEMA_NOTE`
+                 *
+                 * A predefined schema for personal passwords stored by the user in the
+                 * password manager. This schema has no attributes, and the items are not
+                 * meant to be used automatically by applications.
+                 *
+                 * When used to search for items using this schema, it will only match
+                 * items that have the same schema. Items stored via libgnome-keyring with the
+                 * `GNOME_KEYRING_ITEM_NOTE` item type will match.
+                 *
+                 * ## `SECRET_SCHEMA_COMPAT_NETWORK`
+                 *
+                 * A predefined schema that is compatible with items stored via the
+                 * libgnome-keyring 'network password' functions. This is meant to be used by
+                 * applications migrating from libgnome-keyring which stored their secrets as
+                 * 'network passwords'. It is not recommended that new code use this schema.
+                 *
+                 * When used to search for items using this schema, it will only match
+                 * items that have the same schema. Items stored via libgnome-keyring with the
+                 * `GNOME_KEYRING_ITEM_NETWORK_PASSWORD` item type will match.
+                 *
+                 * The following attributes exist in the schema:
+                 *
+                 * ### Attributes:
+                 *
+                 * <table>
+                 *     <tr>
+                 *         <td><tt>user</tt>:</td>
+                 *         <td>The user name (string).</td>
+                 *     </tr>
+                 *     <tr>
+                 *         <td><tt>domain</tt>:</td>
+                 *         <td>The login domain or realm (string).</td></tr>
+                 *     <tr>
+                 *         <td><tt>object</tt>:</td>
+                 *         <td>The object or path (string).</td>
+                 *     </tr>
+                 *     <tr>
+                 *         <td><tt>protocol</tt>:</td>
+                 *         <td>The protocol (a string like 'http').</td>
+                 *     </tr>
+                 *     <tr>
+                 *         <td><tt>port</tt>:</td>
+                 *         <td>The network port (integer).</td>
+                 *     </tr>
+                 *     <tr>
+                 *         <td><tt>server</tt>:</td>
+                 *         <td>The hostname or server (string).</td>
+                 *     </tr>
+                 *     <tr>
+                 *         <td><tt>authtype</tt>:</td>
+                 *         <td>The authentication type (string).</td>
+                 *     </tr>
+                 * </table>
+                 * @since 0.18.6
+                 */
+                SchemaType: SchemaTypeEnum
+            }
+            
+            interface CollectionCreateFlagsBitfield {
+                readonly $gtype: GObject.GType<CollectionCreateFlags>
+                /**
+                 * no flags
+                 */
+                readonly "NONE": 0
+            }
+            type CollectionCreateFlags = number
+            interface $Exports {
+                /**
+                 * Flags for {@link Collection.create}.
+                 */
+                CollectionCreateFlags: CollectionCreateFlagsBitfield
+            }
+            
+            interface CollectionFlagsBitfield {
+                readonly $gtype: GObject.GType<CollectionFlags>
+                /**
+                 * no flags
+                 */
+                readonly "NONE": 0
+                /**
+                 * items have or should be loaded
+                 */
+                readonly "LOAD_ITEMS": 2
+            }
+            type CollectionFlags = number
+            interface $Exports {
+                /**
+                 * Flags which determine which parts of the #SecretCollection proxy are initialized.
+                 */
+                CollectionFlags: CollectionFlagsBitfield
+            }
+            
+            interface ItemCreateFlagsBitfield {
+                readonly $gtype: GObject.GType<ItemCreateFlags>
+                /**
+                 * no flags
+                 */
+                readonly "NONE": 0
+                /**
+                 * replace an item with the same attributes.
+                 */
+                readonly "REPLACE": 2
+            }
+            type ItemCreateFlags = number
+            interface $Exports {
+                /**
+                 * Flags for {@link Item.create}.
+                 */
+                ItemCreateFlags: ItemCreateFlagsBitfield
+            }
+            
+            interface ItemFlagsBitfield {
+                readonly $gtype: GObject.GType<ItemFlags>
+                /**
+                 * no flags
+                 */
+                readonly "NONE": 0
+                /**
+                 * a secret has been (or should be) loaded for #SecretItem
+                 */
+                readonly "LOAD_SECRET": 2
+            }
+            type ItemFlags = number
+            interface $Exports {
+                /**
+                 * Flags which determine which parts of the #SecretItem proxy are initialized.
+                 */
+                ItemFlags: ItemFlagsBitfield
+            }
+            
+            interface SchemaFlagsBitfield {
+                readonly $gtype: GObject.GType<SchemaFlags>
+                /**
+                 * no flags for the schema
+                 */
+                readonly "NONE": 0
+                /**
+                 * don't match the schema name when looking up or
+                 *   removing passwords
+                 */
+                readonly "DONT_MATCH_NAME": 2
+            }
+            type SchemaFlags = number
+            interface $Exports {
+                /**
+                 * Flags for a #SecretSchema definition.
+                 */
+                SchemaFlags: SchemaFlagsBitfield
+            }
+            
+            interface SearchFlagsBitfield {
+                readonly $gtype: GObject.GType<SearchFlags>
+                /**
+                 * no flags
+                 */
+                readonly "NONE": 0
+                /**
+                 * all the items matching the search will be returned, instead of just the first one
+                 */
+                readonly "ALL": 2
+                /**
+                 * unlock locked items while searching
+                 */
+                readonly "UNLOCK": 4
+                /**
+                 * while searching load secrets for items that are not locked
+                 */
+                readonly "LOAD_SECRETS": 8
+            }
+            type SearchFlags = number
+            interface $Exports {
+                /**
+                 * Various flags to be used with {@link Service.search} and {@link Service.search_sync}.
+                 */
+                SearchFlags: SearchFlagsBitfield
+            }
+            
+            interface ServiceFlagsBitfield {
+                readonly $gtype: GObject.GType<ServiceFlags>
+                /**
+                 * no flags for initializing the #SecretService
+                 */
+                readonly "NONE": 0
+                /**
+                 * establish a session for transfer of secrets
+                 *   while initializing the #SecretService
+                 */
+                readonly "OPEN_SESSION": 2
+                /**
+                 * load collections while initializing the
+                 *   #SecretService
+                 */
+                readonly "LOAD_COLLECTIONS": 4
+            }
+            type ServiceFlags = number
+            interface $Exports {
+                /**
+                 * Flags which determine which parts of the #SecretService proxy are initialized
+                 * during a {@link Service.get} or {@link Service.open} operation.
+                 */
+                ServiceFlags: ServiceFlagsBitfield
+            }
+
+            interface $Exports {
+                __name__: "Secret"
+                __version__: "1"
+                BACKEND_EXTENSION_POINT_NAME: "secret-backend"
+                COLLECTION_DEFAULT: "default"
+                COLLECTION_SESSION: "session"
+                MAJOR_VERSION: 0
+                MICRO_VERSION: 7
+                MINOR_VERSION: 21
+                /**
+                 * Check if attributes are valid according to the provided schema.
+                 *
+                 * Verifies schema name if available, attribute names and parsing
+                 * of attribute values.
+                 * @throws {GLib.Error}
+                 * @since 0.21.2
+                 * @param schema the schema for the attributes
+                 * @param attributes the attributes to be validated
+                 * @returns whether or not the given attributes table is valid
+                 */
+                attributes_validate(schema: Schema, attributes: Record<never, never>): boolean
+                /**
+                 * Get a #SecretBackend instance.
+                 *
+                 * If such a backend already exists, then the same backend is returned.
+                 *
+                 * If `flags` contains any flags of which parts of the secret backend to
+                 * ensure are initialized, then those will be initialized before completing.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @since 0.19.0
+                 * @param flags flags for which service functionality to ensure is initialized
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                backend_get(flags: BackendFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Complete an asynchronous operation to get a #SecretBackend.
+                 * @throws {GLib.Error}
+                 * @since 0.19.0
+                 * @param result the asynchronous result passed to the callback
+                 * @returns a new reference to a #SecretBackend proxy, which   should be released with {@link GObject.Object.unref}.
+                 */
+                backend_get_finish(result: Gio.AsyncResult): Backend
+                /**
+                 * Get the error quark.
+                 * @returns the quark
+                 */
+                error_get_quark(): GLib.Quark
+                /**
+                 * Get a secret storage schema of the given `type`.
+                 *
+                 * C code may access the schemas (such as %SECRET_SCHEMA_NOTE) directly, but
+                 * language bindings cannot, and must use this accessor.
+                 * @since 0.18.6
+                 * @param type type of schema to get
+                 * @returns schema type
+                 */
+                get_schema(type: SchemaType): Schema
+                /**
+                 * Finish an asynchronous operation to remove passwords from the secret
+                 * service.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns whether any passwords were removed
+                 */
+                password_clear_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Remove unlocked matching passwords from the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * All unlocked items that match the attributes will be deleted.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param schema the schema for the attributes
+                 * @param attributes the attribute keys and values
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                password_clear(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Remove unlocked matching passwords from the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * All unlocked items that match the attributes will be deleted.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @param schema the schema for the attributes
+                 * @param attributes the attribute keys and values
+                 * @param cancellable optional cancellation object
+                 * @returns whether any passwords were removed
+                 */
+                password_clear_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Finish an asynchronous operation to lookup a password in the secret service.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns a new password string which should be freed with   {@link password_free} or may be freed with {@link GLib.free} when done
+                 */
+                password_lookup_finish(result: Gio.AsyncResult): string
+                /**
+                 * Lookup a password in the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * If no secret is found then %NULL is returned.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param schema the schema for attributes
+                 * @param attributes the attribute keys and values
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                password_lookup(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Lookup a password in the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * If no secret is found then %NULL is returned.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @param schema the schema for attributes
+                 * @param attributes the attribute keys and values
+                 * @param cancellable optional cancellation object
+                 * @returns a new password string which should be freed with   {@link password_free} or may be freed with {@link GLib.free} when done
+                 */
+                password_lookup_sync(schema: Schema | null, attributes: Record<string, string>, cancellable: Gio.Cancellable | null): string
+                /**
+                 * Finish an asynchronous operation to search for items in the secret service.
+                 * @throws {GLib.Error}
+                 * @since 0.19.0
+                 * @param result the asynchronous result passed to the callback
+                 * @returns a list of   {@link Retrievable} containing attributes of the matched items
+                 */
+                password_search_finish(result: Gio.AsyncResult): Retrievable[]
+                /**
+                 * Search for items in the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @since 0.19.0
+                 * @param schema the schema for attributes
+                 * @param attributes the attribute keys and values
+                 * @param flags search option flags
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                password_search(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Search for items in the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * If no secret is found then %NULL is returned.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @since 0.19.0
+                 * @param schema the schema for attributes
+                 * @param attributes the attribute keys and values
+                 * @param flags search option flags
+                 * @param cancellable optional cancellation object
+                 * @returns a list of   {@link Retrievable} containing attributes of the matched items
+                 */
+                password_search_sync(schema: Schema | null, attributes: Record<string, string>, flags: SearchFlags, cancellable: Gio.Cancellable | null): Retrievable[]
+                /**
+                 * Finish asynchronous operation to store a password in the secret service.
+                 * @throws {GLib.Error}
+                 * @param result the asynchronous result passed to the callback
+                 * @returns whether the storage was successful or not
+                 */
+                password_store_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Store a password in the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * If the attributes match a secret item already stored in the collection, then
+                 * the item will be updated with these new values.
+                 *
+                 * If `collection` is %NULL, then the default collection will be
+                 * used. Use {@link COLLECTION_SESSION} to store the password in the session
+                 * collection, which doesn't get stored across login sessions.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @param schema the schema for attributes
+                 * @param attributes the attribute keys and values
+                 * @param collection a collection alias, or D-Bus object path of the   collection where to store the secret
+                 * @param label label for the secret
+                 * @param password the null-terminated password to store
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                password_store(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, password: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Store a password in the secret service.
+                 *
+                 * This is similar to {@link password_storev}, but takes a
+                 * {@link Value} as the argument instead of a null-terminated password.
+                 *
+                 * This method will return immediately and complete asynchronously.
+                 * @since 0.19.0
+                 * @param schema the schema for attributes
+                 * @param attributes the attribute keys and values
+                 * @param collection a collection alias, or D-Bus object path of the   collection where to store the secret
+                 * @param label label for the secret
+                 * @param value a {@link Value}
+                 * @param cancellable optional cancellation object
+                 * @param callback called when the operation completes
+                 */
+                password_store_binary(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Store a password in the secret service.
+                 *
+                 * This is similar to {@link password_storev_sync}, but takes a {@link Value} as
+                 * the argument instead of a null-terminated passwords.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @since 0.19.0
+                 * @param schema the schema for attributes
+                 * @param attributes the attribute keys and values
+                 * @param collection a collection alias, or D-Bus object path of the   collection where to store the secret
+                 * @param label label for the secret
+                 * @param value a {@link Value}
+                 * @param cancellable optional cancellation object
+                 * @returns whether the storage was successful or not
+                 */
+                password_store_binary_sync(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, value: Value, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Store a password in the secret service.
+                 *
+                 * The `attributes` should be a set of key and value string pairs.
+                 *
+                 * If the attributes match a secret item already stored in the collection, then
+                 * the item will be updated with these new values.
+                 *
+                 * If `collection` is %NULL, then the default collection will be
+                 * used. Use {@link COLLECTION_SESSION} to store the password in the session
+                 * collection, which doesn't get stored across login sessions.
+                 *
+                 * This method may block indefinitely and should not be used in user interface
+                 * threads.
+                 * @throws {GLib.Error}
+                 * @param schema the schema for attributes
+                 * @param attributes the attribute keys and values
+                 * @param collection a collection alias, or D-Bus object path of the   collection where to store the secret
+                 * @param label label for the secret
+                 * @param password the null-terminated password to store
+                 * @param cancellable optional cancellation object
+                 * @returns whether the storage was successful or not
+                 */
+                password_store_sync(schema: Schema | null, attributes: Record<string, string>, collection: string | null, label: string, password: string, cancellable: Gio.Cancellable | null): boolean
+                /**
+                 * Clear the memory used by a password.
+                 * @param password password to clear
+                 */
+                password_wipe(password: string | null): void
+            }
         }
+
+        const Secret: Secret.$Exports
     }
 
-    const Secret: Secret.$Exports
-    export default Secret
+    export default GI.Secret
 }

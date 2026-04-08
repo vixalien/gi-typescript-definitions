@@ -18,2117 +18,2199 @@ declare module "gi://GstCodecs?version=1.0" {
     import type GstBase from "gi://GstBase?version=1.0"
     import type GstVideo from "gi://GstVideo?version=1.0"
 
-    
-
-    namespace GstCodecs {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace AV1Decoder {
-            interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
+        namespace GstCodecs {
+            
+
+            namespace AV1Decoder {
+                interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
+            interface AV1Decoder extends GstVideo.VideoDecoder {
+                readonly $signals: AV1Decoder.SignalSignatures
+                readonly $readableProperties: AV1Decoder.ReadableProperties
+                readonly $writableProperties: AV1Decoder.WritableProperties
+                readonly $constructOnlyProperties: AV1Decoder.ConstructOnlyProperties
+                /**
+                 * Provides the tile data with tile group header and required raw
+                 * bitstream for subclass to decode it.
+                 * @since 1.20
+                 * @param picture a #GstAV1Picture
+                 * @param tile a #GstAV1Tile
+                 */
+                vfunc_decode_tile(picture: AV1Picture, tile: AV1Tile): Gst.FlowReturn
+                /**
+                 * Called when need to duplicate an existing #GstAV1Picture. As
+                 * duplicated key-frame will populate the DPB, this virtual
+                 * function is not optional.
+                 * @since 1.22
+                 * @param frame the current #GstVideoCodecFrame
+                 * @param picture a #GstAV1Picture
+                 */
+                vfunc_duplicate_picture(frame: GstVideo.VideoCodecFrame, picture: AV1Picture): AV1Picture
+                /**
+                 * Optional. Called per one #GstAV1Picture to notify subclass to finish
+                 * decoding process for the #GstAV1Picture
+                 * @since 1.20
+                 * @param picture a #GstAV1Picture
+                 */
+                vfunc_end_picture(picture: AV1Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called by baseclass to query whether delaying output is
+                 * preferred by subclass or not.
+                 * @since 1.22
+                 * @param live whether upstream is live or not
+                 * @returns the number of perferred delayed output frame
+                 */
+                vfunc_get_preferred_output_delay(live: boolean): number
+                /**
+                 * Optional. Called whenever new #GstAV1Picture is created.
+                 * Subclass can set implementation specific user data
+                 * on the #GstAV1Picture via gst_av1_picture_set_user_data
+                 * @since 1.20
+                 * @param frame a #GstVideoCodecFrame
+                 * @param picture a #GstAV1Picture
+                 */
+                vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: AV1Picture): Gst.FlowReturn
+                /**
+                 * Called with a #GstAV1Picture which is required to be outputted.
+                 * The #GstVideoCodecFrame must be consumed by subclass.
+                 * @since 1.20
+                 * @param frame a #GstVideoCodecFrame
+                 * @param picture a #GstAV1Picture
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: AV1Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called per one #GstAV1Picture to notify subclass to prepare
+                 * decoding process for the #GstAV1Picture
+                 * @since 1.20
+                 * @param picture a #GstAV1Picture
+                 * @param dpb a #GstAV1Dpb
+                 */
+                vfunc_start_picture(picture: AV1Picture, dpb: AV1Dpb): Gst.FlowReturn
             }
 
-            interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
+            interface AV1DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
+                readonly $gtype: GObject.GType<AV1Decoder>
+                readonly prototype: AV1Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<AV1Decoder>>): AV1Decoder
             }
 
-            interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * The opaque #GstAV1Decoder data structure.
+                 * @since 1.20
+                 */
+                AV1Decoder: AV1DecoderClass
+            }
+            
+
+            namespace H264Decoder {
+                interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
+                    "compliance": H264DecoderCompliance
+                }
+
+                interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
+                    "compliance": H264DecoderCompliance
+                }
+
+                interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
+                }
+            }
+
+            interface H264Decoder extends GstVideo.VideoDecoder {
+                readonly $signals: H264Decoder.SignalSignatures
+                readonly $readableProperties: H264Decoder.ReadableProperties
+                readonly $writableProperties: H264Decoder.WritableProperties
+                readonly $constructOnlyProperties: H264Decoder.ConstructOnlyProperties
+                /**
+                 * The compliance controls the behavior of the decoder to handle some
+                 * subtle cases and contexts, such as the low-latency DPB bumping or
+                 * mapping the baseline profile as the constrained-baseline profile,
+                 * etc.
+                 * @since 1.20
+                 * @default GST_H264_DECODER_COMPLIANCE_AUTO
+                 */
+                get compliance(): H264DecoderCompliance
+                set compliance(value: H264DecoderCompliance)
+                /**
+                 * Retrive DPB and return a #GstH264Picture corresponding to
+                 * the `system_frame_number`
+                 * @since 1.18
+                 * @param system_frame_number a target system frame number of #GstH264Picture
+                 * @returns a #GstH264Picture if successful, or %NULL otherwise
+                 */
+                get_picture(system_frame_number: number): H264Picture | null
+                /**
+                 * Called to en/disable reference picture modification process.
+                 * @since 1.18
+                 * @param process whether subclass is requiring reference picture modification process
+                 */
+                set_process_ref_pic_lists(process: boolean): void
+                /**
+                 * Provides per slice data with parsed slice header and required raw bitstream
+                 * for subclass to decode it. If gst_h264_decoder_set_process_ref_pic_lists()
+                 * is called with %TRUE by the subclass, `ref_pic_list0` and `ref_pic_list1`
+                 * are non-%NULL.
+                 * In case of interlaced stream, `ref_pic_list0` and `ref_pic_list1` will
+                 * contain only the first field of complementary reference field pair
+                 * if currently being decoded picture is a frame picture. Subclasses might
+                 * need to retrive the other field (i.e., the second field) of the picture
+                 * if needed.
+                 * @param picture a #GstH264Picture
+                 * @param slice a #GstH264Slice
+                 * @param ref_pic_list0     an array of #GstH264Picture pointers
+                 * @param ref_pic_list1     an array of #GstH264Picture pointers
+                 */
+                vfunc_decode_slice(picture: H264Picture, slice: H264Slice, ref_pic_list0: H264Picture[], ref_pic_list1: H264Picture[]): Gst.FlowReturn
+                /**
+                 * Optional. Called per one #GstH264Picture to notify subclass to finish
+                 * decoding process for the #GstH264Picture
+                 * @param picture a #GstH264Picture
+                 */
+                vfunc_end_picture(picture: H264Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called by baseclass to query whether delaying output is
+                 * preferred by subclass or not.
+                 * @since 1.20
+                 * @param live whether upstream is live or not
+                 * @returns the number of perferred delayed output frame
+                 */
+                vfunc_get_preferred_output_delay(live: boolean): number
+                /**
+                 * Called when a new field picture is created for interlaced field picture.
+                 * Subclass can attach implementation specific user data on `second_field` via
+                 * gst_h264_picture_set_user_data
+                 * @since 1.20
+                 * @param first_field the first field #GstH264Picture already decoded
+                 * @param second_field a #GstH264Picture for the second field
+                 */
+                vfunc_new_field_picture(first_field: H264Picture, second_field: H264Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called whenever new #GstH264Picture is created.
+                 * Subclass can set implementation specific user data
+                 * on the #GstH264Picture via gst_h264_picture_set_user_data
+                 * @param frame a #GstVideoCodecFrame
+                 * @param picture a #GstH264Picture
+                 */
+                vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: H264Picture): Gst.FlowReturn
+                /**
+                 * Called with a #GstH264Picture which is required to be outputted.
+                 * The #GstVideoCodecFrame must be consumed by subclass.
+                 * @param frame a #GstVideoCodecFrame
+                 * @param picture a #GstH264Picture
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: H264Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called per one #GstH264Picture to notify subclass to prepare
+                 * decoding process for the #GstH264Picture
+                 * @param picture a #GstH264Picture
+                 * @param slice a #GstH264Slice
+                 * @param dpb a #GstH264Dpb
+                 */
+                vfunc_start_picture(picture: H264Picture, slice: H264Slice, dpb: H264Dpb): Gst.FlowReturn
+            }
+
+            interface H264DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
+                readonly $gtype: GObject.GType<H264Decoder>
+                readonly prototype: H264Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<H264Decoder>>): H264Decoder
+            }
+
+            interface $Exports {
+                /**
+                 * The opaque #GstH264Decoder data structure.
+                 */
+                H264Decoder: H264DecoderClass
+            }
+            
+
+            namespace H265Decoder {
+                interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
+                }
+            }
+
+            interface H265Decoder extends GstVideo.VideoDecoder {
+                readonly $signals: H265Decoder.SignalSignatures
+                readonly $readableProperties: H265Decoder.ReadableProperties
+                readonly $writableProperties: H265Decoder.WritableProperties
+                readonly $constructOnlyProperties: H265Decoder.ConstructOnlyProperties
+                /**
+                 * Retrive DPB and return a #GstH265Picture corresponding to
+                 * the `system_frame_number`
+                 * @since 1.20
+                 * @param system_frame_number a target system frame number of #GstH265Picture
+                 * @returns a #GstH265Picture if successful, or %NULL otherwise
+                 */
+                get_picture(system_frame_number: number): H265Picture | null
+                /**
+                 * Called to en/disable reference picture modification process.
+                 * @since 1.20
+                 * @param process whether subclass is requiring reference picture modification process
+                 */
+                set_process_ref_pic_lists(process: boolean): void
+                /**
+                 * Provides per slice data with parsed slice header and required raw bitstream
+                 * for subclass to decode it. If gst_h265_decoder_set_process_ref_pic_lists()
+                 * is called with %TRUE by the subclass, `ref_pic_list0` and `ref_pic_list1`
+                 * are non-%NULL.
+                 * @param picture a #GstH265Picture
+                 * @param slice a #GstH265Slice
+                 * @param ref_pic_list0     an array of #GstH265Picture pointers
+                 * @param ref_pic_list1     an array of #GstH265Picture pointers
+                 */
+                vfunc_decode_slice(picture: H265Picture, slice: H265Slice, ref_pic_list0: H265Picture[], ref_pic_list1: H265Picture[]): Gst.FlowReturn
+                /**
+                 * Optional. Called per one #GstH265Picture to notify subclass to finish
+                 * decoding process for the #GstH265Picture
+                 * @param picture a #GstH265Picture
+                 */
+                vfunc_end_picture(picture: H265Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called by baseclass to query whether delaying output is
+                 * preferred by subclass or not.
+                 * @since 1.22
+                 * @param live whether upstream is live or not
+                 * @returns the number of perferred delayed output frame
+                 */
+                vfunc_get_preferred_output_delay(live: boolean): number
+                /**
+                 * Optional. Called whenever new #GstH265Picture is created.
+                 * Subclass can set implementation specific user data
+                 * on the #GstH265Picture via gst_h265_picture_set_user_data
+                 * @param frame a #GstVideoCodecFrame
+                 * @param picture a #GstH265Picture
+                 */
+                vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: H265Picture): Gst.FlowReturn
+                /**
+                 * @param frame
+                 * @param picture
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: H265Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called per one #GstH265Picture to notify subclass to prepare
+                 * decoding process for the #GstH265Picture
+                 * @param picture a #GstH265Picture
+                 * @param slice a #GstH265Slice
+                 * @param dpb a #GstH265Dpb
+                 */
+                vfunc_start_picture(picture: H265Picture, slice: H265Slice, dpb: H265Dpb): Gst.FlowReturn
+            }
+
+            interface H265DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
+                readonly $gtype: GObject.GType<H265Decoder>
+                readonly prototype: H265Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<H265Decoder>>): H265Decoder
+            }
+
+            interface $Exports {
+                /**
+                 * The opaque #GstH265Decoder data structure.
+                 */
+                H265Decoder: H265DecoderClass
+            }
+            
+
+            namespace H266Decoder {
+                interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
+                }
+            }
+
+            interface H266Decoder extends GstVideo.VideoDecoder {
+                readonly $signals: H266Decoder.SignalSignatures
+                readonly $readableProperties: H266Decoder.ReadableProperties
+                readonly $writableProperties: H266Decoder.WritableProperties
+                readonly $constructOnlyProperties: H266Decoder.ConstructOnlyProperties
+                /**
+                 * Provides per slice data with parsed slice header and required raw bitstream
+                 * for subclass to decode it.
+                 * @since 1.26
+                 * @param picture a #GstH266Picture
+                 * @param slice a #GstH266Slice
+                 */
+                vfunc_decode_slice(picture: H266Picture, slice: H266Slice): Gst.FlowReturn
+                /**
+                 * Optional. Called per one #GstH266Picture to notify subclass to finish
+                 * decoding process for the #GstH266Picture
+                 * @since 1.26
+                 * @param picture a #GstH266Picture
+                 */
+                vfunc_end_picture(picture: H266Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called by baseclass to query whether delaying output is
+                 * preferred by subclass or not.
+                 * @since 1.26
+                 * @param live whether upstream is live or not
+                 * @returns the number of perferred delayed output frame
+                 */
+                vfunc_get_preferred_output_delay(live: boolean): number
+                /**
+                 * Optional. Called whenever new #GstH266Picture is created.
+                 * Subclass can set implementation specific user data
+                 * on the #GstH266Picture via gst_h266_picture_set_user_data
+                 * @since 1.26
+                 * @param frame a #GstVideoCodecFrame
+                 * @param picture a #GstH266Picture
+                 */
+                vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: H266Picture): Gst.FlowReturn
+                /**
+                 * @param frame
+                 * @param picture
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: H266Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called per one #GstH266Picture to notify subclass to prepare
+                 * decoding process for the #GstH266Picture
+                 * @since 1.26
+                 * @param picture a #GstH266Picture
+                 * @param slice a #GstH266Slice
+                 * @param dpb a #GstH266Dpb
+                 */
+                vfunc_start_picture(picture: H266Picture, slice: H266Slice, dpb: H266Dpb): Gst.FlowReturn
+            }
+
+            interface H266DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
+                readonly $gtype: GObject.GType<H266Decoder>
+                readonly prototype: H266Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<H266Decoder>>): H266Decoder
+            }
+
+            interface $Exports {
+                /**
+                 * The opaque #GstH266Decoder data structure.
+                 * @since 1.26
+                 */
+                H266Decoder: H266DecoderClass
+            }
+            
+
+            namespace Mpeg2Decoder {
+                interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
+                }
+            }
+
+            interface Mpeg2Decoder extends GstVideo.VideoDecoder {
+                readonly $signals: Mpeg2Decoder.SignalSignatures
+                readonly $readableProperties: Mpeg2Decoder.ReadableProperties
+                readonly $writableProperties: Mpeg2Decoder.WritableProperties
+                readonly $constructOnlyProperties: Mpeg2Decoder.ConstructOnlyProperties
+                /**
+                 * Provides per slice data with parsed slice header and required raw bitstream
+                 * for subclass to decode it.
+                 * @since 1.20
+                 * @param picture a #GstMpeg2Picture
+                 * @param slice a #GstMpeg2Slice
+                 */
+                vfunc_decode_slice(picture: Mpeg2Picture, slice: Mpeg2Slice): Gst.FlowReturn
+                /**
+                 * Optional. Called per one #GstMpeg2Picture to notify subclass to finish
+                 * decoding process for the #GstMpeg2Picture
+                 * @since 1.20
+                 * @param picture a #GstMpeg2Picture
+                 */
+                vfunc_end_picture(picture: Mpeg2Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called by baseclass to query whether delaying output is
+                 * preferred by subclass or not.
+                 * @since 1.20
+                 * @param is_live whether upstream is live or not
+                 * @returns the number of perferred delayed output frames
+                 */
+                vfunc_get_preferred_output_delay(is_live: boolean): number
+                /**
+                 * Called when a new field picture is created for interlaced field picture.
+                 * Subclass can attach implementation specific user data on `second_field` via
+                 * gst_mpeg2_picture_set_user_data
+                 * @since 1.20
+                 * @param first_field the first field #GstMpeg2Picture already decoded
+                 * @param second_field a #GstMpeg2Picture for the second field
+                 */
+                vfunc_new_field_picture(first_field: Mpeg2Picture, second_field: Mpeg2Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called whenever new #GstMpeg2Picture is created.
+                 * Subclass can set implementation specific user data
+                 * on the #GstMpeg2Picture via gst_mpeg2_picture_set_user_data
+                 * @since 1.20
+                 * @param frame a #GstVideoCodecFrame
+                 * @param picture a #GstMpeg2Picture
+                 */
+                vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: Mpeg2Picture): Gst.FlowReturn
+                /**
+                 * Called with a #GstMpeg2Picture which is required to be outputted.
+                 * The #GstVideoCodecFrame must be consumed by subclass.
+                 * @since 1.20
+                 * @param frame a #GstVideoCodecFrame
+                 * @param picture a #GstMpeg2Picture
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: Mpeg2Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called per one #GstMpeg2Picture to notify subclass to prepare
+                 * decoding process for the #GstMpeg2Picture
+                 * @since 1.20
+                 * @param picture a #GstMpeg2Picture
+                 * @param slice a #GstMpeg2Slice
+                 * @param prev_picture a #GstMpeg2Picture
+                 * @param next_picture a #GstMpeg2Picture
+                 */
+                vfunc_start_picture(picture: Mpeg2Picture, slice: Mpeg2Slice, prev_picture: Mpeg2Picture, next_picture: Mpeg2Picture): Gst.FlowReturn
+            }
+
+            interface Mpeg2DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
+                readonly $gtype: GObject.GType<Mpeg2Decoder>
+                readonly prototype: Mpeg2Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<Mpeg2Decoder>>): Mpeg2Decoder
+            }
+
+            interface $Exports {
+                /**
+                 * The opaque #GstMpeg2Decoder data structure.
+                 * @since 1.20
+                 */
+                Mpeg2Decoder: Mpeg2DecoderClass
+            }
+            
+
+            namespace Vp8Decoder {
+                interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
+                }
+            }
+
+            interface Vp8Decoder extends GstVideo.VideoDecoder {
+                readonly $signals: Vp8Decoder.SignalSignatures
+                readonly $readableProperties: Vp8Decoder.ReadableProperties
+                readonly $writableProperties: Vp8Decoder.WritableProperties
+                readonly $constructOnlyProperties: Vp8Decoder.ConstructOnlyProperties
+                /**
+                 * Optional.
+                 *                     Called per one #GstVp8Picture to notify subclass to finish
+                 *                     decoding process for the #GstVp8Picture
+                 * @param picture
+                 */
+                vfunc_end_picture(picture: Vp8Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called by baseclass to query whether delaying output is
+                 * preferred by subclass or not.
+                 * @since 1.20
+                 * @param is_live whether upstream is live or not
+                 * @returns the number of perferred delayed output frame
+                 */
+                vfunc_get_preferred_output_delay(is_live: boolean): number
+                /**
+                 * Optional.
+                 *                     Called whenever new #GstVp8Picture is created.
+                 *                     Subclass can set implementation specific user data
+                 *                     on the #GstVp8Picture via gst_vp8_picture_set_user_data
+                 * @param frame
+                 * @param picture
+                 */
+                vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: Vp8Picture): Gst.FlowReturn
+                /**
+                 * Called with a #GstVp8Picture which is required to be outputted.
+                 *                     Subclass can retrieve parent #GstVideoCodecFrame by using
+                 *                     gst_video_decoder_get_frame() with system_frame_number
+                 *                     and the #GstVideoCodecFrame must be consumed by subclass via
+                 *                     gst_video_decoder_{finish,drop,release}_frame().
+                 * @param frame
+                 * @param picture
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: Vp8Picture): Gst.FlowReturn
+                /**
+                 * Optional.
+                 *                     Called per one #GstVp8Picture to notify subclass to prepare
+                 *                     decoding process for the #GstVp8Picture
+                 * @param picture
+                 */
+                vfunc_start_picture(picture: Vp8Picture): Gst.FlowReturn
+            }
+
+            interface Vp8DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
+                readonly $gtype: GObject.GType<Vp8Decoder>
+                readonly prototype: Vp8Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<Vp8Decoder>>): Vp8Decoder
+            }
+
+            interface $Exports {
+                /**
+                 * The opaque #GstVp8Decoder data structure.
+                 */
+                Vp8Decoder: Vp8DecoderClass
+            }
+            
+
+            namespace Vp9Decoder {
+                interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
+                }
+            }
+
+            interface Vp9Decoder extends GstVideo.VideoDecoder {
+                readonly $signals: Vp9Decoder.SignalSignatures
+                readonly $readableProperties: Vp9Decoder.ReadableProperties
+                readonly $writableProperties: Vp9Decoder.WritableProperties
+                readonly $constructOnlyProperties: Vp9Decoder.ConstructOnlyProperties
+                /**
+                 * Called to set non-keyframe format change awareness
+                 * @since 1.20
+                 * @param support whether subclass can support non-keyframe format change
+                 */
+                set_non_keyframe_format_change_support(support: boolean): void
+                /**
+                 * Called to notify decoding for subclass to decoder given `picture` with
+                 * given `dpb`
+                 * @since 1.18
+                 * @param picture a #GstVp9Picture to decoder
+                 * @param dpb a #GstVp9Dpb
+                 */
+                vfunc_decode_picture(picture: Vp9Picture, dpb: Vp9Dpb): Gst.FlowReturn
+                /**
+                 * Optional. Called to duplicate `picture` when show_existing_frame flag is set
+                 * in the parsed vp9 frame header. Returned #GstVp9Picture from this method
+                 * should hold already decoded picture data corresponding to the `picture`,
+                 * since the returned #GstVp9Picture from this method will be passed to
+                 * the output_picture method immediately without additional decoding process.
+                 *
+                 * If this method is not implemented by subclass, baseclass will drop
+                 * current #GstVideoCodecFrame without additional processing for the current
+                 * frame.
+                 * @since 1.18
+                 * @param frame a #GstVideoCodecFrame
+                 * @param picture a #GstVp9Picture to be duplicated
+                 * @returns a #GstVp9Picture or %NULL if failed to duplicate `picture`.
+                 */
+                vfunc_duplicate_picture(frame: GstVideo.VideoCodecFrame, picture: Vp9Picture): Vp9Picture | null
+                /**
+                 * Optional. Called per one #GstVp9Picture to notify subclass to finish
+                 * decoding process for the #GstVp9Picture
+                 * @since 1.18
+                 * @param picture a #GstVp9Picture
+                 */
+                vfunc_end_picture(picture: Vp9Picture): Gst.FlowReturn
+                /**
+                 * Optional. Retrieve the preferred output delay from child classes.
+                 * controls how many frames to delay when calling
+                 * GstVp9DecoderClass::output_picture
+                 * @since 1.20
+                 * @param is_live whether upstream is live or not
+                 * @returns the number of perferred delayed output frame
+                 */
+                vfunc_get_preferred_output_delay(is_live: boolean): number
+                /**
+                 * Optional. Called whenever new #GstVp9Picture is created.
+                 * Subclass can set implementation specific user data on the #GstVp9Picture
+                 * via gst_vp9_picture_set_user_data
+                 * @since 1.18
+                 * @param frame a #GstVideoCodecFrame
+                 * @param picture a #GstVp9Picture
+                 */
+                vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: Vp9Picture): Gst.FlowReturn
+                /**
+                 * Notifies subclass of video sequence update such as resolution, bitdepth,
+                 * profile.
+                 * @since 1.18
+                 * @param frame_hdr a #GstVp9FrameHeader
+                 * @param max_dpb_size the size of dpb including preferred output delay   by subclass reported via get_preferred_output_delay method.
+                 */
+                vfunc_new_sequence(frame_hdr: Vp9FrameHeader, max_dpb_size: number): Gst.FlowReturn
+                /**
+                 * Called to notify `picture` is ready to be outputted.
+                 * @since 1.18
+                 * @param frame a #GstVideoCodecFrame
+                 * @param picture a #GstVp9Picture
+                 */
+                vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: Vp9Picture): Gst.FlowReturn
+                /**
+                 * Optional. Called to notify subclass to prepare decoding process for
+                 *  `picture`
+                 * @since 1.18
+                 * @param picture a #GstVp9Picture
+                 */
+                vfunc_start_picture(picture: Vp9Picture): Gst.FlowReturn
+            }
+
+            interface Vp9DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
+                readonly $gtype: GObject.GType<Vp9Decoder>
+                readonly prototype: Vp9Decoder
+
+                new (props?: Partial<GObject.ConstructorProps<Vp9Decoder>>): Vp9Decoder
+            }
+
+            interface $Exports {
+                /**
+                 * The opaque #GstVp9Decoder data structure.
+                 */
+                Vp9Decoder: Vp9DecoderClass
+            }
+            
+
+            interface AV1DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<AV1DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is AV1DecoderPrivate
+            }
+
+            interface AV1DecoderPrivate {
+            }
+
+            interface $Exports {
+                AV1DecoderPrivate: AV1DecoderPrivateStruct
+            }
+            
+
+            interface AV1DpbStruct {
+                readonly $gtype: GObject.GType<AV1Dpb>
+                new (fields?: {
+                    pic_list?: AV1Picture[]
+                }): AV1Dpb
+            }
+
+            interface AV1Dpb {
+                /**
+                 */
+                pic_list: AV1Picture[]
+                /**
+                 * Store the `picture`
+                 * @since 1.20
+                 * @param picture a #GstAV1Picture
+                 */
+                add(picture: AV1Picture): void
+                /**
+                 * Clear all stored #GstAV1Picture
+                 * @since 1.20
+                 */
+                clear(): void
+                /**
+                 * Free the `dpb`
+                 * @since 1.20
+                 */
+                free(): void
+            }
+
+            interface $Exports {
+                AV1Dpb: AV1DpbStruct
+            }
+            
+
+            interface AV1PictureStruct {
+                readonly $gtype: GObject.GType<AV1Picture>
+                new (fields?: {
+                }): AV1Picture
+                /**
+                 * Create new #GstAV1Picture
+                 * @since 1.20
+                 * @returns a new #GstAV1Picture
+                 */
+                "new"(): AV1Picture
+            }
+
+            interface AV1Picture {
+            }
+
+            interface $Exports {
+                AV1Picture: AV1PictureStruct
+            }
+            
+
+            interface AV1TileStruct {
+                readonly $gtype: GObject.GType<AV1Tile>
+                new (fields?: {
+                }): AV1Tile
+            }
+
+            interface AV1Tile {
+            }
+
+            interface $Exports {
+                AV1Tile: AV1TileStruct
+            }
+            
+
+            interface CodecPictureStruct {
+                readonly $gtype: GObject.GType<CodecPicture>
+                new (fields?: {
+                }): CodecPicture
+            }
+
+            interface CodecPicture {
+                /**
+                 * Gets private data set on the picture via
+                 * gst_codec_picture_set_user_data() previously.
+                 * @since 1.24
+                 * @returns The previously set user_data
+                 */
+                get_user_data(): never | null
+                /**
+                 * Sets `discont_state` to `picture`
+                 * @since 1.24
+                 * @param discont_state a #GstVideoCodecState
+                 */
+                set_discont_state(discont_state: GstVideo.VideoCodecState | null): void
+                /**
+                 * Sets `user_data` on the picture and the #GDestroyNotify that will be called when
+                 * the picture is freed.
+                 *
+                 * If a `user_data` was previously set, then the previous set `notify` will be called
+                 * before the `user_data` is replaced.
+                 * @since 1.24
+                 * @param notify a #GDestroyNotify
+                 */
+                set_user_data(notify: GLib.DestroyNotify): void
+            }
+
+            interface $Exports {
+                CodecPicture: CodecPictureStruct
+            }
+            
+
+            interface H264DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<H264DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is H264DecoderPrivate
+            }
+
+            interface H264DecoderPrivate {
+            }
+
+            interface $Exports {
+                H264DecoderPrivate: H264DecoderPrivateStruct
+            }
+            
+
+            interface H264DpbStruct {
+                readonly $gtype: GObject.GType<H264Dpb>
+                [Symbol.hasInstance](instance: unknown): instance is H264Dpb
+            }
+
+            interface H264Dpb {
+                /**
+                 * Store the `picture`
+                 * @param picture a #GstH264Picture
+                 */
+                add(picture: H264Picture): void
+                /**
+                 * Perform bumping process as defined in C.4.5.3 "Bumping" process.
+                 * If `drain` is %TRUE, `dpb` will remove a #GstH264Picture from internal array
+                 * so that returned #GstH264Picture could hold the last reference of it
+                 * @since 1.20
+                 * @param drain whether draining or not
+                 * @returns a #GstH264Picture which is needed to be outputted
+                 */
+                bump(drain: boolean): H264Picture | null
+                /**
+                 * Clear all stored #GstH264Picture
+                 */
+                clear(): void
+                /**
+                 * Delete already outputted and not referenced all pictures from dpb
+                 */
+                delete_unused(): void
+                /**
+                 * Free the `dpb`
+                 */
+                free(): void
+                /**
+                 * @since 1.20
+                 * @returns %TRUE if `dpb` is configured for interlaced stream
+                 */
+                get_interlaced(): boolean
+                /**
+                 * Find a long term reference picture which has matching long term picture number
+                 * @since 1.20
+                 * @param long_term_pic_num a long term picture number
+                 * @returns a #GstH264Picture
+                 */
+                get_long_ref_by_long_term_pic_num(long_term_pic_num: number): H264Picture | null
+                /**
+                 * Find a short term reference picture which has the lowest frame_num_wrap
+                 * @returns a #GstH264Picture
+                 */
+                get_lowest_frame_num_short_ref(): H264Picture | null
+                /**
+                 * @since 1.20
+                 * @returns the number of maximum frames
+                 */
+                get_max_num_frames(): number
+                /**
+                 * @since 1.22.2
+                 * @returns Maximum number of reorder frames
+                 */
+                get_max_num_reorder_frames(): number
+                /**
+                 * @since 1.18
+                 * @param system_frame_number
+                 * @returns the picture identified with the specified `system_frame_number`, or %NULL if DPB does not contain a #GstH264Picture corresponding to the `system_frame_number`
+                 */
+                get_picture(system_frame_number: number): H264Picture | null
+                /**
+                 * @returns a #GArray of   #GstH264Picture stored in `dpb`
+                 */
+                get_pictures_all(): H264Picture[]
+                /**
+                 * Retrieve all long-term reference pictures from `dpb`. The picture will be
+                 * appended to the array.
+                 * @since 1.20
+                 * @param include_second_field %TRUE if the second field pictures need to be included
+                 * @returns , an array   of #GstH264Picture pointer
+                 */
+                get_pictures_long_term_ref(include_second_field: boolean): H264Picture[]
+                /**
+                 * Retrieve all short-term reference pictures from `dpb`. The picture will be
+                 * appended to the array.
+                 * @since 1.20
+                 * @param include_non_existing %TRUE if non-existing pictures need to be included
+                 * @param include_second_field %TRUE if the second field pictures need to be included
+                 * @returns , an array   of #GstH264Picture pointers
+                 */
+                get_pictures_short_term_ref(include_non_existing: boolean, include_second_field: boolean): H264Picture[]
+                /**
+                 * Find a short term reference picture which has matching picture number
+                 * @param pic_num a picture number
+                 * @returns a #GstH264Picture
+                 */
+                get_short_ref_by_pic_num(pic_num: number): H264Picture | null
+                /**
+                 * @returns the length of stored dpb array
+                 */
+                get_size(): number
+                /**
+                 * @since 1.20
+                 * @returns %TRUE if `dpb` still has empty frame buffers.
+                 */
+                has_empty_frame_buffer(): boolean
+                /**
+                 * Mark all pictures are not referenced
+                 */
+                mark_all_non_ref(): void
+                /**
+                 * @since 1.20
+                 * @param to_insert the current #GstH264Picture to insert to dpb.
+                 * @param latency_mode The required #GstH264DpbBumpMode for bumping.
+                 * @returns %TRUE if bumping is required
+                 */
+                needs_bump(to_insert: H264Picture, latency_mode: H264DpbBumpMode): boolean
+                /**
+                 * @since 1.20
+                 * @returns The number of referenced frames
+                 */
+                num_ref_frames(): number
+                /**
+                 * @since 1.20
+                 * @param interlaced %TRUE if interlaced
+                 */
+                set_interlaced(interlaced: boolean): void
+                /**
+                 * Notify the DPB that `picture` is output directly without storing
+                 * in the DPB.
+                 * @since 1.20
+                 * @param picture a #GstH264Picture of the last output.
+                 */
+                set_last_output(picture: H264Picture): void
+                /**
+                 * Set the number of maximum allowed frames to store
+                 * @since 1.20
+                 * @param max_num_frames the maximum number of picture
+                 */
+                set_max_num_frames(max_num_frames: number): void
+                /**
+                 * @since 1.20
+                 * @param max_num_reorder_frames the max number of reorder frames, which should not exceed the max size of DPB.
+                 */
+                set_max_num_reorder_frames(max_num_reorder_frames: number): void
+            }
+
+            interface $Exports {
+                H264Dpb: H264DpbStruct
+            }
+            
+
+            interface H264PictureStruct {
+                readonly $gtype: GObject.GType<H264Picture>
+                new (fields?: {
+                }): H264Picture
+                /**
+                 * Create new #GstH264Picture
+                 * @returns a new #GstH264Picture
+                 */
+                "new"(): H264Picture
+            }
+
+            interface H264Picture {
+            }
+
+            interface $Exports {
+                H264Picture: H264PictureStruct
+            }
+            
+
+            interface H264SliceStruct {
+                readonly $gtype: GObject.GType<H264Slice>
+                new (fields?: {
+                }): H264Slice
+            }
+
+            interface H264Slice {
+            }
+
+            interface $Exports {
+                H264Slice: H264SliceStruct
+            }
+            
+
+            interface H265DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<H265DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is H265DecoderPrivate
+            }
+
+            interface H265DecoderPrivate {
+            }
+
+            interface $Exports {
+                H265DecoderPrivate: H265DecoderPrivateStruct
+            }
+            
+
+            interface H265DpbStruct {
+                readonly $gtype: GObject.GType<H265Dpb>
+                [Symbol.hasInstance](instance: unknown): instance is H265Dpb
+            }
+
+            interface H265Dpb {
+                /**
+                 * Store the `picture` and perform increase pic_latency_cnt as defined in
+                 * "C.5.2.3 Additional bumping" process
+                 * @param picture a #GstH265Picture
+                 */
+                add(picture: H265Picture): void
+                /**
+                 * Perform bumping process as defined in C.5.2.4 "Bumping" process.
+                 * If `drain` is %TRUE, `dpb` will remove a #GstH265Picture from internal array
+                 * so that returned #GstH265Picture could hold the last reference of it
+                 * @since 1.20
+                 * @param drain whether draining or not
+                 * @returns a #GstH265Picture which is needed to be outputted
+                 */
+                bump(drain: boolean): H265Picture | null
+                /**
+                 * Clear all stored #GstH265Picture
+                 */
+                clear(): void
+                /**
+                 * Delete not needed for output and not referenced all pictures from dpb
+                 */
+                delete_unused(): void
+                /**
+                 * Free the `dpb`
+                 */
+                free(): void
+                /**
+                 * Find a long term reference picture which has matching poc
+                 * @param poc a picture order count
+                 * @returns a #GstH265Picture
+                 */
+                get_long_ref_by_poc(poc: number): H265Picture | null
+                /**
+                 * @returns the number of maximum pictures
+                 */
+                get_max_num_pics(): number
+                /**
+                 * @since 1.20
+                 * @param system_frame_number
+                 * @returns the picture identified with the specified `system_frame_number`, or %NULL if DPB does not contain a #GstH265Picture corresponding to the `system_frame_number`
+                 */
+                get_picture(system_frame_number: number): H265Picture | null
+                /**
+                 * @returns a #GArray of   #GstH265Picture stored in `dpb`
+                 */
+                get_pictures_all(): H265Picture[]
+                /**
+                 * Find a short or long term reference picture which has matching poc
+                 * @param poc a picture order count
+                 * @returns a #GstH265Picture
+                 */
+                get_ref_by_poc(poc: number): H265Picture | null
+                /**
+                 * Find a short or long term reference picture which has matching poc_lsb
+                 * @param poc_lsb a picture order count lsb
+                 * @returns a #GstH265Picture
+                 */
+                get_ref_by_poc_lsb(poc_lsb: number): H265Picture | null
+                /**
+                 * Find a short term reference picture which has matching poc
+                 * @param poc a picture order count
+                 * @returns a #GstH265Picture
+                 */
+                get_short_ref_by_poc(poc: number): H265Picture | null
+                /**
+                 * @returns the length of stored dpb array
+                 */
+                get_size(): number
+                /**
+                 * Mark all pictures are not referenced
+                 */
+                mark_all_non_ref(): void
+                /**
+                 * @since 1.20
+                 * @param max_num_reorder_pics sps_max_num_reorder_pics[HighestTid]
+                 * @param max_latency_increase SpsMaxLatencyPictures[HighestTid]
+                 * @param max_dec_pic_buffering sps_max_dec_pic_buffering_minus1[HighestTid ] + 1   or zero if this shouldn't be used for bumping decision
+                 * @returns %TRUE if bumping is required
+                 */
+                needs_bump(max_num_reorder_pics: number, max_latency_increase: number, max_dec_pic_buffering: number): boolean
+                /**
+                 * @returns The number of referenced pictures
+                 */
+                num_ref_pictures(): number
+                /**
+                 * Set the number of maximum allowed pictures to store
+                 * @param max_num_pics the maximum number of picture
+                 */
+                set_max_num_pics(max_num_pics: number): void
+            }
+
+            interface $Exports {
+                H265Dpb: H265DpbStruct
+            }
+            
+
+            interface H265PictureStruct {
+                readonly $gtype: GObject.GType<H265Picture>
+                new (fields?: {
+                }): H265Picture
+                /**
+                 * Create new #GstH265Picture
+                 * @returns a new #GstH265Picture
+                 */
+                "new"(): H265Picture
+            }
+
+            interface H265Picture {
+            }
+
+            interface $Exports {
+                H265Picture: H265PictureStruct
+            }
+            
+
+            interface H265SliceStruct {
+                readonly $gtype: GObject.GType<H265Slice>
+                new (fields?: {
+                }): H265Slice
+            }
+
+            interface H265Slice {
+            }
+
+            interface $Exports {
+                H265Slice: H265SliceStruct
+            }
+            
+
+            interface H266DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<H266DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is H266DecoderPrivate
+            }
+
+            interface H266DecoderPrivate {
+            }
+
+            interface $Exports {
+                H266DecoderPrivate: H266DecoderPrivateStruct
+            }
+            
+
+            interface H266DpbStruct {
+                readonly $gtype: GObject.GType<H266Dpb>
+                [Symbol.hasInstance](instance: unknown): instance is H266Dpb
+            }
+
+            interface H266Dpb {
+                /**
+                 * Store the `picture` and perform increase pic_latency_cnt as defined in
+                 * "C.5.2.3 Additional bumping" process
+                 * @since 1.26
+                 * @param picture a #GstH266Picture
+                 */
+                add(picture: H266Picture): void
+                /**
+                 * Perform bumping process as defined in C.5.2.4 "Bumping" process.
+                 * If `drain` is %TRUE, `dpb` will remove a #GstH266Picture from internal array
+                 * so that returned #GstH266Picture could hold the last reference of it.
+                 * @since 1.26
+                 * @param drain whether draining or not
+                 * @returns a #GstH266Picture which is needed to be outputted
+                 */
+                bump(drain: boolean): H266Picture | null
+                /**
+                 * Clear all stored #GstH266Picture
+                 * @since 1.26
+                 */
+                clear(): void
+                /**
+                 * Delete unneeded pictures from dpb as defined in "C.5.2.2 Output and
+                 * removal of pictures from the DPB".
+                 * @since 1.26
+                 */
+                delete_unused(): void
+                /**
+                 * Free the `dpb`
+                 * @since 1.26
+                 */
+                free(): void
+                /**
+                 * @since 1.26
+                 * @returns the number of maximum pictures
+                 */
+                get_max_num_pics(): number
+                /**
+                 * Find a picture which has matching poc
+                 * @since 1.26
+                 * @param poc a picture order count
+                 * @returns a #GstH266Picture
+                 */
+                get_picture_by_poc(poc: number): H266Picture | null
+                /**
+                 * Find a picture which has matching poc_lsb
+                 * @since 1.26
+                 * @param poc_lsb a picture order count lsb
+                 * @returns a #GstH266Picture
+                 */
+                get_picture_by_poc_lsb(poc_lsb: number): H266Picture | null
+                /**
+                 * @since 1.26
+                 * @returns a #GArray of   #GstH266Picture stored in `dpb`
+                 */
+                get_pictures_all(): H266Picture[]
+                /**
+                 * @since 1.26
+                 * @returns the length of stored dpb array
+                 */
+                get_size(): number
+                /**
+                 * Mark all pictures are no needed for output
+                 * @since 1.26
+                 */
+                mark_all_non_output(): void
+                /**
+                 * Mark all pictures are not referenced
+                 * @since 1.26
+                 */
+                mark_all_non_ref(): void
+                /**
+                 * @since 1.26
+                 * @param max_num_reorder_pics dpb_max_num_reorder_pics[HighestTid]
+                 * @param max_latency_increase MaxLatencyPictures[HighestTid]
+                 * @param max_dec_pic_buffering dpb_max_dec_pic_buffering_minus1[HighestTid] + 1   or zero if this shouldn't be used for bumping decision.
+                 * @returns %TRUE if bumping is required
+                 */
+                needs_bump(max_num_reorder_pics: number, max_latency_increase: number, max_dec_pic_buffering: number): boolean
+                /**
+                 * @since 1.26
+                 * @returns The number of referenced pictures in dpb.
+                 */
+                num_ref_pictures(): number
+                /**
+                 * Set the number of maximum allowed pictures to store
+                 * @since 1.26
+                 * @param max_num_pics the maximum number of picture
+                 */
+                set_max_num_pics(max_num_pics: number): void
+            }
+
+            interface $Exports {
+                H266Dpb: H266DpbStruct
+            }
+            
+
+            interface H266PictureStruct {
+                readonly $gtype: GObject.GType<H266Picture>
+                new (fields?: {
+                }): H266Picture
+                /**
+                 * Create new #GstH266Picture
+                 * @since 1.26
+                 * @returns a new #GstH266Picture
+                 */
+                "new"(): H266Picture
+            }
+
+            interface H266Picture {
+            }
+
+            interface $Exports {
+                H266Picture: H266PictureStruct
+            }
+            
+
+            interface H266SliceStruct {
+                readonly $gtype: GObject.GType<H266Slice>
+                new (fields?: {
+                }): H266Slice
+            }
+
+            interface H266Slice {
+            }
+
+            interface $Exports {
+                H266Slice: H266SliceStruct
+            }
+            
+
+            interface Mpeg2DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<Mpeg2DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is Mpeg2DecoderPrivate
+            }
+
+            interface Mpeg2DecoderPrivate {
+            }
+
+            interface $Exports {
+                Mpeg2DecoderPrivate: Mpeg2DecoderPrivateStruct
+            }
+            
+
+            interface Mpeg2DpbStruct {
+                readonly $gtype: GObject.GType<Mpeg2Dpb>
+                [Symbol.hasInstance](instance: unknown): instance is Mpeg2Dpb
+            }
+
+            interface Mpeg2Dpb {
+                /**
+                 * Store the `picture`
+                 * @since 1.20
+                 * @param picture a #GstMpeg2Picture
+                 */
+                add(picture: Mpeg2Picture): void
+                /**
+                 * @since 1.20
+                 * @returns a #GstMpeg2Picture which is needed to be outputted
+                 */
+                bump(): Mpeg2Picture | null
+                /**
+                 * Clear all stored #GstMpeg2Picture
+                 * @since 1.20
+                 */
+                clear(): void
+                /**
+                 * Free the `dpb`
+                 * @since 1.20
+                 */
+                free(): void
+                /**
+                 * Gets the neighbours #GstMpeg2Picture of `picture` in `dpb`.
+                 * @since 1.20
+                 * @param picture current #GstMpeg2Picture
+                 * @returns , previuous     #GstMpeg2Picture in `dpb`, next     #GstMpeg2Picture in `dpb`
+                 */
+                get_neighbours(picture: Mpeg2Picture): [Mpeg2Picture | null, Mpeg2Picture | null]
+                /**
+                 * Checks if `dbp` has a new picture.
+                 * @since 1.20
+                 * @returns #TRUE if `dpb` needs to be bumped; otherwise, #FALSE
+                 */
+                need_bump(): boolean
+            }
+
+            interface $Exports {
+                Mpeg2Dpb: Mpeg2DpbStruct
+            }
+            
+
+            interface Mpeg2PictureStruct {
+                readonly $gtype: GObject.GType<Mpeg2Picture>
+                new (fields?: {
+                }): Mpeg2Picture
+                /**
+                 * Create new #GstMpeg2Picture
+                 * @since 1.20
+                 * @returns a new #GstMpeg2Picture
+                 */
+                "new"(): Mpeg2Picture
+            }
+
+            interface Mpeg2Picture {
+            }
+
+            interface $Exports {
+                Mpeg2Picture: Mpeg2PictureStruct
+            }
+            
+
+            interface Mpeg2SliceStruct {
+                readonly $gtype: GObject.GType<Mpeg2Slice>
+                new (fields?: {
+                }): Mpeg2Slice
+            }
+
+            interface Mpeg2Slice {
+            }
+
+            interface $Exports {
+                Mpeg2Slice: Mpeg2SliceStruct
+            }
+            
+
+            interface Vp8DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<Vp8DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is Vp8DecoderPrivate
+            }
+
+            interface Vp8DecoderPrivate {
+            }
+
+            interface $Exports {
+                Vp8DecoderPrivate: Vp8DecoderPrivateStruct
+            }
+            
+
+            interface Vp8PictureStruct {
+                readonly $gtype: GObject.GType<Vp8Picture>
+                new (fields?: {
+                }): Vp8Picture
+                /**
+                 * Create new #GstVp8Picture
+                 * @returns a new #GstVp8Picture
+                 */
+                "new"(): Vp8Picture
+            }
+
+            interface Vp8Picture {
+            }
+
+            interface $Exports {
+                Vp8Picture: Vp8PictureStruct
+            }
+            
+
+            interface Vp9DecoderPrivateStruct {
+                readonly $gtype: GObject.GType<Vp9DecoderPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is Vp9DecoderPrivate
+            }
+
+            interface Vp9DecoderPrivate {
+            }
+
+            interface $Exports {
+                Vp9DecoderPrivate: Vp9DecoderPrivateStruct
+            }
+            
+
+            interface Vp9DeltaProbabilitiesStruct {
+                readonly $gtype: GObject.GType<Vp9DeltaProbabilities>
+                new (fields?: {
+                }): Vp9DeltaProbabilities
+            }
+
+            interface Vp9DeltaProbabilities {
+            }
+
+            interface $Exports {
+                Vp9DeltaProbabilities: Vp9DeltaProbabilitiesStruct
+            }
+            
+
+            interface Vp9DpbStruct {
+                readonly $gtype: GObject.GType<Vp9Dpb>
+                new (fields?: {
+                    pic_list?: Vp9Picture[]
+                }): Vp9Dpb
+            }
+
+            interface Vp9Dpb {
+                /**
+                 */
+                pic_list: Vp9Picture[]
+                /**
+                 * Store the `picture`
+                 * @param picture a #GstVp9Picture
+                 */
+                add(picture: Vp9Picture): void
+                /**
+                 * Clear all stored #GstVp9Picture
+                 */
+                clear(): void
+                /**
+                 * Free the `dpb`
+                 */
+                free(): void
+            }
+
+            interface $Exports {
+                Vp9Dpb: Vp9DpbStruct
+            }
+            
+
+            interface Vp9FrameHeaderStruct {
+                readonly $gtype: GObject.GType<Vp9FrameHeader>
+                new (fields?: {
+                    profile?: number
+                    bit_depth?: number
+                    subsampling_x?: number
+                    subsampling_y?: number
+                    color_space?: number
+                    color_range?: number
+                    show_existing_frame?: number
+                    frame_to_show_map_idx?: number
+                    frame_type?: number
+                    show_frame?: number
+                    error_resilient_mode?: number
+                    width?: number
+                    height?: number
+                    render_and_frame_size_different?: number
+                    render_width?: number
+                    render_height?: number
+                    intra_only?: number
+                    reset_frame_context?: number
+                    refresh_frame_flags?: number
+                    ref_frame_idx?: Uint8Array
+                    ref_frame_sign_bias?: Uint8Array
+                    allow_high_precision_mv?: number
+                    interpolation_filter?: number
+                    refresh_frame_context?: number
+                    frame_parallel_decoding_mode?: number
+                    frame_context_idx?: number
+                    loop_filter_params?: Vp9LoopFilterParams
+                    quantization_params?: Vp9QuantizationParams
+                    segmentation_params?: Vp9SegmentationParams
+                    tile_cols_log2?: number
+                    tile_rows_log2?: number
+                    header_size_in_bytes?: number
+                    tx_mode?: Vp9TxMode
+                    reference_mode?: Vp9ReferenceMode
+                    delta_probabilities?: Vp9DeltaProbabilities
+                    lossless_flag?: number
+                    frame_header_length_in_bytes?: number
+                }): Vp9FrameHeader
+            }
+
+            interface Vp9FrameHeader {
+                /**
+                 * encoded profile
+                 */
+                profile: number
+                /**
+                 * encoded bit depth
+                 */
+                bit_depth: number
+                /**
+                 * specify the chroma subsampling format for x coordinate
+                 */
+                subsampling_x: number
+                /**
+                 * specify the chroma subsampling format for y coordinate
+                 */
+                subsampling_y: number
+                /**
+                 * specifies the color space of the stream
+                 */
+                color_space: number
+                /**
+                 * specifies the black level and range of the luma and chroma
+                 *   signals
+                 */
+                color_range: number
+                /**
+                 * equal to 1, indicates the frame indexed by
+                 *   frame_to_show_map_idx is to be displayed
+                 */
+                show_existing_frame: number
+                /**
+                 * specifies the frame to be displayed.
+                 *   It is only available if show_existing_frame is 1
+                 */
+                frame_to_show_map_idx: number
+                /**
+                 * equal to 0 indicates that the current frame is a key frame
+                 */
+                frame_type: number
+                /**
+                 * indicate whether it is a displayable frame or not
+                 */
+                show_frame: number
+                /**
+                 * equal to 1 indicates that error resilient mode is
+                 *   enabled
+                 */
+                error_resilient_mode: number
+                /**
+                 * coded frame width
+                 */
+                width: number
+                /**
+                 * coded frame height
+                 */
+                height: number
+                /**
+                 * equal to 0 means that the render width and
+                 *   height are inferred from the frame width and height
+                 */
+                render_and_frame_size_different: number
+                /**
+                 * render width of the frame
+                 */
+                render_width: number
+                /**
+                 * render width of the frame
+                 */
+                render_height: number
+                /**
+                 * equal to 1 indicates that the frame is an intra-only frame
+                 */
+                intra_only: number
+                /**
+                 * specifies whether the frame context should be reset to
+                 *   default values
+                 */
+                reset_frame_context: number
+                /**
+                 * contains a bitmask that specifies which reference frame
+                 *   slots will be updated with the current frame after it is decoded
+                 */
+                refresh_frame_flags: number
+                /**
+                 * specifies which reference frames are used by inter frames
+                 */
+                ref_frame_idx: Uint8Array
+                /**
+                 * specifies the intended direction of the motion vector
+                 *   in time for each reference frame. A sign bias equal to 0 indicates that
+                 *   the reference frame is a backwards reference
+                 */
+                ref_frame_sign_bias: Uint8Array
+                /**
+                 * equal to 0 specifies that motion vectors are
+                 *   specified to quarter pel precision
+                 */
+                allow_high_precision_mv: number
+                /**
+                 * specifies the filter selection used for performing
+                 *   inter prediction
+                 */
+                interpolation_filter: number
+                /**
+                 * equal to 1 indicates that the probabilities computed
+                 *   for this frame
+                 */
+                refresh_frame_context: number
+                /**
+                 * equal to 1 indicates that parallel decoding
+                 *   mode is enabled
+                 */
+                frame_parallel_decoding_mode: number
+                /**
+                 * indicates the frame context to use
+                 */
+                frame_context_idx: number
+                /**
+                 * a #GstVp9LoopFilterParams
+                 */
+                loop_filter_params: Vp9LoopFilterParams
+                /**
+                 * a #GstVp9QuantizationParams
+                 */
+                quantization_params: Vp9QuantizationParams
+                /**
+                 * a #GstVp9SegmentationParams
+                 */
+                segmentation_params: Vp9SegmentationParams
+                /**
+                 * specifies the base 2 logarithm of the width of each tile
+                 */
+                tile_cols_log2: number
+                /**
+                 * specifies the base 2 logarithm of the height of each tile
+                 */
+                tile_rows_log2: number
+                /**
+                 */
+                header_size_in_bytes: number
+                /**
+                 * Specifies how the transform size is determined.
+                 * @since 1.20
+                 */
+                tx_mode: Vp9TxMode
+                /**
+                 * Is a derived syntax element that specifies the type of
+                 * inter prediction to be used.
+                 * @since 1.20
+                 */
+                reference_mode: Vp9ReferenceMode
+                /**
+                 * Modification to the probabilities encoded in the bitstream.
+                 * @since 1.20
+                 */
+                delta_probabilities: Vp9DeltaProbabilities
+                /**
+                 * lossless mode decode
+                 */
+                lossless_flag: number
+                /**
+                 * length of uncompressed header
+                 */
+                frame_header_length_in_bytes: number
+            }
+
+            interface $Exports {
+                Vp9FrameHeader: Vp9FrameHeaderStruct
+            }
+            
+
+            interface Vp9LoopFilterParamsStruct {
+                readonly $gtype: GObject.GType<Vp9LoopFilterParams>
+                new (fields?: {
+                    loop_filter_level?: number
+                    loop_filter_sharpness?: number
+                    loop_filter_delta_enabled?: number
+                    loop_filter_delta_update?: number
+                    update_ref_delta?: Uint8Array
+                    loop_filter_ref_deltas?: Uint8Array
+                    update_mode_delta?: Uint8Array
+                    loop_filter_mode_deltas?: Uint8Array
+                }): Vp9LoopFilterParams
+            }
+
+            interface Vp9LoopFilterParams {
+                /**
+                 * indicates the loop filter strength
+                 */
+                loop_filter_level: number
+                /**
+                 * indicates the sharpness level
+                 */
+                loop_filter_sharpness: number
+                /**
+                 * equal to 1 means that the filter level depends
+                 *   on the mode and reference frame used to predict a block
+                 */
+                loop_filter_delta_enabled: number
+                /**
+                 * equal to 1 means that the bitstream contains
+                 *   additional syntax elements that specify which mode and reference frame
+                 *   deltas are to be updated
+                 */
+                loop_filter_delta_update: number
+                /**
+                 * equal to 1 means that the bitstream contains the syntax
+                 *   element loop_filter_ref_delta
+                 */
+                update_ref_delta: Uint8Array
+                /**
+                 * contains the adjustment needed for the filter level
+                 *   based on the chosen reference frame
+                 */
+                loop_filter_ref_deltas: Uint8Array
+                /**
+                 * equal to 1 means that the bitstream contains the syntax
+                 *   element loop_filter_mode_deltas
+                 */
+                update_mode_delta: Uint8Array
+                /**
+                 * contains the adjustment needed for the filter level
+                 *   based on the chosen mode
+                 */
+                loop_filter_mode_deltas: Uint8Array
+            }
+
+            interface $Exports {
+                Vp9LoopFilterParams: Vp9LoopFilterParamsStruct
+            }
+            
+
+            interface Vp9MvDeltaProbsStruct {
+                readonly $gtype: GObject.GType<Vp9MvDeltaProbs>
+                new (fields?: {
+                }): Vp9MvDeltaProbs
+            }
+
+            interface Vp9MvDeltaProbs {
+            }
+
+            interface $Exports {
+                Vp9MvDeltaProbs: Vp9MvDeltaProbsStruct
+            }
+            
+
+            interface Vp9PictureStruct {
+                readonly $gtype: GObject.GType<Vp9Picture>
+                new (fields?: {
+                }): Vp9Picture
+                /**
+                 * Create new #GstVp9Picture
+                 * @returns a new #GstVp9Picture
+                 */
+                "new"(): Vp9Picture
+            }
+
+            interface Vp9Picture {
+            }
+
+            interface $Exports {
+                Vp9Picture: Vp9PictureStruct
+            }
+            
+
+            interface Vp9QuantizationParamsStruct {
+                readonly $gtype: GObject.GType<Vp9QuantizationParams>
+                new (fields?: {
+                    base_q_idx?: number
+                    delta_q_y_dc?: number
+                    delta_q_uv_dc?: number
+                    delta_q_uv_ac?: number
+                }): Vp9QuantizationParams
+            }
+
+            interface Vp9QuantizationParams {
+                /**
+                 * indicates the base frame qindex. This is used for Y AC
+                 *   coefficients and as the base value for the other quantizers
+                 */
+                base_q_idx: number
+                /**
+                 * indicates the Y DC quantizer relative to base_q_idx
+                 */
+                delta_q_y_dc: number
+                /**
+                 * indicates the UV DC quantizer relative to base_q_idx
+                 */
+                delta_q_uv_dc: number
+                /**
+                 * indicates the UV AC quantizer relative to base_q_idx
+                 */
+                delta_q_uv_ac: number
+            }
+
+            interface $Exports {
+                Vp9QuantizationParams: Vp9QuantizationParamsStruct
+            }
+            
+
+            interface Vp9SegmentationParamsStruct {
+                readonly $gtype: GObject.GType<Vp9SegmentationParams>
+                new (fields?: {
+                    segmentation_enabled?: number
+                    segmentation_update_map?: number
+                    segmentation_tree_probs?: Uint8Array
+                    segmentation_pred_prob?: Uint8Array
+                    segmentation_temporal_update?: number
+                    segmentation_update_data?: number
+                    segmentation_abs_or_delta_update?: number
+                    feature_enabled?: Uint8Array
+                    feature_data?: number[]
+                }): Vp9SegmentationParams
+            }
+
+            interface Vp9SegmentationParams {
+                /**
+                 * equal to 1 indicates that this frame makes use of the
+                 *   segmentation tool
+                 */
+                segmentation_enabled: number
+                /**
+                 * equal to 1 indicates that the segmentation map
+                 *   should be updated during the decoding of this frame
+                 */
+                segmentation_update_map: number
+                /**
+                 * specify the probability values to be used when
+                 *   decoding segment_id
+                 */
+                segmentation_tree_probs: Uint8Array
+                /**
+                 * specify the probability values to be used when
+                 *    decoding seg_id_predicted
+                 */
+                segmentation_pred_prob: Uint8Array
+                /**
+                 * equal to 1 indicates that the updates to
+                 *   the segmentation map are coded relative to the existing segmentation map
+                 */
+                segmentation_temporal_update: number
+                /**
+                 * equal to 1 indicates that new parameters are
+                 *   about to be specified for each segment
+                 */
+                segmentation_update_data: number
+                /**
+                 * equal to 0 indicates that the segmentation
+                 *   parameters represent adjustments relative to the standard values.
+                 *   equal to 1 indicates that the segmentation parameters represent the actual
+                 *   values to be used
+                 */
+                segmentation_abs_or_delta_update: number
+                /**
+                 * indicates whether feature is enabled or not
+                 */
+                feature_enabled: Uint8Array
+                /**
+                 * segmentation feature data
+                 */
+                feature_data: number[]
+            }
+
+            interface $Exports {
+                Vp9SegmentationParams: Vp9SegmentationParamsStruct
+            }
+            
+
+            interface Vp9StatefulParserStruct {
+                readonly $gtype: GObject.GType<Vp9StatefulParser>
+                new (fields?: {
+                    reference?: never[]
+                }): Vp9StatefulParser
+            }
+
+            interface Vp9StatefulParser {
+                /**
+                 */
+                reference: never[]
+                /**
+                 * Frees `parser`.
+                 * @since 1.20
+                 */
+                free(): void
+            }
+
+            interface $Exports {
+                Vp9StatefulParser: Vp9StatefulParserStruct
+            }
+            
+            interface H264DecoderComplianceEnum {
+                readonly $gtype: GObject.GType<H264DecoderCompliance>
+                /**
+                 * The decoder behavior is
+                 *     automatically choosen.
+                 */
+                readonly "AUTO": 0
+                /**
+                 * The decoder behavior strictly
+                 *     conforms to the SPEC. All the decoder behaviors conform to the
+                 *     SPEC, not including any nonstandard behavior which is not
+                 *     mentioned in the SPEC.
+                 */
+                readonly "STRICT": 1
+                /**
+                 * The decoder behavior normally
+                 *     conforms to the SPEC. Most behaviors conform to the SPEC but
+                 *     including some nonstandard features which are widely used or
+                 *     often used in the industry practice. This meets the request of
+                 *     real streams and usages, but may not 100% conform to the
+                 *     SPEC. It has very low risk. E.g., we will output pictures
+                 *     without waiting DPB being full for the lower latency, which may
+                 *     cause B frame disorder when there are reference frames with
+                 *     smaller POC after it in decoder order. And the baseline profile
+                 *     may be mapped to the constrained-baseline profile, but it may
+                 *     have problems when a real baseline stream comes with FMO or
+                 *     ASO.
+                 */
+                readonly "NORMAL": 2
+                /**
+                 * The decoder behavior
+                 *     flexibly conforms to the SPEC. It uses the nonstandard features
+                 *     more aggressively in order to get better performance(for
+                 *     example, lower latency). It may change the result of the
+                 *     decoder and should be used carefully. Besides including all
+                 *     risks in *normal* mode, it has more risks, such as frames
+                 *     disorder when reference frames POC decrease in decoder order.
+                 */
+                readonly "FLEXIBLE": 3
+            }
+            type H264DecoderCompliance = H264DecoderComplianceEnum[Exclude<keyof H264DecoderComplianceEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * @since 1.20
+                 */
+                H264DecoderCompliance: H264DecoderComplianceEnum
+            }
+            
+            interface H264DpbBumpModeEnum {
+                readonly $gtype: GObject.GType<H264DpbBumpMode>
+                /**
+                 * No latency requirement for DBP bumping.
+                 */
+                readonly "NORMAL_LATENCY": 0
+                /**
+                 * Low-latency requirement for DBP bumping.
+                 */
+                readonly "LOW_LATENCY": 1
+                /**
+                 * Very low-latency requirement for DBP bumping.
+                 */
+                readonly "VERY_LOW_LATENCY": 2
+            }
+            type H264DpbBumpMode = H264DpbBumpModeEnum[Exclude<keyof H264DpbBumpModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * @since 1.20
+                 */
+                H264DpbBumpMode: H264DpbBumpModeEnum
+            }
+            
+            interface H264PictureFieldEnum {
+                readonly $gtype: GObject.GType<H264PictureField>
+                /**
+                 */
+                readonly "FRAME": 0
+                /**
+                 */
+                readonly "TOP_FIELD": 1
+                /**
+                 */
+                readonly "BOTTOM_FIELD": 2
+            }
+            type H264PictureField = H264PictureFieldEnum[Exclude<keyof H264PictureFieldEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                H264PictureField: H264PictureFieldEnum
+            }
+            
+            interface H264PictureReferenceEnum {
+                readonly $gtype: GObject.GType<H264PictureReference>
+                /**
+                 * Not used for reference picture
+                 */
+                readonly "NONE": 0
+                /**
+                 * Used for short-term reference picture
+                 */
+                readonly "SHORT_TERM": 1
+                /**
+                 * Used for long-term reference picture
+                 */
+                readonly "LONG_TERM": 2
+            }
+            type H264PictureReference = H264PictureReferenceEnum[Exclude<keyof H264PictureReferenceEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * @since 1.20
+                 */
+                H264PictureReference: H264PictureReferenceEnum
+            }
+            
+            interface Vp9ReferenceModeEnum {
+                readonly $gtype: GObject.GType<Vp9ReferenceMode>
+                /**
+                 * Indicates that all the inter blocks use only a single reference frame
+                 */
+                readonly "SINGLE_REFERENCE": 0
+                /**
+                 * Requires all the inter blocks to use compound mode
+                 */
+                readonly "COMPOUND_REFERENCE": 1
+                /**
+                 * Allows each individual inter block to select between single and compound prediction modes
+                 */
+                readonly "SELECT": 2
+            }
+            type Vp9ReferenceMode = Vp9ReferenceModeEnum[Exclude<keyof Vp9ReferenceModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Reference modes: Specify the type of inter prediction to be used
+                 * @since 1.20
+                 */
+                Vp9ReferenceMode: Vp9ReferenceModeEnum
+            }
+            
+            interface Vp9TxModeEnum {
+                readonly $gtype: GObject.GType<Vp9TxMode>
+                /**
+                 * Only 4x4
+                 */
+                readonly "ONLY_4X4": 0
+                /**
+                 * Allow 8x8
+                 */
+                readonly "ALLOW_8X8": 1
+                /**
+                 * Allow 16x16
+                 */
+                readonly "ALLOW_16X16": 2
+                /**
+                 * Allow 32x32
+                 */
+                readonly "ALLOW_32X32": 3
+                /**
+                 * The choice is specified explicitly for each block
+                 */
+                readonly "SELECT": 4
+            }
+            type Vp9TxMode = Vp9TxModeEnum[Exclude<keyof Vp9TxModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * TxMode: Specifies how the transform size is determined
+                 * @since 1.20
+                 */
+                Vp9TxMode: Vp9TxModeEnum
+            }
+            
+            interface Vp9TxSizeEnum {
+                readonly $gtype: GObject.GType<Vp9TxSize>
+                /**
+                 * 4x4
+                 */
+                readonly "4X4": 0
+                /**
+                 * 8x8
+                 */
+                readonly "8X8": 1
+                /**
+                 * 16x16
+                 */
+                readonly "16X16": 2
+                /**
+                 * 32x32
+                 */
+                readonly "32X32": 3
+            }
+            type Vp9TxSize = Vp9TxSizeEnum[Exclude<keyof Vp9TxSizeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * TxSize: Specifies the transform size
+                 * @since 1.20
+                 */
+                Vp9TxSize: Vp9TxSizeEnum
+            }
+
+            interface $Exports {
+                __name__: "GstCodecs"
+                __version__: "1.0"
+                H264_DPB_MAX_SIZE: 16
+                H265_DPB_MAX_SIZE: 16
+                VP9_BLOCK_SIZE_GROUPS: 4
+                VP9_CLASS0_SIZE: 2
+                VP9_COMP_MODE_CONTEXTS: 5
+                VP9_INTERP_FILTER_CONTEXTS: 4
+                VP9_INTER_MODES: 4
+                VP9_INTER_MODE_CONTEXTS: 7
+                VP9_INTRA_MODES: 10
+                VP9_IS_INTER_CONTEXTS: 4
+                VP9_MV_CLASSES: 11
+                VP9_MV_FR_SIZE: 4
+                VP9_MV_JOINTS: 4
+                VP9_MV_OFFSET_BITS: 10
+                VP9_PARTITION_CONTEXTS: 16
+                VP9_PARTITION_TYPES: 4
+                VP9_REF_CONTEXTS: 5
+                VP9_SEG_LVL_ALT_L: 1
+                VP9_SEG_LVL_ALT_Q: 0
+                VP9_SEG_LVL_MAX: 4
+                VP9_SEG_LVL_REF_FRAME: 2
+                VP9_SEG_SEG_LVL_SKIP: 3
+                VP9_SKIP_CONTEXTS: 3
+                VP9_SWITCHABLE_FILTERS: 3
+                VP9_TX_MODES: 5
+                VP9_TX_SIZES: 4
+                VP9_TX_SIZE_CONTEXTS: 2
+                /**
+                 * An implementation of "ac_q" function specified in
+                 * "8.6.1 Dequantization functions"
+                 * @since 1.20
+                 * @param qindex the quantizer index
+                 * @param delta_q_ac a delta_q_ac value
+                 * @param bit_depth coded bit depth
+                 * @returns the quantizer value for the ac coefficient
+                 */
+                vp9_get_ac_quant(qindex: number, delta_q_ac: number, bit_depth: number): number
+                /**
+                 * An implementation of "dc_q" function specified in
+                 * "8.6.1 Dequantization functions"
+                 * @since 1.20
+                 * @param qindex the quantizer index
+                 * @param delta_q_dc a delta_q_dc value
+                 * @param bit_depth coded bit depth
+                 * @returns the quantizer value for the dc coefficient
+                 */
+                vp9_get_dc_quant(qindex: number, delta_q_dc: number, bit_depth: number): number
+                /**
+                 * An implementation of "get_qindex" function specfied in
+                 * "8.6.1 Dequantization functions"
+                 * @since 1.20
+                 * @param segmentation_params a #GstVp9SegmentationParams
+                 * @param quantization_params a #GstVp9QuantizationParams
+                 * @param segment_id a segment id
+                 * @returns the quantizer index
+                 */
+                vp9_get_qindex(segmentation_params: Vp9SegmentationParams, quantization_params: Vp9QuantizationParams, segment_id: number): number
+                /**
+                 * An implementation of "seg_feature_active" function specified in
+                 * "6.4.9 Segmentation feature active syntax"
+                 * @since 1.20
+                 * @param params a #GstVp9SegmentationParams
+                 * @param segment_id a segment id
+                 * @param feature a segmentation feature
+                 * @returns %TRUE if feature is active
+                 */
+                vp9_seg_feature_active(params: Vp9SegmentationParams, segment_id: number, feature: number): boolean
             }
         }
 
-        interface AV1Decoder extends GstVideo.VideoDecoder {
-            readonly $signals: AV1Decoder.SignalSignatures
-            readonly $readableProperties: AV1Decoder.ReadableProperties
-            readonly $writableProperties: AV1Decoder.WritableProperties
-            readonly $constructOnlyProperties: AV1Decoder.ConstructOnlyProperties
-            /**
-             * Provides the tile data with tile group header and required raw
-             * bitstream for subclass to decode it.
-             * @since 1.20
-             * @param picture a #GstAV1Picture
-             * @param tile a #GstAV1Tile
-             */
-            vfunc_decode_tile(picture: AV1Picture, tile: AV1Tile): Gst.FlowReturn
-            /**
-             * Called when need to duplicate an existing #GstAV1Picture. As
-             * duplicated key-frame will populate the DPB, this virtual
-             * function is not optional.
-             * @since 1.22
-             * @param frame the current #GstVideoCodecFrame
-             * @param picture a #GstAV1Picture
-             */
-            vfunc_duplicate_picture(frame: GstVideo.VideoCodecFrame, picture: AV1Picture): AV1Picture
-            /**
-             * Optional. Called per one #GstAV1Picture to notify subclass to finish
-             * decoding process for the #GstAV1Picture
-             * @since 1.20
-             * @param picture a #GstAV1Picture
-             */
-            vfunc_end_picture(picture: AV1Picture): Gst.FlowReturn
-            /**
-             * Optional. Called by baseclass to query whether delaying output is
-             * preferred by subclass or not.
-             * @since 1.22
-             * @param live whether upstream is live or not
-             * @returns the number of perferred delayed output frame
-             */
-            vfunc_get_preferred_output_delay(live: boolean): number
-            /**
-             * Optional. Called whenever new #GstAV1Picture is created.
-             * Subclass can set implementation specific user data
-             * on the #GstAV1Picture via gst_av1_picture_set_user_data
-             * @since 1.20
-             * @param frame a #GstVideoCodecFrame
-             * @param picture a #GstAV1Picture
-             */
-            vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: AV1Picture): Gst.FlowReturn
-            /**
-             * Called with a #GstAV1Picture which is required to be outputted.
-             * The #GstVideoCodecFrame must be consumed by subclass.
-             * @since 1.20
-             * @param frame a #GstVideoCodecFrame
-             * @param picture a #GstAV1Picture
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: AV1Picture): Gst.FlowReturn
-            /**
-             * Optional. Called per one #GstAV1Picture to notify subclass to prepare
-             * decoding process for the #GstAV1Picture
-             * @since 1.20
-             * @param picture a #GstAV1Picture
-             * @param dpb a #GstAV1Dpb
-             */
-            vfunc_start_picture(picture: AV1Picture, dpb: AV1Dpb): Gst.FlowReturn
-        }
-
-        interface AV1DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
-            readonly $gtype: GObject.GType<AV1Decoder>
-            readonly prototype: AV1Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<AV1Decoder>>): AV1Decoder
-        }
-
-        interface $Exports {
-            /**
-             * The opaque #GstAV1Decoder data structure.
-             * @since 1.20
-             */
-            AV1Decoder: AV1DecoderClass
-        }
-        
-
-        namespace H264Decoder {
-            interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
-                "compliance": H264DecoderCompliance
-            }
-
-            interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
-                "compliance": H264DecoderCompliance
-            }
-
-            interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
-            }
-        }
-
-        interface H264Decoder extends GstVideo.VideoDecoder {
-            readonly $signals: H264Decoder.SignalSignatures
-            readonly $readableProperties: H264Decoder.ReadableProperties
-            readonly $writableProperties: H264Decoder.WritableProperties
-            readonly $constructOnlyProperties: H264Decoder.ConstructOnlyProperties
-            /**
-             * The compliance controls the behavior of the decoder to handle some
-             * subtle cases and contexts, such as the low-latency DPB bumping or
-             * mapping the baseline profile as the constrained-baseline profile,
-             * etc.
-             * @since 1.20
-             * @default GST_H264_DECODER_COMPLIANCE_AUTO
-             */
-            get compliance(): H264DecoderCompliance
-            set compliance(value: H264DecoderCompliance)
-            /**
-             * Retrive DPB and return a #GstH264Picture corresponding to
-             * the @system_frame_number
-             * @since 1.18
-             * @param system_frame_number a target system frame number of #GstH264Picture
-             * @returns a #GstH264Picture if successful, or %NULL otherwise
-             */
-            get_picture(system_frame_number: number): H264Picture | null
-            /**
-             * Called to en/disable reference picture modification process.
-             * @since 1.18
-             * @param process whether subclass is requiring reference picture modification process
-             */
-            set_process_ref_pic_lists(process: boolean): void
-            /**
-             * Provides per slice data with parsed slice header and required raw bitstream
-             * for subclass to decode it. If gst_h264_decoder_set_process_ref_pic_lists()
-             * is called with %TRUE by the subclass, @ref_pic_list0 and @ref_pic_list1
-             * are non-%NULL.
-             * In case of interlaced stream, @ref_pic_list0 and @ref_pic_list1 will
-             * contain only the first field of complementary reference field pair
-             * if currently being decoded picture is a frame picture. Subclasses might
-             * need to retrive the other field (i.e., the second field) of the picture
-             * if needed.
-             * @param picture a #GstH264Picture
-             * @param slice a #GstH264Slice
-             * @param ref_pic_list0 
-               an array of #GstH264Picture pointers
-             * @param ref_pic_list1 
-               an array of #GstH264Picture pointers
-             */
-            vfunc_decode_slice(picture: H264Picture, slice: H264Slice, ref_pic_list0: H264Picture[], ref_pic_list1: H264Picture[]): Gst.FlowReturn
-            /**
-             * Optional. Called per one #GstH264Picture to notify subclass to finish
-             * decoding process for the #GstH264Picture
-             * @param picture a #GstH264Picture
-             */
-            vfunc_end_picture(picture: H264Picture): Gst.FlowReturn
-            /**
-             * Optional. Called by baseclass to query whether delaying output is
-             * preferred by subclass or not.
-             * @since 1.20
-             * @param live whether upstream is live or not
-             * @returns the number of perferred delayed output frame
-             */
-            vfunc_get_preferred_output_delay(live: boolean): number
-            /**
-             * Called when a new field picture is created for interlaced field picture.
-             * Subclass can attach implementation specific user data on @second_field via
-             * gst_h264_picture_set_user_data
-             * @since 1.20
-             * @param first_field the first field #GstH264Picture already decoded
-             * @param second_field a #GstH264Picture for the second field
-             */
-            vfunc_new_field_picture(first_field: H264Picture, second_field: H264Picture): Gst.FlowReturn
-            /**
-             * Optional. Called whenever new #GstH264Picture is created.
-             * Subclass can set implementation specific user data
-             * on the #GstH264Picture via gst_h264_picture_set_user_data
-             * @param frame a #GstVideoCodecFrame
-             * @param picture a #GstH264Picture
-             */
-            vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: H264Picture): Gst.FlowReturn
-            /**
-             * Called with a #GstH264Picture which is required to be outputted.
-             * The #GstVideoCodecFrame must be consumed by subclass.
-             * @param frame a #GstVideoCodecFrame
-             * @param picture a #GstH264Picture
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: H264Picture): Gst.FlowReturn
-            /**
-             * Optional. Called per one #GstH264Picture to notify subclass to prepare
-             * decoding process for the #GstH264Picture
-             * @param picture a #GstH264Picture
-             * @param slice a #GstH264Slice
-             * @param dpb a #GstH264Dpb
-             */
-            vfunc_start_picture(picture: H264Picture, slice: H264Slice, dpb: H264Dpb): Gst.FlowReturn
-        }
-
-        interface H264DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
-            readonly $gtype: GObject.GType<H264Decoder>
-            readonly prototype: H264Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<H264Decoder>>): H264Decoder
-        }
-
-        interface $Exports {
-            /**
-             * The opaque #GstH264Decoder data structure.
-             */
-            H264Decoder: H264DecoderClass
-        }
-        
-
-        namespace H265Decoder {
-            interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
-            }
-
-            interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
-            }
-        }
-
-        interface H265Decoder extends GstVideo.VideoDecoder {
-            readonly $signals: H265Decoder.SignalSignatures
-            readonly $readableProperties: H265Decoder.ReadableProperties
-            readonly $writableProperties: H265Decoder.WritableProperties
-            readonly $constructOnlyProperties: H265Decoder.ConstructOnlyProperties
-            /**
-             * Retrive DPB and return a #GstH265Picture corresponding to
-             * the @system_frame_number
-             * @since 1.20
-             * @param system_frame_number a target system frame number of #GstH265Picture
-             * @returns a #GstH265Picture if successful, or %NULL otherwise
-             */
-            get_picture(system_frame_number: number): H265Picture | null
-            /**
-             * Called to en/disable reference picture modification process.
-             * @since 1.20
-             * @param process whether subclass is requiring reference picture modification process
-             */
-            set_process_ref_pic_lists(process: boolean): void
-            /**
-             * Provides per slice data with parsed slice header and required raw bitstream
-             * for subclass to decode it. If gst_h265_decoder_set_process_ref_pic_lists()
-             * is called with %TRUE by the subclass, @ref_pic_list0 and @ref_pic_list1
-             * are non-%NULL.
-             * @param picture a #GstH265Picture
-             * @param slice a #GstH265Slice
-             * @param ref_pic_list0 
-               an array of #GstH265Picture pointers
-             * @param ref_pic_list1 
-               an array of #GstH265Picture pointers
-             */
-            vfunc_decode_slice(picture: H265Picture, slice: H265Slice, ref_pic_list0: H265Picture[], ref_pic_list1: H265Picture[]): Gst.FlowReturn
-            /**
-             * Optional. Called per one #GstH265Picture to notify subclass to finish
-             * decoding process for the #GstH265Picture
-             * @param picture a #GstH265Picture
-             */
-            vfunc_end_picture(picture: H265Picture): Gst.FlowReturn
-            /**
-             * Optional. Called by baseclass to query whether delaying output is
-             * preferred by subclass or not.
-             * @since 1.22
-             * @param live whether upstream is live or not
-             * @returns the number of perferred delayed output frame
-             */
-            vfunc_get_preferred_output_delay(live: boolean): number
-            /**
-             * Optional. Called whenever new #GstH265Picture is created.
-             * Subclass can set implementation specific user data
-             * on the #GstH265Picture via gst_h265_picture_set_user_data
-             * @param frame a #GstVideoCodecFrame
-             * @param picture a #GstH265Picture
-             */
-            vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: H265Picture): Gst.FlowReturn
-            /**
-             * @param frame
-             * @param picture
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: H265Picture): Gst.FlowReturn
-            /**
-             * Optional. Called per one #GstH265Picture to notify subclass to prepare
-             * decoding process for the #GstH265Picture
-             * @param picture a #GstH265Picture
-             * @param slice a #GstH265Slice
-             * @param dpb a #GstH265Dpb
-             */
-            vfunc_start_picture(picture: H265Picture, slice: H265Slice, dpb: H265Dpb): Gst.FlowReturn
-        }
-
-        interface H265DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
-            readonly $gtype: GObject.GType<H265Decoder>
-            readonly prototype: H265Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<H265Decoder>>): H265Decoder
-        }
-
-        interface $Exports {
-            /**
-             * The opaque #GstH265Decoder data structure.
-             */
-            H265Decoder: H265DecoderClass
-        }
-        
-
-        namespace H266Decoder {
-            interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
-            }
-
-            interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
-            }
-        }
-
-        interface H266Decoder extends GstVideo.VideoDecoder {
-            readonly $signals: H266Decoder.SignalSignatures
-            readonly $readableProperties: H266Decoder.ReadableProperties
-            readonly $writableProperties: H266Decoder.WritableProperties
-            readonly $constructOnlyProperties: H266Decoder.ConstructOnlyProperties
-            /**
-             * Provides per slice data with parsed slice header and required raw bitstream
-             * for subclass to decode it.
-             * @since 1.26
-             * @param picture a #GstH266Picture
-             * @param slice a #GstH266Slice
-             */
-            vfunc_decode_slice(picture: H266Picture, slice: H266Slice): Gst.FlowReturn
-            /**
-             * Optional. Called per one #GstH266Picture to notify subclass to finish
-             * decoding process for the #GstH266Picture
-             * @since 1.26
-             * @param picture a #GstH266Picture
-             */
-            vfunc_end_picture(picture: H266Picture): Gst.FlowReturn
-            /**
-             * Optional. Called by baseclass to query whether delaying output is
-             * preferred by subclass or not.
-             * @since 1.26
-             * @param live whether upstream is live or not
-             * @returns the number of perferred delayed output frame
-             */
-            vfunc_get_preferred_output_delay(live: boolean): number
-            /**
-             * Optional. Called whenever new #GstH266Picture is created.
-             * Subclass can set implementation specific user data
-             * on the #GstH266Picture via gst_h266_picture_set_user_data
-             * @since 1.26
-             * @param frame a #GstVideoCodecFrame
-             * @param picture a #GstH266Picture
-             */
-            vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: H266Picture): Gst.FlowReturn
-            /**
-             * @param frame
-             * @param picture
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: H266Picture): Gst.FlowReturn
-            /**
-             * Optional. Called per one #GstH266Picture to notify subclass to prepare
-             * decoding process for the #GstH266Picture
-             * @since 1.26
-             * @param picture a #GstH266Picture
-             * @param slice a #GstH266Slice
-             * @param dpb a #GstH266Dpb
-             */
-            vfunc_start_picture(picture: H266Picture, slice: H266Slice, dpb: H266Dpb): Gst.FlowReturn
-        }
-
-        interface H266DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
-            readonly $gtype: GObject.GType<H266Decoder>
-            readonly prototype: H266Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<H266Decoder>>): H266Decoder
-        }
-
-        interface $Exports {
-            /**
-             * The opaque #GstH266Decoder data structure.
-             * @since 1.26
-             */
-            H266Decoder: H266DecoderClass
-        }
-        
-
-        namespace Mpeg2Decoder {
-            interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
-            }
-
-            interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
-            }
-        }
-
-        interface Mpeg2Decoder extends GstVideo.VideoDecoder {
-            readonly $signals: Mpeg2Decoder.SignalSignatures
-            readonly $readableProperties: Mpeg2Decoder.ReadableProperties
-            readonly $writableProperties: Mpeg2Decoder.WritableProperties
-            readonly $constructOnlyProperties: Mpeg2Decoder.ConstructOnlyProperties
-            /**
-             * Provides per slice data with parsed slice header and required raw bitstream
-             * for subclass to decode it.
-             * @since 1.20
-             * @param picture a #GstMpeg2Picture
-             * @param slice a #GstMpeg2Slice
-             */
-            vfunc_decode_slice(picture: Mpeg2Picture, slice: Mpeg2Slice): Gst.FlowReturn
-            /**
-             * Optional. Called per one #GstMpeg2Picture to notify subclass to finish
-             * decoding process for the #GstMpeg2Picture
-             * @since 1.20
-             * @param picture a #GstMpeg2Picture
-             */
-            vfunc_end_picture(picture: Mpeg2Picture): Gst.FlowReturn
-            /**
-             * Optional. Called by baseclass to query whether delaying output is
-             * preferred by subclass or not.
-             * @since 1.20
-             * @param is_live whether upstream is live or not
-             * @returns the number of perferred delayed output frames
-             */
-            vfunc_get_preferred_output_delay(is_live: boolean): number
-            /**
-             * Called when a new field picture is created for interlaced field picture.
-             * Subclass can attach implementation specific user data on @second_field via
-             * gst_mpeg2_picture_set_user_data
-             * @since 1.20
-             * @param first_field the first field #GstMpeg2Picture already decoded
-             * @param second_field a #GstMpeg2Picture for the second field
-             */
-            vfunc_new_field_picture(first_field: Mpeg2Picture, second_field: Mpeg2Picture): Gst.FlowReturn
-            /**
-             * Optional. Called whenever new #GstMpeg2Picture is created.
-             * Subclass can set implementation specific user data
-             * on the #GstMpeg2Picture via gst_mpeg2_picture_set_user_data
-             * @since 1.20
-             * @param frame a #GstVideoCodecFrame
-             * @param picture a #GstMpeg2Picture
-             */
-            vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: Mpeg2Picture): Gst.FlowReturn
-            /**
-             * Called with a #GstMpeg2Picture which is required to be outputted.
-             * The #GstVideoCodecFrame must be consumed by subclass.
-             * @since 1.20
-             * @param frame a #GstVideoCodecFrame
-             * @param picture a #GstMpeg2Picture
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: Mpeg2Picture): Gst.FlowReturn
-            /**
-             * Optional. Called per one #GstMpeg2Picture to notify subclass to prepare
-             * decoding process for the #GstMpeg2Picture
-             * @since 1.20
-             * @param picture a #GstMpeg2Picture
-             * @param slice a #GstMpeg2Slice
-             * @param prev_picture a #GstMpeg2Picture
-             * @param next_picture a #GstMpeg2Picture
-             */
-            vfunc_start_picture(picture: Mpeg2Picture, slice: Mpeg2Slice, prev_picture: Mpeg2Picture, next_picture: Mpeg2Picture): Gst.FlowReturn
-        }
-
-        interface Mpeg2DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
-            readonly $gtype: GObject.GType<Mpeg2Decoder>
-            readonly prototype: Mpeg2Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<Mpeg2Decoder>>): Mpeg2Decoder
-        }
-
-        interface $Exports {
-            /**
-             * The opaque #GstMpeg2Decoder data structure.
-             * @since 1.20
-             */
-            Mpeg2Decoder: Mpeg2DecoderClass
-        }
-        
-
-        namespace Vp8Decoder {
-            interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
-            }
-
-            interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
-            }
-        }
-
-        interface Vp8Decoder extends GstVideo.VideoDecoder {
-            readonly $signals: Vp8Decoder.SignalSignatures
-            readonly $readableProperties: Vp8Decoder.ReadableProperties
-            readonly $writableProperties: Vp8Decoder.WritableProperties
-            readonly $constructOnlyProperties: Vp8Decoder.ConstructOnlyProperties
-            /**
-             * Optional.
-             *                     Called per one #GstVp8Picture to notify subclass to finish
-             *                     decoding process for the #GstVp8Picture
-             * @param picture
-             */
-            vfunc_end_picture(picture: Vp8Picture): Gst.FlowReturn
-            /**
-             * Optional. Called by baseclass to query whether delaying output is
-             * preferred by subclass or not.
-             * @since 1.20
-             * @param is_live whether upstream is live or not
-             * @returns the number of perferred delayed output frame
-             */
-            vfunc_get_preferred_output_delay(is_live: boolean): number
-            /**
-             * Optional.
-             *                     Called whenever new #GstVp8Picture is created.
-             *                     Subclass can set implementation specific user data
-             *                     on the #GstVp8Picture via gst_vp8_picture_set_user_data
-             * @param frame
-             * @param picture
-             */
-            vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: Vp8Picture): Gst.FlowReturn
-            /**
-             * Called with a #GstVp8Picture which is required to be outputted.
-             *                     Subclass can retrieve parent #GstVideoCodecFrame by using
-             *                     gst_video_decoder_get_frame() with system_frame_number
-             *                     and the #GstVideoCodecFrame must be consumed by subclass via
-             *                     gst_video_decoder_{finish,drop,release}_frame().
-             * @param frame
-             * @param picture
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: Vp8Picture): Gst.FlowReturn
-            /**
-             * Optional.
-             *                     Called per one #GstVp8Picture to notify subclass to prepare
-             *                     decoding process for the #GstVp8Picture
-             * @param picture
-             */
-            vfunc_start_picture(picture: Vp8Picture): Gst.FlowReturn
-        }
-
-        interface Vp8DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
-            readonly $gtype: GObject.GType<Vp8Decoder>
-            readonly prototype: Vp8Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<Vp8Decoder>>): Vp8Decoder
-        }
-
-        interface $Exports {
-            /**
-             * The opaque #GstVp8Decoder data structure.
-             */
-            Vp8Decoder: Vp8DecoderClass
-        }
-        
-
-        namespace Vp9Decoder {
-            interface SignalSignatures extends GstVideo.VideoDecoder.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GstVideo.VideoDecoder.ReadableProperties {
-            }
-
-            interface WritableProperties extends GstVideo.VideoDecoder.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GstVideo.VideoDecoder.ConstructOnlyProperties {
-            }
-        }
-
-        interface Vp9Decoder extends GstVideo.VideoDecoder {
-            readonly $signals: Vp9Decoder.SignalSignatures
-            readonly $readableProperties: Vp9Decoder.ReadableProperties
-            readonly $writableProperties: Vp9Decoder.WritableProperties
-            readonly $constructOnlyProperties: Vp9Decoder.ConstructOnlyProperties
-            /**
-             * Called to set non-keyframe format change awareness
-             * @since 1.20
-             * @param support whether subclass can support non-keyframe format change
-             */
-            set_non_keyframe_format_change_support(support: boolean): void
-            /**
-             * Called to notify decoding for subclass to decoder given @picture with
-             * given @dpb
-             * @since 1.18
-             * @param picture a #GstVp9Picture to decoder
-             * @param dpb a #GstVp9Dpb
-             */
-            vfunc_decode_picture(picture: Vp9Picture, dpb: Vp9Dpb): Gst.FlowReturn
-            /**
-             * Optional. Called to duplicate @picture when show_existing_frame flag is set
-             * in the parsed vp9 frame header. Returned #GstVp9Picture from this method
-             * should hold already decoded picture data corresponding to the @picture,
-             * since the returned #GstVp9Picture from this method will be passed to
-             * the output_picture method immediately without additional decoding process.
-             *
-             * If this method is not implemented by subclass, baseclass will drop
-             * current #GstVideoCodecFrame without additional processing for the current
-             * frame.
-             * @since 1.18
-             * @param frame a #GstVideoCodecFrame
-             * @param picture a #GstVp9Picture to be duplicated
-             * @returns a #GstVp9Picture or %NULL if failed to duplicate `picture`.
-             */
-            vfunc_duplicate_picture(frame: GstVideo.VideoCodecFrame, picture: Vp9Picture): Vp9Picture | null
-            /**
-             * Optional. Called per one #GstVp9Picture to notify subclass to finish
-             * decoding process for the #GstVp9Picture
-             * @since 1.18
-             * @param picture a #GstVp9Picture
-             */
-            vfunc_end_picture(picture: Vp9Picture): Gst.FlowReturn
-            /**
-             * Optional. Retrieve the preferred output delay from child classes.
-             * controls how many frames to delay when calling
-             * GstVp9DecoderClass::output_picture
-             * @since 1.20
-             * @param is_live whether upstream is live or not
-             * @returns the number of perferred delayed output frame
-             */
-            vfunc_get_preferred_output_delay(is_live: boolean): number
-            /**
-             * Optional. Called whenever new #GstVp9Picture is created.
-             * Subclass can set implementation specific user data on the #GstVp9Picture
-             * via gst_vp9_picture_set_user_data
-             * @since 1.18
-             * @param frame a #GstVideoCodecFrame
-             * @param picture a #GstVp9Picture
-             */
-            vfunc_new_picture(frame: GstVideo.VideoCodecFrame, picture: Vp9Picture): Gst.FlowReturn
-            /**
-             * Notifies subclass of video sequence update such as resolution, bitdepth,
-             * profile.
-             * @since 1.18
-             * @param frame_hdr a #GstVp9FrameHeader
-             * @param max_dpb_size the size of dpb including preferred output delay
-              by subclass reported via get_preferred_output_delay method.
-             */
-            vfunc_new_sequence(frame_hdr: Vp9FrameHeader, max_dpb_size: number): Gst.FlowReturn
-            /**
-             * Called to notify @picture is ready to be outputted.
-             * @since 1.18
-             * @param frame a #GstVideoCodecFrame
-             * @param picture a #GstVp9Picture
-             */
-            vfunc_output_picture(frame: GstVideo.VideoCodecFrame, picture: Vp9Picture): Gst.FlowReturn
-            /**
-             * Optional. Called to notify subclass to prepare decoding process for
-             * @picture
-             * @since 1.18
-             * @param picture a #GstVp9Picture
-             */
-            vfunc_start_picture(picture: Vp9Picture): Gst.FlowReturn
-        }
-
-        interface Vp9DecoderClass extends Omit<GstVideo.VideoDecoderClass, "new"> {
-            readonly $gtype: GObject.GType<Vp9Decoder>
-            readonly prototype: Vp9Decoder
-
-            new (props?: Partial<GObject.ConstructorProps<Vp9Decoder>>): Vp9Decoder
-        }
-
-        interface $Exports {
-            /**
-             * The opaque #GstVp9Decoder data structure.
-             */
-            Vp9Decoder: Vp9DecoderClass
-        }
-        
-
-        interface AV1DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<AV1DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is AV1DecoderPrivate
-        }
-
-        interface AV1DecoderPrivate {
-        }
-
-        interface $Exports {
-            AV1DecoderPrivate: AV1DecoderPrivateStruct
-        }
-        
-
-        interface AV1DpbStruct {
-            readonly $gtype: GObject.GType<AV1Dpb>
-            [Symbol.hasInstance](instance: unknown): instance is AV1Dpb
-        }
-
-        interface AV1Dpb {
-            /**
-             */
-            pic_list: AV1Picture[]
-            /**
-             * Store the @picture
-             * @since 1.20
-             * @param picture a #GstAV1Picture
-             */
-            add(picture: AV1Picture): void
-            /**
-             * Clear all stored #GstAV1Picture
-             * @since 1.20
-             */
-            clear(): void
-            /**
-             * Free the @dpb
-             * @since 1.20
-             */
-            free(): void
-        }
-
-        interface $Exports {
-            AV1Dpb: AV1DpbStruct
-        }
-        
-
-        interface AV1PictureStruct {
-            readonly $gtype: GObject.GType<AV1Picture>
-            [Symbol.hasInstance](instance: unknown): instance is AV1Picture
-            /**
-             * Create new #GstAV1Picture
-             * @since 1.20
-             * @returns a new #GstAV1Picture
-             */
-            "new"(): AV1Picture
-        }
-
-        interface AV1Picture {
-        }
-
-        interface $Exports {
-            AV1Picture: AV1PictureStruct
-        }
-        
-
-        interface AV1TileStruct {
-            readonly $gtype: GObject.GType<AV1Tile>
-            [Symbol.hasInstance](instance: unknown): instance is AV1Tile
-        }
-
-        interface AV1Tile {
-        }
-
-        interface $Exports {
-            AV1Tile: AV1TileStruct
-        }
-        
-
-        interface CodecPictureStruct {
-            readonly $gtype: GObject.GType<CodecPicture>
-            [Symbol.hasInstance](instance: unknown): instance is CodecPicture
-        }
-
-        interface CodecPicture {
-            /**
-             * Gets private data set on the picture via
-             * gst_codec_picture_set_user_data() previously.
-             * @since 1.24
-             * @returns The previously set user_data
-             */
-            get_user_data(): never | null
-            /**
-             * Sets @discont_state to @picture
-             * @since 1.24
-             * @param discont_state a #GstVideoCodecState
-             */
-            set_discont_state(discont_state: GstVideo.VideoCodecState | null): void
-            /**
-             * Sets @user_data on the picture and the #GDestroyNotify that will be called when
-             * the picture is freed.
-             *
-             * If a @user_data was previously set, then the previous set @notify will be called
-             * before the @user_data is replaced.
-             * @since 1.24
-             * @param notify a #GDestroyNotify
-             */
-            set_user_data(notify: GLib.DestroyNotify): void
-        }
-
-        interface $Exports {
-            CodecPicture: CodecPictureStruct
-        }
-        
-
-        interface H264DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<H264DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is H264DecoderPrivate
-        }
-
-        interface H264DecoderPrivate {
-        }
-
-        interface $Exports {
-            H264DecoderPrivate: H264DecoderPrivateStruct
-        }
-        
-
-        interface H264DpbStruct {
-            readonly $gtype: GObject.GType<H264Dpb>
-            [Symbol.hasInstance](instance: unknown): instance is H264Dpb
-        }
-
-        interface H264Dpb {
-            /**
-             * Store the @picture
-             * @param picture a #GstH264Picture
-             */
-            add(picture: H264Picture): void
-            /**
-             * Perform bumping process as defined in C.4.5.3 "Bumping" process.
-             * If @drain is %TRUE, @dpb will remove a #GstH264Picture from internal array
-             * so that returned #GstH264Picture could hold the last reference of it
-             * @since 1.20
-             * @param drain whether draining or not
-             * @returns a #GstH264Picture which is needed to be outputted
-             */
-            bump(drain: boolean): H264Picture | null
-            /**
-             * Clear all stored #GstH264Picture
-             */
-            clear(): void
-            /**
-             * Delete already outputted and not referenced all pictures from dpb
-             */
-            delete_unused(): void
-            /**
-             * Free the @dpb
-             */
-            free(): void
-            /**
-             * @since 1.20
-             * @returns %TRUE if `dpb` is configured for interlaced stream
-             */
-            get_interlaced(): boolean
-            /**
-             * Find a long term reference picture which has matching long term picture number
-             * @since 1.20
-             * @param long_term_pic_num a long term picture number
-             * @returns a #GstH264Picture
-             */
-            get_long_ref_by_long_term_pic_num(long_term_pic_num: number): H264Picture | null
-            /**
-             * Find a short term reference picture which has the lowest frame_num_wrap
-             * @returns a #GstH264Picture
-             */
-            get_lowest_frame_num_short_ref(): H264Picture | null
-            /**
-             * @since 1.20
-             * @returns the number of maximum frames
-             */
-            get_max_num_frames(): number
-            /**
-             * @since 1.22.2
-             * @returns Maximum number of reorder frames
-             */
-            get_max_num_reorder_frames(): number
-            /**
-             * @since 1.18
-             * @param system_frame_number
-             * @returns the picture identified with the specified `system_frame_number`, or %NULL if DPB does not contain a #GstH264Picture corresponding to the `system_frame_number`
-             */
-            get_picture(system_frame_number: number): H264Picture | null
-            /**
-             * @returns a #GArray of   #GstH264Picture stored in `dpb`
-             */
-            get_pictures_all(): H264Picture[]
-            /**
-             * Retrieve all long-term reference pictures from @dpb. The picture will be
-             * appended to the array.
-             * @since 1.20
-             * @param include_second_field %TRUE if the second field pictures need to be included
-             * @returns , an array   of #GstH264Picture pointer
-             */
-            get_pictures_long_term_ref(include_second_field: boolean): H264Picture[]
-            /**
-             * Retrieve all short-term reference pictures from @dpb. The picture will be
-             * appended to the array.
-             * @since 1.20
-             * @param include_non_existing %TRUE if non-existing pictures need to be included
-             * @param include_second_field %TRUE if the second field pictures need to be included
-             * @returns , an array   of #GstH264Picture pointers
-             */
-            get_pictures_short_term_ref(include_non_existing: boolean, include_second_field: boolean): H264Picture[]
-            /**
-             * Find a short term reference picture which has matching picture number
-             * @param pic_num a picture number
-             * @returns a #GstH264Picture
-             */
-            get_short_ref_by_pic_num(pic_num: number): H264Picture | null
-            /**
-             * @returns the length of stored dpb array
-             */
-            get_size(): number
-            /**
-             * @since 1.20
-             * @returns %TRUE if `dpb` still has empty frame buffers.
-             */
-            has_empty_frame_buffer(): boolean
-            /**
-             * Mark all pictures are not referenced
-             */
-            mark_all_non_ref(): void
-            /**
-             * @since 1.20
-             * @param to_insert the current #GstH264Picture to insert to dpb.
-             * @param latency_mode The required #GstH264DpbBumpMode for bumping.
-             * @returns %TRUE if bumping is required
-             */
-            needs_bump(to_insert: H264Picture, latency_mode: H264DpbBumpMode): boolean
-            /**
-             * @since 1.20
-             * @returns The number of referenced frames
-             */
-            num_ref_frames(): number
-            /**
-             * @since 1.20
-             * @param interlaced %TRUE if interlaced
-             */
-            set_interlaced(interlaced: boolean): void
-            /**
-             * Notify the DPB that @picture is output directly without storing
-             * in the DPB.
-             * @since 1.20
-             * @param picture a #GstH264Picture of the last output.
-             */
-            set_last_output(picture: H264Picture): void
-            /**
-             * Set the number of maximum allowed frames to store
-             * @since 1.20
-             * @param max_num_frames the maximum number of picture
-             */
-            set_max_num_frames(max_num_frames: number): void
-            /**
-             * @since 1.20
-             * @param max_num_reorder_frames the max number of reorder frames, which
-            should not exceed the max size of DPB.
-             */
-            set_max_num_reorder_frames(max_num_reorder_frames: number): void
-        }
-
-        interface $Exports {
-            H264Dpb: H264DpbStruct
-        }
-        
-
-        interface H264PictureStruct {
-            readonly $gtype: GObject.GType<H264Picture>
-            [Symbol.hasInstance](instance: unknown): instance is H264Picture
-            /**
-             * Create new #GstH264Picture
-             * @returns a new #GstH264Picture
-             */
-            "new"(): H264Picture
-        }
-
-        interface H264Picture {
-        }
-
-        interface $Exports {
-            H264Picture: H264PictureStruct
-        }
-        
-
-        interface H264SliceStruct {
-            readonly $gtype: GObject.GType<H264Slice>
-            [Symbol.hasInstance](instance: unknown): instance is H264Slice
-        }
-
-        interface H264Slice {
-        }
-
-        interface $Exports {
-            H264Slice: H264SliceStruct
-        }
-        
-
-        interface H265DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<H265DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is H265DecoderPrivate
-        }
-
-        interface H265DecoderPrivate {
-        }
-
-        interface $Exports {
-            H265DecoderPrivate: H265DecoderPrivateStruct
-        }
-        
-
-        interface H265DpbStruct {
-            readonly $gtype: GObject.GType<H265Dpb>
-            [Symbol.hasInstance](instance: unknown): instance is H265Dpb
-        }
-
-        interface H265Dpb {
-            /**
-             * Store the @picture and perform increase pic_latency_cnt as defined in
-             * "C.5.2.3 Additional bumping" process
-             * @param picture a #GstH265Picture
-             */
-            add(picture: H265Picture): void
-            /**
-             * Perform bumping process as defined in C.5.2.4 "Bumping" process.
-             * If @drain is %TRUE, @dpb will remove a #GstH265Picture from internal array
-             * so that returned #GstH265Picture could hold the last reference of it
-             * @since 1.20
-             * @param drain whether draining or not
-             * @returns a #GstH265Picture which is needed to be outputted
-             */
-            bump(drain: boolean): H265Picture | null
-            /**
-             * Clear all stored #GstH265Picture
-             */
-            clear(): void
-            /**
-             * Delete not needed for output and not referenced all pictures from dpb
-             */
-            delete_unused(): void
-            /**
-             * Free the @dpb
-             */
-            free(): void
-            /**
-             * Find a long term reference picture which has matching poc
-             * @param poc a picture order count
-             * @returns a #GstH265Picture
-             */
-            get_long_ref_by_poc(poc: number): H265Picture | null
-            /**
-             * @returns the number of maximum pictures
-             */
-            get_max_num_pics(): number
-            /**
-             * @since 1.20
-             * @param system_frame_number
-             * @returns the picture identified with the specified `system_frame_number`, or %NULL if DPB does not contain a #GstH265Picture corresponding to the `system_frame_number`
-             */
-            get_picture(system_frame_number: number): H265Picture | null
-            /**
-             * @returns a #GArray of   #GstH265Picture stored in `dpb`
-             */
-            get_pictures_all(): H265Picture[]
-            /**
-             * Find a short or long term reference picture which has matching poc
-             * @param poc a picture order count
-             * @returns a #GstH265Picture
-             */
-            get_ref_by_poc(poc: number): H265Picture | null
-            /**
-             * Find a short or long term reference picture which has matching poc_lsb
-             * @param poc_lsb a picture order count lsb
-             * @returns a #GstH265Picture
-             */
-            get_ref_by_poc_lsb(poc_lsb: number): H265Picture | null
-            /**
-             * Find a short term reference picture which has matching poc
-             * @param poc a picture order count
-             * @returns a #GstH265Picture
-             */
-            get_short_ref_by_poc(poc: number): H265Picture | null
-            /**
-             * @returns the length of stored dpb array
-             */
-            get_size(): number
-            /**
-             * Mark all pictures are not referenced
-             */
-            mark_all_non_ref(): void
-            /**
-             * @since 1.20
-             * @param max_num_reorder_pics sps_max_num_reorder_pics[HighestTid]
-             * @param max_latency_increase SpsMaxLatencyPictures[HighestTid]
-             * @param max_dec_pic_buffering sps_max_dec_pic_buffering_minus1[HighestTid ] + 1
-              or zero if this shouldn't be used for bumping decision
-             * @returns %TRUE if bumping is required
-             */
-            needs_bump(max_num_reorder_pics: number, max_latency_increase: number, max_dec_pic_buffering: number): boolean
-            /**
-             * @returns The number of referenced pictures
-             */
-            num_ref_pictures(): number
-            /**
-             * Set the number of maximum allowed pictures to store
-             * @param max_num_pics the maximum number of picture
-             */
-            set_max_num_pics(max_num_pics: number): void
-        }
-
-        interface $Exports {
-            H265Dpb: H265DpbStruct
-        }
-        
-
-        interface H265PictureStruct {
-            readonly $gtype: GObject.GType<H265Picture>
-            [Symbol.hasInstance](instance: unknown): instance is H265Picture
-            /**
-             * Create new #GstH265Picture
-             * @returns a new #GstH265Picture
-             */
-            "new"(): H265Picture
-        }
-
-        interface H265Picture {
-        }
-
-        interface $Exports {
-            H265Picture: H265PictureStruct
-        }
-        
-
-        interface H265SliceStruct {
-            readonly $gtype: GObject.GType<H265Slice>
-            [Symbol.hasInstance](instance: unknown): instance is H265Slice
-        }
-
-        interface H265Slice {
-        }
-
-        interface $Exports {
-            H265Slice: H265SliceStruct
-        }
-        
-
-        interface H266DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<H266DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is H266DecoderPrivate
-        }
-
-        interface H266DecoderPrivate {
-        }
-
-        interface $Exports {
-            H266DecoderPrivate: H266DecoderPrivateStruct
-        }
-        
-
-        interface H266DpbStruct {
-            readonly $gtype: GObject.GType<H266Dpb>
-            [Symbol.hasInstance](instance: unknown): instance is H266Dpb
-        }
-
-        interface H266Dpb {
-            /**
-             * Store the @picture and perform increase pic_latency_cnt as defined in
-             * "C.5.2.3 Additional bumping" process
-             * @since 1.26
-             * @param picture a #GstH266Picture
-             */
-            add(picture: H266Picture): void
-            /**
-             * Perform bumping process as defined in C.5.2.4 "Bumping" process.
-             * If @drain is %TRUE, @dpb will remove a #GstH266Picture from internal array
-             * so that returned #GstH266Picture could hold the last reference of it.
-             * @since 1.26
-             * @param drain whether draining or not
-             * @returns a #GstH266Picture which is needed to be outputted
-             */
-            bump(drain: boolean): H266Picture | null
-            /**
-             * Clear all stored #GstH266Picture
-             * @since 1.26
-             */
-            clear(): void
-            /**
-             * Delete unneeded pictures from dpb as defined in "C.5.2.2 Output and
-             * removal of pictures from the DPB".
-             * @since 1.26
-             */
-            delete_unused(): void
-            /**
-             * Free the @dpb
-             * @since 1.26
-             */
-            free(): void
-            /**
-             * @since 1.26
-             * @returns the number of maximum pictures
-             */
-            get_max_num_pics(): number
-            /**
-             * Find a picture which has matching poc
-             * @since 1.26
-             * @param poc a picture order count
-             * @returns a #GstH266Picture
-             */
-            get_picture_by_poc(poc: number): H266Picture | null
-            /**
-             * Find a picture which has matching poc_lsb
-             * @since 1.26
-             * @param poc_lsb a picture order count lsb
-             * @returns a #GstH266Picture
-             */
-            get_picture_by_poc_lsb(poc_lsb: number): H266Picture | null
-            /**
-             * @since 1.26
-             * @returns a #GArray of   #GstH266Picture stored in `dpb`
-             */
-            get_pictures_all(): H266Picture[]
-            /**
-             * @since 1.26
-             * @returns the length of stored dpb array
-             */
-            get_size(): number
-            /**
-             * Mark all pictures are no needed for output
-             * @since 1.26
-             */
-            mark_all_non_output(): void
-            /**
-             * Mark all pictures are not referenced
-             * @since 1.26
-             */
-            mark_all_non_ref(): void
-            /**
-             * @since 1.26
-             * @param max_num_reorder_pics dpb_max_num_reorder_pics[HighestTid]
-             * @param max_latency_increase MaxLatencyPictures[HighestTid]
-             * @param max_dec_pic_buffering dpb_max_dec_pic_buffering_minus1[HighestTid] + 1
-              or zero if this shouldn't be used for bumping decision.
-             * @returns %TRUE if bumping is required
-             */
-            needs_bump(max_num_reorder_pics: number, max_latency_increase: number, max_dec_pic_buffering: number): boolean
-            /**
-             * @since 1.26
-             * @returns The number of referenced pictures in dpb.
-             */
-            num_ref_pictures(): number
-            /**
-             * Set the number of maximum allowed pictures to store
-             * @since 1.26
-             * @param max_num_pics the maximum number of picture
-             */
-            set_max_num_pics(max_num_pics: number): void
-        }
-
-        interface $Exports {
-            H266Dpb: H266DpbStruct
-        }
-        
-
-        interface H266PictureStruct {
-            readonly $gtype: GObject.GType<H266Picture>
-            [Symbol.hasInstance](instance: unknown): instance is H266Picture
-            /**
-             * Create new #GstH266Picture
-             * @since 1.26
-             * @returns a new #GstH266Picture
-             */
-            "new"(): H266Picture
-        }
-
-        interface H266Picture {
-        }
-
-        interface $Exports {
-            H266Picture: H266PictureStruct
-        }
-        
-
-        interface H266SliceStruct {
-            readonly $gtype: GObject.GType<H266Slice>
-            [Symbol.hasInstance](instance: unknown): instance is H266Slice
-        }
-
-        interface H266Slice {
-        }
-
-        interface $Exports {
-            H266Slice: H266SliceStruct
-        }
-        
-
-        interface Mpeg2DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<Mpeg2DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is Mpeg2DecoderPrivate
-        }
-
-        interface Mpeg2DecoderPrivate {
-        }
-
-        interface $Exports {
-            Mpeg2DecoderPrivate: Mpeg2DecoderPrivateStruct
-        }
-        
-
-        interface Mpeg2DpbStruct {
-            readonly $gtype: GObject.GType<Mpeg2Dpb>
-            [Symbol.hasInstance](instance: unknown): instance is Mpeg2Dpb
-        }
-
-        interface Mpeg2Dpb {
-            /**
-             * Store the @picture
-             * @since 1.20
-             * @param picture a #GstMpeg2Picture
-             */
-            add(picture: Mpeg2Picture): void
-            /**
-             * @since 1.20
-             * @returns a #GstMpeg2Picture which is needed to be outputted
-             */
-            bump(): Mpeg2Picture | null
-            /**
-             * Clear all stored #GstMpeg2Picture
-             * @since 1.20
-             */
-            clear(): void
-            /**
-             * Free the @dpb
-             * @since 1.20
-             */
-            free(): void
-            /**
-             * Gets the neighbours #GstMpeg2Picture of @picture in @dpb.
-             * @since 1.20
-             * @param picture current #GstMpeg2Picture
-             * @returns , previuous     #GstMpeg2Picture in `dpb`, next     #GstMpeg2Picture in `dpb`
-             */
-            get_neighbours(picture: Mpeg2Picture): [Mpeg2Picture | null, Mpeg2Picture | null]
-            /**
-             * Checks if @dbp has a new picture.
-             * @since 1.20
-             * @returns #TRUE if `dpb` needs to be bumped; otherwise, #FALSE
-             */
-            need_bump(): boolean
-        }
-
-        interface $Exports {
-            Mpeg2Dpb: Mpeg2DpbStruct
-        }
-        
-
-        interface Mpeg2PictureStruct {
-            readonly $gtype: GObject.GType<Mpeg2Picture>
-            [Symbol.hasInstance](instance: unknown): instance is Mpeg2Picture
-            /**
-             * Create new #GstMpeg2Picture
-             * @since 1.20
-             * @returns a new #GstMpeg2Picture
-             */
-            "new"(): Mpeg2Picture
-        }
-
-        interface Mpeg2Picture {
-        }
-
-        interface $Exports {
-            Mpeg2Picture: Mpeg2PictureStruct
-        }
-        
-
-        interface Mpeg2SliceStruct {
-            readonly $gtype: GObject.GType<Mpeg2Slice>
-            [Symbol.hasInstance](instance: unknown): instance is Mpeg2Slice
-        }
-
-        interface Mpeg2Slice {
-        }
-
-        interface $Exports {
-            Mpeg2Slice: Mpeg2SliceStruct
-        }
-        
-
-        interface Vp8DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<Vp8DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is Vp8DecoderPrivate
-        }
-
-        interface Vp8DecoderPrivate {
-        }
-
-        interface $Exports {
-            Vp8DecoderPrivate: Vp8DecoderPrivateStruct
-        }
-        
-
-        interface Vp8PictureStruct {
-            readonly $gtype: GObject.GType<Vp8Picture>
-            [Symbol.hasInstance](instance: unknown): instance is Vp8Picture
-            /**
-             * Create new #GstVp8Picture
-             * @returns a new #GstVp8Picture
-             */
-            "new"(): Vp8Picture
-        }
-
-        interface Vp8Picture {
-        }
-
-        interface $Exports {
-            Vp8Picture: Vp8PictureStruct
-        }
-        
-
-        interface Vp9DecoderPrivateStruct {
-            readonly $gtype: GObject.GType<Vp9DecoderPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is Vp9DecoderPrivate
-        }
-
-        interface Vp9DecoderPrivate {
-        }
-
-        interface $Exports {
-            Vp9DecoderPrivate: Vp9DecoderPrivateStruct
-        }
-        
-
-        interface Vp9DeltaProbabilitiesStruct {
-            readonly $gtype: GObject.GType<Vp9DeltaProbabilities>
-            [Symbol.hasInstance](instance: unknown): instance is Vp9DeltaProbabilities
-        }
-
-        interface Vp9DeltaProbabilities {
-        }
-
-        interface $Exports {
-            Vp9DeltaProbabilities: Vp9DeltaProbabilitiesStruct
-        }
-        
-
-        interface Vp9DpbStruct {
-            readonly $gtype: GObject.GType<Vp9Dpb>
-            [Symbol.hasInstance](instance: unknown): instance is Vp9Dpb
-        }
-
-        interface Vp9Dpb {
-            /**
-             */
-            pic_list: Vp9Picture[]
-            /**
-             * Store the @picture
-             * @param picture a #GstVp9Picture
-             */
-            add(picture: Vp9Picture): void
-            /**
-             * Clear all stored #GstVp9Picture
-             */
-            clear(): void
-            /**
-             * Free the @dpb
-             */
-            free(): void
-        }
-
-        interface $Exports {
-            Vp9Dpb: Vp9DpbStruct
-        }
-        
-
-        interface Vp9FrameHeaderStruct {
-            readonly $gtype: GObject.GType<Vp9FrameHeader>
-            [Symbol.hasInstance](instance: unknown): instance is Vp9FrameHeader
-        }
-
-        interface Vp9FrameHeader {
-            /**
-             * encoded profile
-             */
-            profile: number
-            /**
-             * encoded bit depth
-             */
-            bit_depth: number
-            /**
-             * specify the chroma subsampling format for x coordinate
-             */
-            subsampling_x: number
-            /**
-             * specify the chroma subsampling format for y coordinate
-             */
-            subsampling_y: number
-            /**
-             * specifies the color space of the stream
-             */
-            color_space: number
-            /**
-             * specifies the black level and range of the luma and chroma
-             *   signals
-             */
-            color_range: number
-            /**
-             * equal to 1, indicates the frame indexed by
-             *   frame_to_show_map_idx is to be displayed
-             */
-            show_existing_frame: number
-            /**
-             * specifies the frame to be displayed.
-             *   It is only available if show_existing_frame is 1
-             */
-            frame_to_show_map_idx: number
-            /**
-             * equal to 0 indicates that the current frame is a key frame
-             */
-            frame_type: number
-            /**
-             * indicate whether it is a displayable frame or not
-             */
-            show_frame: number
-            /**
-             * equal to 1 indicates that error resilient mode is
-             *   enabled
-             */
-            error_resilient_mode: number
-            /**
-             * coded frame width
-             */
-            width: number
-            /**
-             * coded frame height
-             */
-            height: number
-            /**
-             * equal to 0 means that the render width and
-             *   height are inferred from the frame width and height
-             */
-            render_and_frame_size_different: number
-            /**
-             * render width of the frame
-             */
-            render_width: number
-            /**
-             * render width of the frame
-             */
-            render_height: number
-            /**
-             * equal to 1 indicates that the frame is an intra-only frame
-             */
-            intra_only: number
-            /**
-             * specifies whether the frame context should be reset to
-             *   default values
-             */
-            reset_frame_context: number
-            /**
-             * contains a bitmask that specifies which reference frame
-             *   slots will be updated with the current frame after it is decoded
-             */
-            refresh_frame_flags: number
-            /**
-             * specifies which reference frames are used by inter frames
-             */
-            ref_frame_idx: Uint8Array
-            /**
-             * specifies the intended direction of the motion vector
-             *   in time for each reference frame. A sign bias equal to 0 indicates that
-             *   the reference frame is a backwards reference
-             */
-            ref_frame_sign_bias: Uint8Array
-            /**
-             * equal to 0 specifies that motion vectors are
-             *   specified to quarter pel precision
-             */
-            allow_high_precision_mv: number
-            /**
-             * specifies the filter selection used for performing
-             *   inter prediction
-             */
-            interpolation_filter: number
-            /**
-             * equal to 1 indicates that the probabilities computed
-             *   for this frame
-             */
-            refresh_frame_context: number
-            /**
-             * equal to 1 indicates that parallel decoding
-             *   mode is enabled
-             */
-            frame_parallel_decoding_mode: number
-            /**
-             * indicates the frame context to use
-             */
-            frame_context_idx: number
-            /**
-             * a #GstVp9LoopFilterParams
-             */
-            loop_filter_params: Vp9LoopFilterParams
-            /**
-             * a #GstVp9QuantizationParams
-             */
-            quantization_params: Vp9QuantizationParams
-            /**
-             * a #GstVp9SegmentationParams
-             */
-            segmentation_params: Vp9SegmentationParams
-            /**
-             * specifies the base 2 logarithm of the width of each tile
-             */
-            tile_cols_log2: number
-            /**
-             * specifies the base 2 logarithm of the height of each tile
-             */
-            tile_rows_log2: number
-            /**
-             */
-            header_size_in_bytes: number
-            /**
-             * Specifies how the transform size is determined.
-             * @since 1.20
-             */
-            tx_mode: Vp9TxMode
-            /**
-             * Is a derived syntax element that specifies the type of
-             * inter prediction to be used.
-             * @since 1.20
-             */
-            reference_mode: Vp9ReferenceMode
-            /**
-             * Modification to the probabilities encoded in the bitstream.
-             * @since 1.20
-             */
-            delta_probabilities: Vp9DeltaProbabilities
-            /**
-             * lossless mode decode
-             */
-            lossless_flag: number
-            /**
-             * length of uncompressed header
-             */
-            frame_header_length_in_bytes: number
-        }
-
-        interface $Exports {
-            Vp9FrameHeader: Vp9FrameHeaderStruct
-        }
-        
-
-        interface Vp9LoopFilterParamsStruct {
-            readonly $gtype: GObject.GType<Vp9LoopFilterParams>
-            [Symbol.hasInstance](instance: unknown): instance is Vp9LoopFilterParams
-        }
-
-        interface Vp9LoopFilterParams {
-            /**
-             * indicates the loop filter strength
-             */
-            loop_filter_level: number
-            /**
-             * indicates the sharpness level
-             */
-            loop_filter_sharpness: number
-            /**
-             * equal to 1 means that the filter level depends
-             *   on the mode and reference frame used to predict a block
-             */
-            loop_filter_delta_enabled: number
-            /**
-             * equal to 1 means that the bitstream contains
-             *   additional syntax elements that specify which mode and reference frame
-             *   deltas are to be updated
-             */
-            loop_filter_delta_update: number
-            /**
-             * equal to 1 means that the bitstream contains the syntax
-             *   element loop_filter_ref_delta
-             */
-            update_ref_delta: Uint8Array
-            /**
-             * contains the adjustment needed for the filter level
-             *   based on the chosen reference frame
-             */
-            loop_filter_ref_deltas: Uint8Array
-            /**
-             * equal to 1 means that the bitstream contains the syntax
-             *   element loop_filter_mode_deltas
-             */
-            update_mode_delta: Uint8Array
-            /**
-             * contains the adjustment needed for the filter level
-             *   based on the chosen mode
-             */
-            loop_filter_mode_deltas: Uint8Array
-        }
-
-        interface $Exports {
-            Vp9LoopFilterParams: Vp9LoopFilterParamsStruct
-        }
-        
-
-        interface Vp9MvDeltaProbsStruct {
-            readonly $gtype: GObject.GType<Vp9MvDeltaProbs>
-            [Symbol.hasInstance](instance: unknown): instance is Vp9MvDeltaProbs
-        }
-
-        interface Vp9MvDeltaProbs {
-        }
-
-        interface $Exports {
-            Vp9MvDeltaProbs: Vp9MvDeltaProbsStruct
-        }
-        
-
-        interface Vp9PictureStruct {
-            readonly $gtype: GObject.GType<Vp9Picture>
-            [Symbol.hasInstance](instance: unknown): instance is Vp9Picture
-            /**
-             * Create new #GstVp9Picture
-             * @returns a new #GstVp9Picture
-             */
-            "new"(): Vp9Picture
-        }
-
-        interface Vp9Picture {
-        }
-
-        interface $Exports {
-            Vp9Picture: Vp9PictureStruct
-        }
-        
-
-        interface Vp9QuantizationParamsStruct {
-            readonly $gtype: GObject.GType<Vp9QuantizationParams>
-            [Symbol.hasInstance](instance: unknown): instance is Vp9QuantizationParams
-        }
-
-        interface Vp9QuantizationParams {
-            /**
-             * indicates the base frame qindex. This is used for Y AC
-             *   coefficients and as the base value for the other quantizers
-             */
-            base_q_idx: number
-            /**
-             * indicates the Y DC quantizer relative to base_q_idx
-             */
-            delta_q_y_dc: number
-            /**
-             * indicates the UV DC quantizer relative to base_q_idx
-             */
-            delta_q_uv_dc: number
-            /**
-             * indicates the UV AC quantizer relative to base_q_idx
-             */
-            delta_q_uv_ac: number
-        }
-
-        interface $Exports {
-            Vp9QuantizationParams: Vp9QuantizationParamsStruct
-        }
-        
-
-        interface Vp9SegmentationParamsStruct {
-            readonly $gtype: GObject.GType<Vp9SegmentationParams>
-            [Symbol.hasInstance](instance: unknown): instance is Vp9SegmentationParams
-        }
-
-        interface Vp9SegmentationParams {
-            /**
-             * equal to 1 indicates that this frame makes use of the
-             *   segmentation tool
-             */
-            segmentation_enabled: number
-            /**
-             * equal to 1 indicates that the segmentation map
-             *   should be updated during the decoding of this frame
-             */
-            segmentation_update_map: number
-            /**
-             * specify the probability values to be used when
-             *   decoding segment_id
-             */
-            segmentation_tree_probs: Uint8Array
-            /**
-             * specify the probability values to be used when
-             *    decoding seg_id_predicted
-             */
-            segmentation_pred_prob: Uint8Array
-            /**
-             * equal to 1 indicates that the updates to
-             *   the segmentation map are coded relative to the existing segmentation map
-             */
-            segmentation_temporal_update: number
-            /**
-             * equal to 1 indicates that new parameters are
-             *   about to be specified for each segment
-             */
-            segmentation_update_data: number
-            /**
-             * equal to 0 indicates that the segmentation
-             *   parameters represent adjustments relative to the standard values.
-             *   equal to 1 indicates that the segmentation parameters represent the actual
-             *   values to be used
-             */
-            segmentation_abs_or_delta_update: number
-            /**
-             * indicates whether feature is enabled or not
-             */
-            feature_enabled: Uint8Array
-            /**
-             * segmentation feature data
-             */
-            feature_data: number[]
-        }
-
-        interface $Exports {
-            Vp9SegmentationParams: Vp9SegmentationParamsStruct
-        }
-        
-
-        interface Vp9StatefulParserStruct {
-            readonly $gtype: GObject.GType<Vp9StatefulParser>
-            [Symbol.hasInstance](instance: unknown): instance is Vp9StatefulParser
-        }
-
-        interface Vp9StatefulParser {
-            /**
-             */
-            reference: never[]
-            /**
-             * Frees @parser.
-             * @since 1.20
-             */
-            free(): void
-        }
-
-        interface $Exports {
-            Vp9StatefulParser: Vp9StatefulParserStruct
-        }
-        
-        interface H264DecoderComplianceEnum {
-            readonly $gtype: GObject.GType<H264DecoderCompliance>
-            /**
-             * The decoder behavior is
-             *     automatically choosen.
-             */
-            readonly "AUTO": 0
-            /**
-             * The decoder behavior strictly
-             *     conforms to the SPEC. All the decoder behaviors conform to the
-             *     SPEC, not including any nonstandard behavior which is not
-             *     mentioned in the SPEC.
-             */
-            readonly "STRICT": 1
-            /**
-             * The decoder behavior normally
-             *     conforms to the SPEC. Most behaviors conform to the SPEC but
-             *     including some nonstandard features which are widely used or
-             *     often used in the industry practice. This meets the request of
-             *     real streams and usages, but may not 100% conform to the
-             *     SPEC. It has very low risk. E.g., we will output pictures
-             *     without waiting DPB being full for the lower latency, which may
-             *     cause B frame disorder when there are reference frames with
-             *     smaller POC after it in decoder order. And the baseline profile
-             *     may be mapped to the constrained-baseline profile, but it may
-             *     have problems when a real baseline stream comes with FMO or
-             *     ASO.
-             */
-            readonly "NORMAL": 2
-            /**
-             * The decoder behavior
-             *     flexibly conforms to the SPEC. It uses the nonstandard features
-             *     more aggressively in order to get better performance(for
-             *     example, lower latency). It may change the result of the
-             *     decoder and should be used carefully. Besides including all
-             *     risks in *normal* mode, it has more risks, such as frames
-             *     disorder when reference frames POC decrease in decoder order.
-             */
-            readonly "FLEXIBLE": 3
-        }
-        type H264DecoderCompliance = H264DecoderComplianceEnum[Exclude<keyof H264DecoderComplianceEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * @since 1.20
-             */
-            H264DecoderCompliance: H264DecoderComplianceEnum
-        }
-        
-        interface H264DpbBumpModeEnum {
-            readonly $gtype: GObject.GType<H264DpbBumpMode>
-            /**
-             * No latency requirement for DBP bumping.
-             */
-            readonly "NORMAL_LATENCY": 0
-            /**
-             * Low-latency requirement for DBP bumping.
-             */
-            readonly "LOW_LATENCY": 1
-            /**
-             * Very low-latency requirement for DBP bumping.
-             */
-            readonly "VERY_LOW_LATENCY": 2
-        }
-        type H264DpbBumpMode = H264DpbBumpModeEnum[Exclude<keyof H264DpbBumpModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * @since 1.20
-             */
-            H264DpbBumpMode: H264DpbBumpModeEnum
-        }
-        
-        interface H264PictureFieldEnum {
-            readonly $gtype: GObject.GType<H264PictureField>
-            /**
-             */
-            readonly "FRAME": 0
-            /**
-             */
-            readonly "TOP_FIELD": 1
-            /**
-             */
-            readonly "BOTTOM_FIELD": 2
-        }
-        type H264PictureField = H264PictureFieldEnum[Exclude<keyof H264PictureFieldEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            H264PictureField: H264PictureFieldEnum
-        }
-        
-        interface H264PictureReferenceEnum {
-            readonly $gtype: GObject.GType<H264PictureReference>
-            /**
-             * Not used for reference picture
-             */
-            readonly "NONE": 0
-            /**
-             * Used for short-term reference picture
-             */
-            readonly "SHORT_TERM": 1
-            /**
-             * Used for long-term reference picture
-             */
-            readonly "LONG_TERM": 2
-        }
-        type H264PictureReference = H264PictureReferenceEnum[Exclude<keyof H264PictureReferenceEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * @since 1.20
-             */
-            H264PictureReference: H264PictureReferenceEnum
-        }
-        
-        interface Vp9ReferenceModeEnum {
-            readonly $gtype: GObject.GType<Vp9ReferenceMode>
-            /**
-             * Indicates that all the inter blocks use only a single reference frame
-             */
-            readonly "SINGLE_REFERENCE": 0
-            /**
-             * Requires all the inter blocks to use compound mode
-             */
-            readonly "COMPOUND_REFERENCE": 1
-            /**
-             * Allows each individual inter block to select between single and compound prediction modes
-             */
-            readonly "SELECT": 2
-        }
-        type Vp9ReferenceMode = Vp9ReferenceModeEnum[Exclude<keyof Vp9ReferenceModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Reference modes: Specify the type of inter prediction to be used
-             * @since 1.20
-             */
-            Vp9ReferenceMode: Vp9ReferenceModeEnum
-        }
-        
-        interface Vp9TxModeEnum {
-            readonly $gtype: GObject.GType<Vp9TxMode>
-            /**
-             * Only 4x4
-             */
-            readonly "ONLY_4X4": 0
-            /**
-             * Allow 8x8
-             */
-            readonly "ALLOW_8X8": 1
-            /**
-             * Allow 16x16
-             */
-            readonly "ALLOW_16X16": 2
-            /**
-             * Allow 32x32
-             */
-            readonly "ALLOW_32X32": 3
-            /**
-             * The choice is specified explicitly for each block
-             */
-            readonly "SELECT": 4
-        }
-        type Vp9TxMode = Vp9TxModeEnum[Exclude<keyof Vp9TxModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * TxMode: Specifies how the transform size is determined
-             * @since 1.20
-             */
-            Vp9TxMode: Vp9TxModeEnum
-        }
-        
-        interface Vp9TxSizeEnum {
-            readonly $gtype: GObject.GType<Vp9TxSize>
-            /**
-             * 4x4
-             */
-            readonly "4X4": 0
-            /**
-             * 8x8
-             */
-            readonly "8X8": 1
-            /**
-             * 16x16
-             */
-            readonly "16X16": 2
-            /**
-             * 32x32
-             */
-            readonly "32X32": 3
-        }
-        type Vp9TxSize = Vp9TxSizeEnum[Exclude<keyof Vp9TxSizeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * TxSize: Specifies the transform size
-             * @since 1.20
-             */
-            Vp9TxSize: Vp9TxSizeEnum
-        }
-
-        interface $Exports {
-            __name__: "GstCodecs"
-            __version: "1.0"
-            H264_DPB_MAX_SIZE: 16
-            H265_DPB_MAX_SIZE: 16
-            VP9_BLOCK_SIZE_GROUPS: 4
-            VP9_CLASS0_SIZE: 2
-            VP9_COMP_MODE_CONTEXTS: 5
-            VP9_INTERP_FILTER_CONTEXTS: 4
-            VP9_INTER_MODES: 4
-            VP9_INTER_MODE_CONTEXTS: 7
-            VP9_INTRA_MODES: 10
-            VP9_IS_INTER_CONTEXTS: 4
-            VP9_MV_CLASSES: 11
-            VP9_MV_FR_SIZE: 4
-            VP9_MV_JOINTS: 4
-            VP9_MV_OFFSET_BITS: 10
-            VP9_PARTITION_CONTEXTS: 16
-            VP9_PARTITION_TYPES: 4
-            VP9_REF_CONTEXTS: 5
-            VP9_SEG_LVL_ALT_L: 1
-            VP9_SEG_LVL_ALT_Q: 0
-            VP9_SEG_LVL_MAX: 4
-            VP9_SEG_LVL_REF_FRAME: 2
-            VP9_SEG_SEG_LVL_SKIP: 3
-            VP9_SKIP_CONTEXTS: 3
-            VP9_SWITCHABLE_FILTERS: 3
-            VP9_TX_MODES: 5
-            VP9_TX_SIZES: 4
-            VP9_TX_SIZE_CONTEXTS: 2
-            /**
-             * An implementation of "ac_q" function specified in
-             * "8.6.1 Dequantization functions"
-             * @since 1.20
-             * @param qindex the quantizer index
-             * @param delta_q_ac a delta_q_ac value
-             * @param bit_depth coded bit depth
-             * @returns the quantizer value for the ac coefficient
-             */
-            vp9_get_ac_quant(qindex: number, delta_q_ac: number, bit_depth: number): number
-            /**
-             * An implementation of "dc_q" function specified in
-             * "8.6.1 Dequantization functions"
-             * @since 1.20
-             * @param qindex the quantizer index
-             * @param delta_q_dc a delta_q_dc value
-             * @param bit_depth coded bit depth
-             * @returns the quantizer value for the dc coefficient
-             */
-            vp9_get_dc_quant(qindex: number, delta_q_dc: number, bit_depth: number): number
-            /**
-             * An implementation of "get_qindex" function specfied in
-             * "8.6.1 Dequantization functions"
-             * @since 1.20
-             * @param segmentation_params a #GstVp9SegmentationParams
-             * @param quantization_params a #GstVp9QuantizationParams
-             * @param segment_id a segment id
-             * @returns the quantizer index
-             */
-            vp9_get_qindex(segmentation_params: Vp9SegmentationParams, quantization_params: Vp9QuantizationParams, segment_id: number): number
-            /**
-             * An implementation of "seg_feature_active" function specified in
-             * "6.4.9 Segmentation feature active syntax"
-             * @since 1.20
-             * @param params a #GstVp9SegmentationParams
-             * @param segment_id a segment id
-             * @param feature a segmentation feature
-             * @returns %TRUE if feature is active
-             */
-            vp9_seg_feature_active(params: Vp9SegmentationParams, segment_id: number, feature: number): boolean
-        }
+        const GstCodecs: GstCodecs.$Exports
     }
 
-    const GstCodecs: GstCodecs.$Exports
-    export default GstCodecs
+    export default GI.GstCodecs
 }

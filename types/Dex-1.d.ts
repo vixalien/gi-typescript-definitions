@@ -14,2406 +14,2386 @@ declare module "gi://Dex?version=1" {
     import type GObject from "gi://GObject?version=2.0"
     import type Gio from "gi://Gio?version=2.0"
 
-    
-
-    namespace Dex {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace AsyncPair {
-            interface SignalSignatures extends Future.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Future.ReadableProperties {
-            }
-
-            interface WritableProperties extends Future.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
-            }
-        }
-
-        interface AsyncPair extends Future {
-            readonly $signals: AsyncPair.SignalSignatures
-            readonly $readableProperties: AsyncPair.ReadableProperties
-            readonly $writableProperties: AsyncPair.WritableProperties
-            readonly $constructOnlyProperties: AsyncPair.ConstructOnlyProperties
-            /**
-             * Gets the cancellable for the async pair.
-             *
-             * If the [class@Dex.AsyncPair] is discarded by its callers, then it will
-             * automatically be cancelled using [method@Gio.Cancellable.cancel].
-             * @returns the [class@Gio.Cancellable] associated with the   `async_pair`
-             */
-            get_cancellable(): Gio.Cancellable
-            /**
-             * @param value
-             */
-            return_boolean(value: boolean): void
-            /**
-             * Rejects @async_pair with @error.
-             *
-             * This function is meant to be used when manually wrapping
-             * various [callback@Gio.AsyncReadyCallback] based API.
-             *
-             * The ownership of @error is taken when calling this function.
-             * @param error a [struct@GLib.Error]
-             */
-            return_error(error: GLib.Error): void
-            /**
-             * @param value
-             */
-            return_int64(value: number): void
-            /**
-             * Resolves @async_pair with a value of @instance.
-             *
-             * This function is meant to be used when manually wrapping
-             * various [callback@Gio.AsyncReadyCallback] based API.
-             *
-             * The ownership of @instance is taken when calling this function.
-             * @param instance a [class@GObject.Object]
-             */
-            return_object(instance: GObject.Object): void
-            /**
-             * Resolves @async_pair with @value.
-             * @param value a string or %NULL
-             */
-            return_string(value: string | null): void
-            /**
-             * @param value
-             */
-            return_uint64(value: number): void
-            /**
-             * Resolves @async_pair with @variant.
-             * @param variant the [struct@GLib.Variant] to resolve with
-             */
-            return_variant(variant: GLib.Variant): void
-            /**
-             * Sets whether or not the future should cancel the async operation when
-             * the future is discarded. This happens when no more futures are awaiting
-             * the completion of this future.
-             * @since 0.4
-             * @param cancel_on_discard if the operation should cancel when the future is discarded
-             */
-            set_cancel_on_discard(cancel_on_discard: boolean): void
-        }
-
-        interface AsyncPairClass extends Omit<FutureClass, "new"> {
-            readonly $gtype: GObject.GType<AsyncPair>
-            readonly prototype: AsyncPair
-
-            new (props?: Partial<GObject.ConstructorProps<AsyncPair>>): AsyncPair
-            /**
-             * @param instance
-             * @param info
-             */
-            "new"(instance: never | null, info: AsyncPairInfo): AsyncPair
-        }
-
-        interface $Exports {
-            /**
-             */
-            AsyncPair: AsyncPairClass
-        }
-        
-
-        namespace AsyncResult {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.AsyncResult.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Gio.AsyncResult.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, Gio.AsyncResult.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.AsyncResult.ConstructOnlyProperties {
-            }
-        }
-
-        interface AsyncResult extends GObject.Object, Gio.AsyncResult {
-            readonly $signals: AsyncResult.SignalSignatures
-            readonly $readableProperties: AsyncResult.ReadableProperties
-            readonly $writableProperties: AsyncResult.WritableProperties
-            readonly $constructOnlyProperties: AsyncResult.ConstructOnlyProperties
-            /**
-             * Tracks the result of @future and uses the value to complete @async_result,
-             * eventually calling the registered [callback@Gio.AsyncReadyCallback].
-             * @param future a [class@Dex.Future]
-             */
-            await(future: Future): void
-            /**
-             * Gets the future for the [class@Dex.AsyncResult], or %NULL if a future
-             * is not available.
-             * @returns a [class@Dex.Future] or %NULL
-             */
-            dup_future(): Future | null
-            /**
-             */
-            get_name(): string
-            /**
-             * @throws {GLib.Error}
-             */
-            propagate_boolean(): boolean
-            /**
-             * @throws {GLib.Error}
-             */
-            propagate_double(): number
-            /**
-             * @throws {GLib.Error}
-             */
-            propagate_int(): number
-            /**
-             * @throws {GLib.Error}
-             */
-            propagate_pointer(): never | null
-            /**
-             * @param name
-             */
-            set_name(name: string): void
-            /**
-             * @param priority
-             */
-            set_priority(priority: number): void
-            /**
-             * @param name
-             */
-            set_static_name(name: string): void
-        }
-
-        interface AsyncResultClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<AsyncResult>
-            readonly prototype: AsyncResult
-
-            new (props?: Partial<GObject.ConstructorProps<AsyncResult>>): AsyncResult
-            /**
-             * Creates a new [class@Dex.AsyncResult].
-             *
-             * Use this to integrate with `GAsyncResult` by calling
-             * [method@Dex.AsyncResult.await] to complete when the
-             * dependent future resolves.
-             * @param source_object
-             * @param cancellable
-             * @param callback
-             */
-            "new"(source_object: never | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): AsyncResult
-        }
-
-        interface $Exports {
-            /**
-             * `DexAsyncResult` is used to integrate a `DexFuture` with `GAsyncResult`.
-             *
-             * Use this class when you need to expose the traditional async/finish
-             * behavior of `GAsyncResult`.
-             */
-            AsyncResult: AsyncResultClass
-        }
-        
-
-        namespace Block {
-            interface SignalSignatures extends Future.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Future.ReadableProperties {
-            }
-
-            interface WritableProperties extends Future.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
-            }
-        }
-
-        interface Block extends Future {
-            readonly $signals: Block.SignalSignatures
-            readonly $readableProperties: Block.ReadableProperties
-            readonly $writableProperties: Block.WritableProperties
-            readonly $constructOnlyProperties: Block.ConstructOnlyProperties
-            /**
-             * Gets the kind of block.
-             *
-             * The kind of block relates to what situations the block would be
-             * executed such as for handling a future resolution, rejection, or
-             * both.
-             * @returns the [enum@Dex.BlockKind] associated with the `block`
-             */
-            get_kind(): BlockKind
-            /**
-             * Gets the scheduler to use when executing a block.
-             * @returns the [class@Dex.Scheduler] associated with the `block`
-             */
-            get_scheduler(): Scheduler
-        }
-
-        interface BlockClass extends Omit<FutureClass, "new"> {
-            readonly $gtype: GObject.GType<Block>
-            readonly prototype: Block
-
-            new (props?: Partial<GObject.ConstructorProps<Block>>): Block
-        }
-
-        interface $Exports {
-            /**
-             * `DexBlock` represents a callback closure that can be scheduled to run
-             * within a specific [struct@GLib.MainContext].
-             *
-             * You create these by chaining futures together using [ctor@Dex.Future.then],
-             * [ctor@Dex.Future.catch], [ctor@Dex.Future.finally] and similar.
-             */
-            Block: BlockClass
-        }
-        
-
-        namespace Cancellable {
-            interface SignalSignatures extends Future.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Future.ReadableProperties {
-            }
-
-            interface WritableProperties extends Future.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
-            }
-        }
-
-        interface Cancellable extends Future {
-            readonly $signals: Cancellable.SignalSignatures
-            readonly $readableProperties: Cancellable.ReadableProperties
-            readonly $writableProperties: Cancellable.WritableProperties
-            readonly $constructOnlyProperties: Cancellable.ConstructOnlyProperties
-            /**
-             * Rejects @cancellable.
-             *
-             * Any future that is dependent on this cancellable will be notified
-             * of the rejection. For some futures, that may cause them to also
-             * reject or resolve.
-             */
-            cancel(): void
-        }
-
-        interface CancellableClass extends Omit<FutureClass, "new"> {
-            readonly $gtype: GObject.GType<Cancellable>
-            readonly prototype: Cancellable
-
-            new (props?: Partial<GObject.ConstructorProps<Cancellable>>): Cancellable
-            /**
-             * Create a new cancellable
-             */
-            "new"(): Cancellable
-            /**
-             * Creates a new [class@Dex.Cancellable] that will reject
-             * when @cancellable is cancelled or
-             * [method@Dex.Cancellable.cancel] is called.
-             * @param cancellable a [class@Gio.Cancellable]
-             */
-            new_from_cancellable(cancellable: Gio.Cancellable | null): Cancellable
-        }
-
-        interface $Exports {
-            /**
-             * `DexCancellable` is a simple cancellation primitive which allows
-             * for you to create [class@Dex.Future] that will reject upon cancellation.
-             *
-             * Use this combined with other futures using [ctor@Dex.Future.all_race]
-             * to create a future that resolves when all other futures complete
-             * or [method@Dex.Cancellable.cancel] is called to reject.
-             */
-            Cancellable: CancellableClass
-        }
-        
-
-        namespace Channel {
-            interface SignalSignatures extends Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface Channel extends Object {
-            readonly $signals: Channel.SignalSignatures
-            readonly $readableProperties: Channel.ReadableProperties
-            readonly $writableProperties: Channel.WritableProperties
-            readonly $constructOnlyProperties: Channel.ConstructOnlyProperties
-            /**
-             */
-            can_receive(): boolean
-            /**
-             */
-            can_send(): boolean
-            /**
-             */
-            close_receive(): void
-            /**
-             */
-            close_send(): void
-            /**
-             * Receives the next item from the channel.
-             *
-             * The resulting future will resolve or reject when an item is available
-             * to the channel or when send side has closed (in that order).
-             * @returns a [class@Dex.Future]
-             */
-            receive(): Future
-            /**
-             * Will attempt to receive all items in the channel as a [class@Dex.FutureSet].
-             *
-             * If the receive side of the channel is closed, then the future will
-             * reject with an error.
-             *
-             * If there are items in the queue, then they will be returned as part
-             * of a [class@Dex.FutureSet] containing each of the futures.
-             *
-             * Otherwise, a [class@Dex.FutureSet] will be returned which will resolve or
-             * reject when the next item is available in the channel (or the send
-             * or receive sides are closed).
-             * @returns a [class@Dex.Future]
-             */
-            receive_all(): Future
-            /**
-             * Queues @future into the channel.
-             *
-             * The other end of the channel can receive the future (or a future that will
-             * eventually resolve to @future) using [method@Dex.Channel.receive].
-             *
-             * This function returns a [class@Dex.Future] that will resolve when the channels
-             * capacity is low enough to queue more items.
-             *
-             * If the send side of the channel is closed, the returned [class@Dex.Future] will be
-             * rejected with %DEX_ERROR_CHANNEL_CLOSED.
-             * @param future a [class@Dex.Future]
-             * @returns a [class@Dex.Future]
-             */
-            send(future: Future): Future
-        }
-
-        interface ChannelClass extends Omit<ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Channel>
-            readonly prototype: Channel
-
-            new (props?: Partial<GObject.ConstructorProps<Channel>>): Channel
-            /**
-             * Creates a new [class@Dex.Channel].
-             *
-             * If capacity is non-zero, it can be used to limit the size of the channel
-             * so that functions can asynchronously stall until items have been removed
-             * from the channel. This is useful in buffering situations so that the
-             * producer does not outpace the consumer.
-             * @param capacity the channel queue depth or 0 for unlimited
-             * @returns a new [class@Dex.Channel]
-             */
-            "new"(capacity: number): Channel
-        }
-
-        interface $Exports {
-            /**
-             */
-            Channel: ChannelClass
-        }
-        
-
-        namespace DBusInterfaceSkeleton {
-            interface SignalSignatures extends Gio.DBusInterfaceSkeleton.SignalSignatures, Gio.DBusInterface.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gio.DBusInterfaceSkeleton.ReadableProperties, Gio.DBusInterface.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gio.DBusInterfaceSkeleton.WritableProperties, Gio.DBusInterface.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gio.DBusInterfaceSkeleton.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties {
-            }
-        }
-
-        interface DBusInterfaceSkeleton extends Gio.DBusInterfaceSkeleton, Gio.DBusInterface {
-            readonly $signals: DBusInterfaceSkeleton.SignalSignatures
-            readonly $readableProperties: DBusInterfaceSkeleton.ReadableProperties
-            readonly $writableProperties: DBusInterfaceSkeleton.WritableProperties
-            readonly $constructOnlyProperties: DBusInterfaceSkeleton.ConstructOnlyProperties
-            /**
-             * Cancels all in-flight fibers.
-             * @since 1.1
-             */
-            cancel(): void
-            /**
-             * Gets the #DexDBusInterfaceSkeletonFlags that describes the behavior
-             * of @interface_
-             * @since 1.1
-             * @returns One or more flags from the #DexDBusInterfaceSkeletonFlags enumeration.
-             */
-            get_flags(): DBusInterfaceSkeletonFlags
-            /**
-             * Sets flags describing what the behavior of @interface_ should be.
-             * @since 1.1
-             * @param flags Flags from the #DexDBusInterfaceSkeletonFlags enumeration.
-             */
-            set_flags(flags: DBusInterfaceSkeletonFlags): void
-        }
-
-        interface DBusInterfaceSkeletonClass extends Omit<Gio.DBusInterfaceSkeletonClass, "new"> {
-            readonly $gtype: GObject.GType<DBusInterfaceSkeleton>
-            readonly prototype: DBusInterfaceSkeleton
-
-            new (props?: Partial<GObject.ConstructorProps<DBusInterfaceSkeleton>>): DBusInterfaceSkeleton
-        }
-
-        interface $Exports {
-            /**
-             * #DexDBusInterfaceSkeleton provides integration between libdex and the GDBus
-             * codegen. If the gdbus-codegen dex extension is used, all generated
-             * InterfaceSkeletons inherit from #DexDBusInterfaceSkeleton instead of
-             * #GDBusInterfaceSkeleton, which allows the use of the API exposed here.
-             */
-            DBusInterfaceSkeleton: DBusInterfaceSkeletonClass
-        }
-        
-
-        namespace Delayed {
-            interface SignalSignatures extends Future.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Future.ReadableProperties {
-            }
-
-            interface WritableProperties extends Future.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
-            }
-        }
-
-        interface Delayed extends Future {
-            readonly $signals: Delayed.SignalSignatures
-            readonly $readableProperties: Delayed.ReadableProperties
-            readonly $writableProperties: Delayed.WritableProperties
-            readonly $constructOnlyProperties: Delayed.ConstructOnlyProperties
-            /**
-             * Retrieves the delayed future provided to [ctor@Dex.Delayed.new].
-             *
-             * This function can only return a [class@Dex.Future] before
-             * [method@Dex.Delayed.release] is called. After that, the delayed future is
-             * released and this function will return %NULL.
-             * @returns a [class@Dex.Future] or %NULL
-             */
-            dup_future(): Future | null
-            /**
-             * Completes @delayed using the value provided at construction.
-             */
-            release(): void
-        }
-
-        interface DelayedClass extends Omit<FutureClass, "new"> {
-            readonly $gtype: GObject.GType<Delayed>
-            readonly prototype: Delayed
-
-            new (props?: Partial<GObject.ConstructorProps<Delayed>>): Delayed
-            /**
-             * Creates a new [class@Dex.Delayed]
-             * @param future a [class@Dex.Future]
-             */
-            "new"(future: Future): Delayed
-        }
-
-        interface $Exports {
-            /**
-             * `DexDelayed` is a future which will resolve or reject the value of another
-             * [class@Dex.Future] when [method@Dex.Delayed.release] is called.
-             *
-             * This allows you to gate the resolution of a future which has already
-             * resolved or rejected until a later moment.
-             */
-            Delayed: DelayedClass
-        }
-        
-
-        namespace Fiber {
-            interface SignalSignatures extends Future.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Future.ReadableProperties {
-            }
-
-            interface WritableProperties extends Future.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
-            }
-        }
-
-        interface Fiber extends Future {
-            readonly $signals: Fiber.SignalSignatures
-            readonly $readableProperties: Fiber.ReadableProperties
-            readonly $writableProperties: Fiber.WritableProperties
-            readonly $constructOnlyProperties: Fiber.ConstructOnlyProperties
-        }
-
-        interface FiberClass extends Omit<FutureClass, "new"> {
-            readonly $gtype: GObject.GType<Fiber>
-            readonly prototype: Fiber
-
-            new (props?: Partial<GObject.ConstructorProps<Fiber>>): Fiber
-        }
-
-        interface $Exports {
-            /**
-             * `DexFiber` is a fiber (a stack-based coroutine) which itself is a
-             * [class@Dex.Future].
-             *
-             * When the fiber completes execution it will either resolve or reject the
-             * with the result or error.
-             *
-             * You may treat a `DexFiber` like any other `DexFuture` which makes it simple
-             * to integrate fibers into other processing chains.
-             *
-             * `DexFiber` are provided their own stack separate from a thread's main stack,
-             * and are automatically scheduled as necessary.
-             *
-             * Use [method@Dex.Future.await] and similar functions to await the result of
-             * another future within the fiber and the fiber will be suspended allowing
-             * another fiber to run and/or the rest of the application's main loop.
-             *
-             * Once a fiber is created, it is pinned to that scheduler. Use
-             * [method@Dex.Scheduler.spawn] to create a fiber on a specific scheduler.
-             */
-            Fiber: FiberClass
-        }
-        
-
-        namespace Future {
-            interface SignalSignatures extends Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface Future extends Object {
-            readonly $signals: Future.SignalSignatures
-            readonly $readableProperties: Future.ReadableProperties
-            readonly $writableProperties: Future.WritableProperties
-            readonly $constructOnlyProperties: Future.ConstructOnlyProperties
-            /**
-             * Suspends the current [class@Dex.Fiber] and resumes when @future has completed.
-             *
-             * If @future is completed when this function is called, the fiber will handle
-             * the result immediately.
-             *
-             * This function may only be called within a `DexFiber`. To do otherwise will
-             * return %FALSE and @error set to %DEX_ERROR_NO_FIBER.
-             *
-             * It is an error to call this function in a way that would cause
-             * intermediate code to become invalid when resuming the stack. For example,
-             * if a foreach-style function taking a callback was to suspend from the
-             * callback, undefined behavior may occur such as thread-local-storage
-             * having changed.
-             * @throws {GLib.Error}
-             * @returns %TRUE if the future resolved, otherwise %FALSE   and `error` is set.
-             */
-            await(): boolean
-            /**
-             * Awaits on @future and returns the gboolean result.
-             *
-             * If the result is not a `gboolean`, @error is set.
-             * @throws {GLib.Error}
-             * @returns the `gboolean`, or %FALSE and `error` is set
-             */
-            await_boolean(): boolean
-            /**
-             * Awaits on @future and returns the %G_TYPE_BOXED based result.
-             * @throws {GLib.Error}
-             * @returns the boxed result, or %NULL and `error` is set.
-             */
-            await_boxed(): never | null
-            /**
-             * Awaits on @future and returns the result as an double.
-             *
-             * The resolved value must be of type %G_TYPE_DOUBLE or @error is set.
-             * @throws {GLib.Error}
-             * @returns an double, or 0 in case of failure and `error` is set.
-             */
-            await_double(): number
-            /**
-             * Awaits on @future and returns the enum result.
-             *
-             * If the result is not a %G_TYPE_ENUM, @error is set.
-             * @throws {GLib.Error}
-             * @returns the enum or 0 and `error` is set.
-             */
-            await_enum(): number
-            /**
-             * Awaits on @future and returns the resulting file-descriptor.
-             *
-             * The resolved value must be of type %DEX_TYPE_FD or @error is set.
-             * @throws {GLib.Error}
-             * @since 0.10
-             * @returns a valid file descriptor or -1. you may get -1 without   error being set if there was no rejected future.
-             */
-            await_fd(): number
-            /**
-             * Awaits on @future and returns the flags result.
-             *
-             * If the result is not a %G_TYPE_FLAGS, @error is set.
-             * @throws {GLib.Error}
-             * @returns the flags or 0 and `error` is set.
-             */
-            await_flags(): number
-            /**
-             * Awaits on @future and returns the result as an float.
-             *
-             * The resolved value must be of type %G_TYPE_FLOAT or @error is set.
-             * @throws {GLib.Error}
-             * @returns an float, or 0 in case of failure and `error` is set.
-             */
-            await_float(): number
-            /**
-             * Awaits on @future and returns the result as an int.
-             *
-             * The resolved value must be of type %G_TYPE_INT or @error is set.
-             * @throws {GLib.Error}
-             * @returns an int, or 0 in case of failure and `error` is set.
-             */
-            await_int(): number
-            /**
-             * Awaits on @future and returns the result as an int64.
-             *
-             * The resolved value must be of type %G_TYPE_INT64 or @error is set.
-             * @throws {GLib.Error}
-             * @returns an int64, or 0 in case of failure and `error` is set.
-             */
-            await_int64(): number
-            /**
-             * Awaits on @future and returns the [class@GObject.Object]-based result.
-             * @throws {GLib.Error}
-             * @returns the object, or %NULL and `error` is set.
-             */
-            await_object(): GObject.Object
-            /**
-             * Calls [method@Dex.Future.await] and returns the value of
-             * [method@GObject.Value.get_pointer], otherwise @error is set if the future
-             * rejected.
-             * @throws {GLib.Error}
-             * @returns a pointer or %NULL
-             */
-            await_pointer(): never | null
-            /**
-             * Awaits on @future and returns the string result.
-             *
-             * If the result is not a %G_TYPE_STRING, @error is set.
-             * @throws {GLib.Error}
-             * @returns the string  or %NULL and `error` is set
-             */
-            await_string(): string | null
-            /**
-             * Awaits on @future and returns the result as an uint.
-             *
-             * The resolved value must be of type %G_TYPE_UINT or @error is set.
-             * @throws {GLib.Error}
-             * @returns an uint, or 0 in case of failure and `error` is set.
-             */
-            await_uint(): number
-            /**
-             * Awaits on @future and returns the result as an uint64.
-             *
-             * The resolved value must be of type %G_TYPE_UINT64 or @error is set.
-             * @throws {GLib.Error}
-             * @returns an uint64, or 0 in case of failure and `error` is set.
-             */
-            await_uint64(): number
-            /**
-             * Awaits on @future and returns the %G_TYPE_VARIANT based result.
-             * @throws {GLib.Error}
-             * @since 0.4
-             * @returns the variant result, or %NULL and `error` is set.
-             */
-            await_variant(): GLib.Variant
-            /**
-             * Disowns a future, allowing it to run to completion even though there may
-             * be no observer interested in the futures completion or rejection.
-             * @since 0.4
-             */
-            disown(): void
-            /**
-             */
-            get_name(): string
-            /**
-             */
-            get_status(): FutureStatus
-            /**
-             * @throws {GLib.Error}
-             */
-            get_value(): GObject.Value
-            /**
-             * This is a convenience function equivalent to calling
-             * [method@Dex.Future.get_status] and checking for %DEX_FUTURE_STATUS_PENDING.
-             * @returns %TRUE if the future is still pending; otherwise %FALSE
-             */
-            is_pending(): boolean
-            /**
-             * This is a convenience function equivalent to calling
-             * [method@Dex.Future.get_status] and checking for %DEX_FUTURE_STATUS_REJECTED.
-             * @returns %TRUE if the future was rejected with an error; otherwise %FALSE
-             */
-            is_rejected(): boolean
-            /**
-             * This is a convenience function equivalent to calling
-             * [method@Dex.Future.get_status] and checking for %DEX_FUTURE_STATUS_RESOLVED.
-             * @returns %TRUE if the future has successfully resolved with a value;   otherwise %FALSE
-             */
-            is_resolved(): boolean
-            /**
-             * Creates a new list model that will initially be empty and after
-             * @future resolves contain the items within it.
-             * @since 1.1
-             * @returns a new [class@Dex.FutureListModel]
-             */
-            list_model_new(): Gio.ListModel
-        }
-
-        interface FutureClass extends Omit<ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Future>
-            readonly prototype: Future
-
-            new (props?: Partial<GObject.ConstructorProps<Future>>): Future
-            /**
-             * Creates a new [class@Dex.Future] that resolves when all futures resolve.
-             *
-             * If any future rejects, the resulting [class@Dex.Future] also rejects immediately.
-             * @param futures an array of futures
-             * @returns a [class@Dex.Future]
-             */
-            all_race(futures: Future[]): Future
-            /**
-             * Creates a new [class@Dex.Future] that resolves when all futures resolve.
-             *
-             * The resulting [class@Dex.Future] will not resolve or reject until all futures
-             * have either resolved or rejected.
-             * @param futures an array of futures
-             * @returns a [class@Dex.Future]
-             */
-            all(futures: Future[]): Future
-            /**
-             * Creates a new [class@Dex.Future] that resolves when the first future resolves.
-             *
-             * If all futures reject, then the [class@Dex.Future] returned will also reject.
-             * @param futures an array of futures
-             * @returns a [class@Dex.Future]
-             */
-            any(futures: Future[]): Future
-            /**
-             * Calls @callback when @future rejects.
-             *
-             * If @future resolves, then @callback will not be called.
-             * @param future a [class@Dex.Future]
-             * @param callback a callback to execute
-             * @returns a [class@Dex.Future]
-             */
-            catch(future: Future, callback: FutureCallback): Future
-            /**
-             * Asynchronously calls @callback when @future rejects.
-             *
-             * This is similar to [ctor@Dex.Future.catch] except that it will call
-             * @callback multiple times as each returned [class@Dex.Future] rejects,
-             * allowing for infinite loops.
-             * @param future a [class@Dex.Future]
-             * @param callback a callback to execute
-             * @returns a [class@Dex.Future]
-             */
-            catch_loop(future: Future, callback: FutureCallback): Future
-            /**
-             * Calls @callback when @future resolves or rejects.
-             * @param future a [class@Dex.Future]
-             * @param callback a callback to execute
-             * @returns a [class@Dex.Future]
-             */
-            finally(future: Future, callback: FutureCallback): Future
-            /**
-             * Asynchronously calls @callback when @future rejects or resolves.
-             *
-             * This is similar to [ctor@Dex.Future.finally] except that it will call
-             * @callback multiple times as each returned [class@Dex.Future] rejects or resolves,
-             * allowing for infinite loops.
-             * @param future a [class@Dex.Future]
-             * @param callback a callback to execute
-             * @returns a [class@Dex.Future]
-             */
-            finally_loop(future: Future, callback: FutureCallback): Future
-            /**
-             * Creates a new [class@Dex.Future] that resolves or rejects as soon as the
-             * first dependent future resolves or rejects, sharing the same result.
-             * @param futures an array of futures
-             * @returns a [class@Dex.Future]
-             */
-            first(futures: Future[]): Future
-            /**
-             * Creates a new [class@Dex.Future] and resolves it with @v_bool.
-             * @param v_bool the resolved value for the future
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_for_boolean(v_bool: boolean): Future
-            /**
-             * Creates a new [class@Dex.Future] and resolves it with @v_double.
-             * @param v_double the resolved value for the future
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_for_double(v_double: number): Future
-            /**
-             * Creates a new rejected future using @errno_ as the value
-             * of errno for the GError.
-             *
-             * The resulting error domain will be %G_IO_ERROR.
-             * @since 0.4
-             * @param errno_ the `errno` to use for rejection
-             * @returns a rejected [class@Dex.Future].
-             */
-            new_for_errno(errno_: number): Future
-            /**
-             * Creates a read-only [class@Dex.Future] that has rejected.
-             * @param error a [struct@GLib.Error]
-             * @returns a [class@Dex.Future]
-             */
-            new_for_error(error: GLib.Error): Future
-            /**
-             * Creates a new future that resolves to @fd.
-             *
-             * This function takes ownership of @fd.
-             * @since 0.10
-             * @param fd the file-descriptor to take ownership of
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_for_fd(fd: number): Future
-            /**
-             * Creates a new [class@Dex.Future] and resolves it with @v_float.
-             * @param v_float the resolved value for the future
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_for_float(v_float: number): Future
-            /**
-             * Creates a new [class@Dex.Future] and resolves it with @v_int.
-             * @param v_int the resolved value for the future
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_for_int(v_int: number): Future
-            /**
-             * Creates a new [class@Dex.Future] and resolves it with @v_int64.
-             * @param v_int64 the resolved value for the future
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_for_int64(v_int64: number): Future
-            /**
-             * Creates a new [class@Dex.Future] that is resolved with @value.
-             * @param value the value
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_for_object(value: GObject.Object): Future
-            /**
-             * Creates a new [class@Dex.Future] that is resolved with @pointer as a %G_TYPE_POINTER.
-             * @param pointer the resolved future value as a pointer
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_for_pointer(pointer: never | null): Future
-            /**
-             * Creates a new [class@Dex.Future] and resolves it with @string.
-             * @param string the resolved value for the future
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_for_string(string: string): Future
-            /**
-             * Creates a new [class@Dex.Future] and resolves it with @v_uint.
-             * @param v_uint the resolved value for the future
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_for_uint(v_uint: number): Future
-            /**
-             * Creates a new [class@Dex.Future] and resolves it with @v_uint64.
-             * @param v_uint64 the resolved value for the future
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_for_uint64(v_uint64: number): Future
-            /**
-             * Creates a read-only [class@Dex.Future] that has resolved.
-             * @param value the resolved [struct@GObject.Value]
-             * @returns a [class@Dex.Future]
-             */
-            new_for_value(value: (GObject.Value | unknown)): Future
-            /**
-             * Creates an infinite future that will never resolve or reject. This can
-             * be useful when you want to mock a situation of "run forever" unless
-             * another future rejects or resolves.
-             * @since 0.4
-             * @returns a [class@Dex.Future] that will never complete or reject
-             */
-            new_infinite(): Future
-            /**
-             * Creates a new [class@Dex.Future] that is resolved with @value.
-             * @param value the value
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_take_object(value: GObject.Object | null): Future
-            /**
-             * Creates a new [class@Dex.Future] and resolves it with @string.
-             * @param string the resolved value for the future
-             * @returns a resolved [class@Dex.Future]
-             */
-            new_take_string(string: string): Future
-            /**
-             * Calls @callback when @future resolves.
-             *
-             * If @future rejects, then @callback will not be called.
-             * @param future a [class@Dex.Future]
-             * @param callback a callback to execute
-             * @returns a [class@Dex.Future]
-             */
-            then(future: Future, callback: FutureCallback): Future
-            /**
-             * Asynchronously calls @callback when @future resolves.
-             *
-             * This is similar to [ctor@Dex.Future.then] except that it will call
-             * @callback multiple times as each returned [class@Dex.Future] resolves or
-             * rejects, allowing for infinite loops.
-             * @param future a [class@Dex.Future]
-             * @param callback a callback to execute
-             * @returns a [class@Dex.Future]
-             */
-            then_loop(future: Future, callback: FutureCallback): Future
-        }
-
-        interface $Exports {
-            /**
-             * `DexFuture` is the base class representing a future which may resolve with
-             * a value or reject with error at some point in the future.
-             *
-             * It is the basis for libdex's concurrency and parallelism model.
-             *
-             * Use futures to represent work in progress and allow consumers to build
-             * robust processing chains up front which will complete or fail as futures
-             * resolve or reject.
-             *
-             * When running on a [class@Dex.Fiber], you may use [method@Dex.Future.await]
-             * and similar functions to suspend the current thread and return upon
-             * completion of the dependent future.
-             */
-            Future: FutureClass
-        }
-        
-
-        namespace FutureListModel {
-            interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.ListModel.SignalSignatures {
-            }
-
-            interface ReadableProperties extends GObject.Object.ReadableProperties, Gio.ListModel.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties, Gio.ListModel.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.ListModel.ConstructOnlyProperties {
-            }
-        }
-
-        interface FutureListModel extends GObject.Object, Gio.ListModel {
-            readonly $signals: FutureListModel.SignalSignatures
-            readonly $readableProperties: FutureListModel.ReadableProperties
-            readonly $writableProperties: FutureListModel.WritableProperties
-            readonly $constructOnlyProperties: FutureListModel.ConstructOnlyProperties
-            /**
-             * Gets the future provided when creating the list model.
-             * @since 1.1
-             * @returns a [class@Dex.Future] that resolves to a   [iface@Gio.ListModel] or rejects with error.
-             */
-            dup_future(): Future
-        }
-
-        interface FutureListModelClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<FutureListModel>
-            readonly prototype: FutureListModel
-
-            new (props?: Partial<GObject.ConstructorProps<FutureListModel>>): FutureListModel
-        }
-
-        interface $Exports {
-            /**
-             * This class provides a [iface@Gio.ListModel] implementation that will
-             * expand to the contents of another [iface@Gio.ListModel] from a
-             * [class@Dex.Future].
-             * @since 1.1
-             */
-            FutureListModel: FutureListModelClass
-        }
-        
-
-        namespace FutureSet {
-            interface SignalSignatures extends Future.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Future.ReadableProperties {
-            }
-
-            interface WritableProperties extends Future.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
-            }
-        }
-
-        interface FutureSet extends Future {
-            readonly $signals: FutureSet.SignalSignatures
-            readonly $readableProperties: FutureSet.ReadableProperties
-            readonly $writableProperties: FutureSet.WritableProperties
-            readonly $constructOnlyProperties: FutureSet.ConstructOnlyProperties
-            /**
-             * Gets the [class@Dex.Future] at @position within @future_set.
-             *
-             * It is a programmer error to request a `DexFuture` which is outside of the
-             * range of the number of futures contained within the @future_set. Use
-             * [method@Dex.FutureSet.get_size] to determine the number of `DexFuture` that
-             * are contained within the [class@Dex.FutureSet].
-             * @param position the position within the @future_set
-             * @returns the [class@Dex.Future] at `position`, or %NULL
-             */
-            get_future_at(position: number): Future
-            /**
-             * Gets the number of futures associated with the [class@Dex.FutureSet]. You
-             * may use [method@Dex.FutureSet.get_future_at] to obtain the individual
-             * [class@Dex.Future].
-             * @returns the number of [class@Dex.Future] in `future_set`.
-             */
-            get_size(): number
-            /**
-             * Gets the result from a [class@Dex.Future] that is part of the
-             * [class@Dex.FutureSet].
-             * @throws {GLib.Error}
-             * @param position the [class@Dex.Future] position within the set
-             * @returns a [struct@GObject.Value] if successful; otherwise   %NULL and `error` is set.
-             */
-            get_value_at(position: number): GObject.Value
-        }
-
-        interface FutureSetClass extends Omit<FutureClass, "new"> {
-            readonly $gtype: GObject.GType<FutureSet>
-            readonly prototype: FutureSet
-
-            new (props?: Partial<GObject.ConstructorProps<FutureSet>>): FutureSet
-        }
-
-        interface $Exports {
-            /**
-             * `DexFutureSet` represents a set of [class@Dex.Future].
-             *
-             * You may retrieve each underlying `DexFuture` using
-             * [method@Dex.FutureSet.get_future_at].
-             *
-             * The [enum@Dex.FutureStatus] of of the `DexFutureSet` depends on how the set
-             * was created using [ctor@Dex.Future.all], [ctor@Dex.Future.any], and similar
-             * methods.
-             */
-            FutureSet: FutureSetClass
-        }
-        
-
-        namespace MainScheduler {
-            interface SignalSignatures extends Scheduler.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Scheduler.ReadableProperties {
-            }
-
-            interface WritableProperties extends Scheduler.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Scheduler.ConstructOnlyProperties {
-            }
-        }
-
-        interface MainScheduler extends Scheduler {
-            readonly $signals: MainScheduler.SignalSignatures
-            readonly $readableProperties: MainScheduler.ReadableProperties
-            readonly $writableProperties: MainScheduler.WritableProperties
-            readonly $constructOnlyProperties: MainScheduler.ConstructOnlyProperties
-        }
-
-        interface MainSchedulerClass extends Omit<SchedulerClass, "new"> {
-            readonly $gtype: GObject.GType<MainScheduler>
-            readonly prototype: MainScheduler
-
-            new (props?: Partial<GObject.ConstructorProps<MainScheduler>>): MainScheduler
-        }
-
-        interface $Exports {
-            /**
-             * `DexMainScheduler` is the scheduler used on the default thread of an
-             * application. It is meant to integrate with your main loop.
-             *
-             * This scheduler does the bulk of the work in an application.
-             *
-             * Use [class@Dex.ThreadPoolScheduler] when you want to offload work to a thread
-             * and still use future-based programming.
-             */
-            MainScheduler: MainSchedulerClass
-        }
-        
-
-        namespace Object {
-            interface SignalSignatures  {
-            }
-
-            interface ReadableProperties  {
-            }
-
-            interface WritableProperties  {
-            }
-
-            interface ConstructOnlyProperties  {
-            }
-        }
-
-        interface Object  {
-            readonly $signals: Object.SignalSignatures
-            readonly $readableProperties: Object.ReadableProperties
-            readonly $writableProperties: Object.WritableProperties
-            readonly $constructOnlyProperties: Object.ConstructOnlyProperties
-            /**
-             * Acquires a reference on the given object, and increases its reference count by one.
-             * @returns the object with its reference count increased
-             */
-            ref(): Object
-            /**
-             * Releases a reference on the given object, and decreases its reference count by one.
-             *
-             * If it was the last reference, the resources associated to the instance are freed.
-             */
-            unref(): void
-        }
-
-        interface ObjectClass {
-            readonly $gtype: GObject.GType<Object>
-            readonly prototype: Object
-
-            new (props?: Partial<GObject.ConstructorProps<Object>>): Object
-        }
-
-        interface $Exports {
-            /**
-             * `DexObject` is the basic building block of types defined within
-             * libdex. Futures, Schedulers, and Channels all inherit from `DexObject`
-             * which provides features like thread-safe weak pointers and memory
-             * management operations.
-             *
-             * Objects that are integrating with GIO instead inherit from their
-             * natural type in GIO.
-             */
-            Object: ObjectClass
-        }
-        
-
-        namespace Promise {
-            interface SignalSignatures extends Future.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Future.ReadableProperties {
-            }
-
-            interface WritableProperties extends Future.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
-            }
-        }
-
-        interface Promise extends Future {
-            readonly $signals: Promise.SignalSignatures
-            readonly $readableProperties: Promise.ReadableProperties
-            readonly $writableProperties: Promise.WritableProperties
-            readonly $constructOnlyProperties: Promise.ConstructOnlyProperties
-            /**
-             * Gets a [class@Gio.Cancellable] that will cancel when the promise has
-             * been discarded (and therefore result no longer necessary).
-             *
-             * This is useful when manually implementing wrappers around various
-             * [callback@Gio.AsyncReadyCallback] based API.
-             *
-             * If @promise was created with [ctor@Dex.Promise.new], then %NULL is returned.
-             * @returns a [class@Gio.Cancellable] or %NULL
-             */
-            get_cancellable(): Gio.Cancellable | null
-            /**
-             * Marks the promise as rejected, indicating a failure.
-             * @param error a [struct@GLib.Error]
-             */
-            reject(error: GLib.Error): void
-            /**
-             * Sets the result for a [class@Dex.Promise].
-             * @param value a [struct@GObject.Value] containing the resolved value
-             */
-            resolve(value: (GObject.Value | unknown)): void
-            /**
-             * Resolve promise to `value`.
-             * @param value
-             */
-            resolve_boolean(value: boolean): void
-            /**
-             * @since 0.10
-             * @param boxed_type a `GType` of %G_TYPE_BOXED
-             * @param instance the boxed value to store
-             */
-            resolve_boxed(boxed_type: (GObject.GType | { $gtype: GObject.GType }), instance: never | null): void
-            /**
-             * Resolve promise to `value`.
-             * @param value
-             */
-            resolve_double(value: number): void
-            /**
-             * Resolves the promise to @fd.
-             *
-             * The file-descriptor may be dup()'d by this function and
-             * @fd closed immediately.
-             *
-             * Use dex_await_fd() or similar to retrieve the resolved FD.
-             * @param fd a file-descriptor for the resolve to resolve to
-             */
-            resolve_fd(fd: number): void
-            /**
-             * Resolve promise to `value`.
-             * @param value
-             */
-            resolve_float(value: number): void
-            /**
-             * Resolve promise to `value`.
-             * @param value
-             */
-            resolve_int(value: number): void
-            /**
-             * Resolve promise to `value`.
-             * @param value
-             */
-            resolve_int64(value: number): void
-            /**
-             * Resolve promise to `value`.
-             * @param value
-             */
-            resolve_long(value: number): void
-            /**
-             * @param object a [class@GObject.Object]
-             */
-            resolve_object(object: GObject.Object | null): void
-            /**
-             * @param value a string to use to resolve the promise
-             */
-            resolve_string(value: string): void
-            /**
-             * Resolve promise to `value`.
-             * @param value
-             */
-            resolve_uint(value: number): void
-            /**
-             * Resolve promise to `value`.
-             * @param value
-             */
-            resolve_uint64(value: number): void
-            /**
-             * Resolve promise to `value`.
-             * @param value
-             */
-            resolve_ulong(value: number): void
-            /**
-             * If @variant is floating, its reference is consumed.
-             * @since 0.8
-             * @param variant a [struct@GLib.Variant]
-             */
-            resolve_variant(variant: GLib.Variant | null): void
-        }
-
-        interface PromiseClass extends Omit<FutureClass, "new"> {
-            readonly $gtype: GObject.GType<Promise>
-            readonly prototype: Promise
-
-            new (props?: Partial<GObject.ConstructorProps<Promise>>): Promise
-            /**
-             * Creates a new promise which may be completed or rejected
-             * using the available methods.
-             */
-            "new"(): Promise
-            /**
-             * Creates a new [class@Dex.Promise] that can propagate cancellation if the
-             * promise is discarded.
-             *
-             * This can be used to plumb cancellation between promises and
-             * [callback@Gio.AsyncReadyCallback] based APIs.
-             * @returns a [class@Dex.Promise]
-             */
-            new_cancellable(): Promise
-        }
-
-        interface $Exports {
-            /**
-             * `DexPromise` is a convenient [class@Dex.Future] for propagating a result or
-             * rejection in application and library code.
-             *
-             * Use this when there is not a more specialized `DexFuture` for your needs to
-             * propagate a result or rejection to the caller in an asynchronous fashion.
-             */
-            Promise: PromiseClass
-        }
-        
-
-        namespace Scheduler {
-            interface SignalSignatures extends Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface Scheduler extends Object {
-            readonly $signals: Scheduler.SignalSignatures
-            readonly $readableProperties: Scheduler.ReadableProperties
-            readonly $writableProperties: Scheduler.WritableProperties
-            readonly $constructOnlyProperties: Scheduler.ConstructOnlyProperties
-            /**
-             * Gets the default main context for a scheduler.
-             *
-             * This may be a different value depending on the calling thread.
-             *
-             * For example, calling this on the [class@Dex.ThreadPoolScheduler] from
-             * outside a worker thread may result in getting a shared
-             * [struct@GLib.MainContext] for the process.
-             *
-             * However, calling from a worker thread may give you a [struct@GLib.MainContext]
-             * specifically for that thread.
-             * @returns a [struct@GLib.MainContext]
-             */
-            get_main_context(): GLib.MainContext
-            /**
-             * Queues @func to run on @scheduler.
-             * @param func the function callback
-             */
-            push(func: SchedulerFunc): void
-            /**
-             * Request @scheduler to spawn a [class@Dex.Fiber].
-             *
-             * The fiber will have its own stack and cooperatively schedules among other
-             * fibers sharing the scheduler.
-             *
-             * If @stack_size is 0, it will set to a sensible default. Otherwise, it is
-             * rounded up to the nearest page size.
-             *
-             * ```c
-             * static DexFuture *
-             * fiber_func (gpointer data)
-             * {
-             *   GInputStream *stream = data;
-             *   g_autoptr(GError) error = NULL;
-             *   g_autoptr(GBytes) bytes = NULL;
-             *
-             *   if (!(bytes = dex_await_boxed (dex_input_stream_read_bytes (stream, 4096, 0), &error)))
-             *     return dex_future_new_for_error (g_steal_pointer (&error));
-             *
-             *   ...
-             *
-             *   return dex_future_new_true ();
-             * }
-             *
-             * DexFuture *
-             * spawn_fiber (GInputStream *stream)
-             * {
-             *   return dex_scheduler_spawn (NULL, 0, fiber_func,
-             *                               g_object_ref (stream),
-             *                               g_object_unref);
-             * }
-             * ```
-             * @param stack_size stack size in bytes or 0
-             * @param func a [callback@Dex.FiberFunc]
-             * @returns a [class@Dex.Future] that will resolve or reject when   `func` completes (or its resulting `DexFuture` completes).
-             */
-            spawn(stack_size: number, func: FiberFunc): Future
-        }
-
-        interface SchedulerClass extends Omit<ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Scheduler>
-            readonly prototype: Scheduler
-
-            new (props?: Partial<GObject.ConstructorProps<Scheduler>>): Scheduler
-            /**
-             * Gets the default scheduler for the process.
-             *
-             * The default scheduler executes tasks within the default
-             * [struct@GLib.MainContext].  Typically that is the main thread of the
-             * application.
-             * @returns a [class@Dex.Scheduler]
-             */
-            get_default(): Scheduler
-            /**
-             * Gets the default scheduler for the thread.
-             * @returns a [class@Dex.Scheduler] or %NULL
-             */
-            get_thread_default(): Scheduler | null
-            /**
-             * Gets the thread default scheduler with the reference count incremented.
-             * @returns a [class@Dex.Scheduler] or %NULL
-             */
-            ref_thread_default(): Scheduler | null
-        }
-
-        interface $Exports {
-            /**
-             * `DexScheduler` is the base class used by schedulers.
-             *
-             * Schedulers are responsible for ensuring asynchronous IO requests and
-             * completions are processed. They also schedule closures to be run as part
-             * of future result propagation. Additionally, they manage [class@Dex.Fiber]
-             * execution and suspension.
-             *
-             * Specialized schedulers such as [class@Dex.ThreadPoolScheduler] will do this
-             * for a number of threads and dispatch new work between them.
-             */
-            Scheduler: SchedulerClass
-        }
-        
-
-        namespace StaticFuture {
-            interface SignalSignatures extends Future.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Future.ReadableProperties {
-            }
-
-            interface WritableProperties extends Future.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
-            }
-        }
-
-        interface StaticFuture extends Future {
-            readonly $signals: StaticFuture.SignalSignatures
-            readonly $readableProperties: StaticFuture.ReadableProperties
-            readonly $writableProperties: StaticFuture.WritableProperties
-            readonly $constructOnlyProperties: StaticFuture.ConstructOnlyProperties
-        }
-
-        interface StaticFutureClass extends Omit<FutureClass, "new"> {
-            readonly $gtype: GObject.GType<StaticFuture>
-            readonly prototype: StaticFuture
-
-            new (props?: Partial<GObject.ConstructorProps<StaticFuture>>): StaticFuture
-        }
-
-        interface $Exports {
-            /**
-             * `DexStaticFuture` represents a future that is resolved from the initial
-             * state.
-             *
-             * Use this when you need to create a future for API reasons but already have
-             * the value or rejection at that point.
-             *
-             * `DexStaticFuture` is used internally by functions like
-             * [ctor@Dex.Future.new_for_boolean] and similar.
-             */
-            StaticFuture: StaticFutureClass
-        }
-        
-
-        namespace ThreadPoolScheduler {
-            interface SignalSignatures extends Scheduler.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Scheduler.ReadableProperties {
-            }
-
-            interface WritableProperties extends Scheduler.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Scheduler.ConstructOnlyProperties {
-            }
-        }
-
-        interface ThreadPoolScheduler extends Scheduler {
-            readonly $signals: ThreadPoolScheduler.SignalSignatures
-            readonly $readableProperties: ThreadPoolScheduler.ReadableProperties
-            readonly $writableProperties: ThreadPoolScheduler.WritableProperties
-            readonly $constructOnlyProperties: ThreadPoolScheduler.ConstructOnlyProperties
-        }
-
-        interface ThreadPoolSchedulerClass extends Omit<SchedulerClass, "new"> {
-            readonly $gtype: GObject.GType<ThreadPoolScheduler>
-            readonly prototype: ThreadPoolScheduler
-
-            new (props?: Partial<GObject.ConstructorProps<ThreadPoolScheduler>>): ThreadPoolScheduler
-            /**
-             * Creates a new [class@Dex.Scheduler] that executes work items on a thread pool.
-             * @returns a [class@Dex.ThreadPoolScheduler]
-             */
-            "new"(): ThreadPoolScheduler
-            /**
-             * Gets the default thread pool scheduler for the instance.
-             *
-             * This function is useful to allow programs and libraries to share
-             * an off-main-thread scheduler without having to coordinate on where
-             * the scheduler instance is created or owned.
-             * @returns a [class@Dex.Scheduler]
-             */
-            get_default(): Scheduler
-        }
-
-        interface $Exports {
-            /**
-             * `DexThreadPoolScheduler` is a [class@Dex.Scheduler] that will dispatch work
-             * items and fibers to sub-schedulers on a specific operating system thread.
-             *
-             * [class@Dex.Fiber] will never migrate from the thread they are created on to
-             * reduce chances of safety issues involved in tracking state between CPU.
-             *
-             * New work items are placed into a global work queue and then dispatched
-             * efficiently to a single thread pool worker using a specialized async
-             * semaphore. On modern Linux using io_uring, this wakes up a single worker
-             * thread and therefore is not subject to "thundering herd" common with
-             * global work queues.
-             *
-             * When a worker creates a new work item, it is placed into a work stealing
-             * queue owned by the thread. Other worker threads may steal work items when
-             * they have exhausted their own work queue.
-             */
-            ThreadPoolScheduler: ThreadPoolSchedulerClass
-        }
-        
-
-        namespace Timeout {
-            interface SignalSignatures extends Future.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Future.ReadableProperties {
-            }
-
-            interface WritableProperties extends Future.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
-            }
-        }
-
-        interface Timeout extends Future {
-            readonly $signals: Timeout.SignalSignatures
-            readonly $readableProperties: Timeout.ReadableProperties
-            readonly $writableProperties: Timeout.WritableProperties
-            readonly $constructOnlyProperties: Timeout.ConstructOnlyProperties
-            /**
-             * Postpoone @timeout to complete at @deadline in the monotonic
-             * clock. See [func@GLib.get_monotonic_time] for getting the
-             * monotonic time in microseconds.
-             * @param deadline a deadline in monotonic clock
-             */
-            postpone_until(deadline: number): void
-        }
-
-        interface TimeoutClass extends Omit<FutureClass, "new"> {
-            readonly $gtype: GObject.GType<Timeout>
-            readonly prototype: Timeout
-
-            new (props?: Partial<GObject.ConstructorProps<Timeout>>): Timeout
-            /**
-             * Creates a new timeout that will reject at a deadline.
-             * @param deadline the deadline in usec in the monotonic clock
-             */
-            new_deadline(deadline: number): Timeout
-            /**
-             * Create a new timeout that will reject in @msec milliseconds
-             * @param msec number of milliseconds
-             */
-            new_msec(msec: number): Timeout
-            /**
-             * Create a new timeout that will reject in @seconds seconds
-             * @param seconds number of seconds
-             */
-            new_seconds(seconds: number): Timeout
-            /**
-             * Create a new timeout that will reject in @usec microseconds
-             * @param usec number of microseconds
-             */
-            new_usec(usec: number): Timeout
-        }
-
-        interface $Exports {
-            /**
-             * `DexTimeout` is a [class@Dex.Future] that will reject after the configured
-             * period of time.
-             */
-            Timeout: TimeoutClass
-        }
-        
-
-        namespace UnixSignal {
-            interface SignalSignatures extends Future.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Future.ReadableProperties {
-            }
-
-            interface WritableProperties extends Future.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
-            }
-        }
-
-        interface UnixSignal extends Future {
-            readonly $signals: UnixSignal.SignalSignatures
-            readonly $readableProperties: UnixSignal.ReadableProperties
-            readonly $writableProperties: UnixSignal.WritableProperties
-            readonly $constructOnlyProperties: UnixSignal.ConstructOnlyProperties
-            /**
-             * Get the signal number that the future represents.
+        namespace Dex {
+            
+
+            namespace AsyncPair {
+                interface SignalSignatures extends Future.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Future.ReadableProperties {
+                }
+
+                interface WritableProperties extends Future.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
+                }
+            }
+
+            interface AsyncPair extends Future {
+                readonly $signals: AsyncPair.SignalSignatures
+                readonly $readableProperties: AsyncPair.ReadableProperties
+                readonly $writableProperties: AsyncPair.WritableProperties
+                readonly $constructOnlyProperties: AsyncPair.ConstructOnlyProperties
+                /**
+                 * Gets the cancellable for the async pair.
+                 *
+                 * If the {@link Dex.AsyncPair} is discarded by its callers, then it will
+                 * automatically be cancelled using {@link Gio.Cancellable.cancel}.
+                 * @returns the {@link Gio.Cancellable} associated with the   `async_pair`
+                 */
+                get_cancellable(): Gio.Cancellable
+                /**
+                 * @param value
+                 */
+                return_boolean(value: boolean): void
+                /**
+                 * Rejects `async_pair` with `error`.
+                 *
+                 * This function is meant to be used when manually wrapping
+                 * various {@link Gio.AsyncReadyCallback} based API.
+                 *
+                 * The ownership of `error` is taken when calling this function.
+                 * @param error a {@link GLib.Error}
+                 */
+                return_error(error: GLib.Error): void
+                /**
+                 * @param value
+                 */
+                return_int64(value: number): void
+                /**
+                 * Resolves `async_pair` with a value of `instance`.
+                 *
+                 * This function is meant to be used when manually wrapping
+                 * various {@link Gio.AsyncReadyCallback} based API.
+                 *
+                 * The ownership of `instance` is taken when calling this function.
+                 * @param instance a {@link GObject.Object}
+                 */
+                return_object(instance: GObject.Object): void
+                /**
+                 * Resolves `async_pair` with `value`.
+                 * @param value a string or %NULL
+                 */
+                return_string(value: string | null): void
+                /**
+                 * @param value
+                 */
+                return_uint64(value: number): void
+                /**
+                 * Resolves `async_pair` with `variant`.
+                 * @param variant the {@link GLib.Variant} to resolve with
+                 */
+                return_variant(variant: GLib.Variant): void
+                /**
+                 * Sets whether or not the future should cancel the async operation when
+                 * the future is discarded. This happens when no more futures are awaiting
+                 * the completion of this future.
+                 * @since 0.4
+                 * @param cancel_on_discard if the operation should cancel when the future is discarded
+                 */
+                set_cancel_on_discard(cancel_on_discard: boolean): void
+            }
+
+            interface AsyncPairClass extends Omit<FutureClass, "new"> {
+                readonly $gtype: GObject.GType<AsyncPair>
+                readonly prototype: AsyncPair
+
+                new (props?: Partial<GObject.ConstructorProps<AsyncPair>>): AsyncPair
+                /**
+                 * @param instance
+                 * @param info
+                 */
+                "new"(instance: never | null, info: AsyncPairInfo): AsyncPair
+            }
+
+            interface $Exports {
+                /**
+                 */
+                AsyncPair: AsyncPairClass
+            }
+            
+
+            namespace AsyncResult {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.AsyncResult.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties, Gio.AsyncResult.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties, Gio.AsyncResult.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.AsyncResult.ConstructOnlyProperties {
+                }
+            }
+
+            interface AsyncResult extends GObject.Object, Gio.AsyncResult {
+                readonly $signals: AsyncResult.SignalSignatures
+                readonly $readableProperties: AsyncResult.ReadableProperties
+                readonly $writableProperties: AsyncResult.WritableProperties
+                readonly $constructOnlyProperties: AsyncResult.ConstructOnlyProperties
+                /**
+                 * Tracks the result of `future` and uses the value to complete `async_result`,
+                 * eventually calling the registered {@link Gio.AsyncReadyCallback}.
+                 * @param future a {@link Dex.Future}
+                 */
+                await(future: Future): void
+                /**
+                 * Gets the future for the {@link Dex.AsyncResult}, or %NULL if a future
+                 * is not available.
+                 * @returns a {@link Dex.Future} or %NULL
+                 */
+                dup_future(): Future | null
+                /**
+                 */
+                get_name(): string
+                /**
+                 * @throws {GLib.Error}
+                 */
+                propagate_boolean(): boolean
+                /**
+                 * @throws {GLib.Error}
+                 */
+                propagate_double(): number
+                /**
+                 * @throws {GLib.Error}
+                 */
+                propagate_int(): number
+                /**
+                 * @throws {GLib.Error}
+                 */
+                propagate_pointer(): never | null
+                /**
+                 * @param name
+                 */
+                set_name(name: string): void
+                /**
+                 * @param priority
+                 */
+                set_priority(priority: number): void
+                /**
+                 * @param name
+                 */
+                set_static_name(name: string): void
+            }
+
+            interface AsyncResultClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<AsyncResult>
+                readonly prototype: AsyncResult
+
+                new (props?: Partial<GObject.ConstructorProps<AsyncResult>>): AsyncResult
+                /**
+                 * Creates a new {@link Dex.AsyncResult}.
+                 *
+                 * Use this to integrate with `GAsyncResult` by calling
+                 * {@link Dex.AsyncResult.await} to complete when the
+                 * dependent future resolves.
+                 * @param source_object
+                 * @param cancellable
+                 * @param callback
+                 */
+                "new"(source_object: never | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): AsyncResult
+            }
+
+            interface $Exports {
+                /**
+                 * `DexAsyncResult` is used to integrate a `DexFuture` with `GAsyncResult`.
+                 *
+                 * Use this class when you need to expose the traditional async/finish
+                 * behavior of `GAsyncResult`.
+                 */
+                AsyncResult: AsyncResultClass
+            }
+            
+
+            namespace Block {
+                interface SignalSignatures extends Future.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Future.ReadableProperties {
+                }
+
+                interface WritableProperties extends Future.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
+                }
+            }
+
+            interface Block extends Future {
+                readonly $signals: Block.SignalSignatures
+                readonly $readableProperties: Block.ReadableProperties
+                readonly $writableProperties: Block.WritableProperties
+                readonly $constructOnlyProperties: Block.ConstructOnlyProperties
+                /**
+                 * Gets the kind of block.
+                 *
+                 * The kind of block relates to what situations the block would be
+                 * executed such as for handling a future resolution, rejection, or
+                 * both.
+                 * @returns the {@link Dex.BlockKind} associated with the `block`
+                 */
+                get_kind(): BlockKind
+                /**
+                 * Gets the scheduler to use when executing a block.
+                 * @returns the {@link Dex.Scheduler} associated with the `block`
+                 */
+                get_scheduler(): Scheduler
+            }
+
+            interface BlockClass extends Omit<FutureClass, "new"> {
+                readonly $gtype: GObject.GType<Block>
+                readonly prototype: Block
+
+                new (props?: Partial<GObject.ConstructorProps<Block>>): Block
+            }
+
+            interface $Exports {
+                /**
+                 * `DexBlock` represents a callback closure that can be scheduled to run
+                 * within a specific {@link GLib.MainContext}.
+                 *
+                 * You create these by chaining futures together using {@link Dex.Future.then},
+                 * {@link Dex.Future.catch}, {@link Dex.Future.finally} and similar.
+                 */
+                Block: BlockClass
+            }
+            
+
+            namespace Cancellable {
+                interface SignalSignatures extends Future.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Future.ReadableProperties {
+                }
+
+                interface WritableProperties extends Future.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
+                }
+            }
+
+            interface Cancellable extends Future {
+                readonly $signals: Cancellable.SignalSignatures
+                readonly $readableProperties: Cancellable.ReadableProperties
+                readonly $writableProperties: Cancellable.WritableProperties
+                readonly $constructOnlyProperties: Cancellable.ConstructOnlyProperties
+                /**
+                 * Rejects `cancellable`.
+                 *
+                 * Any future that is dependent on this cancellable will be notified
+                 * of the rejection. For some futures, that may cause them to also
+                 * reject or resolve.
+                 */
+                cancel(): void
+            }
+
+            interface CancellableClass extends Omit<FutureClass, "new"> {
+                readonly $gtype: GObject.GType<Cancellable>
+                readonly prototype: Cancellable
+
+                new (props?: Partial<GObject.ConstructorProps<Cancellable>>): Cancellable
+                /**
+                 * Create a new cancellable
+                 */
+                "new"(): Cancellable
+                /**
+                 * Creates a new {@link Dex.Cancellable} that will reject
+                 * when `cancellable` is cancelled or
+                 * {@link Dex.Cancellable.cancel} is called.
+                 * @param cancellable a {@link Gio.Cancellable}
+                 */
+                new_from_cancellable(cancellable: Gio.Cancellable | null): Cancellable
+            }
+
+            interface $Exports {
+                /**
+                 * `DexCancellable` is a simple cancellation primitive which allows
+                 * for you to create {@link Dex.Future} that will reject upon cancellation.
+                 *
+                 * Use this combined with other futures using {@link Dex.Future.all_race}
+                 * to create a future that resolves when all other futures complete
+                 * or {@link Dex.Cancellable.cancel} is called to reject.
+                 */
+                Cancellable: CancellableClass
+            }
+            
+
+            namespace Channel {
+                interface SignalSignatures extends Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface Channel extends Object {
+                readonly $signals: Channel.SignalSignatures
+                readonly $readableProperties: Channel.ReadableProperties
+                readonly $writableProperties: Channel.WritableProperties
+                readonly $constructOnlyProperties: Channel.ConstructOnlyProperties
+                /**
+                 */
+                can_receive(): boolean
+                /**
+                 */
+                can_send(): boolean
+                /**
+                 */
+                close_receive(): void
+                /**
+                 */
+                close_send(): void
+                /**
+                 * Receives the next item from the channel.
+                 *
+                 * The resulting future will resolve or reject when an item is available
+                 * to the channel or when send side has closed (in that order).
+                 * @returns a {@link Dex.Future}
+                 */
+                receive(): Future
+                /**
+                 * Will attempt to receive all items in the channel as a {@link Dex.FutureSet}.
+                 *
+                 * If the receive side of the channel is closed, then the future will
+                 * reject with an error.
+                 *
+                 * If there are items in the queue, then they will be returned as part
+                 * of a {@link Dex.FutureSet} containing each of the futures.
+                 *
+                 * Otherwise, a {@link Dex.FutureSet} will be returned which will resolve or
+                 * reject when the next item is available in the channel (or the send
+                 * or receive sides are closed).
+                 * @returns a {@link Dex.Future}
+                 */
+                receive_all(): Future
+                /**
+                 * Queues `future` into the channel.
+                 *
+                 * The other end of the channel can receive the future (or a future that will
+                 * eventually resolve to `future`) using {@link Dex.Channel.receive}.
+                 *
+                 * This function returns a {@link Dex.Future} that will resolve when the channels
+                 * capacity is low enough to queue more items.
+                 *
+                 * If the send side of the channel is closed, the returned {@link Dex.Future} will be
+                 * rejected with %DEX_ERROR_CHANNEL_CLOSED.
+                 * @param future a {@link Dex.Future}
+                 * @returns a {@link Dex.Future}
+                 */
+                send(future: Future): Future
+            }
+
+            interface ChannelClass extends Omit<ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Channel>
+                readonly prototype: Channel
+
+                new (props?: Partial<GObject.ConstructorProps<Channel>>): Channel
+                /**
+                 * Creates a new {@link Dex.Channel}.
+                 *
+                 * If capacity is non-zero, it can be used to limit the size of the channel
+                 * so that functions can asynchronously stall until items have been removed
+                 * from the channel. This is useful in buffering situations so that the
+                 * producer does not outpace the consumer.
+                 * @param capacity the channel queue depth or 0 for unlimited
+                 * @returns a new {@link Dex.Channel}
+                 */
+                "new"(capacity: number): Channel
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Channel: ChannelClass
+            }
+            
+
+            namespace DBusInterfaceSkeleton {
+                interface SignalSignatures extends Gio.DBusInterfaceSkeleton.SignalSignatures, Gio.DBusInterface.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gio.DBusInterfaceSkeleton.ReadableProperties, Gio.DBusInterface.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gio.DBusInterfaceSkeleton.WritableProperties, Gio.DBusInterface.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gio.DBusInterfaceSkeleton.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties {
+                }
+            }
+
+            interface DBusInterfaceSkeleton extends Gio.DBusInterfaceSkeleton, Gio.DBusInterface {
+                readonly $signals: DBusInterfaceSkeleton.SignalSignatures
+                readonly $readableProperties: DBusInterfaceSkeleton.ReadableProperties
+                readonly $writableProperties: DBusInterfaceSkeleton.WritableProperties
+                readonly $constructOnlyProperties: DBusInterfaceSkeleton.ConstructOnlyProperties
+                /**
+                 * Cancels all in-flight fibers.
+                 * @since 1.1
+                 */
+                cancel(): void
+                /**
+                 * Gets the #DexDBusInterfaceSkeletonFlags that describes the behavior
+                 * of `interface_`
+                 * @since 1.1
+                 * @returns One or more flags from the #DexDBusInterfaceSkeletonFlags enumeration.
+                 */
+                get_flags(): DBusInterfaceSkeletonFlags
+                /**
+                 * Sets flags describing what the behavior of `interface_` should be.
+                 * @since 1.1
+                 * @param flags Flags from the #DexDBusInterfaceSkeletonFlags enumeration.
+                 */
+                set_flags(flags: DBusInterfaceSkeletonFlags): void
+            }
+
+            interface DBusInterfaceSkeletonClass extends Omit<Gio.DBusInterfaceSkeletonClass, "new"> {
+                readonly $gtype: GObject.GType<DBusInterfaceSkeleton>
+                readonly prototype: DBusInterfaceSkeleton
+
+                new (props?: Partial<GObject.ConstructorProps<DBusInterfaceSkeleton>>): DBusInterfaceSkeleton
+            }
+
+            interface $Exports {
+                /**
+                 * #DexDBusInterfaceSkeleton provides integration between libdex and the GDBus
+                 * codegen. If the gdbus-codegen dex extension is used, all generated
+                 * InterfaceSkeletons inherit from #DexDBusInterfaceSkeleton instead of
+                 * #GDBusInterfaceSkeleton, which allows the use of the API exposed here.
+                 */
+                DBusInterfaceSkeleton: DBusInterfaceSkeletonClass
+            }
+            
+
+            namespace Delayed {
+                interface SignalSignatures extends Future.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Future.ReadableProperties {
+                }
+
+                interface WritableProperties extends Future.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
+                }
+            }
+
+            interface Delayed extends Future {
+                readonly $signals: Delayed.SignalSignatures
+                readonly $readableProperties: Delayed.ReadableProperties
+                readonly $writableProperties: Delayed.WritableProperties
+                readonly $constructOnlyProperties: Delayed.ConstructOnlyProperties
+                /**
+                 * Retrieves the delayed future provided to {@link Dex.Delayed.new}.
+                 *
+                 * This function can only return a {@link Dex.Future} before
+                 * {@link Dex.Delayed.release} is called. After that, the delayed future is
+                 * released and this function will return %NULL.
+                 * @returns a {@link Dex.Future} or %NULL
+                 */
+                dup_future(): Future | null
+                /**
+                 * Completes `delayed` using the value provided at construction.
+                 */
+                release(): void
+            }
+
+            interface DelayedClass extends Omit<FutureClass, "new"> {
+                readonly $gtype: GObject.GType<Delayed>
+                readonly prototype: Delayed
+
+                new (props?: Partial<GObject.ConstructorProps<Delayed>>): Delayed
+                /**
+                 * Creates a new {@link Dex.Delayed}
+                 * @param future a {@link Dex.Future}
+                 */
+                "new"(future: Future): Delayed
+            }
+
+            interface $Exports {
+                /**
+                 * `DexDelayed` is a future which will resolve or reject the value of another
+                 * {@link Dex.Future} when {@link Dex.Delayed.release} is called.
+                 *
+                 * This allows you to gate the resolution of a future which has already
+                 * resolved or rejected until a later moment.
+                 */
+                Delayed: DelayedClass
+            }
+            
+
+            namespace Fiber {
+                interface SignalSignatures extends Future.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Future.ReadableProperties {
+                }
+
+                interface WritableProperties extends Future.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
+                }
+            }
+
+            interface Fiber extends Future {
+                readonly $signals: Fiber.SignalSignatures
+                readonly $readableProperties: Fiber.ReadableProperties
+                readonly $writableProperties: Fiber.WritableProperties
+                readonly $constructOnlyProperties: Fiber.ConstructOnlyProperties
+            }
+
+            interface FiberClass extends Omit<FutureClass, "new"> {
+                readonly $gtype: GObject.GType<Fiber>
+                readonly prototype: Fiber
+
+                new (props?: Partial<GObject.ConstructorProps<Fiber>>): Fiber
+            }
+
+            interface $Exports {
+                /**
+                 * `DexFiber` is a fiber (a stack-based coroutine) which itself is a
+                 * {@link Dex.Future}.
+                 *
+                 * When the fiber completes execution it will either resolve or reject the
+                 * with the result or error.
+                 *
+                 * You may treat a `DexFiber` like any other `DexFuture` which makes it simple
+                 * to integrate fibers into other processing chains.
+                 *
+                 * `DexFiber` are provided their own stack separate from a thread's main stack,
+                 * and are automatically scheduled as necessary.
+                 *
+                 * Use {@link Dex.Future.await} and similar functions to await the result of
+                 * another future within the fiber and the fiber will be suspended allowing
+                 * another fiber to run and/or the rest of the application's main loop.
+                 *
+                 * Once a fiber is created, it is pinned to that scheduler. Use
+                 * {@link Dex.Scheduler.spawn} to create a fiber on a specific scheduler.
+                 */
+                Fiber: FiberClass
+            }
+            
+
+            namespace Future {
+                interface SignalSignatures extends Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface Future extends Object {
+                readonly $signals: Future.SignalSignatures
+                readonly $readableProperties: Future.ReadableProperties
+                readonly $writableProperties: Future.WritableProperties
+                readonly $constructOnlyProperties: Future.ConstructOnlyProperties
+                /**
+                 * Suspends the current {@link Dex.Fiber} and resumes when `future` has completed.
+                 *
+                 * If `future` is completed when this function is called, the fiber will handle
+                 * the result immediately.
+                 *
+                 * This function may only be called within a `DexFiber`. To do otherwise will
+                 * return %FALSE and `error` set to %DEX_ERROR_NO_FIBER.
+                 *
+                 * It is an error to call this function in a way that would cause
+                 * intermediate code to become invalid when resuming the stack. For example,
+                 * if a foreach-style function taking a callback was to suspend from the
+                 * callback, undefined behavior may occur such as thread-local-storage
+                 * having changed.
+                 * @throws {GLib.Error}
+                 * @returns %TRUE if the future resolved, otherwise %FALSE   and `error` is set.
+                 */
+                await(): boolean
+                /**
+                 * Awaits on `future` and returns the gboolean result.
+                 *
+                 * If the result is not a `gboolean`, `error` is set.
+                 * @throws {GLib.Error}
+                 * @returns the `gboolean`, or %FALSE and `error` is set
+                 */
+                await_boolean(): boolean
+                /**
+                 * Awaits on `future` and returns the %G_TYPE_BOXED based result.
+                 * @throws {GLib.Error}
+                 * @returns the boxed result, or %NULL and `error` is set.
+                 */
+                await_boxed(): never | null
+                /**
+                 * Awaits on `future` and returns the result as an double.
+                 *
+                 * The resolved value must be of type %G_TYPE_DOUBLE or `error` is set.
+                 * @throws {GLib.Error}
+                 * @returns an double, or 0 in case of failure and `error` is set.
+                 */
+                await_double(): number
+                /**
+                 * Awaits on `future` and returns the enum result.
+                 *
+                 * If the result is not a %G_TYPE_ENUM, `error` is set.
+                 * @throws {GLib.Error}
+                 * @returns the enum or 0 and `error` is set.
+                 */
+                await_enum(): number
+                /**
+                 * Awaits on `future` and returns the resulting file-descriptor.
+                 *
+                 * The resolved value must be of type %DEX_TYPE_FD or `error` is set.
+                 * @throws {GLib.Error}
+                 * @since 0.10
+                 * @returns a valid file descriptor or -1. you may get -1 without   error being set if there was no rejected future.
+                 */
+                await_fd(): number
+                /**
+                 * Awaits on `future` and returns the flags result.
+                 *
+                 * If the result is not a %G_TYPE_FLAGS, `error` is set.
+                 * @throws {GLib.Error}
+                 * @returns the flags or 0 and `error` is set.
+                 */
+                await_flags(): number
+                /**
+                 * Awaits on `future` and returns the result as an float.
+                 *
+                 * The resolved value must be of type %G_TYPE_FLOAT or `error` is set.
+                 * @throws {GLib.Error}
+                 * @returns an float, or 0 in case of failure and `error` is set.
+                 */
+                await_float(): number
+                /**
+                 * Awaits on `future` and returns the result as an int.
+                 *
+                 * The resolved value must be of type %G_TYPE_INT or `error` is set.
+                 * @throws {GLib.Error}
+                 * @returns an int, or 0 in case of failure and `error` is set.
+                 */
+                await_int(): number
+                /**
+                 * Awaits on `future` and returns the result as an int64.
+                 *
+                 * The resolved value must be of type %G_TYPE_INT64 or `error` is set.
+                 * @throws {GLib.Error}
+                 * @returns an int64, or 0 in case of failure and `error` is set.
+                 */
+                await_int64(): number
+                /**
+                 * Awaits on `future` and returns the {@link GObject.Object}-based result.
+                 * @throws {GLib.Error}
+                 * @returns the object, or %NULL and `error` is set.
+                 */
+                await_object(): GObject.Object
+                /**
+                 * Calls {@link Dex.Future.await} and returns the value of
+                 * {@link GObject.Value.get_pointer}, otherwise `error` is set if the future
+                 * rejected.
+                 * @throws {GLib.Error}
+                 * @returns a pointer or %NULL
+                 */
+                await_pointer(): never | null
+                /**
+                 * Awaits on `future` and returns the string result.
+                 *
+                 * If the result is not a %G_TYPE_STRING, `error` is set.
+                 * @throws {GLib.Error}
+                 * @returns the string  or %NULL and `error` is set
+                 */
+                await_string(): string | null
+                /**
+                 * Awaits on `future` and returns the result as an uint.
+                 *
+                 * The resolved value must be of type %G_TYPE_UINT or `error` is set.
+                 * @throws {GLib.Error}
+                 * @returns an uint, or 0 in case of failure and `error` is set.
+                 */
+                await_uint(): number
+                /**
+                 * Awaits on `future` and returns the result as an uint64.
+                 *
+                 * The resolved value must be of type %G_TYPE_UINT64 or `error` is set.
+                 * @throws {GLib.Error}
+                 * @returns an uint64, or 0 in case of failure and `error` is set.
+                 */
+                await_uint64(): number
+                /**
+                 * Awaits on `future` and returns the %G_TYPE_VARIANT based result.
+                 * @throws {GLib.Error}
+                 * @since 0.4
+                 * @returns the variant result, or %NULL and `error` is set.
+                 */
+                await_variant(): GLib.Variant
+                /**
+                 * Disowns a future, allowing it to run to completion even though there may
+                 * be no observer interested in the futures completion or rejection.
+                 * @since 0.4
+                 */
+                disown(): void
+                /**
+                 */
+                get_name(): string
+                /**
+                 */
+                get_status(): FutureStatus
+                /**
+                 * @throws {GLib.Error}
+                 */
+                get_value(): GObject.Value
+                /**
+                 * This is a convenience function equivalent to calling
+                 * {@link Dex.Future.get_status} and checking for %DEX_FUTURE_STATUS_PENDING.
+                 * @returns %TRUE if the future is still pending; otherwise %FALSE
+                 */
+                is_pending(): boolean
+                /**
+                 * This is a convenience function equivalent to calling
+                 * {@link Dex.Future.get_status} and checking for %DEX_FUTURE_STATUS_REJECTED.
+                 * @returns %TRUE if the future was rejected with an error; otherwise %FALSE
+                 */
+                is_rejected(): boolean
+                /**
+                 * This is a convenience function equivalent to calling
+                 * {@link Dex.Future.get_status} and checking for %DEX_FUTURE_STATUS_RESOLVED.
+                 * @returns %TRUE if the future has successfully resolved with a value;   otherwise %FALSE
+                 */
+                is_resolved(): boolean
+                /**
+                 * Creates a new list model that will initially be empty and after
+                 *  `future` resolves contain the items within it.
+                 * @since 1.1
+                 * @returns a new {@link Dex.FutureListModel}
+                 */
+                list_model_new(): Gio.ListModel
+            }
+
+            interface FutureClass extends Omit<ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Future>
+                readonly prototype: Future
+
+                new (props?: Partial<GObject.ConstructorProps<Future>>): Future
+                /**
+                 * Creates a new {@link Dex.Future} that resolves when all futures resolve.
+                 *
+                 * If any future rejects, the resulting {@link Dex.Future} also rejects immediately.
+                 * @param futures an array of futures
+                 * @returns a {@link Dex.Future}
+                 */
+                all_race(futures: Future[]): Future
+                /**
+                 * Creates a new {@link Dex.Future} that resolves when all futures resolve.
+                 *
+                 * The resulting {@link Dex.Future} will not resolve or reject until all futures
+                 * have either resolved or rejected.
+                 * @param futures an array of futures
+                 * @returns a {@link Dex.Future}
+                 */
+                all(futures: Future[]): Future
+                /**
+                 * Creates a new {@link Dex.Future} that resolves when the first future resolves.
+                 *
+                 * If all futures reject, then the {@link Dex.Future} returned will also reject.
+                 * @param futures an array of futures
+                 * @returns a {@link Dex.Future}
+                 */
+                any(futures: Future[]): Future
+                /**
+                 * Calls `callback` when `future` rejects.
+                 *
+                 * If `future` resolves, then `callback` will not be called.
+                 * @param future a {@link Dex.Future}
+                 * @param callback a callback to execute
+                 * @returns a {@link Dex.Future}
+                 */
+                catch(future: Future, callback: FutureCallback): Future
+                /**
+                 * Asynchronously calls `callback` when `future` rejects.
+                 *
+                 * This is similar to {@link Dex.Future.catch} except that it will call
+                 *  `callback` multiple times as each returned {@link Dex.Future} rejects,
+                 * allowing for infinite loops.
+                 * @param future a {@link Dex.Future}
+                 * @param callback a callback to execute
+                 * @returns a {@link Dex.Future}
+                 */
+                catch_loop(future: Future, callback: FutureCallback): Future
+                /**
+                 * Calls `callback` when `future` resolves or rejects.
+                 * @param future a {@link Dex.Future}
+                 * @param callback a callback to execute
+                 * @returns a {@link Dex.Future}
+                 */
+                finally(future: Future, callback: FutureCallback): Future
+                /**
+                 * Asynchronously calls `callback` when `future` rejects or resolves.
+                 *
+                 * This is similar to {@link Dex.Future.finally} except that it will call
+                 *  `callback` multiple times as each returned {@link Dex.Future} rejects or resolves,
+                 * allowing for infinite loops.
+                 * @param future a {@link Dex.Future}
+                 * @param callback a callback to execute
+                 * @returns a {@link Dex.Future}
+                 */
+                finally_loop(future: Future, callback: FutureCallback): Future
+                /**
+                 * Creates a new {@link Dex.Future} that resolves or rejects as soon as the
+                 * first dependent future resolves or rejects, sharing the same result.
+                 * @param futures an array of futures
+                 * @returns a {@link Dex.Future}
+                 */
+                first(futures: Future[]): Future
+                /**
+                 * Creates a new {@link Dex.Future} and resolves it with `v_bool`.
+                 * @param v_bool the resolved value for the future
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_for_boolean(v_bool: boolean): Future
+                /**
+                 * Creates a new {@link Dex.Future} and resolves it with `v_double`.
+                 * @param v_double the resolved value for the future
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_for_double(v_double: number): Future
+                /**
+                 * Creates a new rejected future using `errno_` as the value
+                 * of errno for the GError.
+                 *
+                 * The resulting error domain will be %G_IO_ERROR.
+                 * @since 0.4
+                 * @param errno_ the `errno` to use for rejection
+                 * @returns a rejected {@link Dex.Future}.
+                 */
+                new_for_errno(errno_: number): Future
+                /**
+                 * Creates a read-only {@link Dex.Future} that has rejected.
+                 * @param error a {@link GLib.Error}
+                 * @returns a {@link Dex.Future}
+                 */
+                new_for_error(error: GLib.Error): Future
+                /**
+                 * Creates a new future that resolves to `fd`.
+                 *
+                 * This function takes ownership of `fd`.
+                 * @since 0.10
+                 * @param fd the file-descriptor to take ownership of
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_for_fd(fd: number): Future
+                /**
+                 * Creates a new {@link Dex.Future} and resolves it with `v_float`.
+                 * @param v_float the resolved value for the future
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_for_float(v_float: number): Future
+                /**
+                 * Creates a new {@link Dex.Future} and resolves it with `v_int`.
+                 * @param v_int the resolved value for the future
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_for_int(v_int: number): Future
+                /**
+                 * Creates a new {@link Dex.Future} and resolves it with `v_int64`.
+                 * @param v_int64 the resolved value for the future
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_for_int64(v_int64: number): Future
+                /**
+                 * Creates a new {@link Dex.Future} that is resolved with `value`.
+                 * @param value the value
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_for_object(value: GObject.Object): Future
+                /**
+                 * Creates a new {@link Dex.Future} that is resolved with `pointer` as a %G_TYPE_POINTER.
+                 * @param pointer the resolved future value as a pointer
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_for_pointer(pointer: never | null): Future
+                /**
+                 * Creates a new {@link Dex.Future} and resolves it with `string`.
+                 * @param string the resolved value for the future
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_for_string(string: string): Future
+                /**
+                 * Creates a new {@link Dex.Future} and resolves it with `v_uint`.
+                 * @param v_uint the resolved value for the future
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_for_uint(v_uint: number): Future
+                /**
+                 * Creates a new {@link Dex.Future} and resolves it with `v_uint64`.
+                 * @param v_uint64 the resolved value for the future
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_for_uint64(v_uint64: number): Future
+                /**
+                 * Creates a read-only {@link Dex.Future} that has resolved.
+                 * @param value the resolved {@link GObject.Value}
+                 * @returns a {@link Dex.Future}
+                 */
+                new_for_value(value: (GObject.Value | unknown)): Future
+                /**
+                 * Creates an infinite future that will never resolve or reject. This can
+                 * be useful when you want to mock a situation of "run forever" unless
+                 * another future rejects or resolves.
+                 * @since 0.4
+                 * @returns a {@link Dex.Future} that will never complete or reject
+                 */
+                new_infinite(): Future
+                /**
+                 * Creates a new {@link Dex.Future} that is resolved with `value`.
+                 * @param value the value
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_take_object(value: GObject.Object | null): Future
+                /**
+                 * Creates a new {@link Dex.Future} and resolves it with `string`.
+                 * @param string the resolved value for the future
+                 * @returns a resolved {@link Dex.Future}
+                 */
+                new_take_string(string: string): Future
+                /**
+                 * Calls `callback` when `future` resolves.
+                 *
+                 * If `future` rejects, then `callback` will not be called.
+                 * @param future a {@link Dex.Future}
+                 * @param callback a callback to execute
+                 * @returns a {@link Dex.Future}
+                 */
+                then(future: Future, callback: FutureCallback): Future
+                /**
+                 * Asynchronously calls `callback` when `future` resolves.
+                 *
+                 * This is similar to {@link Dex.Future.then} except that it will call
+                 *  `callback` multiple times as each returned {@link Dex.Future} resolves or
+                 * rejects, allowing for infinite loops.
+                 * @param future a {@link Dex.Future}
+                 * @param callback a callback to execute
+                 * @returns a {@link Dex.Future}
+                 */
+                then_loop(future: Future, callback: FutureCallback): Future
+            }
+
+            interface $Exports {
+                /**
+                 * `DexFuture` is the base class representing a future which may resolve with
+                 * a value or reject with error at some point in the future.
+                 *
+                 * It is the basis for libdex's concurrency and parallelism model.
+                 *
+                 * Use futures to represent work in progress and allow consumers to build
+                 * robust processing chains up front which will complete or fail as futures
+                 * resolve or reject.
+                 *
+                 * When running on a {@link Dex.Fiber}, you may use {@link Dex.Future.await}
+                 * and similar functions to suspend the current thread and return upon
+                 * completion of the dependent future.
+                 */
+                Future: FutureClass
+            }
+            
+
+            namespace FutureListModel {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.ListModel.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties, Gio.ListModel.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties, Gio.ListModel.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.ListModel.ConstructOnlyProperties {
+                }
+            }
+
+            interface FutureListModel extends GObject.Object, Gio.ListModel {
+                readonly $signals: FutureListModel.SignalSignatures
+                readonly $readableProperties: FutureListModel.ReadableProperties
+                readonly $writableProperties: FutureListModel.WritableProperties
+                readonly $constructOnlyProperties: FutureListModel.ConstructOnlyProperties
+                /**
+                 * Gets the future provided when creating the list model.
+                 * @since 1.1
+                 * @returns a {@link Dex.Future} that resolves to a   {@link Gio.ListModel} or rejects with error.
+                 */
+                dup_future(): Future
+            }
+
+            interface FutureListModelClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<FutureListModel>
+                readonly prototype: FutureListModel
+
+                new (props?: Partial<GObject.ConstructorProps<FutureListModel>>): FutureListModel
+            }
+
+            interface $Exports {
+                /**
+                 * This class provides a {@link Gio.ListModel} implementation that will
+                 * expand to the contents of another {@link Gio.ListModel} from a
+                 * {@link Dex.Future}.
+                 * @since 1.1
+                 */
+                FutureListModel: FutureListModelClass
+            }
+            
+
+            namespace FutureSet {
+                interface SignalSignatures extends Future.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Future.ReadableProperties {
+                }
+
+                interface WritableProperties extends Future.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
+                }
+            }
+
+            interface FutureSet extends Future {
+                readonly $signals: FutureSet.SignalSignatures
+                readonly $readableProperties: FutureSet.ReadableProperties
+                readonly $writableProperties: FutureSet.WritableProperties
+                readonly $constructOnlyProperties: FutureSet.ConstructOnlyProperties
+                /**
+                 * Gets the {@link Dex.Future} at `position` within `future_set`.
+                 *
+                 * It is a programmer error to request a `DexFuture` which is outside of the
+                 * range of the number of futures contained within the `future_set`. Use
+                 * {@link Dex.FutureSet.get_size} to determine the number of `DexFuture` that
+                 * are contained within the {@link Dex.FutureSet}.
+                 * @param position the position within the `future_set`
+                 * @returns the {@link Dex.Future} at `position`, or %NULL
+                 */
+                get_future_at(position: number): Future
+                /**
+                 * Gets the number of futures associated with the {@link Dex.FutureSet}. You
+                 * may use {@link Dex.FutureSet.get_future_at} to obtain the individual
+                 * {@link Dex.Future}.
+                 * @returns the number of {@link Dex.Future} in `future_set`.
+                 */
+                get_size(): number
+                /**
+                 * Gets the result from a {@link Dex.Future} that is part of the
+                 * {@link Dex.FutureSet}.
+                 * @throws {GLib.Error}
+                 * @param position the {@link Dex.Future} position within the set
+                 * @returns a {@link GObject.Value} if successful; otherwise   %NULL and `error` is set.
+                 */
+                get_value_at(position: number): GObject.Value
+            }
+
+            interface FutureSetClass extends Omit<FutureClass, "new"> {
+                readonly $gtype: GObject.GType<FutureSet>
+                readonly prototype: FutureSet
+
+                new (props?: Partial<GObject.ConstructorProps<FutureSet>>): FutureSet
+            }
+
+            interface $Exports {
+                /**
+                 * `DexFutureSet` represents a set of {@link Dex.Future}.
+                 *
+                 * You may retrieve each underlying `DexFuture` using
+                 * {@link Dex.FutureSet.get_future_at}.
+                 *
+                 * The {@link Dex.FutureStatus} of of the `DexFutureSet` depends on how the set
+                 * was created using {@link Dex.Future.all}, {@link Dex.Future.any}, and similar
+                 * methods.
+                 */
+                FutureSet: FutureSetClass
+            }
+            
+
+            namespace MainScheduler {
+                interface SignalSignatures extends Scheduler.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Scheduler.ReadableProperties {
+                }
+
+                interface WritableProperties extends Scheduler.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Scheduler.ConstructOnlyProperties {
+                }
+            }
+
+            interface MainScheduler extends Scheduler {
+                readonly $signals: MainScheduler.SignalSignatures
+                readonly $readableProperties: MainScheduler.ReadableProperties
+                readonly $writableProperties: MainScheduler.WritableProperties
+                readonly $constructOnlyProperties: MainScheduler.ConstructOnlyProperties
+            }
+
+            interface MainSchedulerClass extends Omit<SchedulerClass, "new"> {
+                readonly $gtype: GObject.GType<MainScheduler>
+                readonly prototype: MainScheduler
+
+                new (props?: Partial<GObject.ConstructorProps<MainScheduler>>): MainScheduler
+            }
+
+            interface $Exports {
+                /**
+                 * `DexMainScheduler` is the scheduler used on the default thread of an
+                 * application. It is meant to integrate with your main loop.
+                 *
+                 * This scheduler does the bulk of the work in an application.
+                 *
+                 * Use {@link Dex.ThreadPoolScheduler} when you want to offload work to a thread
+                 * and still use future-based programming.
+                 */
+                MainScheduler: MainSchedulerClass
+            }
+            
+
+            namespace Object {
+                interface SignalSignatures  {
+                }
+
+                interface ReadableProperties  {
+                }
+
+                interface WritableProperties  {
+                }
+
+                interface ConstructOnlyProperties  {
+                }
+            }
+
+            interface Object  {
+                readonly $signals: Object.SignalSignatures
+                readonly $readableProperties: Object.ReadableProperties
+                readonly $writableProperties: Object.WritableProperties
+                readonly $constructOnlyProperties: Object.ConstructOnlyProperties
+                /**
+                 * Acquires a reference on the given object, and increases its reference count by one.
+                 * @returns the object with its reference count increased
+                 */
+                ref(): Object
+                /**
+                 * Releases a reference on the given object, and decreases its reference count by one.
+                 *
+                 * If it was the last reference, the resources associated to the instance are freed.
+                 */
+                unref(): void
+            }
+
+            interface ObjectClass {
+                readonly $gtype: GObject.GType<Object>
+                readonly prototype: Object
+
+                new (props?: Partial<GObject.ConstructorProps<Object>>): Object
+            }
+
+            interface $Exports {
+                /**
+                 * `DexObject` is the basic building block of types defined within
+                 * libdex. Futures, Schedulers, and Channels all inherit from `DexObject`
+                 * which provides features like thread-safe weak pointers and memory
+                 * management operations.
+                 *
+                 * Objects that are integrating with GIO instead inherit from their
+                 * natural type in GIO.
+                 */
+                Object: ObjectClass
+            }
+            
+
+            namespace Promise {
+                interface SignalSignatures extends Future.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Future.ReadableProperties {
+                }
+
+                interface WritableProperties extends Future.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
+                }
+            }
+
+            interface Promise extends Future {
+                readonly $signals: Promise.SignalSignatures
+                readonly $readableProperties: Promise.ReadableProperties
+                readonly $writableProperties: Promise.WritableProperties
+                readonly $constructOnlyProperties: Promise.ConstructOnlyProperties
+                /**
+                 * Gets a {@link Gio.Cancellable} that will cancel when the promise has
+                 * been discarded (and therefore result no longer necessary).
+                 *
+                 * This is useful when manually implementing wrappers around various
+                 * {@link Gio.AsyncReadyCallback} based API.
+                 *
+                 * If `promise` was created with {@link Dex.Promise.new}, then %NULL is returned.
+                 * @returns a {@link Gio.Cancellable} or %NULL
+                 */
+                get_cancellable(): Gio.Cancellable | null
+                /**
+                 * Marks the promise as rejected, indicating a failure.
+                 * @param error a {@link GLib.Error}
+                 */
+                reject(error: GLib.Error): void
+                /**
+                 * Sets the result for a {@link Dex.Promise}.
+                 * @param value a {@link GObject.Value} containing the resolved value
+                 */
+                resolve(value: (GObject.Value | unknown)): void
+                /**
+                 * Resolve promise to `value`.
+                 * @param value
+                 */
+                resolve_boolean(value: boolean): void
+                /**
+                 * @since 0.10
+                 * @param boxed_type a `GType` of %G_TYPE_BOXED
+                 * @param instance the boxed value to store
+                 */
+                resolve_boxed(boxed_type: (GObject.GType | { $gtype: GObject.GType }), instance: never | null): void
+                /**
+                 * Resolve promise to `value`.
+                 * @param value
+                 */
+                resolve_double(value: number): void
+                /**
+                 * Resolves the promise to `fd`.
+                 *
+                 * The file-descriptor may be dup()'d by this function and
+                 *  `fd` closed immediately.
+                 *
+                 * Use dex_await_fd() or similar to retrieve the resolved FD.
+                 * @param fd a file-descriptor for the resolve to resolve to
+                 */
+                resolve_fd(fd: number): void
+                /**
+                 * Resolve promise to `value`.
+                 * @param value
+                 */
+                resolve_float(value: number): void
+                /**
+                 * Resolve promise to `value`.
+                 * @param value
+                 */
+                resolve_int(value: number): void
+                /**
+                 * Resolve promise to `value`.
+                 * @param value
+                 */
+                resolve_int64(value: number): void
+                /**
+                 * Resolve promise to `value`.
+                 * @param value
+                 */
+                resolve_long(value: number): void
+                /**
+                 * @param object a {@link GObject.Object}
+                 */
+                resolve_object(object: GObject.Object | null): void
+                /**
+                 * @param value a string to use to resolve the promise
+                 */
+                resolve_string(value: string): void
+                /**
+                 * Resolve promise to `value`.
+                 * @param value
+                 */
+                resolve_uint(value: number): void
+                /**
+                 * Resolve promise to `value`.
+                 * @param value
+                 */
+                resolve_uint64(value: number): void
+                /**
+                 * Resolve promise to `value`.
+                 * @param value
+                 */
+                resolve_ulong(value: number): void
+                /**
+                 * If `variant` is floating, its reference is consumed.
+                 * @since 0.8
+                 * @param variant a {@link GLib.Variant}
+                 */
+                resolve_variant(variant: GLib.Variant | null): void
+            }
+
+            interface PromiseClass extends Omit<FutureClass, "new"> {
+                readonly $gtype: GObject.GType<Promise>
+                readonly prototype: Promise
+
+                new (props?: Partial<GObject.ConstructorProps<Promise>>): Promise
+                /**
+                 * Creates a new promise which may be completed or rejected
+                 * using the available methods.
+                 */
+                "new"(): Promise
+                /**
+                 * Creates a new {@link Dex.Promise} that can propagate cancellation if the
+                 * promise is discarded.
+                 *
+                 * This can be used to plumb cancellation between promises and
+                 * {@link Gio.AsyncReadyCallback} based APIs.
+                 * @returns a {@link Dex.Promise}
+                 */
+                new_cancellable(): Promise
+            }
+
+            interface $Exports {
+                /**
+                 * `DexPromise` is a convenient {@link Dex.Future} for propagating a result or
+                 * rejection in application and library code.
+                 *
+                 * Use this when there is not a more specialized `DexFuture` for your needs to
+                 * propagate a result or rejection to the caller in an asynchronous fashion.
+                 */
+                Promise: PromiseClass
+            }
+            
+
+            namespace Scheduler {
+                interface SignalSignatures extends Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface Scheduler extends Object {
+                readonly $signals: Scheduler.SignalSignatures
+                readonly $readableProperties: Scheduler.ReadableProperties
+                readonly $writableProperties: Scheduler.WritableProperties
+                readonly $constructOnlyProperties: Scheduler.ConstructOnlyProperties
+                /**
+                 * Gets the default main context for a scheduler.
+                 *
+                 * This may be a different value depending on the calling thread.
+                 *
+                 * For example, calling this on the {@link Dex.ThreadPoolScheduler} from
+                 * outside a worker thread may result in getting a shared
+                 * {@link GLib.MainContext} for the process.
+                 *
+                 * However, calling from a worker thread may give you a {@link GLib.MainContext}
+                 * specifically for that thread.
+                 * @returns a {@link GLib.MainContext}
+                 */
+                get_main_context(): GLib.MainContext
+                /**
+                 * Queues `func` to run on `scheduler`.
+                 * @param func the function callback
+                 */
+                push(func: SchedulerFunc): void
+                /**
+                 * Request `scheduler` to spawn a {@link Dex.Fiber}.
+                 *
+                 * The fiber will have its own stack and cooperatively schedules among other
+                 * fibers sharing the scheduler.
+                 *
+                 * If `stack_size` is 0, it will set to a sensible default. Otherwise, it is
+                 * rounded up to the nearest page size.
+                 *
+                 * ```c
+                 * static DexFuture *
+                 * fiber_func (gpointer data)
+                 * {
+                 *   GInputStream *stream = data;
+                 *   g_autoptr(GError) error = NULL;
+                 *   g_autoptr(GBytes) bytes = NULL;
+                 *
+                 *   if (!(bytes = dex_await_boxed (dex_input_stream_read_bytes (stream, 4096, 0), &error)))
+                 *     return dex_future_new_for_error (g_steal_pointer (&error));
+                 *
+                 *   ...
+                 *
+                 *   return dex_future_new_true ();
+                 * }
+                 *
+                 * DexFuture *
+                 * spawn_fiber (GInputStream *stream)
+                 * {
+                 *   return dex_scheduler_spawn (NULL, 0, fiber_func,
+                 *                               g_object_ref (stream),
+                 *                               g_object_unref);
+                 * }
+                 * ```
+                 * @param stack_size stack size in bytes or 0
+                 * @param func a {@link Dex.FiberFunc}
+                 * @returns a {@link Dex.Future} that will resolve or reject when   `func` completes (or its resulting `DexFuture` completes).
+                 */
+                spawn(stack_size: number, func: FiberFunc): Future
+            }
+
+            interface SchedulerClass extends Omit<ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Scheduler>
+                readonly prototype: Scheduler
+
+                new (props?: Partial<GObject.ConstructorProps<Scheduler>>): Scheduler
+                /**
+                 * Gets the default scheduler for the process.
+                 *
+                 * The default scheduler executes tasks within the default
+                 * {@link GLib.MainContext}.  Typically that is the main thread of the
+                 * application.
+                 * @returns a {@link Dex.Scheduler}
+                 */
+                get_default(): Scheduler
+                /**
+                 * Gets the default scheduler for the thread.
+                 * @returns a {@link Dex.Scheduler} or %NULL
+                 */
+                get_thread_default(): Scheduler | null
+                /**
+                 * Gets the thread default scheduler with the reference count incremented.
+                 * @returns a {@link Dex.Scheduler} or %NULL
+                 */
+                ref_thread_default(): Scheduler | null
+            }
+
+            interface $Exports {
+                /**
+                 * `DexScheduler` is the base class used by schedulers.
+                 *
+                 * Schedulers are responsible for ensuring asynchronous IO requests and
+                 * completions are processed. They also schedule closures to be run as part
+                 * of future result propagation. Additionally, they manage {@link Dex.Fiber}
+                 * execution and suspension.
+                 *
+                 * Specialized schedulers such as {@link Dex.ThreadPoolScheduler} will do this
+                 * for a number of threads and dispatch new work between them.
+                 */
+                Scheduler: SchedulerClass
+            }
+            
+
+            namespace StaticFuture {
+                interface SignalSignatures extends Future.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Future.ReadableProperties {
+                }
+
+                interface WritableProperties extends Future.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
+                }
+            }
+
+            interface StaticFuture extends Future {
+                readonly $signals: StaticFuture.SignalSignatures
+                readonly $readableProperties: StaticFuture.ReadableProperties
+                readonly $writableProperties: StaticFuture.WritableProperties
+                readonly $constructOnlyProperties: StaticFuture.ConstructOnlyProperties
+            }
+
+            interface StaticFutureClass extends Omit<FutureClass, "new"> {
+                readonly $gtype: GObject.GType<StaticFuture>
+                readonly prototype: StaticFuture
+
+                new (props?: Partial<GObject.ConstructorProps<StaticFuture>>): StaticFuture
+            }
+
+            interface $Exports {
+                /**
+                 * `DexStaticFuture` represents a future that is resolved from the initial
+                 * state.
+                 *
+                 * Use this when you need to create a future for API reasons but already have
+                 * the value or rejection at that point.
+                 *
+                 * `DexStaticFuture` is used internally by functions like
+                 * {@link Dex.Future.new_for_boolean} and similar.
+                 */
+                StaticFuture: StaticFutureClass
+            }
+            
+
+            namespace ThreadPoolScheduler {
+                interface SignalSignatures extends Scheduler.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Scheduler.ReadableProperties {
+                }
+
+                interface WritableProperties extends Scheduler.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Scheduler.ConstructOnlyProperties {
+                }
+            }
+
+            interface ThreadPoolScheduler extends Scheduler {
+                readonly $signals: ThreadPoolScheduler.SignalSignatures
+                readonly $readableProperties: ThreadPoolScheduler.ReadableProperties
+                readonly $writableProperties: ThreadPoolScheduler.WritableProperties
+                readonly $constructOnlyProperties: ThreadPoolScheduler.ConstructOnlyProperties
+            }
+
+            interface ThreadPoolSchedulerClass extends Omit<SchedulerClass, "new"> {
+                readonly $gtype: GObject.GType<ThreadPoolScheduler>
+                readonly prototype: ThreadPoolScheduler
+
+                new (props?: Partial<GObject.ConstructorProps<ThreadPoolScheduler>>): ThreadPoolScheduler
+                /**
+                 * Creates a new {@link Dex.Scheduler} that executes work items on a thread pool.
+                 * @returns a {@link Dex.ThreadPoolScheduler}
+                 */
+                "new"(): ThreadPoolScheduler
+                /**
+                 * Gets the default thread pool scheduler for the instance.
+                 *
+                 * This function is useful to allow programs and libraries to share
+                 * an off-main-thread scheduler without having to coordinate on where
+                 * the scheduler instance is created or owned.
+                 * @returns a {@link Dex.Scheduler}
+                 */
+                get_default(): Scheduler
+            }
+
+            interface $Exports {
+                /**
+                 * `DexThreadPoolScheduler` is a {@link Dex.Scheduler} that will dispatch work
+                 * items and fibers to sub-schedulers on a specific operating system thread.
+                 *
+                 * {@link Dex.Fiber} will never migrate from the thread they are created on to
+                 * reduce chances of safety issues involved in tracking state between CPU.
+                 *
+                 * New work items are placed into a global work queue and then dispatched
+                 * efficiently to a single thread pool worker using a specialized async
+                 * semaphore. On modern Linux using io_uring, this wakes up a single worker
+                 * thread and therefore is not subject to "thundering herd" common with
+                 * global work queues.
+                 *
+                 * When a worker creates a new work item, it is placed into a work stealing
+                 * queue owned by the thread. Other worker threads may steal work items when
+                 * they have exhausted their own work queue.
+                 */
+                ThreadPoolScheduler: ThreadPoolSchedulerClass
+            }
+            
+
+            namespace Timeout {
+                interface SignalSignatures extends Future.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Future.ReadableProperties {
+                }
+
+                interface WritableProperties extends Future.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
+                }
+            }
+
+            interface Timeout extends Future {
+                readonly $signals: Timeout.SignalSignatures
+                readonly $readableProperties: Timeout.ReadableProperties
+                readonly $writableProperties: Timeout.WritableProperties
+                readonly $constructOnlyProperties: Timeout.ConstructOnlyProperties
+                /**
+                 * Postpoone `timeout` to complete at `deadline` in the monotonic
+                 * clock. See {@link GLib.get_monotonic_time} for getting the
+                 * monotonic time in microseconds.
+                 * @param deadline a deadline in monotonic clock
+                 */
+                postpone_until(deadline: number): void
+            }
+
+            interface TimeoutClass extends Omit<FutureClass, "new"> {
+                readonly $gtype: GObject.GType<Timeout>
+                readonly prototype: Timeout
+
+                new (props?: Partial<GObject.ConstructorProps<Timeout>>): Timeout
+                /**
+                 * Creates a new timeout that will reject at a deadline.
+                 * @param deadline the deadline in usec in the monotonic clock
+                 */
+                new_deadline(deadline: number): Timeout
+                /**
+                 * Create a new timeout that will reject in `msec` milliseconds
+                 * @param msec number of milliseconds
+                 */
+                new_msec(msec: number): Timeout
+                /**
+                 * Create a new timeout that will reject in `seconds` seconds
+                 * @param seconds number of seconds
+                 */
+                new_seconds(seconds: number): Timeout
+                /**
+                 * Create a new timeout that will reject in `usec` microseconds
+                 * @param usec number of microseconds
+                 */
+                new_usec(usec: number): Timeout
+            }
+
+            interface $Exports {
+                /**
+                 * `DexTimeout` is a {@link Dex.Future} that will reject after the configured
+                 * period of time.
+                 */
+                Timeout: TimeoutClass
+            }
+            
+
+            namespace UnixSignal {
+                interface SignalSignatures extends Future.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Future.ReadableProperties {
+                }
+
+                interface WritableProperties extends Future.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Future.ConstructOnlyProperties {
+                }
+            }
+
+            interface UnixSignal extends Future {
+                readonly $signals: UnixSignal.SignalSignatures
+                readonly $readableProperties: UnixSignal.ReadableProperties
+                readonly $writableProperties: UnixSignal.WritableProperties
+                readonly $constructOnlyProperties: UnixSignal.ConstructOnlyProperties
+                /**
+                 * Get the signal number that the future represents.
+                 * @since 1.0
+                 */
+                get_signum(): number
+            }
+
+            interface UnixSignalClass extends Omit<FutureClass, "new"> {
+                readonly $gtype: GObject.GType<UnixSignal>
+                readonly prototype: UnixSignal
+
+                new (props?: Partial<GObject.ConstructorProps<UnixSignal>>): UnixSignal
+                /**
+                 * Creates a new {@link Dex.UnixSignal} that completes when `signum` is delivered
+                 * to the process.
+                 *
+                 *  `signum` must be one of SIGHUP, SIGINT, SIGTERM, SIGUSR1, SIGUSR2, or
+                 * SIGWINCH.
+                 *
+                 * This API is only supported on UNIX-like systems.
+                 * @param signum a unix signal number
+                 * @returns a new {@link Dex.Future}
+                 */
+                "new"(signum: number): UnixSignal
+            }
+
+            interface $Exports {
+                /**
+                 * `DexUnixSignal` is a {@link Dex.Future} that will resolve when a specific
+                 * unix signal has been received.
+                 *
+                 * Use this when you want to handle a signal from your main loop rather than
+                 * from a resticted operating signal handler.
+                 *
+                 * On Linux, this uses a signalfd.
+                 */
+                UnixSignal: UnixSignalClass
+            }
+            
+
+            interface AioContextStruct {
+                readonly $gtype: GObject.GType<AioContext>
+                [Symbol.hasInstance](instance: unknown): instance is AioContext
+            }
+
+            interface AioContext {
+            }
+
+            interface $Exports {
+                AioContext: AioContextStruct
+            }
+            
+
+            interface AsyncPairInfoStruct {
+                readonly $gtype: GObject.GType<AsyncPairInfo>
+                new (fields?: {
+                    async?: never
+                    finish?: never
+                    return_type?: GObject.GType
+                }): AsyncPairInfo
+            }
+
+            interface AsyncPairInfo {
+                /**
+                 */
+                async: never
+                /**
+                 */
+                finish: never
+                /**
+                 */
+                return_type: GObject.GType
+            }
+
+            interface $Exports {
+                AsyncPairInfo: AsyncPairInfoStruct
+            }
+            
+            interface BlockKindEnum {
+                readonly $gtype: GObject.GType<BlockKind>
+                /**
+                 */
+                readonly "THEN": 1
+                /**
+                 */
+                readonly "CATCH": 2
+                /**
+                 */
+                readonly "FINALLY": 3
+            }
+            type BlockKind = BlockKindEnum[Exclude<keyof BlockKindEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                BlockKind: BlockKindEnum
+            }
+            
+            interface Error extends GLib.Error {}
+
+            interface ErrorEnum {
+                readonly $gtype: GObject.GType<Error>
+
+                new(props: { message: string, code: number }): Error
+                /**
+                 */
+                readonly "UNKNOWN": 0
+                /**
+                 */
+                readonly "CHANNEL_CLOSED": 1
+                /**
+                 */
+                readonly "DEPENDENCY_FAILED": 2
+                /**
+                 */
+                readonly "FIBER_EXITED": 3
+                /**
+                 */
+                readonly "NO_FIBER": 4
+                /**
+                 */
+                readonly "PENDING": 5
+                /**
+                 */
+                readonly "SEMAPHORE_CLOSED": 6
+                /**
+                 */
+                readonly "TIMED_OUT": 7
+                /**
+                 */
+                readonly "TYPE_MISMATCH": 8
+                /**
+                 */
+                readonly "TYPE_NOT_SUPPORTED": 9
+                /**
+                 */
+                readonly "FIBER_CANCELLED": 10
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Error: ErrorEnum
+            }
+            
+            interface FutureStatusEnum {
+                readonly $gtype: GObject.GType<FutureStatus>
+                /**
+                 */
+                readonly "PENDING": 0
+                /**
+                 */
+                readonly "RESOLVED": 1
+                /**
+                 */
+                readonly "REJECTED": 2
+            }
+            type FutureStatus = FutureStatusEnum[Exclude<keyof FutureStatusEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                FutureStatus: FutureStatusEnum
+            }
+            
+            interface DBusInterfaceSkeletonFlagsBitfield {
+                readonly $gtype: GObject.GType<DBusInterfaceSkeletonFlags>
+                /**
+                 * No flags set.
+                 */
+                readonly "NONE": 0
+                /**
+                 * Each method invocation is
+                 *   handled in a fiber dedicated to the invocation. This means that the method implementation can
+                 *   use dex_await or similar. Authorization for method invocations uses the same fiber.
+                 *   This can not be used in combination with METHOD_INVOCATIONS_IN_THREAD and trying to do so leads
+                 *   to a runtime error.
+                 */
+                readonly "HANDLE_METHOD_INVOCATIONS_IN_FIBER": 1
+            }
+            type DBusInterfaceSkeletonFlags = number
+            interface $Exports {
+                /**
+                 * Flags describing the behavior of a #GDBusInterfaceSkeleton instance.
+                 * @since 1.1
+                 */
+                DBusInterfaceSkeletonFlags: DBusInterfaceSkeletonFlagsBitfield
+            }
+            /**
+             * This function prototype is used for spawning fibers. A fiber
+             * is a lightweight, cooperative-multitasking feature where the
+             * fiber is given its own stack. The fiber runs until it reaches
+             * a point of suspension (using {@link Dex.Future.await} or
+             * similar) or exits the fiber.
+             *
+             * When suspended, the fiber is placed onto a queue until it is
+             * runnable again. Once runnable, the fiber is scheduled to run
+             * from within whatever scheduler it was created with.
+             *
+             * See {@link Dex.Scheduler.spawn}
+             * @returns a {@link Dex.Future} or %NULL
+             */
+            type FiberFunc = () => Future | null
+            /**
+             * A `DexFutureCallback` can be executed from a {@link Dex.Block} as response to
+             * another {@link Dex.Future} resolving or rejecting.
+             *
+             * The callback will be executed within the scheduler environment the block is
+             * created within when using {@link Dex.Future.then}, {@link Dex.Future.catch}
+             * {@link Dex.Future.finally}, {@link Dex.Future.all}, and similar functions.
+             *
+             * This is the expected way to handle completion of a future when not using
+             * {@link Dex.Fiber} via {@link Dex.Scheduler.spawn}.
+             * @param future a resolved or rejected {@link Dex.Future}
+             * @returns a {@link Dex.Future} or %NULL
+             */
+            type FutureCallback = (future: Future) => Future | null
+            /**
+             */
+            type SchedulerFunc = () => void
+            /**
+             * A function which will be run on a dedicated thread.
+             *
+             * It must return a {@link Dex.Future} that will eventually resolve
+             * to a value or reject with error.
              * @since 1.0
+             * @returns a {@link Dex.Future}
              */
-            get_signum(): number
+            type ThreadFunc = () => Future
+
+            interface $Exports {
+                __name__: "Dex"
+                __version__: "1"
+                /**
+                 * An asynchronous `pread()` wrapper.
+                 *
+                 * Generally you want to provide `NULL` for the `aio_context` as that
+                 * will get the default aio context for your scheduler.
+                 * @param aio_context
+                 * @param fd
+                 * @param offset the positioned offset within `fd` to read from
+                 * @returns a future that will resolve when the   read completes or rejects with error., 
+                 */
+                aio_read(aio_context: AioContext | null, fd: number, offset: number): [Future, Uint8Array]
+                /**
+                 * An asynchronous `pwrite()` wrapper.
+                 *
+                 * Generally you want to provide `NULL` for the `aio_context` as that
+                 * will get the default aio context for your scheduler.
+                 * @param aio_context
+                 * @param fd
+                 * @param buffer
+                 * @param offset the positioned offset within `fd` to write at
+                 * @returns a future that will resolve when the   write completes or rejects with error.
+                 */
+                aio_write(aio_context: AioContext | null, fd: number, buffer: Uint8Array, offset: number): Future
+                /**
+                 * A helper for {@link Gio.AsyncInitable.init_async}.
+                 * @since 1.0
+                 * @param initable a {@link Gio.AsyncInitable}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves   to the `initable` instance or rejects with error.
+                 */
+                async_initable_init(initable: Gio.AsyncInitable, io_priority: number): Future
+                /**
+                 * Wrapper for {@link Gio.bus_get}.
+                 * @since 0.4
+                 * @param bus_type the {@link Gio.BusType}
+                 * @returns a {@link Dex.Future} that resolves to a   {@link Gio.DBusConnection} or rejects with error.
+                 */
+                bus_get(bus_type: Gio.BusType): Future
+                /**
+                 * Wrapper for {@link Gio.bus_own_name}.
+                 *
+                 * Asks the D-Bus broker to own the well-known name `name` on the connection `connection`.
+                 *
+                 *  `out_name_acquired_future` is a future that awaits owning the name and either
+                 * resolves to true, or rejects with an error.
+                 *
+                 *  `out_name_lost_future` is a future that rejects when the name was lost.
+                 *
+                 * If either future is canceled, the name will be unowned.
+                 * @since 1.1
+                 * @param connection The {@link Gio.DBusConnection} to own a name on.
+                 * @param name The well-known name to own.
+                 * @param flags a set of flags with ownership options.
+                 * @returns , a location for the name acquired future, a location for the name lost future
+                 */
+                bus_own_name_on_connection(connection: Gio.DBusConnection, name: string, flags: Gio.BusNameOwnerFlags): [Future, Future]
+                /**
+                 * Reads a line from the data input stream.
+                 *
+                 * Wraps {@link Gio.DataInputStream.read_line_async}.
+                 * @since 1.1
+                 * @param stream a {@link Gio.DataInputStream}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves   to a string containing the line (without the line terminator), or %NULL   if the end of the stream is reached.
+                 */
+                data_input_stream_read_line(stream: Gio.DataInputStream, io_priority: number): Future
+                /**
+                 * Wrapper for {@link Gio.DBusConnection.call}.
+                 * @since 0.4
+                 * @param connection a {@link Gio.DBusConnection}
+                 * @param bus_name a unique or well-known bus name or %NULL if   `connection` is not a message bus connection
+                 * @param object_path path of remote object
+                 * @param interface_name D-Bus interface to invoke method on
+                 * @param method_name the name of the method to invoke
+                 * @param parameters a {@link GLib.Variant} tuple with parameters for   the method or %NULL if not passing parameters
+                 * @param reply_type the expected type of the reply (which will be a   tuple), or %NULL
+                 * @param flags flags from the {@link Gio.DBusCallFlags} enumeration
+                 * @param timeout_msec the timeout in milliseconds, -1 to use the default   timeout or %G_MAXINT for no timeout
+                 * @returns a {@link Dex.Future} that resolves to a   {@link GLib.Variant} or rejects with error.
+                 */
+                dbus_connection_call(connection: Gio.DBusConnection, bus_name: string | null, object_path: string, interface_name: string, method_name: string, parameters: GLib.Variant | null, reply_type: GLib.VariantType | null, flags: Gio.DBusCallFlags, timeout_msec: number): Future
+                /**
+                 * Wrapper for {@link Gio.DBusConnection.call_with_unix_fd_list}.
+                 * @since 0.4
+                 * @param connection a {@link Gio.DBusConnection}
+                 * @param bus_name a unique or well-known bus name or %NULL if   `connection` is not a message bus connection
+                 * @param object_path path of remote object
+                 * @param interface_name D-Bus interface to invoke method on
+                 * @param method_name the name of the method to invoke
+                 * @param parameters a {@link GLib.Variant} tuple with parameters for   the method or %NULL if not passing parameters
+                 * @param reply_type the expected type of the reply (which will be a   tuple), or %NULL
+                 * @param flags flags from the {@link Gio.DBusCallFlags} enumeration
+                 * @param timeout_msec the timeout in milliseconds, -1 to use the default   timeout or %G_MAXINT for no timeout
+                 * @param fd_list a {@link Gio.UnixFDList}
+                 * @returns a {@link Dex.FutureSet} that resolves to a   {@link GLib.Variant}.    The {@link Dex.Future} containing the resulting {@link Gio.UnixFDList} can   be retrieved with {@link Dex.FutureSet.get_future_at} with an index of 1.
+                 */
+                dbus_connection_call_with_unix_fd_list(connection: Gio.DBusConnection, bus_name: string | null, object_path: string, interface_name: string, method_name: string, parameters: GLib.Variant | null, reply_type: GLib.VariantType | null, flags: Gio.DBusCallFlags, timeout_msec: number, fd_list: Gio.UnixFDList | null): Future
+                /**
+                 * Asynchronously closes a connection.
+                 * @since 1.0
+                 * @param connection a {@link Gio.DBusConnection}
+                 * @returns a {@link Dex.Future} that resolves   to `true` or rejects with error.
+                 */
+                dbus_connection_close(connection: Gio.DBusConnection): Future
+                /**
+                 * Wrapper for {@link Gio.DBusConnection.send_message_with_reply}.
+                 * @since 0.4
+                 * @param connection a {@link Gio.DBusConnection}
+                 * @param message a {@link Gio.DBusMessage}
+                 * @param flags a set of {@link Gio.DBusSendMessageFlags}
+                 * @param timeout_msec timeout in milliseconds, or -1 for default, or %G_MAXINT   for no timeout.
+                 * @returns a {@link Dex.Future} that will resolve to a   {@link Gio.DBusMessage} or reject with failure., a location for the message serial number
+                 */
+                dbus_connection_send_message_with_reply(connection: Gio.DBusConnection, message: Gio.DBusMessage, flags: Gio.DBusSendMessageFlags, timeout_msec: number): [Future, number]
+                /**
+                 */
+                error_quark(): GLib.Quark
+                /**
+                 * Creates a new GSource that will fire when `events` is satisfied.
+                 *
+                 * This is primarily useful when integrating with legacy systems on a
+                 * fiber.
+                 * @since 1.1
+                 * @param fd a file-descriptor
+                 * @param events the POLLOUT|POLLIN style bitmask to watch for
+                 * @returns a {@link Dex.Future} that resolves to the   revents value when `events` is satisfied.
+                 */
+                fd_watch(fd: number, events: number): Future
+                /**
+                 * Asynchronously copies a file and returns a {@link Dex.Future} which
+                 * can be observed for the result.
+                 * @param source a {@link Gio.File}
+                 * @param destination a {@link Gio.File}
+                 * @param flags a set of {@link Gio.FileCopyFlags}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves   to true if successful otherwise rejects with error.
+                 */
+                file_copy(source: Gio.File, destination: Gio.File, flags: Gio.FileCopyFlags, io_priority: number): Future
+                /**
+                 * Wraps {@link Gio.File.create} as a {@link Dex.Future}.
+                 * @since 1.1
+                 * @param file a {@link Gio.File}
+                 * @param flags flags for creating the file
+                 * @param io_priority priority for the IO operation
+                 * @returns a {@link Dex.Future} that resolves to   a {@link Gio.FileOutputStream} or rejects with error.
+                 */
+                file_create(file: Gio.File, flags: Gio.FileCreateFlags, io_priority: number): Future
+                /**
+                 * Asynchronously deletes a file and returns a {@link Dex.Future} which
+                 * can be observed for the result.
+                 * @param file a {@link Gio.File}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves   to true or rejects with error.
+                 */
+                file_delete(file: Gio.File, io_priority: number): Future
+                /**
+                 * @param file a {@link Gio.File}
+                 * @param attributes an attribute query string (see: [`GFile` documentation](iface@Gio.File))
+                 * @param flags a set of {@link Gio.FileQueryInfoFlags}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves to a   {@link Gio.FileEnumerator} or rejects with error.
+                 */
+                file_enumerate_children(file: Gio.File, attributes: string, flags: Gio.FileQueryInfoFlags, io_priority: number): Future
+                /**
+                 * Wraps {@link Gio.FileEnumerator.next_files_async}.
+                 *
+                 * Use {@link Dex.Future.await_boxed} to await for the result of this function.
+                 *
+                 * When on a fiber, you can do:
+                 *
+                 * ```c
+                 * g_autolist(GFileInfo) infos = dex_await_boxed (dex_file_enumerator_next_files (enumerator, 100, 0), &error);
+                 * ```
+                 * @param file_enumerator a {@link Gio.FileEnumerator}
+                 * @param num_files the number of files
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves to   a {@link GLib.List} of {@link Gio.FileInfo}
+                 */
+                file_enumerator_next_files(file_enumerator: Gio.FileEnumerator, num_files: number, io_priority: number): Future
+                /**
+                 * @param file a {@link Gio.File}
+                 * @returns a {@link Dex.Future} that resolves   to a {@link GLib.Bytes}.
+                 */
+                file_load_contents_bytes(file: Gio.File): Future
+                /**
+                 * Asynchronously creates a directory and returns {@link Dex.Future} which
+                 * can be observed for the result.
+                 * @param file a {@link Gio.File}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future}
+                 */
+                file_make_directory(file: Gio.File, io_priority: number): Future
+                /**
+                 * Creates a directory at `file`.
+                 *
+                 * If `file` already exists and is a directory, then the future
+                 * will resolve to %TRUE.
+                 * @since 1.0
+                 * @param file a {@link Gio.File}
+                 * @returns a {@link Dex.Future} that resolves to   a boolean or rejects with error.
+                 */
+                file_make_directory_with_parents(file: Gio.File): Future
+                /**
+                 * @param source source {@link Gio.File}
+                 * @param destination destination {@link Gio.File}
+                 * @param flags a set of {@link Gio.FileCopyFlags}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @param progress_callback    {@link Gio.FileProgressCallback} function for updates
+                 * @returns a {@link Dex.Future} that resolves to %TRUE   or rejects with error
+                 */
+                file_move(source: Gio.File, destination: Gio.File, flags: Gio.FileCopyFlags, io_priority: number, progress_callback: Gio.FileProgressCallback): Future
+                /**
+                 * Queries to see if `file` exists asynchronously.
+                 * @since 0.6
+                 * @param file a {@link Gio.File}
+                 * @returns a {@link Dex.Future} that will resolve with %TRUE   if the file exists, otherwise reject with error.
+                 */
+                file_query_exists(file: Gio.File): Future
+                /**
+                 * @param file a {@link Gio.File}
+                 * @param flags a set of {@link Gio.FileQueryInfoFlags}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves to a   {@link Gio.FileType}.
+                 */
+                file_query_file_type(file: Gio.File, flags: Gio.FileQueryInfoFlags, io_priority: number): Future
+                /**
+                 * @param file a {@link Gio.File}
+                 * @param attributes an attribute query string (see: [GFile documentation](iface@Gio.File))
+                 * @param flags a set of {@link Gio.FileQueryInfoFlags}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves   to a {@link Gio.FileInfo} or rejects with error.
+                 */
+                file_query_info(file: Gio.File, attributes: string, flags: Gio.FileQueryInfoFlags, io_priority: number): Future
+                /**
+                 * Asynchronously opens a file for reading.
+                 * @param file a {@link Gio.File}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves   to a {@link Gio.FileInputStream}.
+                 */
+                file_read(file: Gio.File, io_priority: number): Future
+                /**
+                 * Opens a stream that will replace `file` on disk when the input
+                 * stream is closed.
+                 * @param file a {@link Gio.File}
+                 * @param etag the etag or %NULL
+                 * @param make_backup
+                 * @param flags a set of {@link Gio.FileCreateFlags}
+                 * @param io_priority
+                 * @returns a {@link Dex.Future} that resolves   to a {@link Gio.FileInputStream}.
+                 */
+                file_replace(file: Gio.File, etag: string | null, make_backup: boolean, flags: Gio.FileCreateFlags, io_priority: number): Future
+                /**
+                 * Wraps {@link Gio.File.replace_contents_bytes_async}
+                 * @param file a {@link Gio.File}
+                 * @param contents a {@link GLib.Bytes}
+                 * @param etag the etag or %NULL
+                 * @param make_backup if a backup file should be created
+                 * @param flags a set of {@link Gio.FileCreateFlags}
+                 * @returns a {@link Dex.Future} which resolves to the   new etag. Therefore, it is possible to be %NULL without an   error having occurred.
+                 */
+                file_replace_contents_bytes(file: Gio.File, contents: (GLib.Bytes | Uint8Array), etag: string | null, make_backup: boolean, flags: Gio.FileCreateFlags): Future
+                /**
+                 * @since 1.0
+                 * @param file a {@link Gio.File}
+                 * @param file_info a {@link Gio.FileInfo}
+                 * @param flags a set of {@link Gio.FileQueryInfoFlags}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves to a   {@link Gio.FileInfo} or rejects with error.
+                 */
+                file_set_attributes(file: Gio.File, file_info: Gio.FileInfo, flags: Gio.FileQueryInfoFlags, io_priority: number): Future
+                /**
+                 * Locates the first executable named program in the user’s path.
+                 *
+                 * This runs {@link GLib.find_program_in_path} on a dedicated thread.
+                 * @since 1.1
+                 * @param program the name of the executable such as "grep"
+                 * @returns a {@link Dex.Future} that resolves to a   string containing the path or rejects with error.
+                 */
+                find_program_in_path(program: string): Future
+                /**
+                 * Gets the major version number equivalent to `DEX_MAJOR_VERSION`
+                 * at compile time of libdex.
+                 * @since 1.1
+                 */
+                get_major_version(): number
+                /**
+                 * Gets the micro version number equivalent to `DEX_MICRO_VERSION`
+                 * at compile time of libdex.
+                 * @since 1.1
+                 */
+                get_micro_version(): number
+                /**
+                 */
+                get_min_stack_size(): number
+                /**
+                 * Gets the minor version number equivalent to `DEX_MINOR_VERSION`
+                 * at compile time of libdex.
+                 * @since 1.1
+                 */
+                get_minor_version(): number
+                /**
+                 */
+                get_page_size(): number
+                /**
+                 */
+                init(): void
+                /**
+                 * @param self a {@link Gio.InputStream}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves   to true if successful or rejects with error.
+                 */
+                input_stream_close(self: Gio.InputStream, io_priority: number): Future
+                /**
+                 * Reads `count` bytes from an input stream into a pre-allocated `buffer`. The
+                 *  `buffer` must stay valid for the lifetime of this future.
+                 * @param self a {@link Gio.InputStream}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that reads `counts` bytes   into `buffer`, 
+                 */
+                input_stream_read(self: Gio.InputStream, io_priority: number): [Future, Uint8Array]
+                /**
+                 * Reads `count` bytes from the stream.
+                 * @param stream a {@link Gio.InputStream}
+                 * @param count size in bytes to read from the stream
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves   to a {@link GLib.Bytes}.
+                 */
+                input_stream_read_bytes(stream: Gio.InputStream, count: number, io_priority: number): Future
+                /**
+                 * @param self a {@link Gio.InputStream}
+                 * @param count the number of bytes to skip
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves   to the number of bytes skipped as a `gint64`.
+                 */
+                input_stream_skip(self: Gio.InputStream, count: number, io_priority: number): Future
+                /**
+                 * @param io_stream a {@link Gio.IOStream}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves to   true or rejects with error.
+                 */
+                io_stream_close(io_stream: Gio.IOStream, io_priority: number): Future
+                /**
+                 * Similar to {@link GLib.mkdir_with_parents} but runs on a dedicated thread.
+                 * @since 1.1
+                 * @param path a path to a directory to create
+                 * @param mode the mode for the directory such as `0750`
+                 * @returns a {@link Dex.Future} that resolves to 0   if successful, otherwise rejects with error.
+                 */
+                mkdir_with_parents(path: string, mode: number): Future
+                /**
+                 * @param self a {@link Gio.OutputStream}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves   to true or rejects with error.
+                 */
+                output_stream_close(self: Gio.OutputStream, io_priority: number): Future
+                /**
+                 * @param output a {@link Gio.OutputStream}
+                 * @param input a {@link Gio.InputStream}
+                 * @param flags a set of {@link Gio.OutputStreamSpliceFlags}
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves to the   number of bytes spliced as a `gint64` or rejects with error.
+                 */
+                output_stream_splice(output: Gio.OutputStream, input: Gio.InputStream, flags: Gio.OutputStreamSpliceFlags, io_priority: number): Future
+                /**
+                 * @param self a {@link Gio.OutputStream}
+                 * @param buffer
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves   to the number of bytes written as a `gint64`
+                 */
+                output_stream_write(self: Gio.OutputStream, buffer: Uint8Array, io_priority: number): Future
+                /**
+                 * Writes `bytes` to `stream`.
+                 *
+                 * This function takes a reference to `bytes` and may be released after
+                 * calling this function.
+                 * @param stream a {@link Gio.InputStream}
+                 * @param bytes the {@link GLib.Bytes} to write to the stream
+                 * @param io_priority the [IO priority]{@link Gio.AsyncResult#io-priority} of the   request
+                 * @returns a {@link Dex.Future} that resolves to   a `gint64`.
+                 */
+                output_stream_write_bytes(stream: Gio.OutputStream, bytes: (GLib.Bytes | Uint8Array), io_priority: number): Future
+                /**
+                 * @param resolver a {@link Gio.Resolver}
+                 * @param address the address to look up
+                 * @returns a {@link Dex.Future} that resolves to a   {@link GLib.List} of {@link Gio.InetAddress}.
+                 */
+                resolver_lookup_by_name(resolver: Gio.Resolver, address: string): Future
+                /**
+                 * @param socket_client a {@link Gio.SocketClient}
+                 * @param socket_connectable a {@link Gio.SocketConnectable}
+                 * @returns a {@link Dex.Future} that resolves to a   {@link Gio.SocketConnection} or rejects with error.
+                 */
+                socket_client_connect(socket_client: Gio.SocketClient, socket_connectable: Gio.SocketConnectable): Future
+                /**
+                 * @param listener a {@link Gio.SocketListener}
+                 * @returns a {@link Dex.Future} that resolves to   a {@link Gio.SocketConnection} or rejects with error.
+                 */
+                socket_listener_accept(listener: Gio.SocketListener): Future
+                /**
+                 * Creates a future that awaits for `subprocess` to complete using
+                 * {@link Gio.Subprocess.wait_check_async}.
+                 * @since 0.4
+                 * @param subprocess a {@link Gio.Subprocess}
+                 * @returns a {@link Dex.Future} that will resolve when `subprocess`   exits cleanly or reject upon signal or non-successful exit.
+                 */
+                subprocess_wait_check(subprocess: Gio.Subprocess): Future
+                /**
+                 * Spawns a new thread named `thread_name` running `thread_func` with
+                 *  `user_data` passed to it.
+                 *
+                 *  `thread_func` must return a {@link Dex.Future}.
+                 *
+                 * If this function is called from a thread that is not running a
+                 * {@link Dex.Scheduler} then the default scheduler will be used
+                 * to call `user_data_destroy`.
+                 *
+                 * If the resulting {@link Dex.Future} has not resolved or rejected,
+                 * then the same scheduler used to call `user_data_destroy` will be
+                 * used to propagate the result to the caller.
+                 * @since 1.0
+                 * @param thread_name the name for the thread
+                 * @param thread_func the function to call on a thread
+                 * @returns a {@link Dex.Future} that resolves or rejects   the value or error returned from `thread_func` as a {@link Dex.Future}.
+                 */
+                thread_spawn(thread_name: string | null, thread_func: ThreadFunc): Future
+                /**
+                 * Use this when running on a thread spawned with `dex_thread_spawn()` and
+                 * you need to block the thread until `future` has resolved or rejected.
+                 * @throws {GLib.Error}
+                 * @since 1.0
+                 * @param future a {@link Dex.Future}
+                 * @returns %TRUE if `future` resolved, otherwise %FALSE and `error` is   set to the rejection.
+                 */
+                thread_wait_for(future: Future): boolean
+                /**
+                 * This runs {@link GLib.unlink} on a dedicated thread.
+                 * @since 1.1
+                 * @param path the path to unlink
+                 * @returns a {@link Dex.Future} that resolves to an   int of 0 on success or rejects with error.
+                 */
+                unlink(path: string): Future
+                /**
+                 * Retrieves the `DexObject` stored inside the given `value`.
+                 * @since 1.0
+                 * @param value a `GValue` initialized with type `DEX_TYPE_OBJECT`
+                 * @returns a `DexObject`
+                 */
+                value_dup_object(value: (GObject.Value | unknown)): Object | null
+                /**
+                 * Retrieves the `DexObject` stored inside the given `value`.
+                 * @since 0.4
+                 * @param value a `GValue` initialized with type `DEX_TYPE_OBJECT`
+                 * @returns a `DexObject`
+                 */
+                value_get_object(value: (GObject.Value | unknown)): Object | null
+                /**
+                 * Stores the given `DexObject` inside `value`.
+                 *
+                 * The {@link GObject.Value} will acquire a reference to the `object`.
+                 * @since 0.4
+                 * @param value a {@link GObject.Value} initialized with type `DEX_TYPE_OBJECT`
+                 * @param object a `DexObject` or %NULL
+                 */
+                value_set_object(value: (GObject.Value | unknown), object: Object | null): void
+                /**
+                 * Stores the given `DexObject` inside `value`.
+                 *
+                 * This function transfers the ownership of the `object` to the `GValue`.
+                 * @since 0.4
+                 * @param value a {@link GObject.Value} initialized with type `DEX_TYPE_OBJECT`
+                 * @param object a `DexObject`
+                 */
+                value_take_object(value: (GObject.Value | unknown), object: Object | null): void
+            }
         }
 
-        interface UnixSignalClass extends Omit<FutureClass, "new"> {
-            readonly $gtype: GObject.GType<UnixSignal>
-            readonly prototype: UnixSignal
-
-            new (props?: Partial<GObject.ConstructorProps<UnixSignal>>): UnixSignal
-            /**
-             * Creates a new [class@Dex.UnixSignal] that completes when @signum is delivered
-             * to the process.
-             *
-             * @signum must be one of SIGHUP, SIGINT, SIGTERM, SIGUSR1, SIGUSR2, or
-             * SIGWINCH.
-             *
-             * This API is only supported on UNIX-like systems.
-             * @param signum a unix signal number
-             * @returns a new [class@Dex.Future]
-             */
-            "new"(signum: number): UnixSignal
-        }
-
-        interface $Exports {
-            /**
-             * `DexUnixSignal` is a [class@Dex.Future] that will resolve when a specific
-             * unix signal has been received.
-             *
-             * Use this when you want to handle a signal from your main loop rather than
-             * from a resticted operating signal handler.
-             *
-             * On Linux, this uses a signalfd.
-             */
-            UnixSignal: UnixSignalClass
-        }
-        
-
-        interface AioContextStruct {
-            readonly $gtype: GObject.GType<AioContext>
-            [Symbol.hasInstance](instance: unknown): instance is AioContext
-        }
-
-        interface AioContext {
-        }
-
-        interface $Exports {
-            AioContext: AioContextStruct
-        }
-        
-
-        interface AsyncPairInfoStruct {
-            readonly $gtype: GObject.GType<AsyncPairInfo>
-            [Symbol.hasInstance](instance: unknown): instance is AsyncPairInfo
-        }
-
-        interface AsyncPairInfo {
-            /**
-             */
-            async: never
-            /**
-             */
-            finish: never
-            /**
-             */
-            return_type: GObject.GType
-        }
-
-        interface $Exports {
-            AsyncPairInfo: AsyncPairInfoStruct
-        }
-        
-        interface BlockKindEnum {
-            readonly $gtype: GObject.GType<BlockKind>
-            /**
-             */
-            readonly "THEN": 1
-            /**
-             */
-            readonly "CATCH": 2
-            /**
-             */
-            readonly "FINALLY": 3
-        }
-        type BlockKind = BlockKindEnum[Exclude<keyof BlockKindEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            BlockKind: BlockKindEnum
-        }
-        
-        interface Error extends GLib.Error {}
-
-        interface ErrorEnum {
-            readonly $gtype: GObject.GType<Error>
-
-            new(props: { message: string, code: number }): Error
-            /**
-             */
-            readonly "UNKNOWN": 0
-            /**
-             */
-            readonly "CHANNEL_CLOSED": 1
-            /**
-             */
-            readonly "DEPENDENCY_FAILED": 2
-            /**
-             */
-            readonly "FIBER_EXITED": 3
-            /**
-             */
-            readonly "NO_FIBER": 4
-            /**
-             */
-            readonly "PENDING": 5
-            /**
-             */
-            readonly "SEMAPHORE_CLOSED": 6
-            /**
-             */
-            readonly "TIMED_OUT": 7
-            /**
-             */
-            readonly "TYPE_MISMATCH": 8
-            /**
-             */
-            readonly "TYPE_NOT_SUPPORTED": 9
-            /**
-             */
-            readonly "FIBER_CANCELLED": 10
-        }
-
-        interface $Exports {
-            /**
-             */
-            Error: ErrorEnum
-        }
-        
-        interface FutureStatusEnum {
-            readonly $gtype: GObject.GType<FutureStatus>
-            /**
-             */
-            readonly "PENDING": 0
-            /**
-             */
-            readonly "RESOLVED": 1
-            /**
-             */
-            readonly "REJECTED": 2
-        }
-        type FutureStatus = FutureStatusEnum[Exclude<keyof FutureStatusEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            FutureStatus: FutureStatusEnum
-        }
-        
-        interface DBusInterfaceSkeletonFlagsBitfield {
-            readonly $gtype: GObject.GType<DBusInterfaceSkeletonFlags>
-            /**
-             * No flags set.
-             */
-            readonly "NONE": 0
-            /**
-             * Each method invocation is
-             *   handled in a fiber dedicated to the invocation. This means that the method implementation can
-             *   use dex_await or similar. Authorization for method invocations uses the same fiber.
-             *   This can not be used in combination with METHOD_INVOCATIONS_IN_THREAD and trying to do so leads
-             *   to a runtime error.
-             */
-            readonly "HANDLE_METHOD_INVOCATIONS_IN_FIBER": 1
-        }
-        type DBusInterfaceSkeletonFlags = number
-        interface $Exports {
-            /**
-             * Flags describing the behavior of a #GDBusInterfaceSkeleton instance.
-             * @since 1.1
-             */
-            DBusInterfaceSkeletonFlags: DBusInterfaceSkeletonFlagsBitfield
-        }
-        /**
-         * This function prototype is used for spawning fibers. A fiber
-         * is a lightweight, cooperative-multitasking feature where the
-         * fiber is given its own stack. The fiber runs until it reaches
-         * a point of suspension (using [method@Dex.Future.await] or
-         * similar) or exits the fiber.
-         *
-         * When suspended, the fiber is placed onto a queue until it is
-         * runnable again. Once runnable, the fiber is scheduled to run
-         * from within whatever scheduler it was created with.
-         *
-         * See [method@Dex.Scheduler.spawn]
-         * @returns a [class@Dex.Future] or %NULL
-         */
-        type FiberFunc = () => Future | null
-        /**
-         * A `DexFutureCallback` can be executed from a [class@Dex.Block] as response to
-         * another [class@Dex.Future] resolving or rejecting.
-         *
-         * The callback will be executed within the scheduler environment the block is
-         * created within when using [ctor@Dex.Future.then], [ctor@Dex.Future.catch]
-         * [ctor@Dex.Future.finally], [ctor@Dex.Future.all], and similar functions.
-         *
-         * This is the expected way to handle completion of a future when not using
-         * [class@Dex.Fiber] via [method@Dex.Scheduler.spawn].
-         * @param future a resolved or rejected [class@Dex.Future]
-         * @returns a [class@Dex.Future] or %NULL
-         */
-        type FutureCallback = (future: Future) => Future | null
-        /**
-         */
-        type SchedulerFunc = () => void
-        /**
-         * A function which will be run on a dedicated thread.
-         *
-         * It must return a [class@Dex.Future] that will eventually resolve
-         * to a value or reject with error.
-         * @since 1.0
-         * @returns a [class@Dex.Future]
-         */
-        type ThreadFunc = () => Future
-
-        interface $Exports {
-            __name__: "Dex"
-            __version: "1"
-            /**
-             * An asynchronous `pread()` wrapper.
-             *
-             * Generally you want to provide `NULL` for the @aio_context as that
-             * will get the default aio context for your scheduler.
-             * @param aio_context
-             * @param fd
-             * @param offset the positioned offset within @fd to read from
-             * @returns a future that will resolve when the   read completes or rejects with error., 
-             */
-            aio_read(aio_context: AioContext | null, fd: number, offset: number): [Future, Uint8Array]
-            /**
-             * An asynchronous `pwrite()` wrapper.
-             *
-             * Generally you want to provide `NULL` for the @aio_context as that
-             * will get the default aio context for your scheduler.
-             * @param aio_context
-             * @param fd
-             * @param buffer
-             * @param offset the positioned offset within @fd to write at
-             * @returns a future that will resolve when the   write completes or rejects with error.
-             */
-            aio_write(aio_context: AioContext | null, fd: number, buffer: Uint8Array, offset: number): Future
-            /**
-             * A helper for [method@Gio.AsyncInitable.init_async].
-             * @since 1.0
-             * @param initable a [iface@Gio.AsyncInitable]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves   to the `initable` instance or rejects with error.
-             */
-            async_initable_init(initable: Gio.AsyncInitable, io_priority: number): Future
-            /**
-             * Wrapper for [func@Gio.bus_get].
-             * @since 0.4
-             * @param bus_type the [enum@Gio.BusType]
-             * @returns a [class@Dex.Future] that resolves to a   [class@Gio.DBusConnection] or rejects with error.
-             */
-            bus_get(bus_type: Gio.BusType): Future
-            /**
-             * Wrapper for [func@Gio.bus_own_name].
-             *
-             * Asks the D-Bus broker to own the well-known name @name on the connection @connection.
-             *
-             * @out_name_acquired_future is a future that awaits owning the name and either
-             * resolves to true, or rejects with an error.
-             *
-             * @out_name_lost_future is a future that rejects when the name was lost.
-             *
-             * If either future is canceled, the name will be unowned.
-             * @since 1.1
-             * @param connection The [class@Gio.DBusConnection] to own a name on.
-             * @param name The well-known name to own.
-             * @param flags a set of flags with ownership options.
-             * @returns , a location for the name acquired future, a location for the name lost future
-             */
-            bus_own_name_on_connection(connection: Gio.DBusConnection, name: string, flags: Gio.BusNameOwnerFlags): [Future, Future]
-            /**
-             * Reads a line from the data input stream.
-             *
-             * Wraps [method@Gio.DataInputStream.read_line_async].
-             * @since 1.1
-             * @param stream a [class@Gio.DataInputStream]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves   to a string containing the line (without the line terminator), or %NULL   if the end of the stream is reached.
-             */
-            data_input_stream_read_line(stream: Gio.DataInputStream, io_priority: number): Future
-            /**
-             * Wrapper for [method@Gio.DBusConnection.call].
-             * @since 0.4
-             * @param connection a [class@Gio.DBusConnection]
-             * @param bus_name a unique or well-known bus name or %NULL if
-              @connection is not a message bus connection
-             * @param object_path path of remote object
-             * @param interface_name D-Bus interface to invoke method on
-             * @param method_name the name of the method to invoke
-             * @param parameters a [struct@GLib.Variant] tuple with parameters for
-              the method or %NULL if not passing parameters
-             * @param reply_type the expected type of the reply (which will be a
-              tuple), or %NULL
-             * @param flags flags from the [flags@Gio.DBusCallFlags] enumeration
-             * @param timeout_msec the timeout in milliseconds, -1 to use the default
-              timeout or %G_MAXINT for no timeout
-             * @returns a [class@Dex.Future] that resolves to a   [struct@GLib.Variant] or rejects with error.
-             */
-            dbus_connection_call(connection: Gio.DBusConnection, bus_name: string | null, object_path: string, interface_name: string, method_name: string, parameters: GLib.Variant | null, reply_type: GLib.VariantType | null, flags: Gio.DBusCallFlags, timeout_msec: number): Future
-            /**
-             * Wrapper for [method@Gio.DBusConnection.call_with_unix_fd_list].
-             * @since 0.4
-             * @param connection a [class@Gio.DBusConnection]
-             * @param bus_name a unique or well-known bus name or %NULL if
-              @connection is not a message bus connection
-             * @param object_path path of remote object
-             * @param interface_name D-Bus interface to invoke method on
-             * @param method_name the name of the method to invoke
-             * @param parameters a [struct@GLib.Variant] tuple with parameters for
-              the method or %NULL if not passing parameters
-             * @param reply_type the expected type of the reply (which will be a
-              tuple), or %NULL
-             * @param flags flags from the [flags@Gio.DBusCallFlags] enumeration
-             * @param timeout_msec the timeout in milliseconds, -1 to use the default
-              timeout or %G_MAXINT for no timeout
-             * @param fd_list a [class@Gio.UnixFDList]
-             * @returns a [class@Dex.FutureSet] that resolves to a   [struct@GLib.Variant].    The [class@Dex.Future] containing the resulting [class@Gio.UnixFDList] can   be retrieved with [method@Dex.FutureSet.get_future_at] with an index of 1.
-             */
-            dbus_connection_call_with_unix_fd_list(connection: Gio.DBusConnection, bus_name: string | null, object_path: string, interface_name: string, method_name: string, parameters: GLib.Variant | null, reply_type: GLib.VariantType | null, flags: Gio.DBusCallFlags, timeout_msec: number, fd_list: Gio.UnixFDList | null): Future
-            /**
-             * Asynchronously closes a connection.
-             * @since 1.0
-             * @param connection a [class@Gio.DBusConnection]
-             * @returns a [class@Dex.Future] that resolves   to `true` or rejects with error.
-             */
-            dbus_connection_close(connection: Gio.DBusConnection): Future
-            /**
-             * Wrapper for [method@Gio.DBusConnection.send_message_with_reply].
-             * @since 0.4
-             * @param connection a [class@Gio.DBusConnection]
-             * @param message a [class@Gio.DBusMessage]
-             * @param flags a set of [flags@Gio.DBusSendMessageFlags]
-             * @param timeout_msec timeout in milliseconds, or -1 for default, or %G_MAXINT
-              for no timeout.
-             * @returns a [class@Dex.Future] that will resolve to a   [class@Gio.DBusMessage] or reject with failure., a location for the message serial number
-             */
-            dbus_connection_send_message_with_reply(connection: Gio.DBusConnection, message: Gio.DBusMessage, flags: Gio.DBusSendMessageFlags, timeout_msec: number): [Future, number]
-            /**
-             */
-            error_quark(): GLib.Quark
-            /**
-             * Creates a new GSource that will fire when @events is satisfied.
-             *
-             * This is primarily useful when integrating with legacy systems on a
-             * fiber.
-             * @since 1.1
-             * @param fd a file-descriptor
-             * @param events the POLLOUT|POLLIN style bitmask to watch for
-             * @returns a [class@Dex.Future] that resolves to the   revents value when `events` is satisfied.
-             */
-            fd_watch(fd: number, events: number): Future
-            /**
-             * Asynchronously copies a file and returns a [class@Dex.Future] which
-             * can be observed for the result.
-             * @param source a [iface@Gio.File]
-             * @param destination a [iface@Gio.File]
-             * @param flags a set of [flags@Gio.FileCopyFlags]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves   to true if successful otherwise rejects with error.
-             */
-            file_copy(source: Gio.File, destination: Gio.File, flags: Gio.FileCopyFlags, io_priority: number): Future
-            /**
-             * Wraps [method@Gio.File.create] as a [class@Dex.Future].
-             * @since 1.1
-             * @param file a [iface@Gio.File]
-             * @param flags flags for creating the file
-             * @param io_priority priority for the IO operation
-             * @returns a [class@Dex.Future] that resolves to   a [class@Gio.FileOutputStream] or rejects with error.
-             */
-            file_create(file: Gio.File, flags: Gio.FileCreateFlags, io_priority: number): Future
-            /**
-             * Asynchronously deletes a file and returns a [class@Dex.Future] which
-             * can be observed for the result.
-             * @param file a [iface@Gio.File]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves   to true or rejects with error.
-             */
-            file_delete(file: Gio.File, io_priority: number): Future
-            /**
-             * @param file a [iface@Gio.File]
-             * @param attributes an attribute query string (see: [`GFile` documentation](iface@Gio.File))
-             * @param flags a set of [flags@Gio.FileQueryInfoFlags]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves to a   [class@Gio.FileEnumerator] or rejects with error.
-             */
-            file_enumerate_children(file: Gio.File, attributes: string, flags: Gio.FileQueryInfoFlags, io_priority: number): Future
-            /**
-             * Wraps [method@Gio.FileEnumerator.next_files_async].
-             *
-             * Use [method@Dex.Future.await_boxed] to await for the result of this function.
-             *
-             * When on a fiber, you can do:
-             *
-             * ```c
-             * g_autolist(GFileInfo) infos = dex_await_boxed (dex_file_enumerator_next_files (enumerator, 100, 0), &error);
-             * ```
-             * @param file_enumerator a [class@Gio.FileEnumerator]
-             * @param num_files the number of files
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves to   a [struct@GLib.List] of [class@Gio.FileInfo]
-             */
-            file_enumerator_next_files(file_enumerator: Gio.FileEnumerator, num_files: number, io_priority: number): Future
-            /**
-             * @param file a [iface@Gio.File]
-             * @returns a [class@Dex.Future] that resolves   to a [struct@GLib.Bytes].
-             */
-            file_load_contents_bytes(file: Gio.File): Future
-            /**
-             * Asynchronously creates a directory and returns [class@Dex.Future] which
-             * can be observed for the result.
-             * @param file a [iface@Gio.File]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future]
-             */
-            file_make_directory(file: Gio.File, io_priority: number): Future
-            /**
-             * Creates a directory at @file.
-             *
-             * If @file already exists and is a directory, then the future
-             * will resolve to %TRUE.
-             * @since 1.0
-             * @param file a [iface@Gio.File]
-             * @returns a [class@Dex.Future] that resolves to   a boolean or rejects with error.
-             */
-            file_make_directory_with_parents(file: Gio.File): Future
-            /**
-             * @param source source [iface@Gio.File]
-             * @param destination destination [iface@Gio.File]
-             * @param flags a set of [flags@Gio.FileCopyFlags]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @param progress_callback 
-              [callback@Gio.FileProgressCallback] function for updates
-             * @returns a [class@Dex.Future] that resolves to %TRUE   or rejects with error
-             */
-            file_move(source: Gio.File, destination: Gio.File, flags: Gio.FileCopyFlags, io_priority: number, progress_callback: Gio.FileProgressCallback): Future
-            /**
-             * Queries to see if @file exists asynchronously.
-             * @since 0.6
-             * @param file a [iface@Gio.File]
-             * @returns a [class@Dex.Future] that will resolve with %TRUE   if the file exists, otherwise reject with error.
-             */
-            file_query_exists(file: Gio.File): Future
-            /**
-             * @param file a [iface@Gio.File]
-             * @param flags a set of [flags@Gio.FileQueryInfoFlags]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves to a   [enum@Gio.FileType].
-             */
-            file_query_file_type(file: Gio.File, flags: Gio.FileQueryInfoFlags, io_priority: number): Future
-            /**
-             * @param file a [iface@Gio.File]
-             * @param attributes an attribute query string (see: [GFile documentation](iface@Gio.File))
-             * @param flags a set of [flags@Gio.FileQueryInfoFlags]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves   to a [class@Gio.FileInfo] or rejects with error.
-             */
-            file_query_info(file: Gio.File, attributes: string, flags: Gio.FileQueryInfoFlags, io_priority: number): Future
-            /**
-             * Asynchronously opens a file for reading.
-             * @param file a [iface@Gio.File]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves   to a [class@Gio.FileInputStream].
-             */
-            file_read(file: Gio.File, io_priority: number): Future
-            /**
-             * Opens a stream that will replace @file on disk when the input
-             * stream is closed.
-             * @param file a [iface@Gio.File]
-             * @param etag the etag or %NULL
-             * @param make_backup
-             * @param flags a set of [flags@Gio.FileCreateFlags]
-             * @param io_priority
-             * @returns a [class@Dex.Future] that resolves   to a [class@Gio.FileInputStream].
-             */
-            file_replace(file: Gio.File, etag: string | null, make_backup: boolean, flags: Gio.FileCreateFlags, io_priority: number): Future
-            /**
-             * Wraps [method@Gio.File.replace_contents_bytes_async]
-             * @param file a [iface@Gio.File]
-             * @param contents a [struct@GLib.Bytes]
-             * @param etag the etag or %NULL
-             * @param make_backup if a backup file should be created
-             * @param flags a set of [flags@Gio.FileCreateFlags]
-             * @returns a [class@Dex.Future] which resolves to the   new etag. Therefore, it is possible to be %NULL without an   error having occurred.
-             */
-            file_replace_contents_bytes(file: Gio.File, contents: (GLib.Bytes | Uint8Array), etag: string | null, make_backup: boolean, flags: Gio.FileCreateFlags): Future
-            /**
-             * @since 1.0
-             * @param file a [iface@Gio.File]
-             * @param file_info a [class@Gio.FileInfo]
-             * @param flags a set of [flags@Gio.FileQueryInfoFlags]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves to a   [class@Gio.FileInfo] or rejects with error.
-             */
-            file_set_attributes(file: Gio.File, file_info: Gio.FileInfo, flags: Gio.FileQueryInfoFlags, io_priority: number): Future
-            /**
-             * Locates the first executable named program in the user’s path.
-             *
-             * This runs [func@GLib.find_program_in_path] on a dedicated thread.
-             * @since 1.1
-             * @param program the name of the executable such as "grep"
-             * @returns a [class@Dex.Future] that resolves to a   string containing the path or rejects with error.
-             */
-            find_program_in_path(program: string): Future
-            /**
-             * Gets the major version number equivalent to `DEX_MAJOR_VERSION`
-             * at compile time of libdex.
-             * @since 1.1
-             */
-            get_major_version(): number
-            /**
-             * Gets the micro version number equivalent to `DEX_MICRO_VERSION`
-             * at compile time of libdex.
-             * @since 1.1
-             */
-            get_micro_version(): number
-            /**
-             */
-            get_min_stack_size(): number
-            /**
-             * Gets the minor version number equivalent to `DEX_MINOR_VERSION`
-             * at compile time of libdex.
-             * @since 1.1
-             */
-            get_minor_version(): number
-            /**
-             */
-            get_page_size(): number
-            /**
-             */
-            init(): void
-            /**
-             * @param self a [class@Gio.InputStream]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves   to true if successful or rejects with error.
-             */
-            input_stream_close(self: Gio.InputStream, io_priority: number): Future
-            /**
-             * Reads @count bytes from an input stream into a pre-allocated @buffer. The
-             * @buffer must stay valid for the lifetime of this future.
-             * @param self a [class@Gio.InputStream]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that reads `counts` bytes   into `buffer`, 
-             */
-            input_stream_read(self: Gio.InputStream, io_priority: number): [Future, Uint8Array]
-            /**
-             * Reads @count bytes from the stream.
-             * @param stream a [class@Gio.InputStream]
-             * @param count size in bytes to read from the stream
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves   to a [struct@GLib.Bytes].
-             */
-            input_stream_read_bytes(stream: Gio.InputStream, count: number, io_priority: number): Future
-            /**
-             * @param self a [class@Gio.InputStream]
-             * @param count the number of bytes to skip
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves   to the number of bytes skipped as a `gint64`.
-             */
-            input_stream_skip(self: Gio.InputStream, count: number, io_priority: number): Future
-            /**
-             * @param io_stream a [class@Gio.IOStream]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves to   true or rejects with error.
-             */
-            io_stream_close(io_stream: Gio.IOStream, io_priority: number): Future
-            /**
-             * Similar to [func@GLib.mkdir_with_parents] but runs on a dedicated thread.
-             * @since 1.1
-             * @param path a path to a directory to create
-             * @param mode the mode for the directory such as `0750`
-             * @returns a [class@Dex.Future] that resolves to 0   if successful, otherwise rejects with error.
-             */
-            mkdir_with_parents(path: string, mode: number): Future
-            /**
-             * @param self a [class@Gio.OutputStream]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves   to true or rejects with error.
-             */
-            output_stream_close(self: Gio.OutputStream, io_priority: number): Future
-            /**
-             * @param output a [class@Gio.OutputStream]
-             * @param input a [class@Gio.InputStream]
-             * @param flags a set of [flags@Gio.OutputStreamSpliceFlags]
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves to the   number of bytes spliced as a `gint64` or rejects with error.
-             */
-            output_stream_splice(output: Gio.OutputStream, input: Gio.InputStream, flags: Gio.OutputStreamSpliceFlags, io_priority: number): Future
-            /**
-             * @param self a [class@Gio.OutputStream]
-             * @param buffer
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves   to the number of bytes written as a `gint64`
-             */
-            output_stream_write(self: Gio.OutputStream, buffer: Uint8Array, io_priority: number): Future
-            /**
-             * Writes @bytes to @stream.
-             *
-             * This function takes a reference to @bytes and may be released after
-             * calling this function.
-             * @param stream a [class@Gio.InputStream]
-             * @param bytes the [struct@GLib.Bytes] to write to the stream
-             * @param io_priority the [IO priority][iface@Gio.AsyncResult#io-priority] of the
-              request
-             * @returns a [class@Dex.Future] that resolves to   a `gint64`.
-             */
-            output_stream_write_bytes(stream: Gio.OutputStream, bytes: (GLib.Bytes | Uint8Array), io_priority: number): Future
-            /**
-             * @param resolver a [class@Gio.Resolver]
-             * @param address the address to look up
-             * @returns a [class@Dex.Future] that resolves to a   [struct@GLib.List] of [class@Gio.InetAddress].
-             */
-            resolver_lookup_by_name(resolver: Gio.Resolver, address: string): Future
-            /**
-             * @param socket_client a [class@Gio.SocketClient]
-             * @param socket_connectable a [iface@Gio.SocketConnectable]
-             * @returns a [class@Dex.Future] that resolves to a   [class@Gio.SocketConnection] or rejects with error.
-             */
-            socket_client_connect(socket_client: Gio.SocketClient, socket_connectable: Gio.SocketConnectable): Future
-            /**
-             * @param listener a [class@Gio.SocketListener]
-             * @returns a [class@Dex.Future] that resolves to   a [class@Gio.SocketConnection] or rejects with error.
-             */
-            socket_listener_accept(listener: Gio.SocketListener): Future
-            /**
-             * Creates a future that awaits for @subprocess to complete using
-             * [method@Gio.Subprocess.wait_check_async].
-             * @since 0.4
-             * @param subprocess a [class@Gio.Subprocess]
-             * @returns a [class@Dex.Future] that will resolve when `subprocess`   exits cleanly or reject upon signal or non-successful exit.
-             */
-            subprocess_wait_check(subprocess: Gio.Subprocess): Future
-            /**
-             * Spawns a new thread named @thread_name running @thread_func with
-             * @user_data passed to it.
-             *
-             * @thread_func must return a [class@Dex.Future].
-             *
-             * If this function is called from a thread that is not running a
-             * [class@Dex.Scheduler] then the default scheduler will be used
-             * to call @user_data_destroy.
-             *
-             * If the resulting [class@Dex.Future] has not resolved or rejected,
-             * then the same scheduler used to call @user_data_destroy will be
-             * used to propagate the result to the caller.
-             * @since 1.0
-             * @param thread_name the name for the thread
-             * @param thread_func the function to call on a thread
-             * @returns a [class@Dex.Future] that resolves or rejects   the value or error returned from `thread_func` as a [class@Dex.Future].
-             */
-            thread_spawn(thread_name: string | null, thread_func: ThreadFunc): Future
-            /**
-             * Use this when running on a thread spawned with `dex_thread_spawn()` and
-             * you need to block the thread until @future has resolved or rejected.
-             * @throws {GLib.Error}
-             * @since 1.0
-             * @param future a [class@Dex.Future]
-             * @returns %TRUE if `future` resolved, otherwise %FALSE and `error` is   set to the rejection.
-             */
-            thread_wait_for(future: Future): boolean
-            /**
-             * This runs [func@GLib.unlink] on a dedicated thread.
-             * @since 1.1
-             * @param path the path to unlink
-             * @returns a [class@Dex.Future] that resolves to an   int of 0 on success or rejects with error.
-             */
-            unlink(path: string): Future
-            /**
-             * Retrieves the `DexObject` stored inside the given `value`.
-             * @since 1.0
-             * @param value a `GValue` initialized with type `DEX_TYPE_OBJECT`
-             * @returns a `DexObject`
-             */
-            value_dup_object(value: (GObject.Value | unknown)): Object | null
-            /**
-             * Retrieves the `DexObject` stored inside the given `value`.
-             * @since 0.4
-             * @param value a `GValue` initialized with type `DEX_TYPE_OBJECT`
-             * @returns a `DexObject`
-             */
-            value_get_object(value: (GObject.Value | unknown)): Object | null
-            /**
-             * Stores the given `DexObject` inside `value`.
-             *
-             * The [struct@GObject.Value] will acquire a reference to the `object`.
-             * @since 0.4
-             * @param value a [struct@GObject.Value] initialized with type `DEX_TYPE_OBJECT`
-             * @param object a `DexObject` or %NULL
-             */
-            value_set_object(value: (GObject.Value | unknown), object: Object | null): void
-            /**
-             * Stores the given `DexObject` inside `value`.
-             *
-             * This function transfers the ownership of the `object` to the `GValue`.
-             * @since 0.4
-             * @param value a [struct@GObject.Value] initialized with type `DEX_TYPE_OBJECT`
-             * @param object a `DexObject`
-             */
-            value_take_object(value: (GObject.Value | unknown), object: Object | null): void
-        }
+        const Dex: Dex.$Exports
     }
 
-    const Dex: Dex.$Exports
-    export default Dex
+    export default GI.Dex
 }

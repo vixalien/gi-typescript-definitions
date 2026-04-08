@@ -16,396 +16,403 @@ declare module "gi://Manette?version=0.2" {
     import type GUdev from "gi://GUdev?version=1.0"
     import type Gio from "gi://Gio?version=2.0"
 
-    
-
-    namespace Manette {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace Device {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
-                /**
-                 * Emitted when an absolute axis' value changes.
-                 * @param event the event emitted by the manette device
-                 */
-                "absolute-axis-event"(event: Event): void
-                /**
-                 * Emitted when a button is pressed.
-                 * @param event the event emitted by the device
-                 */
-                "button-press-event"(event: Event): void
-                /**
-                 * Emitted when a button is released.
-                 * @param event the event emitted by the device
-                 */
-                "button-release-event"(event: Event): void
-                /**
-                 * Emitted when the device is disconnected.
-                 */
-                "disconnected"(): void
-                /**
-                 * Emitted for any kind of event before mapping it.
-                 * @param event the event emitted by the device
-                 */
-                "event"(event: Event): void
-                /**
-                 * Emitted when a hat axis' value changes.
-                 * @param event the event emitted by the manette device
-                 */
-                "hat-axis-event"(event: Event): void
+        namespace Manette {
+            
+
+            namespace Device {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                    /**
+                     * Emitted when an absolute axis' value changes.
+                     * @param event the event emitted by the manette device
+                     */
+                    "absolute-axis-event"(event: Event): void
+                    /**
+                     * Emitted when a button is pressed.
+                     * @param event the event emitted by the device
+                     */
+                    "button-press-event"(event: Event): void
+                    /**
+                     * Emitted when a button is released.
+                     * @param event the event emitted by the device
+                     */
+                    "button-release-event"(event: Event): void
+                    /**
+                     * Emitted when the device is disconnected.
+                     */
+                    "disconnected"(): void
+                    /**
+                     * Emitted for any kind of event before mapping it.
+                     * @param event the event emitted by the device
+                     */
+                    "event"(event: Event): void
+                    /**
+                     * Emitted when a hat axis' value changes.
+                     * @param event the event emitted by the manette device
+                     */
+                    "hat-axis-event"(event: Event): void
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends GObject.Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface Device extends GObject.Object {
-            readonly $signals: Device.SignalSignatures
-            readonly $readableProperties: Device.ReadableProperties
-            readonly $writableProperties: Device.WritableProperties
-            readonly $constructOnlyProperties: Device.ConstructOnlyProperties
-            /**
-             * Gets the device type of @self.
-             * @since 0.2.10
-             * @returns the device type
-             */
-            get_device_type(): DeviceType
-            /**
-             * Gets the identifier used by SDL mappings to discriminate game controller
-             * devices.
-             * @since 0.2.10
-             * @returns the identifier used by SDL mappings
-             */
-            get_guid(): string
-            /**
-             * Gets the user mapping for @self, or default mapping if there isn't any.
-             *
-             * Can return `NULL` if there's no mapping or @self doesn't support mappings.
-             * @since 0.2.10
-             * @returns the mapping for `self`
-             */
-            get_mapping(): string | null
-            /**
-             * Gets the device's name.
-             * @returns the name of `self`
-             */
-            get_name(): string
-            /**
-             * Gets whether the device has the given input.
-             *
-             * If the input is present, it means that the device can send events for it
-             * regardless of whether the device is mapped or not.
-             * @param type the input type
-             * @param code the input code
-             * @returns whether the device has the given input
-             */
-            has_input(type: number, code: number): boolean
-            /**
-             * Gets whether @self supports rumble.
-             * @returns whether `self` supports rumble
-             */
-            has_rumble(): boolean
-            /**
-             * Gets whether @self has a user mapping.
-             * @returns whether `self` has a user mapping
-             */
-            has_user_mapping(): boolean
-            /**
-             * Removes the user mapping for @self.
-             */
-            remove_user_mapping(): void
-            /**
-             * Make @self rumble during @milliseconds milliseconds.
-             *
-             * The heavy and light motors will rumble at their respectively defined
-             * magnitudes.
-             *
-             * The duration cannot exceed 32767 milliseconds.
-             * @param strong_magnitude the magnitude for the heavy motor
-             * @param weak_magnitude the magnitude for the light motor
-             * @param milliseconds the rumble effect play time in milliseconds
-             * @returns whether the rumble effect was played
-             */
-            rumble(strong_magnitude: number, weak_magnitude: number, milliseconds: number): boolean
-            /**
-             * Saves @mapping_string as the user mapping for @self.
-             * @param mapping_string the mapping string
-             */
-            save_user_mapping(mapping_string: string): void
-            /**
-             * Gets whether @self supports mapping.
-             * @since 0.2.10
-             * @returns whether `self` supports mapping
-             */
-            supports_mapping(): boolean
-        }
-
-        interface DeviceClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Device>
-            readonly prototype: Device
-
-            new (props?: Partial<GObject.ConstructorProps<Device>>): Device
-        }
-
-        interface $Exports {
-            /**
-             * An object representing a physical gamepad.
-             *
-             * See also: [class@Monitor].
-             */
-            Device: DeviceClass
-        }
-        
-
-        namespace Monitor {
-            interface SignalSignatures extends GObject.Object.SignalSignatures {
+            interface Device extends GObject.Object {
+                readonly $signals: Device.SignalSignatures
+                readonly $readableProperties: Device.ReadableProperties
+                readonly $writableProperties: Device.WritableProperties
+                readonly $constructOnlyProperties: Device.ConstructOnlyProperties
                 /**
-                 * Emitted when @device is connected.
-                 * @param device a device
+                 * Gets the device type of `self`.
+                 * @since 0.2.10
+                 * @returns the device type
                  */
-                "device-connected"(device: Device): void
+                get_device_type(): DeviceType
                 /**
-                 * Emitted when @device is disconnected.
-                 * @param device a device
+                 * Gets the identifier used by SDL mappings to discriminate game controller
+                 * devices.
+                 * @since 0.2.10
+                 * @returns the identifier used by SDL mappings
                  */
-                "device-disconnected"(device: Device): void
+                get_guid(): string
+                /**
+                 * Gets the user mapping for `self`, or default mapping if there isn't any.
+                 *
+                 * Can return `NULL` if there's no mapping or `self` doesn't support mappings.
+                 * @since 0.2.10
+                 * @returns the mapping for `self`
+                 */
+                get_mapping(): string | null
+                /**
+                 * Gets the device's name.
+                 * @returns the name of `self`
+                 */
+                get_name(): string
+                /**
+                 * Gets whether the device has the given input.
+                 *
+                 * If the input is present, it means that the device can send events for it
+                 * regardless of whether the device is mapped or not.
+                 * @param type the input type
+                 * @param code the input code
+                 * @returns whether the device has the given input
+                 */
+                has_input(type: number, code: number): boolean
+                /**
+                 * Gets whether `self` supports rumble.
+                 * @returns whether `self` supports rumble
+                 */
+                has_rumble(): boolean
+                /**
+                 * Gets whether `self` has a user mapping.
+                 * @returns whether `self` has a user mapping
+                 */
+                has_user_mapping(): boolean
+                /**
+                 * Removes the user mapping for `self`.
+                 */
+                remove_user_mapping(): void
+                /**
+                 * Make `self` rumble during `milliseconds` milliseconds.
+                 *
+                 * The heavy and light motors will rumble at their respectively defined
+                 * magnitudes.
+                 *
+                 * The duration cannot exceed 32767 milliseconds.
+                 * @param strong_magnitude the magnitude for the heavy motor
+                 * @param weak_magnitude the magnitude for the light motor
+                 * @param milliseconds the rumble effect play time in milliseconds
+                 * @returns whether the rumble effect was played
+                 */
+                rumble(strong_magnitude: number, weak_magnitude: number, milliseconds: number): boolean
+                /**
+                 * Saves `mapping_string` as the user mapping for `self`.
+                 * @param mapping_string the mapping string
+                 */
+                save_user_mapping(mapping_string: string): void
+                /**
+                 * Gets whether `self` supports mapping.
+                 * @since 0.2.10
+                 * @returns whether `self` supports mapping
+                 */
+                supports_mapping(): boolean
             }
 
-            interface ReadableProperties extends GObject.Object.ReadableProperties {
+            interface DeviceClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Device>
+                readonly prototype: Device
+
+                new (props?: Partial<GObject.ConstructorProps<Device>>): Device
             }
 
-            interface WritableProperties extends GObject.Object.WritableProperties {
+            interface $Exports {
+                /**
+                 * An object representing a physical gamepad.
+                 *
+                 * See also: {@link Monitor}.
+                 */
+                Device: DeviceClass
+            }
+            
+
+            namespace Monitor {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                    /**
+                     * Emitted when `device` is connected.
+                     * @param device a device
+                     */
+                    "device-connected"(device: Device): void
+                    /**
+                     * Emitted when `device` is disconnected.
+                     * @param device a device
+                     */
+                    "device-disconnected"(device: Device): void
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+            interface Monitor extends GObject.Object {
+                readonly $signals: Monitor.SignalSignatures
+                readonly $readableProperties: Monitor.ReadableProperties
+                readonly $writableProperties: Monitor.WritableProperties
+                readonly $constructOnlyProperties: Monitor.ConstructOnlyProperties
+                /**
+                 * Creates a new `ManetterMonitorIter` iterating on `self`.
+                 * @returns a new iterator for `self`
+                 */
+                iterate(): MonitorIter
+            }
+
+            interface MonitorClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Monitor>
+                readonly prototype: Monitor
+
+                new (props?: Partial<GObject.ConstructorProps<Monitor>>): Monitor
+                /**
+                 * Creates a new `ManetteMonitor`.
+                 * @returns a new `ManetteMonitor`
+                 */
+                "new"(): Monitor
+            }
+
+            interface $Exports {
+                /**
+                 * An object monitoring the availability of devices.
+                 *
+                 * See also: {@link Device}.
+                 */
+                Monitor: MonitorClass
+            }
+            
+
+            interface MonitorIterStruct {
+                readonly $gtype: GObject.GType<MonitorIter>
+                [Symbol.hasInstance](instance: unknown): instance is MonitorIter
+            }
+
+            interface MonitorIter {
+                /**
+                 * Gets the next device from `self`.
+                 * @returns whether the next device was retrieved, if not, the end was reached, return location for the device
+                 */
+                next(): [boolean, Device | null]
+            }
+
+            interface $Exports {
+                MonitorIter: MonitorIterStruct
+            }
+            
+
+            interface EventStruct {
+                readonly $gtype: GObject.GType<Event>
+                [Symbol.hasInstance](instance: unknown): instance is Event
+            }
+
+            interface Event {
+                /**
+                 * Gets the axis of `self`, if any.
+                 * @returns whether the axis was retrieved, return location for the axis, return location for the axis value
+                 */
+                get_absolute(): [boolean, number, number]
+                /**
+                 * Gets the button of `self`, if any.
+                 * @returns whether the button was retrieved, return location for the button
+                 */
+                get_button(): [boolean, number]
+                /**
+                 * Gets the {@link Device} associated with the `self`.
+                 * @returns the device associated with the `self`
+                 */
+                get_device(): Device
+                /**
+                 * Gets the event type of `self`.
+                 * @returns the event type of `self`
+                 */
+                get_event_type(): EventType
+                /**
+                 * Gets the hardware code of `self`.
+                 * @returns the hardware code of `self`
+                 */
+                get_hardware_code(): number
+                /**
+                 * Gets the hardware index of `self`.
+                 * @returns the hardware index of `self`
+                 */
+                get_hardware_index(): number
+                /**
+                 * Gets the hardware type of `self`.
+                 * @returns the hardware type of `self`
+                 */
+                get_hardware_type(): number
+                /**
+                 * Gets the hardware value of `self`.
+                 * @returns the hardware value of `self`
+                 */
+                get_hardware_value(): number
+                /**
+                 * Gets the hat of `self`, if any.
+                 * @returns whether the hat was retrieved, return location for the hat, return location for the hat value
+                 */
+                get_hat(): [boolean, number, number]
+                /**
+                 * Gets the timestamp of when `self` was received by the input driver that takes
+                 * care of its device.
+                 *
+                 * Use this timestamp to ensure external factors such as synchronous disk writes
+                 * don't influence your timing computations.
+                 * @returns the timestamp of when `self` was received by the input driver
+                 */
+                get_time(): number
+            }
+
+            interface $Exports {
+                Event: EventStruct
+            }
+            
+            interface DeviceTypeEnum {
+                readonly $gtype: GObject.GType<DeviceType>
+                /**
+                 * Generic gamepads
+                 */
+                readonly "GENERIC": 0
+                /**
+                 * Steam Deck
+                 */
+                readonly "STEAM_DECK": 1
+            }
+            type DeviceType = DeviceTypeEnum[Exclude<keyof DeviceTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Describes available types of a {@link Device}.
+                 *
+                 * More values may be added to this enumeration over time.
+                 * @since 0.2.10
+                 */
+                DeviceType: DeviceTypeEnum
+            }
+            
+            interface EventTypeEnum {
+                readonly $gtype: GObject.GType<EventType>
+                /**
+                 * a special code to indicate a null event
+                 */
+                readonly "EVENT_NOTHING": -1
+                /**
+                 * a button has been pressed
+                 */
+                readonly "EVENT_BUTTON_PRESS": 0
+                /**
+                 * a button has been released
+                 */
+                readonly "EVENT_BUTTON_RELEASE": 1
+                /**
+                 * an absolute axis has been moved
+                 */
+                readonly "EVENT_ABSOLUTE": 2
+                /**
+                 * a hat axis has been moved
+                 */
+                readonly "EVENT_HAT": 3
+            }
+            type EventType = EventTypeEnum[Exclude<keyof EventTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Specifies the type of the event.
+                 */
+                EventType: EventTypeEnum
+            }
+
+            interface $Exports {
+                __name__: "Manette"
+                __version__: "0.2"
+                MAJOR_VERSION: 0
+                MICRO_VERSION: 14
+                MINOR_VERSION: 2
+                VERSION_S: "0.2.14"
+                /**
+                 * Returns the major version number of the libmanette library.
+                 *
+                 * For example, in libmanette version 1.2.3 this is 1.
+                 *
+                 * This function is in the library, so it represents the libmanette library your
+                 * code is running against. Contrast with the {@link MAJOR_VERSION} constant,
+                 * which represents the major version of the libmanette headers you have
+                 * included when compiling your code.
+                 * @returns the major version number of the libmanette library
+                 */
+                get_major_version(): number
+                /**
+                 * Returns the micro version number of the libmanette library.
+                 *
+                 * For example, in libmanette version 1.2.3 this is 3.
+                 *
+                 * This function is in the library, so it represents the libmanette library your
+                 * code is running against. Contrast with the {@link MAJOR_VERSION} constant,
+                 * which represents the micro version of the libmanette headers you have
+                 * included when compiling your code.
+                 * @returns the micro version number of the libmanette library
+                 */
+                get_micro_version(): number
+                /**
+                 * Returns the minor version number of the libmanette library.
+                 *
+                 * For example, in libmanette version 1.2.3 this is 2.
+                 *
+                 * This function is in the library, so it represents the libmanette library your
+                 * code is running against. Contrast with the {@link MAJOR_VERSION} constant,
+                 * which represents the minor version of the libmanette headers you have
+                 * included when compiling your code.
+                 * @returns the minor version number of the libmanette library
+                 */
+                get_minor_version(): number
+                /**
+                 */
+                get_resource(): Gio.Resource
             }
         }
 
-        interface Monitor extends GObject.Object {
-            readonly $signals: Monitor.SignalSignatures
-            readonly $readableProperties: Monitor.ReadableProperties
-            readonly $writableProperties: Monitor.WritableProperties
-            readonly $constructOnlyProperties: Monitor.ConstructOnlyProperties
-            /**
-             * Creates a new `ManetterMonitorIter` iterating on @self.
-             * @returns a new iterator for `self`
-             */
-            iterate(): MonitorIter
-        }
-
-        interface MonitorClass extends Omit<GObject.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Monitor>
-            readonly prototype: Monitor
-
-            new (props?: Partial<GObject.ConstructorProps<Monitor>>): Monitor
-            /**
-             * Creates a new `ManetteMonitor`.
-             * @returns a new `ManetteMonitor`
-             */
-            "new"(): Monitor
-        }
-
-        interface $Exports {
-            /**
-             * An object monitoring the availability of devices.
-             *
-             * See also: [class@Device].
-             */
-            Monitor: MonitorClass
-        }
-        
-
-        interface MonitorIterStruct {
-            readonly $gtype: GObject.GType<MonitorIter>
-            [Symbol.hasInstance](instance: unknown): instance is MonitorIter
-        }
-
-        interface MonitorIter {
-            /**
-             * Gets the next device from @self.
-             * @returns whether the next device was retrieved, if not, the end was reached, return location for the device
-             */
-            next(): [boolean, Device | null]
-        }
-
-        interface $Exports {
-            MonitorIter: MonitorIterStruct
-        }
-        
-
-        interface EventStruct {
-            readonly $gtype: GObject.GType<Event>
-            [Symbol.hasInstance](instance: unknown): instance is Event
-        }
-
-        interface Event {
-            /**
-             * Gets the axis of @self, if any.
-             * @returns whether the axis was retrieved, return location for the axis, return location for the axis value
-             */
-            get_absolute(): [boolean, number, number]
-            /**
-             * Gets the button of @self, if any.
-             * @returns whether the button was retrieved, return location for the button
-             */
-            get_button(): [boolean, number]
-            /**
-             * Gets the [class@Device] associated with the @self.
-             * @returns the device associated with the `self`
-             */
-            get_device(): Device
-            /**
-             * Gets the event type of @self.
-             * @returns the event type of `self`
-             */
-            get_event_type(): EventType
-            /**
-             * Gets the hardware code of @self.
-             * @returns the hardware code of `self`
-             */
-            get_hardware_code(): number
-            /**
-             * Gets the hardware index of @self.
-             * @returns the hardware index of `self`
-             */
-            get_hardware_index(): number
-            /**
-             * Gets the hardware type of @self.
-             * @returns the hardware type of `self`
-             */
-            get_hardware_type(): number
-            /**
-             * Gets the hardware value of @self.
-             * @returns the hardware value of `self`
-             */
-            get_hardware_value(): number
-            /**
-             * Gets the hat of @self, if any.
-             * @returns whether the hat was retrieved, return location for the hat, return location for the hat value
-             */
-            get_hat(): [boolean, number, number]
-            /**
-             * Gets the timestamp of when @self was received by the input driver that takes
-             * care of its device.
-             *
-             * Use this timestamp to ensure external factors such as synchronous disk writes
-             * don't influence your timing computations.
-             * @returns the timestamp of when `self` was received by the input driver
-             */
-            get_time(): number
-        }
-
-        interface $Exports {
-            Event: EventStruct
-        }
-        
-        interface DeviceTypeEnum {
-            readonly $gtype: GObject.GType<DeviceType>
-            /**
-             * Generic gamepads
-             */
-            readonly "GENERIC": 0
-            /**
-             * Steam Deck
-             */
-            readonly "STEAM_DECK": 1
-        }
-        type DeviceType = DeviceTypeEnum[Exclude<keyof DeviceTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Describes available types of a [class@Device].
-             *
-             * More values may be added to this enumeration over time.
-             * @since 0.2.10
-             */
-            DeviceType: DeviceTypeEnum
-        }
-        
-        interface EventTypeEnum {
-            readonly $gtype: GObject.GType<EventType>
-            /**
-             * a special code to indicate a null event
-             */
-            readonly "EVENT_NOTHING": -1
-            /**
-             * a button has been pressed
-             */
-            readonly "EVENT_BUTTON_PRESS": 0
-            /**
-             * a button has been released
-             */
-            readonly "EVENT_BUTTON_RELEASE": 1
-            /**
-             * an absolute axis has been moved
-             */
-            readonly "EVENT_ABSOLUTE": 2
-            /**
-             * a hat axis has been moved
-             */
-            readonly "EVENT_HAT": 3
-        }
-        type EventType = EventTypeEnum[Exclude<keyof EventTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Specifies the type of the event.
-             */
-            EventType: EventTypeEnum
-        }
-
-        interface $Exports {
-            __name__: "Manette"
-            __version: "0.2"
-            MAJOR_VERSION: 0
-            MICRO_VERSION: 14
-            MINOR_VERSION: 2
-            VERSION_S: "0.2.14"
-            /**
-             * Returns the major version number of the libmanette library.
-             *
-             * For example, in libmanette version 1.2.3 this is 1.
-             *
-             * This function is in the library, so it represents the libmanette library your
-             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-             * which represents the major version of the libmanette headers you have
-             * included when compiling your code.
-             * @returns the major version number of the libmanette library
-             */
-            get_major_version(): number
-            /**
-             * Returns the micro version number of the libmanette library.
-             *
-             * For example, in libmanette version 1.2.3 this is 3.
-             *
-             * This function is in the library, so it represents the libmanette library your
-             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-             * which represents the micro version of the libmanette headers you have
-             * included when compiling your code.
-             * @returns the micro version number of the libmanette library
-             */
-            get_micro_version(): number
-            /**
-             * Returns the minor version number of the libmanette library.
-             *
-             * For example, in libmanette version 1.2.3 this is 2.
-             *
-             * This function is in the library, so it represents the libmanette library your
-             * code is running against. Contrast with the [const@MAJOR_VERSION] constant,
-             * which represents the minor version of the libmanette headers you have
-             * included when compiling your code.
-             * @returns the minor version number of the libmanette library
-             */
-            get_minor_version(): number
-            /**
-             */
-            get_resource(): Gio.Resource
-        }
+        const Manette: Manette.$Exports
     }
 
-    const Manette: Manette.$Exports
-    export default Manette
+    export default GI.Manette
 }

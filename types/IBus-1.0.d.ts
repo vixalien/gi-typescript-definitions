@@ -14,11078 +14,11018 @@ declare module "gi://IBus?version=1.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type Gio from "gi://Gio?version=2.0"
 
-    
-
-    namespace IBus {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace AttrList {
-            interface SignalSignatures extends Serializable.SignalSignatures {
+        namespace IBus {
+            
+
+            namespace AttrList {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends Serializable.ReadableProperties {
-            }
-
-            interface WritableProperties extends Serializable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-            }
-        }
-
-        interface AttrList extends Serializable {
-            readonly $signals: AttrList.SignalSignatures
-            readonly $readableProperties: AttrList.ReadableProperties
-            readonly $writableProperties: AttrList.WritableProperties
-            readonly $constructOnlyProperties: AttrList.ConstructOnlyProperties
-            /**
-             * Append an IBusAttribute to IBusAttrList, and increase reference.
-             * @param attr The IBusAttribute instance to be appended.
-             */
-            append(attr: Attribute): void
-            /**
-             * Returns #IBusAttribute at given index. Borrowed reference.
-             * @param index Index of the @attr_list.
-             * @returns #IBusAttribute at given index, %NULL if no such        #IBusAttribute.
-             */
-            get(index: number): Attribute
-        }
-
-        interface AttrListClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<AttrList>
-            readonly prototype: AttrList
-
-            new (props?: Partial<GObject.ConstructorProps<AttrList>>): AttrList
-            /**
-             * Creates an new #IBusAttrList.
-             * @returns A newly allocated #IBusAttrList.
-             */
-            "new"(): AttrList
-        }
-
-        interface $Exports {
-            /**
-             * Array of IBusAttribute.
-             */
-            AttrList: AttrListClass
-        }
-        
-
-        namespace Attribute {
-            interface SignalSignatures extends Serializable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Serializable.ReadableProperties {
-            }
-
-            interface WritableProperties extends Serializable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-            }
-        }
-
-        interface Attribute extends Serializable {
-            readonly $signals: Attribute.SignalSignatures
-            readonly $readableProperties: Attribute.ReadableProperties
-            readonly $writableProperties: Attribute.WritableProperties
-            readonly $constructOnlyProperties: Attribute.ConstructOnlyProperties
-            /**
-             * Gets an enum of #IBusAttrType.
-             * @returns An enum of #IBusAttrType.
-             */
-            get_attr_type(): number
-            /**
-             * Gets an end unsigned index
-             * @returns A end unsigned index
-             */
-            get_end_index(): number
-            /**
-             * Gets a start unsigned index
-             * @returns A start unsigned index
-             */
-            get_start_index(): number
-            /**
-             * Gets an unsigned int value relative with #IBusAttrType.
-             * If the type is %IBUS_ATTR_TYPE_UNDERLINE, the return value is
-             * #IBusAttrUnderline. If the type is %IBUS_ATTR_TYPE_FOREGROUND,
-             * the return value is the color RGB.
-             * @returns An unsigned int value relative with #IBusAttrType.
-             */
-            get_value(): number
-        }
-
-        interface AttributeClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<Attribute>
-            readonly prototype: Attribute
-
-            new (props?: Partial<GObject.ConstructorProps<Attribute>>): Attribute
-            /**
-             * Creates a new IBusAttribute.
-             * @param type Type of the attribute.
-             * @param value Value of the attribute.
-             * @param start_index Where attribute starts.
-             * @param end_index Where attribute ends.
-             * @returns A newly allocated IBusAttribute.
-             */
-            "new"(type: number, value: number, start_index: number, end_index: number): Attribute
-        }
-
-        interface $Exports {
-            /**
-             * An IBusAttribute represents an attribute that associate to IBusText.
-             * It decorates preedit buffer and auxiliary text with underline, foreground
-             * and background colors.
-             */
-            Attribute: AttributeClass
-        }
-        
-
-        namespace Bus {
-            interface SignalSignatures extends Object.SignalSignatures {
+            interface AttrList extends Serializable {
+                readonly $signals: AttrList.SignalSignatures
+                readonly $readableProperties: AttrList.ReadableProperties
+                readonly $writableProperties: AttrList.WritableProperties
+                readonly $constructOnlyProperties: AttrList.ConstructOnlyProperties
                 /**
-                 * Emitted when #IBusBus is connected to ibus-daemon.
+                 * Append an IBusAttribute to IBusAttrList, and increase reference.
+                 * @param attr The IBusAttribute instance to be appended.
                  */
-                "connected"(): void
+                append(attr: Attribute): void
                 /**
-                 * Emitted when #IBusBus is disconnected from ibus-daemon.
+                 * Returns #IBusAttribute at given index. Borrowed reference.
+                 * @param index Index of the `attr_list`.
+                 * @returns #IBusAttribute at given index, %NULL if no such        #IBusAttribute.
                  */
-                "disconnected"(): void
+                get(index: number): Attribute
+            }
+
+            interface AttrListClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<AttrList>
+                readonly prototype: AttrList
+
+                new (props?: Partial<GObject.ConstructorProps<AttrList>>): AttrList
                 /**
-                 * Emitted when global engine is changed.
-                 * @param name The name of the new global engine.
+                 * Creates an new #IBusAttrList.
+                 * @returns A newly allocated #IBusAttrList.
                  */
-                "global-engine-changed"(name: string): void
+                "new"(): AttrList
+            }
+
+            interface $Exports {
                 /**
-                 * Emitted when global shortcut key is responded.
-                 * Since 1.5.32
-                 * @param type The type of the global shortcut key.
-                 * @param keyval Key symbol of the key press.
-                 * @param keycode KeyCode of the key press.
+                 * Array of IBusAttribute.
+                 */
+                AttrList: AttrListClass
+            }
+            
+
+            namespace Attribute {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                }
+            }
+
+            interface Attribute extends Serializable {
+                readonly $signals: Attribute.SignalSignatures
+                readonly $readableProperties: Attribute.ReadableProperties
+                readonly $writableProperties: Attribute.WritableProperties
+                readonly $constructOnlyProperties: Attribute.ConstructOnlyProperties
+                /**
+                 * Gets an enum of #IBusAttrType.
+                 * @returns An enum of #IBusAttrType.
+                 */
+                get_attr_type(): number
+                /**
+                 * Gets an end unsigned index
+                 * @returns A end unsigned index
+                 */
+                get_end_index(): number
+                /**
+                 * Gets a start unsigned index
+                 * @returns A start unsigned index
+                 */
+                get_start_index(): number
+                /**
+                 * Gets an unsigned int value relative with #IBusAttrType.
+                 * If the type is %IBUS_ATTR_TYPE_UNDERLINE, the return value is
+                 * #IBusAttrUnderline. If the type is %IBUS_ATTR_TYPE_FOREGROUND,
+                 * the return value is the color RGB.
+                 * @returns An unsigned int value relative with #IBusAttrType.
+                 */
+                get_value(): number
+            }
+
+            interface AttributeClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<Attribute>
+                readonly prototype: Attribute
+
+                new (props?: Partial<GObject.ConstructorProps<Attribute>>): Attribute
+                /**
+                 * Creates a new IBusAttribute.
+                 * @param type Type of the attribute.
+                 * @param value Value of the attribute.
+                 * @param start_index Where attribute starts.
+                 * @param end_index Where attribute ends.
+                 * @returns A newly allocated IBusAttribute.
+                 */
+                "new"(type: number, value: number, start_index: number, end_index: number): Attribute
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusAttribute represents an attribute that associate to IBusText.
+                 * It decorates preedit buffer and auxiliary text with underline, foreground
+                 * and background colors.
+                 */
+                Attribute: AttributeClass
+            }
+            
+
+            namespace Bus {
+                interface SignalSignatures extends Object.SignalSignatures {
+                    /**
+                     * Emitted when #IBusBus is connected to ibus-daemon.
+                     */
+                    "connected"(): void
+                    /**
+                     * Emitted when #IBusBus is disconnected from ibus-daemon.
+                     */
+                    "disconnected"(): void
+                    /**
+                     * Emitted when global engine is changed.
+                     * @param name The name of the new global engine.
+                     */
+                    "global-engine-changed"(name: string): void
+                    /**
+                     * Emitted when global shortcut key is responded.
+                     * Since 1.5.32
+                     * @param type The type of the global shortcut key.
+                     * @param keyval Key symbol of the key press.
+                     * @param keycode KeyCode of the key press.
+                     * @param state Key modifier flags.
+                     * @param is_backward %TRUE if the backward key is pressed.
+                     */
+                    "global-shortcut-key-responded"(type: number, keyval: number, keycode: number, state: number, is_backward: boolean): void
+                    /**
+                     * Emitted when D-Bus name owner is changed.
+                     * @param name The name which ower is changed.
+                     * @param old_owner The unique bus name of the old owner.
+                     * @param new_owner The unique bus name of the new owner.
+                     */
+                    "name-owner-changed"(name: string, old_owner: string, new_owner: string): void
+                }
+
+                interface ReadableProperties extends Object.ReadableProperties {
+                    "client-only": boolean
+                    "connect-async": boolean
+                }
+
+                interface WritableProperties extends Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                    "client-only": boolean
+                    "connect-async": boolean
+                }
+            }
+
+            interface Bus extends Object {
+                readonly $signals: Bus.SignalSignatures
+                readonly $readableProperties: Bus.ReadableProperties
+                readonly $writableProperties: Bus.WritableProperties
+                readonly $constructOnlyProperties: Bus.ConstructOnlyProperties
+                /**
+                 * Whether the #IBusBus object is for client use only.
+                 * @default FALSE
+                 */
+                get clientOnly(): boolean
+                set clientOnly(value: boolean)
+                /**
+                 * Whether the #IBusBus object should connect asynchronously to the bus.
+                 * @default FALSE
+                 */
+                get connectAsync(): boolean
+                set connectAsync(value: boolean)
+                /**
+                 * Add a match rule to an #IBusBus synchronously.
+                 * @param rule Match rule.
+                 * @returns %TRUE if the rule is added. %FALSE otherwise.
+                 */
+                add_match(rule: string): boolean
+                /**
+                 * Add a match rule to an #IBusBus asynchronously.
+                 * @param rule Match rule.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                add_match_async(rule: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_add_match_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_add_match_async().
+                 * @returns %TRUE if the rule is added. %FALSE otherwise.
+                 */
+                add_match_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * Create an input context for client synchronously.
+                 * @param client_name Name of client.
+                 * @returns A newly allocated #IBusInputContext if the      "CreateInputContext" call is succeeded, %NULL otherwise.
+                 */
+                create_input_context(client_name: string): InputContext
+                /**
+                 * Create an input context for client asynchronously.
+                 * @param client_name Name of client.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied.      It should not be %NULL.
+                 */
+                create_input_context_async(client_name: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_create_input_context_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_create_input_context_async().
+                 * @returns A newly allocated #IBusInputContext if the      "CreateInputContext" call is succeeded, %NULL otherwise.
+                 */
+                create_input_context_async_finish(res: Gio.AsyncResult): InputContext
+                /**
+                 * Get the current focused input context synchronously.
+                 * @returns Name of the currently focused #IBusInputContext if the          "CurrentInputContext" call succeeded, %NULL otherwise. The return          value must be freed with g_free().
+                 */
+                current_input_context(): string
+                /**
+                 * Get the current focused input context asynchronously.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                current_input_context_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_current_input_context_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_current_input_context_async().
+                 * @returns Name of the currently focused IBusInputContext if the          "CurrentInputContext" call succeeded, %NULL otherwise. The return          value must be freed with g_free().
+                 */
+                current_input_context_async_finish(res: Gio.AsyncResult): string
+                /**
+                 * Exit or restart ibus-daemon synchronously.
+                 * @param restart Whether restarting the ibus.
+                 * @returns %TRUE if the "Exit" call is successful, %FALSE otherwise.
+                 */
+                exit(restart: boolean): boolean
+                /**
+                 * Exit or restart ibus-daemon asynchronously.
+                 * @param restart Whether restarting the ibus.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                exit_async(restart: boolean, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_exit_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_exit_async().
+                 * @returns %TRUE if the "Exit" call is successful, %FALSE otherwise.
+                 */
+                exit_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * Get the config instance from #IBusBus.
+                 * @returns An #IBusConfig object which is configurable with `bus`.
+                 */
+                get_config(): Config
+                /**
+                 * Gets a #GDBusConnection of an #IBusBus instance.
+                 * @returns A #GDBusConnection of an #IBusBus instance.
+                 */
+                get_connection(): Gio.DBusConnection
+                /**
+                 * Get engines by given names synchronously. If some engine names do not exist,
+                 * this function will simply ignore them, and return rest of engines.
+                 * TODO(penghuang): add asynchronous version
+                 * @param names A %NULL-terminated array of names.
+                 * @returns          A %NULL-terminated array of engines.
+                 */
+                get_engines_by_names(names: string[]): EngineDesc[]
+                /**
+                 * Get the description of current global engine synchronously.
+                 * @returns The description of current global engine, or %NULL if there is no global engine.
+                 */
+                get_global_engine(): EngineDesc
+                /**
+                 * Get the description of current global engine asynchronously.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL      if you don't care about the result of the method invocation.
+                 */
+                get_global_engine_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_get_global_engine_async_finish().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_get_global_engine_async_finish().
+                 * @returns The description of current global engine, or %NULL if there is no global engine.
+                 */
+                get_global_engine_async_finish(res: Gio.AsyncResult): EngineDesc
+                /**
+                 * Get org.freedesktop.DBus.Properties.
+                 * @param property_name property name in org.freedesktop.DBus.Properties.Get
+                 * @returns The value in org.freedesktop.DBus.Properties.Get           The returned value must be freed with g_variant_unref().
+                 */
+                get_ibus_property(property_name: string): GLib.Variant
+                /**
+                 * Get org.freedesktop.DBus.Properties asynchronously.
+                 * @param property_name property name in org.freedesktop.DBus.Properties.Get
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                get_ibus_property_async(property_name: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_get_ibus_property_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_get_ibus_property_async().
+                 * @returns The value in org.freedesktop.DBus.Properties.Get           The returned value must be freed with g_variant_unref().
+                 */
+                get_ibus_property_async_finish(res: Gio.AsyncResult): GLib.Variant
+                /**
+                 * Return the name owner synchronously.
+                 * @param name Name.
+                 * @returns Owner of the name. The returned value must be freed with g_free().
+                 */
+                get_name_owner(name: string): string
+                /**
+                 * Return the name owner asynchronously.
+                 * @param name Name.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                get_name_owner_async(name: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_get_name_owner_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_get_name_owner_async().
+                 * @returns Owner of the name. The returned value must be freed with g_free().
+                 */
+                get_name_owner_async_finish(res: Gio.AsyncResult): string
+                /**
+                 * Return the main service name to use for calls on the ibus connection.
+                 * @returns at dbus name.
+                 */
+                get_service_name(): string
+                /**
+                 * Check if the bus's "use_global_engine" option is enabled or not
+                 * synchronously.
+                 * @deprecated since 1.5.3 Currently global engine is always used.
+                 * @returns TRUE if "use_global_engine" option is enabled.
+                 */
+                get_use_global_engine(): boolean
+                /**
+                 * Check if the bus's "use_global_engine" option is enabled or not asynchronously.
+                 * @deprecated since 1.5.3 Currently global engine is always used.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                get_use_global_engine_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_get_use_global_engine_async().
+                 * @throws {GLib.Error}
+                 * @deprecated since 1.5.3 Currently global engine is always used.
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_get_use_global_engine_async().
+                 * @returns %TRUE if "use_global_engine" option is enabled.
+                 */
+                get_use_global_engine_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * Check if the bus's "use_sys_layout" option is enabled or not synchronously.
+                 * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/use_system_keyboard_layout instead.
+                 * @returns %TRUE if "use_sys_layout" option is enabled.
+                 */
+                get_use_sys_layout(): boolean
+                /**
+                 * Check if the bus's "use_sys_layout" option is enabled or not asynchronously.
+                 * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/use_system_keyboard_layout instead.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                get_use_sys_layout_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_get_use_sys_layout_async().
+                 * @throws {GLib.Error}
+                 * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/use_system_keyboard_layout instead.
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_get_use_sys_layout_async().
+                 * @returns TRUE if "use_sys_layout" option is enabled.
+                 */
+                get_use_sys_layout_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * This function sends a "HELLO" message to DBus daemon,
+                 * which replies the unique name of current IBus process.
+                 * @returns The unique name of IBus process in DBus.
+                 */
+                hello(): string
+                /**
+                 * Return %TRUE if `bus` is connected to IBus daemon.
+                 * @returns %TRUE if `bus` is connected, %FALSE otherwise.
+                 */
+                is_connected(): boolean
+                /**
+                 * Check if the current global engine is enabled or not synchronously.
+                 * @deprecated since 1.5.3 Probably this would be used for Chrome OS only. Currently global engine is always used and ibus_bus_get_global_engine() returns NULL until the first global engine is assigned. You can use ibus_set_log_handler() to disable a warning when ibus_bus_get_global_engine() returns NULL.
+                 * @returns %TRUE if the current global engine is enabled.
+                 */
+                is_global_engine_enabled(): boolean
+                /**
+                 * Check if the current global engine is enabled or not asynchronously.
+                 * @deprecated since 1.5.3 Probably this would be used for Chrome OS only. Currently global engine is always used and ibus_bus_get_global_engine() returns NULL until the first global engine is assigned. You can use ibus_set_log_handler() to disable a warning when ibus_bus_get_global_engine() returns NULL.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                is_global_engine_enabled_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_is_global_engine_enabled_async().
+                 * @throws {GLib.Error}
+                 * @deprecated since 1.5.3 Probably this would be used for Chrome OS only. Currently global engine is always used and ibus_bus_get_global_engine() returns NULL until the first global engine is assigned. You can use ibus_set_log_handler() to disable a warning when ibus_bus_get_global_engine() returns NULL.
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_is_global_engine_enabled_async().
+                 * @returns %TRUE if the current global engine is enabled.
+                 */
+                is_global_engine_enabled_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * List active engines synchronously.
+                 * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/preload-engines instead.
+                 * @returns         A List of active engines.
+                 */
+                list_active_engines(): EngineDesc[]
+                /**
+                 * List active engines asynchronously.
+                 * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/preload-engines instead.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL      if you don't care about the result of the method invocation.
+                 */
+                list_active_engines_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_list_active_engines_async().
+                 * @throws {GLib.Error}
+                 * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/preload-engines instead.
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_list_active_engines_async().
+                 * @returns          A List of active engines.
+                 */
+                list_active_engines_async_finish(res: Gio.AsyncResult): EngineDesc[]
+                /**
+                 * List engines synchronously.
+                 * @returns          A List of engines.
+                 */
+                list_engines(): EngineDesc[]
+                /**
+                 * List engines asynchronously.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL      if you don't care about the result of the method invocation.
+                 */
+                list_engines_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_list_engines_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_list_engines_async().
+                 * @returns          A List of engines.
+                 */
+                list_engines_async_finish(res: Gio.AsyncResult): EngineDesc[]
+                /**
+                 * Return lists that attached to `bus`.
+                 * <note><para>[FixMe] Not implemented yet, only return %NULL.</para></note>
+                 * <note><para>[FixMe] Add async version.</para></note>
+                 * @returns Lists that attached to `bus`.
+                 */
+                list_names(): string[]
+                /**
+                 * Lists the unique bus names of connections currently queued for a bus name.
+                 * FIXME add an asynchronous version.
+                 * @param name Name to be queried.
+                 * @returns            The unique bus names of connections currently queued for `name`.
+                 */
+                list_queued_owners(name: string): string[]
+                /**
+                 * Checks whether the name has owner synchronously.
+                 * @param name Name to be checked.
+                 * @returns %TRUE if the name has owner, %FALSE otherwise.
+                 */
+                name_has_owner(name: string): boolean
+                /**
+                 * Checks whether the name has owner asynchronously.
+                 * @param name Name to be checked.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                name_has_owner_async(name: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_name_has_owner_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_name_has_owner_async().
+                 * @returns %TRUE if the name has owner, %FALSE otherwise.
+                 */
+                name_has_owner_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * Start bus components by engine names synchronously.
+                 * @param names A %NULL-terminated array of engine names.
+                 * @returns %TRUE if components start. %FALSE otherwise.
+                 */
+                preload_engines(names: string[]): boolean
+                /**
+                 * Start bus components by engine names asynchronously.
+                 * @param names A %NULL-terminated array of engine names.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                preload_engines_async(names: string[], timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_preload_engines_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_preload_engines_async().
+                 * @returns %TRUE if component starts. %FALSE otherwise.
+                 */
+                preload_engines_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * Register a component to an #IBusBus synchronously.
+                 * @param component A input engine component.
+                 * @returns %TRUE if the "RegisterComponent" call is successful, %FALSE otherwise.
+                 */
+                register_component(component: Component): boolean
+                /**
+                 * Register a component to an #IBusBus asynchronously.
+                 * @param component A input engine component.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                register_component_async(component: Component, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_register_component_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_register_component_async().
+                 * @returns %TRUE if the "RegisterComponent" call is successful, %FALSE otherwise.
+                 */
+                register_component_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * Release a name to IBus daemon synchronously.
+                 * @param name Name to be released.
+                 * @returns 0 if failed; positive number otherwise.
+                 */
+                release_name(name: string): number
+                /**
+                 * Release a name to IBus daemon asynchronously.
+                 * @param name Name to be released.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                release_name_async(name: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_release_name_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_release_name_async().
+                 * @returns 0 if failed; positive number otherwise.
+                 */
+                release_name_async_finish(res: Gio.AsyncResult): number
+                /**
+                 * Remove a match rule to an #IBusBus synchronously.
+                 * @param rule Match rule.
+                 * @returns %TRUE if the rule is removed. %FALSE otherwise.
+                 */
+                remove_match(rule: string): boolean
+                /**
+                 * Remove a match rule to an IBusBus asynchronously.
+                 * @param rule Match rule.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                remove_match_async(rule: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_remove_match_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_remove_match_async().
+                 * @returns %TRUE if the rule is removed. %FALSE otherwise.
+                 */
+                remove_match_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * Request a name from IBus daemon synchronously.
+                 * @param name Name to be requested.
+                 * @param flags IBusBusNameFlag.
+                 * @returns 0 if failed; IBusBusRequestNameReply otherwise.
+                 */
+                request_name(name: string, flags: number): number
+                /**
+                 * Request a name from IBus daemon asynchronously.
+                 * @param name Name to be requested.
+                 * @param flags Flags (FixMe).
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL      if you don't care about the result of the method invocation.
+                 */
+                request_name_async(name: string, flags: number, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_request_name_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_request_name_async().
+                 * @returns 0 if failed; positive number otherwise.
+                 */
+                request_name_async_finish(res: Gio.AsyncResult): number
+                /**
+                 * Set current global engine synchronously.
+                 * @param global_engine A new engine name.
+                 * @returns %TRUE if the global engine was set successfully.
+                 */
+                set_global_engine(global_engine: string): boolean
+                /**
+                 * Set current global engine asynchronously.
+                 * @param global_engine A new engine name.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                set_global_engine_async(global_engine: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_set_global_engine_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_set_global_engine_async().
+                 * @returns %TRUE if no IPC errros. %FALSE otherwise.
+                 */
+                set_global_engine_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * Set global shorcut keys for the Wayland session.
+                 * @since 1.5.29
+                 * @param gtype A #IBusBusGlobalBindingType.
+                 * @param keys         A %NULL-terminated array of #IBusProcessKeyEventData.        keycode is used for the selecting direction and the forward direction        in case of 0, otherwise the backward direction.
+                 * @returns %TRUE if the global shortcut keys are set. %FALSE otherwise.
+                 */
+                set_global_shortcut_keys(gtype: BusGlobalBindingType, keys: ProcessKeyEventData[]): boolean
+                /**
+                 * Sete global shorcut keys for the Wayland session asynchronously.
+                 * @since 1.5.29
+                 * @param gtype A #IBusBusGlobalBindingType.
+                 * @param keys         A %NULL-terminated array of #IBusProcessKeyEventData.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                set_global_shortcut_keys_async(gtype: BusGlobalBindingType, keys: ProcessKeyEventData[], timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_set_global_shortcut_keys_async().
+                 * @throws {GLib.Error}
+                 * @since 1.5.29
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_set_global_shortcut_keys_async().
+                 * @returns %TRUE if the global shortcut keys are set. %FALSE otherwise.
+                 */
+                set_global_shortcut_keys_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * Set org.freedesktop.DBus.Properties.
+                 * @param property_name property name in org.freedesktop.DBus.Properties.Set
+                 * @param value value in org.freedesktop.DBus.Properties.Set
+                 */
+                set_ibus_property(property_name: string, value: GLib.Variant): void
+                /**
+                 * Set org.freedesktop.DBus.Properties asynchronously.
+                 * @param property_name property name in org.freedesktop.DBus.Properties.Set
+                 * @param value value in org.freedesktop.DBus.Properties.Set
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied      or %NULL if you don't care about the result of the method invocation.
+                 */
+                set_ibus_property_async(property_name: string, value: GLib.Variant, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_bus_set_ibus_property_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_bus_set_ibus_property_async().
+                 * @returns %TRUE if property is set with async. %FALSE failed.
+                 */
+                set_ibus_property_async_finish(res: Gio.AsyncResult): boolean
+                /**
+                 * Start or stop watching the NameOwnerChanged DBus signal.
+                 * @param watch %TRUE if you want ibusbus to emit "name-owner-changed" signal when ibus-daemon emits the NameOwnerChanged DBus signal.
+                 */
+                set_watch_dbus_signal(watch: boolean): void
+                /**
+                 * Start or stop watching the GlobalEngineChanged IBus signal.
+                 * @param watch %TRUE if you want ibusbus to emit "global-engine-changed" signal when ibus-daemon emits the GlobalEngineChanged IBus signal.
+                 */
+                set_watch_ibus_signal(watch: boolean): void
+            }
+
+            interface BusClass extends Omit<ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Bus>
+                readonly prototype: Bus
+
+                new (props?: Partial<GObject.ConstructorProps<Bus>>): Bus
+                /**
+                 * Creates a new #IBusBus instance.
+                 * @returns A newly allocated #IBusBus instance, and the instance is not floating.
+                 */
+                "new"(): Bus
+                /**
+                 * Creates a new #IBusBus instance. The instance will asynchronously connect
+                 * to the IBus daemon.
+                 * @returns A newly allocated #IBusBus instance, and the instance is not floating.
+                 */
+                new_async(): Bus
+                /**
+                 * Creates a new #IBusBus instance for client use only. It will possibly
+                 * be limited in what it can do.
+                 *
+                 * The instance will asynchronously connect to the IBus daemon.
+                 * @returns A newly allocated #IBusBus instance, and the instance is not floating.
+                 */
+                new_async_client(): Bus
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusBus connects with IBus daemon.
+                 */
+                Bus: BusClass
+            }
+            
+
+            namespace Component {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                    "author": string
+                    "command-line": string
+                    "description": string
+                    "homepage": string
+                    "license": string
+                    "name": string
+                    "textdomain": string
+                    "version": string
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                    "author": string
+                    "command-line": string
+                    "description": string
+                    "homepage": string
+                    "license": string
+                    "name": string
+                    "textdomain": string
+                    "version": string
+                }
+            }
+
+            interface Component extends Serializable {
+                readonly $signals: Component.SignalSignatures
+                readonly $readableProperties: Component.ReadableProperties
+                readonly $writableProperties: Component.WritableProperties
+                readonly $constructOnlyProperties: Component.ConstructOnlyProperties
+                /**
+                 * The author of component
+                 * @default NULL
+                 */
+                get author(): string
+                set author(value: string)
+                /**
+                 * The exec path of component
+                 * @default NULL
+                 */
+                get commandLine(): string
+                set commandLine(value: string)
+                /**
+                 * The description of component
+                 * @default NULL
+                 */
+                get description(): string
+                set description(value: string)
+                /**
+                 * The homepage of component
+                 * @default NULL
+                 */
+                get homepage(): string
+                set homepage(value: string)
+                /**
+                 * The license of component
+                 * @default NULL
+                 */
+                get license(): string
+                set license(value: string)
+                /**
+                 * The name of component
+                 * @default NULL
+                 */
+                get name(): string
+                set name(value: string)
+                /**
+                 * The textdomain of component
+                 * @default NULL
+                 */
+                get textdomain(): string
+                set textdomain(value: string)
+                /**
+                 * The version of component
+                 * @default NULL
+                 */
+                get version(): string
+                set version(value: string)
+                /**
+                 * Add an engine to #IBusComponent according to the description in `engine`.
+                 * @param engine A description of an engine.
+                 */
+                add_engine(engine: EngineDesc): void
+                /**
+                 * Add an observed path to #IBusComponent.
+                 * @param path Observed path to be added.
+                 * @param access_fs %TRUE for filling the file status; %FALSE otherwise.
+                 */
+                add_observed_path(path: string, access_fs: boolean): void
+                /**
+                 * Check whether the observed paths of component is modified.
+                 * @returns %TRUE if at least one of the observed paths is modified; %FALSE otherwise.
+                 */
+                check_modification(): boolean
+                /**
+                 * Gets the author property in #IBusComponent. It should not be freed.
+                 * @returns author property in #IBusComponent
+                 */
+                get_author(): string
+                /**
+                 * Gets the description property in #IBusComponent. It should not be freed.
+                 * @returns description property in #IBusComponent
+                 */
+                get_description(): string
+                /**
+                 * Gets the engines of this component.
+                 * @returns  A newly allocated GList that contains engines.
+                 */
+                get_engines(): EngineDesc[]
+                /**
+                 * Gets the exec property in #IBusComponent. It should not be freed.
+                 * @returns exec property in #IBusComponent
+                 */
+                get_exec(): string
+                /**
+                 * Gets the homepage property in #IBusComponent. It should not be freed.
+                 * @returns homepage property in #IBusComponent
+                 */
+                get_homepage(): string
+                /**
+                 * Gets the license property in #IBusComponent. It should not be freed.
+                 * @returns license property in #IBusComponent
+                 */
+                get_license(): string
+                /**
+                 * Gets the name property in #IBusComponent. It should not be freed.
+                 * @returns name property in #IBusComponent
+                 */
+                get_name(): string
+                /**
+                 * Gets the observed paths of this component.
+                 * @returns A newly allocated GList that contains observed paths.
+                 */
+                get_observed_paths(): ObservedPath[]
+                /**
+                 * Gets the textdomain property in #IBusComponent. It should not be freed.
+                 * @returns textdomain property in #IBusComponent
+                 */
+                get_textdomain(): string
+                /**
+                 * Gets the version property in #IBusComponent. It should not be freed.
+                 * @returns version property in #IBusComponent
+                 */
+                get_version(): string
+                /**
+                 * Output #IBusComponent as an XML-formatted string.
+                 * The output string can be then shown on the screen or written to file.
+                 * @param output GString that holds the result.
+                 * @param indent level of indent.
+                 */
+                output(output: GLib.String, indent: number): void
+                /**
+                 * Output engine description  as an XML-formatted string.
+                 * The output string can be then shown on the screen or written to file.
+                 * @param output GString that holds the result.
+                 * @param indent level of indent.
+                 */
+                output_engines(output: GLib.String, indent: number): void
+            }
+
+            interface ComponentClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<Component>
+                readonly prototype: Component
+
+                new (props?: Partial<GObject.ConstructorProps<Component>>): Component
+                /**
+                 * Creates a new #IBusComponent.
+                 * @param name Name of the component.
+                 * @param description Detailed description of component.
+                 * @param version Component version.
+                 * @param license Distribution license of this component.
+                 * @param author Author(s) of the component.
+                 * @param homepage Homepage of the component.
+                 * @param command_line path to component executable.
+                 * @param textdomain Domain name for dgettext()
+                 * @returns A newly allocated #IBusComponent.
+                 */
+                "new"(name: string, description: string, version: string, license: string, author: string, homepage: string, command_line: string, textdomain: string): Component
+                /**
+                 * Creates a new #IBusComponent from an XML file.
+                 * Note that a component file usually contains engine descriptions,
+                 * if it does, ibus_engine_desc_new_from_xml_node() will be called
+                 * to load the engine descriptions.
+                 * @param filename An XML file that contains component information.
+                 * @returns A newly allocated #IBusComponent.
+                 */
+                new_from_file(filename: string): Component
+                /**
+                 * Creates a new #IBusComponent from an XML tree.
+                 * @param node Root node of component XML tree.
+                 * @returns A newly allocated #IBusComponent.
+                 */
+                new_from_xml_node(node: XML): Component
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusComponent is an executable program.
+                 * It provides services such as user interface, configuration,
+                 * and input method engine (IME).
+                 *
+                 * It is recommended that IME developers provide
+                 * a component XML file and
+                 * load the XML file by ibus_component_new_from_file().
+                 *
+                 * The format of a component XML file is described  at
+                 * <ulink url="https://github.com/ibus/ibus/wiki/DevXML">https://github.com/ibus/ibus/wiki/DevXML</ulink>
+                 */
+                Component: ComponentClass
+            }
+            
+
+            namespace Config {
+                interface SignalSignatures extends Proxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
+                    /**
+                     * Emitted when configuration value is changed.
+                     * <note><para>Argument `user_data` is ignored in this function.</para></note>
+                     * @param section Section name.
+                     * @param name Name of the property.
+                     * @param value Value.
+                     */
+                    "value-changed"(section: string, name: string, value: GLib.Variant): void
+                }
+
+                interface ReadableProperties extends Proxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties {
+                }
+
+                interface WritableProperties extends Proxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Proxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
+                }
+            }
+
+            interface Config extends Proxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
+                readonly $signals: Config.SignalSignatures
+                readonly $readableProperties: Config.ReadableProperties
+                readonly $writableProperties: Config.WritableProperties
+                readonly $constructOnlyProperties: Config.ConstructOnlyProperties
+                /**
+                 * Get the value of a configuration option synchronously.
+                 *
+                 * GConf stores configure options in a tree-like structure,
+                 * and the IBus related setting is at /desktop/ibus,
+                 * thus, `section` here is a path from there,
+                 * while `name` is the key of that configuration option.
+                 *
+                 * ibus-chewing, for example, stores its setting in /desktop/ibus/engine/Chewing,
+                 * so the section name for it is "engine/Chewing".
+                 * See also: ibus_config_set_value().
+                 * @param section Section name of the configuration option.
+                 * @param name Name of the configure option.
+                 * @returns A #GVariant or %NULL. Free with g_variant_unref().
+                 */
+                get_value(section: string, name: string): GLib.Variant
+                /**
+                 * Get the value of a configuration option asynchronously.
+                 *
+                 * See also: ibus_config_get_value().
+                 * @param section Section name of the configuration option.
+                 * @param name Name of the configure option.
+                 * @param timeout_ms The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback Callback function to invoke when the return value is ready.
+                 */
+                get_value_async(section: string, name: string, timeout_ms: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finish get value of a configuration option.
+                 * @throws {GLib.Error}
+                 * @param result A #GAsyncResult.
+                 * @returns A #GVariant or %NULL if error is set. Free with g_variant_unref().  See also: ibus_config_get_value_async().
+                 */
+                get_value_async_finish(result: Gio.AsyncResult): GLib.Variant
+                /**
+                 * Get all values in a section synchronously.
+                 * @param section Section name of the configuration option.
+                 * @returns A #GVariant or %NULL. Free with g_variant_unref().  See also: ibus_config_set_value().
+                 */
+                get_values(section: string): GLib.Variant
+                /**
+                 * Get all values in a section asynchronously.
+                 *
+                 * See also: ibus_config_get_values().
+                 * @param section Section name of the configuration option.
+                 * @param timeout_ms The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback Callback function to invoke when the return value is ready.
+                 */
+                get_values_async(section: string, timeout_ms: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finish get values in a section.
+                 * @throws {GLib.Error}
+                 * @param result A #GAsyncResult.
+                 * @returns A #GVariant or %NULL if error is set. Free with g_variant_unref().  See also: ibus_config_get_values_async().
+                 */
+                get_values_async_finish(result: Gio.AsyncResult): GLib.Variant
+                /**
+                 * Set the value of a configuration option synchronously.
+                 * @param section Section name of the configuration option.
+                 * @param name Name of the configure option its self.
+                 * @param value A #GVariant that holds the value. If the value is floating, the function takes ownership of it.
+                 * @returns %TRUE if succeed; %FALSE otherwise.  See also: ibus_config_get_value().
+                 */
+                set_value(section: string, name: string, value: GLib.Variant): boolean
+                /**
+                 * Set the value of a configuration option asynchronously.
+                 *
+                 * See also: ibus_config_set_value().
+                 * @param section Section name of the configuration option.
+                 * @param name Name of the configure option.
+                 * @param value A #GVariant that holds the value. If the value is floating, the function takes ownership of it.
+                 * @param timeout_ms The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback Callback function to invoke when the return value is ready.
+                 */
+                set_value_async(section: string, name: string, value: GLib.Variant, timeout_ms: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finish set value of a configuration option.
+                 * @throws {GLib.Error}
+                 * @param result A #GAsyncResult.
+                 * @returns %TRUE or %FALSE if error is set.  See also: ibus_config_set_value_async().
+                 */
+                set_value_async_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Remove an entry of a configuration option.
+                 * @param section Section name of the configuration option.
+                 * @param name Name of the configure option its self.
+                 * @returns %TRUE if succeed; %FALSE otherwise.  See also: ibus_config_get_value().
+                 */
+                unset(section: string, name: string): boolean
+                /**
+                 * Unsubscribe from the configuration option change notification.
+                 * @param section Section name of the configuration option.
+                 * @param name Name of the configure option its self.
+                 * @returns %TRUE if succeed; %FALSE otherwise.  See also: ibus_config_watch.
+                 */
+                unwatch(section: string | null, name: string | null): boolean
+                /**
+                 * Subscribe to the configuration option change notification.
+                 *
+                 * Until this function is called, every change will be notified to the
+                 * client through #IBusConfig::value-changed signal.  Clients should
+                 * call ibus_config_watch() with the sections they are interested in,
+                 * to reduce the number of D-Bus messages.
+                 * @param section Section name of the configuration option.
+                 * @param name Name of the configure option its self.
+                 * @returns %TRUE if succeed; %FALSE otherwise.  See also: ibus_config_unwatch().
+                 */
+                watch(section: string | null, name: string | null): boolean
+            }
+
+            interface ConfigClass extends Omit<ProxyClass, "new"> {
+                readonly $gtype: GObject.GType<Config>
+                readonly prototype: Config
+
+                new (props?: Partial<GObject.ConstructorProps<Config>>): Config
+                /**
+                 * Create a new #IBusConfig from existing #GDBusConnection.
+                 * @throws {GLib.Error}
+                 * @param connection A #GDBusConnection.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @returns A newly allocated #IBusConfig corresponding to `connection`.
+                 */
+                "new"(connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null): Config
+                /**
+                 * Finishes an operation started with ibus_config_new_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback pass to      ibus_config_new_async().
+                 * @returns A newly allocated #IBusConfig.
+                 */
+                new_async_finish(res: Gio.AsyncResult): Config
+                /**
+                 * New an #IBusConfig asynchronously.
+                 * @param connection An #GDBusConnection.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied.      The callback should not be %NULL.
+                 */
+                new_async(connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusConfig provides engine configuration methods
+                 * such as get and set the configure settings to configuration file.
+                 *
+                 * Currently, IBusConfig supports gconf.
+                 */
+                Config: ConfigClass
+            }
+            
+
+            namespace ConfigService {
+                interface SignalSignatures extends Service.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Service.ReadableProperties {
+                }
+
+                interface WritableProperties extends Service.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Service.ConstructOnlyProperties {
+                }
+            }
+
+            interface ConfigService extends Service {
+                readonly $signals: ConfigService.SignalSignatures
+                readonly $readableProperties: ConfigService.ReadableProperties
+                readonly $writableProperties: ConfigService.WritableProperties
+                readonly $constructOnlyProperties: ConfigService.ConstructOnlyProperties
+                /**
+                 * Change a value of a configuration option
+                 * by sending a "ValueChanged" message to IBus service.
+                 * @param section Section name of the configuration option.
+                 * @param name Name of the configure option.
+                 * @param value GVariant that holds the value.
+                 */
+                value_changed(section: string, name: string, value: GLib.Variant): void
+                /**
+                 * @throws {GLib.Error}
+                 * @param section
+                 * @param name
+                 */
+                vfunc_get_value(section: string, name: string): GLib.Variant
+                /**
+                 * @throws {GLib.Error}
+                 * @param section
+                 */
+                vfunc_get_values(section: string): GLib.Variant
+                /**
+                 * @throws {GLib.Error}
+                 * @param section
+                 * @param name
+                 * @param value
+                 */
+                vfunc_set_value(section: string, name: string, value: GLib.Variant): boolean
+                /**
+                 * @throws {GLib.Error}
+                 * @param section
+                 * @param name
+                 */
+                vfunc_unset_value(section: string, name: string): boolean
+            }
+
+            interface ConfigServiceClass extends Omit<ServiceClass, "new"> {
+                readonly $gtype: GObject.GType<ConfigService>
+                readonly prototype: ConfigService
+
+                new (props?: Partial<GObject.ConstructorProps<ConfigService>>): ConfigService
+                /**
+                 * Creates an new #IBusConfigService from an #GDBusConnection.
+                 * @param connection An #GDBusConnection.
+                 * @returns A newly allocated #IBusConfigServices.
+                 */
+                "new"(connection: Gio.DBusConnection): ConfigService
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusConfigService is a base class for other configuration services such as GConf.
+                 * Currently, directly known sub class is IBusConfigGConf.
+                 *
+                 * IBusConfigServiceClass has following member functions:
+                 * <itemizedlist>
+                 *     <listitem>
+                 *         <para>gboolean set_value(IBusConfigService *config, const gchar *section, const gchar *name,
+                 *             const GValue *value, IBusError **error)
+                 *         </para>
+                 *         <variablelist>
+                 *             <varlistentry>
+                 *                 <term>config:</term>
+                 *                 <listitem>A configure service</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>section:</term>
+                 *                 <listitem>Section name of the configuration option.</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>name:</term>
+                 *                 <listitem>Name of the configuration option.</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>value:</term>
+                 *                 <listitem>GValue that holds the value.</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>error:</term>
+                 *                 <listitem>Error outputs here.</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>Returns:</term>
+                 *                 <listitem>TRUE if succeed; FALSE otherwise.</listitem>
+                 *             </varlistentry>
+                 *         </variablelist>
+                 *         <para>Set a value to a configuration option.
+                 *         </para>
+                 *     </listitem>
+                 *     <listitem>
+                 *         <para>gboolean get_value(IBusConfigService *config, const gchar *section, const gchar *name,
+                 *             GValue *value, IBusError **error)
+                 *         </para>
+                 *         <variablelist>
+                 *             <varlistentry>
+                 *                 <term>config:</term>
+                 *                 <listitem>A configure service</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>section:</term>
+                 *                 <listitem>Section name of the configuration option.</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>name:</term>
+                 *                 <listitem>Name of the configuration option.</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>value:</term>
+                 *                 <listitem>GValue that holds the value.</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>error:</term>
+                 *                 <listitem>Error outputs here.</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>Returns:</term>
+                 *                 <listitem>TRUE if succeed; FALSE otherwise.</listitem>
+                 *             </varlistentry>
+                 *        </variablelist>
+                 *        <para>Get value of a configuration option.
+                 *        </para>
+                 *     </listitem>
+                 *     <listitem>
+                 *         <para>gboolean unset(IBusConfigService *config, const gchar *section, const gchar *name,
+                 *             IBusError **error)
+                 *         </para>
+                 *         <variablelist>
+                 *             <varlistentry>
+                 *                 <term>config:</term>
+                 *                 <listitem>A configure service</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>section:</term>
+                 *                 <listitem>Section name of the configuration option.</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>name:</term>
+                 *                 <listitem>Name of the configuration option.</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>error:</term>
+                 *                 <listitem>Error outputs here.</listitem>
+                 *             </varlistentry>
+                 *             <varlistentry>
+                 *                 <term>Returns:</term>
+                 *                 <listitem>TRUE if succeed; FALSE otherwise.</listitem>
+                 *             </varlistentry>
+                 *         </variablelist>
+                 *         <para>Remove an entry to a configuration option.
+                 *         </para>
+                 *     </listitem>
+                 * </itemizedlist>
+                 */
+                ConfigService: ConfigServiceClass
+            }
+            
+
+            namespace EmojiData {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                    "annotations": never
+                    "category": string
+                    "description": string
+                    "emoji": string
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                    "annotations": never
+                    "description": string
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                    "category": string
+                    "emoji": string
+                }
+            }
+
+            interface EmojiData extends Serializable {
+                readonly $signals: EmojiData.SignalSignatures
+                readonly $readableProperties: EmojiData.ReadableProperties
+                readonly $writableProperties: EmojiData.WritableProperties
+                readonly $constructOnlyProperties: EmojiData.ConstructOnlyProperties
+                /**
+                 * The emoji annotations
+                 */
+                get annotations(): never
+                set annotations(value: never)
+                /**
+                 * The emoji category
+                 */
+                get category(): string
+                set category(value: string)
+                /**
+                 * The emoji description
+                 */
+                get description(): string
+                set description(value: string)
+                /**
+                 * The emoji character
+                 * @default NULL
+                 */
+                get emoji(): string
+                set emoji(value: string)
+                /**
+                 * Gets the annotation list in #IBusEmojiData. It should not be freed.
+                 * @returns           annotation list property in #IBusEmojiData
+                 */
+                get_annotations(): string[]
+                /**
+                 * Gets the emoji category in #IBusEmojiData. It should not be freed.
+                 * @returns category property in #IBusEmojiData
+                 */
+                get_category(): string
+                /**
+                 * Gets the emoji description in #IBusEmojiData. It should not be freed.
+                 * @returns description property in #IBusEmojiData
+                 */
+                get_description(): string
+                /**
+                 * Gets the emoji character in #IBusEmojiData. It should not be freed.
+                 * @returns emoji property in #IBusEmojiData
+                 */
+                get_emoji(): string
+                /**
+                 * Sets the annotation list in #IBusEmojiData.
+                 * @param annotations List of emoji annotations
+                 */
+                set_annotations(annotations: string[]): void
+                /**
+                 * Sets the description in #IBusEmojiData.
+                 * @param description An emoji description
+                 */
+                set_description(description: string): void
+            }
+
+            interface EmojiDataClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<EmojiData>
+                readonly prototype: EmojiData
+
+                new (props?: Partial<GObject.ConstructorProps<EmojiData>>): EmojiData
+                /**
+                 * @param path A path of the saved dictionary file.
+                 * @returns  An #IBusEmojiData list loaded from the saved cache file.
+                 */
+                load(path: string): EmojiData[]
+                /**
+                 * Save the list of #IBusEmojiData to the cache file.
+                 * @param path A path of the saved emoji data.
+                 * @param list A list of emoji data.
+                 */
+                save(path: string, list: EmojiData[]): void
+            }
+
+            interface $Exports {
+                /**
+                 * Emoji data likes emoji unicode, annotations, description, category.
+                 * You can get extended values with g_object_get_properties.
+                 */
+                EmojiData: EmojiDataClass
+            }
+            
+
+            namespace Engine {
+                interface SignalSignatures extends Service.SignalSignatures {
+                    /**
+                     * Emitted when a hand writing operation is cancelled.
+                     * Implement the member function IBusEngineClass::cancel_hand_writing
+                     * in extended class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param n_strokes The number of strokes to be removed. 0 means "remove all".
+                     */
+                    "cancel-hand-writing"(n_strokes: number): void
+                    /**
+                     * Emitted when candidate on lookup table is clicked.
+                     * Implement the member function IBusEngineClass::candidate_clicked
+                     * in extended class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param index Index of candidate be clicked.
+                     * @param button Mouse button.
+                     * @param state Keyboard state.
+                     */
+                    "candidate-clicked"(index: number, button: number, state: number): void
+                    /**
+                     * Emitted when the down cursor button is pressed.
+                     * Implement the member function IBusEngineClass::cursor_down
+                     * in extended class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "cursor-down"(): void
+                    /**
+                     * Emitted when the up cursor button is pressed.
+                     * Implement the member function IBusEngineClass::cursor_up
+                     * in extended class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "cursor-up"(): void
+                    /**
+                     * Emitted when the IME is disabled.
+                     * Implement the member function IBusEngineClass::disable
+                     * in extended class to receive this signal.
+                     *
+                     * See also:  ibus_bus_set_global_engine().
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "disable"(): void
+                    /**
+                     * Emitted when the IME is enabled.
+                     * Implement the member function IBusEngineClass::enable
+                     * in extended class to receive this signal.
+                     *
+                     * See also:  ibus_bus_set_global_engine().
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "enable"(): void
+                    /**
+                     * Emitted when the client application get the focus.
+                     * Implement the member function IBusEngineClass::focus_in
+                     * in extended class to receive this signal.
+                     *
+                     * See also: ibus_input_context_focus_in()
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "focus-in"(): void
+                    /**
+                     * Emitted when the client application get the focus.
+                     * Implement the member function IBusEngineClass::focus_in
+                     * in extended class to receive this signal.
+                     *  `object_path` is a unique id by input context.
+                     *  `client` indicates a client type:
+                     * 'fake':    focus is on desktop background or other programs where no
+                     *            input is possible
+                     * 'xim':     old X11 programs like xterm, emacs, ...
+                     *            GTK3 programs in a Gnome Xorg session when GTK_IM_MODULE
+                     *            is unset also use xim
+                     * 'gtk-im:&lt;client-name&gt;':  Gtk2 input module is used
+                     * 'gtk3-im:&lt;client-name&gt;': Gtk3 input module is used
+                     * 'gtk4-im:&lt;client-name&gt;': Gtk4 input module is used
+                     *            In case of the Gtk input modules, the name of the
+                     *            client is also shown after the “:”, for example
+                     *            like 'gtk3-im:firefox', 'gtk4-im:gnome-text-editor', …
+                     * 'gnome-shell': Entries handled by gnome-shell
+                     *                (like the command line dialog opened with Alt+F2
+                     *                or the search field when pressing the Super key.)
+                     *                When GTK_IM_MODULE is unset in a Gnome Wayland session
+                     *                all programs which would show 'gtk3-im' or 'gtk4-im'
+                     *                with GTK_IM_MODULE=ibus then show 'gnome-shell'
+                     *                instead.
+                     * 'Qt':      Qt4 programs like keepassx-2.0.3 …
+                     * 'QIBusInputContext': Qt5 programs like keepassxc-2.7.1, anki-2.1.15
+                     *                      telegram-desktop-3.7.3,
+                     *
+                     * You need to set #IBusEngine::has-focus-id property to %TRUE when you
+                     * construct an #IBusEngine to use this class method.
+                     *
+                     * See also: ibus_input_context_focus_in()
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param object_path An object path.
+                     * @param client An client name.
+                     */
+                    "focus-in-id"(object_path: string, client: string): void
+                    /**
+                     * Emitted when the client application  lost the focus.
+                     * Implement the member function IBusEngineClass::focus_out
+                     * in extended class to receive this signal.
+                     *
+                     * See also: ibus_input_context_focus_out()
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "focus-out"(): void
+                    /**
+                     * Emitted when the client application  lost the focus.
+                     * Implement the member function IBusEngineClass::focus_out
+                     * in extended class to receive this signal.
+                     *  `object_path` is a unique id by input context.
+                     * You need to set #IBusEngine::has-focus-id property to %TRUE when you
+                     * construct an #IBusEngine to use this class method.
+                     *
+                     * See also: ibus_input_context_focus_out()
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param object_path An object path.
+                     */
+                    "focus-out-id"(object_path: string): void
+                    /**
+                     * Emitted when the page-down button is pressed.
+                     * Implement the member function IBusEngineClass::page_down
+                     * in extended class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "page-down"(): void
+                    /**
+                     * Emitted when the page-up button is pressed.
+                     * Implement the member function IBusEngineClass::page_up
+                     * in extended class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "page-up"(): void
+                    /**
+                     * Emitted when a hand writing operation is cancelled.
+                     * Implement the member function IBusEngineClass::cancel_hand_writing
+                     * in extended class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param coordinates An array of double (0.0 to 1.0) which represents a stroke               (i.e. [x1, y1, x2, y2, x3, y3, ...]).
+                     * @param coordinates_len The number of elements in the array.
+                     */
+                    "process-hand-writing-event"(coordinates: never | null, coordinates_len: number): void
+                    /**
+                     * Emitted when a key event is received.
+                     * Implement the member function IBusEngineClass::process_key_event
+                     * in extended class to receive this signal.
+                     * Both the key symbol and keycode are passed to the member function.
+                     * See ibus_input_context_process_key_event() for further explanation of
+                     * key symbol, keycode and which to use.
+                     * @param keyval Key symbol of the key press.
+                     * @param keycode KeyCode of the key press.
+                     * @param state Key modifier flags.
+                     * @returns %TRUE for successfully process the key; %FALSE otherwise. See also:  ibus_input_context_process_key_event().  <note><para>Argument `user_data` is ignored in this function.</para> </note>
+                     */
+                    "process-key-event"(keyval: number, keycode: number, state: number): boolean
+                    /**
+                     * Emitted when a property is activated or change changed.
+                     * Implement the member function IBusEngineClass::property_activate
+                     * in extended class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param name Property name.
+                     * @param state Property state.
+                     */
+                    "property-activate"(name: string, state: number): void
+                    /**
+                     * Emitted when a property is hidden.
+                     * Implement the member function IBusEngineClass::property_hide
+                     * in extended class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param name Property name.
+                     */
+                    "property-hide"(name: string): void
+                    /**
+                     * Emitted when a property is shown.
+                     * Implement the member function IBusEngineClass::property_side
+                     * in extended class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param name Property name.
+                     */
+                    "property-show"(name: string): void
+                    /**
+                     * Emitted when the IME is reset.
+                     * Implement the member function IBusEngineClass::reset
+                     * in extended class to receive this signal.
+                     *
+                     * See also:  ibus_input_context_reset().
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "reset"(): void
+                    /**
+                     * Emitted when the client application capabilities is set.
+                     * Implement the member function IBusEngineClass::set_capabilities
+                     * in extended class to receive this signal.
+                     *
+                     * See also:  ibus_input_context_set_capabilities().
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param caps Capabilities flags of IBusEngine, see #IBusCapabilite
+                     */
+                    "set-capabilities"(caps: number): void
+                    /**
+                     * Emitted when the client application content-type (primary
+                     * purpose and hints) is set.  The engine could change the
+                     * behavior according to the content-type.  Implement the member
+                     * function IBusEngineClass::set_content_type
+                     * in extended class to receive this signal.
+                     *
+                     * For example, if the client application wants to restrict input
+                     * to numbers, this signal will be emitted with `purpose` set to
+                     * #IBUS_INPUT_PURPOSE_NUMBER, so the engine can switch the input
+                     * mode to latin.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this
+                     * function.</para></note>
+                     * @param purpose Primary purpose of the input context, as an #IBusInputPurpose.
+                     * @param hints Hints that augment `purpose`, as an #IBusInputHints.
+                     */
+                    "set-content-type"(purpose: number, hints: number): void
+                    /**
+                     * Emitted when the location of IME is set.
+                     * Implement the member function IBusEngineClass::set_cursor_location
+                     * in extended class to receive this signal.
+                     *
+                     * See also:  ibus_input_context_set_cursor_location().
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param x X coordinate of the cursor.
+                     * @param y Y coordinate of the cursor.
+                     * @param w Width of the cursor.
+                     * @param h Height of the cursor.
+                     */
+                    "set-cursor-location"(x: number, y: number, w: number, h: number): void
+                    /**
+                     * Emitted when a surrounding text is set.
+                     * Implement the member function IBusEngineClass::set_surrounding_text
+                     * in extended class to receive this signal.
+                     * If anchor_pos equals to cursor_pos, it means "there are no selection"
+                     * or "does not support selection retrival".
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param text The surrounding text.
+                     * @param cursor_pos The cursor position on surrounding text.
+                     * @param anchor_pos The anchor position on selection area.
+                     */
+                    "set-surrounding-text"(text: GObject.Object, cursor_pos: number, anchor_pos: number): void
+                }
+
+                interface ReadableProperties extends Service.ReadableProperties {
+                    "active-surrounding-text": boolean
+                    "engine-name": string
+                    "has-focus-id": boolean
+                }
+
+                interface WritableProperties extends Service.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Service.ConstructOnlyProperties {
+                    "active-surrounding-text": boolean
+                    "engine-name": string
+                    "has-focus-id": boolean
+                }
+            }
+
+            interface Engine extends Service {
+                readonly $signals: Engine.SignalSignatures
+                readonly $readableProperties: Engine.ReadableProperties
+                readonly $writableProperties: Engine.WritableProperties
+                readonly $constructOnlyProperties: Engine.ConstructOnlyProperties
+                /**
+                 * When this property is set to %TRUE, "RequireSurroundingText" D-Bus
+                 * signal will be called by ibus-daemon on every focus-in/out event, with
+                 * no need for the engine to call ibus_engine_get_surrounding_text().
+                 * This property can only be set at construct time.
+                 * @default FALSE
+                 */
+                get activeSurroundingText(): boolean
+                set activeSurroundingText(value: boolean)
+                /**
+                 * Name of this IBusEngine.
+                 * @default noname
+                 */
+                get engineName(): string
+                set engineName(value: string)
+                /**
+                 * Use #IBusEngine::focus_in_id()/focus_out_id() class method insteads of
+                 * focus_in()/focus_out() class methods when this property is set to %TRUE.
+                 * Otherwise, use #IBusEngine::focus_in()/focus_out class methods.
+                 * This property can only be set at construct time.
+                 *
+                 * See also: IBusEngine::focus-in-id
+                 * @default FALSE
+                 */
+                get hasFocusId(): boolean
+                set hasFocusId(value: boolean)
+                /**
+                 * Commit output of input method to IBus client.
+                 *
+                 * (Note: The text object will be released, if it is floating.
+                 *  If caller want to keep the object, caller should make the object
+                 *  sink by g_object_ref_sink.)
+                 * @param text String commit to IBusEngine.
+                 */
+                commit_text(text: Text): void
+                /**
+                 * Delete surrounding text.
+                 * @param offset The offset of the first char.
+                 * @param nchars Number of chars to be deleted.
+                 */
+                delete_surrounding_text(offset: number, nchars: number): void
+                /**
+                 * Forward the key event.
+                 * @param keyval KeySym.
+                 * @param keycode keyboard scancode.
                  * @param state Key modifier flags.
-                 * @param is_backward %TRUE if the backward key is pressed.
                  */
-                "global-shortcut-key-responded"(type: number, keyval: number, keycode: number, state: number, is_backward: boolean): void
+                forward_key_event(keyval: number, keycode: number, state: number): void
                 /**
-                 * Emitted when D-Bus name owner is changed.
-                 * @param name The name which ower is changed.
-                 * @param old_owner The unique bus name of the old owner.
-                 * @param new_owner The unique bus name of the new owner.
-                 */
-                "name-owner-changed"(name: string, old_owner: string, new_owner: string): void
-            }
-
-            interface ReadableProperties extends Object.ReadableProperties {
-                "client-only": boolean
-                "connect-async": boolean
-            }
-
-            interface WritableProperties extends Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
-                "client-only": boolean
-                "connect-async": boolean
-            }
-        }
-
-        interface Bus extends Object {
-            readonly $signals: Bus.SignalSignatures
-            readonly $readableProperties: Bus.ReadableProperties
-            readonly $writableProperties: Bus.WritableProperties
-            readonly $constructOnlyProperties: Bus.ConstructOnlyProperties
-            /**
-             * Whether the #IBusBus object is for client use only.
-             * @default FALSE
-             */
-            get clientOnly(): boolean
-            set clientOnly(value: boolean)
-            /**
-             * Whether the #IBusBus object should connect asynchronously to the bus.
-             * @default FALSE
-             */
-            get connectAsync(): boolean
-            set connectAsync(value: boolean)
-            /**
-             * Add a match rule to an #IBusBus synchronously.
-             * @param rule Match rule.
-             * @returns %TRUE if the rule is added. %FALSE otherwise.
-             */
-            add_match(rule: string): boolean
-            /**
-             * Add a match rule to an #IBusBus asynchronously.
-             * @param rule Match rule.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            add_match_async(rule: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_add_match_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_add_match_async().
-             * @returns %TRUE if the rule is added. %FALSE otherwise.
-             */
-            add_match_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Create an input context for client synchronously.
-             * @param client_name Name of client.
-             * @returns A newly allocated #IBusInputContext if the      "CreateInputContext" call is succeeded, %NULL otherwise.
-             */
-            create_input_context(client_name: string): InputContext
-            /**
-             * Create an input context for client asynchronously.
-             * @param client_name Name of client.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
-                 It should not be %NULL.
-             */
-            create_input_context_async(client_name: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_create_input_context_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_create_input_context_async().
-             * @returns A newly allocated #IBusInputContext if the      "CreateInputContext" call is succeeded, %NULL otherwise.
-             */
-            create_input_context_async_finish(res: Gio.AsyncResult): InputContext
-            /**
-             * Get the current focused input context synchronously.
-             * @returns Name of the currently focused #IBusInputContext if the          "CurrentInputContext" call succeeded, %NULL otherwise. The return          value must be freed with g_free().
-             */
-            current_input_context(): string
-            /**
-             * Get the current focused input context asynchronously.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            current_input_context_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_current_input_context_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_current_input_context_async().
-             * @returns Name of the currently focused IBusInputContext if the          "CurrentInputContext" call succeeded, %NULL otherwise. The return          value must be freed with g_free().
-             */
-            current_input_context_async_finish(res: Gio.AsyncResult): string
-            /**
-             * Exit or restart ibus-daemon synchronously.
-             * @param restart Whether restarting the ibus.
-             * @returns %TRUE if the "Exit" call is successful, %FALSE otherwise.
-             */
-            exit(restart: boolean): boolean
-            /**
-             * Exit or restart ibus-daemon asynchronously.
-             * @param restart Whether restarting the ibus.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            exit_async(restart: boolean, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_exit_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_exit_async().
-             * @returns %TRUE if the "Exit" call is successful, %FALSE otherwise.
-             */
-            exit_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Get the config instance from #IBusBus.
-             * @returns An #IBusConfig object which is configurable with `bus`.
-             */
-            get_config(): Config
-            /**
-             * Gets a #GDBusConnection of an #IBusBus instance.
-             * @returns A #GDBusConnection of an #IBusBus instance.
-             */
-            get_connection(): Gio.DBusConnection
-            /**
-             * Get engines by given names synchronously. If some engine names do not exist,
-             * this function will simply ignore them, and return rest of engines.
-             * TODO(penghuang): add asynchronous version
-             * @param names A %NULL-terminated array of names.
-             * @returns          A %NULL-terminated array of engines.
-             */
-            get_engines_by_names(names: string[]): EngineDesc[]
-            /**
-             * Get the description of current global engine synchronously.
-             * @returns The description of current global engine, or %NULL if there is no global engine.
-             */
-            get_global_engine(): EngineDesc
-            /**
-             * Get the description of current global engine asynchronously.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL
-                 if you don't care about the result of the method invocation.
-             */
-            get_global_engine_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_get_global_engine_async_finish().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_get_global_engine_async_finish().
-             * @returns The description of current global engine, or %NULL if there is no global engine.
-             */
-            get_global_engine_async_finish(res: Gio.AsyncResult): EngineDesc
-            /**
-             * Get org.freedesktop.DBus.Properties.
-             * @param property_name property name in org.freedesktop.DBus.Properties.Get
-             * @returns The value in org.freedesktop.DBus.Properties.Get           The returned value must be freed with g_variant_unref().
-             */
-            get_ibus_property(property_name: string): GLib.Variant
-            /**
-             * Get org.freedesktop.DBus.Properties asynchronously.
-             * @param property_name property name in org.freedesktop.DBus.Properties.Get
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            get_ibus_property_async(property_name: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_get_ibus_property_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_get_ibus_property_async().
-             * @returns The value in org.freedesktop.DBus.Properties.Get           The returned value must be freed with g_variant_unref().
-             */
-            get_ibus_property_async_finish(res: Gio.AsyncResult): GLib.Variant
-            /**
-             * Return the name owner synchronously.
-             * @param name Name.
-             * @returns Owner of the name. The returned value must be freed with g_free().
-             */
-            get_name_owner(name: string): string
-            /**
-             * Return the name owner asynchronously.
-             * @param name Name.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            get_name_owner_async(name: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_get_name_owner_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_get_name_owner_async().
-             * @returns Owner of the name. The returned value must be freed with g_free().
-             */
-            get_name_owner_async_finish(res: Gio.AsyncResult): string
-            /**
-             * Return the main service name to use for calls on the ibus connection.
-             * @returns at dbus name.
-             */
-            get_service_name(): string
-            /**
-             * Check if the bus's "use_global_engine" option is enabled or not
-             * synchronously.
-             * @deprecated since 1.5.3 Currently global engine is always used.
-             * @returns TRUE if "use_global_engine" option is enabled.
-             */
-            get_use_global_engine(): boolean
-            /**
-             * Check if the bus's "use_global_engine" option is enabled or not asynchronously.
-             * @deprecated since 1.5.3 Currently global engine is always used.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            get_use_global_engine_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_get_use_global_engine_async().
-             * @throws {GLib.Error}
-             * @deprecated since 1.5.3 Currently global engine is always used.
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_get_use_global_engine_async().
-             * @returns %TRUE if "use_global_engine" option is enabled.
-             */
-            get_use_global_engine_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Check if the bus's "use_sys_layout" option is enabled or not synchronously.
-             * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/use_system_keyboard_layout instead.
-             * @returns %TRUE if "use_sys_layout" option is enabled.
-             */
-            get_use_sys_layout(): boolean
-            /**
-             * Check if the bus's "use_sys_layout" option is enabled or not asynchronously.
-             * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/use_system_keyboard_layout instead.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            get_use_sys_layout_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_get_use_sys_layout_async().
-             * @throws {GLib.Error}
-             * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/use_system_keyboard_layout instead.
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_get_use_sys_layout_async().
-             * @returns TRUE if "use_sys_layout" option is enabled.
-             */
-            get_use_sys_layout_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * This function sends a "HELLO" message to DBus daemon,
-             * which replies the unique name of current IBus process.
-             * @returns The unique name of IBus process in DBus.
-             */
-            hello(): string
-            /**
-             * Return %TRUE if @bus is connected to IBus daemon.
-             * @returns %TRUE if `bus` is connected, %FALSE otherwise.
-             */
-            is_connected(): boolean
-            /**
-             * Check if the current global engine is enabled or not synchronously.
-             * @deprecated since 1.5.3 Probably this would be used for Chrome OS only. Currently global engine is always used and ibus_bus_get_global_engine() returns NULL until the first global engine is assigned. You can use ibus_set_log_handler() to disable a warning when ibus_bus_get_global_engine() returns NULL.
-             * @returns %TRUE if the current global engine is enabled.
-             */
-            is_global_engine_enabled(): boolean
-            /**
-             * Check if the current global engine is enabled or not asynchronously.
-             * @deprecated since 1.5.3 Probably this would be used for Chrome OS only. Currently global engine is always used and ibus_bus_get_global_engine() returns NULL until the first global engine is assigned. You can use ibus_set_log_handler() to disable a warning when ibus_bus_get_global_engine() returns NULL.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            is_global_engine_enabled_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_is_global_engine_enabled_async().
-             * @throws {GLib.Error}
-             * @deprecated since 1.5.3 Probably this would be used for Chrome OS only. Currently global engine is always used and ibus_bus_get_global_engine() returns NULL until the first global engine is assigned. You can use ibus_set_log_handler() to disable a warning when ibus_bus_get_global_engine() returns NULL.
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_is_global_engine_enabled_async().
-             * @returns %TRUE if the current global engine is enabled.
-             */
-            is_global_engine_enabled_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * List active engines synchronously.
-             * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/preload-engines instead.
-             * @returns         A List of active engines.
-             */
-            list_active_engines(): EngineDesc[]
-            /**
-             * List active engines asynchronously.
-             * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/preload-engines instead.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL
-                 if you don't care about the result of the method invocation.
-             */
-            list_active_engines_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_list_active_engines_async().
-             * @throws {GLib.Error}
-             * @deprecated since 1.5.3 Read dconf value /desktop/ibus/general/preload-engines instead.
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_list_active_engines_async().
-             * @returns          A List of active engines.
-             */
-            list_active_engines_async_finish(res: Gio.AsyncResult): EngineDesc[]
-            /**
-             * List engines synchronously.
-             * @returns          A List of engines.
-             */
-            list_engines(): EngineDesc[]
-            /**
-             * List engines asynchronously.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL
-                 if you don't care about the result of the method invocation.
-             */
-            list_engines_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_list_engines_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_list_engines_async().
-             * @returns          A List of engines.
-             */
-            list_engines_async_finish(res: Gio.AsyncResult): EngineDesc[]
-            /**
-             * Return lists that attached to @bus.
-             * <note><para>[FixMe] Not implemented yet, only return %NULL.</para></note>
-             * <note><para>[FixMe] Add async version.</para></note>
-             * @returns Lists that attached to `bus`.
-             */
-            list_names(): string[]
-            /**
-             * Lists the unique bus names of connections currently queued for a bus name.
-             * FIXME add an asynchronous version.
-             * @param name Name to be queried.
-             * @returns            The unique bus names of connections currently queued for `name`.
-             */
-            list_queued_owners(name: string): string[]
-            /**
-             * Checks whether the name has owner synchronously.
-             * @param name Name to be checked.
-             * @returns %TRUE if the name has owner, %FALSE otherwise.
-             */
-            name_has_owner(name: string): boolean
-            /**
-             * Checks whether the name has owner asynchronously.
-             * @param name Name to be checked.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            name_has_owner_async(name: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_name_has_owner_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_name_has_owner_async().
-             * @returns %TRUE if the name has owner, %FALSE otherwise.
-             */
-            name_has_owner_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Start bus components by engine names synchronously.
-             * @param names A %NULL-terminated array of engine names.
-             * @returns %TRUE if components start. %FALSE otherwise.
-             */
-            preload_engines(names: string[]): boolean
-            /**
-             * Start bus components by engine names asynchronously.
-             * @param names A %NULL-terminated array of engine names.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            preload_engines_async(names: string[], timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_preload_engines_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_preload_engines_async().
-             * @returns %TRUE if component starts. %FALSE otherwise.
-             */
-            preload_engines_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Register a component to an #IBusBus synchronously.
-             * @param component A input engine component.
-             * @returns %TRUE if the "RegisterComponent" call is successful, %FALSE otherwise.
-             */
-            register_component(component: Component): boolean
-            /**
-             * Register a component to an #IBusBus asynchronously.
-             * @param component A input engine component.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            register_component_async(component: Component, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_register_component_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_register_component_async().
-             * @returns %TRUE if the "RegisterComponent" call is successful, %FALSE otherwise.
-             */
-            register_component_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Release a name to IBus daemon synchronously.
-             * @param name Name to be released.
-             * @returns 0 if failed; positive number otherwise.
-             */
-            release_name(name: string): number
-            /**
-             * Release a name to IBus daemon asynchronously.
-             * @param name Name to be released.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            release_name_async(name: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_release_name_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_release_name_async().
-             * @returns 0 if failed; positive number otherwise.
-             */
-            release_name_async_finish(res: Gio.AsyncResult): number
-            /**
-             * Remove a match rule to an #IBusBus synchronously.
-             * @param rule Match rule.
-             * @returns %TRUE if the rule is removed. %FALSE otherwise.
-             */
-            remove_match(rule: string): boolean
-            /**
-             * Remove a match rule to an IBusBus asynchronously.
-             * @param rule Match rule.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            remove_match_async(rule: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_remove_match_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_remove_match_async().
-             * @returns %TRUE if the rule is removed. %FALSE otherwise.
-             */
-            remove_match_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Request a name from IBus daemon synchronously.
-             * @param name Name to be requested.
-             * @param flags IBusBusNameFlag.
-             * @returns 0 if failed; IBusBusRequestNameReply otherwise.
-             */
-            request_name(name: string, flags: number): number
-            /**
-             * Request a name from IBus daemon asynchronously.
-             * @param name Name to be requested.
-             * @param flags Flags (FixMe).
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or %NULL
-                 if you don't care about the result of the method invocation.
-             */
-            request_name_async(name: string, flags: number, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_request_name_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_request_name_async().
-             * @returns 0 if failed; positive number otherwise.
-             */
-            request_name_async_finish(res: Gio.AsyncResult): number
-            /**
-             * Set current global engine synchronously.
-             * @param global_engine A new engine name.
-             * @returns %TRUE if the global engine was set successfully.
-             */
-            set_global_engine(global_engine: string): boolean
-            /**
-             * Set current global engine asynchronously.
-             * @param global_engine A new engine name.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            set_global_engine_async(global_engine: string, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_set_global_engine_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_set_global_engine_async().
-             * @returns %TRUE if no IPC errros. %FALSE otherwise.
-             */
-            set_global_engine_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Set global shorcut keys for the Wayland session.
-             * @since 1.5.29
-             * @param gtype A #IBusBusGlobalBindingType.
-             * @param keys 
-                   A %NULL-terminated array of #IBusProcessKeyEventData.
-                   keycode is used for the selecting direction and the forward direction
-                   in case of 0, otherwise the backward direction.
-             * @returns %TRUE if the global shortcut keys are set. %FALSE otherwise.
-             */
-            set_global_shortcut_keys(gtype: BusGlobalBindingType, keys: ProcessKeyEventData[]): boolean
-            /**
-             * Sete global shorcut keys for the Wayland session asynchronously.
-             * @since 1.5.29
-             * @param gtype A #IBusBusGlobalBindingType.
-             * @param keys 
-                   A %NULL-terminated array of #IBusProcessKeyEventData.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            set_global_shortcut_keys_async(gtype: BusGlobalBindingType, keys: ProcessKeyEventData[], timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_set_global_shortcut_keys_async().
-             * @throws {GLib.Error}
-             * @since 1.5.29
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_set_global_shortcut_keys_async().
-             * @returns %TRUE if the global shortcut keys are set. %FALSE otherwise.
-             */
-            set_global_shortcut_keys_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Set org.freedesktop.DBus.Properties.
-             * @param property_name property name in org.freedesktop.DBus.Properties.Set
-             * @param value value in org.freedesktop.DBus.Properties.Set
-             */
-            set_ibus_property(property_name: string, value: GLib.Variant): void
-            /**
-             * Set org.freedesktop.DBus.Properties asynchronously.
-             * @param property_name property name in org.freedesktop.DBus.Properties.Set
-             * @param value value in org.freedesktop.DBus.Properties.Set
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied
-                 or %NULL if you don't care about the result of the method invocation.
-             */
-            set_ibus_property_async(property_name: string, value: GLib.Variant, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_bus_set_ibus_property_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_bus_set_ibus_property_async().
-             * @returns %TRUE if property is set with async. %FALSE failed.
-             */
-            set_ibus_property_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Start or stop watching the NameOwnerChanged DBus signal.
-             * @param watch %TRUE if you want ibusbus to emit "name-owner-changed" signal when
-            ibus-daemon emits the NameOwnerChanged DBus signal.
-             */
-            set_watch_dbus_signal(watch: boolean): void
-            /**
-             * Start or stop watching the GlobalEngineChanged IBus signal.
-             * @param watch %TRUE if you want ibusbus to emit "global-engine-changed" signal when
-            ibus-daemon emits the GlobalEngineChanged IBus signal.
-             */
-            set_watch_ibus_signal(watch: boolean): void
-        }
-
-        interface BusClass extends Omit<ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Bus>
-            readonly prototype: Bus
-
-            new (props?: Partial<GObject.ConstructorProps<Bus>>): Bus
-            /**
-             * Creates a new #IBusBus instance.
-             * @returns A newly allocated #IBusBus instance, and the instance is not floating.
-             */
-            "new"(): Bus
-            /**
-             * Creates a new #IBusBus instance. The instance will asynchronously connect
-             * to the IBus daemon.
-             * @returns A newly allocated #IBusBus instance, and the instance is not floating.
-             */
-            new_async(): Bus
-            /**
-             * Creates a new #IBusBus instance for client use only. It will possibly
-             * be limited in what it can do.
-             *
-             * The instance will asynchronously connect to the IBus daemon.
-             * @returns A newly allocated #IBusBus instance, and the instance is not floating.
-             */
-            new_async_client(): Bus
-        }
-
-        interface $Exports {
-            /**
-             * An IBusBus connects with IBus daemon.
-             */
-            Bus: BusClass
-        }
-        
-
-        namespace Component {
-            interface SignalSignatures extends Serializable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Serializable.ReadableProperties {
-                "author": string
-                "command-line": string
-                "description": string
-                "homepage": string
-                "license": string
-                "name": string
-                "textdomain": string
-                "version": string
-            }
-
-            interface WritableProperties extends Serializable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-                "author": string
-                "command-line": string
-                "description": string
-                "homepage": string
-                "license": string
-                "name": string
-                "textdomain": string
-                "version": string
-            }
-        }
-
-        interface Component extends Serializable {
-            readonly $signals: Component.SignalSignatures
-            readonly $readableProperties: Component.ReadableProperties
-            readonly $writableProperties: Component.WritableProperties
-            readonly $constructOnlyProperties: Component.ConstructOnlyProperties
-            /**
-             * The author of component
-             * @default NULL
-             */
-            get author(): string
-            set author(value: string)
-            /**
-             * The exec path of component
-             * @default NULL
-             */
-            get commandLine(): string
-            set commandLine(value: string)
-            /**
-             * The description of component
-             * @default NULL
-             */
-            get description(): string
-            set description(value: string)
-            /**
-             * The homepage of component
-             * @default NULL
-             */
-            get homepage(): string
-            set homepage(value: string)
-            /**
-             * The license of component
-             * @default NULL
-             */
-            get license(): string
-            set license(value: string)
-            /**
-             * The name of component
-             * @default NULL
-             */
-            get name(): string
-            set name(value: string)
-            /**
-             * The textdomain of component
-             * @default NULL
-             */
-            get textdomain(): string
-            set textdomain(value: string)
-            /**
-             * The version of component
-             * @default NULL
-             */
-            get version(): string
-            set version(value: string)
-            /**
-             * Add an engine to #IBusComponent according to the description in @engine.
-             * @param engine A description of an engine.
-             */
-            add_engine(engine: EngineDesc): void
-            /**
-             * Add an observed path to #IBusComponent.
-             * @param path Observed path to be added.
-             * @param access_fs %TRUE for filling the file status; %FALSE otherwise.
-             */
-            add_observed_path(path: string, access_fs: boolean): void
-            /**
-             * Check whether the observed paths of component is modified.
-             * @returns %TRUE if at least one of the observed paths is modified; %FALSE otherwise.
-             */
-            check_modification(): boolean
-            /**
-             * Gets the author property in #IBusComponent. It should not be freed.
-             * @returns author property in #IBusComponent
-             */
-            get_author(): string
-            /**
-             * Gets the description property in #IBusComponent. It should not be freed.
-             * @returns description property in #IBusComponent
-             */
-            get_description(): string
-            /**
-             * Gets the engines of this component.
-             * @returns  A newly allocated GList that contains engines.
-             */
-            get_engines(): EngineDesc[]
-            /**
-             * Gets the exec property in #IBusComponent. It should not be freed.
-             * @returns exec property in #IBusComponent
-             */
-            get_exec(): string
-            /**
-             * Gets the homepage property in #IBusComponent. It should not be freed.
-             * @returns homepage property in #IBusComponent
-             */
-            get_homepage(): string
-            /**
-             * Gets the license property in #IBusComponent. It should not be freed.
-             * @returns license property in #IBusComponent
-             */
-            get_license(): string
-            /**
-             * Gets the name property in #IBusComponent. It should not be freed.
-             * @returns name property in #IBusComponent
-             */
-            get_name(): string
-            /**
-             * Gets the observed paths of this component.
-             * @returns A newly allocated GList that contains observed paths.
-             */
-            get_observed_paths(): ObservedPath[]
-            /**
-             * Gets the textdomain property in #IBusComponent. It should not be freed.
-             * @returns textdomain property in #IBusComponent
-             */
-            get_textdomain(): string
-            /**
-             * Gets the version property in #IBusComponent. It should not be freed.
-             * @returns version property in #IBusComponent
-             */
-            get_version(): string
-            /**
-             * Output #IBusComponent as an XML-formatted string.
-             * The output string can be then shown on the screen or written to file.
-             * @param output GString that holds the result.
-             * @param indent level of indent.
-             */
-            output(output: GLib.String, indent: number): void
-            /**
-             * Output engine description  as an XML-formatted string.
-             * The output string can be then shown on the screen or written to file.
-             * @param output GString that holds the result.
-             * @param indent level of indent.
-             */
-            output_engines(output: GLib.String, indent: number): void
-        }
-
-        interface ComponentClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<Component>
-            readonly prototype: Component
-
-            new (props?: Partial<GObject.ConstructorProps<Component>>): Component
-            /**
-             * Creates a new #IBusComponent.
-             * @param name Name of the component.
-             * @param description Detailed description of component.
-             * @param version Component version.
-             * @param license Distribution license of this component.
-             * @param author Author(s) of the component.
-             * @param homepage Homepage of the component.
-             * @param command_line path to component executable.
-             * @param textdomain Domain name for dgettext()
-             * @returns A newly allocated #IBusComponent.
-             */
-            "new"(name: string, description: string, version: string, license: string, author: string, homepage: string, command_line: string, textdomain: string): Component
-            /**
-             * Creates a new #IBusComponent from an XML file.
-             * Note that a component file usually contains engine descriptions,
-             * if it does, ibus_engine_desc_new_from_xml_node() will be called
-             * to load the engine descriptions.
-             * @param filename An XML file that contains component information.
-             * @returns A newly allocated #IBusComponent.
-             */
-            new_from_file(filename: string): Component
-            /**
-             * Creates a new #IBusComponent from an XML tree.
-             * @param node Root node of component XML tree.
-             * @returns A newly allocated #IBusComponent.
-             */
-            new_from_xml_node(node: XML): Component
-        }
-
-        interface $Exports {
-            /**
-             * An IBusComponent is an executable program.
-             * It provides services such as user interface, configuration,
-             * and input method engine (IME).
-             *
-             * It is recommended that IME developers provide
-             * a component XML file and
-             * load the XML file by ibus_component_new_from_file().
-             *
-             * The format of a component XML file is described  at
-             * <ulink url="https://github.com/ibus/ibus/wiki/DevXML">https://github.com/ibus/ibus/wiki/DevXML</ulink>
-             */
-            Component: ComponentClass
-        }
-        
-
-        namespace Config {
-            interface SignalSignatures extends Proxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
-                /**
-                 * Emitted when configuration value is changed.
-                 * <note><para>Argument @user_data is ignored in this function.</para></note>
-                 * @param section Section name.
-                 * @param name Name of the property.
-                 * @param value Value.
-                 */
-                "value-changed"(section: string, name: string, value: GLib.Variant): void
-            }
-
-            interface ReadableProperties extends Proxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties {
-            }
-
-            interface WritableProperties extends Proxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Proxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
-            }
-        }
-
-        interface Config extends Proxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
-            readonly $signals: Config.SignalSignatures
-            readonly $readableProperties: Config.ReadableProperties
-            readonly $writableProperties: Config.WritableProperties
-            readonly $constructOnlyProperties: Config.ConstructOnlyProperties
-            /**
-             * Get the value of a configuration option synchronously.
-             *
-             * GConf stores configure options in a tree-like structure,
-             * and the IBus related setting is at /desktop/ibus,
-             * thus, @section here is a path from there,
-             * while @name is the key of that configuration option.
-             *
-             * ibus-chewing, for example, stores its setting in /desktop/ibus/engine/Chewing,
-             * so the section name for it is "engine/Chewing".
-             * See also: ibus_config_set_value().
-             * @param section Section name of the configuration option.
-             * @param name Name of the configure option.
-             * @returns A #GVariant or %NULL. Free with g_variant_unref().
-             */
-            get_value(section: string, name: string): GLib.Variant
-            /**
-             * Get the value of a configuration option asynchronously.
-             *
-             * See also: ibus_config_get_value().
-             * @param section Section name of the configuration option.
-             * @param name Name of the configure option.
-             * @param timeout_ms The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback Callback function to invoke when the return value is ready.
-             */
-            get_value_async(section: string, name: string, timeout_ms: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finish get value of a configuration option.
-             * @throws {GLib.Error}
-             * @param result A #GAsyncResult.
-             * @returns A #GVariant or %NULL if error is set. Free with g_variant_unref().  See also: ibus_config_get_value_async().
-             */
-            get_value_async_finish(result: Gio.AsyncResult): GLib.Variant
-            /**
-             * Get all values in a section synchronously.
-             * @param section Section name of the configuration option.
-             * @returns A #GVariant or %NULL. Free with g_variant_unref().  See also: ibus_config_set_value().
-             */
-            get_values(section: string): GLib.Variant
-            /**
-             * Get all values in a section asynchronously.
-             *
-             * See also: ibus_config_get_values().
-             * @param section Section name of the configuration option.
-             * @param timeout_ms The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback Callback function to invoke when the return value is ready.
-             */
-            get_values_async(section: string, timeout_ms: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finish get values in a section.
-             * @throws {GLib.Error}
-             * @param result A #GAsyncResult.
-             * @returns A #GVariant or %NULL if error is set. Free with g_variant_unref().  See also: ibus_config_get_values_async().
-             */
-            get_values_async_finish(result: Gio.AsyncResult): GLib.Variant
-            /**
-             * Set the value of a configuration option synchronously.
-             * @param section Section name of the configuration option.
-             * @param name Name of the configure option its self.
-             * @param value A #GVariant that holds the value. If the value is floating, the
-            function takes ownership of it.
-             * @returns %TRUE if succeed; %FALSE otherwise.  See also: ibus_config_get_value().
-             */
-            set_value(section: string, name: string, value: GLib.Variant): boolean
-            /**
-             * Set the value of a configuration option asynchronously.
-             *
-             * See also: ibus_config_set_value().
-             * @param section Section name of the configuration option.
-             * @param name Name of the configure option.
-             * @param value A #GVariant that holds the value. If the value is floating, the
-            function takes ownership of it.
-             * @param timeout_ms The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback Callback function to invoke when the return value is ready.
-             */
-            set_value_async(section: string, name: string, value: GLib.Variant, timeout_ms: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finish set value of a configuration option.
-             * @throws {GLib.Error}
-             * @param result A #GAsyncResult.
-             * @returns %TRUE or %FALSE if error is set.  See also: ibus_config_set_value_async().
-             */
-            set_value_async_finish(result: Gio.AsyncResult): boolean
-            /**
-             * Remove an entry of a configuration option.
-             * @param section Section name of the configuration option.
-             * @param name Name of the configure option its self.
-             * @returns %TRUE if succeed; %FALSE otherwise.  See also: ibus_config_get_value().
-             */
-            unset(section: string, name: string): boolean
-            /**
-             * Unsubscribe from the configuration option change notification.
-             * @param section Section name of the configuration option.
-             * @param name Name of the configure option its self.
-             * @returns %TRUE if succeed; %FALSE otherwise.  See also: ibus_config_watch.
-             */
-            unwatch(section: string | null, name: string | null): boolean
-            /**
-             * Subscribe to the configuration option change notification.
-             *
-             * Until this function is called, every change will be notified to the
-             * client through #IBusConfig::value-changed signal.  Clients should
-             * call ibus_config_watch() with the sections they are interested in,
-             * to reduce the number of D-Bus messages.
-             * @param section Section name of the configuration option.
-             * @param name Name of the configure option its self.
-             * @returns %TRUE if succeed; %FALSE otherwise.  See also: ibus_config_unwatch().
-             */
-            watch(section: string | null, name: string | null): boolean
-        }
-
-        interface ConfigClass extends Omit<ProxyClass, "new"> {
-            readonly $gtype: GObject.GType<Config>
-            readonly prototype: Config
-
-            new (props?: Partial<GObject.ConstructorProps<Config>>): Config
-            /**
-             * Create a new #IBusConfig from existing #GDBusConnection.
-             * @throws {GLib.Error}
-             * @param connection A #GDBusConnection.
-             * @param cancellable A #GCancellable or %NULL.
-             * @returns A newly allocated #IBusConfig corresponding to `connection`.
-             */
-            "new"(connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null): Config
-            /**
-             * Finishes an operation started with ibus_config_new_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback pass to
-                 ibus_config_new_async().
-             * @returns A newly allocated #IBusConfig.
-             */
-            new_async_finish(res: Gio.AsyncResult): Config
-            /**
-             * New an #IBusConfig asynchronously.
-             * @param connection An #GDBusConnection.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
-                 The callback should not be %NULL.
-             */
-            new_async(connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-        }
-
-        interface $Exports {
-            /**
-             * An IBusConfig provides engine configuration methods
-             * such as get and set the configure settings to configuration file.
-             *
-             * Currently, IBusConfig supports gconf.
-             */
-            Config: ConfigClass
-        }
-        
-
-        namespace ConfigService {
-            interface SignalSignatures extends Service.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Service.ReadableProperties {
-            }
-
-            interface WritableProperties extends Service.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Service.ConstructOnlyProperties {
-            }
-        }
-
-        interface ConfigService extends Service {
-            readonly $signals: ConfigService.SignalSignatures
-            readonly $readableProperties: ConfigService.ReadableProperties
-            readonly $writableProperties: ConfigService.WritableProperties
-            readonly $constructOnlyProperties: ConfigService.ConstructOnlyProperties
-            /**
-             * Change a value of a configuration option
-             * by sending a "ValueChanged" message to IBus service.
-             * @param section Section name of the configuration option.
-             * @param name Name of the configure option.
-             * @param value GVariant that holds the value.
-             */
-            value_changed(section: string, name: string, value: GLib.Variant): void
-            /**
-             * @throws {GLib.Error}
-             * @param section
-             * @param name
-             */
-            vfunc_get_value(section: string, name: string): GLib.Variant
-            /**
-             * @throws {GLib.Error}
-             * @param section
-             */
-            vfunc_get_values(section: string): GLib.Variant
-            /**
-             * @throws {GLib.Error}
-             * @param section
-             * @param name
-             * @param value
-             */
-            vfunc_set_value(section: string, name: string, value: GLib.Variant): boolean
-            /**
-             * @throws {GLib.Error}
-             * @param section
-             * @param name
-             */
-            vfunc_unset_value(section: string, name: string): boolean
-        }
-
-        interface ConfigServiceClass extends Omit<ServiceClass, "new"> {
-            readonly $gtype: GObject.GType<ConfigService>
-            readonly prototype: ConfigService
-
-            new (props?: Partial<GObject.ConstructorProps<ConfigService>>): ConfigService
-            /**
-             * Creates an new #IBusConfigService from an #GDBusConnection.
-             * @param connection An #GDBusConnection.
-             * @returns A newly allocated #IBusConfigServices.
-             */
-            "new"(connection: Gio.DBusConnection): ConfigService
-        }
-
-        interface $Exports {
-            /**
-             * An IBusConfigService is a base class for other configuration services such as GConf.
-             * Currently, directly known sub class is IBusConfigGConf.
-             *
-             * IBusConfigServiceClass has following member functions:
-             * <itemizedlist>
-             *     <listitem>
-             *         <para>gboolean set_value(IBusConfigService *config, const gchar *section, const gchar *name,
-             *             const GValue *value, IBusError **error)
-             *         </para>
-             *         <variablelist>
-             *             <varlistentry>
-             *                 <term>config:</term>
-             *                 <listitem>A configure service</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>section:</term>
-             *                 <listitem>Section name of the configuration option.</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>name:</term>
-             *                 <listitem>Name of the configuration option.</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>value:</term>
-             *                 <listitem>GValue that holds the value.</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>error:</term>
-             *                 <listitem>Error outputs here.</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>Returns:</term>
-             *                 <listitem>TRUE if succeed; FALSE otherwise.</listitem>
-             *             </varlistentry>
-             *         </variablelist>
-             *         <para>Set a value to a configuration option.
-             *         </para>
-             *     </listitem>
-             *     <listitem>
-             *         <para>gboolean get_value(IBusConfigService *config, const gchar *section, const gchar *name,
-             *             GValue *value, IBusError **error)
-             *         </para>
-             *         <variablelist>
-             *             <varlistentry>
-             *                 <term>config:</term>
-             *                 <listitem>A configure service</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>section:</term>
-             *                 <listitem>Section name of the configuration option.</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>name:</term>
-             *                 <listitem>Name of the configuration option.</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>value:</term>
-             *                 <listitem>GValue that holds the value.</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>error:</term>
-             *                 <listitem>Error outputs here.</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>Returns:</term>
-             *                 <listitem>TRUE if succeed; FALSE otherwise.</listitem>
-             *             </varlistentry>
-             *        </variablelist>
-             *        <para>Get value of a configuration option.
-             *        </para>
-             *     </listitem>
-             *     <listitem>
-             *         <para>gboolean unset(IBusConfigService *config, const gchar *section, const gchar *name,
-             *             IBusError **error)
-             *         </para>
-             *         <variablelist>
-             *             <varlistentry>
-             *                 <term>config:</term>
-             *                 <listitem>A configure service</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>section:</term>
-             *                 <listitem>Section name of the configuration option.</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>name:</term>
-             *                 <listitem>Name of the configuration option.</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>error:</term>
-             *                 <listitem>Error outputs here.</listitem>
-             *             </varlistentry>
-             *             <varlistentry>
-             *                 <term>Returns:</term>
-             *                 <listitem>TRUE if succeed; FALSE otherwise.</listitem>
-             *             </varlistentry>
-             *         </variablelist>
-             *         <para>Remove an entry to a configuration option.
-             *         </para>
-             *     </listitem>
-             * </itemizedlist>
-             */
-            ConfigService: ConfigServiceClass
-        }
-        
-
-        namespace EmojiData {
-            interface SignalSignatures extends Serializable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Serializable.ReadableProperties {
-                "annotations": never
-                "category": string
-                "description": string
-                "emoji": string
-            }
-
-            interface WritableProperties extends Serializable.WritableProperties {
-                "annotations": never
-                "description": string
-            }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-                "category": string
-                "emoji": string
-            }
-        }
-
-        interface EmojiData extends Serializable {
-            readonly $signals: EmojiData.SignalSignatures
-            readonly $readableProperties: EmojiData.ReadableProperties
-            readonly $writableProperties: EmojiData.WritableProperties
-            readonly $constructOnlyProperties: EmojiData.ConstructOnlyProperties
-            /**
-             * The emoji annotations
-             */
-            get annotations(): never
-            set annotations(value: never)
-            /**
-             * The emoji category
-             */
-            get category(): string
-            set category(value: string)
-            /**
-             * The emoji description
-             */
-            get description(): string
-            set description(value: string)
-            /**
-             * The emoji character
-             * @default NULL
-             */
-            get emoji(): string
-            set emoji(value: string)
-            /**
-             * Gets the annotation list in #IBusEmojiData. It should not be freed.
-             * @returns           annotation list property in #IBusEmojiData
-             */
-            get_annotations(): string[]
-            /**
-             * Gets the emoji category in #IBusEmojiData. It should not be freed.
-             * @returns category property in #IBusEmojiData
-             */
-            get_category(): string
-            /**
-             * Gets the emoji description in #IBusEmojiData. It should not be freed.
-             * @returns description property in #IBusEmojiData
-             */
-            get_description(): string
-            /**
-             * Gets the emoji character in #IBusEmojiData. It should not be freed.
-             * @returns emoji property in #IBusEmojiData
-             */
-            get_emoji(): string
-            /**
-             * Sets the annotation list in #IBusEmojiData.
-             * @param annotations List of emoji annotations
-             */
-            set_annotations(annotations: string[]): void
-            /**
-             * Sets the description in #IBusEmojiData.
-             * @param description An emoji description
-             */
-            set_description(description: string): void
-        }
-
-        interface EmojiDataClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<EmojiData>
-            readonly prototype: EmojiData
-
-            new (props?: Partial<GObject.ConstructorProps<EmojiData>>): EmojiData
-            /**
-             * @param path A path of the saved dictionary file.
-             * @returns  An #IBusEmojiData list loaded from the saved cache file.
-             */
-            load(path: string): EmojiData[]
-            /**
-             * Save the list of #IBusEmojiData to the cache file.
-             * @param path A path of the saved emoji data.
-             * @param list A list of emoji data.
-             */
-            save(path: string, list: EmojiData[]): void
-        }
-
-        interface $Exports {
-            /**
-             * Emoji data likes emoji unicode, annotations, description, category.
-             * You can get extended values with g_object_get_properties.
-             */
-            EmojiData: EmojiDataClass
-        }
-        
-
-        namespace Engine {
-            interface SignalSignatures extends Service.SignalSignatures {
-                /**
-                 * Emitted when a hand writing operation is cancelled.
-                 * Implement the member function IBusEngineClass::cancel_hand_writing
-                 * in extended class to receive this signal.
+                 * Get content-type (primary purpose and hints) of the current input
+                 * context.
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param n_strokes The number of strokes to be removed. 0 means "remove all".
+                 * See also: #IBusEngine::set-content-type
+                 * @returns , Primary purpose of the input context., Hints that augument `purpose`.
                  */
-                "cancel-hand-writing"(n_strokes: number): void
+                get_content_type(): [number, number]
                 /**
-                 * Emitted when candidate on lookup table is clicked.
-                 * Implement the member function IBusEngineClass::candidate_clicked
-                 * in extended class to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param index Index of candidate be clicked.
-                 * @param button Mouse button.
-                 * @param state Keyboard state.
+                 * Return the name of #IBusEngine.
+                 * @returns Name of #IBusEngine.
                  */
-                "candidate-clicked"(index: number, button: number, state: number): void
+                get_name(): string
                 /**
-                 * Emitted when the down cursor button is pressed.
-                 * Implement the member function IBusEngineClass::cursor_down
-                 * in extended class to receive this signal.
+                 * Get surrounding text.
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * It is also used to tell the input-context that the engine will
+                 * utilize surrounding-text.  In that case, it must be called in
+                 * #IBusEngine::enable handler, with both `text` and `cursor` set to
+                 * %NULL.
+                 *
+                 * See also: #IBusEngine::set-surrounding-text
+                 * @returns , Location to store surrounding text., Cursor position in characters in `text`., Anchor position of selection in `text`.
                  */
-                "cursor-down"(): void
+                get_surrounding_text(): [Text, number, number]
                 /**
-                 * Emitted when the up cursor button is pressed.
-                 * Implement the member function IBusEngineClass::cursor_up
-                 * in extended class to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Hide the auxiliary bar.
                  */
-                "cursor-up"(): void
+                hide_auxiliary_text(): void
                 /**
-                 * Emitted when the IME is disabled.
-                 * Implement the member function IBusEngineClass::disable
-                 * in extended class to receive this signal.
-                 *
-                 * See also:  ibus_bus_set_global_engine().
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Hide the lookup table.
                  */
-                "disable"(): void
+                hide_lookup_table(): void
                 /**
-                 * Emitted when the IME is enabled.
-                 * Implement the member function IBusEngineClass::enable
-                 * in extended class to receive this signal.
-                 *
-                 * See also:  ibus_bus_set_global_engine().
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Hide the pre-edit buffer.
                  */
-                "enable"(): void
+                hide_preedit_text(): void
                 /**
-                 * Emitted when the client application get the focus.
-                 * Implement the member function IBusEngineClass::focus_in
-                 * in extended class to receive this signal.
+                 * Register and show properties in language bar.
                  *
-                 * See also: ibus_input_context_focus_in()
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * (Note: The prop_list object will be released, if it is floating.
+                 *  If caller want to keep the object, caller should make the object
+                 *  sink by g_object_ref_sink.)
+                 * @param prop_list Property List.
                  */
-                "focus-in"(): void
+                register_properties(prop_list: PropList): void
                 /**
-                 * Emitted when the client application get the focus.
-                 * Implement the member function IBusEngineClass::focus_in
-                 * in extended class to receive this signal.
-                 * @object_path is a unique id by input context.
-                 * @client indicates a client type:
-                 * 'fake':    focus is on desktop background or other programs where no
-                 *            input is possible
-                 * 'xim':     old X11 programs like xterm, emacs, ...
-                 *            GTK3 programs in a Gnome Xorg session when GTK_IM_MODULE
-                 *            is unset also use xim
-                 * 'gtk-im:&lt;client-name&gt;':  Gtk2 input module is used
-                 * 'gtk3-im:&lt;client-name&gt;': Gtk3 input module is used
-                 * 'gtk4-im:&lt;client-name&gt;': Gtk4 input module is used
-                 *            In case of the Gtk input modules, the name of the
-                 *            client is also shown after the “:”, for example
-                 *            like 'gtk3-im:firefox', 'gtk4-im:gnome-text-editor', …
-                 * 'gnome-shell': Entries handled by gnome-shell
-                 *                (like the command line dialog opened with Alt+F2
-                 *                or the search field when pressing the Super key.)
-                 *                When GTK_IM_MODULE is unset in a Gnome Wayland session
-                 *                all programs which would show 'gtk3-im' or 'gtk4-im'
-                 *                with GTK_IM_MODULE=ibus then show 'gnome-shell'
-                 *                instead.
-                 * 'Qt':      Qt4 programs like keepassx-2.0.3 …
-                 * 'QIBusInputContext': Qt5 programs like keepassxc-2.7.1, anki-2.1.15
-                 *                      telegram-desktop-3.7.3,
-                 *
-                 * You need to set #IBusEngine::has-focus-id property to %TRUE when you
-                 * construct an #IBusEngine to use this class method.
-                 *
-                 * See also: ibus_input_context_focus_in()
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param object_path An object path.
-                 * @param client An client name.
+                 * Show the auxiliary bar.
                  */
-                "focus-in-id"(object_path: string, client: string): void
+                show_auxiliary_text(): void
                 /**
-                 * Emitted when the client application  lost the focus.
-                 * Implement the member function IBusEngineClass::focus_out
-                 * in extended class to receive this signal.
-                 *
-                 * See also: ibus_input_context_focus_out()
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Show the lookup table.
                  */
-                "focus-out"(): void
+                show_lookup_table(): void
                 /**
-                 * Emitted when the client application  lost the focus.
-                 * Implement the member function IBusEngineClass::focus_out
-                 * in extended class to receive this signal.
-                 * @object_path is a unique id by input context.
-                 * You need to set #IBusEngine::has-focus-id property to %TRUE when you
-                 * construct an #IBusEngine to use this class method.
-                 *
-                 * See also: ibus_input_context_focus_out()
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param object_path An object path.
+                 * Show the pre-edit buffer.
                  */
-                "focus-out-id"(object_path: string): void
+                show_preedit_text(): void
                 /**
-                 * Emitted when the page-down button is pressed.
-                 * Implement the member function IBusEngineClass::page_down
-                 * in extended class to receive this signal.
+                 * Update the auxiliary bar.
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * (Note: The text object will be released, if it is floating.
+                 *  If caller want to keep the object, caller should make the object
+                 *  sink by g_object_ref_sink.)
+                 * @param text Update content.
+                 * @param visible Whether the auxiliary text bar is visible.
                  */
-                "page-down"(): void
+                update_auxiliary_text(text: Text, visible: boolean): void
                 /**
-                 * Emitted when the page-up button is pressed.
-                 * Implement the member function IBusEngineClass::page_up
-                 * in extended class to receive this signal.
+                 * Update the lookup table.
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * (Note: The table object will be released, if it is floating.
+                 *  If caller want to keep the object, caller should make the object
+                 *  sink by g_object_ref_sink.)
+                 * @param lookup_table An lookup_table.
+                 * @param visible Whether the lookup_table is visible.
                  */
-                "page-up"(): void
+                update_lookup_table(lookup_table: LookupTable, visible: boolean): void
                 /**
-                 * Emitted when a hand writing operation is cancelled.
-                 * Implement the member function IBusEngineClass::cancel_hand_writing
-                 * in extended class to receive this signal.
+                 * Fast update for big lookup table.
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param coordinates An array of double (0.0 to 1.0) which represents a stroke
-                              (i.e. [x1, y1, x2, y2, x3, y3, ...]).
-                 * @param coordinates_len The number of elements in the array.
+                 * If size of lookup table is not over table page size *4,
+                 * then it calls ibus_engine_update_lookup_table().
+                 *
+                 * (Note: The table object will be released, if it is floating.
+                 *  If caller want to keep the object, caller should make the object
+                 *  sink by g_object_ref_sink.)
+                 * @param lookup_table An lookup_table.
+                 * @param visible Whether the lookup_table is visible.
                  */
-                "process-hand-writing-event"(coordinates: never | null, coordinates_len: number): void
+                update_lookup_table_fast(lookup_table: LookupTable, visible: boolean): void
                 /**
-                 * Emitted when a key event is received.
-                 * Implement the member function IBusEngineClass::process_key_event
-                 * in extended class to receive this signal.
-                 * Both the key symbol and keycode are passed to the member function.
-                 * See ibus_input_context_process_key_event() for further explanation of
-                 * key symbol, keycode and which to use.
-                 * @param keyval Key symbol of the key press.
-                 * @param keycode KeyCode of the key press.
+                 * Update the pre-edit buffer.
+                 *
+                 * (Note: The text object will be released, if it is floating.
+                 *  If caller want to keep the object, caller should make the object
+                 *  sink by g_object_ref_sink.)
+                 * @param text Update content.
+                 * @param cursor_pos Current position of cursor
+                 * @param visible Whether the pre-edit buffer is visible.
+                 */
+                update_preedit_text(text: Text, cursor_pos: number, visible: boolean): void
+                /**
+                 * Update the pre-edit buffer with commit mode. Similar to
+                 * ibus_engine_update_preedit_text(), this function allows users to specify
+                 * the behavior on focus out when the pre-edit buffer is visible.
+                 *
+                 * If `mode` is IBUS_ENGINE_PREEDIT_COMMIT, contents of the pre-edit buffer
+                 * will be committed and cleared.
+                 * If `mode` is IBUS_ENGINE_PREEDIT_CLEAR, contents of the pre-edit buffer
+                 * will be cleared only.
+                 *
+                 * (Note: The text object will be released, if it is floating.
+                 *  If caller want to keep the object, caller should make the object
+                 *  sink by g_object_ref_sink.)
+                 * @param text Update content.
+                 * @param cursor_pos Current position of cursor
+                 * @param visible Whether the pre-edit buffer is visible.
+                 * @param mode Pre-edit commit mode when the focus is lost.
+                 */
+                update_preedit_text_with_mode(text: Text, cursor_pos: number, visible: boolean, mode: PreeditFocusMode): void
+                /**
+                 * Update the state displayed in language bar.
+                 *
+                 * (Note: The prop object will be released, if it is floating.
+                 *  If caller want to keep the object, caller should make the object
+                 *  sink by g_object_ref_sink.)
+                 * @param prop IBusProperty to be updated.
+                 */
+                update_property(prop: Property): void
+                /**
+                 * @param n_strokes
+                 */
+                vfunc_cancel_hand_writing(n_strokes: number): void
+                /**
+                 * @param index
+                 * @param button
+                 * @param state
+                 */
+                vfunc_candidate_clicked(index: number, button: number, state: number): void
+                /**
+                 */
+                vfunc_cursor_down(): void
+                /**
+                 */
+                vfunc_cursor_up(): void
+                /**
+                 */
+                vfunc_disable(): void
+                /**
+                 */
+                vfunc_enable(): void
+                /**
+                 */
+                vfunc_focus_in(): void
+                /**
+                 * @param object_path
+                 * @param client
+                 */
+                vfunc_focus_in_id(object_path: string, client: string): void
+                /**
+                 */
+                vfunc_focus_out(): void
+                /**
+                 * @param object_path
+                 */
+                vfunc_focus_out_id(object_path: string): void
+                /**
+                 */
+                vfunc_page_down(): void
+                /**
+                 */
+                vfunc_page_up(): void
+                /**
+                 * @param coordinates
+                 * @param coordinates_len
+                 */
+                vfunc_process_hand_writing_event(coordinates: number, coordinates_len: number): void
+                /**
+                 * @param keyval
+                 * @param keycode
+                 * @param state
+                 */
+                vfunc_process_key_event(keyval: number, keycode: number, state: number): boolean
+                /**
+                 * @param prop_name
+                 * @param prop_state
+                 */
+                vfunc_property_activate(prop_name: string, prop_state: number): void
+                /**
+                 * @param prop_name
+                 */
+                vfunc_property_hide(prop_name: string): void
+                /**
+                 * @param prop_name
+                 */
+                vfunc_property_show(prop_name: string): void
+                /**
+                 */
+                vfunc_reset(): void
+                /**
+                 * @param caps
+                 */
+                vfunc_set_capabilities(caps: number): void
+                /**
+                 * @param purpose
+                 * @param hints
+                 */
+                vfunc_set_content_type(purpose: number, hints: number): void
+                /**
+                 * @param x
+                 * @param y
+                 * @param w
+                 * @param h
+                 */
+                vfunc_set_cursor_location(x: number, y: number, w: number, h: number): void
+                /**
+                 * @param text
+                 * @param cursor_index
+                 * @param anchor_pos
+                 */
+                vfunc_set_surrounding_text(text: Text, cursor_index: number, anchor_pos: number): void
+            }
+
+            interface EngineClass extends Omit<ServiceClass, "new"> {
+                readonly $gtype: GObject.GType<Engine>
+                readonly prototype: Engine
+
+                new (props?: Partial<GObject.ConstructorProps<Engine>>): Engine
+                /**
+                 * Create a new #IBusEngine.
+                 * @param engine_name Name of the IBusObject.
+                 * @param object_path Path for IBusService.
+                 * @param connection An opened GDBusConnection.
+                 * @returns A newly allocated IBusEngine.
+                 */
+                "new"(engine_name: string, object_path: string, connection: Gio.DBusConnection): Engine
+                /**
+                 * Create a new #IBusEngine.
+                 * @param engine_type GType of #IBusEngine.
+                 * @param engine_name Name of the IBusObject.
+                 * @param object_path Path for IBusService.
+                 * @param connection An opened GDBusConnection.
+                 * @returns A newly allocated IBusEngine.
+                 */
+                new_with_type(engine_type: (GObject.GType | { $gtype: GObject.GType }), engine_name: string, object_path: string, connection: Gio.DBusConnection): Engine
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusEngine provides infrastructure for input method engine.
+                 * Developers can "extend" this class for input method engine development.
+                 *
+                 * see_also: #IBusComponent, #IBusEngineDesc
+                 */
+                Engine: EngineClass
+            }
+            
+
+            namespace EngineDesc {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                    "author": string
+                    "description": string
+                    "hotkeys": string
+                    "icon": string
+                    "icon-prop-key": string
+                    "language": string
+                    "layout": string
+                    "layout-option": string
+                    "layout-variant": string
+                    "license": string
+                    "longname": string
+                    "name": string
+                    "rank": number
+                    "setup": string
+                    "symbol": string
+                    "textdomain": string
+                    "version": string
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                    "author": string
+                    "description": string
+                    "hotkeys": string
+                    "icon": string
+                    "icon-prop-key": string
+                    "language": string
+                    "layout": string
+                    "layout-option": string
+                    "layout-variant": string
+                    "license": string
+                    "longname": string
+                    "name": string
+                    "rank": number
+                    "setup": string
+                    "symbol": string
+                    "textdomain": string
+                    "version": string
+                }
+            }
+
+            interface EngineDesc extends Serializable {
+                readonly $signals: EngineDesc.SignalSignatures
+                readonly $readableProperties: EngineDesc.ReadableProperties
+                readonly $writableProperties: EngineDesc.WritableProperties
+                readonly $constructOnlyProperties: EngineDesc.ConstructOnlyProperties
+                /**
+                 * The author of engine description
+                 */
+                get author(): string
+                set author(value: string)
+                /**
+                 * The description of engine description
+                 */
+                get description(): string
+                set description(value: string)
+                /**
+                 * The hotkeys of engine description
+                 */
+                get hotkeys(): string
+                set hotkeys(value: string)
+                /**
+                 * The icon of engine description
+                 * @default ibus-engine
+                 */
+                get icon(): string
+                set icon(value: string)
+                /**
+                 * The key of IBusProperty to change panel icon dynamically.
+                 */
+                get iconPropKey(): string
+                set iconPropKey(value: string)
+                /**
+                 * The language of engine description
+                 */
+                get language(): string
+                set language(value: string)
+                /**
+                 * The layout of engine description
+                 * @default us
+                 */
+                get layout(): string
+                set layout(value: string)
+                /**
+                 * The keyboard option of engine description
+                 */
+                get layoutOption(): string
+                set layoutOption(value: string)
+                /**
+                 * The keyboard variant of engine description
+                 */
+                get layoutVariant(): string
+                set layoutVariant(value: string)
+                /**
+                 * The license of engine description
+                 */
+                get license(): string
+                set license(value: string)
+                /**
+                 * The longname of engine description
+                 */
+                get longname(): string
+                set longname(value: string)
+                /**
+                 * The name of engine description
+                 * @default NULL
+                 */
+                get name(): string
+                set name(value: string)
+                /**
+                 * The rank of engine description
+                 * @default 0
+                 */
+                get rank(): number
+                set rank(value: number)
+                /**
+                 * The exec lists of the engine setup command
+                 */
+                get setup(): string
+                set setup(value: string)
+                /**
+                 * The symbol chars of engine description instead of icon image
+                 */
+                get symbol(): string
+                set symbol(value: string)
+                /**
+                 * The textdomain of engine description
+                 */
+                get textdomain(): string
+                set textdomain(value: string)
+                /**
+                 * The version number of engine description
+                 */
+                get version(): string
+                set version(value: string)
+                /**
+                 * Gets the author property in IBusEngineDesc. It should not be freed.
+                 * @returns author property in IBusEngineDesc
+                 */
+                get_author(): string
+                /**
+                 * Gets the description property in IBusEngineDesc. It should not be freed.
+                 * @returns description property in IBusEngineDesc
+                 */
+                get_description(): string
+                /**
+                 * Gets the hotkeys property in IBusEngineDesc. It should not be freed.
+                 * @returns hotkeys property in IBusEngineDesc
+                 */
+                get_hotkeys(): string
+                /**
+                 * Gets the icon property in IBusEngineDesc. It should not be freed.
+                 * @returns icon property in IBusEngineDesc
+                 */
+                get_icon(): string
+                /**
+                 * Gets the key of IBusProperty to load the panel icon dynamically
+                 * in IBusEngineDesc. It should not be freed.
+                 * @returns IBusProperty.key for dynamic panel icon in IBusEngineDesc
+                 */
+                get_icon_prop_key(): string
+                /**
+                 * Gets the language property in IBusEngineDesc. It should not be freed.
+                 * @returns language property in IBusEngineDesc
+                 */
+                get_language(): string
+                /**
+                 * Gets the layout property in IBusEngineDesc. It should not be freed.
+                 * @returns layout property in IBusEngineDesc
+                 */
+                get_layout(): string
+                /**
+                 * Gets the keyboard option property in IBusEngineDesc. It should not be freed.
+                 * @returns keyboard option property in IBusEngineDesc
+                 */
+                get_layout_option(): string
+                /**
+                 * Gets the keyboard variant property in IBusEngineDesc. It should not be freed.
+                 * @returns keyboard variant property in IBusEngineDesc
+                 */
+                get_layout_variant(): string
+                /**
+                 * Gets the license property in IBusEngineDesc. It should not be freed.
+                 * @returns license property in IBusEngineDesc
+                 */
+                get_license(): string
+                /**
+                 * Gets the longname property in IBusEngineDesc. It should not be freed.
+                 * @returns longname property in IBusEngineDesc
+                 */
+                get_longname(): string
+                /**
+                 * Gets the name property in IBusEngineDesc. It should not be freed.
+                 * @returns name property in IBusEngineDesc
+                 */
+                get_name(): string
+                /**
+                 * Gets the rank property in IBusEngineDesc.
+                 * @returns rank property in IBusEngineDesc
+                 */
+                get_rank(): number
+                /**
+                 * Gets the setup property in IBusEngineDesc. It should not be freed.
+                 * @returns setup property in IBusEngineDesc
+                 */
+                get_setup(): string
+                /**
+                 * Gets the symbol property in IBusEngineDesc. It should not be freed.
+                 * @returns symbol property in IBusEngineDesc
+                 */
+                get_symbol(): string
+                /**
+                 * Gets the textdomain property in IBusEngineDesc. It should not be freed.
+                 * @returns textdomain in IBusEngineDesc
+                 */
+                get_textdomain(): string
+                /**
+                 * Gets the version property in IBusEngineDesc. It should not be freed.
+                 * @returns version in IBusEngineDesc
+                 */
+                get_version(): string
+                /**
+                 * Output XML-formatted input method engine description.
+                 * The result will be append to GString specified in `output`.
+                 * @param output XML-formatted Input method engine description.
+                 * @param indent Number of indent (showed as 4 spaces).
+                 */
+                output(output: GLib.String, indent: number): void
+            }
+
+            interface EngineDescClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<EngineDesc>
+                readonly prototype: EngineDesc
+
+                new (props?: Partial<GObject.ConstructorProps<EngineDesc>>): EngineDesc
+                /**
+                 * Creates a new #IBusEngineDesc.
+                 * If layout is "default", the engine inherits the current layout and
+                 * does not change the layout. The layouts "default" and "" are same.
+                 * E.g. If you switch JP XKB engine and an input method engine (IME),
+                 * the IME inherits the JP layout.
+                 * @param name Name of the engine.
+                 * @param longname Long name of the input method engine.
+                 * @param description Input method engine description.
+                 * @param language Language (e.g. zh, jp) supported by this input method engine.
+                 * @param license License of the input method engine.
+                 * @param author Author of the input method engine.
+                 * @param icon Icon file of this engine.
+                 * @param layout Keyboard layout
+                 * @returns A newly allocated IBusEngineDesc.
+                 */
+                "new"(name: string, longname: string, description: string, language: string, license: string, author: string, icon: string, layout: string): EngineDesc
+                /**
+                 * Creates a new IBusEngineDesc from an XML node.
+                 * <note><para>This function is called by ibus_component_new_from_file(),
+                 *  so developers normally do not need to call it directly.
+                 * </para></note>
+                 * @param node An XML node
+                 * @returns A newly allocated IBusEngineDesc that contains description from `node`.
+                 */
+                new_from_xml_node(node: XML): EngineDesc
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusEngineDesc stores description data of IBusEngine.
+                 * The description data can either be passed to ibus_engine_desc_new(),
+                 * or loaded from an XML node through ibus_engine_desc_new_from_xml_node()
+                 * to construct IBusEngineDesc.
+                 *
+                 * However, the recommended way to load engine description data is
+                 * using ibus_component_new_from_file() to load a component file,
+                 * which also includes engine description data.
+                 *
+                 * see_also: #IBusComponent, #IBusEngine
+                 */
+                EngineDesc: EngineDescClass
+            }
+            
+
+            namespace EngineSimple {
+                interface SignalSignatures extends Engine.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Engine.ReadableProperties {
+                }
+
+                interface WritableProperties extends Engine.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Engine.ConstructOnlyProperties {
+                }
+            }
+
+            interface EngineSimple extends Engine {
+                readonly $signals: EngineSimple.SignalSignatures
+                readonly $readableProperties: EngineSimple.ReadableProperties
+                readonly $writableProperties: EngineSimple.WritableProperties
+                readonly $constructOnlyProperties: EngineSimple.ConstructOnlyProperties
+                /**
+                 * Call ibus_engine_simple_add_table() internally by locale.
+                 * @param file The compose file.
+                 * @returns %TRUE if the `file` is loaded.
+                 */
+                add_compose_file(file: string): boolean
+                /**
+                 * Adds an additional table to search to the engine. Each row of the table
+                 * consists of max_seq_len key symbols followed by two guint16 interpreted as
+                 * the high and low words of a gunicode value. Tables are searched starting from
+                 * the last added.
+                 *
+                 * The table must be sorted in dictionary order on the numeric value of the key
+                 * symbol fields. (Values beyond the length of the sequence should be zero.)
+                 * @param data The table which must be available      during the whole life of the simple engine.
+                 * @param max_seq_len Maximum length of a sequence in the table (cannot be greater      than %IBUS_MAX_COMPOSE_LEN)
+                 * @param n_seqs number of sequences in the table
+                 */
+                add_table(data: number[], max_seq_len: number, n_seqs: number): void
+                /**
+                 * Call ibus_engine_simple_add_table() internally by locale.
+                 * @param locale The locale name. If the locale is %NULL,                        the current locale is used.
+                 * @returns %TRUE if the `locale` is matched to the table.
+                 */
+                add_table_by_locale(locale: string | null): boolean
+            }
+
+            interface EngineSimpleClass extends Omit<EngineClass, "new"> {
+                readonly $gtype: GObject.GType<EngineSimple>
+                readonly prototype: EngineSimple
+
+                new (props?: Partial<GObject.ConstructorProps<EngineSimple>>): EngineSimple
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusEngineSimple provides table-based input method logic.
+                 *
+                 * see_also: #IBusEngine
+                 */
+                EngineSimple: EngineSimpleClass
+            }
+            
+
+            namespace ExtensionEvent {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                    "is-enabled": boolean
+                    "is-extension": boolean
+                    "name": string
+                    "params": string
+                    "version": number
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                    "version": number
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                    "is-enabled": boolean
+                    "is-extension": boolean
+                    "name": string
+                    "params": string
+                }
+            }
+
+            interface ExtensionEvent extends Serializable {
+                readonly $signals: ExtensionEvent.SignalSignatures
+                readonly $readableProperties: ExtensionEvent.ReadableProperties
+                readonly $writableProperties: ExtensionEvent.WritableProperties
+                readonly $constructOnlyProperties: ExtensionEvent.ConstructOnlyProperties
+                /**
+                 * %TRUE if the extension is enabled in the #IBusExtensionEvent.
+                 * @default FALSE
+                 */
+                get isEnabled(): boolean
+                set isEnabled(value: boolean)
+                /**
+                 * %TRUE if the #IBusExtensionEvent is called by an extension.
+                 * %FALSE if the #IBusExtensionEvent is called by an active engine or
+                 * panel.
+                 * If this value is %TRUE, the event is send to ibus-daemon, an active
+                 * engine. If it's %FALSE, the event is sned to ibus-daemon, panels.
+                 * @default FALSE
+                 */
+                get isExtension(): boolean
+                set isExtension(value: boolean)
+                /**
+                 * Name of the extension in the #IBusExtensionEvent.
+                 */
+                get name(): string
+                set name(value: string)
+                /**
+                 * Parameters to enable the extension in the #IBusExtensionEvent.
+                 */
+                get params(): string
+                set params(value: string)
+                /**
+                 * Version of the #IBusExtensionEvent.
+                 * @default 1
+                 */
+                get version(): number
+                set version(value: number)
+                /**
+                 */
+                get_name(): string
+                /**
+                 * @returns Parameters to enable the extension for #IBusXEvent
+                 */
+                get_params(): string
+                /**
+                 * @returns Version of #IBusExtensionEvent
+                 */
+                get_version(): number
+                /**
+                 * @returns %TRUE if the extension is enabled for #IBusExtensionEvent
+                 */
+                is_enabled(): boolean
+                /**
+                 * @returns %TRUE if the #IBusExtensionEvent is called by an extension. %FALSE if the #IBusExtensionEvent is called by an active engine or panel. If this value is %TRUE, the event is send to ibus-daemon, an active engine. If it's %FALSE, the event is sned to ibus-daemon, panels.
+                 */
+                is_extension(): boolean
+            }
+
+            interface ExtensionEventClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<ExtensionEvent>
+                readonly prototype: ExtensionEvent
+
+                new (props?: Partial<GObject.ConstructorProps<ExtensionEvent>>): ExtensionEvent
+            }
+
+            interface $Exports {
+                /**
+                 * IBusExtensionEvent properties.
+                 */
+                ExtensionEvent: ExtensionEventClass
+            }
+            
+
+            namespace Factory {
+                interface SignalSignatures extends Service.SignalSignatures {
+                    /**
+                     * The ::create-engine signal is a signal to create IBusEngine
+                     * with `engine_name`, which gets emitted when IBusFactory
+                     * received CreateEngine dbus method. The callback functions
+                     * will be called until a callback returns a non-null object
+                     * of IBusEngine.
+                     * @param engine_name the engine_name which received the signal
+                     * @returns An IBusEngine
+                     */
+                    "create-engine"(engine_name: string): Engine | null
+                }
+
+                interface ReadableProperties extends Service.ReadableProperties {
+                }
+
+                interface WritableProperties extends Service.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Service.ConstructOnlyProperties {
+                }
+            }
+
+            interface Factory extends Service {
+                readonly $signals: Factory.SignalSignatures
+                readonly $readableProperties: Factory.ReadableProperties
+                readonly $writableProperties: Factory.WritableProperties
+                readonly $constructOnlyProperties: Factory.ConstructOnlyProperties
+                /**
+                 * Add an engine to the factory.
+                 * @param engine_name Name of an engine.
+                 * @param engine_type GType of an engine.
+                 */
+                add_engine(engine_name: string, engine_type: (GObject.GType | { $gtype: GObject.GType })): void
+                /**
+                 * Creates an #IBusEngine with `engine_name`.
+                 * @param engine_name Name of an engine.
+                 * @returns #IBusEngine with `engine_name`.
+                 */
+                create_engine(engine_name: string): Engine
+                /**
+                 * Creates an #IBusEngine with `engine_name`.
+                 * @param engine_name Name of an engine.
+                 * @returns #IBusEngine with `engine_name`.
+                 */
+                vfunc_create_engine(engine_name: string): Engine
+            }
+
+            interface FactoryClass extends Omit<ServiceClass, "new"> {
+                readonly $gtype: GObject.GType<Factory>
+                readonly prototype: Factory
+
+                new (props?: Partial<GObject.ConstructorProps<Factory>>): Factory
+                /**
+                 * Creates a new #IBusFactory.
+                 * @param connection An GDBusConnection.
+                 * @returns A newly allocated #IBusFactory.
+                 */
+                "new"(connection: Gio.DBusConnection): Factory
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusFactory is an #IBusService that creates input method engine (IME) instance.
+                 * It provides CreateEngine remote method, which creates an IME instance by name,
+                 * and returns the D-Bus object path to IBus daemon.
+                 *
+                 * see_also: #IBusEngine
+                 */
+                Factory: FactoryClass
+            }
+            
+
+            namespace HotkeyProfile {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                    /**
+                     * Emitted when a hotkey is pressed and the hotkey is in profile.
+                     * Implement the member function trigger() in extended class to receive this signal.
+                     *
+                     * <note><para>The last parameter, user_data is not actually a valid parameter. It is displayed because of GtkDoc bug.</para></note>
+                     * @param event An event in GQuark.
+                     * @param user_data User data for callback.
+                     */
+                    "trigger::{}"(event: number, user_data: never | null): void
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                }
+            }
+
+            interface HotkeyProfile extends Serializable {
+                readonly $signals: HotkeyProfile.SignalSignatures
+                readonly $readableProperties: HotkeyProfile.ReadableProperties
+                readonly $writableProperties: HotkeyProfile.WritableProperties
+                readonly $constructOnlyProperties: HotkeyProfile.ConstructOnlyProperties
+                /**
+                 * Adds a hotkey and its associated event to an #IBusHotkeyProfile.
+                 * @param keyval Keycode of the hotkey.
+                 * @param modifiers Modifiers of the hotkey.
+                 * @param event The event to be associated.
+                 * @returns Always %TRUE.
+                 */
+                add_hotkey(keyval: number, modifiers: number, event: GLib.Quark): boolean
+                /**
+                 * Adds a hotkey and its associated event to an #IBusHotkeyProfile.
+                 * The hotkey is in string format, such like
+                 * <constant>Control+Shift+A</constant>.
+                 * @param str Key in string representation.  '+' is the separator.
+                 * @param event The event to be associated.
+                 * @returns FALSE if `str` contains invalid symbol; TRUE otherwise.
+                 */
+                add_hotkey_from_string(str: string, event: GLib.Quark): boolean
+                /**
+                 * Emits a <constant>::trigger</constant> signal when a hotkey is in a profile.
+                 * @param keyval Keycode of the hotkey.
+                 * @param modifiers Modifiers of the hotkey.
+                 * @param prev_keyval Keycode of the hotkey.
+                 * @param prev_modifiers Modifiers of the hotkey.
+                 * @param user_data user data for signal "trigger".
+                 * @returns 0 if releasing a hotkey and the hotkey is not in the profile; an associated event otherwise.  See also: ::trigger
+                 */
+                filter_key_event(keyval: number, modifiers: number, prev_keyval: number, prev_modifiers: number, user_data: never | null): GLib.Quark
+                /**
+                 * @param keyval Keycode of the hotkey.
+                 * @param modifiers Modifiers of the hotkey.
+                 * @returns The event associated to the hotkey or 0 if the hotkey is not in the profile.
+                 */
+                lookup_hotkey(keyval: number, modifiers: number): GLib.Quark
+                /**
+                 * Removes the hotkey for an #IBusHotkeyProfile.
+                 * @param keyval Keycode of the hotkey.
+                 * @param modifiers Modifiers of the hotkey.
+                 * @returns %FALSE if the key is not in `profile`, %TRUE otherwise.
+                 */
+                remove_hotkey(keyval: number, modifiers: number): boolean
+                /**
+                 * Removes the hotkey for an #IBusHotkeyProfile by event.
+                 * @param event The associated event.
+                 * @returns %FALSE if no such event in `profile`, %TRUE otherwise.
+                 */
+                remove_hotkey_by_event(event: GLib.Quark): boolean
+                /**
+                 * @param event
+                 */
+                vfunc_trigger(event: GLib.Quark): void
+            }
+
+            interface HotkeyProfileClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<HotkeyProfile>
+                readonly prototype: HotkeyProfile
+
+                new (props?: Partial<GObject.ConstructorProps<HotkeyProfile>>): HotkeyProfile
+                /**
+                 * Creates a new #IBusHotkeyProfile.
+                 * @returns A newly allocated #IBusHotkeyProfile.
+                 */
+                "new"(): HotkeyProfile
+            }
+
+            interface $Exports {
+                /**
+                 * An opaque data type representing an IBusHotkeyProfile.
+                 */
+                HotkeyProfile: HotkeyProfileClass
+            }
+            
+
+            namespace InputContext {
+                interface SignalSignatures extends Proxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
+                    /**
+                     * Emitted when the text is going to be committed.
+                     *
+                     * (Note: The text object is floating, and it will be released after the
+                     *  signal. If signal handler wants to keep the object, the handler should
+                     *  use g_object_ref_sink() to get the ownership of the object.)
+                     * @param text Text to be committed.
+                     */
+                    "commit-text"(text: Text): void
+                    /**
+                     * Emitted to select next candidate of lookup table.
+                     */
+                    "cursor-down-lookup-table"(): void
+                    /**
+                     * Emitted to select previous candidate of lookup table.
+                     */
+                    "cursor-up-lookup-table"(): void
+                    /**
+                     * Emitted to delete surrounding text event from IME to client of IME.
+                     * @param offset the character offset from the cursor position of the text to be deleted.   A negative value indicates a position before the cursor.
+                     * @param n_chars the number of characters to be deleted.
+                     */
+                    "delete-surrounding-text"(offset: number, n_chars: number): void
+                    /**
+                     * Emitted when an IME is disabled.
+                     */
+                    "disabled"(): void
+                    /**
+                     * Emitted when an IME is enabled.
+                     */
+                    "enabled"(): void
+                    /**
+                     * Emitted to forward key event from IME to client of IME.
+                     * @param keyval Key symbol of the keyboard event.
+                     * @param keycode Key symbol of the keyboard event.
+                     * @param modifiers Key modifier flags.
+                     */
+                    "forward-key-event"(keyval: number, keycode: number, modifiers: number): void
+                    /**
+                     * Emitted to hide auxiliary text.
+                     */
+                    "hide-auxiliary-text"(): void
+                    /**
+                     * Emitted to hide lookup table.
+                     */
+                    "hide-lookup-table"(): void
+                    /**
+                     * Emitted to hide preedit text.
+                     */
+                    "hide-preedit-text"(): void
+                    /**
+                     * Emitted to view the next page of lookup table.
+                     */
+                    "page-down-lookup-table"(): void
+                    /**
+                     * Emitted to view the previous page of lookup table.
+                     */
+                    "page-up-lookup-table"(): void
+                    /**
+                     * Emitted to register the properties in `props`.
+                     *
+                     * (Note: The props object is floating, and it will be released after the
+                     *  signal. If signal handler wants to keep the object, the handler should
+                     *  use g_object_ref_sink() to get the ownership of the object.)
+                     * @param props An IBusPropList that contains properties.
+                     */
+                    "register-properties"(props: PropList): void
+                    /**
+                     * Emitted to receive the RequireSurroundingText signal from the daemon.
+                     */
+                    "require-surrounding-text"(): void
+                    /**
+                     * Emitted to show auxiliary text.
+                     */
+                    "show-auxiliary-text"(): void
+                    /**
+                     * Emitted to show lookup table.
+                     */
+                    "show-lookup-table"(): void
+                    /**
+                     * Emitted to show preedit text.
+                     */
+                    "show-preedit-text"(): void
+                    /**
+                     * Emitted to hide auxilary text.
+                     *
+                     * (Note: The text object is floating, and it will be released after the
+                     *  signal. If signal handler wants to keep the object, the handler should
+                     *  use g_object_ref_sink() to get the ownership of the object.)
+                     * @param text An auxiliary text
+                     * @param visible The visibility of `text`
+                     */
+                    "update-auxiliary-text"(text: Text, visible: boolean): void
+                    /**
+                     * Emitted to update lookup table.
+                     *
+                     * (Note: The table object is floating, and it will be released after the
+                     *  signal. If signal handler wants to keep the object, the handler should
+                     *  use g_object_ref_sink() to get the ownership of the object.)
+                     * @param table An IBusLookupTable to be updated.
+                     * @param visible Whether the table should be visible.
+                     */
+                    "update-lookup-table"(table: LookupTable, visible: boolean): void
+                    /**
+                     * Emitted to update preedit text.
+                     *
+                     * (Note: The text object is floating, and it will be released after the
+                     *  signal. If signal handler wants to keep the object, the handler should
+                     *  use g_object_ref_sink() to get the ownership of the object.)
+                     * @param text Text to be updated.
+                     * @param cursor_pos Cursor position.
+                     * @param visible Whether the update is visible.
+                     */
+                    "update-preedit-text"(text: Text, cursor_pos: number, visible: boolean): void
+                    /**
+                     * Emitted to update preedit text with the mode.
+                     *
+                     * (Note: The text object is floating, and it will be released after the
+                     *  signal. If signal handler wants to keep the object, the handler should
+                     *  use g_object_ref_sink() to get the ownership of the object.)
+                     * @param text Text to be updated.
+                     * @param cursor_pos Cursor position.
+                     * @param visible Whether the update is visible.
+                     * @param mode Preedit mode.
+                     */
+                    "update-preedit-text-with-mode"(text: Text, cursor_pos: number, visible: boolean, mode: number): void
+                    /**
+                     * Emitted to update the property `prop`.
+                     *
+                     * (Note: The prop object is floating, and it will be released after the
+                     *  signal. If signal handler wants to keep the object, the handler should
+                     *  use g_object_ref_sink() to get the ownership of the object.)
+                     * @param prop The IBusProperty to be updated.
+                     */
+                    "update-property"(prop: Property): void
+                }
+
+                interface ReadableProperties extends Proxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties {
+                }
+
+                interface WritableProperties extends Proxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Proxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
+                }
+            }
+
+            interface InputContext extends Proxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
+                readonly $signals: InputContext.SignalSignatures
+                readonly $readableProperties: InputContext.ReadableProperties
+                readonly $writableProperties: InputContext.WritableProperties
+                readonly $constructOnlyProperties: InputContext.ConstructOnlyProperties
+                /**
+                 * Clear handwriting stroke(s) in the current input method engine.
+                 *
+                 * see_also: #IBusEngine::cancel-hand-writing
+                 * @param n_strokes The number of strokes to be removed. Pass 0 to remove all.
+                 */
+                cancel_hand_writing(n_strokes: number): void
+                /**
+                 * Invoked when the client application get focus. An asynchronous IPC will
+                 * be performed.
+                 *
+                 * see_also: #IBusEngine::focus_in.
+                 */
+                focus_in(): void
+                /**
+                 * Invoked when the client application get focus. An asynchronous IPC will be performed.
+                 *
+                 * see_also: #IBusEngine::focus_out.
+                 */
+                focus_out(): void
+                /**
+                 * Gets an IME engine description for the context.
+                 * A synchronous IPC will be performed.
+                 * @returns An IME engine description for the context, or NULL.
+                 */
+                get_engine(): EngineDesc
+                /**
+                 * An asynchronous IPC will be performed.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied or     %NULL if you don't care about the result of the method invocation.
+                 */
+                get_engine_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with ibus_input_context_get_engine_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to   ibus_input_context_get_engine_async().
+                 * @returns An IME engine description for the context, or     %NULL.
+                 */
+                get_engine_async_finish(res: Gio.AsyncResult): EngineDesc
+                /**
+                 * Check whether the current engine requires surrounding-text.
+                 * @returns %TRUE if surrounding-text is needed by the current engine; %FALSE otherwise.
+                 */
+                needs_surrounding_text(): boolean
+                /**
+                 * Call this API after ibus_input_context_process_key_event() returns
+                 * to retrieve commit-text and forwar-key-event signals during
+                 * calling ibus_input_context_process_key_event().
+                 *
+                 * See also ibus_input_context_set_post_process_key_event().
+                 * @since 1.5.29
+                 */
+                post_process_key_event(): void
+                /**
+                 * Pass a handwriting stroke to an input method engine.
+                 *
+                 * In this API, a coordinate (0.0, 0.0) represents the top-left corner of an area for
+                 * handwriting, and (1.0, 1.0) does the bottom-right. Therefore, for example, if
+                 * a user writes a character 'L', the array would be something like [0.0, 0.0, 0.0, 1.0, 1.0, 1.0]
+                 * and coordinates_len would be 6.
+                 *
+                 * The function is usually called when a user releases the mouse button in a hand
+                 * writing area.
+                 *
+                 * see_also: #IBusEngine::process-hand-writing-event
+                 * @param coordinates An array of gdouble (0.0 to 1.0) which represents a stroke (i.e. [x1, y1, x2, y2, x3, y3, ...]).
+                 * @param coordinates_len The number of elements in the array. The number should be even and >= 4.
+                 */
+                process_hand_writing_event(coordinates: number, coordinates_len: number): void
+                /**
+                 * Pass the key event to input method engine and wait for the reply from
+                 * ibus (i.e. synchronous IPC).
+                 * @param keyval Key symbol of a key event.
+                 * @param keycode Keycode of a key event.
                  * @param state Key modifier flags.
-                 * @returns %TRUE for successfully process the key; %FALSE otherwise. See also:  ibus_input_context_process_key_event().  <note><para>Argument `user_data` is ignored in this function.</para> </note>
+                 * @returns %TRUE for successfully process the key; %FALSE otherwise.  See also: ibus_input_context_process_key_event_async()
                  */
-                "process-key-event"(keyval: number, keycode: number, state: number): boolean
+                process_key_event(keyval: number, keycode: number, state: number): boolean
                 /**
-                 * Emitted when a property is activated or change changed.
-                 * Implement the member function IBusEngineClass::property_activate
-                 * in extended class to receive this signal.
+                 * Pass the key event to input method engine.
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param name Property name.
-                 * @param state Property state.
+                 * Key symbols are characters/symbols produced by key press, for example,
+                 * pressing "s" generates key symbol "s"; pressing shift-"s" generates key symbol "S".
+                 * Same key on keyboard may produce different key symbols on different keyboard layout.
+                 * e.g., "s" key on QWERTY keyboard produces "o" in DVORAK layout.
+                 *
+                 * Unlike key symbol, keycode is only determined by the location of the key, and
+                 * irrelevant of the keyboard layout.
+                 *
+                 * Briefly speaking, input methods that expect certain keyboard layout should use
+                 * keycode; otherwise keyval is sufficient.
+                 * For example, Chewing, Cangjie, Wubi expect an en-US QWERTY keyboard, these should
+                 * use keycode; while pinyin can rely on keyval only, as it is less sensitive to
+                 * the keyboard layout change, DVORAK users can still use DVORAK layout to input pinyin.
+                 *
+                 * Use ibus_keymap_lookup_keysym() to convert keycode to keysym in given keyboard layout.
+                 *
+                 * see_also: #IBusEngine::process-key-event
+                 * @param keyval Key symbol of a key event.
+                 * @param keycode Keycode of a key event.
+                 * @param state Key modifier flags.
+                 * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
+                 * @param cancellable A GCancellable or NULL.
+                 * @param callback A GAsyncReadyCallback to call when the request is satisfied or NULL      if you don't care about the result of the method invocation.
                  */
-                "property-activate"(name: string, state: number): void
+                process_key_event_async(keyval: number, keycode: number, state: number, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
                 /**
-                 * Emitted when a property is hidden.
-                 * Implement the member function IBusEngineClass::property_hide
-                 * in extended class to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param name Property name.
+                 * Finishes an operation started with
+                 *      ibus_input_context_process_key_event_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to      ibus_input_context_process_key_event_async().
+                 * @returns %TRUE if the key event is processed;      %FALSE otherwise or some errors happen and the `error` will be set.
                  */
-                "property-hide"(name: string): void
+                process_key_event_async_finish(res: Gio.AsyncResult): boolean
                 /**
-                 * Emitted when a property is shown.
-                 * Implement the member function IBusEngineClass::property_side
-                 * in extended class to receive this signal.
+                 * Activate the property asynchronously.
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param name Property name.
+                 * See also: #IBusEngine::property_activate
+                 * @param prop_name A property name (e.g. "InputMode.WideLatin")
+                 * @param state A status of the property (e.g. PROP_STATE_CHECKED)
                  */
-                "property-show"(name: string): void
+                property_activate(prop_name: string, state: number): void
                 /**
-                 * Emitted when the IME is reset.
-                 * Implement the member function IBusEngineClass::reset
-                 * in extended class to receive this signal.
+                 * Invoked when the IME is reset. An asynchronous IPC will be performed.
                  *
-                 * See also:  ibus_input_context_reset().
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * see_also: #IBusEngine::reset
                  */
-                "reset"(): void
+                reset(): void
                 /**
-                 * Emitted when the client application capabilities is set.
-                 * Implement the member function IBusEngineClass::set_capabilities
-                 * in extended class to receive this signal.
+                 * Set the capabilities flags of client application asynchronously.
+                 * When IBUS_CAP_FOCUS is not set, IBUS_CAP_PREEDIT_TEXT, IBUS_CAP_AUXILIARY_TEXT, IBUS_CAP_LOOKUP_TABLE, and IBUS_CAP_PROPERTY have to be all set.
+                 * The panel component does nothing for an application that doesn't support focus.
                  *
-                 * See also:  ibus_input_context_set_capabilities().
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param caps Capabilities flags of IBusEngine, see #IBusCapabilite
+                 * see_also: #IBusEngine::set-capabilities
+                 * @param capabilities Capabilities flags of IBusEngine, see #IBusCapabilite
                  */
-                "set-capabilities"(caps: number): void
+                set_capabilities(capabilities: number): void
                 /**
-                 * Emitted when the client application content-type (primary
-                 * purpose and hints) is set.  The engine could change the
-                 * behavior according to the content-type.  Implement the member
-                 * function IBusEngineClass::set_content_type
-                 * in extended class to receive this signal.
+                 * Set whether #IBusInputContext commits pre-edit texts or not.
+                 * If %TRUE, 'update-preedit-text-with-mode' signal is emitted
+                 * instead of 'update-preedit-text' signal.
+                 * If your client receives the 'update-preedit-text-with-mode' signal,
+                 * the client needs to implement commit_text() of pre-edit text when
+                 * GtkIMContextClass.focus_out() is called in case an IME desires that
+                 * behavior but it depends on each IME.
                  *
-                 * For example, if the client application wants to restrict input
-                 * to numbers, this signal will be emitted with @purpose set to
-                 * #IBUS_INPUT_PURPOSE_NUMBER, so the engine can switch the input
-                 * mode to latin.
+                 * See also ibus_engine_update_preedit_text_with_mode().
+                 * @param client_commit %TRUE if your input context commits pre-edit texts     with Space or Enter key events or mouse click events. %FALSE if     ibus-daemon commits pre-edit texts with those events.     The default is %FALSE. The behavior is decided with     ibus_engine_update_preedit_text_with_mode() to commit, clear or     keep the pre-edit text and this API is important in ibus-hangul.
+                 */
+                set_client_commit_preedit(client_commit: boolean): void
+                /**
+                 * Set content-type (primary purpose and hints) of the context.  This
+                 * information is particularly useful to implement intelligent
+                 * behavior in engines, such as automatic input-mode switch and text
+                 * prediction.  For example, to restrict input to numbers, the client
+                 * can call this function with `purpose` set to
+                 * #IBUS_INPUT_PURPOSE_NUMBER.
                  *
-                 * <note><para>Argument @user_data is ignored in this
-                 * function.</para></note>
+                 * See also: #IBusEngine::set-content-type
                  * @param purpose Primary purpose of the input context, as an #IBusInputPurpose.
-                 * @param hints Hints that augment @purpose, as an #IBusInputHints.
+                 * @param hints Hints that augment `purpose`, as an #IBusInputHints.
                  */
-                "set-content-type"(purpose: number, hints: number): void
+                set_content_type(purpose: number, hints: number): void
                 /**
-                 * Emitted when the location of IME is set.
-                 * Implement the member function IBusEngineClass::set_cursor_location
-                 * in extended class to receive this signal.
+                 * Set the cursor location of IBus input context asynchronously.
                  *
-                 * See also:  ibus_input_context_set_cursor_location().
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * see_also: #IBusEngine::set-cursor-location
                  * @param x X coordinate of the cursor.
                  * @param y Y coordinate of the cursor.
                  * @param w Width of the cursor.
                  * @param h Height of the cursor.
                  */
-                "set-cursor-location"(x: number, y: number, w: number, h: number): void
+                set_cursor_location(x: number, y: number, w: number, h: number): void
                 /**
-                 * Emitted when a surrounding text is set.
-                 * Implement the member function IBusEngineClass::set_surrounding_text
-                 * in extended class to receive this signal.
-                 * If anchor_pos equals to cursor_pos, it means "there are no selection"
-                 * or "does not support selection retrival".
+                 * Set the relative cursor location of IBus input context asynchronously.
+                 * @param x X coordinate of the cursor.
+                 * @param y Y coordinate of the cursor.
+                 * @param w Width of the cursor.
+                 * @param h Height of the cursor.
+                 */
+                set_cursor_location_relative(x: number, y: number, w: number, h: number): void
+                /**
+                 * Invoked when the IME engine is changed.
+                 * An asynchronous IPC will be performed.
+                 * @param name A name of the engine.
+                 */
+                set_engine(name: string): void
+                /**
+                 * @since 1.5.29
+                 * @param enable Can use ibus_input_context_post_process_key_event() to retrieve commit-text and forwar-key-event signals during calling ibus_input_context_process_key_event() if it's %TRUE.
+                 */
+                set_post_process_key_event(enable: boolean): void
+                /**
+                 * @param text An #IBusText surrounding the current cursor on the application.
+                 * @param cursor_pos Current cursor position in characters in `text`.
+                 * @param anchor_pos Anchor position of selection in `text`.
+                 */
+                set_surrounding_text(text: Text, cursor_pos: number, anchor_pos: number): void
+            }
+
+            interface InputContextClass extends Omit<ProxyClass, "new"> {
+                readonly $gtype: GObject.GType<InputContext>
+                readonly prototype: InputContext
+
+                new (props?: Partial<GObject.ConstructorProps<InputContext>>): InputContext
+                /**
+                 * Creates a new #IBusInputContext.
+                 * @throws {GLib.Error}
+                 * @param path The path to the object that emitting the signal.
+                 * @param connection A #GDBusConnection.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @returns A newly allocated #IBusInputContext.
+                 */
+                "new"(path: string, connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null): InputContext
+                /**
+                 * Finishes an operation started with ibus_input_context_new_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback pass to      ibus_input_context_new_async().
+                 * @returns A newly allocated #IBusInputContext.
+                 */
+                new_async_finish(res: Gio.AsyncResult): InputContext
+                /**
+                 * Gets an existing IBusInputContext.
+                 * @param path The path to the object that emitting the signal.
+                 * @param connection A GDBusConnection.
+                 * @returns An existing #IBusInputContext.
+                 */
+                get_input_context(path: string, connection: Gio.DBusConnection): InputContext
+                /**
+                 * Gets an existing #IBusInputContext asynchronously.
+                 * @param path The path to the object that emitting the signal.
+                 * @param connection A #GDBusConnection.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied.      The callback should not be %NULL.
+                 */
+                get_input_context_async(path: string, connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with
+                 * ibus_input_context_get_input_context_async().
+                 * @throws {GLib.Error}
+                 * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback pass to      ibus_input_context_get_input_context_async().
+                 * @returns An existing #IBusInputContext.
+                 */
+                get_input_context_async_finish(res: Gio.AsyncResult): InputContext
+                /**
+                 * Creates a new #IBusInputContext asynchronously.
+                 * @param path The path to the object that emitting the signal.
+                 * @param connection A #GDBusConnection.
+                 * @param cancellable A #GCancellable or %NULL.
+                 * @param callback A #GAsyncReadyCallback to call when the request is satisfied.      The callback should not be %NULL.
+                 */
+                new_async(path: string, connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusInputContext is a proxy object of BusInputContext,
+                 * which manages the context for input methods that supports
+                 * text input in various natural languages.
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param text The surrounding text.
-                 * @param cursor_pos The cursor position on surrounding text.
-                 * @param anchor_pos The anchor position on selection area.
+                 * Clients call the IBusInputContext to invoke BusInputContext,
+                 * through which invokes IBusEngine.
                  */
-                "set-surrounding-text"(text: GObject.Object, cursor_pos: number, anchor_pos: number): void
+                InputContext: InputContextClass
+            }
+            
+
+            namespace Keymap {
+                interface SignalSignatures extends Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends Service.ReadableProperties {
-                "active-surrounding-text": boolean
-                "engine-name": string
-                "has-focus-id": boolean
-            }
-
-            interface WritableProperties extends Service.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Service.ConstructOnlyProperties {
-                "active-surrounding-text": boolean
-                "engine-name": string
-                "has-focus-id": boolean
-            }
-        }
-
-        interface Engine extends Service {
-            readonly $signals: Engine.SignalSignatures
-            readonly $readableProperties: Engine.ReadableProperties
-            readonly $writableProperties: Engine.WritableProperties
-            readonly $constructOnlyProperties: Engine.ConstructOnlyProperties
-            /**
-             * When this property is set to %TRUE, "RequireSurroundingText" D-Bus
-             * signal will be called by ibus-daemon on every focus-in/out event, with
-             * no need for the engine to call ibus_engine_get_surrounding_text().
-             * This property can only be set at construct time.
-             * @default FALSE
-             */
-            get activeSurroundingText(): boolean
-            set activeSurroundingText(value: boolean)
-            /**
-             * Name of this IBusEngine.
-             * @default noname
-             */
-            get engineName(): string
-            set engineName(value: string)
-            /**
-             * Use #IBusEngine::focus_in_id()/focus_out_id() class method insteads of
-             * focus_in()/focus_out() class methods when this property is set to %TRUE.
-             * Otherwise, use #IBusEngine::focus_in()/focus_out class methods.
-             * This property can only be set at construct time.
-             *
-             * See also: IBusEngine::focus-in-id
-             * @default FALSE
-             */
-            get hasFocusId(): boolean
-            set hasFocusId(value: boolean)
-            /**
-             * Commit output of input method to IBus client.
-             *
-             * (Note: The text object will be released, if it is floating.
-             *  If caller want to keep the object, caller should make the object
-             *  sink by g_object_ref_sink.)
-             * @param text String commit to IBusEngine.
-             */
-            commit_text(text: Text): void
-            /**
-             * Delete surrounding text.
-             * @param offset The offset of the first char.
-             * @param nchars Number of chars to be deleted.
-             */
-            delete_surrounding_text(offset: number, nchars: number): void
-            /**
-             * Forward the key event.
-             * @param keyval KeySym.
-             * @param keycode keyboard scancode.
-             * @param state Key modifier flags.
-             */
-            forward_key_event(keyval: number, keycode: number, state: number): void
-            /**
-             * Get content-type (primary purpose and hints) of the current input
-             * context.
-             *
-             * See also: #IBusEngine::set-content-type
-             * @returns , Primary purpose of the input context., Hints that augument `purpose`.
-             */
-            get_content_type(): [number, number]
-            /**
-             * Return the name of #IBusEngine.
-             * @returns Name of #IBusEngine.
-             */
-            get_name(): string
-            /**
-             * Get surrounding text.
-             *
-             * It is also used to tell the input-context that the engine will
-             * utilize surrounding-text.  In that case, it must be called in
-             * #IBusEngine::enable handler, with both @text and @cursor set to
-             * %NULL.
-             *
-             * See also: #IBusEngine::set-surrounding-text
-             * @returns , Location to store surrounding text., Cursor position in characters in `text`., Anchor position of selection in `text`.
-             */
-            get_surrounding_text(): [Text, number, number]
-            /**
-             * Hide the auxiliary bar.
-             */
-            hide_auxiliary_text(): void
-            /**
-             * Hide the lookup table.
-             */
-            hide_lookup_table(): void
-            /**
-             * Hide the pre-edit buffer.
-             */
-            hide_preedit_text(): void
-            /**
-             * Register and show properties in language bar.
-             *
-             * (Note: The prop_list object will be released, if it is floating.
-             *  If caller want to keep the object, caller should make the object
-             *  sink by g_object_ref_sink.)
-             * @param prop_list Property List.
-             */
-            register_properties(prop_list: PropList): void
-            /**
-             * Show the auxiliary bar.
-             */
-            show_auxiliary_text(): void
-            /**
-             * Show the lookup table.
-             */
-            show_lookup_table(): void
-            /**
-             * Show the pre-edit buffer.
-             */
-            show_preedit_text(): void
-            /**
-             * Update the auxiliary bar.
-             *
-             * (Note: The text object will be released, if it is floating.
-             *  If caller want to keep the object, caller should make the object
-             *  sink by g_object_ref_sink.)
-             * @param text Update content.
-             * @param visible Whether the auxiliary text bar is visible.
-             */
-            update_auxiliary_text(text: Text, visible: boolean): void
-            /**
-             * Update the lookup table.
-             *
-             * (Note: The table object will be released, if it is floating.
-             *  If caller want to keep the object, caller should make the object
-             *  sink by g_object_ref_sink.)
-             * @param lookup_table An lookup_table.
-             * @param visible Whether the lookup_table is visible.
-             */
-            update_lookup_table(lookup_table: LookupTable, visible: boolean): void
-            /**
-             * Fast update for big lookup table.
-             *
-             * If size of lookup table is not over table page size *4,
-             * then it calls ibus_engine_update_lookup_table().
-             *
-             * (Note: The table object will be released, if it is floating.
-             *  If caller want to keep the object, caller should make the object
-             *  sink by g_object_ref_sink.)
-             * @param lookup_table An lookup_table.
-             * @param visible Whether the lookup_table is visible.
-             */
-            update_lookup_table_fast(lookup_table: LookupTable, visible: boolean): void
-            /**
-             * Update the pre-edit buffer.
-             *
-             * (Note: The text object will be released, if it is floating.
-             *  If caller want to keep the object, caller should make the object
-             *  sink by g_object_ref_sink.)
-             * @param text Update content.
-             * @param cursor_pos Current position of cursor
-             * @param visible Whether the pre-edit buffer is visible.
-             */
-            update_preedit_text(text: Text, cursor_pos: number, visible: boolean): void
-            /**
-             * Update the pre-edit buffer with commit mode. Similar to
-             * ibus_engine_update_preedit_text(), this function allows users to specify
-             * the behavior on focus out when the pre-edit buffer is visible.
-             *
-             * If @mode is IBUS_ENGINE_PREEDIT_COMMIT, contents of the pre-edit buffer
-             * will be committed and cleared.
-             * If @mode is IBUS_ENGINE_PREEDIT_CLEAR, contents of the pre-edit buffer
-             * will be cleared only.
-             *
-             * (Note: The text object will be released, if it is floating.
-             *  If caller want to keep the object, caller should make the object
-             *  sink by g_object_ref_sink.)
-             * @param text Update content.
-             * @param cursor_pos Current position of cursor
-             * @param visible Whether the pre-edit buffer is visible.
-             * @param mode Pre-edit commit mode when the focus is lost.
-             */
-            update_preedit_text_with_mode(text: Text, cursor_pos: number, visible: boolean, mode: PreeditFocusMode): void
-            /**
-             * Update the state displayed in language bar.
-             *
-             * (Note: The prop object will be released, if it is floating.
-             *  If caller want to keep the object, caller should make the object
-             *  sink by g_object_ref_sink.)
-             * @param prop IBusProperty to be updated.
-             */
-            update_property(prop: Property): void
-            /**
-             * @param n_strokes
-             */
-            vfunc_cancel_hand_writing(n_strokes: number): void
-            /**
-             * @param index
-             * @param button
-             * @param state
-             */
-            vfunc_candidate_clicked(index: number, button: number, state: number): void
-            /**
-             */
-            vfunc_cursor_down(): void
-            /**
-             */
-            vfunc_cursor_up(): void
-            /**
-             */
-            vfunc_disable(): void
-            /**
-             */
-            vfunc_enable(): void
-            /**
-             */
-            vfunc_focus_in(): void
-            /**
-             * @param object_path
-             * @param client
-             */
-            vfunc_focus_in_id(object_path: string, client: string): void
-            /**
-             */
-            vfunc_focus_out(): void
-            /**
-             * @param object_path
-             */
-            vfunc_focus_out_id(object_path: string): void
-            /**
-             */
-            vfunc_page_down(): void
-            /**
-             */
-            vfunc_page_up(): void
-            /**
-             * @param coordinates
-             * @param coordinates_len
-             */
-            vfunc_process_hand_writing_event(coordinates: number, coordinates_len: number): void
-            /**
-             * @param keyval
-             * @param keycode
-             * @param state
-             */
-            vfunc_process_key_event(keyval: number, keycode: number, state: number): boolean
-            /**
-             * @param prop_name
-             * @param prop_state
-             */
-            vfunc_property_activate(prop_name: string, prop_state: number): void
-            /**
-             * @param prop_name
-             */
-            vfunc_property_hide(prop_name: string): void
-            /**
-             * @param prop_name
-             */
-            vfunc_property_show(prop_name: string): void
-            /**
-             */
-            vfunc_reset(): void
-            /**
-             * @param caps
-             */
-            vfunc_set_capabilities(caps: number): void
-            /**
-             * @param purpose
-             * @param hints
-             */
-            vfunc_set_content_type(purpose: number, hints: number): void
-            /**
-             * @param x
-             * @param y
-             * @param w
-             * @param h
-             */
-            vfunc_set_cursor_location(x: number, y: number, w: number, h: number): void
-            /**
-             * @param text
-             * @param cursor_index
-             * @param anchor_pos
-             */
-            vfunc_set_surrounding_text(text: Text, cursor_index: number, anchor_pos: number): void
-        }
-
-        interface EngineClass extends Omit<ServiceClass, "new"> {
-            readonly $gtype: GObject.GType<Engine>
-            readonly prototype: Engine
-
-            new (props?: Partial<GObject.ConstructorProps<Engine>>): Engine
-            /**
-             * Create a new #IBusEngine.
-             * @param engine_name Name of the IBusObject.
-             * @param object_path Path for IBusService.
-             * @param connection An opened GDBusConnection.
-             * @returns A newly allocated IBusEngine.
-             */
-            "new"(engine_name: string, object_path: string, connection: Gio.DBusConnection): Engine
-            /**
-             * Create a new #IBusEngine.
-             * @param engine_type GType of #IBusEngine.
-             * @param engine_name Name of the IBusObject.
-             * @param object_path Path for IBusService.
-             * @param connection An opened GDBusConnection.
-             * @returns A newly allocated IBusEngine.
-             */
-            new_with_type(engine_type: (GObject.GType | { $gtype: GObject.GType }), engine_name: string, object_path: string, connection: Gio.DBusConnection): Engine
-        }
-
-        interface $Exports {
-            /**
-             * An IBusEngine provides infrastructure for input method engine.
-             * Developers can "extend" this class for input method engine development.
-             *
-             * see_also: #IBusComponent, #IBusEngineDesc
-             */
-            Engine: EngineClass
-        }
-        
-
-        namespace EngineDesc {
-            interface SignalSignatures extends Serializable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Serializable.ReadableProperties {
-                "author": string
-                "description": string
-                "hotkeys": string
-                "icon": string
-                "icon-prop-key": string
-                "language": string
-                "layout": string
-                "layout-option": string
-                "layout-variant": string
-                "license": string
-                "longname": string
-                "name": string
-                "rank": number
-                "setup": string
-                "symbol": string
-                "textdomain": string
-                "version": string
-            }
-
-            interface WritableProperties extends Serializable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-                "author": string
-                "description": string
-                "hotkeys": string
-                "icon": string
-                "icon-prop-key": string
-                "language": string
-                "layout": string
-                "layout-option": string
-                "layout-variant": string
-                "license": string
-                "longname": string
-                "name": string
-                "rank": number
-                "setup": string
-                "symbol": string
-                "textdomain": string
-                "version": string
-            }
-        }
-
-        interface EngineDesc extends Serializable {
-            readonly $signals: EngineDesc.SignalSignatures
-            readonly $readableProperties: EngineDesc.ReadableProperties
-            readonly $writableProperties: EngineDesc.WritableProperties
-            readonly $constructOnlyProperties: EngineDesc.ConstructOnlyProperties
-            /**
-             * The author of engine description
-             */
-            get author(): string
-            set author(value: string)
-            /**
-             * The description of engine description
-             */
-            get description(): string
-            set description(value: string)
-            /**
-             * The hotkeys of engine description
-             */
-            get hotkeys(): string
-            set hotkeys(value: string)
-            /**
-             * The icon of engine description
-             * @default ibus-engine
-             */
-            get icon(): string
-            set icon(value: string)
-            /**
-             * The key of IBusProperty to change panel icon dynamically.
-             */
-            get iconPropKey(): string
-            set iconPropKey(value: string)
-            /**
-             * The language of engine description
-             */
-            get language(): string
-            set language(value: string)
-            /**
-             * The layout of engine description
-             * @default us
-             */
-            get layout(): string
-            set layout(value: string)
-            /**
-             * The keyboard option of engine description
-             */
-            get layoutOption(): string
-            set layoutOption(value: string)
-            /**
-             * The keyboard variant of engine description
-             */
-            get layoutVariant(): string
-            set layoutVariant(value: string)
-            /**
-             * The license of engine description
-             */
-            get license(): string
-            set license(value: string)
-            /**
-             * The longname of engine description
-             */
-            get longname(): string
-            set longname(value: string)
-            /**
-             * The name of engine description
-             * @default NULL
-             */
-            get name(): string
-            set name(value: string)
-            /**
-             * The rank of engine description
-             * @default 0
-             */
-            get rank(): number
-            set rank(value: number)
-            /**
-             * The exec lists of the engine setup command
-             */
-            get setup(): string
-            set setup(value: string)
-            /**
-             * The symbol chars of engine description instead of icon image
-             */
-            get symbol(): string
-            set symbol(value: string)
-            /**
-             * The textdomain of engine description
-             */
-            get textdomain(): string
-            set textdomain(value: string)
-            /**
-             * The version number of engine description
-             */
-            get version(): string
-            set version(value: string)
-            /**
-             * Gets the author property in IBusEngineDesc. It should not be freed.
-             * @returns author property in IBusEngineDesc
-             */
-            get_author(): string
-            /**
-             * Gets the description property in IBusEngineDesc. It should not be freed.
-             * @returns description property in IBusEngineDesc
-             */
-            get_description(): string
-            /**
-             * Gets the hotkeys property in IBusEngineDesc. It should not be freed.
-             * @returns hotkeys property in IBusEngineDesc
-             */
-            get_hotkeys(): string
-            /**
-             * Gets the icon property in IBusEngineDesc. It should not be freed.
-             * @returns icon property in IBusEngineDesc
-             */
-            get_icon(): string
-            /**
-             * Gets the key of IBusProperty to load the panel icon dynamically
-             * in IBusEngineDesc. It should not be freed.
-             * @returns IBusProperty.key for dynamic panel icon in IBusEngineDesc
-             */
-            get_icon_prop_key(): string
-            /**
-             * Gets the language property in IBusEngineDesc. It should not be freed.
-             * @returns language property in IBusEngineDesc
-             */
-            get_language(): string
-            /**
-             * Gets the layout property in IBusEngineDesc. It should not be freed.
-             * @returns layout property in IBusEngineDesc
-             */
-            get_layout(): string
-            /**
-             * Gets the keyboard option property in IBusEngineDesc. It should not be freed.
-             * @returns keyboard option property in IBusEngineDesc
-             */
-            get_layout_option(): string
-            /**
-             * Gets the keyboard variant property in IBusEngineDesc. It should not be freed.
-             * @returns keyboard variant property in IBusEngineDesc
-             */
-            get_layout_variant(): string
-            /**
-             * Gets the license property in IBusEngineDesc. It should not be freed.
-             * @returns license property in IBusEngineDesc
-             */
-            get_license(): string
-            /**
-             * Gets the longname property in IBusEngineDesc. It should not be freed.
-             * @returns longname property in IBusEngineDesc
-             */
-            get_longname(): string
-            /**
-             * Gets the name property in IBusEngineDesc. It should not be freed.
-             * @returns name property in IBusEngineDesc
-             */
-            get_name(): string
-            /**
-             * Gets the rank property in IBusEngineDesc.
-             * @returns rank property in IBusEngineDesc
-             */
-            get_rank(): number
-            /**
-             * Gets the setup property in IBusEngineDesc. It should not be freed.
-             * @returns setup property in IBusEngineDesc
-             */
-            get_setup(): string
-            /**
-             * Gets the symbol property in IBusEngineDesc. It should not be freed.
-             * @returns symbol property in IBusEngineDesc
-             */
-            get_symbol(): string
-            /**
-             * Gets the textdomain property in IBusEngineDesc. It should not be freed.
-             * @returns textdomain in IBusEngineDesc
-             */
-            get_textdomain(): string
-            /**
-             * Gets the version property in IBusEngineDesc. It should not be freed.
-             * @returns version in IBusEngineDesc
-             */
-            get_version(): string
-            /**
-             * Output XML-formatted input method engine description.
-             * The result will be append to GString specified in @output.
-             * @param output XML-formatted Input method engine description.
-             * @param indent Number of indent (showed as 4 spaces).
-             */
-            output(output: GLib.String, indent: number): void
-        }
-
-        interface EngineDescClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<EngineDesc>
-            readonly prototype: EngineDesc
-
-            new (props?: Partial<GObject.ConstructorProps<EngineDesc>>): EngineDesc
-            /**
-             * Creates a new #IBusEngineDesc.
-             * If layout is "default", the engine inherits the current layout and
-             * does not change the layout. The layouts "default" and "" are same.
-             * E.g. If you switch JP XKB engine and an input method engine (IME),
-             * the IME inherits the JP layout.
-             * @param name Name of the engine.
-             * @param longname Long name of the input method engine.
-             * @param description Input method engine description.
-             * @param language Language (e.g. zh, jp) supported by this input method engine.
-             * @param license License of the input method engine.
-             * @param author Author of the input method engine.
-             * @param icon Icon file of this engine.
-             * @param layout Keyboard layout
-             * @returns A newly allocated IBusEngineDesc.
-             */
-            "new"(name: string, longname: string, description: string, language: string, license: string, author: string, icon: string, layout: string): EngineDesc
-            /**
-             * Creates a new IBusEngineDesc from an XML node.
-             * <note><para>This function is called by ibus_component_new_from_file(),
-             *  so developers normally do not need to call it directly.
-             * </para></note>
-             * @param node An XML node
-             * @returns A newly allocated IBusEngineDesc that contains description from `node`.
-             */
-            new_from_xml_node(node: XML): EngineDesc
-        }
-
-        interface $Exports {
-            /**
-             * An IBusEngineDesc stores description data of IBusEngine.
-             * The description data can either be passed to ibus_engine_desc_new(),
-             * or loaded from an XML node through ibus_engine_desc_new_from_xml_node()
-             * to construct IBusEngineDesc.
-             *
-             * However, the recommended way to load engine description data is
-             * using ibus_component_new_from_file() to load a component file,
-             * which also includes engine description data.
-             *
-             * see_also: #IBusComponent, #IBusEngine
-             */
-            EngineDesc: EngineDescClass
-        }
-        
-
-        namespace EngineSimple {
-            interface SignalSignatures extends Engine.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Engine.ReadableProperties {
-            }
-
-            interface WritableProperties extends Engine.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Engine.ConstructOnlyProperties {
-            }
-        }
-
-        interface EngineSimple extends Engine {
-            readonly $signals: EngineSimple.SignalSignatures
-            readonly $readableProperties: EngineSimple.ReadableProperties
-            readonly $writableProperties: EngineSimple.WritableProperties
-            readonly $constructOnlyProperties: EngineSimple.ConstructOnlyProperties
-            /**
-             * Call ibus_engine_simple_add_table() internally by locale.
-             * @param file The compose file.
-             * @returns %TRUE if the `file` is loaded.
-             */
-            add_compose_file(file: string): boolean
-            /**
-             * Adds an additional table to search to the engine. Each row of the table
-             * consists of max_seq_len key symbols followed by two guint16 interpreted as
-             * the high and low words of a gunicode value. Tables are searched starting from
-             * the last added.
-             *
-             * The table must be sorted in dictionary order on the numeric value of the key
-             * symbol fields. (Values beyond the length of the sequence should be zero.)
-             * @param data The table which must be available
-                 during the whole life of the simple engine.
-             * @param max_seq_len Maximum length of a sequence in the table (cannot be greater
-                 than %IBUS_MAX_COMPOSE_LEN)
-             * @param n_seqs number of sequences in the table
-             */
-            add_table(data: number[], max_seq_len: number, n_seqs: number): void
-            /**
-             * Call ibus_engine_simple_add_table() internally by locale.
-             * @param locale The locale name. If the locale is %NULL,
-                                   the current locale is used.
-             * @returns %TRUE if the `locale` is matched to the table.
-             */
-            add_table_by_locale(locale: string | null): boolean
-        }
-
-        interface EngineSimpleClass extends Omit<EngineClass, "new"> {
-            readonly $gtype: GObject.GType<EngineSimple>
-            readonly prototype: EngineSimple
-
-            new (props?: Partial<GObject.ConstructorProps<EngineSimple>>): EngineSimple
-        }
-
-        interface $Exports {
-            /**
-             * An IBusEngineSimple provides table-based input method logic.
-             *
-             * see_also: #IBusEngine
-             */
-            EngineSimple: EngineSimpleClass
-        }
-        
-
-        namespace ExtensionEvent {
-            interface SignalSignatures extends Serializable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Serializable.ReadableProperties {
-                "is-enabled": boolean
-                "is-extension": boolean
-                "name": string
-                "params": string
-                "version": number
-            }
-
-            interface WritableProperties extends Serializable.WritableProperties {
-                "version": number
-            }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-                "is-enabled": boolean
-                "is-extension": boolean
-                "name": string
-                "params": string
-            }
-        }
-
-        interface ExtensionEvent extends Serializable {
-            readonly $signals: ExtensionEvent.SignalSignatures
-            readonly $readableProperties: ExtensionEvent.ReadableProperties
-            readonly $writableProperties: ExtensionEvent.WritableProperties
-            readonly $constructOnlyProperties: ExtensionEvent.ConstructOnlyProperties
-            /**
-             * %TRUE if the extension is enabled in the #IBusExtensionEvent.
-             * @default FALSE
-             */
-            get isEnabled(): boolean
-            set isEnabled(value: boolean)
-            /**
-             * %TRUE if the #IBusExtensionEvent is called by an extension.
-             * %FALSE if the #IBusExtensionEvent is called by an active engine or
-             * panel.
-             * If this value is %TRUE, the event is send to ibus-daemon, an active
-             * engine. If it's %FALSE, the event is sned to ibus-daemon, panels.
-             * @default FALSE
-             */
-            get isExtension(): boolean
-            set isExtension(value: boolean)
-            /**
-             * Name of the extension in the #IBusExtensionEvent.
-             */
-            get name(): string
-            set name(value: string)
-            /**
-             * Parameters to enable the extension in the #IBusExtensionEvent.
-             */
-            get params(): string
-            set params(value: string)
-            /**
-             * Version of the #IBusExtensionEvent.
-             * @default 1
-             */
-            get version(): number
-            set version(value: number)
-            /**
-             */
-            get_name(): string
-            /**
-             * @returns Parameters to enable the extension for #IBusXEvent
-             */
-            get_params(): string
-            /**
-             * @returns Version of #IBusExtensionEvent
-             */
-            get_version(): number
-            /**
-             * @returns %TRUE if the extension is enabled for #IBusExtensionEvent
-             */
-            is_enabled(): boolean
-            /**
-             * @returns %TRUE if the #IBusExtensionEvent is called by an extension. %FALSE if the #IBusExtensionEvent is called by an active engine or panel. If this value is %TRUE, the event is send to ibus-daemon, an active engine. If it's %FALSE, the event is sned to ibus-daemon, panels.
-             */
-            is_extension(): boolean
-        }
-
-        interface ExtensionEventClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<ExtensionEvent>
-            readonly prototype: ExtensionEvent
-
-            new (props?: Partial<GObject.ConstructorProps<ExtensionEvent>>): ExtensionEvent
-        }
-
-        interface $Exports {
-            /**
-             * IBusExtensionEvent properties.
-             */
-            ExtensionEvent: ExtensionEventClass
-        }
-        
-
-        namespace Factory {
-            interface SignalSignatures extends Service.SignalSignatures {
+            interface Keymap extends Object {
+                readonly $signals: Keymap.SignalSignatures
+                readonly $readableProperties: Keymap.ReadableProperties
+                readonly $writableProperties: Keymap.WritableProperties
+                readonly $constructOnlyProperties: Keymap.ConstructOnlyProperties
                 /**
-                 * The ::create-engine signal is a signal to create IBusEngine
-                 * with @engine_name, which gets emitted when IBusFactory
-                 * received CreateEngine dbus method. The callback functions
-                 * will be called until a callback returns a non-null object
-                 * of IBusEngine.
-                 * @param engine_name the engine_name which received the signal
-                 * @returns An IBusEngine
+                 * Converts the scancode to keysym, given the keymap.
+                 * @param keycode A scancode to be converted.
+                 * @param state Modifier flags(such as Ctrl, Shift).
+                 * @returns Corresponding keysym.
                  */
-                "create-engine"(engine_name: string): Engine | null
+                lookup_keysym(keycode: number, state: number): number
             }
 
-            interface ReadableProperties extends Service.ReadableProperties {
-            }
+            interface KeymapClass extends Omit<ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Keymap>
+                readonly prototype: Keymap
 
-            interface WritableProperties extends Service.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Service.ConstructOnlyProperties {
-            }
-        }
-
-        interface Factory extends Service {
-            readonly $signals: Factory.SignalSignatures
-            readonly $readableProperties: Factory.ReadableProperties
-            readonly $writableProperties: Factory.WritableProperties
-            readonly $constructOnlyProperties: Factory.ConstructOnlyProperties
-            /**
-             * Add an engine to the factory.
-             * @param engine_name Name of an engine.
-             * @param engine_type GType of an engine.
-             */
-            add_engine(engine_name: string, engine_type: (GObject.GType | { $gtype: GObject.GType })): void
-            /**
-             * Creates an #IBusEngine with @engine_name.
-             * @param engine_name Name of an engine.
-             * @returns #IBusEngine with `engine_name`.
-             */
-            create_engine(engine_name: string): Engine
-            /**
-             * Creates an #IBusEngine with @engine_name.
-             * @param engine_name Name of an engine.
-             * @returns #IBusEngine with `engine_name`.
-             */
-            vfunc_create_engine(engine_name: string): Engine
-        }
-
-        interface FactoryClass extends Omit<ServiceClass, "new"> {
-            readonly $gtype: GObject.GType<Factory>
-            readonly prototype: Factory
-
-            new (props?: Partial<GObject.ConstructorProps<Factory>>): Factory
-            /**
-             * Creates a new #IBusFactory.
-             * @param connection An GDBusConnection.
-             * @returns A newly allocated #IBusFactory.
-             */
-            "new"(connection: Gio.DBusConnection): Factory
-        }
-
-        interface $Exports {
-            /**
-             * An IBusFactory is an #IBusService that creates input method engine (IME) instance.
-             * It provides CreateEngine remote method, which creates an IME instance by name,
-             * and returns the D-Bus object path to IBus daemon.
-             *
-             * see_also: #IBusEngine
-             */
-            Factory: FactoryClass
-        }
-        
-
-        namespace HotkeyProfile {
-            interface SignalSignatures extends Serializable.SignalSignatures {
+                new (props?: Partial<GObject.ConstructorProps<Keymap>>): Keymap
                 /**
-                 * Emitted when a hotkey is pressed and the hotkey is in profile.
-                 * Implement the member function trigger() in extended class to receive this signal.
+                 * Get an #IBusKeymap associated with the giving name.
                  *
-                 * <note><para>The last parameter, user_data is not actually a valid parameter. It is displayed because of GtkDoc bug.</para></note>
-                 * @param event An event in GQuark.
-                 * @param user_data User data for callback.
+                 * This function loads the keymap file specified in `name`
+                 * in the IBUS_DATA_DIR/keymaps directory.
+                 * @deprecated This function has been deprecated and should not be used in newly written code. Please use ibus_keymap_get().
+                 * @param name The keymap file to be loaded, such as 'us', 'jp'.
+                 * @returns An #IBusKeymap associated with the giving name; or %NULL if failed.
                  */
-                "trigger::{}"(event: number, user_data: never | null): void
-            }
-
-            interface ReadableProperties extends Serializable.ReadableProperties {
-            }
-
-            interface WritableProperties extends Serializable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-            }
-        }
-
-        interface HotkeyProfile extends Serializable {
-            readonly $signals: HotkeyProfile.SignalSignatures
-            readonly $readableProperties: HotkeyProfile.ReadableProperties
-            readonly $writableProperties: HotkeyProfile.WritableProperties
-            readonly $constructOnlyProperties: HotkeyProfile.ConstructOnlyProperties
-            /**
-             * Adds a hotkey and its associated event to an #IBusHotkeyProfile.
-             * @param keyval Keycode of the hotkey.
-             * @param modifiers Modifiers of the hotkey.
-             * @param event The event to be associated.
-             * @returns Always %TRUE.
-             */
-            add_hotkey(keyval: number, modifiers: number, event: GLib.Quark): boolean
-            /**
-             * Adds a hotkey and its associated event to an #IBusHotkeyProfile.
-             * The hotkey is in string format, such like
-             * <constant>Control+Shift+A</constant>.
-             * @param str Key in string representation.  '+' is the separator.
-             * @param event The event to be associated.
-             * @returns FALSE if `str` contains invalid symbol; TRUE otherwise.
-             */
-            add_hotkey_from_string(str: string, event: GLib.Quark): boolean
-            /**
-             * Emits a <constant>::trigger</constant> signal when a hotkey is in a profile.
-             * @param keyval Keycode of the hotkey.
-             * @param modifiers Modifiers of the hotkey.
-             * @param prev_keyval Keycode of the hotkey.
-             * @param prev_modifiers Modifiers of the hotkey.
-             * @param user_data user data for signal "trigger".
-             * @returns 0 if releasing a hotkey and the hotkey is not in the profile; an associated event otherwise.  See also: ::trigger
-             */
-            filter_key_event(keyval: number, modifiers: number, prev_keyval: number, prev_modifiers: number, user_data: never | null): GLib.Quark
-            /**
-             * @param keyval Keycode of the hotkey.
-             * @param modifiers Modifiers of the hotkey.
-             * @returns The event associated to the hotkey or 0 if the hotkey is not in the profile.
-             */
-            lookup_hotkey(keyval: number, modifiers: number): GLib.Quark
-            /**
-             * Removes the hotkey for an #IBusHotkeyProfile.
-             * @param keyval Keycode of the hotkey.
-             * @param modifiers Modifiers of the hotkey.
-             * @returns %FALSE if the key is not in `profile`, %TRUE otherwise.
-             */
-            remove_hotkey(keyval: number, modifiers: number): boolean
-            /**
-             * Removes the hotkey for an #IBusHotkeyProfile by event.
-             * @param event The associated event.
-             * @returns %FALSE if no such event in `profile`, %TRUE otherwise.
-             */
-            remove_hotkey_by_event(event: GLib.Quark): boolean
-            /**
-             * @param event
-             */
-            vfunc_trigger(event: GLib.Quark): void
-        }
-
-        interface HotkeyProfileClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<HotkeyProfile>
-            readonly prototype: HotkeyProfile
-
-            new (props?: Partial<GObject.ConstructorProps<HotkeyProfile>>): HotkeyProfile
-            /**
-             * Creates a new #IBusHotkeyProfile.
-             * @returns A newly allocated #IBusHotkeyProfile.
-             */
-            "new"(): HotkeyProfile
-        }
-
-        interface $Exports {
-            /**
-             * An opaque data type representing an IBusHotkeyProfile.
-             */
-            HotkeyProfile: HotkeyProfileClass
-        }
-        
-
-        namespace InputContext {
-            interface SignalSignatures extends Proxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
+                "new"(name: string): Keymap
                 /**
-                 * Emitted when the text is going to be committed.
+                 * Get an IBusKeymap associated with the giving name.
                  *
-                 * (Note: The text object is floating, and it will be released after the
-                 *  signal. If signal handler wants to keep the object, the handler should
-                 *  use g_object_ref_sink() to get the ownership of the object.)
-                 * @param text Text to be committed.
+                 * This function loads the keymap file specified in `name`
+                 * in the IBUS_DATA_DIR/keymaps directory.
+                 * @param name The keymap file to be loaded, such as 'us', 'jp'.
+                 * @returns An #IBusKeymap associated with the giving name; or %NULL if failed.
                  */
-                "commit-text"(text: Text): void
-                /**
-                 * Emitted to select next candidate of lookup table.
-                 */
-                "cursor-down-lookup-table"(): void
-                /**
-                 * Emitted to select previous candidate of lookup table.
-                 */
-                "cursor-up-lookup-table"(): void
-                /**
-                 * Emitted to delete surrounding text event from IME to client of IME.
-                 * @param offset the character offset from the cursor position of the text to be deleted.
-                  A negative value indicates a position before the cursor.
-                 * @param n_chars the number of characters to be deleted.
-                 */
-                "delete-surrounding-text"(offset: number, n_chars: number): void
-                /**
-                 * Emitted when an IME is disabled.
-                 */
-                "disabled"(): void
-                /**
-                 * Emitted when an IME is enabled.
-                 */
-                "enabled"(): void
-                /**
-                 * Emitted to forward key event from IME to client of IME.
-                 * @param keyval Key symbol of the keyboard event.
-                 * @param keycode Key symbol of the keyboard event.
-                 * @param modifiers Key modifier flags.
-                 */
-                "forward-key-event"(keyval: number, keycode: number, modifiers: number): void
-                /**
-                 * Emitted to hide auxiliary text.
-                 */
-                "hide-auxiliary-text"(): void
-                /**
-                 * Emitted to hide lookup table.
-                 */
-                "hide-lookup-table"(): void
-                /**
-                 * Emitted to hide preedit text.
-                 */
-                "hide-preedit-text"(): void
-                /**
-                 * Emitted to view the next page of lookup table.
-                 */
-                "page-down-lookup-table"(): void
-                /**
-                 * Emitted to view the previous page of lookup table.
-                 */
-                "page-up-lookup-table"(): void
-                /**
-                 * Emitted to register the properties in @props.
-                 *
-                 * (Note: The props object is floating, and it will be released after the
-                 *  signal. If signal handler wants to keep the object, the handler should
-                 *  use g_object_ref_sink() to get the ownership of the object.)
-                 * @param props An IBusPropList that contains properties.
-                 */
-                "register-properties"(props: PropList): void
-                /**
-                 * Emitted to receive the RequireSurroundingText signal from the daemon.
-                 */
-                "require-surrounding-text"(): void
-                /**
-                 * Emitted to show auxiliary text.
-                 */
-                "show-auxiliary-text"(): void
-                /**
-                 * Emitted to show lookup table.
-                 */
-                "show-lookup-table"(): void
-                /**
-                 * Emitted to show preedit text.
-                 */
-                "show-preedit-text"(): void
-                /**
-                 * Emitted to hide auxilary text.
-                 *
-                 * (Note: The text object is floating, and it will be released after the
-                 *  signal. If signal handler wants to keep the object, the handler should
-                 *  use g_object_ref_sink() to get the ownership of the object.)
-                 * @param text An auxiliary text
-                 * @param visible The visibility of @text
-                 */
-                "update-auxiliary-text"(text: Text, visible: boolean): void
-                /**
-                 * Emitted to update lookup table.
-                 *
-                 * (Note: The table object is floating, and it will be released after the
-                 *  signal. If signal handler wants to keep the object, the handler should
-                 *  use g_object_ref_sink() to get the ownership of the object.)
-                 * @param table An IBusLookupTable to be updated.
-                 * @param visible Whether the table should be visible.
-                 */
-                "update-lookup-table"(table: LookupTable, visible: boolean): void
-                /**
-                 * Emitted to update preedit text.
-                 *
-                 * (Note: The text object is floating, and it will be released after the
-                 *  signal. If signal handler wants to keep the object, the handler should
-                 *  use g_object_ref_sink() to get the ownership of the object.)
-                 * @param text Text to be updated.
-                 * @param cursor_pos Cursor position.
-                 * @param visible Whether the update is visible.
-                 */
-                "update-preedit-text"(text: Text, cursor_pos: number, visible: boolean): void
-                /**
-                 * Emitted to update preedit text with the mode.
-                 *
-                 * (Note: The text object is floating, and it will be released after the
-                 *  signal. If signal handler wants to keep the object, the handler should
-                 *  use g_object_ref_sink() to get the ownership of the object.)
-                 * @param text Text to be updated.
-                 * @param cursor_pos Cursor position.
-                 * @param visible Whether the update is visible.
-                 * @param mode Preedit mode.
-                 */
-                "update-preedit-text-with-mode"(text: Text, cursor_pos: number, visible: boolean, mode: number): void
-                /**
-                 * Emitted to update the property @prop.
-                 *
-                 * (Note: The prop object is floating, and it will be released after the
-                 *  signal. If signal handler wants to keep the object, the handler should
-                 *  use g_object_ref_sink() to get the ownership of the object.)
-                 * @param prop The IBusProperty to be updated.
-                 */
-                "update-property"(prop: Property): void
+                get(name: string): Keymap
             }
 
-            interface ReadableProperties extends Proxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties {
-            }
-
-            interface WritableProperties extends Proxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Proxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
-            }
-        }
-
-        interface InputContext extends Proxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
-            readonly $signals: InputContext.SignalSignatures
-            readonly $readableProperties: InputContext.ReadableProperties
-            readonly $writableProperties: InputContext.WritableProperties
-            readonly $constructOnlyProperties: InputContext.ConstructOnlyProperties
-            /**
-             * Clear handwriting stroke(s) in the current input method engine.
-             *
-             * see_also: #IBusEngine::cancel-hand-writing
-             * @param n_strokes The number of strokes to be removed. Pass 0 to remove all.
-             */
-            cancel_hand_writing(n_strokes: number): void
-            /**
-             * Invoked when the client application get focus. An asynchronous IPC will
-             * be performed.
-             *
-             * see_also: #IBusEngine::focus_in.
-             */
-            focus_in(): void
-            /**
-             * Invoked when the client application get focus. An asynchronous IPC will be performed.
-             *
-             * see_also: #IBusEngine::focus_out.
-             */
-            focus_out(): void
-            /**
-             * Gets an IME engine description for the context.
-             * A synchronous IPC will be performed.
-             * @returns An IME engine description for the context, or NULL.
-             */
-            get_engine(): EngineDesc
-            /**
-             * An asynchronous IPC will be performed.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied or
-                %NULL if you don't care about the result of the method invocation.
-             */
-            get_engine_async(timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with ibus_input_context_get_engine_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-              ibus_input_context_get_engine_async().
-             * @returns An IME engine description for the context, or     %NULL.
-             */
-            get_engine_async_finish(res: Gio.AsyncResult): EngineDesc
-            /**
-             * Check whether the current engine requires surrounding-text.
-             * @returns %TRUE if surrounding-text is needed by the current engine; %FALSE otherwise.
-             */
-            needs_surrounding_text(): boolean
-            /**
-             * Call this API after ibus_input_context_process_key_event() returns
-             * to retrieve commit-text and forwar-key-event signals during
-             * calling ibus_input_context_process_key_event().
-             *
-             * See also ibus_input_context_set_post_process_key_event().
-             * @since 1.5.29
-             */
-            post_process_key_event(): void
-            /**
-             * Pass a handwriting stroke to an input method engine.
-             *
-             * In this API, a coordinate (0.0, 0.0) represents the top-left corner of an area for
-             * handwriting, and (1.0, 1.0) does the bottom-right. Therefore, for example, if
-             * a user writes a character 'L', the array would be something like [0.0, 0.0, 0.0, 1.0, 1.0, 1.0]
-             * and coordinates_len would be 6.
-             *
-             * The function is usually called when a user releases the mouse button in a hand
-             * writing area.
-             *
-             * see_also: #IBusEngine::process-hand-writing-event
-             * @param coordinates An array of gdouble (0.0 to 1.0) which represents a stroke (i.e. [x1, y1, x2, y2, x3, y3, ...]).
-             * @param coordinates_len The number of elements in the array. The number should be even and >= 4.
-             */
-            process_hand_writing_event(coordinates: number, coordinates_len: number): void
-            /**
-             * Pass the key event to input method engine and wait for the reply from
-             * ibus (i.e. synchronous IPC).
-             * @param keyval Key symbol of a key event.
-             * @param keycode Keycode of a key event.
-             * @param state Key modifier flags.
-             * @returns %TRUE for successfully process the key; %FALSE otherwise.  See also: ibus_input_context_process_key_event_async()
-             */
-            process_key_event(keyval: number, keycode: number, state: number): boolean
-            /**
-             * Pass the key event to input method engine.
-             *
-             * Key symbols are characters/symbols produced by key press, for example,
-             * pressing "s" generates key symbol "s"; pressing shift-"s" generates key symbol "S".
-             * Same key on keyboard may produce different key symbols on different keyboard layout.
-             * e.g., "s" key on QWERTY keyboard produces "o" in DVORAK layout.
-             *
-             * Unlike key symbol, keycode is only determined by the location of the key, and
-             * irrelevant of the keyboard layout.
-             *
-             * Briefly speaking, input methods that expect certain keyboard layout should use
-             * keycode; otherwise keyval is sufficient.
-             * For example, Chewing, Cangjie, Wubi expect an en-US QWERTY keyboard, these should
-             * use keycode; while pinyin can rely on keyval only, as it is less sensitive to
-             * the keyboard layout change, DVORAK users can still use DVORAK layout to input pinyin.
-             *
-             * Use ibus_keymap_lookup_keysym() to convert keycode to keysym in given keyboard layout.
-             *
-             * see_also: #IBusEngine::process-key-event
-             * @param keyval Key symbol of a key event.
-             * @param keycode Keycode of a key event.
-             * @param state Key modifier flags.
-             * @param timeout_msec The timeout in milliseconds or -1 to use the default timeout.
-             * @param cancellable A GCancellable or NULL.
-             * @param callback A GAsyncReadyCallback to call when the request is satisfied or NULL
-                 if you don't care about the result of the method invocation.
-             */
-            process_key_event_async(keyval: number, keycode: number, state: number, timeout_msec: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with
-             *      ibus_input_context_process_key_event_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-                 ibus_input_context_process_key_event_async().
-             * @returns %TRUE if the key event is processed;      %FALSE otherwise or some errors happen and the `error` will be set.
-             */
-            process_key_event_async_finish(res: Gio.AsyncResult): boolean
-            /**
-             * Activate the property asynchronously.
-             *
-             * See also: #IBusEngine::property_activate
-             * @param prop_name A property name (e.g. "InputMode.WideLatin")
-             * @param state A status of the property (e.g. PROP_STATE_CHECKED)
-             */
-            property_activate(prop_name: string, state: number): void
-            /**
-             * Invoked when the IME is reset. An asynchronous IPC will be performed.
-             *
-             * see_also: #IBusEngine::reset
-             */
-            reset(): void
-            /**
-             * Set the capabilities flags of client application asynchronously.
-             * When IBUS_CAP_FOCUS is not set, IBUS_CAP_PREEDIT_TEXT, IBUS_CAP_AUXILIARY_TEXT, IBUS_CAP_LOOKUP_TABLE, and IBUS_CAP_PROPERTY have to be all set.
-             * The panel component does nothing for an application that doesn't support focus.
-             *
-             * see_also: #IBusEngine::set-capabilities
-             * @param capabilities Capabilities flags of IBusEngine, see #IBusCapabilite
-             */
-            set_capabilities(capabilities: number): void
-            /**
-             * Set whether #IBusInputContext commits pre-edit texts or not.
-             * If %TRUE, 'update-preedit-text-with-mode' signal is emitted
-             * instead of 'update-preedit-text' signal.
-             * If your client receives the 'update-preedit-text-with-mode' signal,
-             * the client needs to implement commit_text() of pre-edit text when
-             * GtkIMContextClass.focus_out() is called in case an IME desires that
-             * behavior but it depends on each IME.
-             *
-             * See also ibus_engine_update_preedit_text_with_mode().
-             * @param client_commit %TRUE if your input context commits pre-edit texts
-                with Space or Enter key events or mouse click events. %FALSE if
-                ibus-daemon commits pre-edit texts with those events.
-                The default is %FALSE. The behavior is decided with
-                ibus_engine_update_preedit_text_with_mode() to commit, clear or
-                keep the pre-edit text and this API is important in ibus-hangul.
-             */
-            set_client_commit_preedit(client_commit: boolean): void
-            /**
-             * Set content-type (primary purpose and hints) of the context.  This
-             * information is particularly useful to implement intelligent
-             * behavior in engines, such as automatic input-mode switch and text
-             * prediction.  For example, to restrict input to numbers, the client
-             * can call this function with @purpose set to
-             * #IBUS_INPUT_PURPOSE_NUMBER.
-             *
-             * See also: #IBusEngine::set-content-type
-             * @param purpose Primary purpose of the input context, as an #IBusInputPurpose.
-             * @param hints Hints that augment @purpose, as an #IBusInputHints.
-             */
-            set_content_type(purpose: number, hints: number): void
-            /**
-             * Set the cursor location of IBus input context asynchronously.
-             *
-             * see_also: #IBusEngine::set-cursor-location
-             * @param x X coordinate of the cursor.
-             * @param y Y coordinate of the cursor.
-             * @param w Width of the cursor.
-             * @param h Height of the cursor.
-             */
-            set_cursor_location(x: number, y: number, w: number, h: number): void
-            /**
-             * Set the relative cursor location of IBus input context asynchronously.
-             * @param x X coordinate of the cursor.
-             * @param y Y coordinate of the cursor.
-             * @param w Width of the cursor.
-             * @param h Height of the cursor.
-             */
-            set_cursor_location_relative(x: number, y: number, w: number, h: number): void
-            /**
-             * Invoked when the IME engine is changed.
-             * An asynchronous IPC will be performed.
-             * @param name A name of the engine.
-             */
-            set_engine(name: string): void
-            /**
-             * @since 1.5.29
-             * @param enable Can use ibus_input_context_post_process_key_event() to retrieve
-            commit-text and forwar-key-event signals during
-            calling ibus_input_context_process_key_event() if it's %TRUE.
-             */
-            set_post_process_key_event(enable: boolean): void
-            /**
-             * @param text An #IBusText surrounding the current cursor on the application.
-             * @param cursor_pos Current cursor position in characters in @text.
-             * @param anchor_pos Anchor position of selection in @text.
-             */
-            set_surrounding_text(text: Text, cursor_pos: number, anchor_pos: number): void
-        }
-
-        interface InputContextClass extends Omit<ProxyClass, "new"> {
-            readonly $gtype: GObject.GType<InputContext>
-            readonly prototype: InputContext
-
-            new (props?: Partial<GObject.ConstructorProps<InputContext>>): InputContext
-            /**
-             * Creates a new #IBusInputContext.
-             * @throws {GLib.Error}
-             * @param path The path to the object that emitting the signal.
-             * @param connection A #GDBusConnection.
-             * @param cancellable A #GCancellable or %NULL.
-             * @returns A newly allocated #IBusInputContext.
-             */
-            "new"(path: string, connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null): InputContext
-            /**
-             * Finishes an operation started with ibus_input_context_new_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback pass to
-                 ibus_input_context_new_async().
-             * @returns A newly allocated #IBusInputContext.
-             */
-            new_async_finish(res: Gio.AsyncResult): InputContext
-            /**
-             * Gets an existing IBusInputContext.
-             * @param path The path to the object that emitting the signal.
-             * @param connection A GDBusConnection.
-             * @returns An existing #IBusInputContext.
-             */
-            get_input_context(path: string, connection: Gio.DBusConnection): InputContext
-            /**
-             * Gets an existing #IBusInputContext asynchronously.
-             * @param path The path to the object that emitting the signal.
-             * @param connection A #GDBusConnection.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
-                 The callback should not be %NULL.
-             */
-            get_input_context_async(path: string, connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-            /**
-             * Finishes an operation started with
-             * ibus_input_context_get_input_context_async().
-             * @throws {GLib.Error}
-             * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback pass to
-                 ibus_input_context_get_input_context_async().
-             * @returns An existing #IBusInputContext.
-             */
-            get_input_context_async_finish(res: Gio.AsyncResult): InputContext
-            /**
-             * Creates a new #IBusInputContext asynchronously.
-             * @param path The path to the object that emitting the signal.
-             * @param connection A #GDBusConnection.
-             * @param cancellable A #GCancellable or %NULL.
-             * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
-                 The callback should not be %NULL.
-             */
-            new_async(path: string, connection: Gio.DBusConnection, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
-        }
-
-        interface $Exports {
-            /**
-             * An IBusInputContext is a proxy object of BusInputContext,
-             * which manages the context for input methods that supports
-             * text input in various natural languages.
-             *
-             * Clients call the IBusInputContext to invoke BusInputContext,
-             * through which invokes IBusEngine.
-             */
-            InputContext: InputContextClass
-        }
-        
-
-        namespace Keymap {
-            interface SignalSignatures extends Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Object.ReadableProperties {
-            }
-
-            interface WritableProperties extends Object.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface Keymap extends Object {
-            readonly $signals: Keymap.SignalSignatures
-            readonly $readableProperties: Keymap.ReadableProperties
-            readonly $writableProperties: Keymap.WritableProperties
-            readonly $constructOnlyProperties: Keymap.ConstructOnlyProperties
-            /**
-             * Converts the scancode to keysym, given the keymap.
-             * @param keycode A scancode to be converted.
-             * @param state Modifier flags(such as Ctrl, Shift).
-             * @returns Corresponding keysym.
-             */
-            lookup_keysym(keycode: number, state: number): number
-        }
-
-        interface KeymapClass extends Omit<ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Keymap>
-            readonly prototype: Keymap
-
-            new (props?: Partial<GObject.ConstructorProps<Keymap>>): Keymap
-            /**
-             * Get an #IBusKeymap associated with the giving name.
-             *
-             * This function loads the keymap file specified in @name
-             * in the IBUS_DATA_DIR/keymaps directory.
-             * @deprecated This function has been deprecated and should not be used in newly written code. Please use ibus_keymap_get().
-             * @param name The keymap file to be loaded, such as 'us', 'jp'.
-             * @returns An #IBusKeymap associated with the giving name; or %NULL if failed.
-             */
-            "new"(name: string): Keymap
-            /**
-             * Get an IBusKeymap associated with the giving name.
-             *
-             * This function loads the keymap file specified in @name
-             * in the IBUS_DATA_DIR/keymaps directory.
-             * @param name The keymap file to be loaded, such as 'us', 'jp'.
-             * @returns An #IBusKeymap associated with the giving name; or %NULL if failed.
-             */
-            get(name: string): Keymap
-        }
-
-        interface $Exports {
-            /**
-             * An IBusKeymap defines the mapping between keyboard scancodes and
-             * keyboard symbols such as numbers, alphabets, and punctuation marks.
-             *
-             * Some input methods assume certain keyboard layout
-             * (such as Chewing and Wubi requires an US-QWERTY layout),
-             * and expect key symbols to be arranged in that order.
-             * These input methods should new an IBusKeymap
-             * instance and define the keyboard layout.
-             * Then ibus_keymap_lookup_keysym() can
-             * convert scancodes back to the key symbols.
-             *
-             * see_also: #IBusComponent, #IBusEngineDesc
-             */
-            Keymap: KeymapClass
-        }
-        
-
-        namespace LookupTable {
-            interface SignalSignatures extends Serializable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Serializable.ReadableProperties {
-            }
-
-            interface WritableProperties extends Serializable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-            }
-        }
-
-        interface LookupTable extends Serializable {
-            readonly $signals: LookupTable.SignalSignatures
-            readonly $readableProperties: LookupTable.ReadableProperties
-            readonly $writableProperties: LookupTable.WritableProperties
-            readonly $constructOnlyProperties: LookupTable.ConstructOnlyProperties
-            /**
-             * Append a candidate word/phrase to IBusLookupTable, and increase reference.
-             * @param text candidate word/phrase to be appended (in IBusText format).
-             */
-            append_candidate(text: Text): void
-            /**
-             * Append a candidate word/phrase to IBusLookupTable, and increase reference.
-             * This function is needed if the input method select candidate with
-             * non-numeric keys such as "asdfghjkl;".
-             * @param text A candidate label to be appended (in IBusText format).
-             */
-            append_label(text: Text): void
-            /**
-             * Clear and remove all candidate from an IBusLookupTable.
-             */
-            clear(): void
-            /**
-             * Go to next candidate of an #IBusLookupTable.
-             *
-             * It returns FALSE if it is already at the last candidate,
-             * unless  <code>table&gt;-round==TRUE</code>, where it will go
-             * to the first candidate.
-             * @returns %TRUE if succeed.
-             */
-            cursor_down(): boolean
-            /**
-             * Go to previous candidate of an #IBusLookupTable.
-             *
-             * It returns FALSE if it is already at the first candidate,
-             * unless  <code>table&gt;-round==TRUE</code>, where it will go
-             * to the last candidate.
-             * @returns %TRUE if succeed.
-             */
-            cursor_up(): boolean
-            /**
-             * Return #IBusText at the given index. Borrowed reference.
-             * @param index Index in the Lookup table.
-             * @returns IBusText at the given index; NULL if no such         #IBusText.
-             */
-            get_candidate(index: number): Text
-            /**
-             * Gets the cursor position in current page of #IBusLookupTable.
-             * @returns The position of cursor in current page.
-             */
-            get_cursor_in_page(): number
-            /**
-             * Gets the cursor position of #IBusLookupTable.
-             * @returns The position of cursor.
-             */
-            get_cursor_pos(): number
-            /**
-             * Return #IBusText at the given index. Borrowed reference.
-             * @param index Index in the Lookup table.
-             * @returns #IBusText at the given index; %NULL if no such         #IBusText.
-             */
-            get_label(index: number): Text
-            /**
-             * Return the number of candidate in the table.
-             * @returns The number of candidates in the table
-             */
-            get_number_of_candidates(): number
-            /**
-             * Returns the orientation of the #IBusLookupTable.
-             * @returns The orientation of the `table`.
-             */
-            get_orientation(): number
-            /**
-             * Gets the number of candidate shown per page.
-             * @returns Page size, i.e., number of candidate shown per page. dd
-             */
-            get_page_size(): number
-            /**
-             * Returns whether the cursor of an #IBusLookupTable is visible.
-             * @returns Whether the cursor of `table` is visible.
-             */
-            is_cursor_visible(): boolean
-            /**
-             * Returns whether the #IBusLookupTable is round.
-             * @returns Whether the `table` is round.
-             */
-            is_round(): boolean
-            /**
-             * Go to next page of an #IBusLookupTable.
-             *
-             * It returns FALSE if it is already at the last page,
-             * unless  <code>table&gt;-round==TRUE</code>, where it will go
-             * to the first page.
-             * @returns %TRUE if succeed.
-             */
-            page_down(): boolean
-            /**
-             * Go to previous page of an #IBusLookupTable.
-             *
-             * It returns FALSE if it is already at the first page,
-             * unless  <code>table&gt;-round==TRUE</code>, where it will go
-             * to the last page.
-             * @returns %TRUE if succeed.
-             */
-            page_up(): boolean
-            /**
-             * Set the cursor position of IBusLookupTable.
-             * @param cursor_pos The position of cursor.
-             */
-            set_cursor_pos(cursor_pos: number): void
-            /**
-             * Set whether to make the cursor of an IBusLookupTable visible or not.
-             * @param visible Whether to make the cursor of @table visible.
-             */
-            set_cursor_visible(visible: boolean): void
-            /**
-             * Append a candidate word/phrase to IBusLookupTable, and increase reference.
-             * This function is needed if the input method select candidate with
-             * non-numeric keys such as "asdfghjkl;".
-             * @param index Intex in the Lookup table.
-             * @param text A candidate label to be appended (in IBusText format).
-             */
-            set_label(index: number, text: Text): void
-            /**
-             * Set the orientation.
-             * @param orientation .
-             */
-            set_orientation(orientation: number): void
-            /**
-             * Set the number of candidate shown per page.
-             * @param page_size number of candidate shown per page.
-             */
-            set_page_size(page_size: number): void
-            /**
-             * Set whether to make the IBusLookupTable round or not.
-             * @param round Whether to make @table round.
-             */
-            set_round(round: boolean): void
-        }
-
-        interface LookupTableClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<LookupTable>
-            readonly prototype: LookupTable
-
-            new (props?: Partial<GObject.ConstructorProps<LookupTable>>): LookupTable
-            /**
-             * Craetes a new #IBusLookupTable.
-             * @param page_size number of candidate shown per page, the max value is 16.
-             * @param cursor_pos position index of cursor.
-             * @param cursor_visible whether the cursor is visible.
-             * @param round TRUE for lookup table wrap around.
-             * @returns A newly allocated #IBusLookupTable.
-             */
-            "new"(page_size: number, cursor_pos: number, cursor_visible: boolean, round: boolean): LookupTable
-        }
-
-        interface $Exports {
-            /**
-             * An IBusLookuptable stores the candidate words or phrases for users to
-             * choose from.
-             *
-             * Use ibus_engine_update_lookup_table(), ibus_engine_show_lookup_table(),
-             * and ibus_engine_hide_lookup_table() to update, show and hide the lookup
-             * table.
-             *
-             * see_also: #IBusEngine
-             */
-            LookupTable: LookupTableClass
-        }
-        
-
-        namespace Object {
-            interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {
+            interface $Exports {
                 /**
-                 * Destroy and free an IBusObject
+                 * An IBusKeymap defines the mapping between keyboard scancodes and
+                 * keyboard symbols such as numbers, alphabets, and punctuation marks.
                  *
-                 * See also:  ibus_object_destroy().
+                 * Some input methods assume certain keyboard layout
+                 * (such as Chewing and Wubi requires an US-QWERTY layout),
+                 * and expect key symbols to be arranged in that order.
+                 * These input methods should new an IBusKeymap
+                 * instance and define the keyboard layout.
+                 * Then ibus_keymap_lookup_keysym() can
+                 * convert scancodes back to the key symbols.
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para></note>
+                 * see_also: #IBusComponent, #IBusEngineDesc
                  */
-                "destroy"(): void
+                Keymap: KeymapClass
+            }
+            
+
+            namespace LookupTable {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GObject.InitiallyUnowned.ReadableProperties {
+            interface LookupTable extends Serializable {
+                readonly $signals: LookupTable.SignalSignatures
+                readonly $readableProperties: LookupTable.ReadableProperties
+                readonly $writableProperties: LookupTable.WritableProperties
+                readonly $constructOnlyProperties: LookupTable.ConstructOnlyProperties
+                /**
+                 * Append a candidate word/phrase to IBusLookupTable, and increase reference.
+                 * @param text candidate word/phrase to be appended (in IBusText format).
+                 */
+                append_candidate(text: Text): void
+                /**
+                 * Append a candidate word/phrase to IBusLookupTable, and increase reference.
+                 * This function is needed if the input method select candidate with
+                 * non-numeric keys such as "asdfghjkl;".
+                 * @param text A candidate label to be appended (in IBusText format).
+                 */
+                append_label(text: Text): void
+                /**
+                 * Clear and remove all candidate from an IBusLookupTable.
+                 */
+                clear(): void
+                /**
+                 * Go to next candidate of an #IBusLookupTable.
+                 *
+                 * It returns FALSE if it is already at the last candidate,
+                 * unless  <code>table&gt;-round==TRUE</code>, where it will go
+                 * to the first candidate.
+                 * @returns %TRUE if succeed.
+                 */
+                cursor_down(): boolean
+                /**
+                 * Go to previous candidate of an #IBusLookupTable.
+                 *
+                 * It returns FALSE if it is already at the first candidate,
+                 * unless  <code>table&gt;-round==TRUE</code>, where it will go
+                 * to the last candidate.
+                 * @returns %TRUE if succeed.
+                 */
+                cursor_up(): boolean
+                /**
+                 * Return #IBusText at the given index. Borrowed reference.
+                 * @param index Index in the Lookup table.
+                 * @returns IBusText at the given index; NULL if no such         #IBusText.
+                 */
+                get_candidate(index: number): Text
+                /**
+                 * Gets the cursor position in current page of #IBusLookupTable.
+                 * @returns The position of cursor in current page.
+                 */
+                get_cursor_in_page(): number
+                /**
+                 * Gets the cursor position of #IBusLookupTable.
+                 * @returns The position of cursor.
+                 */
+                get_cursor_pos(): number
+                /**
+                 * Return #IBusText at the given index. Borrowed reference.
+                 * @param index Index in the Lookup table.
+                 * @returns #IBusText at the given index; %NULL if no such         #IBusText.
+                 */
+                get_label(index: number): Text
+                /**
+                 * Return the number of candidate in the table.
+                 * @returns The number of candidates in the table
+                 */
+                get_number_of_candidates(): number
+                /**
+                 * Returns the orientation of the #IBusLookupTable.
+                 * @returns The orientation of the `table`.
+                 */
+                get_orientation(): number
+                /**
+                 * Gets the number of candidate shown per page.
+                 * @returns Page size, i.e., number of candidate shown per page. dd
+                 */
+                get_page_size(): number
+                /**
+                 * Returns whether the cursor of an #IBusLookupTable is visible.
+                 * @returns Whether the cursor of `table` is visible.
+                 */
+                is_cursor_visible(): boolean
+                /**
+                 * Returns whether the #IBusLookupTable is round.
+                 * @returns Whether the `table` is round.
+                 */
+                is_round(): boolean
+                /**
+                 * Go to next page of an #IBusLookupTable.
+                 *
+                 * It returns FALSE if it is already at the last page,
+                 * unless  <code>table&gt;-round==TRUE</code>, where it will go
+                 * to the first page.
+                 * @returns %TRUE if succeed.
+                 */
+                page_down(): boolean
+                /**
+                 * Go to previous page of an #IBusLookupTable.
+                 *
+                 * It returns FALSE if it is already at the first page,
+                 * unless  <code>table&gt;-round==TRUE</code>, where it will go
+                 * to the last page.
+                 * @returns %TRUE if succeed.
+                 */
+                page_up(): boolean
+                /**
+                 * Set the cursor position of IBusLookupTable.
+                 * @param cursor_pos The position of cursor.
+                 */
+                set_cursor_pos(cursor_pos: number): void
+                /**
+                 * Set whether to make the cursor of an IBusLookupTable visible or not.
+                 * @param visible Whether to make the cursor of `table` visible.
+                 */
+                set_cursor_visible(visible: boolean): void
+                /**
+                 * Append a candidate word/phrase to IBusLookupTable, and increase reference.
+                 * This function is needed if the input method select candidate with
+                 * non-numeric keys such as "asdfghjkl;".
+                 * @param index Intex in the Lookup table.
+                 * @param text A candidate label to be appended (in IBusText format).
+                 */
+                set_label(index: number, text: Text): void
+                /**
+                 * Set the orientation.
+                 * @param orientation .
+                 */
+                set_orientation(orientation: number): void
+                /**
+                 * Set the number of candidate shown per page.
+                 * @param page_size number of candidate shown per page.
+                 */
+                set_page_size(page_size: number): void
+                /**
+                 * Set whether to make the IBusLookupTable round or not.
+                 * @param round Whether to make `table` round.
+                 */
+                set_round(round: boolean): void
             }
 
-            interface WritableProperties extends GObject.InitiallyUnowned.WritableProperties {
+            interface LookupTableClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<LookupTable>
+                readonly prototype: LookupTable
+
+                new (props?: Partial<GObject.ConstructorProps<LookupTable>>): LookupTable
+                /**
+                 * Craetes a new #IBusLookupTable.
+                 * @param page_size number of candidate shown per page, the max value is 16.
+                 * @param cursor_pos position index of cursor.
+                 * @param cursor_visible whether the cursor is visible.
+                 * @param round TRUE for lookup table wrap around.
+                 * @returns A newly allocated #IBusLookupTable.
+                 */
+                "new"(page_size: number, cursor_pos: number, cursor_visible: boolean, round: boolean): LookupTable
             }
 
-            interface ConstructOnlyProperties extends GObject.InitiallyUnowned.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * An IBusLookuptable stores the candidate words or phrases for users to
+                 * choose from.
+                 *
+                 * Use ibus_engine_update_lookup_table(), ibus_engine_show_lookup_table(),
+                 * and ibus_engine_hide_lookup_table() to update, show and hide the lookup
+                 * table.
+                 *
+                 * see_also: #IBusEngine
+                 */
+                LookupTable: LookupTableClass
             }
-        }
+            
 
-        interface Object extends GObject.InitiallyUnowned {
-            readonly $signals: Object.SignalSignatures
-            readonly $readableProperties: Object.ReadableProperties
-            readonly $writableProperties: Object.WritableProperties
-            readonly $constructOnlyProperties: Object.ConstructOnlyProperties
-            /**
-             * Emit the "destroy" signal notifying all reference holders that they should
-             * release the #IBusObject.
-             *
-             * The memory for the object itself won't be deleted until its reference count
-             * actually drops to 0; ibus_object_destroy merely asks reference holders to
-             * release their references. It does not free the object.
-             */
-            destroy(): void
-            /**
-             * Emit the "destroy" signal notifying all reference holders that they should
-             * release the #IBusObject.
-             *
-             * The memory for the object itself won't be deleted until its reference count
-             * actually drops to 0; ibus_object_destroy merely asks reference holders to
-             * release their references. It does not free the object.
-             */
-            vfunc_destroy(): void
-        }
+            namespace Object {
+                interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {
+                    /**
+                     * Destroy and free an IBusObject
+                     *
+                     * See also:  ibus_object_destroy().
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para></note>
+                     */
+                    "destroy"(): void
+                }
 
-        interface ObjectClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
-            readonly $gtype: GObject.GType<Object>
-            readonly prototype: Object
+                interface ReadableProperties extends GObject.InitiallyUnowned.ReadableProperties {
+                }
 
-            new (props?: Partial<GObject.ConstructorProps<Object>>): Object
-            /**
-             * Creates  a new #IBusObject.
-             * @returns A newly allocated #IBusObject
-             */
-            "new"(): Object
-        }
+                interface WritableProperties extends GObject.InitiallyUnowned.WritableProperties {
+                }
 
-        interface $Exports {
-            /**
-             * IBusObject is the base object for all objects in IBus.
-             */
-            Object: ObjectClass
-        }
-        
-
-        namespace ObservedPath {
-            interface SignalSignatures extends Serializable.SignalSignatures {
+                interface ConstructOnlyProperties extends GObject.InitiallyUnowned.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends Serializable.ReadableProperties {
+            interface Object extends GObject.InitiallyUnowned {
+                readonly $signals: Object.SignalSignatures
+                readonly $readableProperties: Object.ReadableProperties
+                readonly $writableProperties: Object.WritableProperties
+                readonly $constructOnlyProperties: Object.ConstructOnlyProperties
+                /**
+                 * Emit the "destroy" signal notifying all reference holders that they should
+                 * release the #IBusObject.
+                 *
+                 * The memory for the object itself won't be deleted until its reference count
+                 * actually drops to 0; ibus_object_destroy merely asks reference holders to
+                 * release their references. It does not free the object.
+                 */
+                destroy(): void
+                /**
+                 * Emit the "destroy" signal notifying all reference holders that they should
+                 * release the #IBusObject.
+                 *
+                 * The memory for the object itself won't be deleted until its reference count
+                 * actually drops to 0; ibus_object_destroy merely asks reference holders to
+                 * release their references. It does not free the object.
+                 */
+                vfunc_destroy(): void
             }
 
-            interface WritableProperties extends Serializable.WritableProperties {
+            interface ObjectClass extends Omit<GObject.InitiallyUnownedClass, "new"> {
+                readonly $gtype: GObject.GType<Object>
+                readonly prototype: Object
+
+                new (props?: Partial<GObject.ConstructorProps<Object>>): Object
+                /**
+                 * Creates  a new #IBusObject.
+                 * @returns A newly allocated #IBusObject
+                 */
+                "new"(): Object
             }
 
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * IBusObject is the base object for all objects in IBus.
+                 */
+                Object: ObjectClass
             }
-        }
+            
 
-        interface ObservedPath extends Serializable {
-            readonly $signals: ObservedPath.SignalSignatures
-            readonly $readableProperties: ObservedPath.ReadableProperties
-            readonly $writableProperties: ObservedPath.WritableProperties
-            readonly $constructOnlyProperties: ObservedPath.ConstructOnlyProperties
-            /**
-             * Checks whether the path is modified by comparing the mtime in object and
-             * mtime in file system.
-             * @returns %TRUE if imtime is changed, otherwise %FALSE.
-             */
-            check_modification(): boolean
-            /**
-             * Append the observed path to a string with following format:
-             * &lt;path mtime="&lt;i&gt;modified time&lt;/i&gt;" &gt;&lt;i&gt;path&lt;/i&gt;&lt;/path&gt;
-             * @param output Path is appended to.
-             * @param indent number of indent.
-             */
-            output(output: GLib.String, indent: number): void
-            /**
-             * Recursively traverse the path and put the files and subdirectory in to
-             * a newly allocated
-             * GLists, if the @path is a directory. Otherwise returns NULL.
-             * @param dir_only Only looks for subdirs, not files
-             * @returns A newly allocate GList which holds content in path; NULL if `path` is not directory.
-             */
-            traverse(dir_only: boolean): ObservedPath[]
-        }
+            namespace ObservedPath {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
 
-        interface ObservedPathClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<ObservedPath>
-            readonly prototype: ObservedPath
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                }
 
-            new (props?: Partial<GObject.ConstructorProps<ObservedPath>>): ObservedPath
-            /**
-             * Creates a new #IBusObservedPath from an XML node.
-             * @param path The path string.
-             * @param fill_stat Auto-fill the path status.
-             * @returns A newly allocated #IBusObservedPath.
-             */
-            "new"(path: string, fill_stat: boolean): ObservedPath
-            /**
-             * Creates an new #IBusObservedPath from an XML node.
-             * @param node An XML node that contain path.
-             * @param fill_stat Auto-fill the path status.
-             * @returns A newly allocated #IBusObservedPath.
-             */
-            new_from_xml_node(node: XML, fill_stat: boolean): ObservedPath
-        }
+                interface WritableProperties extends Serializable.WritableProperties {
+                }
 
-        interface $Exports {
-            /**
-             * IBusObservedPath provides methods for file path manipulation,
-             * such as monitor modification, directory tree traversal.
-             */
-            ObservedPath: ObservedPathClass
-        }
-        
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                }
+            }
 
-        namespace PanelService {
-            interface SignalSignatures extends Service.SignalSignatures {
+            interface ObservedPath extends Serializable {
+                readonly $signals: ObservedPath.SignalSignatures
+                readonly $readableProperties: ObservedPath.ReadableProperties
+                readonly $writableProperties: ObservedPath.WritableProperties
+                readonly $constructOnlyProperties: ObservedPath.ConstructOnlyProperties
                 /**
-                 * @param object
-                 * @param p0
-                 * @param p1
+                 * Checks whether the path is modified by comparing the mtime in object and
+                 * mtime in file system.
+                 * @returns %TRUE if imtime is changed, otherwise %FALSE.
                  */
-                "candidate-clicked-lookup-table"(object: number, p0: number, p1: number): void
+                check_modification(): boolean
                 /**
-                 * Emitted when the client application get the ::commit-text-received.
-                 * Implement the member function
-                 * IBusPanelServiceClass::commit_text_received in extended class to
-                 * receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param text A #IBusText
+                 * Append the observed path to a string with following format:
+                 * &lt;path mtime="&lt;i&gt;modified time&lt;/i&gt;" &gt;&lt;i&gt;path&lt;/i&gt;&lt;/path&gt;
+                 * @param output Path is appended to.
+                 * @param indent number of indent.
                  */
-                "commit-text-received"(text: Text): void
+                output(output: GLib.String, indent: number): void
                 /**
-                 * Emitted when the client application get the ::cursor-down-lookup-table.
-                 * Implement the member function
-                 * IBusPanelServiceClass::cursor_down_lookup_table in extended
-                 * class to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Recursively traverse the path and put the files and subdirectory in to
+                 * a newly allocated
+                 * GLists, if the `path` is a directory. Otherwise returns NULL.
+                 * @param dir_only Only looks for subdirs, not files
+                 * @returns A newly allocate GList which holds content in path; NULL if `path` is not directory.
                  */
-                "cursor-down-lookup-table"(): void
+                traverse(dir_only: boolean): ObservedPath[]
+            }
+
+            interface ObservedPathClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<ObservedPath>
+                readonly prototype: ObservedPath
+
+                new (props?: Partial<GObject.ConstructorProps<ObservedPath>>): ObservedPath
                 /**
-                 * Emitted when the client application get the ::cursor-up-lookup-table.
-                 * Implement the member function
-                 * IBusPanelServiceClass::cursor_up_lookup_table in extended
-                 * class to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Creates a new #IBusObservedPath from an XML node.
+                 * @param path The path string.
+                 * @param fill_stat Auto-fill the path status.
+                 * @returns A newly allocated #IBusObservedPath.
                  */
-                "cursor-up-lookup-table"(): void
+                "new"(path: string, fill_stat: boolean): ObservedPath
                 /**
-                 * Emitted when the client application destroys.
-                 * Implement the member function
-                 * IBusPanelServiceClass::destroy_context in extended class to
-                 * receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param input_context_path Object path of InputContext.
+                 * Creates an new #IBusObservedPath from an XML node.
+                 * @param node An XML node that contain path.
+                 * @param fill_stat Auto-fill the path status.
+                 * @returns A newly allocated #IBusObservedPath.
                  */
-                "destroy-context"(input_context_path: string): void
+                new_from_xml_node(node: XML, fill_stat: boolean): ObservedPath
+            }
+
+            interface $Exports {
                 /**
-                 * Emitted when the client application get the ::focus-in.
-                 * Implement the member function
-                 * IBusPanelServiceClass::focus_in in extended class to receive
-                 * this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param input_context_path Object path of InputContext.
+                 * IBusObservedPath provides methods for file path manipulation,
+                 * such as monitor modification, directory tree traversal.
                  */
-                "focus-in"(input_context_path: string): void
+                ObservedPath: ObservedPathClass
+            }
+            
+
+            namespace PanelService {
+                interface SignalSignatures extends Service.SignalSignatures {
+                    /**
+                     * @param object
+                     * @param p0
+                     * @param p1
+                     */
+                    "candidate-clicked-lookup-table"(object: number, p0: number, p1: number): void
+                    /**
+                     * Emitted when the client application get the ::commit-text-received.
+                     * Implement the member function
+                     * IBusPanelServiceClass::commit_text_received in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param text A #IBusText
+                     */
+                    "commit-text-received"(text: Text): void
+                    /**
+                     * Emitted when the client application get the ::cursor-down-lookup-table.
+                     * Implement the member function
+                     * IBusPanelServiceClass::cursor_down_lookup_table in extended
+                     * class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "cursor-down-lookup-table"(): void
+                    /**
+                     * Emitted when the client application get the ::cursor-up-lookup-table.
+                     * Implement the member function
+                     * IBusPanelServiceClass::cursor_up_lookup_table in extended
+                     * class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "cursor-up-lookup-table"(): void
+                    /**
+                     * Emitted when the client application destroys.
+                     * Implement the member function
+                     * IBusPanelServiceClass::destroy_context in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param input_context_path Object path of InputContext.
+                     */
+                    "destroy-context"(input_context_path: string): void
+                    /**
+                     * Emitted when the client application get the ::focus-in.
+                     * Implement the member function
+                     * IBusPanelServiceClass::focus_in in extended class to receive
+                     * this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param input_context_path Object path of InputContext.
+                     */
+                    "focus-in"(input_context_path: string): void
+                    /**
+                     * Emitted when the client application get the ::focus-out.
+                     * Implement the member function
+                     * IBusPanelServiceClass::focus_out in extended class to receive
+                     * this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param input_context_path Object path of InputContext.
+                     */
+                    "focus-out"(input_context_path: string): void
+                    /**
+                     * Emitted when the client application get the ::hide-auxiliary-text.
+                     * Implement the member function
+                     * IBusPanelServiceClass::hide_auxiliary_text in extended class
+                     * to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "hide-auxiliary-text"(): void
+                    /**
+                     * Emitted when the client application get the ::hide-language-bar.
+                     * Implement the member function
+                     * IBusPanelServiceClass::hide_language_bar in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "hide-language-bar"(): void
+                    /**
+                     * Emitted when the client application get the ::hide-lookup-table.
+                     * Implement the member function
+                     * IBusPanelServiceClass::hide_lookup_table in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "hide-lookup-table"(): void
+                    /**
+                     * Emitted when the client application get the ::hide-preedit-text.
+                     * Implement the member function
+                     * IBusPanelServiceClass::hide_preedit_text in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "hide-preedit-text"(): void
+                    /**
+                     * Emitted when the client application get the ::page-down-lookup-table.
+                     * Implement the member function
+                     * IBusPanelServiceClass::page_down_lookup_table in extended
+                     * class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "page-down-lookup-table"(): void
+                    /**
+                     * Emitted when the client application get the ::page-up-lookup-table.
+                     * Implement the member function
+                     * IBusPanelServiceClass::page_up_lookup_table in extended class
+                     * to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "page-up-lookup-table"(): void
+                    /**
+                     * Emitted when the client application get the ::panel-extension-received.
+                     * Implement the member function
+                     * IBusPanelServiceClass::panel_extension_received in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param data A #GVariant
+                     */
+                    "panel-extension-received"(data: ExtensionEvent): void
+                    /**
+                     * Emitted when a key event is received.
+                     * Implement the member function IBusPanelServiceClass::process_key_event
+                     * in extended class to receive this signal.
+                     * Both the key symbol and keycode are passed to the member function.
+                     * See ibus_input_context_process_key_event() for further explanation of
+                     * key symbol, keycode and which to use.
+                     * @param keyval Key symbol of the key press.
+                     * @param keycode KeyCode of the key press.
+                     * @param state Key modifier flags.
+                     * @returns %TRUE for successfully process the key; %FALSE otherwise. See also:  ibus_input_context_process_key_event().  <note><para>Argument `user_data` is ignored in this function.</para> </note>
+                     */
+                    "process-key-event"(keyval: number, keycode: number, state: number): boolean
+                    /**
+                     * Emitted when the client application get the ::register-properties.
+                     * Implement the member function
+                     * IBusPanelServiceClass::register_properties in extended class
+                     * to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param prop_list An IBusPropList that contains properties.
+                     */
+                    "register-properties"(prop_list: PropList): void
+                    /**
+                     * Emitted when the client application get the ::reset.
+                     * Implement the member function
+                     * IBusPanelServiceClass::reset in extended class to receive this
+                     * signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "reset"(): void
+                    /**
+                     * Emitted when the client application get the ::set-content-type.
+                     * Implement the member function
+                     * IBusPanelServiceClass::set_content_type in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param purpose Input purpose.
+                     * @param hints Input hints.
+                     */
+                    "set-content-type"(purpose: number, hints: number): void
+                    /**
+                     * Emitted when the client application get the ::set-cursor-location.
+                     * Implement the member function
+                     * IBusPanelServiceClass::set_cursor_location in extended class
+                     * to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param x X coordinate of the cursor.
+                     * @param y Y coordinate of the cursor.
+                     * @param w Width of the cursor.
+                     * @param h Height of the cursor.
+                     */
+                    "set-cursor-location"(x: number, y: number, w: number, h: number): void
+                    /**
+                     * Emitted when the client application get the set-cursor-location-relative.
+                     * Implement the member function set_cursor_location_relative() in
+                     * extended class to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param x X coordinate of the cursor.
+                     * @param y Y coordinate of the cursor.
+                     * @param w Width of the cursor.
+                     * @param h Height of the cursor.
+                     */
+                    "set-cursor-location-relative"(x: number, y: number, w: number, h: number): void
+                    /**
+                     * Emitted when the client application get the ::show-auxiliary-text.
+                     * Implement the member function
+                     * IBusPanelServiceClass::show_auxiliary_text in extended class
+                     * to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "show-auxiliary-text"(): void
+                    /**
+                     * Emitted when the client application get the ::show-language-bar.
+                     * Implement the member function
+                     * IBusPanelServiceClass::show_language_bar in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "show-language-bar"(): void
+                    /**
+                     * Emitted when the client application get the ::show-lookup-table.
+                     * Implement the member function
+                     * IBusPanelServiceClass::show_lookup_table in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "show-lookup-table"(): void
+                    /**
+                     * Emitted when the client application get the ::show-preedit-text.
+                     * Implement the member function
+                     * IBusPanelServiceClass::show_preedit_text in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "show-preedit-text"(): void
+                    /**
+                     * Emitted when the client application get the ::start-setup.
+                     * Implement the member function
+                     * IBusPanelServiceClass::start_setup in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "start-setup"(): void
+                    /**
+                     * Emitted when the client application get the ::state-changed.
+                     * Implement the member function
+                     * IBusPanelServiceClass::state_changed in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     */
+                    "state-changed"(): void
+                    /**
+                     * Emitted when the client application get the ::update-auxiliary-text.
+                     * Implement the member function
+                     * IBusPanelServiceClass::update_auxiliary_text in extended class
+                     * to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param text A preedit text to be updated.
+                     * @param visible Whether the update is visible.
+                     */
+                    "update-auxiliary-text"(text: Text, visible: boolean): void
+                    /**
+                     * Emitted when the client application get the ::update-lookup-table.
+                     * Implement the member function
+                     * IBusPanelServiceClass::update_lookup_table in extended class
+                     * to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param lookup_table A lookup table to be updated.
+                     * @param visible Whether the update is visible.
+                     */
+                    "update-lookup-table"(lookup_table: LookupTable, visible: boolean): void
+                    /**
+                     * Emitted when the client application get the ::update-preedit-text.
+                     * Implement the member function
+                     * IBusPanelServiceClass::update_preedit_text in extended class
+                     * to receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param text A preedit text to be updated.
+                     * @param cursor_pos The cursor position of the text.
+                     * @param visible Whether the update is visible.
+                     */
+                    "update-preedit-text"(text: Text, cursor_pos: number, visible: boolean): void
+                    /**
+                     * Emitted when the client application get the ::update-property.
+                     * Implement the member function
+                     * IBusPanelServiceClass::update_property in extended class to
+                     * receive this signal.
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para>
+                     * </note>
+                     * @param prop The IBusProperty to be updated.
+                     */
+                    "update-property"(prop: Property): void
+                }
+
+                interface ReadableProperties extends Service.ReadableProperties {
+                }
+
+                interface WritableProperties extends Service.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Service.ConstructOnlyProperties {
+                }
+            }
+
+            interface PanelService extends Service {
+                readonly $signals: PanelService.SignalSignatures
+                readonly $readableProperties: PanelService.ReadableProperties
+                readonly $writableProperties: PanelService.WritableProperties
+                readonly $constructOnlyProperties: PanelService.ConstructOnlyProperties
                 /**
-                 * Emitted when the client application get the ::focus-out.
-                 * Implement the member function
-                 * IBusPanelServiceClass::focus_out in extended class to receive
-                 * this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param input_context_path Object path of InputContext.
+                 * Notify that a candidate is clicked
+                 * by sending a "CandidateClicked" to IBus service.
+                 * @param index Index in the Lookup table
+                 * @param button GdkEventButton::button (1: left button, etc.)
+                 * @param state GdkEventButton::state (key modifier flags)
                  */
-                "focus-out"(input_context_path: string): void
+                candidate_clicked(index: number, button: number, state: number): void
                 /**
-                 * Emitted when the client application get the ::hide-auxiliary-text.
-                 * Implement the member function
-                 * IBusPanelServiceClass::hide_auxiliary_text in extended class
-                 * to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Notify that a text is sent
+                 * by sending a "CommitText" message to IBus service.
+                 * @param text An #IBusText
                  */
-                "hide-auxiliary-text"(): void
+                commit_text(text: Text): void
                 /**
-                 * Emitted when the client application get the ::hide-language-bar.
-                 * Implement the member function
-                 * IBusPanelServiceClass::hide_language_bar in extended class to
-                 * receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Notify that the cursor is down
+                 * by sending a "CursorDown" to IBus service.
                  */
-                "hide-language-bar"(): void
+                cursor_down(): void
                 /**
-                 * Emitted when the client application get the ::hide-lookup-table.
-                 * Implement the member function
-                 * IBusPanelServiceClass::hide_lookup_table in extended class to
-                 * receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Notify that the cursor is up
+                 * by sending a "CursorUp" to IBus service.
                  */
-                "hide-lookup-table"(): void
+                cursor_up(): void
                 /**
-                 * Emitted when the client application get the ::hide-preedit-text.
-                 * Implement the member function
-                 * IBusPanelServiceClass::hide_preedit_text in extended class to
-                 * receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 */
-                "hide-preedit-text"(): void
-                /**
-                 * Emitted when the client application get the ::page-down-lookup-table.
-                 * Implement the member function
-                 * IBusPanelServiceClass::page_down_lookup_table in extended
-                 * class to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 */
-                "page-down-lookup-table"(): void
-                /**
-                 * Emitted when the client application get the ::page-up-lookup-table.
-                 * Implement the member function
-                 * IBusPanelServiceClass::page_up_lookup_table in extended class
-                 * to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 */
-                "page-up-lookup-table"(): void
-                /**
-                 * Emitted when the client application get the ::panel-extension-received.
-                 * Implement the member function
-                 * IBusPanelServiceClass::panel_extension_received in extended class to
-                 * receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param data A #GVariant
-                 */
-                "panel-extension-received"(data: ExtensionEvent): void
-                /**
-                 * Emitted when a key event is received.
-                 * Implement the member function IBusPanelServiceClass::process_key_event
-                 * in extended class to receive this signal.
-                 * Both the key symbol and keycode are passed to the member function.
-                 * See ibus_input_context_process_key_event() for further explanation of
-                 * key symbol, keycode and which to use.
-                 * @param keyval Key symbol of the key press.
-                 * @param keycode KeyCode of the key press.
+                 * Forward key events when an IBus popup takes the focus and the events
+                 * needs to be forwared to the target IBus engine.
+                 * @param keyval Key symbol of a key event.
+                 * @param keycode Keycode of a key event.
                  * @param state Key modifier flags.
-                 * @returns %TRUE for successfully process the key; %FALSE otherwise. See also:  ibus_input_context_process_key_event().  <note><para>Argument `user_data` is ignored in this function.</para> </note>
                  */
-                "process-key-event"(keyval: number, keycode: number, state: number): boolean
+                forward_process_key_event(keyval: number, keycode: number, state: number): void
                 /**
-                 * Emitted when the client application get the ::register-properties.
-                 * Implement the member function
-                 * IBusPanelServiceClass::register_properties in extended class
-                 * to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param prop_list An IBusPropList that contains properties.
+                 * Notify that the preedit is hidden by the panel extension
                  */
-                "register-properties"(prop_list: PropList): void
+                hide_preedit_text_received(): void
                 /**
-                 * Emitted when the client application get the ::reset.
-                 * Implement the member function
-                 * IBusPanelServiceClass::reset in extended class to receive this
-                 * signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Notify that the page is down
+                 * by sending a "PageDown" to IBus service.
                  */
-                "reset"(): void
+                page_down(): void
                 /**
-                 * Emitted when the client application get the ::set-content-type.
-                 * Implement the member function
-                 * IBusPanelServiceClass::set_content_type in extended class to
-                 * receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param purpose Input purpose.
-                 * @param hints Input hints.
+                 * Notify that the page is up
+                 * by sending a "PageUp" to IBus service.
                  */
-                "set-content-type"(purpose: number, hints: number): void
+                page_up(): void
                 /**
-                 * Emitted when the client application get the ::set-cursor-location.
-                 * Implement the member function
-                 * IBusPanelServiceClass::set_cursor_location in extended class
-                 * to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param x X coordinate of the cursor.
-                 * @param y Y coordinate of the cursor.
-                 * @param w Width of the cursor.
-                 * @param h Height of the cursor.
+                 * Enable or disable a panel extension with #IBusExtensionEvent.
+                 * Notify that a data is sent
+                 * by sending a "PanelExtension" message to IBus panel extension service.
+                 * @param event A #PanelExtensionEvent which is sent to a                          panel extension.
                  */
-                "set-cursor-location"(x: number, y: number, w: number, h: number): void
+                panel_extension(event: ExtensionEvent): void
                 /**
-                 * Emitted when the client application get the set-cursor-location-relative.
-                 * Implement the member function set_cursor_location_relative() in
-                 * extended class to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param x X coordinate of the cursor.
-                 * @param y Y coordinate of the cursor.
-                 * @param w Width of the cursor.
-                 * @param h Height of the cursor.
+                 * Notify that a property is active
+                 * by sending a "PropertyActivate" message to IBus service.
+                 * @param prop_name A property name
+                 * @param prop_state State of the property
                  */
-                "set-cursor-location-relative"(x: number, y: number, w: number, h: number): void
+                property_activate(prop_name: string, prop_state: number): void
                 /**
-                 * Emitted when the client application get the ::show-auxiliary-text.
-                 * Implement the member function
-                 * IBusPanelServiceClass::show_auxiliary_text in extended class
-                 * to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Notify that a property is hidden
+                 * by sending a "ValueChanged" message to IBus service.
+                 * @param prop_name A property name
                  */
-                "show-auxiliary-text"(): void
+                property_hide(prop_name: string): void
                 /**
-                 * Emitted when the client application get the ::show-language-bar.
-                 * Implement the member function
-                 * IBusPanelServiceClass::show_language_bar in extended class to
-                 * receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Notify that a property is shown
+                 * by sending a "ValueChanged" message to IBus service.
+                 * @param prop_name A property name
                  */
-                "show-language-bar"(): void
+                property_show(prop_name: string): void
                 /**
-                 * Emitted when the client application get the ::show-lookup-table.
-                 * Implement the member function
-                 * IBusPanelServiceClass::show_lookup_table in extended class to
-                 * receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * Notify that the preedit is shown by the panel extension
                  */
-                "show-lookup-table"(): void
+                show_preedit_text_received(): void
                 /**
-                 * Emitted when the client application get the ::show-preedit-text.
-                 * Implement the member function
-                 * IBusPanelServiceClass::show_preedit_text in extended class to
-                 * receive this signal.
+                 * Notify that the auxilirary is updated by the panel extension.
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * (Note: The table object will be released, if it is floating.
+                 *  If caller want to keep the object, caller should make the object
+                 *  sink by g_object_ref_sink.)
+                 * @param text An #IBusText
+                 * @param visible Whether the auxilirary text is visible.
                  */
-                "show-preedit-text"(): void
+                update_auxiliary_text_received(text: Text, visible: boolean): void
                 /**
-                 * Emitted when the client application get the ::start-setup.
-                 * Implement the member function
-                 * IBusPanelServiceClass::start_setup in extended class to
-                 * receive this signal.
+                 * Notify that the lookup table is updated by the panel extension.
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * (Note: The table object will be released, if it is floating.
+                 *  If caller want to keep the object, caller should make the object
+                 *  sink by g_object_ref_sink.)
+                 * @param table An #IBusLookupTable
+                 * @param visible Whether the lookup table is visible.
                  */
-                "start-setup"(): void
+                update_lookup_table_received(table: LookupTable, visible: boolean): void
                 /**
-                 * Emitted when the client application get the ::state-changed.
-                 * Implement the member function
-                 * IBusPanelServiceClass::state_changed in extended class to
-                 * receive this signal.
+                 * Notify that the preedit is updated by the panel extension
                  *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
+                 * (Note: The table object will be released, if it is floating.
+                 *  If caller want to keep the object, caller should make the object
+                 *  sink by g_object_ref_sink.)
+                 * @param text Update content.
+                 * @param cursor_pos Current position of cursor
+                 * @param visible Whether the pre-edit buffer is visible.
                  */
-                "state-changed"(): void
+                update_preedit_text_received(text: Text, cursor_pos: number, visible: boolean): void
                 /**
-                 * Emitted when the client application get the ::update-auxiliary-text.
-                 * Implement the member function
-                 * IBusPanelServiceClass::update_auxiliary_text in extended class
-                 * to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param text A preedit text to be updated.
-                 * @param visible Whether the update is visible.
+                 * @param index
+                 * @param button
+                 * @param state
                  */
-                "update-auxiliary-text"(text: Text, visible: boolean): void
+                vfunc_candidate_clicked_lookup_table(index: number, button: number, state: number): void
                 /**
-                 * Emitted when the client application get the ::update-lookup-table.
-                 * Implement the member function
-                 * IBusPanelServiceClass::update_lookup_table in extended class
-                 * to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param lookup_table A lookup table to be updated.
-                 * @param visible Whether the update is visible.
+                 * @param text
                  */
-                "update-lookup-table"(lookup_table: LookupTable, visible: boolean): void
+                vfunc_commit_text_received(text: Text): void
                 /**
-                 * Emitted when the client application get the ::update-preedit-text.
-                 * Implement the member function
-                 * IBusPanelServiceClass::update_preedit_text in extended class
-                 * to receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param text A preedit text to be updated.
-                 * @param cursor_pos The cursor position of the text.
-                 * @param visible Whether the update is visible.
                  */
-                "update-preedit-text"(text: Text, cursor_pos: number, visible: boolean): void
+                vfunc_cursor_down_lookup_table(): void
                 /**
-                 * Emitted when the client application get the ::update-property.
-                 * Implement the member function
-                 * IBusPanelServiceClass::update_property in extended class to
-                 * receive this signal.
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para>
-                 * </note>
-                 * @param prop The IBusProperty to be updated.
                  */
-                "update-property"(prop: Property): void
-            }
-
-            interface ReadableProperties extends Service.ReadableProperties {
-            }
-
-            interface WritableProperties extends Service.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Service.ConstructOnlyProperties {
-            }
-        }
-
-        interface PanelService extends Service {
-            readonly $signals: PanelService.SignalSignatures
-            readonly $readableProperties: PanelService.ReadableProperties
-            readonly $writableProperties: PanelService.WritableProperties
-            readonly $constructOnlyProperties: PanelService.ConstructOnlyProperties
-            /**
-             * Notify that a candidate is clicked
-             * by sending a "CandidateClicked" to IBus service.
-             * @param index Index in the Lookup table
-             * @param button GdkEventButton::button (1: left button, etc.)
-             * @param state GdkEventButton::state (key modifier flags)
-             */
-            candidate_clicked(index: number, button: number, state: number): void
-            /**
-             * Notify that a text is sent
-             * by sending a "CommitText" message to IBus service.
-             * @param text An #IBusText
-             */
-            commit_text(text: Text): void
-            /**
-             * Notify that the cursor is down
-             * by sending a "CursorDown" to IBus service.
-             */
-            cursor_down(): void
-            /**
-             * Notify that the cursor is up
-             * by sending a "CursorUp" to IBus service.
-             */
-            cursor_up(): void
-            /**
-             * Forward key events when an IBus popup takes the focus and the events
-             * needs to be forwared to the target IBus engine.
-             * @param keyval Key symbol of a key event.
-             * @param keycode Keycode of a key event.
-             * @param state Key modifier flags.
-             */
-            forward_process_key_event(keyval: number, keycode: number, state: number): void
-            /**
-             * Notify that the preedit is hidden by the panel extension
-             */
-            hide_preedit_text_received(): void
-            /**
-             * Notify that the page is down
-             * by sending a "PageDown" to IBus service.
-             */
-            page_down(): void
-            /**
-             * Notify that the page is up
-             * by sending a "PageUp" to IBus service.
-             */
-            page_up(): void
-            /**
-             * Enable or disable a panel extension with #IBusExtensionEvent.
-             * Notify that a data is sent
-             * by sending a "PanelExtension" message to IBus panel extension service.
-             * @param event A #PanelExtensionEvent which is sent to a
-                                     panel extension.
-             */
-            panel_extension(event: ExtensionEvent): void
-            /**
-             * Notify that a property is active
-             * by sending a "PropertyActivate" message to IBus service.
-             * @param prop_name A property name
-             * @param prop_state State of the property
-             */
-            property_activate(prop_name: string, prop_state: number): void
-            /**
-             * Notify that a property is hidden
-             * by sending a "ValueChanged" message to IBus service.
-             * @param prop_name A property name
-             */
-            property_hide(prop_name: string): void
-            /**
-             * Notify that a property is shown
-             * by sending a "ValueChanged" message to IBus service.
-             * @param prop_name A property name
-             */
-            property_show(prop_name: string): void
-            /**
-             * Notify that the preedit is shown by the panel extension
-             */
-            show_preedit_text_received(): void
-            /**
-             * Notify that the auxilirary is updated by the panel extension.
-             *
-             * (Note: The table object will be released, if it is floating.
-             *  If caller want to keep the object, caller should make the object
-             *  sink by g_object_ref_sink.)
-             * @param text An #IBusText
-             * @param visible Whether the auxilirary text is visible.
-             */
-            update_auxiliary_text_received(text: Text, visible: boolean): void
-            /**
-             * Notify that the lookup table is updated by the panel extension.
-             *
-             * (Note: The table object will be released, if it is floating.
-             *  If caller want to keep the object, caller should make the object
-             *  sink by g_object_ref_sink.)
-             * @param table An #IBusLookupTable
-             * @param visible Whether the lookup table is visible.
-             */
-            update_lookup_table_received(table: LookupTable, visible: boolean): void
-            /**
-             * Notify that the preedit is updated by the panel extension
-             *
-             * (Note: The table object will be released, if it is floating.
-             *  If caller want to keep the object, caller should make the object
-             *  sink by g_object_ref_sink.)
-             * @param text Update content.
-             * @param cursor_pos Current position of cursor
-             * @param visible Whether the pre-edit buffer is visible.
-             */
-            update_preedit_text_received(text: Text, cursor_pos: number, visible: boolean): void
-            /**
-             * @param index
-             * @param button
-             * @param state
-             */
-            vfunc_candidate_clicked_lookup_table(index: number, button: number, state: number): void
-            /**
-             * @param text
-             */
-            vfunc_commit_text_received(text: Text): void
-            /**
-             */
-            vfunc_cursor_down_lookup_table(): void
-            /**
-             */
-            vfunc_cursor_up_lookup_table(): void
-            /**
-             * @param input_context_path
-             */
-            vfunc_destroy_context(input_context_path: string): void
-            /**
-             * @param input_context_path
-             */
-            vfunc_focus_in(input_context_path: string): void
-            /**
-             * @param input_context_path
-             */
-            vfunc_focus_out(input_context_path: string): void
-            /**
-             */
-            vfunc_hide_auxiliary_text(): void
-            /**
-             */
-            vfunc_hide_language_bar(): void
-            /**
-             */
-            vfunc_hide_lookup_table(): void
-            /**
-             */
-            vfunc_hide_preedit_text(): void
-            /**
-             */
-            vfunc_page_down_lookup_table(): void
-            /**
-             */
-            vfunc_page_up_lookup_table(): void
-            /**
-             * @param event
-             */
-            vfunc_panel_extension_received(event: ExtensionEvent): void
-            /**
-             * @param keyval
-             * @param keycode
-             * @param state
-             */
-            vfunc_process_key_event(keyval: number, keycode: number, state: number): boolean
-            /**
-             * @param prop_list
-             */
-            vfunc_register_properties(prop_list: PropList): void
-            /**
-             */
-            vfunc_reset(): void
-            /**
-             * @param purpose
-             * @param hints
-             */
-            vfunc_set_content_type(purpose: number, hints: number): void
-            /**
-             * @param x
-             * @param y
-             * @param w
-             * @param h
-             */
-            vfunc_set_cursor_location(x: number, y: number, w: number, h: number): void
-            /**
-             * @param x
-             * @param y
-             * @param w
-             * @param h
-             */
-            vfunc_set_cursor_location_relative(x: number, y: number, w: number, h: number): void
-            /**
-             */
-            vfunc_show_auxiliary_text(): void
-            /**
-             */
-            vfunc_show_language_bar(): void
-            /**
-             */
-            vfunc_show_lookup_table(): void
-            /**
-             */
-            vfunc_show_preedit_text(): void
-            /**
-             */
-            vfunc_start_setup(): void
-            /**
-             */
-            vfunc_state_changed(): void
-            /**
-             * @param text
-             * @param visible
-             */
-            vfunc_update_auxiliary_text(text: Text, visible: boolean): void
-            /**
-             * @param lookup_table
-             * @param visible
-             */
-            vfunc_update_lookup_table(lookup_table: LookupTable, visible: boolean): void
-            /**
-             * @param text
-             * @param cursor_pos
-             * @param visible
-             */
-            vfunc_update_preedit_text(text: Text, cursor_pos: number, visible: boolean): void
-            /**
-             * @param prop
-             */
-            vfunc_update_property(prop: Property): void
-        }
-
-        interface PanelServiceClass extends Omit<ServiceClass, "new"> {
-            readonly $gtype: GObject.GType<PanelService>
-            readonly prototype: PanelService
-
-            new (props?: Partial<GObject.ConstructorProps<PanelService>>): PanelService
-            /**
-             * Creates a new #IBusPanelService from an #GDBusConnection.
-             * @param connection An GDBusConnection.
-             * @returns A newly allocated #IBusPanelService.
-             */
-            "new"(connection: Gio.DBusConnection): PanelService
-        }
-
-        interface $Exports {
-            /**
-             * An IBusPanelService is a base class for UI services.
-             * Developers can "extend" this class for panel UI development.
-             */
-            PanelService: PanelServiceClass
-        }
-        
-
-        namespace PropList {
-            interface SignalSignatures extends Serializable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Serializable.ReadableProperties {
-            }
-
-            interface WritableProperties extends Serializable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-            }
-        }
-
-        interface PropList extends Serializable {
-            readonly $signals: PropList.SignalSignatures
-            readonly $readableProperties: PropList.ReadableProperties
-            readonly $writableProperties: PropList.WritableProperties
-            readonly $constructOnlyProperties: PropList.ConstructOnlyProperties
-            /**
-             * Append an IBusProperty to an IBusPropList, and increase reference.
-             * @param prop IBusProperty to be append to @prop_list.
-             */
-            append(prop: Property): void
-            /**
-             * Gets #IBusProperty at given index. Borrowed reference.
-             * @param index Index of an IBusPropList.
-             * @returns #IBusProperty at given index, %NULL if no such     #IBusProperty.
-             */
-            get(index: number): Property
-            /**
-             * Update an IBusProperty in IBusPropList.
-             * @param prop IBusProperty to be update.
-             * @returns %TRUE if succeeded, %FALSE otherwise.
-             */
-            update_property(prop: Property): boolean
-        }
-
-        interface PropListClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<PropList>
-            readonly prototype: PropList
-
-            new (props?: Partial<GObject.ConstructorProps<PropList>>): PropList
-            /**
-             * Create a new #IBusPropList.
-             * @returns A newly allocated #IBusPropList.
-             */
-            "new"(): PropList
-        }
-
-        interface $Exports {
-            /**
-             * See_also: #IBusProperty, #IBusEngine
-             */
-            PropList: PropListClass
-        }
-        
-
-        namespace Property {
-            interface SignalSignatures extends Serializable.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Serializable.ReadableProperties {
-                "icon": string
-                "key": string
-                "label": Text
-                "prop-type": PropType
-                "sensitive": boolean
-                "state": PropState
-                "sub-props": PropList
-                "symbol": Text
-                "tooltip": Text
-                "visible": boolean
-            }
-
-            interface WritableProperties extends Serializable.WritableProperties {
-                "icon": string
-                "label": Text
-                "sensitive": boolean
-                "state": PropState
-                "sub-props": PropList
-                "symbol": Text
-                "tooltip": Text
-                "visible": boolean
-            }
-
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-                "key": string
-                "prop-type": PropType
-            }
-        }
-
-        interface Property extends Serializable {
-            readonly $signals: Property.SignalSignatures
-            readonly $readableProperties: Property.ReadableProperties
-            readonly $writableProperties: Property.WritableProperties
-            readonly $constructOnlyProperties: Property.ConstructOnlyProperties
-            /**
-             */
-            get icon(): string
-            set icon(value: string)
-            /**
-             */
-            get key(): string
-            set key(value: string)
-            /**
-             */
-            get label(): Text
-            set label(value: Text)
-            /**
-             * @default PROP_TYPE_NORMAL
-             */
-            get propType(): PropType
-            set propType(value: PropType)
-            /**
-             * @default TRUE
-             */
-            get sensitive(): boolean
-            set sensitive(value: boolean)
-            /**
-             * @default PROP_STATE_UNCHECKED
-             */
-            get state(): PropState
-            set state(value: PropState)
-            /**
-             */
-            get subProps(): PropList
-            set subProps(value: PropList)
-            /**
-             */
-            get symbol(): Text
-            set symbol(value: Text)
-            /**
-             */
-            get tooltip(): Text
-            set tooltip(value: Text)
-            /**
-             * @default TRUE
-             */
-            get visible(): boolean
-            set visible(value: boolean)
-            /**
-             * Get the icon of #IBusProperty.
-             * @returns the icon of #IBusProperty. Should not be freed.
-             */
-            get_icon(): string
-            /**
-             * Get the key of #IBusProperty.
-             * @returns the key of #IBusProperty. Should not be freed.
-             */
-            get_key(): string
-            /**
-             * Get the label of #IBusProperty.
-             * @returns the label of #IBusProperty. Should not be freed.
-             */
-            get_label(): Text
-            /**
-             */
-            get_prop_type(): PropType
-            /**
-             * Get the sensitive of #IBusProperty.
-             * @returns the sensitive of #IBusProperty.
-             */
-            get_sensitive(): boolean
-            /**
-             * Get the state of #IBusProperty.
-             * @returns the state of #IBusProperty.
-             */
-            get_state(): PropState
-            /**
-             * Get the IBusPropList of #IBusProperty.
-             * @returns the IBusPropList of #IBusProperty.     Should not be freed.
-             */
-            get_sub_props(): PropList
-            /**
-             * Get the symbol of #IBusProperty.
-             * @returns the symbol of #IBusProperty. Should not be freed.
-             */
-            get_symbol(): Text
-            /**
-             * Get the tooltip of #IBusProperty.
-             * @returns the tooltip of #IBusProperty. Should not be freed.
-             */
-            get_tooltip(): Text
-            /**
-             * Get the visible of #IBusProperty.
-             * @returns the visible of #IBusProperty.
-             */
-            get_visible(): boolean
-            /**
-             * Set the icon of #IBusProperty.
-             * @param icon Icon shown in UI. It could be a full path of an icon file or an icon name.
-             */
-            set_icon(icon: string): void
-            /**
-             * Set the label of #IBusProperty.
-             * @param label Text shown in UI.
-             */
-            set_label(label: Text): void
-            /**
-             * Set whether the #IBusProperty is sensitive.
-             * @param sensitive Whether the #IBusProperty is sensitive.
-             */
-            set_sensitive(sensitive: boolean): void
-            /**
-             * Set the state of the #IBusProperty.
-             * @param state The state of the #IBusProperty.
-             */
-            set_state(state: PropState): void
-            /**
-             * Set the sub IBusProperties.
-             * @param prop_list #IBusPropList that contains sub IBusProperties.
-             */
-            set_sub_props(prop_list: PropList): void
-            /**
-             * Set the symbol of #IBusProperty.
-             * @param symbol Text shown in UI.
-             */
-            set_symbol(symbol: Text): void
-            /**
-             * Set the tooltip of #IBusProperty.
-             * @param tooltip Text of the tooltip.
-             */
-            set_tooltip(tooltip: Text): void
-            /**
-             * Set whether the #IBusProperty is visible.
-             * @param visible Whether the #IBusProperty is visible.
-             */
-            set_visible(visible: boolean): void
-            /**
-             * Update the content of an #IBusProperty.
-             * #IBusProperty @prop_update can either be sub-property of @prop,
-             * or holds new values for @prop.
-             * @param prop_update #IBusPropList that contains sub IBusProperties.
-             * @returns TRUE if update succeeded; FALSE otherwise.
-             */
-            update(prop_update: Property): boolean
-        }
-
-        interface PropertyClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<Property>
-            readonly prototype: Property
-
-            new (props?: Partial<GObject.ConstructorProps<Property>>): Property
-            /**
-             * Creates a new #IBusProperty.
-             * @param key Unique Identity for the #IBusProperty.
-             * @param type #IBusPropType of #IBusProperty.
-             * @param label Text shown in UI.
-             * @param icon Icon file for the #IBusProperty.
-             * @param tooltip Message shown if mouse hovered the  #IBusProperty.
-             * @param sensitive Whether the #IBusProperty is sensitive to keyboard and mouse event.
-             * @param visible Whether the #IBusProperty is visible.
-             * @param state IBusPropState of #IBusProperty.
-             * @param prop_list #IBusPropList that contains sub IBusProperties.
-             * @returns A newly allocated #IBusProperty.
-             */
-            "new"(key: string, type: PropType, label: Text, icon: string | null, tooltip: Text, sensitive: boolean, visible: boolean, state: PropState, prop_list: PropList | null): Property
-        }
-
-        interface $Exports {
-            /**
-             * An IBusProperty is an UI component like a button or a menu item
-             * which shows the status of corresponding input method engine property.
-             * End user can operate and see the current status of IME through these components.
-             * For example, ibus-chewing users change the English/Chinese input mode by
-             * pressing ctrl-space or click on the Eng/Chi switch button.
-             * And the IBusProperty shows the change correspondingly.
-             *
-             * see_also: #IBusPropList, #IBusEngine
-             */
-            Property: PropertyClass
-        }
-        
-
-        namespace Proxy {
-            interface SignalSignatures extends Gio.DBusProxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
+                vfunc_cursor_up_lookup_table(): void
                 /**
-                 * Destroy and free an IBusProxy
-                 *
-                 * See also:  ibus_proxy_destroy().
-                 *
-                 * <note><para>Argument @user_data is ignored in this function.</para></note>
+                 * @param input_context_path
                  */
-                "destroy"(): void
-            }
-
-            interface ReadableProperties extends Gio.DBusProxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gio.DBusProxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gio.DBusProxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
-            }
-        }
-
-        interface Proxy extends Gio.DBusProxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
-            readonly $signals: Proxy.SignalSignatures
-            readonly $readableProperties: Proxy.ReadableProperties
-            readonly $writableProperties: Proxy.WritableProperties
-            readonly $constructOnlyProperties: Proxy.ConstructOnlyProperties
-            /**
-             * Dispose the proxy object. If the dbus connection is alive and the own
-             * variable above is TRUE (which is the default),
-             * org.freedesktop.IBus.Service.Destroy method will be called.
-             * Note that "destroy" signal might be emitted when ibus_proxy_destroy is
-             * called or the underlying dbus connection for the proxy is terminated.
-             * In the callback of the destroy signal, you might have to call something
-             * like 'g_object_unref(the_proxy);'.
-             */
-            destroy(): void
-            /**
-             * Dispose the proxy object. If the dbus connection is alive and the own
-             * variable above is TRUE (which is the default),
-             * org.freedesktop.IBus.Service.Destroy method will be called.
-             * Note that "destroy" signal might be emitted when ibus_proxy_destroy is
-             * called or the underlying dbus connection for the proxy is terminated.
-             * In the callback of the destroy signal, you might have to call something
-             * like 'g_object_unref(the_proxy);'.
-             */
-            vfunc_destroy(): void
-        }
-
-        interface ProxyClass extends Omit<Gio.DBusProxyClass, "new"> {
-            readonly $gtype: GObject.GType<Proxy>
-            readonly prototype: Proxy
-
-            new (props?: Partial<GObject.ConstructorProps<Proxy>>): Proxy
-        }
-
-        interface $Exports {
-            /**
-             * An IBusProxy is the base of all proxy objects,
-             * which communicate the corresponding #IBusServices on the other end of
-             * IBusConnection.
-             * For example, IBus clients (such as editors, web browsers) invoke the proxy
-             * object,
-             * IBusInputContext to communicate with the InputContext service of the
-             * ibus-daemon.
-             *
-             * Almost all services have corresponding proxies, except very simple services.
-             */
-            Proxy: ProxyClass
-        }
-        
-
-        namespace Registry {
-            interface SignalSignatures extends Serializable.SignalSignatures {
+                vfunc_destroy_context(input_context_path: string): void
                 /**
-                 * Emitted when any observed paths are changed.
-                 * A method is not associated in this class. the "changed"
-                 * signal would be handled in other classes.
-                 *
-                 * See also: ibus_registry_start_monitor_changes().
+                 * @param input_context_path
                  */
-                "changed"(): void
+                vfunc_focus_in(input_context_path: string): void
+                /**
+                 * @param input_context_path
+                 */
+                vfunc_focus_out(input_context_path: string): void
+                /**
+                 */
+                vfunc_hide_auxiliary_text(): void
+                /**
+                 */
+                vfunc_hide_language_bar(): void
+                /**
+                 */
+                vfunc_hide_lookup_table(): void
+                /**
+                 */
+                vfunc_hide_preedit_text(): void
+                /**
+                 */
+                vfunc_page_down_lookup_table(): void
+                /**
+                 */
+                vfunc_page_up_lookup_table(): void
+                /**
+                 * @param event
+                 */
+                vfunc_panel_extension_received(event: ExtensionEvent): void
+                /**
+                 * @param keyval
+                 * @param keycode
+                 * @param state
+                 */
+                vfunc_process_key_event(keyval: number, keycode: number, state: number): boolean
+                /**
+                 * @param prop_list
+                 */
+                vfunc_register_properties(prop_list: PropList): void
+                /**
+                 */
+                vfunc_reset(): void
+                /**
+                 * @param purpose
+                 * @param hints
+                 */
+                vfunc_set_content_type(purpose: number, hints: number): void
+                /**
+                 * @param x
+                 * @param y
+                 * @param w
+                 * @param h
+                 */
+                vfunc_set_cursor_location(x: number, y: number, w: number, h: number): void
+                /**
+                 * @param x
+                 * @param y
+                 * @param w
+                 * @param h
+                 */
+                vfunc_set_cursor_location_relative(x: number, y: number, w: number, h: number): void
+                /**
+                 */
+                vfunc_show_auxiliary_text(): void
+                /**
+                 */
+                vfunc_show_language_bar(): void
+                /**
+                 */
+                vfunc_show_lookup_table(): void
+                /**
+                 */
+                vfunc_show_preedit_text(): void
+                /**
+                 */
+                vfunc_start_setup(): void
+                /**
+                 */
+                vfunc_state_changed(): void
+                /**
+                 * @param text
+                 * @param visible
+                 */
+                vfunc_update_auxiliary_text(text: Text, visible: boolean): void
+                /**
+                 * @param lookup_table
+                 * @param visible
+                 */
+                vfunc_update_lookup_table(lookup_table: LookupTable, visible: boolean): void
+                /**
+                 * @param text
+                 * @param cursor_pos
+                 * @param visible
+                 */
+                vfunc_update_preedit_text(text: Text, cursor_pos: number, visible: boolean): void
+                /**
+                 * @param prop
+                 */
+                vfunc_update_property(prop: Property): void
             }
 
-            interface ReadableProperties extends Serializable.ReadableProperties {
+            interface PanelServiceClass extends Omit<ServiceClass, "new"> {
+                readonly $gtype: GObject.GType<PanelService>
+                readonly prototype: PanelService
+
+                new (props?: Partial<GObject.ConstructorProps<PanelService>>): PanelService
+                /**
+                 * Creates a new #IBusPanelService from an #GDBusConnection.
+                 * @param connection An GDBusConnection.
+                 * @returns A newly allocated #IBusPanelService.
+                 */
+                "new"(connection: Gio.DBusConnection): PanelService
             }
 
-            interface WritableProperties extends Serializable.WritableProperties {
+            interface $Exports {
+                /**
+                 * An IBusPanelService is a base class for UI services.
+                 * Developers can "extend" this class for panel UI development.
+                 */
+                PanelService: PanelServiceClass
+            }
+            
+
+            namespace PropList {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                }
             }
 
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-            }
-        }
-
-        interface Registry extends Serializable {
-            readonly $signals: Registry.SignalSignatures
-            readonly $readableProperties: Registry.ReadableProperties
-            readonly $writableProperties: Registry.WritableProperties
-            readonly $constructOnlyProperties: Registry.ConstructOnlyProperties
-            /**
-             * Check if the registry is updated.
-             * @returns %TRUE if mtime is changed; %FALSE otherwise.
-             */
-            check_modification(): boolean
-            /**
-             * List components.
-             * @returns  a list of #IBusComponent objects. The caller has to call g_list_free() for the returned list.
-             */
-            get_components(): Component[]
-            /**
-             * List observed paths.
-             * @returns  a list of #IBusObservedPath objects. The caller has to call g_list_free() for the returned list.
-             */
-            get_observed_paths(): ObservedPath[]
-            /**
-             * Read all XML files in a IBus component directory (typically
-             * /usr/share/ibus/component/ *.xml) and update the registry object.
-             * IBUS_COMPONENT_PATH environment valuable is also available for
-             * the custom component directories, whose delimiter is ':'.
-             */
-            load(): void
-            /**
-             * Load the user or system registry cache.
-             * @param is_user %TRUE if the registry cache is loaded in the user directory.
-             * @returns %TRUE if the cache exists and is loaded successfully,           %FALSE otherwise.
-             */
-            load_cache(is_user: boolean): boolean
-            /**
-             * Load the registry cache @filename.
-             * @param filename The file path of the registry cache
-             * @returns %TRUE if the cache exists and is loaded successfully,           %FALSE otherwise.
-             */
-            load_cache_file(filename: string): boolean
-            /**
-             * Read all XML files in @dirname, create a #IBusComponent object for each file,
-             * and add the component objects to the registry.
-             * If @dirname is "/usr/share/ibus/component", this API and
-             * ibus_registry_load() are same.
-             * @param dirname IBus component directory which includes XML files.
-             */
-            load_in_dir(dirname: string): void
-            /**
-             * Output #IBusRegistry as an XML-formatted string.
-             * The output string can be then shown on the screen or written to file.
-             * @param output GString that holds the result.
-             * @param indent level of indent.
-             */
-            output(output: GLib.String, indent: number): void
-            /**
-             * Save the registry in a user directory or system directory.
-             * @param is_user %TRUE if the registry cache is saved in the user directory.
-             * @returns %TRUE if the cache is saved successfully, %FALSE otherwise.
-             */
-            save_cache(is_user: boolean): boolean
-            /**
-             * Save the registry cache @filename.
-             * @param filename The file path of the registry cache
-             * @returns %TRUE if the cache is saved successfully, %FALSE otherwise.
-             */
-            save_cache_file(filename: string): boolean
-            /**
-             * Start to monitor observed paths.
-             */
-            start_monitor_changes(): void
-        }
-
-        interface RegistryClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<Registry>
-            readonly prototype: Registry
-
-            new (props?: Partial<GObject.ConstructorProps<Registry>>): Registry
-            /**
-             * Creates a new #IBusRegistry
-             * @returns A newly allocated #IBusRegistry.
-             */
-            "new"(): Registry
-        }
-
-        interface $Exports {
-            /**
-             * An #IBusRegistry loads IBus component files and generates the cache files.
-             *
-             * see_also: #IBusComponent
-             */
-            Registry: RegistryClass
-        }
-        
-
-        namespace Serializable {
-            interface SignalSignatures extends Object.SignalSignatures {
+            interface PropList extends Serializable {
+                readonly $signals: PropList.SignalSignatures
+                readonly $readableProperties: PropList.ReadableProperties
+                readonly $writableProperties: PropList.WritableProperties
+                readonly $constructOnlyProperties: PropList.ConstructOnlyProperties
+                /**
+                 * Append an IBusProperty to an IBusPropList, and increase reference.
+                 * @param prop IBusProperty to be append to `prop_list`.
+                 */
+                append(prop: Property): void
+                /**
+                 * Gets #IBusProperty at given index. Borrowed reference.
+                 * @param index Index of an IBusPropList.
+                 * @returns #IBusProperty at given index, %NULL if no such     #IBusProperty.
+                 */
+                get(index: number): Property
+                /**
+                 * Update an IBusProperty in IBusPropList.
+                 * @param prop IBusProperty to be update.
+                 * @returns %TRUE if succeeded, %FALSE otherwise.
+                 */
+                update_property(prop: Property): boolean
             }
 
-            interface ReadableProperties extends Object.ReadableProperties {
+            interface PropListClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<PropList>
+                readonly prototype: PropList
+
+                new (props?: Partial<GObject.ConstructorProps<PropList>>): PropList
+                /**
+                 * Create a new #IBusPropList.
+                 * @returns A newly allocated #IBusPropList.
+                 */
+                "new"(): PropList
             }
 
-            interface WritableProperties extends Object.WritableProperties {
+            interface $Exports {
+                /**
+                 * See_also: #IBusProperty, #IBusEngine
+                 */
+                PropList: PropListClass
+            }
+            
+
+            namespace Property {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                    "icon": string
+                    "key": string
+                    "label": Text
+                    "prop-type": PropType
+                    "sensitive": boolean
+                    "state": PropState
+                    "sub-props": PropList
+                    "symbol": Text
+                    "tooltip": Text
+                    "visible": boolean
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                    "icon": string
+                    "label": Text
+                    "sensitive": boolean
+                    "state": PropState
+                    "sub-props": PropList
+                    "symbol": Text
+                    "tooltip": Text
+                    "visible": boolean
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                    "key": string
+                    "prop-type": PropType
+                }
             }
 
-            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface Serializable extends Object {
-            readonly $signals: Serializable.SignalSignatures
-            readonly $readableProperties: Serializable.ReadableProperties
-            readonly $writableProperties: Serializable.WritableProperties
-            readonly $constructOnlyProperties: Serializable.ConstructOnlyProperties
-            /**
-             * Clone an #IBusSerializable.
-             * The copy method should be implemented in extended class.
-             * @returns A newly allocated clone object; or %NULL     if `object` is not serializable.  See also: IBusSerializableCopyFunc().
-             */
-            copy(): Serializable
-            /**
-             * Gets a value from attachment of an #IBusSerializable.
-             * @param key String formatted key for indexing value.
-             * @returns The attached value; or %NULL if fail to retrieve the value.  See also: ibus_serializable_set_attachment().
-             */
-            get_qattachment(key: GLib.Quark): GLib.Variant
-            /**
-             * Remove a value from attachment of an #IBusSerializable.
-             * See also: ibus_serializable_remove_attachment().
-             * @param key String formatted key for indexing value.
-             */
-            remove_qattachment(key: GLib.Quark): void
-            /**
-             * Serialize an #IBusSerializable to a #GVariant.
-             * The serialize method should be implemented in extended class.
-             * @returns A #GVariant.  See also: IBusSerializableCopyFunc().
-             */
-            serialize_object(): GLib.Variant
-            /**
-             * Attach a value to an #IBusSerializable. If the value is floating,
-             * the serializable will take the ownership.
-             *
-             * See also: ibus_serializable_set_attachment().
-             * @param key String formatted key for indexing value.
-             * @param value Value to be attached or %NULL to remove any prevoius value.
-             */
-            set_qattachment(key: GLib.Quark, value: GLib.Variant): void
-            /**
-             * @param src
-             */
-            vfunc_copy(src: Serializable): boolean
-            /**
-             * @param variant
-             */
-            vfunc_deserialize(variant: GLib.Variant): number
-            /**
-             * @param builder
-             */
-            vfunc_serialize(builder: GLib.VariantBuilder): boolean
-        }
-
-        interface SerializableClass extends Omit<ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Serializable>
-            readonly prototype: Serializable
-
-            new (props?: Partial<GObject.ConstructorProps<Serializable>>): Serializable
-            /**
-             * Creates a new instance of an #IBusSerializable.
-             * @returns a new instance of #IBusSerializable.
-             */
-            "new"(): Serializable
-            /**
-             * Deserialize a #GVariant to an #IBusSerializable/
-             * The deserialize method should be implemented in extended class.
-             * @param variant A #GVariant.
-             * @returns The deserialized #IBusSerializable.  See also: IBusSerializableCopyFunc().
-             */
-            deserialize_object(variant: GLib.Variant): Serializable
-        }
-
-        interface $Exports {
-            /**
-             * An #IBusSerializable is an IBus object which can be serialized, that is,
-             * to be to and from a #GVariant.
-             *
-             * This class is to be extended by other class that requires serialization.
-             * An extended class should overrides following methods:
-             * <itemizedlist>
-             *    <listitem>
-             *       <para><function>serialize(object,iter)</function>: for serialize.</para>
-             *    </listitem>
-             *    <listitem>
-             *       <para><function>deserialize(object,iter)</function>: for deserialize.</para>
-             *    </listitem>
-             *    <listitem>
-             *       <para><function>copy(desc,src)</function>: for copy between IBusSerializable.</para>
-             *    </listitem>
-             * </itemizedlist>
-             * See IBusSerializableSerializeFunc(), IBusSerializableDeserializeFunc(), IBusSerializableCopyFunc()
-             * for function prototype.
-             */
-            Serializable: SerializableClass
-        }
-        
-
-        namespace Service {
-            interface SignalSignatures extends Object.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Object.ReadableProperties {
-                "connection": Gio.DBusConnection
-                "object-path": string
-            }
-
-            interface WritableProperties extends Object.WritableProperties {
-                "connection": Gio.DBusConnection
-            }
-
-            interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
-                "object-path": string
-            }
-        }
-
-        interface Service extends Object {
-            readonly $signals: Service.SignalSignatures
-            readonly $readableProperties: Service.ReadableProperties
-            readonly $writableProperties: Service.WritableProperties
-            readonly $constructOnlyProperties: Service.ConstructOnlyProperties
-            /**
-             * The connection of service object.
-             */
-            get connection(): Gio.DBusConnection
-            set connection(value: Gio.DBusConnection)
-            /**
-             * The path of service object.
-             * @default NULL
-             */
-            get objectPath(): string
-            set objectPath(value: string)
-            /**
-             * @throws {GLib.Error}
-             * @param dest_bus_name
-             * @param interface_name
-             * @param signal_name
-             * @param parameters
-             */
-            emit_signal(dest_bus_name: string, interface_name: string, signal_name: string, parameters: GLib.Variant): boolean
-            /**
-             * Gets a connections.
-             * @returns A #GDBusConnection of an #IBusService instance.
-             */
-            get_connection(): Gio.DBusConnection
-            /**
-             * Gets the object path of an IBusService.
-             * @returns The object path of `service`
-             */
-            get_object_path(): string
-            /**
-             * Registers service to a connection.
-             * @throws {GLib.Error}
-             * @param connection A GDBusConnection the service will be registered to.
-             * @returns %TRUE if the service was registered, %FALSE otherwise.
-             */
-            register(connection: Gio.DBusConnection): boolean
-            /**
-             * Unregisters service from a connection.
-             * @param connection A GDBusConnection the service was registered with.
-             */
-            unregister(connection: Gio.DBusConnection): void
-            /**
-             * The ::service_get_property class method is to connect
-             * GDBusInterfaceGetPropertyFunc().
-             * @throws {GLib.Error}
-             * @param connection A dbus connection.
-             * @param sender A sender.
-             * @param object_path An object path.
-             * @param interface_name An interface name.
-             * @param property_name A property name.
-             * @returns A variant.
-             */
-            vfunc_service_get_property(connection: Gio.DBusConnection, sender: string, object_path: string, interface_name: string, property_name: string): GLib.Variant | null
-            /**
-             * The ::service_method_call class method is to connect
-             * GDBusInterfaceMethodCallFunc().
-             * @param connection A dbus connection.
-             * @param sender A sender.
-             * @param object_path An object path.
-             * @param interface_name An interface name.
-             * @param method_name A method name.
-             * @param parameters A parameters.
-             * @param invocation A dbus method invocation.
-             */
-            vfunc_service_method_call(connection: Gio.DBusConnection, sender: string, object_path: string, interface_name: string, method_name: string, parameters: GLib.Variant, invocation: Gio.DBusMethodInvocation): void
-            /**
-             * The ::service_set_property class method is to connect
-             * GDBusInterfaceSetPropertyFunc().
-             * @throws {GLib.Error}
-             * @param connection A dbus connection.
-             * @param sender A sender.
-             * @param object_path An object path.
-             * @param interface_name An interface name.
-             * @param property_name An property name.
-             * @param value An property value.
-             * @returns %TRUE if set the value else %FALSE.
-             */
-            vfunc_service_set_property(connection: Gio.DBusConnection, sender: string, object_path: string, interface_name: string, property_name: string, value: GLib.Variant): boolean
-        }
-
-        interface ServiceClass extends Omit<ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<Service>
-            readonly prototype: Service
-
-            new (props?: Partial<GObject.ConstructorProps<Service>>): Service
-            /**
-             * Creantes a new #IBusService.
-             * @param connection A GDBusConnection.
-             * @param path Object path.
-             * @returns A newly allocated #IBusService
-             */
-            "new"(connection: Gio.DBusConnection, path: string): Service
-            /**
-             * Set the interface introspection information with the service class.
-             * @param xml_data The introspection xml data.
-             * @returns %TRUE if `xml_data` is valid and succeeded to be added;          %FALSE otherwise.
-             */
-            add_interfaces(xml_data: string): boolean
-            /**
-             * Free the first @depth interfaces if @depth is positive. Free the last
-             * -@depth interfaces if @depth is negative.
-             * @param depth The number of D-Bus introspection interfaces.
-             * @returns The actual freed number of the introspection interfaces if `depth` is not 0. If `depth` is 0, the total number of the introspection interfaces is returned but any interfaces are not freed.
-             */
-            free_interfaces(depth: number): number
-        }
-
-        interface $Exports {
-            /**
-             * An IBusService is a base class for services.
-             */
-            Service: ServiceClass
-        }
-        
-
-        namespace Text {
-            interface SignalSignatures extends Serializable.SignalSignatures {
+            interface Property extends Serializable {
+                readonly $signals: Property.SignalSignatures
+                readonly $readableProperties: Property.ReadableProperties
+                readonly $writableProperties: Property.WritableProperties
+                readonly $constructOnlyProperties: Property.ConstructOnlyProperties
+                /**
+                 */
+                get icon(): string
+                set icon(value: string)
+                /**
+                 */
+                get key(): string
+                set key(value: string)
+                /**
+                 */
+                get label(): Text
+                set label(value: Text)
+                /**
+                 * @default PROP_TYPE_NORMAL
+                 */
+                get propType(): PropType
+                set propType(value: PropType)
+                /**
+                 * @default TRUE
+                 */
+                get sensitive(): boolean
+                set sensitive(value: boolean)
+                /**
+                 * @default PROP_STATE_UNCHECKED
+                 */
+                get state(): PropState
+                set state(value: PropState)
+                /**
+                 */
+                get subProps(): PropList
+                set subProps(value: PropList)
+                /**
+                 */
+                get symbol(): Text
+                set symbol(value: Text)
+                /**
+                 */
+                get tooltip(): Text
+                set tooltip(value: Text)
+                /**
+                 * @default TRUE
+                 */
+                get visible(): boolean
+                set visible(value: boolean)
+                /**
+                 * Get the icon of #IBusProperty.
+                 * @returns the icon of #IBusProperty. Should not be freed.
+                 */
+                get_icon(): string
+                /**
+                 * Get the key of #IBusProperty.
+                 * @returns the key of #IBusProperty. Should not be freed.
+                 */
+                get_key(): string
+                /**
+                 * Get the label of #IBusProperty.
+                 * @returns the label of #IBusProperty. Should not be freed.
+                 */
+                get_label(): Text
+                /**
+                 */
+                get_prop_type(): PropType
+                /**
+                 * Get the sensitive of #IBusProperty.
+                 * @returns the sensitive of #IBusProperty.
+                 */
+                get_sensitive(): boolean
+                /**
+                 * Get the state of #IBusProperty.
+                 * @returns the state of #IBusProperty.
+                 */
+                get_state(): PropState
+                /**
+                 * Get the IBusPropList of #IBusProperty.
+                 * @returns the IBusPropList of #IBusProperty.     Should not be freed.
+                 */
+                get_sub_props(): PropList
+                /**
+                 * Get the symbol of #IBusProperty.
+                 * @returns the symbol of #IBusProperty. Should not be freed.
+                 */
+                get_symbol(): Text
+                /**
+                 * Get the tooltip of #IBusProperty.
+                 * @returns the tooltip of #IBusProperty. Should not be freed.
+                 */
+                get_tooltip(): Text
+                /**
+                 * Get the visible of #IBusProperty.
+                 * @returns the visible of #IBusProperty.
+                 */
+                get_visible(): boolean
+                /**
+                 * Set the icon of #IBusProperty.
+                 * @param icon Icon shown in UI. It could be a full path of an icon file or an icon name.
+                 */
+                set_icon(icon: string): void
+                /**
+                 * Set the label of #IBusProperty.
+                 * @param label Text shown in UI.
+                 */
+                set_label(label: Text): void
+                /**
+                 * Set whether the #IBusProperty is sensitive.
+                 * @param sensitive Whether the #IBusProperty is sensitive.
+                 */
+                set_sensitive(sensitive: boolean): void
+                /**
+                 * Set the state of the #IBusProperty.
+                 * @param state The state of the #IBusProperty.
+                 */
+                set_state(state: PropState): void
+                /**
+                 * Set the sub IBusProperties.
+                 * @param prop_list #IBusPropList that contains sub IBusProperties.
+                 */
+                set_sub_props(prop_list: PropList): void
+                /**
+                 * Set the symbol of #IBusProperty.
+                 * @param symbol Text shown in UI.
+                 */
+                set_symbol(symbol: Text): void
+                /**
+                 * Set the tooltip of #IBusProperty.
+                 * @param tooltip Text of the tooltip.
+                 */
+                set_tooltip(tooltip: Text): void
+                /**
+                 * Set whether the #IBusProperty is visible.
+                 * @param visible Whether the #IBusProperty is visible.
+                 */
+                set_visible(visible: boolean): void
+                /**
+                 * Update the content of an #IBusProperty.
+                 * #IBusProperty `prop_update` can either be sub-property of `prop`,
+                 * or holds new values for `prop`.
+                 * @param prop_update #IBusPropList that contains sub IBusProperties.
+                 * @returns TRUE if update succeeded; FALSE otherwise.
+                 */
+                update(prop_update: Property): boolean
             }
 
-            interface ReadableProperties extends Serializable.ReadableProperties {
+            interface PropertyClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<Property>
+                readonly prototype: Property
+
+                new (props?: Partial<GObject.ConstructorProps<Property>>): Property
+                /**
+                 * Creates a new #IBusProperty.
+                 * @param key Unique Identity for the #IBusProperty.
+                 * @param type #IBusPropType of #IBusProperty.
+                 * @param label Text shown in UI.
+                 * @param icon Icon file for the #IBusProperty.
+                 * @param tooltip Message shown if mouse hovered the  #IBusProperty.
+                 * @param sensitive Whether the #IBusProperty is sensitive to keyboard and mouse event.
+                 * @param visible Whether the #IBusProperty is visible.
+                 * @param state IBusPropState of #IBusProperty.
+                 * @param prop_list #IBusPropList that contains sub IBusProperties.
+                 * @returns A newly allocated #IBusProperty.
+                 */
+                "new"(key: string, type: PropType, label: Text, icon: string | null, tooltip: Text, sensitive: boolean, visible: boolean, state: PropState, prop_list: PropList | null): Property
             }
 
-            interface WritableProperties extends Serializable.WritableProperties {
+            interface $Exports {
+                /**
+                 * An IBusProperty is an UI component like a button or a menu item
+                 * which shows the status of corresponding input method engine property.
+                 * End user can operate and see the current status of IME through these components.
+                 * For example, ibus-chewing users change the English/Chinese input mode by
+                 * pressing ctrl-space or click on the Eng/Chi switch button.
+                 * And the IBusProperty shows the change correspondingly.
+                 *
+                 * see_also: #IBusPropList, #IBusEngine
+                 */
+                Property: PropertyClass
+            }
+            
+
+            namespace Proxy {
+                interface SignalSignatures extends Gio.DBusProxy.SignalSignatures, Gio.AsyncInitable.SignalSignatures, Gio.DBusInterface.SignalSignatures, Gio.Initable.SignalSignatures {
+                    /**
+                     * Destroy and free an IBusProxy
+                     *
+                     * See also:  ibus_proxy_destroy().
+                     *
+                     * <note><para>Argument `user_data` is ignored in this function.</para></note>
+                     */
+                    "destroy"(): void
+                }
+
+                interface ReadableProperties extends Gio.DBusProxy.ReadableProperties, Gio.AsyncInitable.ReadableProperties, Gio.DBusInterface.ReadableProperties, Gio.Initable.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gio.DBusProxy.WritableProperties, Gio.AsyncInitable.WritableProperties, Gio.DBusInterface.WritableProperties, Gio.Initable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gio.DBusProxy.ConstructOnlyProperties, Gio.AsyncInitable.ConstructOnlyProperties, Gio.DBusInterface.ConstructOnlyProperties, Gio.Initable.ConstructOnlyProperties {
+                }
             }
 
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-            }
-        }
-
-        interface Text extends Serializable {
-            readonly $signals: Text.SignalSignatures
-            readonly $readableProperties: Text.ReadableProperties
-            readonly $writableProperties: Text.WritableProperties
-            readonly $constructOnlyProperties: Text.ConstructOnlyProperties
-            /**
-             * Append an IBusAttribute for IBusText.
-             * @param type IBusAttributeType for @text.
-             * @param value Value for the type.
-             * @param start_index The starting index, inclusive.
-             * @param end_index The ending index, exclusive.
-             */
-            append_attribute(type: number, value: number, start_index: number, end_index: number): void
-            /**
-             * Return the attributes in an #IBusText. Should not be freed.
-             * @returns the attrs in `text`.
-             */
-            get_attributes(): AttrList
-            /**
-             * Return number of characters in an #IBusText.
-             * This function is based on g_utf8_strlen(), so unlike strlen(),
-             * it does not count by bytes but characters instead.
-             * @returns Number of character in `text`, not counted by bytes.
-             */
-            get_length(): number
-            /**
-             * Return the text in an #IBusText. Should not be freed.
-             * @returns the text in `text`.
-             */
-            get_text(): string
-            /**
-             * @param attrs An IBusAttrList
-             */
-            set_attributes(attrs: AttrList): void
-        }
-
-        interface TextClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<Text>
-            readonly prototype: Text
-
-            new (props?: Partial<GObject.ConstructorProps<Text>>): Text
-            /**
-             * Creates a new #IBusText from a string.
-             * @str will be duplicated in #IBusText, so feel free to free @str after this
-             * function.
-             * @param str An text string to be set.
-             * @returns A newly allocated #IBusText.
-             */
-            new_from_string(str: string): Text
-            /**
-             * Creates a new #IBusText from an UCS-4 encoded string.
-             * @str will be duplicated in IBusText, so feel free to free @str after this
-             * function.
-             * @param str An text string to be set.
-             * @returns A newly allocated #IBusText.
-             */
-            new_from_ucs4(str: string): Text
-            /**
-             * Creates a new #IBusText from a single UCS4-encoded character.
-             * @param c A single UCS4-encoded character.
-             * @returns A newly allocated #IBusText.
-             */
-            new_from_unichar(c: string): Text
-        }
-
-        interface $Exports {
-            /**
-             * An IBusText is the main text object in IBus.
-             * The text is decorated according to associated IBusAttribute,
-             * e.g. the foreground/background color, underline, and
-             * applied scope.
-             *
-             * see_also: #IBusAttribute
-             */
-            Text: TextClass
-        }
-        
-
-        namespace UnicodeBlock {
-            interface SignalSignatures extends Serializable.SignalSignatures {
+            interface Proxy extends Gio.DBusProxy, Gio.AsyncInitable, Gio.DBusInterface, Gio.Initable {
+                readonly $signals: Proxy.SignalSignatures
+                readonly $readableProperties: Proxy.ReadableProperties
+                readonly $writableProperties: Proxy.WritableProperties
+                readonly $constructOnlyProperties: Proxy.ConstructOnlyProperties
+                /**
+                 * Dispose the proxy object. If the dbus connection is alive and the own
+                 * variable above is TRUE (which is the default),
+                 * org.freedesktop.IBus.Service.Destroy method will be called.
+                 * Note that "destroy" signal might be emitted when ibus_proxy_destroy is
+                 * called or the underlying dbus connection for the proxy is terminated.
+                 * In the callback of the destroy signal, you might have to call something
+                 * like 'g_object_unref(the_proxy);'.
+                 */
+                destroy(): void
+                /**
+                 * Dispose the proxy object. If the dbus connection is alive and the own
+                 * variable above is TRUE (which is the default),
+                 * org.freedesktop.IBus.Service.Destroy method will be called.
+                 * Note that "destroy" signal might be emitted when ibus_proxy_destroy is
+                 * called or the underlying dbus connection for the proxy is terminated.
+                 * In the callback of the destroy signal, you might have to call something
+                 * like 'g_object_unref(the_proxy);'.
+                 */
+                vfunc_destroy(): void
             }
 
-            interface ReadableProperties extends Serializable.ReadableProperties {
-                "end": number
-                "name": string
-                "start": number
+            interface ProxyClass extends Omit<Gio.DBusProxyClass, "new"> {
+                readonly $gtype: GObject.GType<Proxy>
+                readonly prototype: Proxy
+
+                new (props?: Partial<GObject.ConstructorProps<Proxy>>): Proxy
             }
 
-            interface WritableProperties extends Serializable.WritableProperties {
-                "name": string
+            interface $Exports {
+                /**
+                 * An IBusProxy is the base of all proxy objects,
+                 * which communicate the corresponding #IBusServices on the other end of
+                 * IBusConnection.
+                 * For example, IBus clients (such as editors, web browsers) invoke the proxy
+                 * object,
+                 * IBusInputContext to communicate with the InputContext service of the
+                 * ibus-daemon.
+                 *
+                 * Almost all services have corresponding proxies, except very simple services.
+                 */
+                Proxy: ProxyClass
+            }
+            
+
+            namespace Registry {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                    /**
+                     * Emitted when any observed paths are changed.
+                     * A method is not associated in this class. the "changed"
+                     * signal would be handled in other classes.
+                     *
+                     * See also: ibus_registry_start_monitor_changes().
+                     */
+                    "changed"(): void
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                }
             }
 
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-                "end": number
-                "start": number
-            }
-        }
-
-        interface UnicodeBlock extends Serializable {
-            readonly $signals: UnicodeBlock.SignalSignatures
-            readonly $readableProperties: UnicodeBlock.ReadableProperties
-            readonly $writableProperties: UnicodeBlock.WritableProperties
-            readonly $constructOnlyProperties: UnicodeBlock.ConstructOnlyProperties
-            /**
-             * The Uniode end code point
-             * @default 0
-             */
-            get end(): number
-            set end(value: number)
-            /**
-             * The Uniode block name
-             */
-            get name(): string
-            set name(value: string)
-            /**
-             * The Uniode start code point
-             * @default 0
-             */
-            get start(): number
-            set start(value: number)
-            /**
-             * Gets the end code point in #IBusUnicodeBlock.
-             * @returns end property in #IBusUnicodeBlock
-             */
-            get_end(): string
-            /**
-             * Gets the name in #IBusUnicodeBlock. It should not be freed.
-             * @returns name property in #IBusUnicodeBlock
-             */
-            get_name(): string
-            /**
-             * Gets the start code point in #IBusUnicodeBlock.
-             * @returns start property in #IBusUnicodeBlock
-             */
-            get_start(): string
-        }
-
-        interface UnicodeBlockClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<UnicodeBlock>
-            readonly prototype: UnicodeBlock
-
-            new (props?: Partial<GObject.ConstructorProps<UnicodeBlock>>): UnicodeBlock
-            /**
-             * @param path A path of the saved dictionary file.
-             * @returns  An #IBusUnicodeBlock list loaded from the saved cache file.
-             */
-            load(path: string): UnicodeBlock[]
-            /**
-             * Save the list of #IBusUnicodeBlock to the cache file.
-             * @param path A path of the saved Unicode block.
-             * @param list A list of unicode
-             block.
-             */
-            save(path: string, list: UnicodeBlock[]): void
-        }
-
-        interface $Exports {
-            /**
-             */
-            UnicodeBlock: UnicodeBlockClass
-        }
-        
-
-        namespace UnicodeData {
-            interface SignalSignatures extends Serializable.SignalSignatures {
+            interface Registry extends Serializable {
+                readonly $signals: Registry.SignalSignatures
+                readonly $readableProperties: Registry.ReadableProperties
+                readonly $writableProperties: Registry.WritableProperties
+                readonly $constructOnlyProperties: Registry.ConstructOnlyProperties
+                /**
+                 * Check if the registry is updated.
+                 * @returns %TRUE if mtime is changed; %FALSE otherwise.
+                 */
+                check_modification(): boolean
+                /**
+                 * List components.
+                 * @returns  a list of #IBusComponent objects. The caller has to call g_list_free() for the returned list.
+                 */
+                get_components(): Component[]
+                /**
+                 * List observed paths.
+                 * @returns  a list of #IBusObservedPath objects. The caller has to call g_list_free() for the returned list.
+                 */
+                get_observed_paths(): ObservedPath[]
+                /**
+                 * Read all XML files in a IBus component directory (typically
+                 * /usr/share/ibus/component/ *.xml) and update the registry object.
+                 * IBUS_COMPONENT_PATH environment valuable is also available for
+                 * the custom component directories, whose delimiter is ':'.
+                 */
+                load(): void
+                /**
+                 * Load the user or system registry cache.
+                 * @param is_user %TRUE if the registry cache is loaded in the user directory.
+                 * @returns %TRUE if the cache exists and is loaded successfully,           %FALSE otherwise.
+                 */
+                load_cache(is_user: boolean): boolean
+                /**
+                 * Load the registry cache `filename`.
+                 * @param filename The file path of the registry cache
+                 * @returns %TRUE if the cache exists and is loaded successfully,           %FALSE otherwise.
+                 */
+                load_cache_file(filename: string): boolean
+                /**
+                 * Read all XML files in `dirname`, create a #IBusComponent object for each file,
+                 * and add the component objects to the registry.
+                 * If `dirname` is "/usr/share/ibus/component", this API and
+                 * ibus_registry_load() are same.
+                 * @param dirname IBus component directory which includes XML files.
+                 */
+                load_in_dir(dirname: string): void
+                /**
+                 * Output #IBusRegistry as an XML-formatted string.
+                 * The output string can be then shown on the screen or written to file.
+                 * @param output GString that holds the result.
+                 * @param indent level of indent.
+                 */
+                output(output: GLib.String, indent: number): void
+                /**
+                 * Save the registry in a user directory or system directory.
+                 * @param is_user %TRUE if the registry cache is saved in the user directory.
+                 * @returns %TRUE if the cache is saved successfully, %FALSE otherwise.
+                 */
+                save_cache(is_user: boolean): boolean
+                /**
+                 * Save the registry cache `filename`.
+                 * @param filename The file path of the registry cache
+                 * @returns %TRUE if the cache is saved successfully, %FALSE otherwise.
+                 */
+                save_cache_file(filename: string): boolean
+                /**
+                 * Start to monitor observed paths.
+                 */
+                start_monitor_changes(): void
             }
 
-            interface ReadableProperties extends Serializable.ReadableProperties {
-                "alias": string
-                "block-name": string
-                "code": number
-                "name": string
+            interface RegistryClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<Registry>
+                readonly prototype: Registry
+
+                new (props?: Partial<GObject.ConstructorProps<Registry>>): Registry
+                /**
+                 * Creates a new #IBusRegistry
+                 * @returns A newly allocated #IBusRegistry.
+                 */
+                "new"(): Registry
             }
 
-            interface WritableProperties extends Serializable.WritableProperties {
-                "alias": string
-                "block-name": string
-                "name": string
+            interface $Exports {
+                /**
+                 * An #IBusRegistry loads IBus component files and generates the cache files.
+                 *
+                 * see_also: #IBusComponent
+                 */
+                Registry: RegistryClass
+            }
+            
+
+            namespace Serializable {
+                interface SignalSignatures extends Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Object.ReadableProperties {
+                }
+
+                interface WritableProperties extends Object.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                }
             }
 
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-                "code": number
-            }
-        }
-
-        interface UnicodeData extends Serializable {
-            readonly $signals: UnicodeData.SignalSignatures
-            readonly $readableProperties: UnicodeData.ReadableProperties
-            readonly $writableProperties: UnicodeData.WritableProperties
-            readonly $constructOnlyProperties: UnicodeData.ConstructOnlyProperties
-            /**
-             * The Uniode alias name
-             */
-            get alias(): string
-            set alias(value: string)
-            /**
-             * The Uniode block name
-             */
-            get blockName(): string
-            set blockName(value: string)
-            /**
-             * The Uniode code point
-             * @default 0
-             */
-            get code(): number
-            set code(value: number)
-            /**
-             * The Uniode name
-             */
-            get name(): string
-            set name(value: string)
-            /**
-             * Gets the alias in #IBusUnicodeData. It should not be freed.
-             * @returns alias property in #IBusUnicodeData
-             */
-            get_alias(): string
-            /**
-             * Gets the block name in #IBusUnicodeData. It should not be freed.
-             * @returns block-name property in #IBusUnicodeData
-             */
-            get_block_name(): string
-            /**
-             * Gets the code point in #IBusUnicodeData.
-             * @returns code property in #IBusUnicodeData
-             */
-            get_code(): string
-            /**
-             * Gets the name in #IBusUnicodeData. It should not be freed.
-             * @returns name property in #IBusUnicodeData
-             */
-            get_name(): string
-            /**
-             * Sets the block name in #IBusUnicodeData.
-             * @param block_name A block name
-             */
-            set_block_name(block_name: string): void
-        }
-
-        interface UnicodeDataClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<UnicodeData>
-            readonly prototype: UnicodeData
-
-            new (props?: Partial<GObject.ConstructorProps<UnicodeData>>): UnicodeData
-            /**
-             * @param path A path of the saved dictionary file.
-             * @param object If the #GObject has "unicode-deserialize-progress"
-               signal, this function will emit (the number of desrialized
-               #IBusUnicodeData, * the total number of #IBusUnicodeData) of uint values
-               with that signal by 100 times. Otherwise %NULL.
-             * @returns  An #IBusUnicodeData list loaded from the saved cache file.
-             */
-            load(path: string, object: GObject.Object | null): UnicodeData[]
-            /**
-             * IBusUnicodeDataLoadAsyncFinish can receive the list of #IBusUnicodeData.
-             * @param path A path of the saved dictionary file.
-             * @param object If the #GObject has "unicode-deserialize-progress"
-               signal, this function will emit (the number of desrialized
-               #IBusUnicodeData, * the total number of #IBusUnicodeData) of uint values
-               with that signal by 100 times. Otherwise %NULL.
-             * @param cancellable cancellable.
-             * @param callback IBusUnicodeDataLoadAsyncFinish.
-             */
-            load_async(path: string, object: GObject.Object | null, cancellable: Gio.Cancellable | null, callback: UnicodeDataLoadAsyncFinish): void
-            /**
-             * Save the list of #IBusUnicodeData to the cache file.
-             * @param path A path of the saved Unicode data.
-             * @param list A list of unicode
-             data.
-             */
-            save(path: string, list: UnicodeData[]): void
-        }
-
-        interface $Exports {
-            /**
-             * Unicode data likes code, name, alias, block-name.
-             * You can get extended values with g_object_get_properties.
-             */
-            UnicodeData: UnicodeDataClass
-        }
-        
-
-        namespace XEvent {
-            interface SignalSignatures extends Serializable.SignalSignatures {
+            interface Serializable extends Object {
+                readonly $signals: Serializable.SignalSignatures
+                readonly $readableProperties: Serializable.ReadableProperties
+                readonly $writableProperties: Serializable.WritableProperties
+                readonly $constructOnlyProperties: Serializable.ConstructOnlyProperties
+                /**
+                 * Clone an #IBusSerializable.
+                 * The copy method should be implemented in extended class.
+                 * @returns A newly allocated clone object; or %NULL     if `object` is not serializable.  See also: IBusSerializableCopyFunc().
+                 */
+                copy(): Serializable
+                /**
+                 * Gets a value from attachment of an #IBusSerializable.
+                 * @param key String formatted key for indexing value.
+                 * @returns The attached value; or %NULL if fail to retrieve the value.  See also: ibus_serializable_set_attachment().
+                 */
+                get_qattachment(key: GLib.Quark): GLib.Variant
+                /**
+                 * Remove a value from attachment of an #IBusSerializable.
+                 * See also: ibus_serializable_remove_attachment().
+                 * @param key String formatted key for indexing value.
+                 */
+                remove_qattachment(key: GLib.Quark): void
+                /**
+                 * Serialize an #IBusSerializable to a #GVariant.
+                 * The serialize method should be implemented in extended class.
+                 * @returns A #GVariant.  See also: IBusSerializableCopyFunc().
+                 */
+                serialize_object(): GLib.Variant
+                /**
+                 * Attach a value to an #IBusSerializable. If the value is floating,
+                 * the serializable will take the ownership.
+                 *
+                 * See also: ibus_serializable_set_attachment().
+                 * @param key String formatted key for indexing value.
+                 * @param value Value to be attached or %NULL to remove any prevoius value.
+                 */
+                set_qattachment(key: GLib.Quark, value: GLib.Variant): void
+                /**
+                 * @param src
+                 */
+                vfunc_copy(src: Serializable): boolean
+                /**
+                 * @param variant
+                 */
+                vfunc_deserialize(variant: GLib.Variant): number
+                /**
+                 * @param builder
+                 */
+                vfunc_serialize(builder: GLib.VariantBuilder): boolean
             }
 
-            interface ReadableProperties extends Serializable.ReadableProperties {
-                "event-type": number
-                "group": number
-                "hardware-keycode": number
-                "is-modifier": boolean
-                "keyval": number
-                "length": number
-                "purpose": string
-                "root": number
-                "same-screen": boolean
-                "send-event": number
-                "serial": number
-                "state": number
-                "string": string
-                "subwindow": number
-                "time": number
-                "version": number
-                "window": number
-                "x": number
-                "x-root": number
-                "y": number
-                "y-root": number
+            interface SerializableClass extends Omit<ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Serializable>
+                readonly prototype: Serializable
+
+                new (props?: Partial<GObject.ConstructorProps<Serializable>>): Serializable
+                /**
+                 * Creates a new instance of an #IBusSerializable.
+                 * @returns a new instance of #IBusSerializable.
+                 */
+                "new"(): Serializable
+                /**
+                 * Deserialize a #GVariant to an #IBusSerializable/
+                 * The deserialize method should be implemented in extended class.
+                 * @param variant A #GVariant.
+                 * @returns The deserialized #IBusSerializable.  See also: IBusSerializableCopyFunc().
+                 */
+                deserialize_object(variant: GLib.Variant): Serializable
             }
 
-            interface WritableProperties extends Serializable.WritableProperties {
-                "version": number
+            interface $Exports {
+                /**
+                 * An #IBusSerializable is an IBus object which can be serialized, that is,
+                 * to be to and from a #GVariant.
+                 *
+                 * This class is to be extended by other class that requires serialization.
+                 * An extended class should overrides following methods:
+                 * <itemizedlist>
+                 *    <listitem>
+                 *       <para><function>serialize(object,iter)</function>: for serialize.</para>
+                 *    </listitem>
+                 *    <listitem>
+                 *       <para><function>deserialize(object,iter)</function>: for deserialize.</para>
+                 *    </listitem>
+                 *    <listitem>
+                 *       <para><function>copy(desc,src)</function>: for copy between IBusSerializable.</para>
+                 *    </listitem>
+                 * </itemizedlist>
+                 * See IBusSerializableSerializeFunc(), IBusSerializableDeserializeFunc(), IBusSerializableCopyFunc()
+                 * for function prototype.
+                 */
+                Serializable: SerializableClass
+            }
+            
+
+            namespace Service {
+                interface SignalSignatures extends Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Object.ReadableProperties {
+                    "connection": Gio.DBusConnection
+                    "object-path": string
+                }
+
+                interface WritableProperties extends Object.WritableProperties {
+                    "connection": Gio.DBusConnection
+                }
+
+                interface ConstructOnlyProperties extends Object.ConstructOnlyProperties {
+                    "object-path": string
+                }
             }
 
-            interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
-                "event-type": number
-                "group": number
-                "hardware-keycode": number
-                "is-modifier": boolean
-                "keyval": number
-                "length": number
-                "purpose": string
-                "root": number
-                "same-screen": boolean
-                "send-event": number
-                "serial": number
-                "state": number
-                "string": string
-                "subwindow": number
-                "time": number
-                "window": number
-                "x": number
-                "x-root": number
-                "y": number
-                "y-root": number
+            interface Service extends Object {
+                readonly $signals: Service.SignalSignatures
+                readonly $readableProperties: Service.ReadableProperties
+                readonly $writableProperties: Service.WritableProperties
+                readonly $constructOnlyProperties: Service.ConstructOnlyProperties
+                /**
+                 * The connection of service object.
+                 */
+                get connection(): Gio.DBusConnection
+                set connection(value: Gio.DBusConnection)
+                /**
+                 * The path of service object.
+                 * @default NULL
+                 */
+                get objectPath(): string
+                set objectPath(value: string)
+                /**
+                 * @throws {GLib.Error}
+                 * @param dest_bus_name
+                 * @param interface_name
+                 * @param signal_name
+                 * @param parameters
+                 */
+                emit_signal(dest_bus_name: string, interface_name: string, signal_name: string, parameters: GLib.Variant): boolean
+                /**
+                 * Gets a connections.
+                 * @returns A #GDBusConnection of an #IBusService instance.
+                 */
+                get_connection(): Gio.DBusConnection
+                /**
+                 * Gets the object path of an IBusService.
+                 * @returns The object path of `service`
+                 */
+                get_object_path(): string
+                /**
+                 * Registers service to a connection.
+                 * @throws {GLib.Error}
+                 * @param connection A GDBusConnection the service will be registered to.
+                 * @returns %TRUE if the service was registered, %FALSE otherwise.
+                 */
+                register(connection: Gio.DBusConnection): boolean
+                /**
+                 * Unregisters service from a connection.
+                 * @param connection A GDBusConnection the service was registered with.
+                 */
+                unregister(connection: Gio.DBusConnection): void
+                /**
+                 * The ::service_get_property class method is to connect
+                 * GDBusInterfaceGetPropertyFunc().
+                 * @throws {GLib.Error}
+                 * @param connection A dbus connection.
+                 * @param sender A sender.
+                 * @param object_path An object path.
+                 * @param interface_name An interface name.
+                 * @param property_name A property name.
+                 * @returns A variant.
+                 */
+                vfunc_service_get_property(connection: Gio.DBusConnection, sender: string, object_path: string, interface_name: string, property_name: string): GLib.Variant | null
+                /**
+                 * The ::service_method_call class method is to connect
+                 * GDBusInterfaceMethodCallFunc().
+                 * @param connection A dbus connection.
+                 * @param sender A sender.
+                 * @param object_path An object path.
+                 * @param interface_name An interface name.
+                 * @param method_name A method name.
+                 * @param parameters A parameters.
+                 * @param invocation A dbus method invocation.
+                 */
+                vfunc_service_method_call(connection: Gio.DBusConnection, sender: string, object_path: string, interface_name: string, method_name: string, parameters: GLib.Variant, invocation: Gio.DBusMethodInvocation): void
+                /**
+                 * The ::service_set_property class method is to connect
+                 * GDBusInterfaceSetPropertyFunc().
+                 * @throws {GLib.Error}
+                 * @param connection A dbus connection.
+                 * @param sender A sender.
+                 * @param object_path An object path.
+                 * @param interface_name An interface name.
+                 * @param property_name An property name.
+                 * @param value An property value.
+                 * @returns %TRUE if set the value else %FALSE.
+                 */
+                vfunc_service_set_property(connection: Gio.DBusConnection, sender: string, object_path: string, interface_name: string, property_name: string, value: GLib.Variant): boolean
             }
-        }
-
-        interface XEvent extends Serializable {
-            readonly $signals: XEvent.SignalSignatures
-            readonly $readableProperties: XEvent.ReadableProperties
-            readonly $writableProperties: XEvent.WritableProperties
-            readonly $constructOnlyProperties: XEvent.ConstructOnlyProperties
-            /**
-             * IBusXEventType of this IBusXEvent.
-             * @default -1
-             */
-            get eventType(): number
-            set eventType(value: number)
-            /**
-             * group of this IBusXEvent.
-             * @default 0
-             */
-            get group(): number
-            set group(value: number)
-            /**
-             * hardware keycode of this IBusXEvent.
-             * @default 0
-             */
-            get hardwareKeycode(): number
-            set hardwareKeycode(value: number)
-            /**
-             * is_modifier of this IBusXEvent.
-             * @default FALSE
-             */
-            get isModifier(): boolean
-            set isModifier(value: boolean)
-            /**
-             * keyval of this IBusXEvent.
-             * @default 0
-             */
-            get keyval(): number
-            set keyval(value: number)
-            /**
-             * keyval of this IBusXEvent.
-             * @default 0
-             */
-            get length(): number
-            set length(value: number)
-            /**
-             * purpose of this IBusXEvent.
-             */
-            get purpose(): string
-            set purpose(value: string)
-            /**
-             * root window of this IBusXEvent.
-             * @default 0
-             */
-            get root(): number
-            set root(value: number)
-            /**
-             * same_screen of this IBusXEvent.
-             * @default TRUE
-             */
-            get sameScreen(): boolean
-            set sameScreen(value: boolean)
-            /**
-             * send_event of this IBusXEvent.
-             * @default 0
-             */
-            get sendEvent(): number
-            set sendEvent(value: number)
-            /**
-             * serial of this IBusXEvent.
-             * @default 0
-             */
-            get serial(): number
-            set serial(value: number)
-            /**
-             * state of this IBusXEvent.
-             * @default 0
-             */
-            get state(): number
-            set state(value: number)
-            /**
-             * string of this IBusXEvent.
-             */
-            get string(): string
-            set string(value: string)
-            /**
-             * subwindow of this IBusXEvent.
-             * @default 0
-             */
-            get subwindow(): number
-            set subwindow(value: number)
-            /**
-             * time of this IBusXEvent.
-             * @default 0
-             */
-            get time(): number
-            set time(value: number)
-            /**
-             * Version of this IBusXEvent.
-             * @default 1
-             */
-            get version(): number
-            set version(value: number)
-            /**
-             * window of this IBusXEvent.
-             * @default 0
-             */
-            get window(): number
-            set window(value: number)
-            /**
-             * x of this IBusXEvent.
-             * @default 0
-             */
-            get x(): number
-            set x(value: number)
-            /**
-             * root-x of this IBusXEvent.
-             * @default 0
-             */
-            get xRoot(): number
-            set xRoot(value: number)
-            /**
-             * x of this IBusXEvent.
-             * @default 0
-             */
-            get y(): number
-            set y(value: number)
-            /**
-             * root-y of this IBusXEvent.
-             * @default 0
-             */
-            get yRoot(): number
-            set yRoot(value: number)
-            /**
-             * @returns IBusXEventType of #IBusXEvent
-             */
-            get_event_type(): XEventType
-            /**
-             * @returns group of #IBusXEvent
-             */
-            get_group(): number
-            /**
-             * @returns hardware keycode of #IBusXEvent
-             */
-            get_hardware_keycode(): number
-            /**
-             * @returns is_modifier of #IBusXEvent
-             */
-            get_is_modifier(): boolean
-            /**
-             * @returns keyval of #IBusXEvent
-             */
-            get_keyval(): number
-            /**
-             * @returns length of #IBusXEvent
-             */
-            get_length(): number
-            /**
-             * @returns purpose of #IBusXEvent
-             */
-            get_purpose(): string
-            /**
-             * @returns root window of #IBusXEvent
-             */
-            get_root(): number
-            /**
-             * @returns same_screen of #IBusXEvent
-             */
-            get_same_screen(): boolean
-            /**
-             * @returns send_event of #IBusXEvent
-             */
-            get_send_event(): number
-            /**
-             * @returns serial of #IBusXEvent
-             */
-            get_serial(): number
-            /**
-             * @returns state of #IBusXEvent
-             */
-            get_state(): number
-            /**
-             * @returns string of #IBusXEvent
-             */
-            get_string(): string
-            /**
-             * @returns subwindow of #IBusXEvent
-             */
-            get_subwindow(): number
-            /**
-             * @returns time of #IBusXEvent
-             */
-            get_time(): number
-            /**
-             * @returns Version of #IBusXEvent
-             */
-            get_version(): number
-            /**
-             * @returns XID of #IBusXEvent
-             */
-            get_window(): number
-            /**
-             * @returns x of #IBusXEvent
-             */
-            get_x(): number
-            /**
-             * @returns x-root of #IBusXEvent
-             */
-            get_x_root(): number
-            /**
-             * @returns y of #IBusXEvent
-             */
-            get_y(): number
-            /**
-             * @returns y-root of #IBusXEvent
-             */
-            get_y_root(): number
-        }
-
-        interface XEventClass extends Omit<SerializableClass, "new"> {
-            readonly $gtype: GObject.GType<XEvent>
-            readonly prototype: XEvent
-
-            new (props?: Partial<GObject.ConstructorProps<XEvent>>): XEvent
-        }
-
-        interface $Exports {
-            /**
-             * An IBusXEvent provides a wrapper of XEvent.
-             *
-             * see_also: #IBusComponent, #IBusEngineDesc
-             */
-            XEvent: XEventClass
-        }
-        
-
-        interface BusPrivateStruct {
-            readonly $gtype: GObject.GType<BusPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is BusPrivate
-        }
-
-        interface BusPrivate {
-        }
-
-        interface $Exports {
-            BusPrivate: BusPrivateStruct
-        }
-        
-
-        interface ComponentPrivateStruct {
-            readonly $gtype: GObject.GType<ComponentPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is ComponentPrivate
-        }
-
-        interface ComponentPrivate {
-        }
-
-        interface $Exports {
-            ComponentPrivate: ComponentPrivateStruct
-        }
-        
-
-        interface ConfigPrivateStruct {
-            readonly $gtype: GObject.GType<ConfigPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is ConfigPrivate
-        }
-
-        interface ConfigPrivate {
-        }
-
-        interface $Exports {
-            ConfigPrivate: ConfigPrivateStruct
-        }
-        
-
-        interface EmojiDataPrivateStruct {
-            readonly $gtype: GObject.GType<EmojiDataPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is EmojiDataPrivate
-        }
-
-        interface EmojiDataPrivate {
-        }
-
-        interface $Exports {
-            EmojiDataPrivate: EmojiDataPrivateStruct
-        }
-        
-
-        interface EngineDescPrivateStruct {
-            readonly $gtype: GObject.GType<EngineDescPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is EngineDescPrivate
-        }
-
-        interface EngineDescPrivate {
-        }
-
-        interface $Exports {
-            EngineDescPrivate: EngineDescPrivateStruct
-        }
-        
-
-        interface EnginePrivateStruct {
-            readonly $gtype: GObject.GType<EnginePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is EnginePrivate
-        }
-
-        interface EnginePrivate {
-        }
-
-        interface $Exports {
-            EnginePrivate: EnginePrivateStruct
-        }
-        
-
-        interface EngineSimplePrivateStruct {
-            readonly $gtype: GObject.GType<EngineSimplePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is EngineSimplePrivate
-        }
-
-        interface EngineSimplePrivate {
-        }
-
-        interface $Exports {
-            EngineSimplePrivate: EngineSimplePrivateStruct
-        }
-        
-
-        interface ExtensionEventPrivateStruct {
-            readonly $gtype: GObject.GType<ExtensionEventPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is ExtensionEventPrivate
-        }
-
-        interface ExtensionEventPrivate {
-        }
-
-        interface $Exports {
-            ExtensionEventPrivate: ExtensionEventPrivateStruct
-        }
-        
-
-        interface FactoryPrivateStruct {
-            readonly $gtype: GObject.GType<FactoryPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is FactoryPrivate
-        }
-
-        interface FactoryPrivate {
-        }
-
-        interface $Exports {
-            FactoryPrivate: FactoryPrivateStruct
-        }
-        
-
-        interface ObjectPrivateStruct {
-            readonly $gtype: GObject.GType<ObjectPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is ObjectPrivate
-        }
-
-        interface ObjectPrivate {
-        }
-
-        interface $Exports {
-            ObjectPrivate: ObjectPrivateStruct
-        }
-        
-
-        interface ProcessKeyEventDataStruct {
-            readonly $gtype: GObject.GType<ProcessKeyEventData>
-            [Symbol.hasInstance](instance: unknown): instance is ProcessKeyEventData
-        }
-
-        interface ProcessKeyEventData {
-            /**
-             */
-            keyval: number
-            /**
-             */
-            keycode: number
-            /**
-             */
-            state: number
-        }
-
-        interface $Exports {
-            ProcessKeyEventData: ProcessKeyEventDataStruct
-        }
-        
-
-        interface PropertyPrivateStruct {
-            readonly $gtype: GObject.GType<PropertyPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is PropertyPrivate
-        }
-
-        interface PropertyPrivate {
-        }
-
-        interface $Exports {
-            PropertyPrivate: PropertyPrivateStruct
-        }
-        
-
-        interface RectangleStruct {
-            readonly $gtype: GObject.GType<Rectangle>
-            [Symbol.hasInstance](instance: unknown): instance is Rectangle
-        }
-
-        interface Rectangle {
-            /**
-             * x coordinate.
-             */
-            x: number
-            /**
-             * y coordinate.
-             */
-            y: number
-            /**
-             * width of the rectangle.
-             */
-            width: number
-            /**
-             * height of the renctangl.
-             */
-            height: number
-        }
-
-        interface $Exports {
-            Rectangle: RectangleStruct
-        }
-        
-
-        interface RegistryPrivateStruct {
-            readonly $gtype: GObject.GType<RegistryPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is RegistryPrivate
-        }
-
-        interface RegistryPrivate {
-        }
-
-        interface $Exports {
-            RegistryPrivate: RegistryPrivateStruct
-        }
-        
-
-        interface SerializablePrivateStruct {
-            readonly $gtype: GObject.GType<SerializablePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is SerializablePrivate
-        }
-
-        interface SerializablePrivate {
-        }
-
-        interface $Exports {
-            SerializablePrivate: SerializablePrivateStruct
-        }
-        
-
-        interface ServicePrivateStruct {
-            readonly $gtype: GObject.GType<ServicePrivate>
-            [Symbol.hasInstance](instance: unknown): instance is ServicePrivate
-        }
-
-        interface ServicePrivate {
-        }
-
-        interface $Exports {
-            ServicePrivate: ServicePrivateStruct
-        }
-        
-
-        interface UnicodeBlockPrivateStruct {
-            readonly $gtype: GObject.GType<UnicodeBlockPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is UnicodeBlockPrivate
-        }
-
-        interface UnicodeBlockPrivate {
-        }
-
-        interface $Exports {
-            UnicodeBlockPrivate: UnicodeBlockPrivateStruct
-        }
-        
-
-        interface UnicodeDataPrivateStruct {
-            readonly $gtype: GObject.GType<UnicodeDataPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is UnicodeDataPrivate
-        }
-
-        interface UnicodeDataPrivate {
-        }
-
-        interface $Exports {
-            UnicodeDataPrivate: UnicodeDataPrivateStruct
-        }
-        
-
-        interface XEventPrivateStruct {
-            readonly $gtype: GObject.GType<XEventPrivate>
-            [Symbol.hasInstance](instance: unknown): instance is XEventPrivate
-        }
-
-        interface XEventPrivate {
-        }
-
-        interface $Exports {
-            XEventPrivate: XEventPrivateStruct
-        }
-        
-
-        interface XMLStruct {
-            readonly $gtype: GObject.GType<XML>
-            [Symbol.hasInstance](instance: unknown): instance is XML
-            /**
-             * Parse a string buffer which contains an XML-formatted string,
-             * and return a corresponding XML tree.
-             * @param buffer Buffer to be parsed.
-             * @returns Root node of parsed XML tree.
-             */
-            parse_buffer(buffer: string): XML
-            /**
-             * Parse an XML file and return a corresponding XML tree.
-             * @param name File name to be parsed.
-             * @returns Root node of parsed XML tree.
-             */
-            parse_file(name: string): XML
-        }
-
-        interface XML {
-            /**
-             * Name of XML tag.
-             */
-            name: string
-            /**
-             * Text enclosed by XML start tag and end tag. i.e. <tag>text</tag>.
-             */
-            text: string
-            /**
-             * Attributes of the XML node.
-             */
-            attributes: string
-            /**
-             * Children node of this XML node.
-             */
-            sub_nodes: never[]
-            /**
-             * Creates a copy of @node, which should be freed with
-             * ibus_xml_free(). Primarily used by language bindings,
-             * not that useful otherwise (since @node can just be copied
-             * by assignment in C).
-             * @returns the newly allocated #IBusXML, which should          be freed with ibus_xml_free(), or %NULL          if `node` was %NULL.
-             */
-            copy(): XML
-            /**
-             * Free an XML tree.
-             */
-            free(): void
-            /**
-             * Output an XML tree to a GString.
-             * @param output GString which stores the output.
-             */
-            output(output: GLib.String): void
-        }
-
-        interface $Exports {
-            XML: XMLStruct
-        }
-        
-        interface AttrPreeditEnum {
-            readonly $gtype: GObject.GType<AttrPreedit>
-            /**
-             * Default style for composing text.
-             */
-            readonly "DEFAULT": 0
-            /**
-             * Style should be the same as in non-composing text.
-             */
-            readonly "NONE": 1
-            /**
-             * Most language engines wish to draw underline in
-             *                           the typed whole preedit string except for the
-             *                           prediction string. (Chinese, Japanese,
-             *                           Typing-booster)
-             */
-            readonly "WHOLE": 2
-            /**
-             * Modifying an active segment is distinguished
-             *                               against whole the preedit text. (Hangul,
-             *                               Japanese)
-             */
-            readonly "SELECTION": 3
-            /**
-             * A prediction string can be appended after the
-             *                                typed string. (Typing-booster)
-             */
-            readonly "PREDICTION": 4
-            /**
-             * A prefix string can be an informative color.
-             *                            (Table)
-             */
-            readonly "PREFIX": 5
-            /**
-             * A suffix string can be an informative color.
-             *                            (Table)
-             */
-            readonly "SUFFIX": 6
-            /**
-             * An detected typo could be an error color
-             *                                    with a spelling check or the word could
-             *                                    not be found in a dictionary. The
-             *                                    underline color also might be more
-             *                                    visible. (Typing-booster, Table)
-             */
-            readonly "ERROR_SPELLING": 7
-            /**
-             * A wrong compose key could be an error
-             *                                   color. (Typing-booster)
-             */
-            readonly "ERROR_COMPOSE": 8
-        }
-        type AttrPreedit = AttrPreeditEnum[Exclude<keyof AttrPreeditEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Type of Pre-edit style as the semantic name.
-             * The Wayland specs prefers to express the semantic values rather than RGB
-             * values and text-input protocol version 1 defines some values:
-             * https://gitlab.freedesktop.org/wayland/wayland-protocols/-/blob/main/unstable/text-input/text-input-unstable-v1.xml?ref_type=heads#L251
-             *
-             * IBus compiled the values for major input method engines:
-             * https://github.com/ibus/ibus/wiki/Wayland-Colors
-             * @since 1.5.29
-             */
-            AttrPreedit: AttrPreeditEnum
-        }
-        
-        interface AttrTypeEnum {
-            readonly $gtype: GObject.GType<AttrType>
-            /**
-             * Decorate with underline.
-             */
-            readonly "UNDERLINE": 1
-            /**
-             * Foreground color.
-             */
-            readonly "FOREGROUND": 2
-            /**
-             * Background color.
-             */
-            readonly "BACKGROUND": 3
-        }
-        type AttrType = AttrTypeEnum[Exclude<keyof AttrTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Type enumeration of IBusText attribute.
-             */
-            AttrType: AttrTypeEnum
-        }
-        
-        interface AttrUnderlineEnum {
-            readonly $gtype: GObject.GType<AttrUnderline>
-            /**
-             * No underline.
-             */
-            readonly "NONE": 0
-            /**
-             * Single underline.
-             */
-            readonly "SINGLE": 1
-            /**
-             * Double underline.
-             */
-            readonly "DOUBLE": 2
-            /**
-             * Low underline ? FIXME
-             */
-            readonly "LOW": 3
-            /**
-             * Error underline
-             */
-            readonly "ERROR": 4
-        }
-        type AttrUnderline = AttrUnderlineEnum[Exclude<keyof AttrUnderlineEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Type of IBusText attribute.
-             */
-            AttrUnderline: AttrUnderlineEnum
-            /**
-         * Creates a new underline #IBusAttribute.
-         * @param underline_type Type of underline.
-         * @param start_index Where attribute starts.
-         * @param end_index Where attribute ends.
-         * @returns A newly allocated #IBusAttribute.
-         */
-        new: (underline_type: number, start_index: number, end_index: number) => Attribute
-        }
-        
-        interface BusGlobalBindingTypeEnum {
-            readonly $gtype: GObject.GType<BusGlobalBindingType>
-            /**
-             * Any types
-             */
-            readonly "ANY": 0
-            /**
-             * IME switcher
-             */
-            readonly "IME_SWITCHER": 1
-            /**
-             * Emoji typing
-             */
-            readonly "EMOJI_TYPING": 2
-        }
-        type BusGlobalBindingType = BusGlobalBindingTypeEnum[Exclude<keyof BusGlobalBindingTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Type enumeration of IBusBusGlobalBindingType.
-             * @since 1.5.29
-             */
-            BusGlobalBindingType: BusGlobalBindingTypeEnum
-        }
-        
-        interface BusRequestNameReplyEnum {
-            readonly $gtype: GObject.GType<BusRequestNameReply>
-            /**
-             * same as DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER
-             */
-            readonly "PRIMARY_OWNER": 1
-            /**
-             * same as DBUS_REQUEST_NAME_REPLY_IN_QUEUE
-             */
-            readonly "IN_QUEUE": 2
-            /**
-             * same as DBUS_REQUEST_NAME_REPLY_EXISTS
-             */
-            readonly "EXISTS": 3
-            /**
-             * same as DBUS_REQUEST_NAME_REPLY_ALREADY_OWNER
-             */
-            readonly "ALREADY_OWNER": 4
-        }
-        type BusRequestNameReply = BusRequestNameReplyEnum[Exclude<keyof BusRequestNameReplyEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            BusRequestNameReply: BusRequestNameReplyEnum
-        }
-        
-        interface BusStartServiceByNameReplyEnum {
-            readonly $gtype: GObject.GType<BusStartServiceByNameReply>
-            /**
-             * same as DBUS_START_REPLY_SUCCESS
-             */
-            readonly "SUCCESS": 1
-            /**
-             * same as DBUS_START_REPLY_ALREADY_RUNNING
-             */
-            readonly "ALREADY_RUNNING": 2
-        }
-        type BusStartServiceByNameReply = BusStartServiceByNameReplyEnum[Exclude<keyof BusStartServiceByNameReplyEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            BusStartServiceByNameReply: BusStartServiceByNameReplyEnum
-        }
-        
-        interface Error extends GLib.Error {}
-
-        interface ErrorEnum {
-            readonly $gtype: GObject.GType<Error>
-
-            new(props: { message: string, code: number }): Error
-            /**
-             * There is no engine associated with input context.
-             */
-            readonly "NO_ENGINE": 0
-            /**
-             * There is no config module running.
-             */
-            readonly "NO_CONFIG": 1
-            /**
-             * General failure.
-             */
-            readonly "FAILED": 2
-            /**
-         */
-        quark: () => GLib.Quark
-        }
-
-        interface $Exports {
-            /**
-             */
-            Error: ErrorEnum
-        }
-        
-        interface InputPurposeEnum {
-            readonly $gtype: GObject.GType<InputPurpose>
-            /**
-             * Allow any character
-             */
-            readonly "FREE_FORM": 0
-            /**
-             * Allow only alphabetic characters
-             */
-            readonly "ALPHA": 1
-            /**
-             * Allow only digits
-             */
-            readonly "DIGITS": 2
-            /**
-             * Edited field expects numbers
-             */
-            readonly "NUMBER": 3
-            /**
-             * Edited field expects phone number
-             */
-            readonly "PHONE": 4
-            /**
-             * Edited field expects URL
-             */
-            readonly "URL": 5
-            /**
-             * Edited field expects email address
-             */
-            readonly "EMAIL": 6
-            /**
-             * Edited field expects the name of a person
-             */
-            readonly "NAME": 7
-            /**
-             * Like @IBUS_INPUT_PURPOSE_FREE_FORM,
-             *     but characters are hidden
-             */
-            readonly "PASSWORD": 8
-            /**
-             * Like @IBUS_INPUT_PURPOSE_DIGITS, but
-             *     characters are hidden
-             */
-            readonly "PIN": 9
-            /**
-             * Allow any character, in addition to control
-             *     codes. Since 1.5.24
-             */
-            readonly "TERMINAL": 10
-        }
-        type InputPurpose = InputPurposeEnum[Exclude<keyof InputPurposeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Describes primary purpose of the input context.  This information
-             * is particularly useful to implement intelligent behavior in
-             * engines, such as automatic input-mode switch and text prediction.
-             *
-             * Note that the purpose is not meant to impose a totally strict rule
-             * about allowed characters, and does not replace input validation.
-             * It is fine for an on-screen keyboard to let the user override the
-             * character set restriction that is expressed by the purpose. The
-             * application is expected to validate the entry contents, even if
-             * it specified a purpose.
-             *
-             * The difference between @IBUS_INPUT_PURPOSE_DIGITS and
-             * @IBUS_INPUT_PURPOSE_NUMBER is that the former accepts only digits
-             * while the latter also some punctuation (like commas or points, plus,
-             * minus) and “e” or “E” as in 3.14E+000.
-             *
-             * This enumeration may be extended in the future; engines should
-             * interpret unknown values as 'free form'.
-             * @since 1.5.4
-             */
-            InputPurpose: InputPurposeEnum
-        }
-        
-        interface OrientationEnum {
-            readonly $gtype: GObject.GType<Orientation>
-            /**
-             * Horizontal orientation.
-             */
-            readonly "HORIZONTAL": 0
-            /**
-             * Vertival orientation.
-             */
-            readonly "VERTICAL": 1
-            /**
-             * Use ibus global orientation setup.
-             */
-            readonly "SYSTEM": 2
-        }
-        type Orientation = OrientationEnum[Exclude<keyof OrientationEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Orientation of UI.
-             */
-            Orientation: OrientationEnum
-        }
-        
-        interface PreeditFocusModeEnum {
-            readonly $gtype: GObject.GType<PreeditFocusMode>
-            /**
-             * pre-edit text is cleared.
-             */
-            readonly "CLEAR": 0
-            /**
-             * pre-edit text is committed.
-             */
-            readonly "COMMIT": 1
-        }
-        type PreeditFocusMode = PreeditFocusModeEnum[Exclude<keyof PreeditFocusModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Pre-edit commit mode when the focus is lost.
-             */
-            PreeditFocusMode: PreeditFocusModeEnum
-        }
-        
-        interface PropStateEnum {
-            readonly $gtype: GObject.GType<PropState>
-            /**
-             * Property option is unchecked.
-             */
-            readonly "UNCHECKED": 0
-            /**
-             * Property option is checked.
-             */
-            readonly "CHECKED": 1
-            /**
-             * The state is inconsistent with the associated IME
-             * property.
-             */
-            readonly "INCONSISTENT": 2
-        }
-        type PropState = PropStateEnum[Exclude<keyof PropStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * State of #IBusProperty. The actual effect depends on #IBusPropType of the
-             * IBusProperty.
-             *
-             * <variablelist>
-             *     <varlistentry>
-             *         <term>PROP_TYPE_TOGGLE</term>
-             *         <listitem><para>Emphasized if PROP_STATE_CHECKED, normal otherwise.</para></listitem>
-             *     </varlistentry>
-             *     <varlistentry>
-             *         <term>PROP_TYPE_RADIO</term>
-             *         <listitem><para>Option checked if PROP_STATE_CHECKED, unchecked otherwise.</para></listitem>
-             *     </varlistentry>
-             * </variablelist>
-             * No effect on other types.
-             */
-            PropState: PropStateEnum
-        }
-        
-        interface PropTypeEnum {
-            readonly $gtype: GObject.GType<PropType>
-            /**
-             * Property is shown as normal text.
-             */
-            readonly "NORMAL": 0
-            /**
-             * Property is shown as a toggle button.
-             */
-            readonly "TOGGLE": 1
-            /**
-             * Property is shown as a radio selection option.
-             */
-            readonly "RADIO": 2
-            /**
-             * Property is shown as a menu, usually imply it has sub menu
-             * items.
-             */
-            readonly "MENU": 3
-            /**
-             * A separator for menu.
-             */
-            readonly "SEPARATOR": 4
-        }
-        type PropType = PropTypeEnum[Exclude<keyof PropTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Type enumeration of IBusProperty.
-             */
-            PropType: PropTypeEnum
-        }
-        
-        interface XEventTypeEnum {
-            readonly $gtype: GObject.GType<XEventType>
-            /**
-             */
-            readonly "NOTHING": -1
-            /**
-             */
-            readonly "KEY_PRESS": 0
-            /**
-             */
-            readonly "KEY_RELEASE": 1
-            /**
-             */
-            readonly "OTHER": 2
-            /**
-             */
-            readonly "EVENT_LAST": 3
-        }
-        type XEventType = XEventTypeEnum[Exclude<keyof XEventTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            XEventType: XEventTypeEnum
-        }
-        
-        interface BusNameFlagBitfield {
-            readonly $gtype: GObject.GType<BusNameFlag>
-            /**
-             * same as DBUS_NAME_FLAG_ALLOW_REPLACEMENT
-             */
-            readonly "ALLOW_REPLACEMENT": 1
-            /**
-             * same as DBUS_NAME_FLAG_REPLACE_EXISTING
-             */
-            readonly "REPLACE_EXISTING": 2
-            /**
-             * same as DBUS_NAME_FLAG_DO_NOT_QUEUE
-             */
-            readonly "DO_NOT_QUEUE": 4
-        }
-        type BusNameFlag = number
-        interface $Exports {
-            /**
-             */
-            BusNameFlag: BusNameFlagBitfield
-        }
-        
-        interface CapabiliteBitfield {
-            readonly $gtype: GObject.GType<Capabilite>
-            /**
-             * UI is capable to show pre-edit text.
-             */
-            readonly "PREEDIT_TEXT": 1
-            /**
-             * UI is capable to show auxiliary text.
-             */
-            readonly "AUXILIARY_TEXT": 2
-            /**
-             * UI is capable to show the lookup table.
-             */
-            readonly "LOOKUP_TABLE": 4
-            /**
-             * UI is capable to get focus.
-             */
-            readonly "FOCUS": 8
-            /**
-             * UI is capable to have property.
-             */
-            readonly "PROPERTY": 16
-            /**
-             * Client can provide surround text,
-             *  or IME can handle surround text.
-             */
-            readonly "SURROUNDING_TEXT": 32
-            /**
-             * UI is owned by on-screen keyboard.
-             */
-            readonly "OSK": 64
-            /**
-             * Asynchronous process key events are not
-             *  supported and the ibus_engine_forward_key_event() should not be
-             *  used for the return value of #IBusEngine::process_key_event().
-             */
-            readonly "SYNC_PROCESS_KEY": 128
-            /**
-             */
-            readonly "SYNC_PROCESS_KEY_V2": 128
-        }
-        type Capabilite = number
-        interface $Exports {
-            /**
-             * Capability flags of UI.
-             */
-            Capabilite: CapabiliteBitfield
-        }
-        
-        interface InputHintsBitfield {
-            readonly $gtype: GObject.GType<InputHints>
-            /**
-             * No special behaviour suggested
-             */
-            readonly "NONE": 0
-            /**
-             * Suggest checking for typos
-             */
-            readonly "SPELLCHECK": 1
-            /**
-             * Suggest not checking for typos
-             */
-            readonly "NO_SPELLCHECK": 2
-            /**
-             * Suggest word completion
-             */
-            readonly "WORD_COMPLETION": 4
-            /**
-             * Suggest to convert all text to lowercase
-             */
-            readonly "LOWERCASE": 8
-            /**
-             * Suggest to capitalize all text
-             */
-            readonly "UPPERCASE_CHARS": 16
-            /**
-             * Suggest to capitalize the first
-             *     character of each word
-             */
-            readonly "UPPERCASE_WORDS": 32
-            /**
-             * Suggest to capitalize the
-             *     first word of each sentence
-             */
-            readonly "UPPERCASE_SENTENCES": 64
-            /**
-             * Suggest to not show an onscreen keyboard
-             *     (e.g for a calculator that already has all the keys).
-             */
-            readonly "INHIBIT_OSK": 128
-            /**
-             * The text is vertical. Since 1.5.11
-             */
-            readonly "VERTICAL_WRITING": 256
-            /**
-             * Suggest offering Emoji support. Since 1.5.24
-             */
-            readonly "EMOJI": 512
-            /**
-             * Suggest not offering Emoji support. Since 1.5.24
-             */
-            readonly "NO_EMOJI": 1024
-            /**
-             * Request that the input method should not
-             *     update personalized data (like typing history). Since 1.5.26
-             */
-            readonly "PRIVATE": 2048
-        }
-        type InputHints = number
-        interface $Exports {
-            /**
-             * Describes hints that might be taken into account by engines.  Note
-             * that engines may already tailor their behaviour according to the
-             * #IBusInputPurpose of the entry.
-             *
-             * Some common sense is expected when using these flags - mixing
-             * @IBUS_INPUT_HINT_LOWERCASE with any of the uppercase hints makes no sense.
-             *
-             * This enumeration may be extended in the future; engines should
-             * ignore unknown values.
-             * @since 1.5.4
-             */
-            InputHints: InputHintsBitfield
-        }
-        
-        interface ModifierTypeBitfield {
-            readonly $gtype: GObject.GType<ModifierType>
-            /**
-             * Shift  is activated.
-             */
-            readonly "SHIFT_MASK": 1
-            /**
-             * Cap Lock is locked.
-             */
-            readonly "LOCK_MASK": 2
-            /**
-             * Control key is activated.
-             */
-            readonly "CONTROL_MASK": 4
-            /**
-             * Modifier 1 (Usually Alt_L (0x40),  Alt_R (0x6c),  Meta_L (0xcd)) activated.
-             */
-            readonly "MOD1_MASK": 8
-            /**
-             * Modifier 2 (Usually Num_Lock (0x4d)) activated.
-             */
-            readonly "MOD2_MASK": 16
-            /**
-             * Modifier 3 activated.
-             */
-            readonly "MOD3_MASK": 32
-            /**
-             * Modifier 4 (Usually Super_L (0xce),  Hyper_L (0xcf)) activated.
-             */
-            readonly "MOD4_MASK": 64
-            /**
-             * Modifier 5 (ISO_Level3_Shift (0x5c),  Mode_switch (0xcb)) activated.
-             */
-            readonly "MOD5_MASK": 128
-            /**
-             * Mouse button 1 (left) is activated.
-             */
-            readonly "BUTTON1_MASK": 256
-            /**
-             * Mouse button 2 (middle) is activated.
-             */
-            readonly "BUTTON2_MASK": 512
-            /**
-             * Mouse button 3 (right) is activated.
-             */
-            readonly "BUTTON3_MASK": 1024
-            /**
-             * Mouse button 4 (scroll up) is activated.
-             */
-            readonly "BUTTON4_MASK": 2048
-            /**
-             * Mouse button 5 (scroll down) is activated.
-             */
-            readonly "BUTTON5_MASK": 4096
-            /**
-             * Handled mask indicates the event has been handled by ibus.
-             */
-            readonly "HANDLED_MASK": 16777216
-            /**
-             * Forward mask indicates the event has been forward from ibus.
-             */
-            readonly "FORWARD_MASK": 33554432
-            /**
-             * It is an alias of IBUS_FORWARD_MASK.
-             */
-            readonly "IGNORED_MASK": 33554432
-            /**
-             * Super (Usually Win) key is activated.
-             */
-            readonly "SUPER_MASK": 67108864
-            /**
-             * Hyper key is activated.
-             */
-            readonly "HYPER_MASK": 134217728
-            /**
-             * Meta key is activated.
-             */
-            readonly "META_MASK": 268435456
-            /**
-             * Key is released.
-             */
-            readonly "RELEASE_MASK": 1073741824
-            /**
-             * Modifier mask for the all the masks above.
-             */
-            readonly "MODIFIER_MASK": 1593843711
-        }
-        type ModifierType = number
-        interface $Exports {
-            /**
-             * Handles key modifier such as control, shift and alt and release event.
-             * Note that nits 15 - 25 are currently unused, while bit 29 is used internally.
-             */
-            ModifierType: ModifierTypeBitfield
-        }
-        
-        interface ObjectFlagsBitfield {
-            readonly $gtype: GObject.GType<ObjectFlags>
-            /**
-             * Used in GObjectClass::dispose
-             */
-            readonly "IN_DESTRUCTION": 1
-            /**
-             * Used during emitting IBusObject::destroy signal.
-             */
-            readonly "DESTROYED": 2
-            /**
-             * Reserved.
-             */
-            readonly "RESERVED_1": 4
-            /**
-             * Reserved.
-             */
-            readonly "RESERVED_2": 8
-        }
-        type ObjectFlags = number
-        interface $Exports {
-            /**
-             * The flags are used internally.
-             */
-            ObjectFlags: ObjectFlagsBitfield
-        }
-        /**
-         * Free function prototype.
-         * @param object object to be freed.
-         */
-        type FreeFunc = (object: never | null) => void
-        /**
-         * @param object
-         */
-        type ObjectDestroyFunc = (object: Object) => void
-        /**
-         * Prototype of copy function.
-         * Copy function copy from source #IBusSerializable to the destination one.
-         * Returns a gboolean value which indicates whether the copying is success.
-         * @param dest The destination #IBusSerializable.
-         * @param src A source #IBusSerializable.
-         * @returns %TRUE if succeed; %FALSE otherwise.
-         */
-        type SerializableCopyFunc = (dest: Serializable, src: Serializable) => boolean
-        /**
-         * Prototype of deserialize function.
-         * Deserialize function convert a #GVariant to #IBusSerializable.
-         * Returns an integer value which indicates how many values in
-         * the variant(tuple) are consumed.
-         * @param serializable An #IBusSerializable.
-         * @param variant A #GVariant contains a tuple.
-         * @returns The number of values in the variant(tuple) are consumed.
-         */
-        type SerializableDeserializeFunc = (serializable: Serializable, variant: GLib.Variant) => number
-        /**
-         * Prototype of serialize function.
-         * Serialize function convert an #IBusSerializable to #GVariantBuilder.
-         * Returns a gboolean value which indicates whether the conversion is success.
-         * Return %TRUE if succeed.
-         * @param serializable An #IBusSerializable.
-         * @param builder A #GVariantBuilder.
-         * @returns %TRUE if succeed; %FALSE otherwise.
-         */
-        type SerializableSerializeFunc = (serializable: Serializable, builder: GLib.VariantBuilder) => boolean
-        /**
-         * This callback can receive the list of #IBusUnicodeData.
-         * @param data_list
-         */
-        type UnicodeDataLoadAsyncFinish = (data_list: UnicodeData[]) => void
-
-        interface $Exports {
-            __name__: "IBus"
-            __version: "1.0"
-            "3270_AltCursor": 64784
-            "3270_Attn": 64782
-            "3270_BackTab": 64773
-            "3270_ChangeScreen": 64793
-            "3270_Copy": 64789
-            "3270_CursorBlink": 64783
-            "3270_CursorSelect": 64796
-            "3270_DeleteWord": 64794
-            "3270_Duplicate": 64769
-            "3270_Enter": 64798
-            "3270_EraseEOF": 64774
-            "3270_EraseInput": 64775
-            "3270_ExSelect": 64795
-            "3270_FieldMark": 64770
-            "3270_Ident": 64787
-            "3270_Jump": 64786
-            "3270_KeyClick": 64785
-            "3270_Left2": 64772
-            "3270_PA1": 64778
-            "3270_PA2": 64779
-            "3270_PA3": 64780
-            "3270_Play": 64790
-            "3270_PrintScreen": 64797
-            "3270_Quit": 64777
-            "3270_Record": 64792
-            "3270_Reset": 64776
-            "3270_Right2": 64771
-            "3270_Rule": 64788
-            "3270_Setup": 64791
-            "3270_Test": 64781
-            A: 65
-            AE: 198
-            Aacute: 193
-            Abelowdot: 16785056
-            Abreve: 451
-            Abreveacute: 16785070
-            Abrevebelowdot: 16785078
-            Abrevegrave: 16785072
-            Abrevehook: 16785074
-            Abrevetilde: 16785076
-            AccessX_Enable: 65136
-            AccessX_Feedback_Enable: 65137
-            Acircumflex: 194
-            Acircumflexacute: 16785060
-            Acircumflexbelowdot: 16785068
-            Acircumflexgrave: 16785062
-            Acircumflexhook: 16785064
-            Acircumflextilde: 16785066
-            Adiaeresis: 196
-            Agrave: 192
-            Ahook: 16785058
-            Alt_L: 65513
-            Alt_R: 65514
-            Amacron: 960
-            Aogonek: 417
-            Arabic_0: 16778848
-            Arabic_1: 16778849
-            Arabic_2: 16778850
-            Arabic_3: 16778851
-            Arabic_4: 16778852
-            Arabic_5: 16778853
-            Arabic_6: 16778854
-            Arabic_7: 16778855
-            Arabic_8: 16778856
-            Arabic_9: 16778857
-            Arabic_ain: 1497
-            Arabic_alef: 1479
-            Arabic_alefmaksura: 1513
-            Arabic_beh: 1480
-            Arabic_comma: 1452
-            Arabic_dad: 1494
-            Arabic_dal: 1487
-            Arabic_damma: 1519
-            Arabic_dammatan: 1516
-            Arabic_ddal: 16778888
-            Arabic_farsi_yeh: 16778956
-            Arabic_fatha: 1518
-            Arabic_fathatan: 1515
-            Arabic_feh: 1505
-            Arabic_fullstop: 16778964
-            Arabic_gaf: 16778927
-            Arabic_ghain: 1498
-            Arabic_ha: 1511
-            Arabic_hah: 1485
-            Arabic_hamza: 1473
-            Arabic_hamza_above: 16778836
-            Arabic_hamza_below: 16778837
-            Arabic_hamzaonalef: 1475
-            Arabic_hamzaonwaw: 1476
-            Arabic_hamzaonyeh: 1478
-            Arabic_hamzaunderalef: 1477
-            Arabic_heh: 1511
-            Arabic_heh_doachashmee: 16778942
-            Arabic_heh_goal: 16778945
-            Arabic_jeem: 1484
-            Arabic_jeh: 16778904
-            Arabic_kaf: 1507
-            Arabic_kasra: 1520
-            Arabic_kasratan: 1517
-            Arabic_keheh: 16778921
-            Arabic_khah: 1486
-            Arabic_lam: 1508
-            Arabic_madda_above: 16778835
-            Arabic_maddaonalef: 1474
-            Arabic_meem: 1509
-            Arabic_noon: 1510
-            Arabic_noon_ghunna: 16778938
-            Arabic_peh: 16778878
-            Arabic_percent: 16778858
-            Arabic_qaf: 1506
-            Arabic_question_mark: 1471
-            Arabic_ra: 1489
-            Arabic_rreh: 16778897
-            Arabic_sad: 1493
-            Arabic_seen: 1491
-            Arabic_semicolon: 1467
-            Arabic_shadda: 1521
-            Arabic_sheen: 1492
-            Arabic_sukun: 1522
-            Arabic_superscript_alef: 16778864
-            Arabic_switch: 65406
-            Arabic_tah: 1495
-            Arabic_tatweel: 1504
-            Arabic_tcheh: 16778886
-            Arabic_teh: 1482
-            Arabic_tehmarbuta: 1481
-            Arabic_thal: 1488
-            Arabic_theh: 1483
-            Arabic_tteh: 16778873
-            Arabic_veh: 16778916
-            Arabic_waw: 1512
-            Arabic_yeh: 1514
-            Arabic_yeh_baree: 16778962
-            Arabic_zah: 1496
-            Arabic_zain: 1490
-            Aring: 197
-            Armenian_AT: 16778552
-            Armenian_AYB: 16778545
-            Armenian_BEN: 16778546
-            Armenian_CHA: 16778569
-            Armenian_DA: 16778548
-            Armenian_DZA: 16778561
-            Armenian_E: 16778551
-            Armenian_FE: 16778582
-            Armenian_GHAT: 16778562
-            Armenian_GIM: 16778547
-            Armenian_HI: 16778565
-            Armenian_HO: 16778560
-            Armenian_INI: 16778555
-            Armenian_JE: 16778571
-            Armenian_KE: 16778580
-            Armenian_KEN: 16778559
-            Armenian_KHE: 16778557
-            Armenian_LYUN: 16778556
-            Armenian_MEN: 16778564
-            Armenian_NU: 16778566
-            Armenian_O: 16778581
-            Armenian_PE: 16778570
-            Armenian_PYUR: 16778579
-            Armenian_RA: 16778572
-            Armenian_RE: 16778576
-            Armenian_SE: 16778573
-            Armenian_SHA: 16778567
-            Armenian_TCHE: 16778563
-            Armenian_TO: 16778553
-            Armenian_TSA: 16778558
-            Armenian_TSO: 16778577
-            Armenian_TYUN: 16778575
-            Armenian_VEV: 16778574
-            Armenian_VO: 16778568
-            Armenian_VYUN: 16778578
-            Armenian_YECH: 16778549
-            Armenian_ZA: 16778550
-            Armenian_ZHE: 16778554
-            Armenian_accent: 16778587
-            Armenian_amanak: 16778588
-            Armenian_apostrophe: 16778586
-            Armenian_at: 16778600
-            Armenian_ayb: 16778593
-            Armenian_ben: 16778594
-            Armenian_but: 16778589
-            Armenian_cha: 16778617
-            Armenian_da: 16778596
-            Armenian_dza: 16778609
-            Armenian_e: 16778599
-            Armenian_exclam: 16778588
-            Armenian_fe: 16778630
-            Armenian_full_stop: 16778633
-            Armenian_ghat: 16778610
-            Armenian_gim: 16778595
-            Armenian_hi: 16778613
-            Armenian_ho: 16778608
-            Armenian_hyphen: 16778634
-            Armenian_ini: 16778603
-            Armenian_je: 16778619
-            Armenian_ke: 16778628
-            Armenian_ken: 16778607
-            Armenian_khe: 16778605
-            Armenian_ligature_ew: 16778631
-            Armenian_lyun: 16778604
-            Armenian_men: 16778612
-            Armenian_nu: 16778614
-            Armenian_o: 16778629
-            Armenian_paruyk: 16778590
-            Armenian_pe: 16778618
-            Armenian_pyur: 16778627
-            Armenian_question: 16778590
-            Armenian_ra: 16778620
-            Armenian_re: 16778624
-            Armenian_se: 16778621
-            Armenian_separation_mark: 16778589
-            Armenian_sha: 16778615
-            Armenian_shesht: 16778587
-            Armenian_tche: 16778611
-            Armenian_to: 16778601
-            Armenian_tsa: 16778606
-            Armenian_tso: 16778625
-            Armenian_tyun: 16778623
-            Armenian_verjaket: 16778633
-            Armenian_vev: 16778622
-            Armenian_vo: 16778616
-            Armenian_vyun: 16778626
-            Armenian_yech: 16778597
-            Armenian_yentamna: 16778634
-            Armenian_za: 16778598
-            Armenian_zhe: 16778602
-            Atilde: 195
-            AudibleBell_Enable: 65146
-            B: 66
-            Babovedot: 16784898
-            BackSpace: 65288
-            Begin: 65368
-            BounceKeys_Enable: 65140
-            Break: 65387
-            Byelorussian_SHORTU: 1726
-            Byelorussian_shortu: 1710
-            C: 67
-            Cabovedot: 709
-            Cacute: 454
-            Cancel: 65385
-            Caps_Lock: 65509
-            Ccaron: 456
-            Ccedilla: 199
-            Ccircumflex: 710
-            Clear: 65291
-            Codeinput: 65335
-            ColonSign: 16785569
-            Control_L: 65507
-            Control_R: 65508
-            CruzeiroSign: 16785570
-            Cyrillic_A: 1761
-            Cyrillic_BE: 1762
-            Cyrillic_CHE: 1790
-            Cyrillic_CHE_descender: 16778422
-            Cyrillic_CHE_vertstroke: 16778424
-            Cyrillic_DE: 1764
-            Cyrillic_DZHE: 1727
-            Cyrillic_E: 1788
-            Cyrillic_EF: 1766
-            Cyrillic_EL: 1772
-            Cyrillic_EM: 1773
-            Cyrillic_EN: 1774
-            Cyrillic_EN_descender: 16778402
-            Cyrillic_ER: 1778
-            Cyrillic_ES: 1779
-            Cyrillic_GHE: 1767
-            Cyrillic_GHE_bar: 16778386
-            Cyrillic_HA: 1768
-            Cyrillic_HARDSIGN: 1791
-            Cyrillic_HA_descender: 16778418
-            Cyrillic_I: 1769
-            Cyrillic_IE: 1765
-            Cyrillic_IO: 1715
-            Cyrillic_I_macron: 16778466
-            Cyrillic_JE: 1720
-            Cyrillic_KA: 1771
-            Cyrillic_KA_descender: 16778394
-            Cyrillic_KA_vertstroke: 16778396
-            Cyrillic_LJE: 1721
-            Cyrillic_NJE: 1722
-            Cyrillic_O: 1775
-            Cyrillic_O_bar: 16778472
-            Cyrillic_PE: 1776
-            Cyrillic_SCHWA: 16778456
-            Cyrillic_SHA: 1787
-            Cyrillic_SHCHA: 1789
-            Cyrillic_SHHA: 16778426
-            Cyrillic_SHORTI: 1770
-            Cyrillic_SOFTSIGN: 1784
-            Cyrillic_TE: 1780
-            Cyrillic_TSE: 1763
-            Cyrillic_U: 1781
-            Cyrillic_U_macron: 16778478
-            Cyrillic_U_straight: 16778414
-            Cyrillic_U_straight_bar: 16778416
-            Cyrillic_VE: 1783
-            Cyrillic_YA: 1777
-            Cyrillic_YERU: 1785
-            Cyrillic_YU: 1760
-            Cyrillic_ZE: 1786
-            Cyrillic_ZHE: 1782
-            Cyrillic_ZHE_descender: 16778390
-            Cyrillic_a: 1729
-            Cyrillic_be: 1730
-            Cyrillic_che: 1758
-            Cyrillic_che_descender: 16778423
-            Cyrillic_che_vertstroke: 16778425
-            Cyrillic_de: 1732
-            Cyrillic_dzhe: 1711
-            Cyrillic_e: 1756
-            Cyrillic_ef: 1734
-            Cyrillic_el: 1740
-            Cyrillic_em: 1741
-            Cyrillic_en: 1742
-            Cyrillic_en_descender: 16778403
-            Cyrillic_er: 1746
-            Cyrillic_es: 1747
-            Cyrillic_ghe: 1735
-            Cyrillic_ghe_bar: 16778387
-            Cyrillic_ha: 1736
-            Cyrillic_ha_descender: 16778419
-            Cyrillic_hardsign: 1759
-            Cyrillic_i: 1737
-            Cyrillic_i_macron: 16778467
-            Cyrillic_ie: 1733
-            Cyrillic_io: 1699
-            Cyrillic_je: 1704
-            Cyrillic_ka: 1739
-            Cyrillic_ka_descender: 16778395
-            Cyrillic_ka_vertstroke: 16778397
-            Cyrillic_lje: 1705
-            Cyrillic_nje: 1706
-            Cyrillic_o: 1743
-            Cyrillic_o_bar: 16778473
-            Cyrillic_pe: 1744
-            Cyrillic_schwa: 16778457
-            Cyrillic_sha: 1755
-            Cyrillic_shcha: 1757
-            Cyrillic_shha: 16778427
-            Cyrillic_shorti: 1738
-            Cyrillic_softsign: 1752
-            Cyrillic_te: 1748
-            Cyrillic_tse: 1731
-            Cyrillic_u: 1749
-            Cyrillic_u_macron: 16778479
-            Cyrillic_u_straight: 16778415
-            Cyrillic_u_straight_bar: 16778417
-            Cyrillic_ve: 1751
-            Cyrillic_ya: 1745
-            Cyrillic_yeru: 1753
-            Cyrillic_yu: 1728
-            Cyrillic_ze: 1754
-            Cyrillic_zhe: 1750
-            Cyrillic_zhe_descender: 16778391
-            D: 68
-            Dabovedot: 16784906
-            Dcaron: 463
-            Delete: 65535
-            DongSign: 16785579
-            Down: 65364
-            Dstroke: 464
-            E: 69
-            ENG: 957
-            ETH: 208
-            Eabovedot: 972
-            Eacute: 201
-            Ebelowdot: 16785080
-            Ecaron: 460
-            Ecircumflex: 202
-            Ecircumflexacute: 16785086
-            Ecircumflexbelowdot: 16785094
-            Ecircumflexgrave: 16785088
-            Ecircumflexhook: 16785090
-            Ecircumflextilde: 16785092
-            EcuSign: 16785568
-            Ediaeresis: 203
-            Egrave: 200
-            Ehook: 16785082
-            Eisu_Shift: 65327
-            Eisu_toggle: 65328
-            Emacron: 938
-            End: 65367
-            Eogonek: 458
-            Escape: 65307
-            Eth: 208
-            Etilde: 16785084
-            EuroSign: 8364
-            Execute: 65378
-            F: 70
-            F1: 65470
-            F10: 65479
-            F11: 65480
-            F12: 65481
-            F13: 65482
-            F14: 65483
-            F15: 65484
-            F16: 65485
-            F17: 65486
-            F18: 65487
-            F19: 65488
-            F2: 65471
-            F20: 65489
-            F21: 65490
-            F22: 65491
-            F23: 65492
-            F24: 65493
-            F25: 65494
-            F26: 65495
-            F27: 65496
-            F28: 65497
-            F29: 65498
-            F3: 65472
-            F30: 65499
-            F31: 65500
-            F32: 65501
-            F33: 65502
-            F34: 65503
-            F35: 65504
-            F4: 65473
-            F5: 65474
-            F6: 65475
-            F7: 65476
-            F8: 65477
-            F9: 65478
-            FFrancSign: 16785571
-            Fabovedot: 16784926
-            Farsi_0: 16778992
-            Farsi_1: 16778993
-            Farsi_2: 16778994
-            Farsi_3: 16778995
-            Farsi_4: 16778996
-            Farsi_5: 16778997
-            Farsi_6: 16778998
-            Farsi_7: 16778999
-            Farsi_8: 16779000
-            Farsi_9: 16779001
-            Farsi_yeh: 16778956
-            Find: 65384
-            First_Virtual_Screen: 65232
-            G: 71
-            Gabovedot: 725
-            Gbreve: 683
-            Gcaron: 16777702
-            Gcedilla: 939
-            Gcircumflex: 728
-            Georgian_an: 16781520
-            Georgian_ban: 16781521
-            Georgian_can: 16781546
-            Georgian_char: 16781549
-            Georgian_chin: 16781545
-            Georgian_cil: 16781548
-            Georgian_don: 16781523
-            Georgian_en: 16781524
-            Georgian_fi: 16781558
-            Georgian_gan: 16781522
-            Georgian_ghan: 16781542
-            Georgian_hae: 16781552
-            Georgian_har: 16781556
-            Georgian_he: 16781553
-            Georgian_hie: 16781554
-            Georgian_hoe: 16781557
-            Georgian_in: 16781528
-            Georgian_jhan: 16781551
-            Georgian_jil: 16781547
-            Georgian_kan: 16781529
-            Georgian_khar: 16781541
-            Georgian_las: 16781530
-            Georgian_man: 16781531
-            Georgian_nar: 16781532
-            Georgian_on: 16781533
-            Georgian_par: 16781534
-            Georgian_phar: 16781540
-            Georgian_qar: 16781543
-            Georgian_rae: 16781536
-            Georgian_san: 16781537
-            Georgian_shin: 16781544
-            Georgian_tan: 16781527
-            Georgian_tar: 16781538
-            Georgian_un: 16781539
-            Georgian_vin: 16781525
-            Georgian_we: 16781555
-            Georgian_xan: 16781550
-            Georgian_zen: 16781526
-            Georgian_zhar: 16781535
-            Greek_ALPHA: 1985
-            Greek_ALPHAaccent: 1953
-            Greek_BETA: 1986
-            Greek_CHI: 2007
-            Greek_DELTA: 1988
-            Greek_EPSILON: 1989
-            Greek_EPSILONaccent: 1954
-            Greek_ETA: 1991
-            Greek_ETAaccent: 1955
-            Greek_GAMMA: 1987
-            Greek_IOTA: 1993
-            Greek_IOTAaccent: 1956
-            Greek_IOTAdiaeresis: 1957
-            Greek_IOTAdieresis: 1957
-            Greek_KAPPA: 1994
-            Greek_LAMBDA: 1995
-            Greek_LAMDA: 1995
-            Greek_MU: 1996
-            Greek_NU: 1997
-            Greek_OMEGA: 2009
-            Greek_OMEGAaccent: 1963
-            Greek_OMICRON: 1999
-            Greek_OMICRONaccent: 1959
-            Greek_PHI: 2006
-            Greek_PI: 2000
-            Greek_PSI: 2008
-            Greek_RHO: 2001
-            Greek_SIGMA: 2002
-            Greek_TAU: 2004
-            Greek_THETA: 1992
-            Greek_UPSILON: 2005
-            Greek_UPSILONaccent: 1960
-            Greek_UPSILONdieresis: 1961
-            Greek_XI: 1998
-            Greek_ZETA: 1990
-            Greek_accentdieresis: 1966
-            Greek_alpha: 2017
-            Greek_alphaaccent: 1969
-            Greek_beta: 2018
-            Greek_chi: 2039
-            Greek_delta: 2020
-            Greek_epsilon: 2021
-            Greek_epsilonaccent: 1970
-            Greek_eta: 2023
-            Greek_etaaccent: 1971
-            Greek_finalsmallsigma: 2035
-            Greek_gamma: 2019
-            Greek_horizbar: 1967
-            Greek_iota: 2025
-            Greek_iotaaccent: 1972
-            Greek_iotaaccentdieresis: 1974
-            Greek_iotadieresis: 1973
-            Greek_kappa: 2026
-            Greek_lambda: 2027
-            Greek_lamda: 2027
-            Greek_mu: 2028
-            Greek_nu: 2029
-            Greek_omega: 2041
-            Greek_omegaaccent: 1979
-            Greek_omicron: 2031
-            Greek_omicronaccent: 1975
-            Greek_phi: 2038
-            Greek_pi: 2032
-            Greek_psi: 2040
-            Greek_rho: 2033
-            Greek_sigma: 2034
-            Greek_switch: 65406
-            Greek_tau: 2036
-            Greek_theta: 2024
-            Greek_upsilon: 2037
-            Greek_upsilonaccent: 1976
-            Greek_upsilonaccentdieresis: 1978
-            Greek_upsilondieresis: 1977
-            Greek_xi: 2030
-            Greek_zeta: 2022
-            H: 72
-            Hangul: 65329
-            Hangul_A: 3775
-            Hangul_AE: 3776
-            Hangul_AraeA: 3830
-            Hangul_AraeAE: 3831
-            Hangul_Banja: 65337
-            Hangul_Cieuc: 3770
-            Hangul_Codeinput: 65335
-            Hangul_Dikeud: 3751
-            Hangul_E: 3780
-            Hangul_EO: 3779
-            Hangul_EU: 3793
-            Hangul_End: 65331
-            Hangul_Hanja: 65332
-            Hangul_Hieuh: 3774
-            Hangul_I: 3795
-            Hangul_Ieung: 3767
-            Hangul_J_Cieuc: 3818
-            Hangul_J_Dikeud: 3802
-            Hangul_J_Hieuh: 3822
-            Hangul_J_Ieung: 3816
-            Hangul_J_Jieuj: 3817
-            Hangul_J_Khieuq: 3819
-            Hangul_J_Kiyeog: 3796
-            Hangul_J_KiyeogSios: 3798
-            Hangul_J_KkogjiDalrinIeung: 3833
-            Hangul_J_Mieum: 3811
-            Hangul_J_Nieun: 3799
-            Hangul_J_NieunHieuh: 3801
-            Hangul_J_NieunJieuj: 3800
-            Hangul_J_PanSios: 3832
-            Hangul_J_Phieuf: 3821
-            Hangul_J_Pieub: 3812
-            Hangul_J_PieubSios: 3813
-            Hangul_J_Rieul: 3803
-            Hangul_J_RieulHieuh: 3810
-            Hangul_J_RieulKiyeog: 3804
-            Hangul_J_RieulMieum: 3805
-            Hangul_J_RieulPhieuf: 3809
-            Hangul_J_RieulPieub: 3806
-            Hangul_J_RieulSios: 3807
-            Hangul_J_RieulTieut: 3808
-            Hangul_J_Sios: 3814
-            Hangul_J_SsangKiyeog: 3797
-            Hangul_J_SsangSios: 3815
-            Hangul_J_Tieut: 3820
-            Hangul_J_YeorinHieuh: 3834
-            Hangul_Jamo: 65333
-            Hangul_Jeonja: 65336
-            Hangul_Jieuj: 3768
-            Hangul_Khieuq: 3771
-            Hangul_Kiyeog: 3745
-            Hangul_KiyeogSios: 3747
-            Hangul_KkogjiDalrinIeung: 3827
-            Hangul_Mieum: 3761
-            Hangul_MultipleCandidate: 65341
-            Hangul_Nieun: 3748
-            Hangul_NieunHieuh: 3750
-            Hangul_NieunJieuj: 3749
-            Hangul_O: 3783
-            Hangul_OE: 3786
-            Hangul_PanSios: 3826
-            Hangul_Phieuf: 3773
-            Hangul_Pieub: 3762
-            Hangul_PieubSios: 3764
-            Hangul_PostHanja: 65339
-            Hangul_PreHanja: 65338
-            Hangul_PreviousCandidate: 65342
-            Hangul_Rieul: 3753
-            Hangul_RieulHieuh: 3760
-            Hangul_RieulKiyeog: 3754
-            Hangul_RieulMieum: 3755
-            Hangul_RieulPhieuf: 3759
-            Hangul_RieulPieub: 3756
-            Hangul_RieulSios: 3757
-            Hangul_RieulTieut: 3758
-            Hangul_RieulYeorinHieuh: 3823
-            Hangul_Romaja: 65334
-            Hangul_SingleCandidate: 65340
-            Hangul_Sios: 3765
-            Hangul_Special: 65343
-            Hangul_SsangDikeud: 3752
-            Hangul_SsangJieuj: 3769
-            Hangul_SsangKiyeog: 3746
-            Hangul_SsangPieub: 3763
-            Hangul_SsangSios: 3766
-            Hangul_Start: 65330
-            Hangul_SunkyeongeumMieum: 3824
-            Hangul_SunkyeongeumPhieuf: 3828
-            Hangul_SunkyeongeumPieub: 3825
-            Hangul_Tieut: 3772
-            Hangul_U: 3788
-            Hangul_WA: 3784
-            Hangul_WAE: 3785
-            Hangul_WE: 3790
-            Hangul_WEO: 3789
-            Hangul_WI: 3791
-            Hangul_YA: 3777
-            Hangul_YAE: 3778
-            Hangul_YE: 3782
-            Hangul_YEO: 3781
-            Hangul_YI: 3794
-            Hangul_YO: 3787
-            Hangul_YU: 3792
-            Hangul_YeorinHieuh: 3829
-            Hangul_switch: 65406
-            Hankaku: 65321
-            Hcircumflex: 678
-            Hebrew_switch: 65406
-            Help: 65386
-            Henkan: 65315
-            Henkan_Mode: 65315
-            Hiragana: 65317
-            Hiragana_Katakana: 65319
-            Home: 65360
-            Hstroke: 673
-            Hyper_L: 65517
-            Hyper_R: 65518
-            I: 73
-            INTERFACE_CONFIG: "org.freedesktop.IBus.Config"
-            INTERFACE_ENGINE: "org.freedesktop.IBus.Engine"
-            INTERFACE_FACTORY: "org.freedesktop.IBus.Factory"
-            INTERFACE_IBUS: "org.freedesktop.IBus"
-            INTERFACE_INPUT_CONTEXT: "org.freedesktop.IBus.InputContext"
-            INTERFACE_NOTIFICATIONS: "org.freedesktop.IBus.Notifications"
-            INTERFACE_PANEL: "org.freedesktop.IBus.Panel"
-            INTERFACE_PORTAL: "org.freedesktop.IBus.Portal"
-            ISO_Center_Object: 65075
-            ISO_Continuous_Underline: 65072
-            ISO_Discontinuous_Underline: 65073
-            ISO_Emphasize: 65074
-            ISO_Enter: 65076
-            ISO_Fast_Cursor_Down: 65071
-            ISO_Fast_Cursor_Left: 65068
-            ISO_Fast_Cursor_Right: 65069
-            ISO_Fast_Cursor_Up: 65070
-            ISO_First_Group: 65036
-            ISO_First_Group_Lock: 65037
-            ISO_Group_Latch: 65030
-            ISO_Group_Lock: 65031
-            ISO_Group_Shift: 65406
-            ISO_Last_Group: 65038
-            ISO_Last_Group_Lock: 65039
-            ISO_Left_Tab: 65056
-            ISO_Level2_Latch: 65026
-            ISO_Level3_Latch: 65028
-            ISO_Level3_Lock: 65029
-            ISO_Level3_Shift: 65027
-            ISO_Level5_Latch: 65042
-            ISO_Level5_Lock: 65043
-            ISO_Level5_Shift: 65041
-            ISO_Lock: 65025
-            ISO_Move_Line_Down: 65058
-            ISO_Move_Line_Up: 65057
-            ISO_Next_Group: 65032
-            ISO_Next_Group_Lock: 65033
-            ISO_Partial_Line_Down: 65060
-            ISO_Partial_Line_Up: 65059
-            ISO_Partial_Space_Left: 65061
-            ISO_Partial_Space_Right: 65062
-            ISO_Prev_Group: 65034
-            ISO_Prev_Group_Lock: 65035
-            ISO_Release_Both_Margins: 65067
-            ISO_Release_Margin_Left: 65065
-            ISO_Release_Margin_Right: 65066
-            ISO_Set_Margin_Left: 65063
-            ISO_Set_Margin_Right: 65064
-            Iabovedot: 681
-            Iacute: 205
-            Ibelowdot: 16785098
-            Ibreve: 16777516
-            Icircumflex: 206
-            Idiaeresis: 207
-            Igrave: 204
-            Ihook: 16785096
-            Imacron: 975
-            Insert: 65379
-            Iogonek: 967
-            Itilde: 933
-            J: 74
-            Jcircumflex: 684
-            K: 75
-            KEY_0: 48
-            KEY_1: 49
-            KEY_2: 50
-            KEY_3: 51
-            KEY_3270_AltCursor: 64784
-            KEY_3270_Attn: 64782
-            KEY_3270_BackTab: 64773
-            KEY_3270_ChangeScreen: 64793
-            KEY_3270_Copy: 64789
-            KEY_3270_CursorBlink: 64783
-            KEY_3270_CursorSelect: 64796
-            KEY_3270_DeleteWord: 64794
-            KEY_3270_Duplicate: 64769
-            KEY_3270_Enter: 64798
-            KEY_3270_EraseEOF: 64774
-            KEY_3270_EraseInput: 64775
-            KEY_3270_ExSelect: 64795
-            KEY_3270_FieldMark: 64770
-            KEY_3270_Ident: 64787
-            KEY_3270_Jump: 64786
-            KEY_3270_KeyClick: 64785
-            KEY_3270_Left2: 64772
-            KEY_3270_PA1: 64778
-            KEY_3270_PA2: 64779
-            KEY_3270_PA3: 64780
-            KEY_3270_Play: 64790
-            KEY_3270_PrintScreen: 64797
-            KEY_3270_Quit: 64777
-            KEY_3270_Record: 64792
-            KEY_3270_Reset: 64776
-            KEY_3270_Right2: 64771
-            KEY_3270_Rule: 64788
-            KEY_3270_Setup: 64791
-            KEY_3270_Test: 64781
-            KEY_4: 52
-            KEY_5: 53
-            KEY_6: 54
-            KEY_7: 55
-            KEY_8: 56
-            KEY_9: 57
-            KEY_A: 65
-            KEY_AE: 198
-            KEY_Aacute: 193
-            KEY_Abelowdot: 16785056
-            KEY_Abreve: 451
-            KEY_Abreveacute: 16785070
-            KEY_Abrevebelowdot: 16785078
-            KEY_Abrevegrave: 16785072
-            KEY_Abrevehook: 16785074
-            KEY_Abrevetilde: 16785076
-            KEY_AccessX_Enable: 65136
-            KEY_AccessX_Feedback_Enable: 65137
-            KEY_Acircumflex: 194
-            KEY_Acircumflexacute: 16785060
-            KEY_Acircumflexbelowdot: 16785068
-            KEY_Acircumflexgrave: 16785062
-            KEY_Acircumflexhook: 16785064
-            KEY_Acircumflextilde: 16785066
-            KEY_AddFavorite: 269025081
-            KEY_Adiaeresis: 196
-            KEY_Agrave: 192
-            KEY_Ahook: 16785058
-            KEY_Alt_L: 65513
-            KEY_Alt_R: 65514
-            KEY_Amacron: 960
-            KEY_Aogonek: 417
-            KEY_ApplicationLeft: 269025104
-            KEY_ApplicationRight: 269025105
-            KEY_Arabic_0: 16778848
-            KEY_Arabic_1: 16778849
-            KEY_Arabic_2: 16778850
-            KEY_Arabic_3: 16778851
-            KEY_Arabic_4: 16778852
-            KEY_Arabic_5: 16778853
-            KEY_Arabic_6: 16778854
-            KEY_Arabic_7: 16778855
-            KEY_Arabic_8: 16778856
-            KEY_Arabic_9: 16778857
-            KEY_Arabic_ain: 1497
-            KEY_Arabic_alef: 1479
-            KEY_Arabic_alefmaksura: 1513
-            KEY_Arabic_beh: 1480
-            KEY_Arabic_comma: 1452
-            KEY_Arabic_dad: 1494
-            KEY_Arabic_dal: 1487
-            KEY_Arabic_damma: 1519
-            KEY_Arabic_dammatan: 1516
-            KEY_Arabic_ddal: 16778888
-            KEY_Arabic_farsi_yeh: 16778956
-            KEY_Arabic_fatha: 1518
-            KEY_Arabic_fathatan: 1515
-            KEY_Arabic_feh: 1505
-            KEY_Arabic_fullstop: 16778964
-            KEY_Arabic_gaf: 16778927
-            KEY_Arabic_ghain: 1498
-            KEY_Arabic_ha: 1511
-            KEY_Arabic_hah: 1485
-            KEY_Arabic_hamza: 1473
-            KEY_Arabic_hamza_above: 16778836
-            KEY_Arabic_hamza_below: 16778837
-            KEY_Arabic_hamzaonalef: 1475
-            KEY_Arabic_hamzaonwaw: 1476
-            KEY_Arabic_hamzaonyeh: 1478
-            KEY_Arabic_hamzaunderalef: 1477
-            KEY_Arabic_heh: 1511
-            KEY_Arabic_heh_doachashmee: 16778942
-            KEY_Arabic_heh_goal: 16778945
-            KEY_Arabic_jeem: 1484
-            KEY_Arabic_jeh: 16778904
-            KEY_Arabic_kaf: 1507
-            KEY_Arabic_kasra: 1520
-            KEY_Arabic_kasratan: 1517
-            KEY_Arabic_keheh: 16778921
-            KEY_Arabic_khah: 1486
-            KEY_Arabic_lam: 1508
-            KEY_Arabic_madda_above: 16778835
-            KEY_Arabic_maddaonalef: 1474
-            KEY_Arabic_meem: 1509
-            KEY_Arabic_noon: 1510
-            KEY_Arabic_noon_ghunna: 16778938
-            KEY_Arabic_peh: 16778878
-            KEY_Arabic_percent: 16778858
-            KEY_Arabic_qaf: 1506
-            KEY_Arabic_question_mark: 1471
-            KEY_Arabic_ra: 1489
-            KEY_Arabic_rreh: 16778897
-            KEY_Arabic_sad: 1493
-            KEY_Arabic_seen: 1491
-            KEY_Arabic_semicolon: 1467
-            KEY_Arabic_shadda: 1521
-            KEY_Arabic_sheen: 1492
-            KEY_Arabic_sukun: 1522
-            KEY_Arabic_superscript_alef: 16778864
-            KEY_Arabic_switch: 65406
-            KEY_Arabic_tah: 1495
-            KEY_Arabic_tatweel: 1504
-            KEY_Arabic_tcheh: 16778886
-            KEY_Arabic_teh: 1482
-            KEY_Arabic_tehmarbuta: 1481
-            KEY_Arabic_thal: 1488
-            KEY_Arabic_theh: 1483
-            KEY_Arabic_tteh: 16778873
-            KEY_Arabic_veh: 16778916
-            KEY_Arabic_waw: 1512
-            KEY_Arabic_yeh: 1514
-            KEY_Arabic_yeh_baree: 16778962
-            KEY_Arabic_zah: 1496
-            KEY_Arabic_zain: 1490
-            KEY_Aring: 197
-            KEY_Armenian_AT: 16778552
-            KEY_Armenian_AYB: 16778545
-            KEY_Armenian_BEN: 16778546
-            KEY_Armenian_CHA: 16778569
-            KEY_Armenian_DA: 16778548
-            KEY_Armenian_DZA: 16778561
-            KEY_Armenian_E: 16778551
-            KEY_Armenian_FE: 16778582
-            KEY_Armenian_GHAT: 16778562
-            KEY_Armenian_GIM: 16778547
-            KEY_Armenian_HI: 16778565
-            KEY_Armenian_HO: 16778560
-            KEY_Armenian_INI: 16778555
-            KEY_Armenian_JE: 16778571
-            KEY_Armenian_KE: 16778580
-            KEY_Armenian_KEN: 16778559
-            KEY_Armenian_KHE: 16778557
-            KEY_Armenian_LYUN: 16778556
-            KEY_Armenian_MEN: 16778564
-            KEY_Armenian_NU: 16778566
-            KEY_Armenian_O: 16778581
-            KEY_Armenian_PE: 16778570
-            KEY_Armenian_PYUR: 16778579
-            KEY_Armenian_RA: 16778572
-            KEY_Armenian_RE: 16778576
-            KEY_Armenian_SE: 16778573
-            KEY_Armenian_SHA: 16778567
-            KEY_Armenian_TCHE: 16778563
-            KEY_Armenian_TO: 16778553
-            KEY_Armenian_TSA: 16778558
-            KEY_Armenian_TSO: 16778577
-            KEY_Armenian_TYUN: 16778575
-            KEY_Armenian_VEV: 16778574
-            KEY_Armenian_VO: 16778568
-            KEY_Armenian_VYUN: 16778578
-            KEY_Armenian_YECH: 16778549
-            KEY_Armenian_ZA: 16778550
-            KEY_Armenian_ZHE: 16778554
-            KEY_Armenian_accent: 16778587
-            KEY_Armenian_amanak: 16778588
-            KEY_Armenian_apostrophe: 16778586
-            KEY_Armenian_at: 16778600
-            KEY_Armenian_ayb: 16778593
-            KEY_Armenian_ben: 16778594
-            KEY_Armenian_but: 16778589
-            KEY_Armenian_cha: 16778617
-            KEY_Armenian_da: 16778596
-            KEY_Armenian_dza: 16778609
-            KEY_Armenian_e: 16778599
-            KEY_Armenian_exclam: 16778588
-            KEY_Armenian_fe: 16778630
-            KEY_Armenian_full_stop: 16778633
-            KEY_Armenian_ghat: 16778610
-            KEY_Armenian_gim: 16778595
-            KEY_Armenian_hi: 16778613
-            KEY_Armenian_ho: 16778608
-            KEY_Armenian_hyphen: 16778634
-            KEY_Armenian_ini: 16778603
-            KEY_Armenian_je: 16778619
-            KEY_Armenian_ke: 16778628
-            KEY_Armenian_ken: 16778607
-            KEY_Armenian_khe: 16778605
-            KEY_Armenian_ligature_ew: 16778631
-            KEY_Armenian_lyun: 16778604
-            KEY_Armenian_men: 16778612
-            KEY_Armenian_nu: 16778614
-            KEY_Armenian_o: 16778629
-            KEY_Armenian_paruyk: 16778590
-            KEY_Armenian_pe: 16778618
-            KEY_Armenian_pyur: 16778627
-            KEY_Armenian_question: 16778590
-            KEY_Armenian_ra: 16778620
-            KEY_Armenian_re: 16778624
-            KEY_Armenian_se: 16778621
-            KEY_Armenian_separation_mark: 16778589
-            KEY_Armenian_sha: 16778615
-            KEY_Armenian_shesht: 16778587
-            KEY_Armenian_tche: 16778611
-            KEY_Armenian_to: 16778601
-            KEY_Armenian_tsa: 16778606
-            KEY_Armenian_tso: 16778625
-            KEY_Armenian_tyun: 16778623
-            KEY_Armenian_verjaket: 16778633
-            KEY_Armenian_vev: 16778622
-            KEY_Armenian_vo: 16778616
-            KEY_Armenian_vyun: 16778626
-            KEY_Armenian_yech: 16778597
-            KEY_Armenian_yentamna: 16778634
-            KEY_Armenian_za: 16778598
-            KEY_Armenian_zhe: 16778602
-            KEY_Atilde: 195
-            KEY_AudibleBell_Enable: 65146
-            KEY_AudioCycleTrack: 269025179
-            KEY_AudioForward: 269025175
-            KEY_AudioLowerVolume: 269025041
-            KEY_AudioMedia: 269025074
-            KEY_AudioMicMute: 269025202
-            KEY_AudioMute: 269025042
-            KEY_AudioNext: 269025047
-            KEY_AudioPause: 269025073
-            KEY_AudioPlay: 269025044
-            KEY_AudioPreset: 269025206
-            KEY_AudioPrev: 269025046
-            KEY_AudioRaiseVolume: 269025043
-            KEY_AudioRandomPlay: 269025177
-            KEY_AudioRecord: 269025052
-            KEY_AudioRepeat: 269025176
-            KEY_AudioRewind: 269025086
-            KEY_AudioStop: 269025045
-            KEY_Away: 269025165
-            KEY_B: 66
-            KEY_Babovedot: 16784898
-            KEY_Back: 269025062
-            KEY_BackForward: 269025087
-            KEY_BackSpace: 65288
-            KEY_Battery: 269025171
-            KEY_Begin: 65368
-            KEY_Blue: 269025190
-            KEY_Bluetooth: 269025172
-            KEY_Book: 269025106
-            KEY_BounceKeys_Enable: 65140
-            KEY_Break: 65387
-            KEY_BrightnessAdjust: 269025083
-            KEY_Byelorussian_SHORTU: 1726
-            KEY_Byelorussian_shortu: 1710
-            KEY_C: 67
-            KEY_CD: 269025107
-            KEY_CH: 65186
-            KEY_C_H: 65189
-            KEY_C_h: 65188
-            KEY_Cabovedot: 709
-            KEY_Cacute: 454
-            KEY_Calculator: 269025053
-            KEY_Calendar: 269025056
-            KEY_Cancel: 65385
-            KEY_Caps_Lock: 65509
-            KEY_Ccaron: 456
-            KEY_Ccedilla: 199
-            KEY_Ccircumflex: 710
-            KEY_Ch: 65185
-            KEY_Clear: 65291
-            KEY_ClearGrab: 269024801
-            KEY_Close: 269025110
-            KEY_Codeinput: 65335
-            KEY_ColonSign: 16785569
-            KEY_Community: 269025085
-            KEY_ContrastAdjust: 269025058
-            KEY_Control_L: 65507
-            KEY_Control_R: 65508
-            KEY_Copy: 269025111
-            KEY_CruzeiroSign: 16785570
-            KEY_Cut: 269025112
-            KEY_CycleAngle: 269025180
-            KEY_Cyrillic_A: 1761
-            KEY_Cyrillic_BE: 1762
-            KEY_Cyrillic_CHE: 1790
-            KEY_Cyrillic_CHE_descender: 16778422
-            KEY_Cyrillic_CHE_vertstroke: 16778424
-            KEY_Cyrillic_DE: 1764
-            KEY_Cyrillic_DZHE: 1727
-            KEY_Cyrillic_E: 1788
-            KEY_Cyrillic_EF: 1766
-            KEY_Cyrillic_EL: 1772
-            KEY_Cyrillic_EM: 1773
-            KEY_Cyrillic_EN: 1774
-            KEY_Cyrillic_EN_descender: 16778402
-            KEY_Cyrillic_ER: 1778
-            KEY_Cyrillic_ES: 1779
-            KEY_Cyrillic_GHE: 1767
-            KEY_Cyrillic_GHE_bar: 16778386
-            KEY_Cyrillic_HA: 1768
-            KEY_Cyrillic_HARDSIGN: 1791
-            KEY_Cyrillic_HA_descender: 16778418
-            KEY_Cyrillic_I: 1769
-            KEY_Cyrillic_IE: 1765
-            KEY_Cyrillic_IO: 1715
-            KEY_Cyrillic_I_macron: 16778466
-            KEY_Cyrillic_JE: 1720
-            KEY_Cyrillic_KA: 1771
-            KEY_Cyrillic_KA_descender: 16778394
-            KEY_Cyrillic_KA_vertstroke: 16778396
-            KEY_Cyrillic_LJE: 1721
-            KEY_Cyrillic_NJE: 1722
-            KEY_Cyrillic_O: 1775
-            KEY_Cyrillic_O_bar: 16778472
-            KEY_Cyrillic_PE: 1776
-            KEY_Cyrillic_SCHWA: 16778456
-            KEY_Cyrillic_SHA: 1787
-            KEY_Cyrillic_SHCHA: 1789
-            KEY_Cyrillic_SHHA: 16778426
-            KEY_Cyrillic_SHORTI: 1770
-            KEY_Cyrillic_SOFTSIGN: 1784
-            KEY_Cyrillic_TE: 1780
-            KEY_Cyrillic_TSE: 1763
-            KEY_Cyrillic_U: 1781
-            KEY_Cyrillic_U_macron: 16778478
-            KEY_Cyrillic_U_straight: 16778414
-            KEY_Cyrillic_U_straight_bar: 16778416
-            KEY_Cyrillic_VE: 1783
-            KEY_Cyrillic_YA: 1777
-            KEY_Cyrillic_YERU: 1785
-            KEY_Cyrillic_YU: 1760
-            KEY_Cyrillic_ZE: 1786
-            KEY_Cyrillic_ZHE: 1782
-            KEY_Cyrillic_ZHE_descender: 16778390
-            KEY_Cyrillic_a: 1729
-            KEY_Cyrillic_be: 1730
-            KEY_Cyrillic_che: 1758
-            KEY_Cyrillic_che_descender: 16778423
-            KEY_Cyrillic_che_vertstroke: 16778425
-            KEY_Cyrillic_de: 1732
-            KEY_Cyrillic_dzhe: 1711
-            KEY_Cyrillic_e: 1756
-            KEY_Cyrillic_ef: 1734
-            KEY_Cyrillic_el: 1740
-            KEY_Cyrillic_em: 1741
-            KEY_Cyrillic_en: 1742
-            KEY_Cyrillic_en_descender: 16778403
-            KEY_Cyrillic_er: 1746
-            KEY_Cyrillic_es: 1747
-            KEY_Cyrillic_ghe: 1735
-            KEY_Cyrillic_ghe_bar: 16778387
-            KEY_Cyrillic_ha: 1736
-            KEY_Cyrillic_ha_descender: 16778419
-            KEY_Cyrillic_hardsign: 1759
-            KEY_Cyrillic_i: 1737
-            KEY_Cyrillic_i_macron: 16778467
-            KEY_Cyrillic_ie: 1733
-            KEY_Cyrillic_io: 1699
-            KEY_Cyrillic_je: 1704
-            KEY_Cyrillic_ka: 1739
-            KEY_Cyrillic_ka_descender: 16778395
-            KEY_Cyrillic_ka_vertstroke: 16778397
-            KEY_Cyrillic_lje: 1705
-            KEY_Cyrillic_nje: 1706
-            KEY_Cyrillic_o: 1743
-            KEY_Cyrillic_o_bar: 16778473
-            KEY_Cyrillic_pe: 1744
-            KEY_Cyrillic_schwa: 16778457
-            KEY_Cyrillic_sha: 1755
-            KEY_Cyrillic_shcha: 1757
-            KEY_Cyrillic_shha: 16778427
-            KEY_Cyrillic_shorti: 1738
-            KEY_Cyrillic_softsign: 1752
-            KEY_Cyrillic_te: 1748
-            KEY_Cyrillic_tse: 1731
-            KEY_Cyrillic_u: 1749
-            KEY_Cyrillic_u_macron: 16778479
-            KEY_Cyrillic_u_straight: 16778415
-            KEY_Cyrillic_u_straight_bar: 16778417
-            KEY_Cyrillic_ve: 1751
-            KEY_Cyrillic_ya: 1745
-            KEY_Cyrillic_yeru: 1753
-            KEY_Cyrillic_yu: 1728
-            KEY_Cyrillic_ze: 1754
-            KEY_Cyrillic_zhe: 1750
-            KEY_Cyrillic_zhe_descender: 16778391
-            KEY_D: 68
-            KEY_DOS: 269025114
-            KEY_Dabovedot: 16784906
-            KEY_Dcaron: 463
-            KEY_Delete: 65535
-            KEY_Display: 269025113
-            KEY_Documents: 269025115
-            KEY_DongSign: 16785579
-            KEY_Down: 65364
-            KEY_Dstroke: 464
-            KEY_E: 69
-            KEY_ENG: 957
-            KEY_ETH: 208
-            KEY_EZH: 16777655
-            KEY_Eabovedot: 972
-            KEY_Eacute: 201
-            KEY_Ebelowdot: 16785080
-            KEY_Ecaron: 460
-            KEY_Ecircumflex: 202
-            KEY_Ecircumflexacute: 16785086
-            KEY_Ecircumflexbelowdot: 16785094
-            KEY_Ecircumflexgrave: 16785088
-            KEY_Ecircumflexhook: 16785090
-            KEY_Ecircumflextilde: 16785092
-            KEY_EcuSign: 16785568
-            KEY_Ediaeresis: 203
-            KEY_Egrave: 200
-            KEY_Ehook: 16785082
-            KEY_Eisu_Shift: 65327
-            KEY_Eisu_toggle: 65328
-            KEY_Eject: 269025068
-            KEY_Emacron: 938
-            KEY_End: 65367
-            KEY_Eogonek: 458
-            KEY_Escape: 65307
-            KEY_Eth: 208
-            KEY_Etilde: 16785084
-            KEY_EuroSign: 8364
-            KEY_Excel: 269025116
-            KEY_Execute: 65378
-            KEY_Explorer: 269025117
-            KEY_F: 70
-            KEY_F1: 65470
-            KEY_F10: 65479
-            KEY_F11: 65480
-            KEY_F12: 65481
-            KEY_F13: 65482
-            KEY_F14: 65483
-            KEY_F15: 65484
-            KEY_F16: 65485
-            KEY_F17: 65486
-            KEY_F18: 65487
-            KEY_F19: 65488
-            KEY_F2: 65471
-            KEY_F20: 65489
-            KEY_F21: 65490
-            KEY_F22: 65491
-            KEY_F23: 65492
-            KEY_F24: 65493
-            KEY_F25: 65494
-            KEY_F26: 65495
-            KEY_F27: 65496
-            KEY_F28: 65497
-            KEY_F29: 65498
-            KEY_F3: 65472
-            KEY_F30: 65499
-            KEY_F31: 65500
-            KEY_F32: 65501
-            KEY_F33: 65502
-            KEY_F34: 65503
-            KEY_F35: 65504
-            KEY_F4: 65473
-            KEY_F5: 65474
-            KEY_F6: 65475
-            KEY_F7: 65476
-            KEY_F8: 65477
-            KEY_F9: 65478
-            KEY_FFrancSign: 16785571
-            KEY_Fabovedot: 16784926
-            KEY_Farsi_0: 16778992
-            KEY_Farsi_1: 16778993
-            KEY_Farsi_2: 16778994
-            KEY_Farsi_3: 16778995
-            KEY_Farsi_4: 16778996
-            KEY_Farsi_5: 16778997
-            KEY_Farsi_6: 16778998
-            KEY_Farsi_7: 16778999
-            KEY_Farsi_8: 16779000
-            KEY_Farsi_9: 16779001
-            KEY_Farsi_yeh: 16778956
-            KEY_Favorites: 269025072
-            KEY_Finance: 269025084
-            KEY_Find: 65384
-            KEY_First_Virtual_Screen: 65232
-            KEY_Forward: 269025063
-            KEY_FrameBack: 269025181
-            KEY_FrameForward: 269025182
-            KEY_G: 71
-            KEY_Gabovedot: 725
-            KEY_Game: 269025118
-            KEY_Gbreve: 683
-            KEY_Gcaron: 16777702
-            KEY_Gcedilla: 939
-            KEY_Gcircumflex: 728
-            KEY_Georgian_an: 16781520
-            KEY_Georgian_ban: 16781521
-            KEY_Georgian_can: 16781546
-            KEY_Georgian_char: 16781549
-            KEY_Georgian_chin: 16781545
-            KEY_Georgian_cil: 16781548
-            KEY_Georgian_don: 16781523
-            KEY_Georgian_en: 16781524
-            KEY_Georgian_fi: 16781558
-            KEY_Georgian_gan: 16781522
-            KEY_Georgian_ghan: 16781542
-            KEY_Georgian_hae: 16781552
-            KEY_Georgian_har: 16781556
-            KEY_Georgian_he: 16781553
-            KEY_Georgian_hie: 16781554
-            KEY_Georgian_hoe: 16781557
-            KEY_Georgian_in: 16781528
-            KEY_Georgian_jhan: 16781551
-            KEY_Georgian_jil: 16781547
-            KEY_Georgian_kan: 16781529
-            KEY_Georgian_khar: 16781541
-            KEY_Georgian_las: 16781530
-            KEY_Georgian_man: 16781531
-            KEY_Georgian_nar: 16781532
-            KEY_Georgian_on: 16781533
-            KEY_Georgian_par: 16781534
-            KEY_Georgian_phar: 16781540
-            KEY_Georgian_qar: 16781543
-            KEY_Georgian_rae: 16781536
-            KEY_Georgian_san: 16781537
-            KEY_Georgian_shin: 16781544
-            KEY_Georgian_tan: 16781527
-            KEY_Georgian_tar: 16781538
-            KEY_Georgian_un: 16781539
-            KEY_Georgian_vin: 16781525
-            KEY_Georgian_we: 16781555
-            KEY_Georgian_xan: 16781550
-            KEY_Georgian_zen: 16781526
-            KEY_Georgian_zhar: 16781535
-            KEY_Go: 269025119
-            KEY_Greek_ALPHA: 1985
-            KEY_Greek_ALPHAaccent: 1953
-            KEY_Greek_BETA: 1986
-            KEY_Greek_CHI: 2007
-            KEY_Greek_DELTA: 1988
-            KEY_Greek_EPSILON: 1989
-            KEY_Greek_EPSILONaccent: 1954
-            KEY_Greek_ETA: 1991
-            KEY_Greek_ETAaccent: 1955
-            KEY_Greek_GAMMA: 1987
-            KEY_Greek_IOTA: 1993
-            KEY_Greek_IOTAaccent: 1956
-            KEY_Greek_IOTAdiaeresis: 1957
-            KEY_Greek_IOTAdieresis: 1957
-            KEY_Greek_KAPPA: 1994
-            KEY_Greek_LAMBDA: 1995
-            KEY_Greek_LAMDA: 1995
-            KEY_Greek_MU: 1996
-            KEY_Greek_NU: 1997
-            KEY_Greek_OMEGA: 2009
-            KEY_Greek_OMEGAaccent: 1963
-            KEY_Greek_OMICRON: 1999
-            KEY_Greek_OMICRONaccent: 1959
-            KEY_Greek_PHI: 2006
-            KEY_Greek_PI: 2000
-            KEY_Greek_PSI: 2008
-            KEY_Greek_RHO: 2001
-            KEY_Greek_SIGMA: 2002
-            KEY_Greek_TAU: 2004
-            KEY_Greek_THETA: 1992
-            KEY_Greek_UPSILON: 2005
-            KEY_Greek_UPSILONaccent: 1960
-            KEY_Greek_UPSILONdieresis: 1961
-            KEY_Greek_XI: 1998
-            KEY_Greek_ZETA: 1990
-            KEY_Greek_accentdieresis: 1966
-            KEY_Greek_alpha: 2017
-            KEY_Greek_alphaaccent: 1969
-            KEY_Greek_beta: 2018
-            KEY_Greek_chi: 2039
-            KEY_Greek_delta: 2020
-            KEY_Greek_epsilon: 2021
-            KEY_Greek_epsilonaccent: 1970
-            KEY_Greek_eta: 2023
-            KEY_Greek_etaaccent: 1971
-            KEY_Greek_finalsmallsigma: 2035
-            KEY_Greek_gamma: 2019
-            KEY_Greek_horizbar: 1967
-            KEY_Greek_iota: 2025
-            KEY_Greek_iotaaccent: 1972
-            KEY_Greek_iotaaccentdieresis: 1974
-            KEY_Greek_iotadieresis: 1973
-            KEY_Greek_kappa: 2026
-            KEY_Greek_lambda: 2027
-            KEY_Greek_lamda: 2027
-            KEY_Greek_mu: 2028
-            KEY_Greek_nu: 2029
-            KEY_Greek_omega: 2041
-            KEY_Greek_omegaaccent: 1979
-            KEY_Greek_omicron: 2031
-            KEY_Greek_omicronaccent: 1975
-            KEY_Greek_phi: 2038
-            KEY_Greek_pi: 2032
-            KEY_Greek_psi: 2040
-            KEY_Greek_rho: 2033
-            KEY_Greek_sigma: 2034
-            KEY_Greek_switch: 65406
-            KEY_Greek_tau: 2036
-            KEY_Greek_theta: 2024
-            KEY_Greek_upsilon: 2037
-            KEY_Greek_upsilonaccent: 1976
-            KEY_Greek_upsilonaccentdieresis: 1978
-            KEY_Greek_upsilondieresis: 1977
-            KEY_Greek_xi: 2030
-            KEY_Greek_zeta: 2022
-            KEY_Green: 269025188
-            KEY_H: 72
-            KEY_Hangul: 65329
-            KEY_Hangul_A: 3775
-            KEY_Hangul_AE: 3776
-            KEY_Hangul_AraeA: 3830
-            KEY_Hangul_AraeAE: 3831
-            KEY_Hangul_Banja: 65337
-            KEY_Hangul_Cieuc: 3770
-            KEY_Hangul_Codeinput: 65335
-            KEY_Hangul_Dikeud: 3751
-            KEY_Hangul_E: 3780
-            KEY_Hangul_EO: 3779
-            KEY_Hangul_EU: 3793
-            KEY_Hangul_End: 65331
-            KEY_Hangul_Hanja: 65332
-            KEY_Hangul_Hieuh: 3774
-            KEY_Hangul_I: 3795
-            KEY_Hangul_Ieung: 3767
-            KEY_Hangul_J_Cieuc: 3818
-            KEY_Hangul_J_Dikeud: 3802
-            KEY_Hangul_J_Hieuh: 3822
-            KEY_Hangul_J_Ieung: 3816
-            KEY_Hangul_J_Jieuj: 3817
-            KEY_Hangul_J_Khieuq: 3819
-            KEY_Hangul_J_Kiyeog: 3796
-            KEY_Hangul_J_KiyeogSios: 3798
-            KEY_Hangul_J_KkogjiDalrinIeung: 3833
-            KEY_Hangul_J_Mieum: 3811
-            KEY_Hangul_J_Nieun: 3799
-            KEY_Hangul_J_NieunHieuh: 3801
-            KEY_Hangul_J_NieunJieuj: 3800
-            KEY_Hangul_J_PanSios: 3832
-            KEY_Hangul_J_Phieuf: 3821
-            KEY_Hangul_J_Pieub: 3812
-            KEY_Hangul_J_PieubSios: 3813
-            KEY_Hangul_J_Rieul: 3803
-            KEY_Hangul_J_RieulHieuh: 3810
-            KEY_Hangul_J_RieulKiyeog: 3804
-            KEY_Hangul_J_RieulMieum: 3805
-            KEY_Hangul_J_RieulPhieuf: 3809
-            KEY_Hangul_J_RieulPieub: 3806
-            KEY_Hangul_J_RieulSios: 3807
-            KEY_Hangul_J_RieulTieut: 3808
-            KEY_Hangul_J_Sios: 3814
-            KEY_Hangul_J_SsangKiyeog: 3797
-            KEY_Hangul_J_SsangSios: 3815
-            KEY_Hangul_J_Tieut: 3820
-            KEY_Hangul_J_YeorinHieuh: 3834
-            KEY_Hangul_Jamo: 65333
-            KEY_Hangul_Jeonja: 65336
-            KEY_Hangul_Jieuj: 3768
-            KEY_Hangul_Khieuq: 3771
-            KEY_Hangul_Kiyeog: 3745
-            KEY_Hangul_KiyeogSios: 3747
-            KEY_Hangul_KkogjiDalrinIeung: 3827
-            KEY_Hangul_Mieum: 3761
-            KEY_Hangul_MultipleCandidate: 65341
-            KEY_Hangul_Nieun: 3748
-            KEY_Hangul_NieunHieuh: 3750
-            KEY_Hangul_NieunJieuj: 3749
-            KEY_Hangul_O: 3783
-            KEY_Hangul_OE: 3786
-            KEY_Hangul_PanSios: 3826
-            KEY_Hangul_Phieuf: 3773
-            KEY_Hangul_Pieub: 3762
-            KEY_Hangul_PieubSios: 3764
-            KEY_Hangul_PostHanja: 65339
-            KEY_Hangul_PreHanja: 65338
-            KEY_Hangul_PreviousCandidate: 65342
-            KEY_Hangul_Rieul: 3753
-            KEY_Hangul_RieulHieuh: 3760
-            KEY_Hangul_RieulKiyeog: 3754
-            KEY_Hangul_RieulMieum: 3755
-            KEY_Hangul_RieulPhieuf: 3759
-            KEY_Hangul_RieulPieub: 3756
-            KEY_Hangul_RieulSios: 3757
-            KEY_Hangul_RieulTieut: 3758
-            KEY_Hangul_RieulYeorinHieuh: 3823
-            KEY_Hangul_Romaja: 65334
-            KEY_Hangul_SingleCandidate: 65340
-            KEY_Hangul_Sios: 3765
-            KEY_Hangul_Special: 65343
-            KEY_Hangul_SsangDikeud: 3752
-            KEY_Hangul_SsangJieuj: 3769
-            KEY_Hangul_SsangKiyeog: 3746
-            KEY_Hangul_SsangPieub: 3763
-            KEY_Hangul_SsangSios: 3766
-            KEY_Hangul_Start: 65330
-            KEY_Hangul_SunkyeongeumMieum: 3824
-            KEY_Hangul_SunkyeongeumPhieuf: 3828
-            KEY_Hangul_SunkyeongeumPieub: 3825
-            KEY_Hangul_Tieut: 3772
-            KEY_Hangul_U: 3788
-            KEY_Hangul_WA: 3784
-            KEY_Hangul_WAE: 3785
-            KEY_Hangul_WE: 3790
-            KEY_Hangul_WEO: 3789
-            KEY_Hangul_WI: 3791
-            KEY_Hangul_YA: 3777
-            KEY_Hangul_YAE: 3778
-            KEY_Hangul_YE: 3782
-            KEY_Hangul_YEO: 3781
-            KEY_Hangul_YI: 3794
-            KEY_Hangul_YO: 3787
-            KEY_Hangul_YU: 3792
-            KEY_Hangul_YeorinHieuh: 3829
-            KEY_Hangul_switch: 65406
-            KEY_Hankaku: 65321
-            KEY_Hcircumflex: 678
-            KEY_Hebrew_switch: 65406
-            KEY_Help: 65386
-            KEY_Henkan: 65315
-            KEY_Henkan_Mode: 65315
-            KEY_Hibernate: 269025192
-            KEY_Hiragana: 65317
-            KEY_Hiragana_Katakana: 65319
-            KEY_History: 269025079
-            KEY_Home: 65360
-            KEY_HomePage: 269025048
-            KEY_HotLinks: 269025082
-            KEY_Hstroke: 673
-            KEY_Hyper_L: 65517
-            KEY_Hyper_R: 65518
-            KEY_I: 73
-            KEY_ISO_Center_Object: 65075
-            KEY_ISO_Continuous_Underline: 65072
-            KEY_ISO_Discontinuous_Underline: 65073
-            KEY_ISO_Emphasize: 65074
-            KEY_ISO_Enter: 65076
-            KEY_ISO_Fast_Cursor_Down: 65071
-            KEY_ISO_Fast_Cursor_Left: 65068
-            KEY_ISO_Fast_Cursor_Right: 65069
-            KEY_ISO_Fast_Cursor_Up: 65070
-            KEY_ISO_First_Group: 65036
-            KEY_ISO_First_Group_Lock: 65037
-            KEY_ISO_Group_Latch: 65030
-            KEY_ISO_Group_Lock: 65031
-            KEY_ISO_Group_Shift: 65406
-            KEY_ISO_Last_Group: 65038
-            KEY_ISO_Last_Group_Lock: 65039
-            KEY_ISO_Left_Tab: 65056
-            KEY_ISO_Level2_Latch: 65026
-            KEY_ISO_Level3_Latch: 65028
-            KEY_ISO_Level3_Lock: 65029
-            KEY_ISO_Level3_Shift: 65027
-            KEY_ISO_Level5_Latch: 65042
-            KEY_ISO_Level5_Lock: 65043
-            KEY_ISO_Level5_Shift: 65041
-            KEY_ISO_Lock: 65025
-            KEY_ISO_Move_Line_Down: 65058
-            KEY_ISO_Move_Line_Up: 65057
-            KEY_ISO_Next_Group: 65032
-            KEY_ISO_Next_Group_Lock: 65033
-            KEY_ISO_Partial_Line_Down: 65060
-            KEY_ISO_Partial_Line_Up: 65059
-            KEY_ISO_Partial_Space_Left: 65061
-            KEY_ISO_Partial_Space_Right: 65062
-            KEY_ISO_Prev_Group: 65034
-            KEY_ISO_Prev_Group_Lock: 65035
-            KEY_ISO_Release_Both_Margins: 65067
-            KEY_ISO_Release_Margin_Left: 65065
-            KEY_ISO_Release_Margin_Right: 65066
-            KEY_ISO_Set_Margin_Left: 65063
-            KEY_ISO_Set_Margin_Right: 65064
-            KEY_Iabovedot: 681
-            KEY_Iacute: 205
-            KEY_Ibelowdot: 16785098
-            KEY_Ibreve: 16777516
-            KEY_Icircumflex: 206
-            KEY_Idiaeresis: 207
-            KEY_Igrave: 204
-            KEY_Ihook: 16785096
-            KEY_Imacron: 975
-            KEY_Insert: 65379
-            KEY_Iogonek: 967
-            KEY_Itilde: 933
-            KEY_J: 74
-            KEY_Jcircumflex: 684
-            KEY_K: 75
-            KEY_KP_0: 65456
-            KEY_KP_1: 65457
-            KEY_KP_2: 65458
-            KEY_KP_3: 65459
-            KEY_KP_4: 65460
-            KEY_KP_5: 65461
-            KEY_KP_6: 65462
-            KEY_KP_7: 65463
-            KEY_KP_8: 65464
-            KEY_KP_9: 65465
-            KEY_KP_Add: 65451
-            KEY_KP_Begin: 65437
-            KEY_KP_Decimal: 65454
-            KEY_KP_Delete: 65439
-            KEY_KP_Divide: 65455
-            KEY_KP_Down: 65433
-            KEY_KP_End: 65436
-            KEY_KP_Enter: 65421
-            KEY_KP_Equal: 65469
-            KEY_KP_F1: 65425
-            KEY_KP_F2: 65426
-            KEY_KP_F3: 65427
-            KEY_KP_F4: 65428
-            KEY_KP_Home: 65429
-            KEY_KP_Insert: 65438
-            KEY_KP_Left: 65430
-            KEY_KP_Multiply: 65450
-            KEY_KP_Next: 65435
-            KEY_KP_Page_Down: 65435
-            KEY_KP_Page_Up: 65434
-            KEY_KP_Prior: 65434
-            KEY_KP_Right: 65432
-            KEY_KP_Separator: 65452
-            KEY_KP_Space: 65408
-            KEY_KP_Subtract: 65453
-            KEY_KP_Tab: 65417
-            KEY_KP_Up: 65431
-            KEY_Kana_Lock: 65325
-            KEY_Kana_Shift: 65326
-            KEY_Kanji: 65313
-            KEY_Kanji_Bangou: 65335
-            KEY_Katakana: 65318
-            KEY_KbdBrightnessDown: 269025030
-            KEY_KbdBrightnessUp: 269025029
-            KEY_KbdLightOnOff: 269025028
-            KEY_Kcedilla: 979
-            KEY_Keyboard: 269025203
-            KEY_Korean_Won: 3839
-            KEY_L: 76
-            KEY_L1: 65480
-            KEY_L10: 65489
-            KEY_L2: 65481
-            KEY_L3: 65482
-            KEY_L4: 65483
-            KEY_L5: 65484
-            KEY_L6: 65485
-            KEY_L7: 65486
-            KEY_L8: 65487
-            KEY_L9: 65488
-            KEY_Lacute: 453
-            KEY_Last_Virtual_Screen: 65236
-            KEY_Launch0: 269025088
-            KEY_Launch1: 269025089
-            KEY_Launch2: 269025090
-            KEY_Launch3: 269025091
-            KEY_Launch4: 269025092
-            KEY_Launch5: 269025093
-            KEY_Launch6: 269025094
-            KEY_Launch7: 269025095
-            KEY_Launch8: 269025096
-            KEY_Launch9: 269025097
-            KEY_LaunchA: 269025098
-            KEY_LaunchB: 269025099
-            KEY_LaunchC: 269025100
-            KEY_LaunchD: 269025101
-            KEY_LaunchE: 269025102
-            KEY_LaunchF: 269025103
-            KEY_Lbelowdot: 16784950
-            KEY_Lcaron: 421
-            KEY_Lcedilla: 934
-            KEY_Left: 65361
-            KEY_LightBulb: 269025077
-            KEY_Linefeed: 65290
-            KEY_LiraSign: 16785572
-            KEY_LogGrabInfo: 269024805
-            KEY_LogOff: 269025121
-            KEY_LogWindowTree: 269024804
-            KEY_Lstroke: 419
-            KEY_M: 77
-            KEY_Mabovedot: 16784960
-            KEY_Macedonia_DSE: 1717
-            KEY_Macedonia_GJE: 1714
-            KEY_Macedonia_KJE: 1724
-            KEY_Macedonia_dse: 1701
-            KEY_Macedonia_gje: 1698
-            KEY_Macedonia_kje: 1708
-            KEY_Mae_Koho: 65342
-            KEY_Mail: 269025049
-            KEY_MailForward: 269025168
-            KEY_Market: 269025122
-            KEY_Massyo: 65324
-            KEY_Meeting: 269025123
-            KEY_Memo: 269025054
-            KEY_Menu: 65383
-            KEY_MenuKB: 269025125
-            KEY_MenuPB: 269025126
-            KEY_Messenger: 269025166
-            KEY_Meta_L: 65511
-            KEY_Meta_R: 65512
-            KEY_MillSign: 16785573
-            KEY_ModeLock: 269025025
-            KEY_Mode_switch: 65406
-            KEY_MonBrightnessDown: 269025027
-            KEY_MonBrightnessUp: 269025026
-            KEY_MouseKeys_Accel_Enable: 65143
-            KEY_MouseKeys_Enable: 65142
-            KEY_Muhenkan: 65314
-            KEY_Multi_key: 65312
-            KEY_MultipleCandidate: 65341
-            KEY_Music: 269025170
-            KEY_MyComputer: 269025075
-            KEY_MySites: 269025127
-            KEY_N: 78
-            KEY_Nacute: 465
-            KEY_NairaSign: 16785574
-            KEY_Ncaron: 466
-            KEY_Ncedilla: 977
-            KEY_New: 269025128
-            KEY_NewSheqelSign: 16785578
-            KEY_News: 269025129
-            KEY_Next: 65366
-            KEY_Next_VMode: 269024802
-            KEY_Next_Virtual_Screen: 65234
-            KEY_Ntilde: 209
-            KEY_Num_Lock: 65407
-            KEY_O: 79
-            KEY_OE: 5052
-            KEY_Oacute: 211
-            KEY_Obarred: 16777631
-            KEY_Obelowdot: 16785100
-            KEY_Ocaron: 16777681
-            KEY_Ocircumflex: 212
-            KEY_Ocircumflexacute: 16785104
-            KEY_Ocircumflexbelowdot: 16785112
-            KEY_Ocircumflexgrave: 16785106
-            KEY_Ocircumflexhook: 16785108
-            KEY_Ocircumflextilde: 16785110
-            KEY_Odiaeresis: 214
-            KEY_Odoubleacute: 469
-            KEY_OfficeHome: 269025130
-            KEY_Ograve: 210
-            KEY_Ohook: 16785102
-            KEY_Ohorn: 16777632
-            KEY_Ohornacute: 16785114
-            KEY_Ohornbelowdot: 16785122
-            KEY_Ohorngrave: 16785116
-            KEY_Ohornhook: 16785118
-            KEY_Ohorntilde: 16785120
-            KEY_Omacron: 978
-            KEY_Ooblique: 216
-            KEY_Open: 269025131
-            KEY_OpenURL: 269025080
-            KEY_Option: 269025132
-            KEY_Oslash: 216
-            KEY_Otilde: 213
-            KEY_Overlay1_Enable: 65144
-            KEY_Overlay2_Enable: 65145
-            KEY_P: 80
-            KEY_Pabovedot: 16784982
-            KEY_Page_Down: 65366
-            KEY_Page_Up: 65365
-            KEY_Paste: 269025133
-            KEY_Pause: 65299
-            KEY_PesetaSign: 16785575
-            KEY_Phone: 269025134
-            KEY_Pictures: 269025169
-            KEY_Pointer_Accelerate: 65274
-            KEY_Pointer_Button1: 65257
-            KEY_Pointer_Button2: 65258
-            KEY_Pointer_Button3: 65259
-            KEY_Pointer_Button4: 65260
-            KEY_Pointer_Button5: 65261
-            KEY_Pointer_Button_Dflt: 65256
-            KEY_Pointer_DblClick1: 65263
-            KEY_Pointer_DblClick2: 65264
-            KEY_Pointer_DblClick3: 65265
-            KEY_Pointer_DblClick4: 65266
-            KEY_Pointer_DblClick5: 65267
-            KEY_Pointer_DblClick_Dflt: 65262
-            KEY_Pointer_DfltBtnNext: 65275
-            KEY_Pointer_DfltBtnPrev: 65276
-            KEY_Pointer_Down: 65251
-            KEY_Pointer_DownLeft: 65254
-            KEY_Pointer_DownRight: 65255
-            KEY_Pointer_Drag1: 65269
-            KEY_Pointer_Drag2: 65270
-            KEY_Pointer_Drag3: 65271
-            KEY_Pointer_Drag4: 65272
-            KEY_Pointer_Drag5: 65277
-            KEY_Pointer_Drag_Dflt: 65268
-            KEY_Pointer_EnableKeys: 65273
-            KEY_Pointer_Left: 65248
-            KEY_Pointer_Right: 65249
-            KEY_Pointer_Up: 65250
-            KEY_Pointer_UpLeft: 65252
-            KEY_Pointer_UpRight: 65253
-            KEY_PowerDown: 269025057
-            KEY_PowerOff: 269025066
-            KEY_Prev_VMode: 269024803
-            KEY_Prev_Virtual_Screen: 65233
-            KEY_PreviousCandidate: 65342
-            KEY_Print: 65377
-            KEY_Prior: 65365
-            KEY_Q: 81
-            KEY_R: 82
-            KEY_R1: 65490
-            KEY_R10: 65499
-            KEY_R11: 65500
-            KEY_R12: 65501
-            KEY_R13: 65502
-            KEY_R14: 65503
-            KEY_R15: 65504
-            KEY_R2: 65491
-            KEY_R3: 65492
-            KEY_R4: 65493
-            KEY_R5: 65494
-            KEY_R6: 65495
-            KEY_R7: 65496
-            KEY_R8: 65497
-            KEY_R9: 65498
-            KEY_RFKill: 269025205
-            KEY_Racute: 448
-            KEY_Rcaron: 472
-            KEY_Rcedilla: 931
-            KEY_Red: 269025187
-            KEY_Redo: 65382
-            KEY_Refresh: 269025065
-            KEY_Reload: 269025139
-            KEY_RepeatKeys_Enable: 65138
-            KEY_Reply: 269025138
-            KEY_Return: 65293
-            KEY_Right: 65363
-            KEY_RockerDown: 269025060
-            KEY_RockerEnter: 269025061
-            KEY_RockerUp: 269025059
-            KEY_Romaji: 65316
-            KEY_RotateWindows: 269025140
-            KEY_RotationKB: 269025142
-            KEY_RotationPB: 269025141
-            KEY_RupeeSign: 16785576
-            KEY_S: 83
-            KEY_SCHWA: 16777615
-            KEY_Sabovedot: 16784992
-            KEY_Sacute: 422
-            KEY_Save: 269025143
-            KEY_Scaron: 425
-            KEY_Scedilla: 426
-            KEY_Scircumflex: 734
-            KEY_ScreenSaver: 269025069
-            KEY_ScrollClick: 269025146
-            KEY_ScrollDown: 269025145
-            KEY_ScrollUp: 269025144
-            KEY_Scroll_Lock: 65300
-            KEY_Search: 269025051
-            KEY_Select: 65376
-            KEY_SelectButton: 269025184
-            KEY_Send: 269025147
-            KEY_Serbian_DJE: 1713
-            KEY_Serbian_DZE: 1727
-            KEY_Serbian_JE: 1720
-            KEY_Serbian_LJE: 1721
-            KEY_Serbian_NJE: 1722
-            KEY_Serbian_TSHE: 1723
-            KEY_Serbian_dje: 1697
-            KEY_Serbian_dze: 1711
-            KEY_Serbian_je: 1704
-            KEY_Serbian_lje: 1705
-            KEY_Serbian_nje: 1706
-            KEY_Serbian_tshe: 1707
-            KEY_Shift_L: 65505
-            KEY_Shift_Lock: 65510
-            KEY_Shift_R: 65506
-            KEY_Shop: 269025078
-            KEY_SingleCandidate: 65340
-            KEY_Sinh_a: 16780677
-            KEY_Sinh_aa: 16780678
-            KEY_Sinh_aa2: 16780751
-            KEY_Sinh_ae: 16780679
-            KEY_Sinh_ae2: 16780752
-            KEY_Sinh_aee: 16780680
-            KEY_Sinh_aee2: 16780753
-            KEY_Sinh_ai: 16780691
-            KEY_Sinh_ai2: 16780763
-            KEY_Sinh_al: 16780746
-            KEY_Sinh_au: 16780694
-            KEY_Sinh_au2: 16780766
-            KEY_Sinh_ba: 16780726
-            KEY_Sinh_bha: 16780727
-            KEY_Sinh_ca: 16780704
-            KEY_Sinh_cha: 16780705
-            KEY_Sinh_dda: 16780713
-            KEY_Sinh_ddha: 16780714
-            KEY_Sinh_dha: 16780719
-            KEY_Sinh_dhha: 16780720
-            KEY_Sinh_e: 16780689
-            KEY_Sinh_e2: 16780761
-            KEY_Sinh_ee: 16780690
-            KEY_Sinh_ee2: 16780762
-            KEY_Sinh_fa: 16780742
-            KEY_Sinh_ga: 16780700
-            KEY_Sinh_gha: 16780701
-            KEY_Sinh_h2: 16780675
-            KEY_Sinh_ha: 16780740
-            KEY_Sinh_i: 16780681
-            KEY_Sinh_i2: 16780754
-            KEY_Sinh_ii: 16780682
-            KEY_Sinh_ii2: 16780755
-            KEY_Sinh_ja: 16780706
-            KEY_Sinh_jha: 16780707
-            KEY_Sinh_jnya: 16780709
-            KEY_Sinh_ka: 16780698
-            KEY_Sinh_kha: 16780699
-            KEY_Sinh_kunddaliya: 16780788
-            KEY_Sinh_la: 16780733
-            KEY_Sinh_lla: 16780741
-            KEY_Sinh_lu: 16780687
-            KEY_Sinh_lu2: 16780767
-            KEY_Sinh_luu: 16780688
-            KEY_Sinh_luu2: 16780787
-            KEY_Sinh_ma: 16780728
-            KEY_Sinh_mba: 16780729
-            KEY_Sinh_na: 16780721
-            KEY_Sinh_ndda: 16780716
-            KEY_Sinh_ndha: 16780723
-            KEY_Sinh_ng: 16780674
-            KEY_Sinh_ng2: 16780702
-            KEY_Sinh_nga: 16780703
-            KEY_Sinh_nja: 16780710
-            KEY_Sinh_nna: 16780715
-            KEY_Sinh_nya: 16780708
-            KEY_Sinh_o: 16780692
-            KEY_Sinh_o2: 16780764
-            KEY_Sinh_oo: 16780693
-            KEY_Sinh_oo2: 16780765
-            KEY_Sinh_pa: 16780724
-            KEY_Sinh_pha: 16780725
-            KEY_Sinh_ra: 16780731
-            KEY_Sinh_ri: 16780685
-            KEY_Sinh_rii: 16780686
-            KEY_Sinh_ru2: 16780760
-            KEY_Sinh_ruu2: 16780786
-            KEY_Sinh_sa: 16780739
-            KEY_Sinh_sha: 16780737
-            KEY_Sinh_ssha: 16780738
-            KEY_Sinh_tha: 16780717
-            KEY_Sinh_thha: 16780718
-            KEY_Sinh_tta: 16780711
-            KEY_Sinh_ttha: 16780712
-            KEY_Sinh_u: 16780683
-            KEY_Sinh_u2: 16780756
-            KEY_Sinh_uu: 16780684
-            KEY_Sinh_uu2: 16780758
-            KEY_Sinh_va: 16780736
-            KEY_Sinh_ya: 16780730
-            KEY_Sleep: 269025071
-            KEY_SlowKeys_Enable: 65139
-            KEY_Spell: 269025148
-            KEY_SplitScreen: 269025149
-            KEY_Standby: 269025040
-            KEY_Start: 269025050
-            KEY_StickyKeys_Enable: 65141
-            KEY_Stop: 269025064
-            KEY_Subtitle: 269025178
-            KEY_Super_L: 65515
-            KEY_Super_R: 65516
-            KEY_Support: 269025150
-            KEY_Suspend: 269025191
-            KEY_Switch_VT_1: 269024769
-            KEY_Switch_VT_10: 269024778
-            KEY_Switch_VT_11: 269024779
-            KEY_Switch_VT_12: 269024780
-            KEY_Switch_VT_2: 269024770
-            KEY_Switch_VT_3: 269024771
-            KEY_Switch_VT_4: 269024772
-            KEY_Switch_VT_5: 269024773
-            KEY_Switch_VT_6: 269024774
-            KEY_Switch_VT_7: 269024775
-            KEY_Switch_VT_8: 269024776
-            KEY_Switch_VT_9: 269024777
-            KEY_Sys_Req: 65301
-            KEY_T: 84
-            KEY_THORN: 222
-            KEY_Tab: 65289
-            KEY_Tabovedot: 16785002
-            KEY_TaskPane: 269025151
-            KEY_Tcaron: 427
-            KEY_Tcedilla: 478
-            KEY_Terminal: 269025152
-            KEY_Terminate_Server: 65237
-            KEY_Thai_baht: 3551
-            KEY_Thai_bobaimai: 3514
-            KEY_Thai_chochan: 3496
-            KEY_Thai_chochang: 3498
-            KEY_Thai_choching: 3497
-            KEY_Thai_chochoe: 3500
-            KEY_Thai_dochada: 3502
-            KEY_Thai_dodek: 3508
-            KEY_Thai_fofa: 3517
-            KEY_Thai_fofan: 3519
-            KEY_Thai_hohip: 3531
-            KEY_Thai_honokhuk: 3534
-            KEY_Thai_khokhai: 3490
-            KEY_Thai_khokhon: 3493
-            KEY_Thai_khokhuat: 3491
-            KEY_Thai_khokhwai: 3492
-            KEY_Thai_khorakhang: 3494
-            KEY_Thai_kokai: 3489
-            KEY_Thai_lakkhangyao: 3557
-            KEY_Thai_lekchet: 3575
-            KEY_Thai_lekha: 3573
-            KEY_Thai_lekhok: 3574
-            KEY_Thai_lekkao: 3577
-            KEY_Thai_leknung: 3569
-            KEY_Thai_lekpaet: 3576
-            KEY_Thai_leksam: 3571
-            KEY_Thai_leksi: 3572
-            KEY_Thai_leksong: 3570
-            KEY_Thai_leksun: 3568
-            KEY_Thai_lochula: 3532
-            KEY_Thai_loling: 3525
-            KEY_Thai_lu: 3526
-            KEY_Thai_maichattawa: 3563
-            KEY_Thai_maiek: 3560
-            KEY_Thai_maihanakat: 3537
-            KEY_Thai_maihanakat_maitho: 3550
-            KEY_Thai_maitaikhu: 3559
-            KEY_Thai_maitho: 3561
-            KEY_Thai_maitri: 3562
-            KEY_Thai_maiyamok: 3558
-            KEY_Thai_moma: 3521
-            KEY_Thai_ngongu: 3495
-            KEY_Thai_nikhahit: 3565
-            KEY_Thai_nonen: 3507
-            KEY_Thai_nonu: 3513
-            KEY_Thai_oang: 3533
-            KEY_Thai_paiyannoi: 3535
-            KEY_Thai_phinthu: 3546
-            KEY_Thai_phophan: 3518
-            KEY_Thai_phophung: 3516
-            KEY_Thai_phosamphao: 3520
-            KEY_Thai_popla: 3515
-            KEY_Thai_rorua: 3523
-            KEY_Thai_ru: 3524
-            KEY_Thai_saraa: 3536
-            KEY_Thai_saraaa: 3538
-            KEY_Thai_saraae: 3553
-            KEY_Thai_saraaimaimalai: 3556
-            KEY_Thai_saraaimaimuan: 3555
-            KEY_Thai_saraam: 3539
-            KEY_Thai_sarae: 3552
-            KEY_Thai_sarai: 3540
-            KEY_Thai_saraii: 3541
-            KEY_Thai_sarao: 3554
-            KEY_Thai_sarau: 3544
-            KEY_Thai_saraue: 3542
-            KEY_Thai_sarauee: 3543
-            KEY_Thai_sarauu: 3545
-            KEY_Thai_sorusi: 3529
-            KEY_Thai_sosala: 3528
-            KEY_Thai_soso: 3499
-            KEY_Thai_sosua: 3530
-            KEY_Thai_thanthakhat: 3564
-            KEY_Thai_thonangmontho: 3505
-            KEY_Thai_thophuthao: 3506
-            KEY_Thai_thothahan: 3511
-            KEY_Thai_thothan: 3504
-            KEY_Thai_thothong: 3512
-            KEY_Thai_thothung: 3510
-            KEY_Thai_topatak: 3503
-            KEY_Thai_totao: 3509
-            KEY_Thai_wowaen: 3527
-            KEY_Thai_yoyak: 3522
-            KEY_Thai_yoying: 3501
-            KEY_Thorn: 222
-            KEY_Time: 269025183
-            KEY_ToDoList: 269025055
-            KEY_Tools: 269025153
-            KEY_TopMenu: 269025186
-            KEY_TouchpadOff: 269025201
-            KEY_TouchpadOn: 269025200
-            KEY_TouchpadToggle: 269025193
-            KEY_Touroku: 65323
-            KEY_Travel: 269025154
-            KEY_Tslash: 940
-            KEY_U: 85
-            KEY_UWB: 269025174
-            KEY_Uacute: 218
-            KEY_Ubelowdot: 16785124
-            KEY_Ubreve: 733
-            KEY_Ucircumflex: 219
-            KEY_Udiaeresis: 220
-            KEY_Udoubleacute: 475
-            KEY_Ugrave: 217
-            KEY_Uhook: 16785126
-            KEY_Uhorn: 16777647
-            KEY_Uhornacute: 16785128
-            KEY_Uhornbelowdot: 16785136
-            KEY_Uhorngrave: 16785130
-            KEY_Uhornhook: 16785132
-            KEY_Uhorntilde: 16785134
-            KEY_Ukrainian_GHE_WITH_UPTURN: 1725
-            KEY_Ukrainian_I: 1718
-            KEY_Ukrainian_IE: 1716
-            KEY_Ukrainian_YI: 1719
-            KEY_Ukrainian_ghe_with_upturn: 1709
-            KEY_Ukrainian_i: 1702
-            KEY_Ukrainian_ie: 1700
-            KEY_Ukrainian_yi: 1703
-            KEY_Ukranian_I: 1718
-            KEY_Ukranian_JE: 1716
-            KEY_Ukranian_YI: 1719
-            KEY_Ukranian_i: 1702
-            KEY_Ukranian_je: 1700
-            KEY_Ukranian_yi: 1703
-            KEY_Umacron: 990
-            KEY_Undo: 65381
-            KEY_Ungrab: 269024800
-            KEY_Uogonek: 985
-            KEY_Up: 65362
-            KEY_Uring: 473
-            KEY_User1KB: 269025157
-            KEY_User2KB: 269025158
-            KEY_UserPB: 269025156
-            KEY_Utilde: 989
-            KEY_V: 86
-            KEY_VendorHome: 269025076
-            KEY_Video: 269025159
-            KEY_View: 269025185
-            KEY_VoidSymbol: 16777215
-            KEY_W: 87
-            KEY_WLAN: 269025173
-            KEY_WWAN: 269025204
-            KEY_WWW: 269025070
-            KEY_Wacute: 16785026
-            KEY_WakeUp: 269025067
-            KEY_Wcircumflex: 16777588
-            KEY_Wdiaeresis: 16785028
-            KEY_WebCam: 269025167
-            KEY_Wgrave: 16785024
-            KEY_WheelButton: 269025160
-            KEY_WindowClear: 269025109
-            KEY_WonSign: 16785577
-            KEY_Word: 269025161
-            KEY_X: 88
-            KEY_Xabovedot: 16785034
-            KEY_Xfer: 269025162
-            KEY_Y: 89
-            KEY_Yacute: 221
-            KEY_Ybelowdot: 16785140
-            KEY_Ycircumflex: 16777590
-            KEY_Ydiaeresis: 5054
-            KEY_Yellow: 269025189
-            KEY_Ygrave: 16785138
-            KEY_Yhook: 16785142
-            KEY_Ytilde: 16785144
-            KEY_Z: 90
-            KEY_Zabovedot: 431
-            KEY_Zacute: 428
-            KEY_Zcaron: 430
-            KEY_Zen_Koho: 65341
-            KEY_Zenkaku: 65320
-            KEY_Zenkaku_Hankaku: 65322
-            KEY_ZoomIn: 269025163
-            KEY_ZoomOut: 269025164
-            KEY_Zstroke: 16777653
-            KEY_a: 97
-            KEY_aacute: 225
-            KEY_abelowdot: 16785057
-            KEY_abovedot: 511
-            KEY_abreve: 483
-            KEY_abreveacute: 16785071
-            KEY_abrevebelowdot: 16785079
-            KEY_abrevegrave: 16785073
-            KEY_abrevehook: 16785075
-            KEY_abrevetilde: 16785077
-            KEY_acircumflex: 226
-            KEY_acircumflexacute: 16785061
-            KEY_acircumflexbelowdot: 16785069
-            KEY_acircumflexgrave: 16785063
-            KEY_acircumflexhook: 16785065
-            KEY_acircumflextilde: 16785067
-            KEY_acute: 180
-            KEY_adiaeresis: 228
-            KEY_ae: 230
-            KEY_agrave: 224
-            KEY_ahook: 16785059
-            KEY_amacron: 992
-            KEY_ampersand: 38
-            KEY_aogonek: 433
-            KEY_apostrophe: 39
-            KEY_approxeq: 16785992
-            KEY_approximate: 2248
-            KEY_aring: 229
-            KEY_asciicircum: 94
-            KEY_asciitilde: 126
-            KEY_asterisk: 42
-            KEY_at: 64
-            KEY_atilde: 227
-            KEY_b: 98
-            KEY_babovedot: 16784899
-            KEY_backslash: 92
-            KEY_ballotcross: 2804
-            KEY_bar: 124
-            KEY_because: 16785973
-            KEY_blank: 2527
-            KEY_botintegral: 2213
-            KEY_botleftparens: 2220
-            KEY_botleftsqbracket: 2216
-            KEY_botleftsummation: 2226
-            KEY_botrightparens: 2222
-            KEY_botrightsqbracket: 2218
-            KEY_botrightsummation: 2230
-            KEY_bott: 2550
-            KEY_botvertsummationconnector: 2228
-            KEY_braceleft: 123
-            KEY_braceright: 125
-            KEY_bracketleft: 91
-            KEY_bracketright: 93
-            KEY_braille_blank: 16787456
-            KEY_braille_dot_1: 65521
-            KEY_braille_dot_10: 65530
-            KEY_braille_dot_2: 65522
-            KEY_braille_dot_3: 65523
-            KEY_braille_dot_4: 65524
-            KEY_braille_dot_5: 65525
-            KEY_braille_dot_6: 65526
-            KEY_braille_dot_7: 65527
-            KEY_braille_dot_8: 65528
-            KEY_braille_dot_9: 65529
-            KEY_braille_dots_1: 16787457
-            KEY_braille_dots_12: 16787459
-            KEY_braille_dots_123: 16787463
-            KEY_braille_dots_1234: 16787471
-            KEY_braille_dots_12345: 16787487
-            KEY_braille_dots_123456: 16787519
-            KEY_braille_dots_1234567: 16787583
-            KEY_braille_dots_12345678: 16787711
-            KEY_braille_dots_1234568: 16787647
-            KEY_braille_dots_123457: 16787551
-            KEY_braille_dots_1234578: 16787679
-            KEY_braille_dots_123458: 16787615
-            KEY_braille_dots_12346: 16787503
-            KEY_braille_dots_123467: 16787567
-            KEY_braille_dots_1234678: 16787695
-            KEY_braille_dots_123468: 16787631
-            KEY_braille_dots_12347: 16787535
-            KEY_braille_dots_123478: 16787663
-            KEY_braille_dots_12348: 16787599
-            KEY_braille_dots_1235: 16787479
-            KEY_braille_dots_12356: 16787511
-            KEY_braille_dots_123567: 16787575
-            KEY_braille_dots_1235678: 16787703
-            KEY_braille_dots_123568: 16787639
-            KEY_braille_dots_12357: 16787543
-            KEY_braille_dots_123578: 16787671
-            KEY_braille_dots_12358: 16787607
-            KEY_braille_dots_1236: 16787495
-            KEY_braille_dots_12367: 16787559
-            KEY_braille_dots_123678: 16787687
-            KEY_braille_dots_12368: 16787623
-            KEY_braille_dots_1237: 16787527
-            KEY_braille_dots_12378: 16787655
-            KEY_braille_dots_1238: 16787591
-            KEY_braille_dots_124: 16787467
-            KEY_braille_dots_1245: 16787483
-            KEY_braille_dots_12456: 16787515
-            KEY_braille_dots_124567: 16787579
-            KEY_braille_dots_1245678: 16787707
-            KEY_braille_dots_124568: 16787643
-            KEY_braille_dots_12457: 16787547
-            KEY_braille_dots_124578: 16787675
-            KEY_braille_dots_12458: 16787611
-            KEY_braille_dots_1246: 16787499
-            KEY_braille_dots_12467: 16787563
-            KEY_braille_dots_124678: 16787691
-            KEY_braille_dots_12468: 16787627
-            KEY_braille_dots_1247: 16787531
-            KEY_braille_dots_12478: 16787659
-            KEY_braille_dots_1248: 16787595
-            KEY_braille_dots_125: 16787475
-            KEY_braille_dots_1256: 16787507
-            KEY_braille_dots_12567: 16787571
-            KEY_braille_dots_125678: 16787699
-            KEY_braille_dots_12568: 16787635
-            KEY_braille_dots_1257: 16787539
-            KEY_braille_dots_12578: 16787667
-            KEY_braille_dots_1258: 16787603
-            KEY_braille_dots_126: 16787491
-            KEY_braille_dots_1267: 16787555
-            KEY_braille_dots_12678: 16787683
-            KEY_braille_dots_1268: 16787619
-            KEY_braille_dots_127: 16787523
-            KEY_braille_dots_1278: 16787651
-            KEY_braille_dots_128: 16787587
-            KEY_braille_dots_13: 16787461
-            KEY_braille_dots_134: 16787469
-            KEY_braille_dots_1345: 16787485
-            KEY_braille_dots_13456: 16787517
-            KEY_braille_dots_134567: 16787581
-            KEY_braille_dots_1345678: 16787709
-            KEY_braille_dots_134568: 16787645
-            KEY_braille_dots_13457: 16787549
-            KEY_braille_dots_134578: 16787677
-            KEY_braille_dots_13458: 16787613
-            KEY_braille_dots_1346: 16787501
-            KEY_braille_dots_13467: 16787565
-            KEY_braille_dots_134678: 16787693
-            KEY_braille_dots_13468: 16787629
-            KEY_braille_dots_1347: 16787533
-            KEY_braille_dots_13478: 16787661
-            KEY_braille_dots_1348: 16787597
-            KEY_braille_dots_135: 16787477
-            KEY_braille_dots_1356: 16787509
-            KEY_braille_dots_13567: 16787573
-            KEY_braille_dots_135678: 16787701
-            KEY_braille_dots_13568: 16787637
-            KEY_braille_dots_1357: 16787541
-            KEY_braille_dots_13578: 16787669
-            KEY_braille_dots_1358: 16787605
-            KEY_braille_dots_136: 16787493
-            KEY_braille_dots_1367: 16787557
-            KEY_braille_dots_13678: 16787685
-            KEY_braille_dots_1368: 16787621
-            KEY_braille_dots_137: 16787525
-            KEY_braille_dots_1378: 16787653
-            KEY_braille_dots_138: 16787589
-            KEY_braille_dots_14: 16787465
-            KEY_braille_dots_145: 16787481
-            KEY_braille_dots_1456: 16787513
-            KEY_braille_dots_14567: 16787577
-            KEY_braille_dots_145678: 16787705
-            KEY_braille_dots_14568: 16787641
-            KEY_braille_dots_1457: 16787545
-            KEY_braille_dots_14578: 16787673
-            KEY_braille_dots_1458: 16787609
-            KEY_braille_dots_146: 16787497
-            KEY_braille_dots_1467: 16787561
-            KEY_braille_dots_14678: 16787689
-            KEY_braille_dots_1468: 16787625
-            KEY_braille_dots_147: 16787529
-            KEY_braille_dots_1478: 16787657
-            KEY_braille_dots_148: 16787593
-            KEY_braille_dots_15: 16787473
-            KEY_braille_dots_156: 16787505
-            KEY_braille_dots_1567: 16787569
-            KEY_braille_dots_15678: 16787697
-            KEY_braille_dots_1568: 16787633
-            KEY_braille_dots_157: 16787537
-            KEY_braille_dots_1578: 16787665
-            KEY_braille_dots_158: 16787601
-            KEY_braille_dots_16: 16787489
-            KEY_braille_dots_167: 16787553
-            KEY_braille_dots_1678: 16787681
-            KEY_braille_dots_168: 16787617
-            KEY_braille_dots_17: 16787521
-            KEY_braille_dots_178: 16787649
-            KEY_braille_dots_18: 16787585
-            KEY_braille_dots_2: 16787458
-            KEY_braille_dots_23: 16787462
-            KEY_braille_dots_234: 16787470
-            KEY_braille_dots_2345: 16787486
-            KEY_braille_dots_23456: 16787518
-            KEY_braille_dots_234567: 16787582
-            KEY_braille_dots_2345678: 16787710
-            KEY_braille_dots_234568: 16787646
-            KEY_braille_dots_23457: 16787550
-            KEY_braille_dots_234578: 16787678
-            KEY_braille_dots_23458: 16787614
-            KEY_braille_dots_2346: 16787502
-            KEY_braille_dots_23467: 16787566
-            KEY_braille_dots_234678: 16787694
-            KEY_braille_dots_23468: 16787630
-            KEY_braille_dots_2347: 16787534
-            KEY_braille_dots_23478: 16787662
-            KEY_braille_dots_2348: 16787598
-            KEY_braille_dots_235: 16787478
-            KEY_braille_dots_2356: 16787510
-            KEY_braille_dots_23567: 16787574
-            KEY_braille_dots_235678: 16787702
-            KEY_braille_dots_23568: 16787638
-            KEY_braille_dots_2357: 16787542
-            KEY_braille_dots_23578: 16787670
-            KEY_braille_dots_2358: 16787606
-            KEY_braille_dots_236: 16787494
-            KEY_braille_dots_2367: 16787558
-            KEY_braille_dots_23678: 16787686
-            KEY_braille_dots_2368: 16787622
-            KEY_braille_dots_237: 16787526
-            KEY_braille_dots_2378: 16787654
-            KEY_braille_dots_238: 16787590
-            KEY_braille_dots_24: 16787466
-            KEY_braille_dots_245: 16787482
-            KEY_braille_dots_2456: 16787514
-            KEY_braille_dots_24567: 16787578
-            KEY_braille_dots_245678: 16787706
-            KEY_braille_dots_24568: 16787642
-            KEY_braille_dots_2457: 16787546
-            KEY_braille_dots_24578: 16787674
-            KEY_braille_dots_2458: 16787610
-            KEY_braille_dots_246: 16787498
-            KEY_braille_dots_2467: 16787562
-            KEY_braille_dots_24678: 16787690
-            KEY_braille_dots_2468: 16787626
-            KEY_braille_dots_247: 16787530
-            KEY_braille_dots_2478: 16787658
-            KEY_braille_dots_248: 16787594
-            KEY_braille_dots_25: 16787474
-            KEY_braille_dots_256: 16787506
-            KEY_braille_dots_2567: 16787570
-            KEY_braille_dots_25678: 16787698
-            KEY_braille_dots_2568: 16787634
-            KEY_braille_dots_257: 16787538
-            KEY_braille_dots_2578: 16787666
-            KEY_braille_dots_258: 16787602
-            KEY_braille_dots_26: 16787490
-            KEY_braille_dots_267: 16787554
-            KEY_braille_dots_2678: 16787682
-            KEY_braille_dots_268: 16787618
-            KEY_braille_dots_27: 16787522
-            KEY_braille_dots_278: 16787650
-            KEY_braille_dots_28: 16787586
-            KEY_braille_dots_3: 16787460
-            KEY_braille_dots_34: 16787468
-            KEY_braille_dots_345: 16787484
-            KEY_braille_dots_3456: 16787516
-            KEY_braille_dots_34567: 16787580
-            KEY_braille_dots_345678: 16787708
-            KEY_braille_dots_34568: 16787644
-            KEY_braille_dots_3457: 16787548
-            KEY_braille_dots_34578: 16787676
-            KEY_braille_dots_3458: 16787612
-            KEY_braille_dots_346: 16787500
-            KEY_braille_dots_3467: 16787564
-            KEY_braille_dots_34678: 16787692
-            KEY_braille_dots_3468: 16787628
-            KEY_braille_dots_347: 16787532
-            KEY_braille_dots_3478: 16787660
-            KEY_braille_dots_348: 16787596
-            KEY_braille_dots_35: 16787476
-            KEY_braille_dots_356: 16787508
-            KEY_braille_dots_3567: 16787572
-            KEY_braille_dots_35678: 16787700
-            KEY_braille_dots_3568: 16787636
-            KEY_braille_dots_357: 16787540
-            KEY_braille_dots_3578: 16787668
-            KEY_braille_dots_358: 16787604
-            KEY_braille_dots_36: 16787492
-            KEY_braille_dots_367: 16787556
-            KEY_braille_dots_3678: 16787684
-            KEY_braille_dots_368: 16787620
-            KEY_braille_dots_37: 16787524
-            KEY_braille_dots_378: 16787652
-            KEY_braille_dots_38: 16787588
-            KEY_braille_dots_4: 16787464
-            KEY_braille_dots_45: 16787480
-            KEY_braille_dots_456: 16787512
-            KEY_braille_dots_4567: 16787576
-            KEY_braille_dots_45678: 16787704
-            KEY_braille_dots_4568: 16787640
-            KEY_braille_dots_457: 16787544
-            KEY_braille_dots_4578: 16787672
-            KEY_braille_dots_458: 16787608
-            KEY_braille_dots_46: 16787496
-            KEY_braille_dots_467: 16787560
-            KEY_braille_dots_4678: 16787688
-            KEY_braille_dots_468: 16787624
-            KEY_braille_dots_47: 16787528
-            KEY_braille_dots_478: 16787656
-            KEY_braille_dots_48: 16787592
-            KEY_braille_dots_5: 16787472
-            KEY_braille_dots_56: 16787504
-            KEY_braille_dots_567: 16787568
-            KEY_braille_dots_5678: 16787696
-            KEY_braille_dots_568: 16787632
-            KEY_braille_dots_57: 16787536
-            KEY_braille_dots_578: 16787664
-            KEY_braille_dots_58: 16787600
-            KEY_braille_dots_6: 16787488
-            KEY_braille_dots_67: 16787552
-            KEY_braille_dots_678: 16787680
-            KEY_braille_dots_68: 16787616
-            KEY_braille_dots_7: 16787520
-            KEY_braille_dots_78: 16787648
-            KEY_braille_dots_8: 16787584
-            KEY_breve: 418
-            KEY_brokenbar: 166
-            KEY_c: 99
-            KEY_c_h: 65187
-            KEY_cabovedot: 741
-            KEY_cacute: 486
-            KEY_careof: 2744
-            KEY_caret: 2812
-            KEY_caron: 439
-            KEY_ccaron: 488
-            KEY_ccedilla: 231
-            KEY_ccircumflex: 742
-            KEY_cedilla: 184
-            KEY_cent: 162
-            KEY_ch: 65184
-            KEY_checkerboard: 2529
-            KEY_checkmark: 2803
-            KEY_circle: 3023
-            KEY_club: 2796
-            KEY_colon: 58
-            KEY_combining_acute: 16777985
-            KEY_combining_belowdot: 16778019
-            KEY_combining_grave: 16777984
-            KEY_combining_hook: 16777993
-            KEY_combining_tilde: 16777987
-            KEY_comma: 44
-            KEY_containsas: 16785931
-            KEY_copyright: 169
-            KEY_cr: 2532
-            KEY_crossinglines: 2542
-            KEY_cuberoot: 16785947
-            KEY_currency: 164
-            KEY_cursor: 2815
-            KEY_d: 100
-            KEY_dabovedot: 16784907
-            KEY_dagger: 2801
-            KEY_dcaron: 495
-            KEY_dead_A: 65153
-            KEY_dead_E: 65155
-            KEY_dead_I: 65157
-            KEY_dead_O: 65159
-            KEY_dead_SCHWA: 65163
-            KEY_dead_U: 65161
-            KEY_dead_a: 65152
-            KEY_dead_abovecomma: 65124
-            KEY_dead_abovedot: 65110
-            KEY_dead_abovereversedcomma: 65125
-            KEY_dead_abovering: 65112
-            KEY_dead_aboveverticalline: 65169
-            KEY_dead_acute: 65105
-            KEY_dead_belowbreve: 65131
-            KEY_dead_belowcircumflex: 65129
-            KEY_dead_belowcomma: 65134
-            KEY_dead_belowdiaeresis: 65132
-            KEY_dead_belowdot: 65120
-            KEY_dead_belowmacron: 65128
-            KEY_dead_belowring: 65127
-            KEY_dead_belowtilde: 65130
-            KEY_dead_belowverticalline: 65170
-            KEY_dead_breve: 65109
-            KEY_dead_capital_schwa: 65163
-            KEY_dead_caron: 65114
-            KEY_dead_cedilla: 65115
-            KEY_dead_circumflex: 65106
-            KEY_dead_currency: 65135
-            KEY_dead_dasia: 65125
-            KEY_dead_diaeresis: 65111
-            KEY_dead_doubleacute: 65113
-            KEY_dead_doublegrave: 65126
-            KEY_dead_e: 65154
-            KEY_dead_grave: 65104
-            KEY_dead_greek: 65164
-            KEY_dead_hamza: 65165
-            KEY_dead_hook: 65121
-            KEY_dead_horn: 65122
-            KEY_dead_i: 65156
-            KEY_dead_invertedbreve: 65133
-            KEY_dead_iota: 65117
-            KEY_dead_longsolidusoverlay: 65171
-            KEY_dead_lowline: 65168
-            KEY_dead_macron: 65108
-            KEY_dead_o: 65158
-            KEY_dead_ogonek: 65116
-            KEY_dead_perispomeni: 65107
-            KEY_dead_psili: 65124
-            KEY_dead_schwa: 65162
-            KEY_dead_semivoiced_sound: 65119
-            KEY_dead_small_schwa: 65162
-            KEY_dead_stroke: 65123
-            KEY_dead_tilde: 65107
-            KEY_dead_u: 65160
-            KEY_dead_voiced_sound: 65118
-            KEY_decimalpoint: 2749
-            KEY_degree: 176
-            KEY_diaeresis: 168
-            KEY_diamond: 2797
-            KEY_digitspace: 2725
-            KEY_dintegral: 16785964
-            KEY_division: 247
-            KEY_dollar: 36
-            KEY_doubbaselinedot: 2735
-            KEY_doubleacute: 445
-            KEY_doubledagger: 2802
-            KEY_doublelowquotemark: 2814
-            KEY_downarrow: 2302
-            KEY_downcaret: 2984
-            KEY_downshoe: 3030
-            KEY_downstile: 3012
-            KEY_downtack: 3010
-            KEY_dstroke: 496
-            KEY_e: 101
-            KEY_eabovedot: 1004
-            KEY_eacute: 233
-            KEY_ebelowdot: 16785081
-            KEY_ecaron: 492
-            KEY_ecircumflex: 234
-            KEY_ecircumflexacute: 16785087
-            KEY_ecircumflexbelowdot: 16785095
-            KEY_ecircumflexgrave: 16785089
-            KEY_ecircumflexhook: 16785091
-            KEY_ecircumflextilde: 16785093
-            KEY_ediaeresis: 235
-            KEY_egrave: 232
-            KEY_ehook: 16785083
-            KEY_eightsubscript: 16785544
-            KEY_eightsuperior: 16785528
-            KEY_elementof: 16785928
-            KEY_ellipsis: 2734
-            KEY_em3space: 2723
-            KEY_em4space: 2724
-            KEY_emacron: 954
-            KEY_emdash: 2729
-            KEY_emfilledcircle: 2782
-            KEY_emfilledrect: 2783
-            KEY_emopencircle: 2766
-            KEY_emopenrectangle: 2767
-            KEY_emptyset: 16785925
-            KEY_emspace: 2721
-            KEY_endash: 2730
-            KEY_enfilledcircbullet: 2790
-            KEY_enfilledsqbullet: 2791
-            KEY_eng: 959
-            KEY_enopencircbullet: 2784
-            KEY_enopensquarebullet: 2785
-            KEY_enspace: 2722
-            KEY_eogonek: 490
-            KEY_equal: 61
-            KEY_eth: 240
-            KEY_etilde: 16785085
-            KEY_exclam: 33
-            KEY_exclamdown: 161
-            KEY_ezh: 16777874
-            KEY_f: 102
-            KEY_fabovedot: 16784927
-            KEY_femalesymbol: 2808
-            KEY_ff: 2531
-            KEY_figdash: 2747
-            KEY_filledlefttribullet: 2780
-            KEY_filledrectbullet: 2779
-            KEY_filledrighttribullet: 2781
-            KEY_filledtribulletdown: 2793
-            KEY_filledtribulletup: 2792
-            KEY_fiveeighths: 2757
-            KEY_fivesixths: 2743
-            KEY_fivesubscript: 16785541
-            KEY_fivesuperior: 16785525
-            KEY_fourfifths: 2741
-            KEY_foursubscript: 16785540
-            KEY_foursuperior: 16785524
-            KEY_fourthroot: 16785948
-            KEY_function: 2294
-            KEY_g: 103
-            KEY_gabovedot: 757
-            KEY_gbreve: 699
-            KEY_gcaron: 16777703
-            KEY_gcedilla: 955
-            KEY_gcircumflex: 760
-            KEY_grave: 96
-            KEY_greater: 62
-            KEY_greaterthanequal: 2238
-            KEY_guillemetleft: 171
-            KEY_guillemetright: 187
-            KEY_guillemotleft: 171
-            KEY_guillemotright: 187
-            KEY_h: 104
-            KEY_hairspace: 2728
-            KEY_hcircumflex: 694
-            KEY_heart: 2798
-            KEY_hebrew_aleph: 3296
-            KEY_hebrew_ayin: 3314
-            KEY_hebrew_bet: 3297
-            KEY_hebrew_beth: 3297
-            KEY_hebrew_chet: 3303
-            KEY_hebrew_dalet: 3299
-            KEY_hebrew_daleth: 3299
-            KEY_hebrew_doublelowline: 3295
-            KEY_hebrew_finalkaph: 3306
-            KEY_hebrew_finalmem: 3309
-            KEY_hebrew_finalnun: 3311
-            KEY_hebrew_finalpe: 3315
-            KEY_hebrew_finalzade: 3317
-            KEY_hebrew_finalzadi: 3317
-            KEY_hebrew_gimel: 3298
-            KEY_hebrew_gimmel: 3298
-            KEY_hebrew_he: 3300
-            KEY_hebrew_het: 3303
-            KEY_hebrew_kaph: 3307
-            KEY_hebrew_kuf: 3319
-            KEY_hebrew_lamed: 3308
-            KEY_hebrew_mem: 3310
-            KEY_hebrew_nun: 3312
-            KEY_hebrew_pe: 3316
-            KEY_hebrew_qoph: 3319
-            KEY_hebrew_resh: 3320
-            KEY_hebrew_samech: 3313
-            KEY_hebrew_samekh: 3313
-            KEY_hebrew_shin: 3321
-            KEY_hebrew_taf: 3322
-            KEY_hebrew_taw: 3322
-            KEY_hebrew_tet: 3304
-            KEY_hebrew_teth: 3304
-            KEY_hebrew_waw: 3301
-            KEY_hebrew_yod: 3305
-            KEY_hebrew_zade: 3318
-            KEY_hebrew_zadi: 3318
-            KEY_hebrew_zain: 3302
-            KEY_hebrew_zayin: 3302
-            KEY_hexagram: 2778
-            KEY_horizconnector: 2211
-            KEY_horizlinescan1: 2543
-            KEY_horizlinescan3: 2544
-            KEY_horizlinescan5: 2545
-            KEY_horizlinescan7: 2546
-            KEY_horizlinescan9: 2547
-            KEY_hstroke: 689
-            KEY_ht: 2530
-            KEY_hyphen: 173
-            KEY_i: 105
-            KEY_iTouch: 269025120
-            KEY_iacute: 237
-            KEY_ibelowdot: 16785099
-            KEY_ibreve: 16777517
-            KEY_icircumflex: 238
-            KEY_identical: 2255
-            KEY_idiaeresis: 239
-            KEY_idotless: 697
-            KEY_ifonlyif: 2253
-            KEY_igrave: 236
-            KEY_ihook: 16785097
-            KEY_imacron: 1007
-            KEY_implies: 2254
-            KEY_includedin: 2266
-            KEY_includes: 2267
-            KEY_infinity: 2242
-            KEY_integral: 2239
-            KEY_intersection: 2268
-            KEY_iogonek: 999
-            KEY_itilde: 949
-            KEY_j: 106
-            KEY_jcircumflex: 700
-            KEY_jot: 3018
-            KEY_k: 107
-            KEY_kana_A: 1201
-            KEY_kana_CHI: 1217
-            KEY_kana_E: 1204
-            KEY_kana_FU: 1228
-            KEY_kana_HA: 1226
-            KEY_kana_HE: 1229
-            KEY_kana_HI: 1227
-            KEY_kana_HO: 1230
-            KEY_kana_HU: 1228
-            KEY_kana_I: 1202
-            KEY_kana_KA: 1206
-            KEY_kana_KE: 1209
-            KEY_kana_KI: 1207
-            KEY_kana_KO: 1210
-            KEY_kana_KU: 1208
-            KEY_kana_MA: 1231
-            KEY_kana_ME: 1234
-            KEY_kana_MI: 1232
-            KEY_kana_MO: 1235
-            KEY_kana_MU: 1233
-            KEY_kana_N: 1245
-            KEY_kana_NA: 1221
-            KEY_kana_NE: 1224
-            KEY_kana_NI: 1222
-            KEY_kana_NO: 1225
-            KEY_kana_NU: 1223
-            KEY_kana_O: 1205
-            KEY_kana_RA: 1239
-            KEY_kana_RE: 1242
-            KEY_kana_RI: 1240
-            KEY_kana_RO: 1243
-            KEY_kana_RU: 1241
-            KEY_kana_SA: 1211
-            KEY_kana_SE: 1214
-            KEY_kana_SHI: 1212
-            KEY_kana_SO: 1215
-            KEY_kana_SU: 1213
-            KEY_kana_TA: 1216
-            KEY_kana_TE: 1219
-            KEY_kana_TI: 1217
-            KEY_kana_TO: 1220
-            KEY_kana_TSU: 1218
-            KEY_kana_TU: 1218
-            KEY_kana_U: 1203
-            KEY_kana_WA: 1244
-            KEY_kana_WO: 1190
-            KEY_kana_YA: 1236
-            KEY_kana_YO: 1238
-            KEY_kana_YU: 1237
-            KEY_kana_a: 1191
-            KEY_kana_closingbracket: 1187
-            KEY_kana_comma: 1188
-            KEY_kana_conjunctive: 1189
-            KEY_kana_e: 1194
-            KEY_kana_fullstop: 1185
-            KEY_kana_i: 1192
-            KEY_kana_middledot: 1189
-            KEY_kana_o: 1195
-            KEY_kana_openingbracket: 1186
-            KEY_kana_switch: 65406
-            KEY_kana_tsu: 1199
-            KEY_kana_tu: 1199
-            KEY_kana_u: 1193
-            KEY_kana_ya: 1196
-            KEY_kana_yo: 1198
-            KEY_kana_yu: 1197
-            KEY_kappa: 930
-            KEY_kcedilla: 1011
-            KEY_kra: 930
-            KEY_l: 108
-            KEY_lacute: 485
-            KEY_latincross: 2777
-            KEY_lbelowdot: 16784951
-            KEY_lcaron: 437
-            KEY_lcedilla: 950
-            KEY_leftanglebracket: 2748
-            KEY_leftarrow: 2299
-            KEY_leftcaret: 2979
-            KEY_leftdoublequotemark: 2770
-            KEY_leftmiddlecurlybrace: 2223
-            KEY_leftopentriangle: 2764
-            KEY_leftpointer: 2794
-            KEY_leftradical: 2209
-            KEY_leftshoe: 3034
-            KEY_leftsinglequotemark: 2768
-            KEY_leftt: 2548
-            KEY_lefttack: 3036
-            KEY_less: 60
-            KEY_lessthanequal: 2236
-            KEY_lf: 2533
-            KEY_logicaland: 2270
-            KEY_logicalor: 2271
-            KEY_lowleftcorner: 2541
-            KEY_lowrightcorner: 2538
-            KEY_lstroke: 435
-            KEY_m: 109
-            KEY_mabovedot: 16784961
-            KEY_macron: 175
-            KEY_malesymbol: 2807
-            KEY_maltesecross: 2800
-            KEY_marker: 2751
-            KEY_masculine: 186
-            KEY_minus: 45
-            KEY_minutes: 2774
-            KEY_mu: 181
-            KEY_multiply: 215
-            KEY_musicalflat: 2806
-            KEY_musicalsharp: 2805
-            KEY_n: 110
-            KEY_nabla: 2245
-            KEY_nacute: 497
-            KEY_ncaron: 498
-            KEY_ncedilla: 1009
-            KEY_ninesubscript: 16785545
-            KEY_ninesuperior: 16785529
-            KEY_nl: 2536
-            KEY_nobreakspace: 160
-            KEY_notapproxeq: 16785991
-            KEY_notelementof: 16785929
-            KEY_notequal: 2237
-            KEY_notidentical: 16786018
-            KEY_notsign: 172
-            KEY_ntilde: 241
-            KEY_numbersign: 35
-            KEY_numerosign: 1712
-            KEY_o: 111
-            KEY_oacute: 243
-            KEY_obarred: 16777845
-            KEY_obelowdot: 16785101
-            KEY_ocaron: 16777682
-            KEY_ocircumflex: 244
-            KEY_ocircumflexacute: 16785105
-            KEY_ocircumflexbelowdot: 16785113
-            KEY_ocircumflexgrave: 16785107
-            KEY_ocircumflexhook: 16785109
-            KEY_ocircumflextilde: 16785111
-            KEY_odiaeresis: 246
-            KEY_odoubleacute: 501
-            KEY_oe: 5053
-            KEY_ogonek: 434
-            KEY_ograve: 242
-            KEY_ohook: 16785103
-            KEY_ohorn: 16777633
-            KEY_ohornacute: 16785115
-            KEY_ohornbelowdot: 16785123
-            KEY_ohorngrave: 16785117
-            KEY_ohornhook: 16785119
-            KEY_ohorntilde: 16785121
-            KEY_omacron: 1010
-            KEY_oneeighth: 2755
-            KEY_onefifth: 2738
-            KEY_onehalf: 189
-            KEY_onequarter: 188
-            KEY_onesixth: 2742
-            KEY_onesubscript: 16785537
-            KEY_onesuperior: 185
-            KEY_onethird: 2736
-            KEY_ooblique: 248
-            KEY_openrectbullet: 2786
-            KEY_openstar: 2789
-            KEY_opentribulletdown: 2788
-            KEY_opentribulletup: 2787
-            KEY_ordfeminine: 170
-            KEY_ordmasculine: 186
-            KEY_oslash: 248
-            KEY_otilde: 245
-            KEY_overbar: 3008
-            KEY_overline: 1150
-            KEY_p: 112
-            KEY_pabovedot: 16784983
-            KEY_paragraph: 182
-            KEY_parenleft: 40
-            KEY_parenright: 41
-            KEY_partdifferential: 16785922
-            KEY_partialderivative: 2287
-            KEY_percent: 37
-            KEY_period: 46
-            KEY_periodcentered: 183
-            KEY_permille: 2773
-            KEY_phonographcopyright: 2811
-            KEY_plus: 43
-            KEY_plusminus: 177
-            KEY_prescription: 2772
-            KEY_prolongedsound: 1200
-            KEY_punctspace: 2726
-            KEY_q: 113
-            KEY_quad: 3020
-            KEY_question: 63
-            KEY_questiondown: 191
-            KEY_quotedbl: 34
-            KEY_quoteleft: 96
-            KEY_quoteright: 39
-            KEY_r: 114
-            KEY_racute: 480
-            KEY_radical: 2262
-            KEY_rcaron: 504
-            KEY_rcedilla: 947
-            KEY_registered: 174
-            KEY_rightanglebracket: 2750
-            KEY_rightarrow: 2301
-            KEY_rightcaret: 2982
-            KEY_rightdoublequotemark: 2771
-            KEY_rightmiddlecurlybrace: 2224
-            KEY_rightmiddlesummation: 2231
-            KEY_rightopentriangle: 2765
-            KEY_rightpointer: 2795
-            KEY_rightshoe: 3032
-            KEY_rightsinglequotemark: 2769
-            KEY_rightt: 2549
-            KEY_righttack: 3068
-            KEY_s: 115
-            KEY_sabovedot: 16784993
-            KEY_sacute: 438
-            KEY_scaron: 441
-            KEY_scedilla: 442
-            KEY_schwa: 16777817
-            KEY_scircumflex: 766
-            KEY_script_switch: 65406
-            KEY_seconds: 2775
-            KEY_section: 167
-            KEY_semicolon: 59
-            KEY_semivoicedsound: 1247
-            KEY_seveneighths: 2758
-            KEY_sevensubscript: 16785543
-            KEY_sevensuperior: 16785527
-            KEY_signaturemark: 2762
-            KEY_signifblank: 2732
-            KEY_similarequal: 2249
-            KEY_singlelowquotemark: 2813
-            KEY_sixsubscript: 16785542
-            KEY_sixsuperior: 16785526
-            KEY_slash: 47
-            KEY_soliddiamond: 2528
-            KEY_space: 32
-            KEY_squareroot: 16785946
-            KEY_ssharp: 223
-            KEY_sterling: 163
-            KEY_stricteq: 16786019
-            KEY_t: 116
-            KEY_tabovedot: 16785003
-            KEY_tcaron: 443
-            KEY_tcedilla: 510
-            KEY_telephone: 2809
-            KEY_telephonerecorder: 2810
-            KEY_therefore: 2240
-            KEY_thinspace: 2727
-            KEY_thorn: 254
-            KEY_threeeighths: 2756
-            KEY_threefifths: 2740
-            KEY_threequarters: 190
-            KEY_threesubscript: 16785539
-            KEY_threesuperior: 179
-            KEY_tintegral: 16785965
-            KEY_topintegral: 2212
-            KEY_topleftparens: 2219
-            KEY_topleftradical: 2210
-            KEY_topleftsqbracket: 2215
-            KEY_topleftsummation: 2225
-            KEY_toprightparens: 2221
-            KEY_toprightsqbracket: 2217
-            KEY_toprightsummation: 2229
-            KEY_topt: 2551
-            KEY_topvertsummationconnector: 2227
-            KEY_trademark: 2761
-            KEY_trademarkincircle: 2763
-            KEY_tslash: 956
-            KEY_twofifths: 2739
-            KEY_twosubscript: 16785538
-            KEY_twosuperior: 178
-            KEY_twothirds: 2737
-            KEY_u: 117
-            KEY_uacute: 250
-            KEY_ubelowdot: 16785125
-            KEY_ubreve: 765
-            KEY_ucircumflex: 251
-            KEY_udiaeresis: 252
-            KEY_udoubleacute: 507
-            KEY_ugrave: 249
-            KEY_uhook: 16785127
-            KEY_uhorn: 16777648
-            KEY_uhornacute: 16785129
-            KEY_uhornbelowdot: 16785137
-            KEY_uhorngrave: 16785131
-            KEY_uhornhook: 16785133
-            KEY_uhorntilde: 16785135
-            KEY_umacron: 1022
-            KEY_underbar: 3014
-            KEY_underscore: 95
-            KEY_union: 2269
-            KEY_uogonek: 1017
-            KEY_uparrow: 2300
-            KEY_upcaret: 2985
-            KEY_upleftcorner: 2540
-            KEY_uprightcorner: 2539
-            KEY_upshoe: 3011
-            KEY_upstile: 3027
-            KEY_uptack: 3022
-            KEY_uring: 505
-            KEY_utilde: 1021
-            KEY_v: 118
-            KEY_variation: 2241
-            KEY_vertbar: 2552
-            KEY_vertconnector: 2214
-            KEY_voicedsound: 1246
-            KEY_vt: 2537
-            KEY_w: 119
-            KEY_wacute: 16785027
-            KEY_wcircumflex: 16777589
-            KEY_wdiaeresis: 16785029
-            KEY_wgrave: 16785025
-            KEY_x: 120
-            KEY_xabovedot: 16785035
-            KEY_y: 121
-            KEY_yacute: 253
-            KEY_ybelowdot: 16785141
-            KEY_ycircumflex: 16777591
-            KEY_ydiaeresis: 255
-            KEY_yen: 165
-            KEY_ygrave: 16785139
-            KEY_yhook: 16785143
-            KEY_ytilde: 16785145
-            KEY_z: 122
-            KEY_zabovedot: 447
-            KEY_zacute: 444
-            KEY_zcaron: 446
-            KEY_zerosubscript: 16785536
-            KEY_zerosuperior: 16785520
-            KEY_zstroke: 16777654
-            KP_0: 65456
-            KP_1: 65457
-            KP_2: 65458
-            KP_3: 65459
-            KP_4: 65460
-            KP_5: 65461
-            KP_6: 65462
-            KP_7: 65463
-            KP_8: 65464
-            KP_9: 65465
-            KP_Add: 65451
-            KP_Begin: 65437
-            KP_Decimal: 65454
-            KP_Delete: 65439
-            KP_Divide: 65455
-            KP_Down: 65433
-            KP_End: 65436
-            KP_Enter: 65421
-            KP_Equal: 65469
-            KP_F1: 65425
-            KP_F2: 65426
-            KP_F3: 65427
-            KP_F4: 65428
-            KP_Home: 65429
-            KP_Insert: 65438
-            KP_Left: 65430
-            KP_Multiply: 65450
-            KP_Next: 65435
-            KP_Page_Down: 65435
-            KP_Page_Up: 65434
-            KP_Prior: 65434
-            KP_Right: 65432
-            KP_Separator: 65452
-            KP_Space: 65408
-            KP_Subtract: 65453
-            KP_Tab: 65417
-            KP_Up: 65431
-            Kana_Lock: 65325
-            Kana_Shift: 65326
-            Kanji: 65313
-            Kanji_Bangou: 65335
-            Katakana: 65318
-            Kcedilla: 979
-            Korean_Won: 3839
-            L: 76
-            L1: 65480
-            L10: 65489
-            L2: 65481
-            L3: 65482
-            L4: 65483
-            L5: 65484
-            L6: 65485
-            L7: 65486
-            L8: 65487
-            L9: 65488
-            Lacute: 453
-            Last_Virtual_Screen: 65236
-            Lbelowdot: 16784950
-            Lcaron: 421
-            Lcedilla: 934
-            Left: 65361
-            Linefeed: 65290
-            LiraSign: 16785572
-            Lstroke: 419
-            M: 77
-            MAJOR_VERSION: 1
-            MAX_COMPOSE_LEN: 255
-            MICRO_VERSION: 32
-            MINOR_VERSION: 5
-            MODIFIER_FILTER: 1124073709
-            Mabovedot: 16784960
-            Macedonia_DSE: 1717
-            Macedonia_GJE: 1714
-            Macedonia_KJE: 1724
-            Macedonia_dse: 1701
-            Macedonia_gje: 1698
-            Macedonia_kje: 1708
-            Mae_Koho: 65342
-            Massyo: 65324
-            Menu: 65383
-            Meta_L: 65511
-            Meta_R: 65512
-            MillSign: 16785573
-            Mode_switch: 65406
-            MouseKeys_Accel_Enable: 65143
-            MouseKeys_Enable: 65142
-            Muhenkan: 65314
-            Multi_key: 65312
-            MultipleCandidate: 65341
-            N: 78
-            Nacute: 465
-            NairaSign: 16785574
-            Ncaron: 466
-            Ncedilla: 977
-            NewSheqelSign: 16785578
-            Next: 65366
-            Next_Virtual_Screen: 65234
-            Ntilde: 209
-            Num_Lock: 65407
-            O: 79
-            OE: 5052
-            Oacute: 211
-            Obarred: 16777631
-            Obelowdot: 16785100
-            Ocaron: 16777681
-            Ocircumflex: 212
-            Ocircumflexacute: 16785104
-            Ocircumflexbelowdot: 16785112
-            Ocircumflexgrave: 16785106
-            Ocircumflexhook: 16785108
-            Ocircumflextilde: 16785110
-            Odiaeresis: 214
-            Odoubleacute: 469
-            Ograve: 210
-            Ohook: 16785102
-            Ohorn: 16777632
-            Ohornacute: 16785114
-            Ohornbelowdot: 16785122
-            Ohorngrave: 16785116
-            Ohornhook: 16785118
-            Ohorntilde: 16785120
-            Omacron: 978
-            Ooblique: 216
-            Oslash: 216
-            Otilde: 213
-            Overlay1_Enable: 65144
-            Overlay2_Enable: 65145
-            P: 80
-            PATH_CONFIG: "/org/freedesktop/IBus/Config"
-            PATH_FACTORY: "/org/freedesktop/IBus/Factory"
-            PATH_IBUS: "/org/freedesktop/IBus"
-            PATH_INPUT_CONTEXT: "/org/freedesktop/IBus/InputContext_%d"
-            PATH_NOTIFICATIONS: "/org/freedesktop/IBus/Notifications"
-            PATH_PANEL: "/org/freedesktop/IBus/Panel"
-            PATH_PANEL_EXTENSION_EMOJI: "/org/freedesktop/IBus/Panel/Extension/Emoji"
-            Pabovedot: 16784982
-            Page_Down: 65366
-            Page_Up: 65365
-            Pause: 65299
-            PesetaSign: 16785575
-            Pointer_Accelerate: 65274
-            Pointer_Button1: 65257
-            Pointer_Button2: 65258
-            Pointer_Button3: 65259
-            Pointer_Button4: 65260
-            Pointer_Button5: 65261
-            Pointer_Button_Dflt: 65256
-            Pointer_DblClick1: 65263
-            Pointer_DblClick2: 65264
-            Pointer_DblClick3: 65265
-            Pointer_DblClick4: 65266
-            Pointer_DblClick5: 65267
-            Pointer_DblClick_Dflt: 65262
-            Pointer_DfltBtnNext: 65275
-            Pointer_DfltBtnPrev: 65276
-            Pointer_Down: 65251
-            Pointer_DownLeft: 65254
-            Pointer_DownRight: 65255
-            Pointer_Drag1: 65269
-            Pointer_Drag2: 65270
-            Pointer_Drag3: 65271
-            Pointer_Drag4: 65272
-            Pointer_Drag5: 65277
-            Pointer_Drag_Dflt: 65268
-            Pointer_EnableKeys: 65273
-            Pointer_Left: 65248
-            Pointer_Right: 65249
-            Pointer_Up: 65250
-            Pointer_UpLeft: 65252
-            Pointer_UpRight: 65253
-            Prev_Virtual_Screen: 65233
-            PreviousCandidate: 65342
-            Print: 65377
-            Prior: 65365
-            Q: 81
-            R: 82
-            R1: 65490
-            R10: 65499
-            R11: 65500
-            R12: 65501
-            R13: 65502
-            R14: 65503
-            R15: 65504
-            R2: 65491
-            R3: 65492
-            R4: 65493
-            R5: 65494
-            R6: 65495
-            R7: 65496
-            R8: 65497
-            R9: 65498
-            Racute: 448
-            Rcaron: 472
-            Rcedilla: 931
-            Redo: 65382
-            RepeatKeys_Enable: 65138
-            Return: 65293
-            Right: 65363
-            Romaji: 65316
-            RupeeSign: 16785576
-            S: 83
-            SCHWA: 16777615
-            SERVICE_CONFIG: "org.freedesktop.IBus.Config"
-            SERVICE_IBUS: "org.freedesktop.IBus"
-            SERVICE_NOTIFICATIONS: "org.freedesktop.IBus.Notifications"
-            SERVICE_PANEL: "org.freedesktop.IBus.Panel"
-            SERVICE_PANEL_EXTENSION: "org.freedesktop.IBus.Panel.Extension"
-            SERVICE_PANEL_EXTENSION_EMOJI: "org.freedesktop.IBus.Panel.Extension.Emoji"
-            SERVICE_PORTAL: "org.freedesktop.portal.IBus"
-            Sabovedot: 16784992
-            Sacute: 422
-            Scaron: 425
-            Scedilla: 426
-            Scircumflex: 734
-            Scroll_Lock: 65300
-            Select: 65376
-            Serbian_DJE: 1713
-            Serbian_DZE: 1727
-            Serbian_JE: 1720
-            Serbian_LJE: 1721
-            Serbian_NJE: 1722
-            Serbian_TSHE: 1723
-            Serbian_dje: 1697
-            Serbian_dze: 1711
-            Serbian_je: 1704
-            Serbian_lje: 1705
-            Serbian_nje: 1706
-            Serbian_tshe: 1707
-            Shift_L: 65505
-            Shift_Lock: 65510
-            Shift_R: 65506
-            SingleCandidate: 65340
-            SlowKeys_Enable: 65139
-            StickyKeys_Enable: 65141
-            Super_L: 65515
-            Super_R: 65516
-            Sys_Req: 65301
-            T: 84
-            THORN: 222
-            Tab: 65289
-            Tabovedot: 16785002
-            Tcaron: 427
-            Tcedilla: 478
-            Terminate_Server: 65237
-            Thai_baht: 3551
-            Thai_bobaimai: 3514
-            Thai_chochan: 3496
-            Thai_chochang: 3498
-            Thai_choching: 3497
-            Thai_chochoe: 3500
-            Thai_dochada: 3502
-            Thai_dodek: 3508
-            Thai_fofa: 3517
-            Thai_fofan: 3519
-            Thai_hohip: 3531
-            Thai_honokhuk: 3534
-            Thai_khokhai: 3490
-            Thai_khokhon: 3493
-            Thai_khokhuat: 3491
-            Thai_khokhwai: 3492
-            Thai_khorakhang: 3494
-            Thai_kokai: 3489
-            Thai_lakkhangyao: 3557
-            Thai_lekchet: 3575
-            Thai_lekha: 3573
-            Thai_lekhok: 3574
-            Thai_lekkao: 3577
-            Thai_leknung: 3569
-            Thai_lekpaet: 3576
-            Thai_leksam: 3571
-            Thai_leksi: 3572
-            Thai_leksong: 3570
-            Thai_leksun: 3568
-            Thai_lochula: 3532
-            Thai_loling: 3525
-            Thai_lu: 3526
-            Thai_maichattawa: 3563
-            Thai_maiek: 3560
-            Thai_maihanakat: 3537
-            Thai_maihanakat_maitho: 3550
-            Thai_maitaikhu: 3559
-            Thai_maitho: 3561
-            Thai_maitri: 3562
-            Thai_maiyamok: 3558
-            Thai_moma: 3521
-            Thai_ngongu: 3495
-            Thai_nikhahit: 3565
-            Thai_nonen: 3507
-            Thai_nonu: 3513
-            Thai_oang: 3533
-            Thai_paiyannoi: 3535
-            Thai_phinthu: 3546
-            Thai_phophan: 3518
-            Thai_phophung: 3516
-            Thai_phosamphao: 3520
-            Thai_popla: 3515
-            Thai_rorua: 3523
-            Thai_ru: 3524
-            Thai_saraa: 3536
-            Thai_saraaa: 3538
-            Thai_saraae: 3553
-            Thai_saraaimaimalai: 3556
-            Thai_saraaimaimuan: 3555
-            Thai_saraam: 3539
-            Thai_sarae: 3552
-            Thai_sarai: 3540
-            Thai_saraii: 3541
-            Thai_sarao: 3554
-            Thai_sarau: 3544
-            Thai_saraue: 3542
-            Thai_sarauee: 3543
-            Thai_sarauu: 3545
-            Thai_sorusi: 3529
-            Thai_sosala: 3528
-            Thai_soso: 3499
-            Thai_sosua: 3530
-            Thai_thanthakhat: 3564
-            Thai_thonangmontho: 3505
-            Thai_thophuthao: 3506
-            Thai_thothahan: 3511
-            Thai_thothan: 3504
-            Thai_thothong: 3512
-            Thai_thothung: 3510
-            Thai_topatak: 3503
-            Thai_totao: 3509
-            Thai_wowaen: 3527
-            Thai_yoyak: 3522
-            Thai_yoying: 3501
-            Thorn: 222
-            Touroku: 65323
-            Tslash: 940
-            U: 85
-            Uacute: 218
-            Ubelowdot: 16785124
-            Ubreve: 733
-            Ucircumflex: 219
-            Udiaeresis: 220
-            Udoubleacute: 475
-            Ugrave: 217
-            Uhook: 16785126
-            Uhorn: 16777647
-            Uhornacute: 16785128
-            Uhornbelowdot: 16785136
-            Uhorngrave: 16785130
-            Uhornhook: 16785132
-            Uhorntilde: 16785134
-            Ukrainian_GHE_WITH_UPTURN: 1725
-            Ukrainian_I: 1718
-            Ukrainian_IE: 1716
-            Ukrainian_YI: 1719
-            Ukrainian_ghe_with_upturn: 1709
-            Ukrainian_i: 1702
-            Ukrainian_ie: 1700
-            Ukrainian_yi: 1703
-            Ukranian_I: 1718
-            Ukranian_JE: 1716
-            Ukranian_YI: 1719
-            Ukranian_i: 1702
-            Ukranian_je: 1700
-            Ukranian_yi: 1703
-            Umacron: 990
-            Undo: 65381
-            Uogonek: 985
-            Up: 65362
-            Uring: 473
-            Utilde: 989
-            V: 86
-            VoidSymbol: 16777215
-            W: 87
-            Wacute: 16785026
-            Wcircumflex: 16777588
-            Wdiaeresis: 16785028
-            Wgrave: 16785024
-            WonSign: 16785577
-            X: 88
-            Xabovedot: 16785034
-            Y: 89
-            Yacute: 221
-            Ybelowdot: 16785140
-            Ycircumflex: 16777590
-            Ydiaeresis: 5054
-            Ygrave: 16785138
-            Yhook: 16785142
-            Ytilde: 16785144
-            Z: 90
-            Zabovedot: 431
-            Zacute: 428
-            Zcaron: 430
-            Zen_Koho: 65341
-            Zenkaku: 65320
-            Zenkaku_Hankaku: 65322
-            Zstroke: 16777653
-            a: 97
-            aacute: 225
-            abelowdot: 16785057
-            abovedot: 511
-            abreve: 483
-            abreveacute: 16785071
-            abrevebelowdot: 16785079
-            abrevegrave: 16785073
-            abrevehook: 16785075
-            abrevetilde: 16785077
-            acircumflex: 226
-            acircumflexacute: 16785061
-            acircumflexbelowdot: 16785069
-            acircumflexgrave: 16785063
-            acircumflexhook: 16785065
-            acircumflextilde: 16785067
-            acute: 180
-            adiaeresis: 228
-            ae: 230
-            agrave: 224
-            ahook: 16785059
-            amacron: 992
-            ampersand: 38
-            aogonek: 433
-            apostrophe: 39
-            approxeq: 16785992
-            approximate: 2248
-            aring: 229
-            asciicircum: 94
-            asciitilde: 126
-            asterisk: 42
-            at: 64
-            atilde: 227
-            b: 98
-            babovedot: 16784899
-            backslash: 92
-            ballotcross: 2804
-            bar: 124
-            because: 16785973
-            blank: 2527
-            botintegral: 2213
-            botleftparens: 2220
-            botleftsqbracket: 2216
-            botleftsummation: 2226
-            botrightparens: 2222
-            botrightsqbracket: 2218
-            botrightsummation: 2230
-            bott: 2550
-            botvertsummationconnector: 2228
-            braceleft: 123
-            braceright: 125
-            bracketleft: 91
-            bracketright: 93
-            braille_blank: 16787456
-            braille_dot_1: 65521
-            braille_dot_10: 65530
-            braille_dot_2: 65522
-            braille_dot_3: 65523
-            braille_dot_4: 65524
-            braille_dot_5: 65525
-            braille_dot_6: 65526
-            braille_dot_7: 65527
-            braille_dot_8: 65528
-            braille_dot_9: 65529
-            braille_dots_1: 16787457
-            braille_dots_12: 16787459
-            braille_dots_123: 16787463
-            braille_dots_1234: 16787471
-            braille_dots_12345: 16787487
-            braille_dots_123456: 16787519
-            braille_dots_1234567: 16787583
-            braille_dots_12345678: 16787711
-            braille_dots_1234568: 16787647
-            braille_dots_123457: 16787551
-            braille_dots_1234578: 16787679
-            braille_dots_123458: 16787615
-            braille_dots_12346: 16787503
-            braille_dots_123467: 16787567
-            braille_dots_1234678: 16787695
-            braille_dots_123468: 16787631
-            braille_dots_12347: 16787535
-            braille_dots_123478: 16787663
-            braille_dots_12348: 16787599
-            braille_dots_1235: 16787479
-            braille_dots_12356: 16787511
-            braille_dots_123567: 16787575
-            braille_dots_1235678: 16787703
-            braille_dots_123568: 16787639
-            braille_dots_12357: 16787543
-            braille_dots_123578: 16787671
-            braille_dots_12358: 16787607
-            braille_dots_1236: 16787495
-            braille_dots_12367: 16787559
-            braille_dots_123678: 16787687
-            braille_dots_12368: 16787623
-            braille_dots_1237: 16787527
-            braille_dots_12378: 16787655
-            braille_dots_1238: 16787591
-            braille_dots_124: 16787467
-            braille_dots_1245: 16787483
-            braille_dots_12456: 16787515
-            braille_dots_124567: 16787579
-            braille_dots_1245678: 16787707
-            braille_dots_124568: 16787643
-            braille_dots_12457: 16787547
-            braille_dots_124578: 16787675
-            braille_dots_12458: 16787611
-            braille_dots_1246: 16787499
-            braille_dots_12467: 16787563
-            braille_dots_124678: 16787691
-            braille_dots_12468: 16787627
-            braille_dots_1247: 16787531
-            braille_dots_12478: 16787659
-            braille_dots_1248: 16787595
-            braille_dots_125: 16787475
-            braille_dots_1256: 16787507
-            braille_dots_12567: 16787571
-            braille_dots_125678: 16787699
-            braille_dots_12568: 16787635
-            braille_dots_1257: 16787539
-            braille_dots_12578: 16787667
-            braille_dots_1258: 16787603
-            braille_dots_126: 16787491
-            braille_dots_1267: 16787555
-            braille_dots_12678: 16787683
-            braille_dots_1268: 16787619
-            braille_dots_127: 16787523
-            braille_dots_1278: 16787651
-            braille_dots_128: 16787587
-            braille_dots_13: 16787461
-            braille_dots_134: 16787469
-            braille_dots_1345: 16787485
-            braille_dots_13456: 16787517
-            braille_dots_134567: 16787581
-            braille_dots_1345678: 16787709
-            braille_dots_134568: 16787645
-            braille_dots_13457: 16787549
-            braille_dots_134578: 16787677
-            braille_dots_13458: 16787613
-            braille_dots_1346: 16787501
-            braille_dots_13467: 16787565
-            braille_dots_134678: 16787693
-            braille_dots_13468: 16787629
-            braille_dots_1347: 16787533
-            braille_dots_13478: 16787661
-            braille_dots_1348: 16787597
-            braille_dots_135: 16787477
-            braille_dots_1356: 16787509
-            braille_dots_13567: 16787573
-            braille_dots_135678: 16787701
-            braille_dots_13568: 16787637
-            braille_dots_1357: 16787541
-            braille_dots_13578: 16787669
-            braille_dots_1358: 16787605
-            braille_dots_136: 16787493
-            braille_dots_1367: 16787557
-            braille_dots_13678: 16787685
-            braille_dots_1368: 16787621
-            braille_dots_137: 16787525
-            braille_dots_1378: 16787653
-            braille_dots_138: 16787589
-            braille_dots_14: 16787465
-            braille_dots_145: 16787481
-            braille_dots_1456: 16787513
-            braille_dots_14567: 16787577
-            braille_dots_145678: 16787705
-            braille_dots_14568: 16787641
-            braille_dots_1457: 16787545
-            braille_dots_14578: 16787673
-            braille_dots_1458: 16787609
-            braille_dots_146: 16787497
-            braille_dots_1467: 16787561
-            braille_dots_14678: 16787689
-            braille_dots_1468: 16787625
-            braille_dots_147: 16787529
-            braille_dots_1478: 16787657
-            braille_dots_148: 16787593
-            braille_dots_15: 16787473
-            braille_dots_156: 16787505
-            braille_dots_1567: 16787569
-            braille_dots_15678: 16787697
-            braille_dots_1568: 16787633
-            braille_dots_157: 16787537
-            braille_dots_1578: 16787665
-            braille_dots_158: 16787601
-            braille_dots_16: 16787489
-            braille_dots_167: 16787553
-            braille_dots_1678: 16787681
-            braille_dots_168: 16787617
-            braille_dots_17: 16787521
-            braille_dots_178: 16787649
-            braille_dots_18: 16787585
-            braille_dots_2: 16787458
-            braille_dots_23: 16787462
-            braille_dots_234: 16787470
-            braille_dots_2345: 16787486
-            braille_dots_23456: 16787518
-            braille_dots_234567: 16787582
-            braille_dots_2345678: 16787710
-            braille_dots_234568: 16787646
-            braille_dots_23457: 16787550
-            braille_dots_234578: 16787678
-            braille_dots_23458: 16787614
-            braille_dots_2346: 16787502
-            braille_dots_23467: 16787566
-            braille_dots_234678: 16787694
-            braille_dots_23468: 16787630
-            braille_dots_2347: 16787534
-            braille_dots_23478: 16787662
-            braille_dots_2348: 16787598
-            braille_dots_235: 16787478
-            braille_dots_2356: 16787510
-            braille_dots_23567: 16787574
-            braille_dots_235678: 16787702
-            braille_dots_23568: 16787638
-            braille_dots_2357: 16787542
-            braille_dots_23578: 16787670
-            braille_dots_2358: 16787606
-            braille_dots_236: 16787494
-            braille_dots_2367: 16787558
-            braille_dots_23678: 16787686
-            braille_dots_2368: 16787622
-            braille_dots_237: 16787526
-            braille_dots_2378: 16787654
-            braille_dots_238: 16787590
-            braille_dots_24: 16787466
-            braille_dots_245: 16787482
-            braille_dots_2456: 16787514
-            braille_dots_24567: 16787578
-            braille_dots_245678: 16787706
-            braille_dots_24568: 16787642
-            braille_dots_2457: 16787546
-            braille_dots_24578: 16787674
-            braille_dots_2458: 16787610
-            braille_dots_246: 16787498
-            braille_dots_2467: 16787562
-            braille_dots_24678: 16787690
-            braille_dots_2468: 16787626
-            braille_dots_247: 16787530
-            braille_dots_2478: 16787658
-            braille_dots_248: 16787594
-            braille_dots_25: 16787474
-            braille_dots_256: 16787506
-            braille_dots_2567: 16787570
-            braille_dots_25678: 16787698
-            braille_dots_2568: 16787634
-            braille_dots_257: 16787538
-            braille_dots_2578: 16787666
-            braille_dots_258: 16787602
-            braille_dots_26: 16787490
-            braille_dots_267: 16787554
-            braille_dots_2678: 16787682
-            braille_dots_268: 16787618
-            braille_dots_27: 16787522
-            braille_dots_278: 16787650
-            braille_dots_28: 16787586
-            braille_dots_3: 16787460
-            braille_dots_34: 16787468
-            braille_dots_345: 16787484
-            braille_dots_3456: 16787516
-            braille_dots_34567: 16787580
-            braille_dots_345678: 16787708
-            braille_dots_34568: 16787644
-            braille_dots_3457: 16787548
-            braille_dots_34578: 16787676
-            braille_dots_3458: 16787612
-            braille_dots_346: 16787500
-            braille_dots_3467: 16787564
-            braille_dots_34678: 16787692
-            braille_dots_3468: 16787628
-            braille_dots_347: 16787532
-            braille_dots_3478: 16787660
-            braille_dots_348: 16787596
-            braille_dots_35: 16787476
-            braille_dots_356: 16787508
-            braille_dots_3567: 16787572
-            braille_dots_35678: 16787700
-            braille_dots_3568: 16787636
-            braille_dots_357: 16787540
-            braille_dots_3578: 16787668
-            braille_dots_358: 16787604
-            braille_dots_36: 16787492
-            braille_dots_367: 16787556
-            braille_dots_3678: 16787684
-            braille_dots_368: 16787620
-            braille_dots_37: 16787524
-            braille_dots_378: 16787652
-            braille_dots_38: 16787588
-            braille_dots_4: 16787464
-            braille_dots_45: 16787480
-            braille_dots_456: 16787512
-            braille_dots_4567: 16787576
-            braille_dots_45678: 16787704
-            braille_dots_4568: 16787640
-            braille_dots_457: 16787544
-            braille_dots_4578: 16787672
-            braille_dots_458: 16787608
-            braille_dots_46: 16787496
-            braille_dots_467: 16787560
-            braille_dots_4678: 16787688
-            braille_dots_468: 16787624
-            braille_dots_47: 16787528
-            braille_dots_478: 16787656
-            braille_dots_48: 16787592
-            braille_dots_5: 16787472
-            braille_dots_56: 16787504
-            braille_dots_567: 16787568
-            braille_dots_5678: 16787696
-            braille_dots_568: 16787632
-            braille_dots_57: 16787536
-            braille_dots_578: 16787664
-            braille_dots_58: 16787600
-            braille_dots_6: 16787488
-            braille_dots_67: 16787552
-            braille_dots_678: 16787680
-            braille_dots_68: 16787616
-            braille_dots_7: 16787520
-            braille_dots_78: 16787648
-            braille_dots_8: 16787584
-            breve: 418
-            brokenbar: 166
-            c: 99
-            cabovedot: 741
-            cacute: 486
-            careof: 2744
-            caret: 2812
-            caron: 439
-            ccaron: 488
-            ccedilla: 231
-            ccircumflex: 742
-            cedilla: 184
-            cent: 162
-            checkerboard: 2529
-            checkmark: 2803
-            circle: 3023
-            club: 2796
-            colon: 58
-            comma: 44
-            containsas: 16785931
-            copyright: 169
-            cr: 2532
-            crossinglines: 2542
-            cuberoot: 16785947
-            currency: 164
-            cursor: 2815
-            d: 100
-            dabovedot: 16784907
-            dagger: 2801
-            dcaron: 495
-            dead_abovecomma: 65124
-            dead_abovedot: 65110
-            dead_abovereversedcomma: 65125
-            dead_abovering: 65112
-            dead_acute: 65105
-            dead_belowbreve: 65131
-            dead_belowcircumflex: 65129
-            dead_belowdiaeresis: 65132
-            dead_belowdot: 65120
-            dead_belowmacron: 65128
-            dead_belowring: 65127
-            dead_belowtilde: 65130
-            dead_breve: 65109
-            dead_caron: 65114
-            dead_cedilla: 65115
-            dead_circumflex: 65106
-            dead_dasia: 65125
-            dead_diaeresis: 65111
-            dead_doubleacute: 65113
-            dead_grave: 65104
-            dead_hook: 65121
-            dead_horn: 65122
-            dead_iota: 65117
-            dead_macron: 65108
-            dead_ogonek: 65116
-            dead_perispomeni: 65107
-            dead_psili: 65124
-            dead_semivoiced_sound: 65119
-            dead_stroke: 65123
-            dead_tilde: 65107
-            dead_voiced_sound: 65118
-            decimalpoint: 2749
-            degree: 176
-            diaeresis: 168
-            diamond: 2797
-            digitspace: 2725
-            dintegral: 16785964
-            division: 247
-            dollar: 36
-            doubbaselinedot: 2735
-            doubleacute: 445
-            doubledagger: 2802
-            doublelowquotemark: 2814
-            downarrow: 2302
-            downcaret: 2984
-            downshoe: 3030
-            downstile: 3012
-            downtack: 3010
-            dstroke: 496
-            e: 101
-            eabovedot: 1004
-            eacute: 233
-            ebelowdot: 16785081
-            ecaron: 492
-            ecircumflex: 234
-            ecircumflexacute: 16785087
-            ecircumflexbelowdot: 16785095
-            ecircumflexgrave: 16785089
-            ecircumflexhook: 16785091
-            ecircumflextilde: 16785093
-            ediaeresis: 235
-            egrave: 232
-            ehook: 16785083
-            eightsubscript: 16785544
-            eightsuperior: 16785528
-            elementof: 16785928
-            ellipsis: 2734
-            em3space: 2723
-            em4space: 2724
-            emacron: 954
-            emdash: 2729
-            emfilledcircle: 2782
-            emfilledrect: 2783
-            emopencircle: 2766
-            emopenrectangle: 2767
-            emptyset: 16785925
-            emspace: 2721
-            endash: 2730
-            enfilledcircbullet: 2790
-            enfilledsqbullet: 2791
-            eng: 959
-            enopencircbullet: 2784
-            enopensquarebullet: 2785
-            enspace: 2722
-            eogonek: 490
-            equal: 61
-            eth: 240
-            etilde: 16785085
-            exclam: 33
-            exclamdown: 161
-            f: 102
-            fabovedot: 16784927
-            femalesymbol: 2808
-            ff: 2531
-            figdash: 2747
-            filledlefttribullet: 2780
-            filledrectbullet: 2779
-            filledrighttribullet: 2781
-            filledtribulletdown: 2793
-            filledtribulletup: 2792
-            fiveeighths: 2757
-            fivesixths: 2743
-            fivesubscript: 16785541
-            fivesuperior: 16785525
-            fourfifths: 2741
-            foursubscript: 16785540
-            foursuperior: 16785524
-            fourthroot: 16785948
-            function: 2294
-            g: 103
-            gabovedot: 757
-            gbreve: 699
-            gcaron: 16777703
-            gcedilla: 955
-            gcircumflex: 760
-            grave: 96
-            greater: 62
-            greaterthanequal: 2238
-            guillemotleft: 171
-            guillemotright: 187
-            h: 104
-            hairspace: 2728
-            hcircumflex: 694
-            heart: 2798
-            hebrew_aleph: 3296
-            hebrew_ayin: 3314
-            hebrew_bet: 3297
-            hebrew_beth: 3297
-            hebrew_chet: 3303
-            hebrew_dalet: 3299
-            hebrew_daleth: 3299
-            hebrew_doublelowline: 3295
-            hebrew_finalkaph: 3306
-            hebrew_finalmem: 3309
-            hebrew_finalnun: 3311
-            hebrew_finalpe: 3315
-            hebrew_finalzade: 3317
-            hebrew_finalzadi: 3317
-            hebrew_gimel: 3298
-            hebrew_gimmel: 3298
-            hebrew_he: 3300
-            hebrew_het: 3303
-            hebrew_kaph: 3307
-            hebrew_kuf: 3319
-            hebrew_lamed: 3308
-            hebrew_mem: 3310
-            hebrew_nun: 3312
-            hebrew_pe: 3316
-            hebrew_qoph: 3319
-            hebrew_resh: 3320
-            hebrew_samech: 3313
-            hebrew_samekh: 3313
-            hebrew_shin: 3321
-            hebrew_taf: 3322
-            hebrew_taw: 3322
-            hebrew_tet: 3304
-            hebrew_teth: 3304
-            hebrew_waw: 3301
-            hebrew_yod: 3305
-            hebrew_zade: 3318
-            hebrew_zadi: 3318
-            hebrew_zain: 3302
-            hebrew_zayin: 3302
-            hexagram: 2778
-            horizconnector: 2211
-            horizlinescan1: 2543
-            horizlinescan3: 2544
-            horizlinescan5: 2545
-            horizlinescan7: 2546
-            horizlinescan9: 2547
-            hstroke: 689
-            ht: 2530
-            hyphen: 173
-            i: 105
-            iacute: 237
-            ibelowdot: 16785099
-            ibreve: 16777517
-            icircumflex: 238
-            identical: 2255
-            idiaeresis: 239
-            idotless: 697
-            ifonlyif: 2253
-            igrave: 236
-            ihook: 16785097
-            imacron: 1007
-            implies: 2254
-            includedin: 2266
-            includes: 2267
-            infinity: 2242
-            integral: 2239
-            intersection: 2268
-            iogonek: 999
-            itilde: 949
-            j: 106
-            jcircumflex: 700
-            jot: 3018
-            k: 107
-            kana_A: 1201
-            kana_CHI: 1217
-            kana_E: 1204
-            kana_FU: 1228
-            kana_HA: 1226
-            kana_HE: 1229
-            kana_HI: 1227
-            kana_HO: 1230
-            kana_HU: 1228
-            kana_I: 1202
-            kana_KA: 1206
-            kana_KE: 1209
-            kana_KI: 1207
-            kana_KO: 1210
-            kana_KU: 1208
-            kana_MA: 1231
-            kana_ME: 1234
-            kana_MI: 1232
-            kana_MO: 1235
-            kana_MU: 1233
-            kana_N: 1245
-            kana_NA: 1221
-            kana_NE: 1224
-            kana_NI: 1222
-            kana_NO: 1225
-            kana_NU: 1223
-            kana_O: 1205
-            kana_RA: 1239
-            kana_RE: 1242
-            kana_RI: 1240
-            kana_RO: 1243
-            kana_RU: 1241
-            kana_SA: 1211
-            kana_SE: 1214
-            kana_SHI: 1212
-            kana_SO: 1215
-            kana_SU: 1213
-            kana_TA: 1216
-            kana_TE: 1219
-            kana_TI: 1217
-            kana_TO: 1220
-            kana_TSU: 1218
-            kana_TU: 1218
-            kana_U: 1203
-            kana_WA: 1244
-            kana_WO: 1190
-            kana_YA: 1236
-            kana_YO: 1238
-            kana_YU: 1237
-            kana_a: 1191
-            kana_closingbracket: 1187
-            kana_comma: 1188
-            kana_conjunctive: 1189
-            kana_e: 1194
-            kana_fullstop: 1185
-            kana_i: 1192
-            kana_middledot: 1189
-            kana_o: 1195
-            kana_openingbracket: 1186
-            kana_switch: 65406
-            kana_tsu: 1199
-            kana_tu: 1199
-            kana_u: 1193
-            kana_ya: 1196
-            kana_yo: 1198
-            kana_yu: 1197
-            kappa: 930
-            kcedilla: 1011
-            kra: 930
-            l: 108
-            lacute: 485
-            latincross: 2777
-            lbelowdot: 16784951
-            lcaron: 437
-            lcedilla: 950
-            leftanglebracket: 2748
-            leftarrow: 2299
-            leftcaret: 2979
-            leftdoublequotemark: 2770
-            leftmiddlecurlybrace: 2223
-            leftopentriangle: 2764
-            leftpointer: 2794
-            leftradical: 2209
-            leftshoe: 3034
-            leftsinglequotemark: 2768
-            leftt: 2548
-            lefttack: 3036
-            less: 60
-            lessthanequal: 2236
-            lf: 2533
-            logicaland: 2270
-            logicalor: 2271
-            lowleftcorner: 2541
-            lowrightcorner: 2538
-            lstroke: 435
-            m: 109
-            mabovedot: 16784961
-            macron: 175
-            malesymbol: 2807
-            maltesecross: 2800
-            marker: 2751
-            masculine: 186
-            minus: 45
-            minutes: 2774
-            mu: 181
-            multiply: 215
-            musicalflat: 2806
-            musicalsharp: 2805
-            n: 110
-            nabla: 2245
-            nacute: 497
-            ncaron: 498
-            ncedilla: 1009
-            ninesubscript: 16785545
-            ninesuperior: 16785529
-            nl: 2536
-            nobreakspace: 160
-            notapproxeq: 16785991
-            notelementof: 16785929
-            notequal: 2237
-            notidentical: 16786018
-            notsign: 172
-            ntilde: 241
-            numbersign: 35
-            numerosign: 1712
-            o: 111
-            oacute: 243
-            obarred: 16777845
-            obelowdot: 16785101
-            ocaron: 16777682
-            ocircumflex: 244
-            ocircumflexacute: 16785105
-            ocircumflexbelowdot: 16785113
-            ocircumflexgrave: 16785107
-            ocircumflexhook: 16785109
-            ocircumflextilde: 16785111
-            odiaeresis: 246
-            odoubleacute: 501
-            oe: 5053
-            ogonek: 434
-            ograve: 242
-            ohook: 16785103
-            ohorn: 16777633
-            ohornacute: 16785115
-            ohornbelowdot: 16785123
-            ohorngrave: 16785117
-            ohornhook: 16785119
-            ohorntilde: 16785121
-            omacron: 1010
-            oneeighth: 2755
-            onefifth: 2738
-            onehalf: 189
-            onequarter: 188
-            onesixth: 2742
-            onesubscript: 16785537
-            onesuperior: 185
-            onethird: 2736
-            ooblique: 248
-            openrectbullet: 2786
-            openstar: 2789
-            opentribulletdown: 2788
-            opentribulletup: 2787
-            ordfeminine: 170
-            oslash: 248
-            otilde: 245
-            overbar: 3008
-            overline: 1150
-            p: 112
-            pabovedot: 16784983
-            paragraph: 182
-            parenleft: 40
-            parenright: 41
-            partdifferential: 16785922
-            partialderivative: 2287
-            percent: 37
-            period: 46
-            periodcentered: 183
-            phonographcopyright: 2811
-            plus: 43
-            plusminus: 177
-            prescription: 2772
-            prolongedsound: 1200
-            punctspace: 2726
-            q: 113
-            quad: 3020
-            question: 63
-            questiondown: 191
-            quotedbl: 34
-            quoteleft: 96
-            quoteright: 39
-            r: 114
-            racute: 480
-            radical: 2262
-            rcaron: 504
-            rcedilla: 947
-            registered: 174
-            rightanglebracket: 2750
-            rightarrow: 2301
-            rightcaret: 2982
-            rightdoublequotemark: 2771
-            rightmiddlecurlybrace: 2224
-            rightmiddlesummation: 2231
-            rightopentriangle: 2765
-            rightpointer: 2795
-            rightshoe: 3032
-            rightsinglequotemark: 2769
-            rightt: 2549
-            righttack: 3068
-            s: 115
-            sabovedot: 16784993
-            sacute: 438
-            scaron: 441
-            scedilla: 442
-            schwa: 16777817
-            scircumflex: 766
-            script_switch: 65406
-            seconds: 2775
-            section: 167
-            semicolon: 59
-            semivoicedsound: 1247
-            seveneighths: 2758
-            sevensubscript: 16785543
-            sevensuperior: 16785527
-            signaturemark: 2762
-            signifblank: 2732
-            similarequal: 2249
-            singlelowquotemark: 2813
-            sixsubscript: 16785542
-            sixsuperior: 16785526
-            slash: 47
-            soliddiamond: 2528
-            space: 32
-            squareroot: 16785946
-            ssharp: 223
-            sterling: 163
-            stricteq: 16786019
-            t: 116
-            tabovedot: 16785003
-            tcaron: 443
-            tcedilla: 510
-            telephone: 2809
-            telephonerecorder: 2810
-            therefore: 2240
-            thinspace: 2727
-            thorn: 254
-            threeeighths: 2756
-            threefifths: 2740
-            threequarters: 190
-            threesubscript: 16785539
-            threesuperior: 179
-            tintegral: 16785965
-            topintegral: 2212
-            topleftparens: 2219
-            topleftradical: 2210
-            topleftsqbracket: 2215
-            topleftsummation: 2225
-            toprightparens: 2221
-            toprightsqbracket: 2217
-            toprightsummation: 2229
-            topt: 2551
-            topvertsummationconnector: 2227
-            trademark: 2761
-            trademarkincircle: 2763
-            tslash: 956
-            twofifths: 2739
-            twosubscript: 16785538
-            twosuperior: 178
-            twothirds: 2737
-            u: 117
-            uacute: 250
-            ubelowdot: 16785125
-            ubreve: 765
-            ucircumflex: 251
-            udiaeresis: 252
-            udoubleacute: 507
-            ugrave: 249
-            uhook: 16785127
-            uhorn: 16777648
-            uhornacute: 16785129
-            uhornbelowdot: 16785137
-            uhorngrave: 16785131
-            uhornhook: 16785133
-            uhorntilde: 16785135
-            umacron: 1022
-            underbar: 3014
-            underscore: 95
-            union: 2269
-            uogonek: 1017
-            uparrow: 2300
-            upcaret: 2985
-            upleftcorner: 2540
-            uprightcorner: 2539
-            upshoe: 3011
-            upstile: 3027
-            uptack: 3022
-            uring: 505
-            utilde: 1021
-            v: 118
-            variation: 2241
-            vertbar: 2552
-            vertconnector: 2214
-            voicedsound: 1246
-            vt: 2537
-            w: 119
-            wacute: 16785027
-            wcircumflex: 16777589
-            wdiaeresis: 16785029
-            wgrave: 16785025
-            x: 120
-            xabovedot: 16785035
-            y: 121
-            yacute: 253
-            ybelowdot: 16785141
-            ycircumflex: 16777591
-            ydiaeresis: 255
-            yen: 165
-            ygrave: 16785139
-            yhook: 16785143
-            ytilde: 16785145
-            z: 122
-            zabovedot: 447
-            zacute: 444
-            zcaron: 446
-            zerosubscript: 16785536
-            zerosuperior: 16785520
-            zstroke: 16777654
-            /**
-             * Converts an accelerator keyval and modifier mask into a string
-             * parseable by gtk_accelerator_parse(). For example, if you pass in
-             * #IBUS_KEY_q and #IBUS_CONTROL_MASK, this function returns “&lt;Control&gt;q”.
-             *
-             * If you need to display accelerators in the user interface,
-             * see gtk_accelerator_get_label().
-             * @param accelerator_key accelerator keyval
-             * @param accelerator_mods accelerator modifier mask
-             * @returns a newly-allocated accelerator name
-             */
-            accelerator_name(accelerator_key: number, accelerator_mods: ModifierType): string
-            /**
-             * Parses a string representing an accelerator. The format looks like
-             * “&lt;Control&gt;a” or “&lt;Shift&gt;&lt;Alt&gt;F1” or “&lt;Release%gt;z”
-             * (the last one is for key release).
-             *
-             * The parser is fairly liberal and allows lower or upper case, and also
-             * abbreviations such as “&lt;Ctl&gt;” and “&lt;Ctrl&gt;”. Key names are
-             * parsed using gdk_keyval_from_name(). For character keys the name is not the
-             * symbol, but the lowercase name, e.g. one would use “&lt;Ctrl&gt;minus”
-             * instead of “&lt;Ctrl&gt;-”.
-             *
-             * If the parse fails, @accelerator_key and @accelerator_mods will
-             * be set to 0 (zero).
-             * @since 1.5.18
-             * @param accelerator string representing an accelerator
-             * @returns , return location for accelerator     keyval, or %NULL, return location for accelerator     modifier mask, %NULL
-             */
-            accelerator_parse(accelerator: string): [number, ModifierType]
-            /**
-             * Determines whether a given keyval and modifier mask constitute
-             * a valid keyboard accelerator. For example, the #IBUS_KEY_a keyval
-             * plus #IBUS_CONTROL_MASK is valid - this is a “Ctrl+a” accelerator.
-             * But, you can't, for instance, use the #IBUS_KEY_Control_L keyval
-             * as an accelerator.
-             * @param keyval a GDK keyval
-             * @param modifiers modifier mask
-             * @returns %TRUE if the accelerator is valid
-             */
-            accelerator_valid(keyval: number, modifiers: ModifierType): boolean
-            /**
-             * Creates a new background #IBusAttribute.
-             * @param color Color in RGB.
-             * @param start_index Where attribute starts.
-             * @param end_index Where attribute ends.
-             * @returns A newly allocated #IBusAttribute.
-             */
-            attr_background_new(color: number, start_index: number, end_index: number): Attribute
-            /**
-             * Creates a new foreground #IBusAttribute.
-             * @param color Color in RGB.
-             * @param start_index Where attribute starts.
-             * @param end_index Where attribute ends.
-             * @returns A newly allocated #IBusAttribute.
-             */
-            attr_foreground_new(color: number, start_index: number, end_index: number): Attribute
-            /**
+
+            interface ServiceClass extends Omit<ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Service>
+                readonly prototype: Service
+
+                new (props?: Partial<GObject.ConstructorProps<Service>>): Service
+                /**
+                 * Creantes a new #IBusService.
+                 * @param connection A GDBusConnection.
+                 * @param path Object path.
+                 * @returns A newly allocated #IBusService
+                 */
+                "new"(connection: Gio.DBusConnection, path: string): Service
+                /**
+                 * Set the interface introspection information with the service class.
+                 * @param xml_data The introspection xml data.
+                 * @returns %TRUE if `xml_data` is valid and succeeded to be added;          %FALSE otherwise.
+                 */
+                add_interfaces(xml_data: string): boolean
+                /**
+                 * Free the first `depth` interfaces if `depth` is positive. Free the last
+                 * -@depth interfaces if `depth` is negative.
+                 * @param depth The number of D-Bus introspection interfaces.
+                 * @returns The actual freed number of the introspection interfaces if `depth` is not 0. If `depth` is 0, the total number of the introspection interfaces is returned but any interfaces are not freed.
+                 */
+                free_interfaces(depth: number): number
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusService is a base class for services.
+                 */
+                Service: ServiceClass
+            }
+            
+
+            namespace Text {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                }
+            }
+
+            interface Text extends Serializable {
+                readonly $signals: Text.SignalSignatures
+                readonly $readableProperties: Text.ReadableProperties
+                readonly $writableProperties: Text.WritableProperties
+                readonly $constructOnlyProperties: Text.ConstructOnlyProperties
+                /**
+                 * Append an IBusAttribute for IBusText.
+                 * @param type IBusAttributeType for `text`.
+                 * @param value Value for the type.
+                 * @param start_index The starting index, inclusive.
+                 * @param end_index The ending index, exclusive.
+                 */
+                append_attribute(type: number, value: number, start_index: number, end_index: number): void
+                /**
+                 * Return the attributes in an #IBusText. Should not be freed.
+                 * @returns the attrs in `text`.
+                 */
+                get_attributes(): AttrList
+                /**
+                 * Return number of characters in an #IBusText.
+                 * This function is based on g_utf8_strlen(), so unlike strlen(),
+                 * it does not count by bytes but characters instead.
+                 * @returns Number of character in `text`, not counted by bytes.
+                 */
+                get_length(): number
+                /**
+                 * Return the text in an #IBusText. Should not be freed.
+                 * @returns the text in `text`.
+                 */
+                get_text(): string
+                /**
+                 * @param attrs An IBusAttrList
+                 */
+                set_attributes(attrs: AttrList): void
+            }
+
+            interface TextClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<Text>
+                readonly prototype: Text
+
+                new (props?: Partial<GObject.ConstructorProps<Text>>): Text
+                /**
+                 * Creates a new #IBusText from a string.
+                 *  `str` will be duplicated in #IBusText, so feel free to free `str` after this
+                 * function.
+                 * @param str An text string to be set.
+                 * @returns A newly allocated #IBusText.
+                 */
+                new_from_string(str: string): Text
+                /**
+                 * Creates a new #IBusText from an UCS-4 encoded string.
+                 *  `str` will be duplicated in IBusText, so feel free to free `str` after this
+                 * function.
+                 * @param str An text string to be set.
+                 * @returns A newly allocated #IBusText.
+                 */
+                new_from_ucs4(str: string): Text
+                /**
+                 * Creates a new #IBusText from a single UCS4-encoded character.
+                 * @param c A single UCS4-encoded character.
+                 * @returns A newly allocated #IBusText.
+                 */
+                new_from_unichar(c: string): Text
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusText is the main text object in IBus.
+                 * The text is decorated according to associated IBusAttribute,
+                 * e.g. the foreground/background color, underline, and
+                 * applied scope.
+                 *
+                 * see_also: #IBusAttribute
+                 */
+                Text: TextClass
+            }
+            
+
+            namespace UnicodeBlock {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                    "end": number
+                    "name": string
+                    "start": number
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                    "name": string
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                    "end": number
+                    "start": number
+                }
+            }
+
+            interface UnicodeBlock extends Serializable {
+                readonly $signals: UnicodeBlock.SignalSignatures
+                readonly $readableProperties: UnicodeBlock.ReadableProperties
+                readonly $writableProperties: UnicodeBlock.WritableProperties
+                readonly $constructOnlyProperties: UnicodeBlock.ConstructOnlyProperties
+                /**
+                 * The Uniode end code point
+                 * @default 0
+                 */
+                get end(): number
+                set end(value: number)
+                /**
+                 * The Uniode block name
+                 */
+                get name(): string
+                set name(value: string)
+                /**
+                 * The Uniode start code point
+                 * @default 0
+                 */
+                get start(): number
+                set start(value: number)
+                /**
+                 * Gets the end code point in #IBusUnicodeBlock.
+                 * @returns end property in #IBusUnicodeBlock
+                 */
+                get_end(): string
+                /**
+                 * Gets the name in #IBusUnicodeBlock. It should not be freed.
+                 * @returns name property in #IBusUnicodeBlock
+                 */
+                get_name(): string
+                /**
+                 * Gets the start code point in #IBusUnicodeBlock.
+                 * @returns start property in #IBusUnicodeBlock
+                 */
+                get_start(): string
+            }
+
+            interface UnicodeBlockClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<UnicodeBlock>
+                readonly prototype: UnicodeBlock
+
+                new (props?: Partial<GObject.ConstructorProps<UnicodeBlock>>): UnicodeBlock
+                /**
+                 * @param path A path of the saved dictionary file.
+                 * @returns  An #IBusUnicodeBlock list loaded from the saved cache file.
+                 */
+                load(path: string): UnicodeBlock[]
+                /**
+                 * Save the list of #IBusUnicodeBlock to the cache file.
+                 * @param path A path of the saved Unicode block.
+                 * @param list A list of unicode  block.
+                 */
+                save(path: string, list: UnicodeBlock[]): void
+            }
+
+            interface $Exports {
+                /**
+                 */
+                UnicodeBlock: UnicodeBlockClass
+            }
+            
+
+            namespace UnicodeData {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                    "alias": string
+                    "block-name": string
+                    "code": number
+                    "name": string
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                    "alias": string
+                    "block-name": string
+                    "name": string
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                    "code": number
+                }
+            }
+
+            interface UnicodeData extends Serializable {
+                readonly $signals: UnicodeData.SignalSignatures
+                readonly $readableProperties: UnicodeData.ReadableProperties
+                readonly $writableProperties: UnicodeData.WritableProperties
+                readonly $constructOnlyProperties: UnicodeData.ConstructOnlyProperties
+                /**
+                 * The Uniode alias name
+                 */
+                get alias(): string
+                set alias(value: string)
+                /**
+                 * The Uniode block name
+                 */
+                get blockName(): string
+                set blockName(value: string)
+                /**
+                 * The Uniode code point
+                 * @default 0
+                 */
+                get code(): number
+                set code(value: number)
+                /**
+                 * The Uniode name
+                 */
+                get name(): string
+                set name(value: string)
+                /**
+                 * Gets the alias in #IBusUnicodeData. It should not be freed.
+                 * @returns alias property in #IBusUnicodeData
+                 */
+                get_alias(): string
+                /**
+                 * Gets the block name in #IBusUnicodeData. It should not be freed.
+                 * @returns block-name property in #IBusUnicodeData
+                 */
+                get_block_name(): string
+                /**
+                 * Gets the code point in #IBusUnicodeData.
+                 * @returns code property in #IBusUnicodeData
+                 */
+                get_code(): string
+                /**
+                 * Gets the name in #IBusUnicodeData. It should not be freed.
+                 * @returns name property in #IBusUnicodeData
+                 */
+                get_name(): string
+                /**
+                 * Sets the block name in #IBusUnicodeData.
+                 * @param block_name A block name
+                 */
+                set_block_name(block_name: string): void
+            }
+
+            interface UnicodeDataClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<UnicodeData>
+                readonly prototype: UnicodeData
+
+                new (props?: Partial<GObject.ConstructorProps<UnicodeData>>): UnicodeData
+                /**
+                 * @param path A path of the saved dictionary file.
+                 * @param object If the #GObject has "unicode-deserialize-progress"    signal, this function will emit (the number of desrialized    #IBusUnicodeData, * the total number of #IBusUnicodeData) of uint values    with that signal by 100 times. Otherwise %NULL.
+                 * @returns  An #IBusUnicodeData list loaded from the saved cache file.
+                 */
+                load(path: string, object: GObject.Object | null): UnicodeData[]
+                /**
+                 * IBusUnicodeDataLoadAsyncFinish can receive the list of #IBusUnicodeData.
+                 * @param path A path of the saved dictionary file.
+                 * @param object If the #GObject has "unicode-deserialize-progress"    signal, this function will emit (the number of desrialized    #IBusUnicodeData, * the total number of #IBusUnicodeData) of uint values    with that signal by 100 times. Otherwise %NULL.
+                 * @param cancellable cancellable.
+                 * @param callback IBusUnicodeDataLoadAsyncFinish.
+                 */
+                load_async(path: string, object: GObject.Object | null, cancellable: Gio.Cancellable | null, callback: UnicodeDataLoadAsyncFinish): void
+                /**
+                 * Save the list of #IBusUnicodeData to the cache file.
+                 * @param path A path of the saved Unicode data.
+                 * @param list A list of unicode  data.
+                 */
+                save(path: string, list: UnicodeData[]): void
+            }
+
+            interface $Exports {
+                /**
+                 * Unicode data likes code, name, alias, block-name.
+                 * You can get extended values with g_object_get_properties.
+                 */
+                UnicodeData: UnicodeDataClass
+            }
+            
+
+            namespace XEvent {
+                interface SignalSignatures extends Serializable.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Serializable.ReadableProperties {
+                    "event-type": number
+                    "group": number
+                    "hardware-keycode": number
+                    "is-modifier": boolean
+                    "keyval": number
+                    "length": number
+                    "purpose": string
+                    "root": number
+                    "same-screen": boolean
+                    "send-event": number
+                    "serial": number
+                    "state": number
+                    "string": string
+                    "subwindow": number
+                    "time": number
+                    "version": number
+                    "window": number
+                    "x": number
+                    "x-root": number
+                    "y": number
+                    "y-root": number
+                }
+
+                interface WritableProperties extends Serializable.WritableProperties {
+                    "version": number
+                }
+
+                interface ConstructOnlyProperties extends Serializable.ConstructOnlyProperties {
+                    "event-type": number
+                    "group": number
+                    "hardware-keycode": number
+                    "is-modifier": boolean
+                    "keyval": number
+                    "length": number
+                    "purpose": string
+                    "root": number
+                    "same-screen": boolean
+                    "send-event": number
+                    "serial": number
+                    "state": number
+                    "string": string
+                    "subwindow": number
+                    "time": number
+                    "window": number
+                    "x": number
+                    "x-root": number
+                    "y": number
+                    "y-root": number
+                }
+            }
+
+            interface XEvent extends Serializable {
+                readonly $signals: XEvent.SignalSignatures
+                readonly $readableProperties: XEvent.ReadableProperties
+                readonly $writableProperties: XEvent.WritableProperties
+                readonly $constructOnlyProperties: XEvent.ConstructOnlyProperties
+                /**
+                 * IBusXEventType of this IBusXEvent.
+                 * @default -1
+                 */
+                get eventType(): number
+                set eventType(value: number)
+                /**
+                 * group of this IBusXEvent.
+                 * @default 0
+                 */
+                get group(): number
+                set group(value: number)
+                /**
+                 * hardware keycode of this IBusXEvent.
+                 * @default 0
+                 */
+                get hardwareKeycode(): number
+                set hardwareKeycode(value: number)
+                /**
+                 * is_modifier of this IBusXEvent.
+                 * @default FALSE
+                 */
+                get isModifier(): boolean
+                set isModifier(value: boolean)
+                /**
+                 * keyval of this IBusXEvent.
+                 * @default 0
+                 */
+                get keyval(): number
+                set keyval(value: number)
+                /**
+                 * keyval of this IBusXEvent.
+                 * @default 0
+                 */
+                get length(): number
+                set length(value: number)
+                /**
+                 * purpose of this IBusXEvent.
+                 */
+                get purpose(): string
+                set purpose(value: string)
+                /**
+                 * root window of this IBusXEvent.
+                 * @default 0
+                 */
+                get root(): number
+                set root(value: number)
+                /**
+                 * same_screen of this IBusXEvent.
+                 * @default TRUE
+                 */
+                get sameScreen(): boolean
+                set sameScreen(value: boolean)
+                /**
+                 * send_event of this IBusXEvent.
+                 * @default 0
+                 */
+                get sendEvent(): number
+                set sendEvent(value: number)
+                /**
+                 * serial of this IBusXEvent.
+                 * @default 0
+                 */
+                get serial(): number
+                set serial(value: number)
+                /**
+                 * state of this IBusXEvent.
+                 * @default 0
+                 */
+                get state(): number
+                set state(value: number)
+                /**
+                 * string of this IBusXEvent.
+                 */
+                get string(): string
+                set string(value: string)
+                /**
+                 * subwindow of this IBusXEvent.
+                 * @default 0
+                 */
+                get subwindow(): number
+                set subwindow(value: number)
+                /**
+                 * time of this IBusXEvent.
+                 * @default 0
+                 */
+                get time(): number
+                set time(value: number)
+                /**
+                 * Version of this IBusXEvent.
+                 * @default 1
+                 */
+                get version(): number
+                set version(value: number)
+                /**
+                 * window of this IBusXEvent.
+                 * @default 0
+                 */
+                get window(): number
+                set window(value: number)
+                /**
+                 * x of this IBusXEvent.
+                 * @default 0
+                 */
+                get x(): number
+                set x(value: number)
+                /**
+                 * root-x of this IBusXEvent.
+                 * @default 0
+                 */
+                get xRoot(): number
+                set xRoot(value: number)
+                /**
+                 * x of this IBusXEvent.
+                 * @default 0
+                 */
+                get y(): number
+                set y(value: number)
+                /**
+                 * root-y of this IBusXEvent.
+                 * @default 0
+                 */
+                get yRoot(): number
+                set yRoot(value: number)
+                /**
+                 * @returns IBusXEventType of #IBusXEvent
+                 */
+                get_event_type(): XEventType
+                /**
+                 * @returns group of #IBusXEvent
+                 */
+                get_group(): number
+                /**
+                 * @returns hardware keycode of #IBusXEvent
+                 */
+                get_hardware_keycode(): number
+                /**
+                 * @returns is_modifier of #IBusXEvent
+                 */
+                get_is_modifier(): boolean
+                /**
+                 * @returns keyval of #IBusXEvent
+                 */
+                get_keyval(): number
+                /**
+                 * @returns length of #IBusXEvent
+                 */
+                get_length(): number
+                /**
+                 * @returns purpose of #IBusXEvent
+                 */
+                get_purpose(): string
+                /**
+                 * @returns root window of #IBusXEvent
+                 */
+                get_root(): number
+                /**
+                 * @returns same_screen of #IBusXEvent
+                 */
+                get_same_screen(): boolean
+                /**
+                 * @returns send_event of #IBusXEvent
+                 */
+                get_send_event(): number
+                /**
+                 * @returns serial of #IBusXEvent
+                 */
+                get_serial(): number
+                /**
+                 * @returns state of #IBusXEvent
+                 */
+                get_state(): number
+                /**
+                 * @returns string of #IBusXEvent
+                 */
+                get_string(): string
+                /**
+                 * @returns subwindow of #IBusXEvent
+                 */
+                get_subwindow(): number
+                /**
+                 * @returns time of #IBusXEvent
+                 */
+                get_time(): number
+                /**
+                 * @returns Version of #IBusXEvent
+                 */
+                get_version(): number
+                /**
+                 * @returns XID of #IBusXEvent
+                 */
+                get_window(): number
+                /**
+                 * @returns x of #IBusXEvent
+                 */
+                get_x(): number
+                /**
+                 * @returns x-root of #IBusXEvent
+                 */
+                get_x_root(): number
+                /**
+                 * @returns y of #IBusXEvent
+                 */
+                get_y(): number
+                /**
+                 * @returns y-root of #IBusXEvent
+                 */
+                get_y_root(): number
+            }
+
+            interface XEventClass extends Omit<SerializableClass, "new"> {
+                readonly $gtype: GObject.GType<XEvent>
+                readonly prototype: XEvent
+
+                new (props?: Partial<GObject.ConstructorProps<XEvent>>): XEvent
+            }
+
+            interface $Exports {
+                /**
+                 * An IBusXEvent provides a wrapper of XEvent.
+                 *
+                 * see_also: #IBusComponent, #IBusEngineDesc
+                 */
+                XEvent: XEventClass
+            }
+            
+
+            interface BusPrivateStruct {
+                readonly $gtype: GObject.GType<BusPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is BusPrivate
+            }
+
+            interface BusPrivate {
+            }
+
+            interface $Exports {
+                BusPrivate: BusPrivateStruct
+            }
+            
+
+            interface ComponentPrivateStruct {
+                readonly $gtype: GObject.GType<ComponentPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is ComponentPrivate
+            }
+
+            interface ComponentPrivate {
+            }
+
+            interface $Exports {
+                ComponentPrivate: ComponentPrivateStruct
+            }
+            
+
+            interface ConfigPrivateStruct {
+                readonly $gtype: GObject.GType<ConfigPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is ConfigPrivate
+            }
+
+            interface ConfigPrivate {
+            }
+
+            interface $Exports {
+                ConfigPrivate: ConfigPrivateStruct
+            }
+            
+
+            interface EmojiDataPrivateStruct {
+                readonly $gtype: GObject.GType<EmojiDataPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is EmojiDataPrivate
+            }
+
+            interface EmojiDataPrivate {
+            }
+
+            interface $Exports {
+                EmojiDataPrivate: EmojiDataPrivateStruct
+            }
+            
+
+            interface EngineDescPrivateStruct {
+                readonly $gtype: GObject.GType<EngineDescPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is EngineDescPrivate
+            }
+
+            interface EngineDescPrivate {
+            }
+
+            interface $Exports {
+                EngineDescPrivate: EngineDescPrivateStruct
+            }
+            
+
+            interface EnginePrivateStruct {
+                readonly $gtype: GObject.GType<EnginePrivate>
+                [Symbol.hasInstance](instance: unknown): instance is EnginePrivate
+            }
+
+            interface EnginePrivate {
+            }
+
+            interface $Exports {
+                EnginePrivate: EnginePrivateStruct
+            }
+            
+
+            interface EngineSimplePrivateStruct {
+                readonly $gtype: GObject.GType<EngineSimplePrivate>
+                [Symbol.hasInstance](instance: unknown): instance is EngineSimplePrivate
+            }
+
+            interface EngineSimplePrivate {
+            }
+
+            interface $Exports {
+                EngineSimplePrivate: EngineSimplePrivateStruct
+            }
+            
+
+            interface ExtensionEventPrivateStruct {
+                readonly $gtype: GObject.GType<ExtensionEventPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is ExtensionEventPrivate
+            }
+
+            interface ExtensionEventPrivate {
+            }
+
+            interface $Exports {
+                ExtensionEventPrivate: ExtensionEventPrivateStruct
+            }
+            
+
+            interface FactoryPrivateStruct {
+                readonly $gtype: GObject.GType<FactoryPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is FactoryPrivate
+            }
+
+            interface FactoryPrivate {
+            }
+
+            interface $Exports {
+                FactoryPrivate: FactoryPrivateStruct
+            }
+            
+
+            interface ObjectPrivateStruct {
+                readonly $gtype: GObject.GType<ObjectPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is ObjectPrivate
+            }
+
+            interface ObjectPrivate {
+            }
+
+            interface $Exports {
+                ObjectPrivate: ObjectPrivateStruct
+            }
+            
+
+            interface ProcessKeyEventDataStruct {
+                readonly $gtype: GObject.GType<ProcessKeyEventData>
+                new (fields?: {
+                    keyval?: number
+                    keycode?: number
+                    state?: number
+                }): ProcessKeyEventData
+            }
+
+            interface ProcessKeyEventData {
+                /**
+                 */
+                keyval: number
+                /**
+                 */
+                keycode: number
+                /**
+                 */
+                state: number
+            }
+
+            interface $Exports {
+                ProcessKeyEventData: ProcessKeyEventDataStruct
+            }
+            
+
+            interface PropertyPrivateStruct {
+                readonly $gtype: GObject.GType<PropertyPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is PropertyPrivate
+            }
+
+            interface PropertyPrivate {
+            }
+
+            interface $Exports {
+                PropertyPrivate: PropertyPrivateStruct
+            }
+            
+
+            interface RectangleStruct {
+                readonly $gtype: GObject.GType<Rectangle>
+                new (fields?: {
+                    x?: number
+                    y?: number
+                    width?: number
+                    height?: number
+                }): Rectangle
+            }
+
+            interface Rectangle {
+                /**
+                 * x coordinate.
+                 */
+                x: number
+                /**
+                 * y coordinate.
+                 */
+                y: number
+                /**
+                 * width of the rectangle.
+                 */
+                width: number
+                /**
+                 * height of the renctangl.
+                 */
+                height: number
+            }
+
+            interface $Exports {
+                Rectangle: RectangleStruct
+            }
+            
+
+            interface RegistryPrivateStruct {
+                readonly $gtype: GObject.GType<RegistryPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is RegistryPrivate
+            }
+
+            interface RegistryPrivate {
+            }
+
+            interface $Exports {
+                RegistryPrivate: RegistryPrivateStruct
+            }
+            
+
+            interface SerializablePrivateStruct {
+                readonly $gtype: GObject.GType<SerializablePrivate>
+                [Symbol.hasInstance](instance: unknown): instance is SerializablePrivate
+            }
+
+            interface SerializablePrivate {
+            }
+
+            interface $Exports {
+                SerializablePrivate: SerializablePrivateStruct
+            }
+            
+
+            interface ServicePrivateStruct {
+                readonly $gtype: GObject.GType<ServicePrivate>
+                [Symbol.hasInstance](instance: unknown): instance is ServicePrivate
+            }
+
+            interface ServicePrivate {
+            }
+
+            interface $Exports {
+                ServicePrivate: ServicePrivateStruct
+            }
+            
+
+            interface UnicodeBlockPrivateStruct {
+                readonly $gtype: GObject.GType<UnicodeBlockPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is UnicodeBlockPrivate
+            }
+
+            interface UnicodeBlockPrivate {
+            }
+
+            interface $Exports {
+                UnicodeBlockPrivate: UnicodeBlockPrivateStruct
+            }
+            
+
+            interface UnicodeDataPrivateStruct {
+                readonly $gtype: GObject.GType<UnicodeDataPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is UnicodeDataPrivate
+            }
+
+            interface UnicodeDataPrivate {
+            }
+
+            interface $Exports {
+                UnicodeDataPrivate: UnicodeDataPrivateStruct
+            }
+            
+
+            interface XEventPrivateStruct {
+                readonly $gtype: GObject.GType<XEventPrivate>
+                [Symbol.hasInstance](instance: unknown): instance is XEventPrivate
+            }
+
+            interface XEventPrivate {
+            }
+
+            interface $Exports {
+                XEventPrivate: XEventPrivateStruct
+            }
+            
+
+            interface XMLStruct {
+                readonly $gtype: GObject.GType<XML>
+                new (fields?: {
+                    name?: string
+                    text?: string
+                    attributes?: string
+                    sub_nodes?: never[]
+                }): XML
+                /**
+                 * Parse a string buffer which contains an XML-formatted string,
+                 * and return a corresponding XML tree.
+                 * @param buffer Buffer to be parsed.
+                 * @returns Root node of parsed XML tree.
+                 */
+                parse_buffer(buffer: string): XML
+                /**
+                 * Parse an XML file and return a corresponding XML tree.
+                 * @param name File name to be parsed.
+                 * @returns Root node of parsed XML tree.
+                 */
+                parse_file(name: string): XML
+            }
+
+            interface XML {
+                /**
+                 * Name of XML tag.
+                 */
+                name: string
+                /**
+                 * Text enclosed by XML start tag and end tag. i.e. <tag>text</tag>.
+                 */
+                text: string
+                /**
+                 * Attributes of the XML node.
+                 */
+                attributes: string
+                /**
+                 * Children node of this XML node.
+                 */
+                sub_nodes: never[]
+                /**
+                 * Creates a copy of `node`, which should be freed with
+                 * ibus_xml_free(). Primarily used by language bindings,
+                 * not that useful otherwise (since `node` can just be copied
+                 * by assignment in C).
+                 * @returns the newly allocated #IBusXML, which should          be freed with ibus_xml_free(), or %NULL          if `node` was %NULL.
+                 */
+                copy(): XML
+                /**
+                 * Free an XML tree.
+                 */
+                free(): void
+                /**
+                 * Output an XML tree to a GString.
+                 * @param output GString which stores the output.
+                 */
+                output(output: GLib.String): void
+            }
+
+            interface $Exports {
+                XML: XMLStruct
+            }
+            
+            interface AttrPreeditEnum {
+                readonly $gtype: GObject.GType<AttrPreedit>
+                /**
+                 * Default style for composing text.
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 * Style should be the same as in non-composing text.
+                 */
+                readonly "NONE": 1
+                /**
+                 * Most language engines wish to draw underline in
+                 *                           the typed whole preedit string except for the
+                 *                           prediction string. (Chinese, Japanese,
+                 *                           Typing-booster)
+                 */
+                readonly "WHOLE": 2
+                /**
+                 * Modifying an active segment is distinguished
+                 *                               against whole the preedit text. (Hangul,
+                 *                               Japanese)
+                 */
+                readonly "SELECTION": 3
+                /**
+                 * A prediction string can be appended after the
+                 *                                typed string. (Typing-booster)
+                 */
+                readonly "PREDICTION": 4
+                /**
+                 * A prefix string can be an informative color.
+                 *                            (Table)
+                 */
+                readonly "PREFIX": 5
+                /**
+                 * A suffix string can be an informative color.
+                 *                            (Table)
+                 */
+                readonly "SUFFIX": 6
+                /**
+                 * An detected typo could be an error color
+                 *                                    with a spelling check or the word could
+                 *                                    not be found in a dictionary. The
+                 *                                    underline color also might be more
+                 *                                    visible. (Typing-booster, Table)
+                 */
+                readonly "ERROR_SPELLING": 7
+                /**
+                 * A wrong compose key could be an error
+                 *                                   color. (Typing-booster)
+                 */
+                readonly "ERROR_COMPOSE": 8
+            }
+            type AttrPreedit = AttrPreeditEnum[Exclude<keyof AttrPreeditEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Type of Pre-edit style as the semantic name.
+                 * The Wayland specs prefers to express the semantic values rather than RGB
+                 * values and text-input protocol version 1 defines some values:
+                 * https://gitlab.freedesktop.org/wayland/wayland-protocols/-/blob/main/unstable/text-input/text-input-unstable-v1.xml?ref_type=heads#L251
+                 *
+                 * IBus compiled the values for major input method engines:
+                 * https://github.com/ibus/ibus/wiki/Wayland-Colors
+                 * @since 1.5.29
+                 */
+                AttrPreedit: AttrPreeditEnum
+            }
+            
+            interface AttrTypeEnum {
+                readonly $gtype: GObject.GType<AttrType>
+                /**
+                 * Decorate with underline.
+                 */
+                readonly "UNDERLINE": 1
+                /**
+                 * Foreground color.
+                 */
+                readonly "FOREGROUND": 2
+                /**
+                 * Background color.
+                 */
+                readonly "BACKGROUND": 3
+            }
+            type AttrType = AttrTypeEnum[Exclude<keyof AttrTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Type enumeration of IBusText attribute.
+                 */
+                AttrType: AttrTypeEnum
+            }
+            
+            interface AttrUnderlineEnum {
+                readonly $gtype: GObject.GType<AttrUnderline>
+                /**
+                 * No underline.
+                 */
+                readonly "NONE": 0
+                /**
+                 * Single underline.
+                 */
+                readonly "SINGLE": 1
+                /**
+                 * Double underline.
+                 */
+                readonly "DOUBLE": 2
+                /**
+                 * Low underline ? FIXME
+                 */
+                readonly "LOW": 3
+                /**
+                 * Error underline
+                 */
+                readonly "ERROR": 4
+            }
+            type AttrUnderline = AttrUnderlineEnum[Exclude<keyof AttrUnderlineEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Type of IBusText attribute.
+                 */
+                AttrUnderline: AttrUnderlineEnum
+                /**
              * Creates a new underline #IBusAttribute.
              * @param underline_type Type of underline.
              * @param start_index Where attribute starts.
              * @param end_index Where attribute ends.
              * @returns A newly allocated #IBusAttribute.
              */
-            attr_underline_new(underline_type: number, start_index: number, end_index: number): Attribute
-            /**
-             * @param path A path of the saved dictionary file.
-             * @returns An Emoji dictionary file loaded from the saved cache file.  A hash table of { emoji character, #IBusEmojiData object } is loaded from the saved cache file. Recommend to use ibus_emoji_data_load() instead becase GSList in GHashTable does not work with Gir and Vala. Calls ibus_emoji_data_load() internally.
+            new: (underline_type: number, start_index: number, end_index: number) => Attribute
+            }
+            
+            interface BusGlobalBindingTypeEnum {
+                readonly $gtype: GObject.GType<BusGlobalBindingType>
+                /**
+                 * Any types
+                 */
+                readonly "ANY": 0
+                /**
+                 * IME switcher
+                 */
+                readonly "IME_SWITCHER": 1
+                /**
+                 * Emoji typing
+                 */
+                readonly "EMOJI_TYPING": 2
+            }
+            type BusGlobalBindingType = BusGlobalBindingTypeEnum[Exclude<keyof BusGlobalBindingTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Type enumeration of IBusBusGlobalBindingType.
+                 * @since 1.5.29
+                 */
+                BusGlobalBindingType: BusGlobalBindingTypeEnum
+            }
+            
+            interface BusRequestNameReplyEnum {
+                readonly $gtype: GObject.GType<BusRequestNameReply>
+                /**
+                 * same as DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER
+                 */
+                readonly "PRIMARY_OWNER": 1
+                /**
+                 * same as DBUS_REQUEST_NAME_REPLY_IN_QUEUE
+                 */
+                readonly "IN_QUEUE": 2
+                /**
+                 * same as DBUS_REQUEST_NAME_REPLY_EXISTS
+                 */
+                readonly "EXISTS": 3
+                /**
+                 * same as DBUS_REQUEST_NAME_REPLY_ALREADY_OWNER
+                 */
+                readonly "ALREADY_OWNER": 4
+            }
+            type BusRequestNameReply = BusRequestNameReplyEnum[Exclude<keyof BusRequestNameReplyEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                BusRequestNameReply: BusRequestNameReplyEnum
+            }
+            
+            interface BusStartServiceByNameReplyEnum {
+                readonly $gtype: GObject.GType<BusStartServiceByNameReply>
+                /**
+                 * same as DBUS_START_REPLY_SUCCESS
+                 */
+                readonly "SUCCESS": 1
+                /**
+                 * same as DBUS_START_REPLY_ALREADY_RUNNING
+                 */
+                readonly "ALREADY_RUNNING": 2
+            }
+            type BusStartServiceByNameReply = BusStartServiceByNameReplyEnum[Exclude<keyof BusStartServiceByNameReplyEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                BusStartServiceByNameReply: BusStartServiceByNameReplyEnum
+            }
+            
+            interface Error extends GLib.Error {}
+
+            interface ErrorEnum {
+                readonly $gtype: GObject.GType<Error>
+
+                new(props: { message: string, code: number }): Error
+                /**
+                 * There is no engine associated with input context.
+                 */
+                readonly "NO_ENGINE": 0
+                /**
+                 * There is no config module running.
+                 */
+                readonly "NO_CONFIG": 1
+                /**
+                 * General failure.
+                 */
+                readonly "FAILED": 2
+                /**
              */
-            emoji_dict_load(path: string): Record<string, never>
+            quark: () => GLib.Quark
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Error: ErrorEnum
+            }
+            
+            interface InputPurposeEnum {
+                readonly $gtype: GObject.GType<InputPurpose>
+                /**
+                 * Allow any character
+                 */
+                readonly "FREE_FORM": 0
+                /**
+                 * Allow only alphabetic characters
+                 */
+                readonly "ALPHA": 1
+                /**
+                 * Allow only digits
+                 */
+                readonly "DIGITS": 2
+                /**
+                 * Edited field expects numbers
+                 */
+                readonly "NUMBER": 3
+                /**
+                 * Edited field expects phone number
+                 */
+                readonly "PHONE": 4
+                /**
+                 * Edited field expects URL
+                 */
+                readonly "URL": 5
+                /**
+                 * Edited field expects email address
+                 */
+                readonly "EMAIL": 6
+                /**
+                 * Edited field expects the name of a person
+                 */
+                readonly "NAME": 7
+                /**
+                 * Like `IBUS_INPUT_PURPOSE_FREE_FORM`,
+                 *     but characters are hidden
+                 */
+                readonly "PASSWORD": 8
+                /**
+                 * Like `IBUS_INPUT_PURPOSE_DIGITS`, but
+                 *     characters are hidden
+                 */
+                readonly "PIN": 9
+                /**
+                 * Allow any character, in addition to control
+                 *     codes. Since 1.5.24
+                 */
+                readonly "TERMINAL": 10
+            }
+            type InputPurpose = InputPurposeEnum[Exclude<keyof InputPurposeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Describes primary purpose of the input context.  This information
+                 * is particularly useful to implement intelligent behavior in
+                 * engines, such as automatic input-mode switch and text prediction.
+                 *
+                 * Note that the purpose is not meant to impose a totally strict rule
+                 * about allowed characters, and does not replace input validation.
+                 * It is fine for an on-screen keyboard to let the user override the
+                 * character set restriction that is expressed by the purpose. The
+                 * application is expected to validate the entry contents, even if
+                 * it specified a purpose.
+                 *
+                 * The difference between `IBUS_INPUT_PURPOSE_DIGITS` and
+                 *  `IBUS_INPUT_PURPOSE_NUMBER` is that the former accepts only digits
+                 * while the latter also some punctuation (like commas or points, plus,
+                 * minus) and “e” or “E” as in 3.14E+000.
+                 *
+                 * This enumeration may be extended in the future; engines should
+                 * interpret unknown values as 'free form'.
+                 * @since 1.5.4
+                 */
+                InputPurpose: InputPurposeEnum
+            }
+            
+            interface OrientationEnum {
+                readonly $gtype: GObject.GType<Orientation>
+                /**
+                 * Horizontal orientation.
+                 */
+                readonly "HORIZONTAL": 0
+                /**
+                 * Vertival orientation.
+                 */
+                readonly "VERTICAL": 1
+                /**
+                 * Use ibus global orientation setup.
+                 */
+                readonly "SYSTEM": 2
+            }
+            type Orientation = OrientationEnum[Exclude<keyof OrientationEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Orientation of UI.
+                 */
+                Orientation: OrientationEnum
+            }
+            
+            interface PreeditFocusModeEnum {
+                readonly $gtype: GObject.GType<PreeditFocusMode>
+                /**
+                 * pre-edit text is cleared.
+                 */
+                readonly "CLEAR": 0
+                /**
+                 * pre-edit text is committed.
+                 */
+                readonly "COMMIT": 1
+            }
+            type PreeditFocusMode = PreeditFocusModeEnum[Exclude<keyof PreeditFocusModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Pre-edit commit mode when the focus is lost.
+                 */
+                PreeditFocusMode: PreeditFocusModeEnum
+            }
+            
+            interface PropStateEnum {
+                readonly $gtype: GObject.GType<PropState>
+                /**
+                 * Property option is unchecked.
+                 */
+                readonly "UNCHECKED": 0
+                /**
+                 * Property option is checked.
+                 */
+                readonly "CHECKED": 1
+                /**
+                 * The state is inconsistent with the associated IME
+                 * property.
+                 */
+                readonly "INCONSISTENT": 2
+            }
+            type PropState = PropStateEnum[Exclude<keyof PropStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * State of #IBusProperty. The actual effect depends on #IBusPropType of the
+                 * IBusProperty.
+                 *
+                 * <variablelist>
+                 *     <varlistentry>
+                 *         <term>PROP_TYPE_TOGGLE</term>
+                 *         <listitem><para>Emphasized if PROP_STATE_CHECKED, normal otherwise.</para></listitem>
+                 *     </varlistentry>
+                 *     <varlistentry>
+                 *         <term>PROP_TYPE_RADIO</term>
+                 *         <listitem><para>Option checked if PROP_STATE_CHECKED, unchecked otherwise.</para></listitem>
+                 *     </varlistentry>
+                 * </variablelist>
+                 * No effect on other types.
+                 */
+                PropState: PropStateEnum
+            }
+            
+            interface PropTypeEnum {
+                readonly $gtype: GObject.GType<PropType>
+                /**
+                 * Property is shown as normal text.
+                 */
+                readonly "NORMAL": 0
+                /**
+                 * Property is shown as a toggle button.
+                 */
+                readonly "TOGGLE": 1
+                /**
+                 * Property is shown as a radio selection option.
+                 */
+                readonly "RADIO": 2
+                /**
+                 * Property is shown as a menu, usually imply it has sub menu
+                 * items.
+                 */
+                readonly "MENU": 3
+                /**
+                 * A separator for menu.
+                 */
+                readonly "SEPARATOR": 4
+            }
+            type PropType = PropTypeEnum[Exclude<keyof PropTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Type enumeration of IBusProperty.
+                 */
+                PropType: PropTypeEnum
+            }
+            
+            interface XEventTypeEnum {
+                readonly $gtype: GObject.GType<XEventType>
+                /**
+                 */
+                readonly "NOTHING": -1
+                /**
+                 */
+                readonly "KEY_PRESS": 0
+                /**
+                 */
+                readonly "KEY_RELEASE": 1
+                /**
+                 */
+                readonly "OTHER": 2
+                /**
+                 */
+                readonly "EVENT_LAST": 3
+            }
+            type XEventType = XEventTypeEnum[Exclude<keyof XEventTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                XEventType: XEventTypeEnum
+            }
+            
+            interface BusNameFlagBitfield {
+                readonly $gtype: GObject.GType<BusNameFlag>
+                /**
+                 * same as DBUS_NAME_FLAG_ALLOW_REPLACEMENT
+                 */
+                readonly "ALLOW_REPLACEMENT": 1
+                /**
+                 * same as DBUS_NAME_FLAG_REPLACE_EXISTING
+                 */
+                readonly "REPLACE_EXISTING": 2
+                /**
+                 * same as DBUS_NAME_FLAG_DO_NOT_QUEUE
+                 */
+                readonly "DO_NOT_QUEUE": 4
+            }
+            type BusNameFlag = number
+            interface $Exports {
+                /**
+                 */
+                BusNameFlag: BusNameFlagBitfield
+            }
+            
+            interface CapabiliteBitfield {
+                readonly $gtype: GObject.GType<Capabilite>
+                /**
+                 * UI is capable to show pre-edit text.
+                 */
+                readonly "PREEDIT_TEXT": 1
+                /**
+                 * UI is capable to show auxiliary text.
+                 */
+                readonly "AUXILIARY_TEXT": 2
+                /**
+                 * UI is capable to show the lookup table.
+                 */
+                readonly "LOOKUP_TABLE": 4
+                /**
+                 * UI is capable to get focus.
+                 */
+                readonly "FOCUS": 8
+                /**
+                 * UI is capable to have property.
+                 */
+                readonly "PROPERTY": 16
+                /**
+                 * Client can provide surround text,
+                 *  or IME can handle surround text.
+                 */
+                readonly "SURROUNDING_TEXT": 32
+                /**
+                 * UI is owned by on-screen keyboard.
+                 */
+                readonly "OSK": 64
+                /**
+                 * Asynchronous process key events are not
+                 *  supported and the ibus_engine_forward_key_event() should not be
+                 *  used for the return value of #IBusEngine::process_key_event().
+                 */
+                readonly "SYNC_PROCESS_KEY": 128
+                /**
+                 */
+                readonly "SYNC_PROCESS_KEY_V2": 128
+            }
+            type Capabilite = number
+            interface $Exports {
+                /**
+                 * Capability flags of UI.
+                 */
+                Capabilite: CapabiliteBitfield
+            }
+            
+            interface InputHintsBitfield {
+                readonly $gtype: GObject.GType<InputHints>
+                /**
+                 * No special behaviour suggested
+                 */
+                readonly "NONE": 0
+                /**
+                 * Suggest checking for typos
+                 */
+                readonly "SPELLCHECK": 1
+                /**
+                 * Suggest not checking for typos
+                 */
+                readonly "NO_SPELLCHECK": 2
+                /**
+                 * Suggest word completion
+                 */
+                readonly "WORD_COMPLETION": 4
+                /**
+                 * Suggest to convert all text to lowercase
+                 */
+                readonly "LOWERCASE": 8
+                /**
+                 * Suggest to capitalize all text
+                 */
+                readonly "UPPERCASE_CHARS": 16
+                /**
+                 * Suggest to capitalize the first
+                 *     character of each word
+                 */
+                readonly "UPPERCASE_WORDS": 32
+                /**
+                 * Suggest to capitalize the
+                 *     first word of each sentence
+                 */
+                readonly "UPPERCASE_SENTENCES": 64
+                /**
+                 * Suggest to not show an onscreen keyboard
+                 *     (e.g for a calculator that already has all the keys).
+                 */
+                readonly "INHIBIT_OSK": 128
+                /**
+                 * The text is vertical. Since 1.5.11
+                 */
+                readonly "VERTICAL_WRITING": 256
+                /**
+                 * Suggest offering Emoji support. Since 1.5.24
+                 */
+                readonly "EMOJI": 512
+                /**
+                 * Suggest not offering Emoji support. Since 1.5.24
+                 */
+                readonly "NO_EMOJI": 1024
+                /**
+                 * Request that the input method should not
+                 *     update personalized data (like typing history). Since 1.5.26
+                 */
+                readonly "PRIVATE": 2048
+            }
+            type InputHints = number
+            interface $Exports {
+                /**
+                 * Describes hints that might be taken into account by engines.  Note
+                 * that engines may already tailor their behaviour according to the
+                 * #IBusInputPurpose of the entry.
+                 *
+                 * Some common sense is expected when using these flags - mixing
+                 *  `IBUS_INPUT_HINT_LOWERCASE` with any of the uppercase hints makes no sense.
+                 *
+                 * This enumeration may be extended in the future; engines should
+                 * ignore unknown values.
+                 * @since 1.5.4
+                 */
+                InputHints: InputHintsBitfield
+            }
+            
+            interface ModifierTypeBitfield {
+                readonly $gtype: GObject.GType<ModifierType>
+                /**
+                 * Shift  is activated.
+                 */
+                readonly "SHIFT_MASK": 1
+                /**
+                 * Cap Lock is locked.
+                 */
+                readonly "LOCK_MASK": 2
+                /**
+                 * Control key is activated.
+                 */
+                readonly "CONTROL_MASK": 4
+                /**
+                 * Modifier 1 (Usually Alt_L (0x40),  Alt_R (0x6c),  Meta_L (0xcd)) activated.
+                 */
+                readonly "MOD1_MASK": 8
+                /**
+                 * Modifier 2 (Usually Num_Lock (0x4d)) activated.
+                 */
+                readonly "MOD2_MASK": 16
+                /**
+                 * Modifier 3 activated.
+                 */
+                readonly "MOD3_MASK": 32
+                /**
+                 * Modifier 4 (Usually Super_L (0xce),  Hyper_L (0xcf)) activated.
+                 */
+                readonly "MOD4_MASK": 64
+                /**
+                 * Modifier 5 (ISO_Level3_Shift (0x5c),  Mode_switch (0xcb)) activated.
+                 */
+                readonly "MOD5_MASK": 128
+                /**
+                 * Mouse button 1 (left) is activated.
+                 */
+                readonly "BUTTON1_MASK": 256
+                /**
+                 * Mouse button 2 (middle) is activated.
+                 */
+                readonly "BUTTON2_MASK": 512
+                /**
+                 * Mouse button 3 (right) is activated.
+                 */
+                readonly "BUTTON3_MASK": 1024
+                /**
+                 * Mouse button 4 (scroll up) is activated.
+                 */
+                readonly "BUTTON4_MASK": 2048
+                /**
+                 * Mouse button 5 (scroll down) is activated.
+                 */
+                readonly "BUTTON5_MASK": 4096
+                /**
+                 * Handled mask indicates the event has been handled by ibus.
+                 */
+                readonly "HANDLED_MASK": 16777216
+                /**
+                 * Forward mask indicates the event has been forward from ibus.
+                 */
+                readonly "FORWARD_MASK": 33554432
+                /**
+                 * It is an alias of IBUS_FORWARD_MASK.
+                 */
+                readonly "IGNORED_MASK": 33554432
+                /**
+                 * Super (Usually Win) key is activated.
+                 */
+                readonly "SUPER_MASK": 67108864
+                /**
+                 * Hyper key is activated.
+                 */
+                readonly "HYPER_MASK": 134217728
+                /**
+                 * Meta key is activated.
+                 */
+                readonly "META_MASK": 268435456
+                /**
+                 * Key is released.
+                 */
+                readonly "RELEASE_MASK": 1073741824
+                /**
+                 * Modifier mask for the all the masks above.
+                 */
+                readonly "MODIFIER_MASK": 1593843711
+            }
+            type ModifierType = number
+            interface $Exports {
+                /**
+                 * Handles key modifier such as control, shift and alt and release event.
+                 * Note that nits 15 - 25 are currently unused, while bit 29 is used internally.
+                 */
+                ModifierType: ModifierTypeBitfield
+            }
+            
+            interface ObjectFlagsBitfield {
+                readonly $gtype: GObject.GType<ObjectFlags>
+                /**
+                 * Used in GObjectClass::dispose
+                 */
+                readonly "IN_DESTRUCTION": 1
+                /**
+                 * Used during emitting IBusObject::destroy signal.
+                 */
+                readonly "DESTROYED": 2
+                /**
+                 * Reserved.
+                 */
+                readonly "RESERVED_1": 4
+                /**
+                 * Reserved.
+                 */
+                readonly "RESERVED_2": 8
+            }
+            type ObjectFlags = number
+            interface $Exports {
+                /**
+                 * The flags are used internally.
+                 */
+                ObjectFlags: ObjectFlagsBitfield
+            }
             /**
-             * @param dict An Emoji dictionary
-             * @param emoji an emoji character
-             * @returns An #IBusEmojiData of `emoji`. This API was prepared for the old dict foramat with Gir and Vala but no longer needed. Use ibus_emoji_data_load() instead.
+             * Free function prototype.
+             * @param object object to be freed.
              */
-            emoji_dict_lookup(dict: Record<string, EmojiData>, emoji: string): EmojiData
+            type FreeFunc = (object: never | null) => void
             /**
-             * Saves the Emoji dictionary to the cache file.
-             * Recommend to use ibus_emoji_data_save() instead becase GSList in
-             * GHashTable does not work with Gir and Vala.
-             * Calls ibus_emoji_data_save() internally. The format of the hash table
-             * changed and now is { emoji character, #IBusEmojiData object }.
-             * @param path A path of the saved dictionary file.
-             * @param dict An Emoji dictionary
+             * @param object
              */
-            emoji_dict_save(path: string, dict: Record<string, never>): void
+            type ObjectDestroyFunc = (object: Object) => void
             /**
+             * Prototype of copy function.
+             * Copy function copy from source #IBusSerializable to the destination one.
+             * Returns a gboolean value which indicates whether the copying is success.
+             * @param dest The destination #IBusSerializable.
+             * @param src A source #IBusSerializable.
+             * @returns %TRUE if succeed; %FALSE otherwise.
              */
-            error_quark(): GLib.Quark
+            type SerializableCopyFunc = (dest: Serializable, src: Serializable) => boolean
             /**
-             * Free a list of strings.
-             * @deprecated This function has been deprecated and should not be used in newly written code.
-             * @param strv List of strings.
+             * Prototype of deserialize function.
+             * Deserialize function convert a #GVariant to #IBusSerializable.
+             * Returns an integer value which indicates how many values in
+             * the variant(tuple) are consumed.
+             * @param serializable An #IBusSerializable.
+             * @param variant A #GVariant contains a tuple.
+             * @returns The number of values in the variant(tuple) are consumed.
              */
-            free_strv(strv: string): void
+            type SerializableDeserializeFunc = (serializable: Serializable, variant: GLib.Variant) => number
             /**
-             * Return the D-Bus address of IBus.
-             * It will find the address from following source:
-             * <orderedlist>
-             *    <listitem><para>Environment variable IBUS_ADDRESS</para></listitem>
-             *    <listitem><para>Socket file under ~/.config/ibus/bus/</para></listitem>
-             * </orderedlist>
-             * @returns D-Bus address of IBus. %NULL for not found.  See also: ibus_write_address().
+             * Prototype of serialize function.
+             * Serialize function convert an #IBusSerializable to #GVariantBuilder.
+             * Returns a gboolean value which indicates whether the conversion is success.
+             * Return %TRUE if succeed.
+             * @param serializable An #IBusSerializable.
+             * @param builder A #GVariantBuilder.
+             * @returns %TRUE if succeed; %FALSE otherwise.
              */
-            get_address(): string
+            type SerializableSerializeFunc = (serializable: Serializable, builder: GLib.VariantBuilder) => boolean
             /**
-             * Get UID of ibus-daemon.
-             * @deprecated This function has been deprecated and should not be used in newly written code.
-             * @returns UID of ibus-daemon; or 0 if UID is not available.
+             * This callback can receive the list of #IBusUnicodeData.
+             * @param data_list
              */
-            get_daemon_uid(): number
-            /**
-             * @param _locale A const locale name.
-             * @returns translated language name
-             */
-            get_language_name(_locale: string): string
-            /**
-             * Obtains the machine UUID of the machine this process is running on.
-             * @returns A newly allocated string that shows the UUID of the machine.
-             */
-            get_local_machine_id(): string
-            /**
-             * Get the path of socket file.
-             * @returns A newly allocated string that stores the path of socket file.
-             */
-            get_socket_path(): string
-            /**
-             * Get the GDBus timeout in milliseconds. The timeout is for clients (e.g.
-             * im-ibus.so), not for ibus-daemon.
-             * Note that the timeout for ibus-daemon could be set by --timeout command
-             * line option of the daemon.
-             * @returns A GDBus timeout in milliseconds. -1 when default timeout for     GDBus should be used.
-             */
-            get_timeout(): number
-            /**
-             * @param _locale A const locale name.
-             * @returns untranslated language name
-             */
-            get_untranslated_language_name(_locale: string): string
-            /**
-             * Get the current user name.
-             * It is determined by:
-             * <orderedlist>
-             *    <listitem><para>getlogin()</para></listitem>
-             *    <listitem><para>Environment variable SUDO_USER</para></listitem>
-             *    <listitem><para>Environment variable USERHELPER_UID</para></listitem>
-             *    <listitem><para>Environment variable USERNAME</para></listitem>
-             *    <listitem><para>Environment variable LOGNAME</para></listitem>
-             *    <listitem><para>Environment variable USER</para></listitem>
-             *    <listitem><para>Environment variable LNAME</para></listitem>
-             * </orderedlist>
-             * @returns A newly allocated string that stores current user name.
-             */
-            get_user_name(): string
-            /**
-             * Initialize the ibus types.
-             */
-            init(): void
-            /**
-             * Parse key event string and return key symbol and modifiers.
-             * @param string Key event string.
-             * @returns %TRUE for succeed; %FALSE if failed., Variable that hold key symbol result., Variable that hold modifiers result.
-             */
-            key_event_from_string(string: string): [boolean, number, number]
-            /**
-             * Return the name of a key symbol and modifiers.
-             *
-             * For example, if press ctrl, shift, and enter, then this function returns:
-             * Shift+Control+enter.
-             * @param keyval Key symbol.
-             * @param modifiers Modifiers such as Ctrl or Shift.
-             * @returns The name of a key symbol and modifier.
-             */
-            key_event_to_string(keyval: number, modifiers: number): string
-            /**
-             * Obtains the upper- and lower-case versions of the keyval @symbol.
-             * Examples of keyvals are #IBUS_KEY_a, #IBUS_KEY_Return, #IBUS_KEY_F1, etc.
-             * @param symbol a keyval
-             * @returns , return location for lowercase version of `symbol`, return location for uppercase version of `symbol`
-             */
-            keyval_convert_case(symbol: number): [number, number]
-            /**
-             * Return the key symbol that associate with the key name.
-             * @param keyval_name Key name in #gdk_keys_by_name.
-             * @returns Corresponding key symbol.
-             */
-            keyval_from_name(keyval_name: string): number
-            /**
-             * Return the name of a key symbol.
-             *
-             * Note that the returned string is used internally, so don't free it.
-             * @param keyval Key symbol.
-             * @returns Corresponding key name. %NULL if no such key symbol.
-             */
-            keyval_name(keyval: number): string
-            /**
-             * Converts a key value to lower case, if applicable.
-             * @param keyval a key value.
-             * @returns the lower case form of `keyval`, or `keyval` itself if it is already  in lower case or it is not subject to case conversion.
-             */
-            keyval_to_lower(keyval: number): number
-            /**
-             * Convert from an IBus key symbol to the corresponding ISO10646 (Unicode)
-             * character.
-             * @param keyval an IBus key symbol
-             * @returns the corresponding unicode character, or 0 if there          is no corresponding character.
-             */
-            keyval_to_unicode(keyval: number): string
-            /**
-             * Converts a key value to upper case, if applicable.
-             * @param keyval a key value.
-             * @returns the upper case form of `keyval`, or `keyval` itself if it is already   in upper case or it is not subject to case conversion.
-             */
-            keyval_to_upper(keyval: number): number
-            /**
-             * Runs an IBus main loop until ibus_quit() is called in the loop.
-             *
-             * See also: ibus_quit().
-             */
-            main(): void
-            /**
-             * Stops an IBus from running.
-             *
-             * Any calls to ibus_quit() for the loop will return.
-             * See also: ibus_main().
-             */
-            quit(): void
-            /**
-             * Set the display address.
-             * @param display Display address, as in DISPLAY environment for X.
-             */
-            set_display(display: string): void
-            /**
-             * Sets GLIB's log handler to ours. Our log handler adds time info
-             * including hour, minute, second, and microsecond, like:
-             *
-             * (ibus-daemon:7088): IBUS-DEBUG: 18:06:45.822819: ibus-daemon started
-             *
-             * If @verbose is %TRUE, all levels of messages will be logged. Otherwise,
-             * DEBUG and WARNING messages will be ignored.  The function is used in
-             * ibus-daemon, but can be useful for IBus client programs as well for
-             * debugging. It's totally fine for not calling this function. If you
-             * don't set a custom GLIB log handler, the default GLIB log handler will
-             * be used.
-             * @param verbose TRUE for verbose logging.
-             */
-            set_log_handler(verbose: boolean): void
-            /**
-             * Convert from a ISO10646 character to a key symbol.
-             * @param wc a ISO10646 encoded character
-             * @returns the corresponding IBus key symbol, if one exists.          or, if there is no corresponding symbol,          `wc | 0x01000000`
-             */
-            unicode_to_keyval(wc: string): number
-            /**
-             * Remove the log handler which is set by ibus_set_log_handler.
-             */
-            unset_log_handler(): void
-            /**
-             * Write D-Bus address to socket file.
-             *
-             * See also: ibus_get_address().
-             * @param address D-Bus address of IBus.
-             */
-            write_address(address: string): void
-            /**
-             * Parse a string buffer which contains an XML-formatted string,
-             * and return a corresponding XML tree.
-             * @param buffer Buffer to be parsed.
-             * @returns Root node of parsed XML tree.
-             */
-            xml_parse_buffer(buffer: string): XML
-            /**
-             * Parse an XML file and return a corresponding XML tree.
-             * @param name File name to be parsed.
-             * @returns Root node of parsed XML tree.
-             */
-            xml_parse_file(name: string): XML
+            type UnicodeDataLoadAsyncFinish = (data_list: UnicodeData[]) => void
+
+            interface $Exports {
+                __name__: "IBus"
+                __version__: "1.0"
+                "3270_AltCursor": 64784
+                "3270_Attn": 64782
+                "3270_BackTab": 64773
+                "3270_ChangeScreen": 64793
+                "3270_Copy": 64789
+                "3270_CursorBlink": 64783
+                "3270_CursorSelect": 64796
+                "3270_DeleteWord": 64794
+                "3270_Duplicate": 64769
+                "3270_Enter": 64798
+                "3270_EraseEOF": 64774
+                "3270_EraseInput": 64775
+                "3270_ExSelect": 64795
+                "3270_FieldMark": 64770
+                "3270_Ident": 64787
+                "3270_Jump": 64786
+                "3270_KeyClick": 64785
+                "3270_Left2": 64772
+                "3270_PA1": 64778
+                "3270_PA2": 64779
+                "3270_PA3": 64780
+                "3270_Play": 64790
+                "3270_PrintScreen": 64797
+                "3270_Quit": 64777
+                "3270_Record": 64792
+                "3270_Reset": 64776
+                "3270_Right2": 64771
+                "3270_Rule": 64788
+                "3270_Setup": 64791
+                "3270_Test": 64781
+                A: 65
+                AE: 198
+                Aacute: 193
+                Abelowdot: 16785056
+                Abreve: 451
+                Abreveacute: 16785070
+                Abrevebelowdot: 16785078
+                Abrevegrave: 16785072
+                Abrevehook: 16785074
+                Abrevetilde: 16785076
+                AccessX_Enable: 65136
+                AccessX_Feedback_Enable: 65137
+                Acircumflex: 194
+                Acircumflexacute: 16785060
+                Acircumflexbelowdot: 16785068
+                Acircumflexgrave: 16785062
+                Acircumflexhook: 16785064
+                Acircumflextilde: 16785066
+                Adiaeresis: 196
+                Agrave: 192
+                Ahook: 16785058
+                Alt_L: 65513
+                Alt_R: 65514
+                Amacron: 960
+                Aogonek: 417
+                Arabic_0: 16778848
+                Arabic_1: 16778849
+                Arabic_2: 16778850
+                Arabic_3: 16778851
+                Arabic_4: 16778852
+                Arabic_5: 16778853
+                Arabic_6: 16778854
+                Arabic_7: 16778855
+                Arabic_8: 16778856
+                Arabic_9: 16778857
+                Arabic_ain: 1497
+                Arabic_alef: 1479
+                Arabic_alefmaksura: 1513
+                Arabic_beh: 1480
+                Arabic_comma: 1452
+                Arabic_dad: 1494
+                Arabic_dal: 1487
+                Arabic_damma: 1519
+                Arabic_dammatan: 1516
+                Arabic_ddal: 16778888
+                Arabic_farsi_yeh: 16778956
+                Arabic_fatha: 1518
+                Arabic_fathatan: 1515
+                Arabic_feh: 1505
+                Arabic_fullstop: 16778964
+                Arabic_gaf: 16778927
+                Arabic_ghain: 1498
+                Arabic_ha: 1511
+                Arabic_hah: 1485
+                Arabic_hamza: 1473
+                Arabic_hamza_above: 16778836
+                Arabic_hamza_below: 16778837
+                Arabic_hamzaonalef: 1475
+                Arabic_hamzaonwaw: 1476
+                Arabic_hamzaonyeh: 1478
+                Arabic_hamzaunderalef: 1477
+                Arabic_heh: 1511
+                Arabic_heh_doachashmee: 16778942
+                Arabic_heh_goal: 16778945
+                Arabic_jeem: 1484
+                Arabic_jeh: 16778904
+                Arabic_kaf: 1507
+                Arabic_kasra: 1520
+                Arabic_kasratan: 1517
+                Arabic_keheh: 16778921
+                Arabic_khah: 1486
+                Arabic_lam: 1508
+                Arabic_madda_above: 16778835
+                Arabic_maddaonalef: 1474
+                Arabic_meem: 1509
+                Arabic_noon: 1510
+                Arabic_noon_ghunna: 16778938
+                Arabic_peh: 16778878
+                Arabic_percent: 16778858
+                Arabic_qaf: 1506
+                Arabic_question_mark: 1471
+                Arabic_ra: 1489
+                Arabic_rreh: 16778897
+                Arabic_sad: 1493
+                Arabic_seen: 1491
+                Arabic_semicolon: 1467
+                Arabic_shadda: 1521
+                Arabic_sheen: 1492
+                Arabic_sukun: 1522
+                Arabic_superscript_alef: 16778864
+                Arabic_switch: 65406
+                Arabic_tah: 1495
+                Arabic_tatweel: 1504
+                Arabic_tcheh: 16778886
+                Arabic_teh: 1482
+                Arabic_tehmarbuta: 1481
+                Arabic_thal: 1488
+                Arabic_theh: 1483
+                Arabic_tteh: 16778873
+                Arabic_veh: 16778916
+                Arabic_waw: 1512
+                Arabic_yeh: 1514
+                Arabic_yeh_baree: 16778962
+                Arabic_zah: 1496
+                Arabic_zain: 1490
+                Aring: 197
+                Armenian_AT: 16778552
+                Armenian_AYB: 16778545
+                Armenian_BEN: 16778546
+                Armenian_CHA: 16778569
+                Armenian_DA: 16778548
+                Armenian_DZA: 16778561
+                Armenian_E: 16778551
+                Armenian_FE: 16778582
+                Armenian_GHAT: 16778562
+                Armenian_GIM: 16778547
+                Armenian_HI: 16778565
+                Armenian_HO: 16778560
+                Armenian_INI: 16778555
+                Armenian_JE: 16778571
+                Armenian_KE: 16778580
+                Armenian_KEN: 16778559
+                Armenian_KHE: 16778557
+                Armenian_LYUN: 16778556
+                Armenian_MEN: 16778564
+                Armenian_NU: 16778566
+                Armenian_O: 16778581
+                Armenian_PE: 16778570
+                Armenian_PYUR: 16778579
+                Armenian_RA: 16778572
+                Armenian_RE: 16778576
+                Armenian_SE: 16778573
+                Armenian_SHA: 16778567
+                Armenian_TCHE: 16778563
+                Armenian_TO: 16778553
+                Armenian_TSA: 16778558
+                Armenian_TSO: 16778577
+                Armenian_TYUN: 16778575
+                Armenian_VEV: 16778574
+                Armenian_VO: 16778568
+                Armenian_VYUN: 16778578
+                Armenian_YECH: 16778549
+                Armenian_ZA: 16778550
+                Armenian_ZHE: 16778554
+                Armenian_accent: 16778587
+                Armenian_amanak: 16778588
+                Armenian_apostrophe: 16778586
+                Armenian_at: 16778600
+                Armenian_ayb: 16778593
+                Armenian_ben: 16778594
+                Armenian_but: 16778589
+                Armenian_cha: 16778617
+                Armenian_da: 16778596
+                Armenian_dza: 16778609
+                Armenian_e: 16778599
+                Armenian_exclam: 16778588
+                Armenian_fe: 16778630
+                Armenian_full_stop: 16778633
+                Armenian_ghat: 16778610
+                Armenian_gim: 16778595
+                Armenian_hi: 16778613
+                Armenian_ho: 16778608
+                Armenian_hyphen: 16778634
+                Armenian_ini: 16778603
+                Armenian_je: 16778619
+                Armenian_ke: 16778628
+                Armenian_ken: 16778607
+                Armenian_khe: 16778605
+                Armenian_ligature_ew: 16778631
+                Armenian_lyun: 16778604
+                Armenian_men: 16778612
+                Armenian_nu: 16778614
+                Armenian_o: 16778629
+                Armenian_paruyk: 16778590
+                Armenian_pe: 16778618
+                Armenian_pyur: 16778627
+                Armenian_question: 16778590
+                Armenian_ra: 16778620
+                Armenian_re: 16778624
+                Armenian_se: 16778621
+                Armenian_separation_mark: 16778589
+                Armenian_sha: 16778615
+                Armenian_shesht: 16778587
+                Armenian_tche: 16778611
+                Armenian_to: 16778601
+                Armenian_tsa: 16778606
+                Armenian_tso: 16778625
+                Armenian_tyun: 16778623
+                Armenian_verjaket: 16778633
+                Armenian_vev: 16778622
+                Armenian_vo: 16778616
+                Armenian_vyun: 16778626
+                Armenian_yech: 16778597
+                Armenian_yentamna: 16778634
+                Armenian_za: 16778598
+                Armenian_zhe: 16778602
+                Atilde: 195
+                AudibleBell_Enable: 65146
+                B: 66
+                Babovedot: 16784898
+                BackSpace: 65288
+                Begin: 65368
+                BounceKeys_Enable: 65140
+                Break: 65387
+                Byelorussian_SHORTU: 1726
+                Byelorussian_shortu: 1710
+                C: 67
+                Cabovedot: 709
+                Cacute: 454
+                Cancel: 65385
+                Caps_Lock: 65509
+                Ccaron: 456
+                Ccedilla: 199
+                Ccircumflex: 710
+                Clear: 65291
+                Codeinput: 65335
+                ColonSign: 16785569
+                Control_L: 65507
+                Control_R: 65508
+                CruzeiroSign: 16785570
+                Cyrillic_A: 1761
+                Cyrillic_BE: 1762
+                Cyrillic_CHE: 1790
+                Cyrillic_CHE_descender: 16778422
+                Cyrillic_CHE_vertstroke: 16778424
+                Cyrillic_DE: 1764
+                Cyrillic_DZHE: 1727
+                Cyrillic_E: 1788
+                Cyrillic_EF: 1766
+                Cyrillic_EL: 1772
+                Cyrillic_EM: 1773
+                Cyrillic_EN: 1774
+                Cyrillic_EN_descender: 16778402
+                Cyrillic_ER: 1778
+                Cyrillic_ES: 1779
+                Cyrillic_GHE: 1767
+                Cyrillic_GHE_bar: 16778386
+                Cyrillic_HA: 1768
+                Cyrillic_HARDSIGN: 1791
+                Cyrillic_HA_descender: 16778418
+                Cyrillic_I: 1769
+                Cyrillic_IE: 1765
+                Cyrillic_IO: 1715
+                Cyrillic_I_macron: 16778466
+                Cyrillic_JE: 1720
+                Cyrillic_KA: 1771
+                Cyrillic_KA_descender: 16778394
+                Cyrillic_KA_vertstroke: 16778396
+                Cyrillic_LJE: 1721
+                Cyrillic_NJE: 1722
+                Cyrillic_O: 1775
+                Cyrillic_O_bar: 16778472
+                Cyrillic_PE: 1776
+                Cyrillic_SCHWA: 16778456
+                Cyrillic_SHA: 1787
+                Cyrillic_SHCHA: 1789
+                Cyrillic_SHHA: 16778426
+                Cyrillic_SHORTI: 1770
+                Cyrillic_SOFTSIGN: 1784
+                Cyrillic_TE: 1780
+                Cyrillic_TSE: 1763
+                Cyrillic_U: 1781
+                Cyrillic_U_macron: 16778478
+                Cyrillic_U_straight: 16778414
+                Cyrillic_U_straight_bar: 16778416
+                Cyrillic_VE: 1783
+                Cyrillic_YA: 1777
+                Cyrillic_YERU: 1785
+                Cyrillic_YU: 1760
+                Cyrillic_ZE: 1786
+                Cyrillic_ZHE: 1782
+                Cyrillic_ZHE_descender: 16778390
+                Cyrillic_a: 1729
+                Cyrillic_be: 1730
+                Cyrillic_che: 1758
+                Cyrillic_che_descender: 16778423
+                Cyrillic_che_vertstroke: 16778425
+                Cyrillic_de: 1732
+                Cyrillic_dzhe: 1711
+                Cyrillic_e: 1756
+                Cyrillic_ef: 1734
+                Cyrillic_el: 1740
+                Cyrillic_em: 1741
+                Cyrillic_en: 1742
+                Cyrillic_en_descender: 16778403
+                Cyrillic_er: 1746
+                Cyrillic_es: 1747
+                Cyrillic_ghe: 1735
+                Cyrillic_ghe_bar: 16778387
+                Cyrillic_ha: 1736
+                Cyrillic_ha_descender: 16778419
+                Cyrillic_hardsign: 1759
+                Cyrillic_i: 1737
+                Cyrillic_i_macron: 16778467
+                Cyrillic_ie: 1733
+                Cyrillic_io: 1699
+                Cyrillic_je: 1704
+                Cyrillic_ka: 1739
+                Cyrillic_ka_descender: 16778395
+                Cyrillic_ka_vertstroke: 16778397
+                Cyrillic_lje: 1705
+                Cyrillic_nje: 1706
+                Cyrillic_o: 1743
+                Cyrillic_o_bar: 16778473
+                Cyrillic_pe: 1744
+                Cyrillic_schwa: 16778457
+                Cyrillic_sha: 1755
+                Cyrillic_shcha: 1757
+                Cyrillic_shha: 16778427
+                Cyrillic_shorti: 1738
+                Cyrillic_softsign: 1752
+                Cyrillic_te: 1748
+                Cyrillic_tse: 1731
+                Cyrillic_u: 1749
+                Cyrillic_u_macron: 16778479
+                Cyrillic_u_straight: 16778415
+                Cyrillic_u_straight_bar: 16778417
+                Cyrillic_ve: 1751
+                Cyrillic_ya: 1745
+                Cyrillic_yeru: 1753
+                Cyrillic_yu: 1728
+                Cyrillic_ze: 1754
+                Cyrillic_zhe: 1750
+                Cyrillic_zhe_descender: 16778391
+                D: 68
+                Dabovedot: 16784906
+                Dcaron: 463
+                Delete: 65535
+                DongSign: 16785579
+                Down: 65364
+                Dstroke: 464
+                E: 69
+                ENG: 957
+                ETH: 208
+                Eabovedot: 972
+                Eacute: 201
+                Ebelowdot: 16785080
+                Ecaron: 460
+                Ecircumflex: 202
+                Ecircumflexacute: 16785086
+                Ecircumflexbelowdot: 16785094
+                Ecircumflexgrave: 16785088
+                Ecircumflexhook: 16785090
+                Ecircumflextilde: 16785092
+                EcuSign: 16785568
+                Ediaeresis: 203
+                Egrave: 200
+                Ehook: 16785082
+                Eisu_Shift: 65327
+                Eisu_toggle: 65328
+                Emacron: 938
+                End: 65367
+                Eogonek: 458
+                Escape: 65307
+                Eth: 208
+                Etilde: 16785084
+                EuroSign: 8364
+                Execute: 65378
+                F: 70
+                F1: 65470
+                F10: 65479
+                F11: 65480
+                F12: 65481
+                F13: 65482
+                F14: 65483
+                F15: 65484
+                F16: 65485
+                F17: 65486
+                F18: 65487
+                F19: 65488
+                F2: 65471
+                F20: 65489
+                F21: 65490
+                F22: 65491
+                F23: 65492
+                F24: 65493
+                F25: 65494
+                F26: 65495
+                F27: 65496
+                F28: 65497
+                F29: 65498
+                F3: 65472
+                F30: 65499
+                F31: 65500
+                F32: 65501
+                F33: 65502
+                F34: 65503
+                F35: 65504
+                F4: 65473
+                F5: 65474
+                F6: 65475
+                F7: 65476
+                F8: 65477
+                F9: 65478
+                FFrancSign: 16785571
+                Fabovedot: 16784926
+                Farsi_0: 16778992
+                Farsi_1: 16778993
+                Farsi_2: 16778994
+                Farsi_3: 16778995
+                Farsi_4: 16778996
+                Farsi_5: 16778997
+                Farsi_6: 16778998
+                Farsi_7: 16778999
+                Farsi_8: 16779000
+                Farsi_9: 16779001
+                Farsi_yeh: 16778956
+                Find: 65384
+                First_Virtual_Screen: 65232
+                G: 71
+                Gabovedot: 725
+                Gbreve: 683
+                Gcaron: 16777702
+                Gcedilla: 939
+                Gcircumflex: 728
+                Georgian_an: 16781520
+                Georgian_ban: 16781521
+                Georgian_can: 16781546
+                Georgian_char: 16781549
+                Georgian_chin: 16781545
+                Georgian_cil: 16781548
+                Georgian_don: 16781523
+                Georgian_en: 16781524
+                Georgian_fi: 16781558
+                Georgian_gan: 16781522
+                Georgian_ghan: 16781542
+                Georgian_hae: 16781552
+                Georgian_har: 16781556
+                Georgian_he: 16781553
+                Georgian_hie: 16781554
+                Georgian_hoe: 16781557
+                Georgian_in: 16781528
+                Georgian_jhan: 16781551
+                Georgian_jil: 16781547
+                Georgian_kan: 16781529
+                Georgian_khar: 16781541
+                Georgian_las: 16781530
+                Georgian_man: 16781531
+                Georgian_nar: 16781532
+                Georgian_on: 16781533
+                Georgian_par: 16781534
+                Georgian_phar: 16781540
+                Georgian_qar: 16781543
+                Georgian_rae: 16781536
+                Georgian_san: 16781537
+                Georgian_shin: 16781544
+                Georgian_tan: 16781527
+                Georgian_tar: 16781538
+                Georgian_un: 16781539
+                Georgian_vin: 16781525
+                Georgian_we: 16781555
+                Georgian_xan: 16781550
+                Georgian_zen: 16781526
+                Georgian_zhar: 16781535
+                Greek_ALPHA: 1985
+                Greek_ALPHAaccent: 1953
+                Greek_BETA: 1986
+                Greek_CHI: 2007
+                Greek_DELTA: 1988
+                Greek_EPSILON: 1989
+                Greek_EPSILONaccent: 1954
+                Greek_ETA: 1991
+                Greek_ETAaccent: 1955
+                Greek_GAMMA: 1987
+                Greek_IOTA: 1993
+                Greek_IOTAaccent: 1956
+                Greek_IOTAdiaeresis: 1957
+                Greek_IOTAdieresis: 1957
+                Greek_KAPPA: 1994
+                Greek_LAMBDA: 1995
+                Greek_LAMDA: 1995
+                Greek_MU: 1996
+                Greek_NU: 1997
+                Greek_OMEGA: 2009
+                Greek_OMEGAaccent: 1963
+                Greek_OMICRON: 1999
+                Greek_OMICRONaccent: 1959
+                Greek_PHI: 2006
+                Greek_PI: 2000
+                Greek_PSI: 2008
+                Greek_RHO: 2001
+                Greek_SIGMA: 2002
+                Greek_TAU: 2004
+                Greek_THETA: 1992
+                Greek_UPSILON: 2005
+                Greek_UPSILONaccent: 1960
+                Greek_UPSILONdieresis: 1961
+                Greek_XI: 1998
+                Greek_ZETA: 1990
+                Greek_accentdieresis: 1966
+                Greek_alpha: 2017
+                Greek_alphaaccent: 1969
+                Greek_beta: 2018
+                Greek_chi: 2039
+                Greek_delta: 2020
+                Greek_epsilon: 2021
+                Greek_epsilonaccent: 1970
+                Greek_eta: 2023
+                Greek_etaaccent: 1971
+                Greek_finalsmallsigma: 2035
+                Greek_gamma: 2019
+                Greek_horizbar: 1967
+                Greek_iota: 2025
+                Greek_iotaaccent: 1972
+                Greek_iotaaccentdieresis: 1974
+                Greek_iotadieresis: 1973
+                Greek_kappa: 2026
+                Greek_lambda: 2027
+                Greek_lamda: 2027
+                Greek_mu: 2028
+                Greek_nu: 2029
+                Greek_omega: 2041
+                Greek_omegaaccent: 1979
+                Greek_omicron: 2031
+                Greek_omicronaccent: 1975
+                Greek_phi: 2038
+                Greek_pi: 2032
+                Greek_psi: 2040
+                Greek_rho: 2033
+                Greek_sigma: 2034
+                Greek_switch: 65406
+                Greek_tau: 2036
+                Greek_theta: 2024
+                Greek_upsilon: 2037
+                Greek_upsilonaccent: 1976
+                Greek_upsilonaccentdieresis: 1978
+                Greek_upsilondieresis: 1977
+                Greek_xi: 2030
+                Greek_zeta: 2022
+                H: 72
+                Hangul: 65329
+                Hangul_A: 3775
+                Hangul_AE: 3776
+                Hangul_AraeA: 3830
+                Hangul_AraeAE: 3831
+                Hangul_Banja: 65337
+                Hangul_Cieuc: 3770
+                Hangul_Codeinput: 65335
+                Hangul_Dikeud: 3751
+                Hangul_E: 3780
+                Hangul_EO: 3779
+                Hangul_EU: 3793
+                Hangul_End: 65331
+                Hangul_Hanja: 65332
+                Hangul_Hieuh: 3774
+                Hangul_I: 3795
+                Hangul_Ieung: 3767
+                Hangul_J_Cieuc: 3818
+                Hangul_J_Dikeud: 3802
+                Hangul_J_Hieuh: 3822
+                Hangul_J_Ieung: 3816
+                Hangul_J_Jieuj: 3817
+                Hangul_J_Khieuq: 3819
+                Hangul_J_Kiyeog: 3796
+                Hangul_J_KiyeogSios: 3798
+                Hangul_J_KkogjiDalrinIeung: 3833
+                Hangul_J_Mieum: 3811
+                Hangul_J_Nieun: 3799
+                Hangul_J_NieunHieuh: 3801
+                Hangul_J_NieunJieuj: 3800
+                Hangul_J_PanSios: 3832
+                Hangul_J_Phieuf: 3821
+                Hangul_J_Pieub: 3812
+                Hangul_J_PieubSios: 3813
+                Hangul_J_Rieul: 3803
+                Hangul_J_RieulHieuh: 3810
+                Hangul_J_RieulKiyeog: 3804
+                Hangul_J_RieulMieum: 3805
+                Hangul_J_RieulPhieuf: 3809
+                Hangul_J_RieulPieub: 3806
+                Hangul_J_RieulSios: 3807
+                Hangul_J_RieulTieut: 3808
+                Hangul_J_Sios: 3814
+                Hangul_J_SsangKiyeog: 3797
+                Hangul_J_SsangSios: 3815
+                Hangul_J_Tieut: 3820
+                Hangul_J_YeorinHieuh: 3834
+                Hangul_Jamo: 65333
+                Hangul_Jeonja: 65336
+                Hangul_Jieuj: 3768
+                Hangul_Khieuq: 3771
+                Hangul_Kiyeog: 3745
+                Hangul_KiyeogSios: 3747
+                Hangul_KkogjiDalrinIeung: 3827
+                Hangul_Mieum: 3761
+                Hangul_MultipleCandidate: 65341
+                Hangul_Nieun: 3748
+                Hangul_NieunHieuh: 3750
+                Hangul_NieunJieuj: 3749
+                Hangul_O: 3783
+                Hangul_OE: 3786
+                Hangul_PanSios: 3826
+                Hangul_Phieuf: 3773
+                Hangul_Pieub: 3762
+                Hangul_PieubSios: 3764
+                Hangul_PostHanja: 65339
+                Hangul_PreHanja: 65338
+                Hangul_PreviousCandidate: 65342
+                Hangul_Rieul: 3753
+                Hangul_RieulHieuh: 3760
+                Hangul_RieulKiyeog: 3754
+                Hangul_RieulMieum: 3755
+                Hangul_RieulPhieuf: 3759
+                Hangul_RieulPieub: 3756
+                Hangul_RieulSios: 3757
+                Hangul_RieulTieut: 3758
+                Hangul_RieulYeorinHieuh: 3823
+                Hangul_Romaja: 65334
+                Hangul_SingleCandidate: 65340
+                Hangul_Sios: 3765
+                Hangul_Special: 65343
+                Hangul_SsangDikeud: 3752
+                Hangul_SsangJieuj: 3769
+                Hangul_SsangKiyeog: 3746
+                Hangul_SsangPieub: 3763
+                Hangul_SsangSios: 3766
+                Hangul_Start: 65330
+                Hangul_SunkyeongeumMieum: 3824
+                Hangul_SunkyeongeumPhieuf: 3828
+                Hangul_SunkyeongeumPieub: 3825
+                Hangul_Tieut: 3772
+                Hangul_U: 3788
+                Hangul_WA: 3784
+                Hangul_WAE: 3785
+                Hangul_WE: 3790
+                Hangul_WEO: 3789
+                Hangul_WI: 3791
+                Hangul_YA: 3777
+                Hangul_YAE: 3778
+                Hangul_YE: 3782
+                Hangul_YEO: 3781
+                Hangul_YI: 3794
+                Hangul_YO: 3787
+                Hangul_YU: 3792
+                Hangul_YeorinHieuh: 3829
+                Hangul_switch: 65406
+                Hankaku: 65321
+                Hcircumflex: 678
+                Hebrew_switch: 65406
+                Help: 65386
+                Henkan: 65315
+                Henkan_Mode: 65315
+                Hiragana: 65317
+                Hiragana_Katakana: 65319
+                Home: 65360
+                Hstroke: 673
+                Hyper_L: 65517
+                Hyper_R: 65518
+                I: 73
+                INTERFACE_CONFIG: "org.freedesktop.IBus.Config"
+                INTERFACE_ENGINE: "org.freedesktop.IBus.Engine"
+                INTERFACE_FACTORY: "org.freedesktop.IBus.Factory"
+                INTERFACE_IBUS: "org.freedesktop.IBus"
+                INTERFACE_INPUT_CONTEXT: "org.freedesktop.IBus.InputContext"
+                INTERFACE_NOTIFICATIONS: "org.freedesktop.IBus.Notifications"
+                INTERFACE_PANEL: "org.freedesktop.IBus.Panel"
+                INTERFACE_PORTAL: "org.freedesktop.IBus.Portal"
+                ISO_Center_Object: 65075
+                ISO_Continuous_Underline: 65072
+                ISO_Discontinuous_Underline: 65073
+                ISO_Emphasize: 65074
+                ISO_Enter: 65076
+                ISO_Fast_Cursor_Down: 65071
+                ISO_Fast_Cursor_Left: 65068
+                ISO_Fast_Cursor_Right: 65069
+                ISO_Fast_Cursor_Up: 65070
+                ISO_First_Group: 65036
+                ISO_First_Group_Lock: 65037
+                ISO_Group_Latch: 65030
+                ISO_Group_Lock: 65031
+                ISO_Group_Shift: 65406
+                ISO_Last_Group: 65038
+                ISO_Last_Group_Lock: 65039
+                ISO_Left_Tab: 65056
+                ISO_Level2_Latch: 65026
+                ISO_Level3_Latch: 65028
+                ISO_Level3_Lock: 65029
+                ISO_Level3_Shift: 65027
+                ISO_Level5_Latch: 65042
+                ISO_Level5_Lock: 65043
+                ISO_Level5_Shift: 65041
+                ISO_Lock: 65025
+                ISO_Move_Line_Down: 65058
+                ISO_Move_Line_Up: 65057
+                ISO_Next_Group: 65032
+                ISO_Next_Group_Lock: 65033
+                ISO_Partial_Line_Down: 65060
+                ISO_Partial_Line_Up: 65059
+                ISO_Partial_Space_Left: 65061
+                ISO_Partial_Space_Right: 65062
+                ISO_Prev_Group: 65034
+                ISO_Prev_Group_Lock: 65035
+                ISO_Release_Both_Margins: 65067
+                ISO_Release_Margin_Left: 65065
+                ISO_Release_Margin_Right: 65066
+                ISO_Set_Margin_Left: 65063
+                ISO_Set_Margin_Right: 65064
+                Iabovedot: 681
+                Iacute: 205
+                Ibelowdot: 16785098
+                Ibreve: 16777516
+                Icircumflex: 206
+                Idiaeresis: 207
+                Igrave: 204
+                Ihook: 16785096
+                Imacron: 975
+                Insert: 65379
+                Iogonek: 967
+                Itilde: 933
+                J: 74
+                Jcircumflex: 684
+                K: 75
+                KEY_0: 48
+                KEY_1: 49
+                KEY_2: 50
+                KEY_3: 51
+                KEY_3270_AltCursor: 64784
+                KEY_3270_Attn: 64782
+                KEY_3270_BackTab: 64773
+                KEY_3270_ChangeScreen: 64793
+                KEY_3270_Copy: 64789
+                KEY_3270_CursorBlink: 64783
+                KEY_3270_CursorSelect: 64796
+                KEY_3270_DeleteWord: 64794
+                KEY_3270_Duplicate: 64769
+                KEY_3270_Enter: 64798
+                KEY_3270_EraseEOF: 64774
+                KEY_3270_EraseInput: 64775
+                KEY_3270_ExSelect: 64795
+                KEY_3270_FieldMark: 64770
+                KEY_3270_Ident: 64787
+                KEY_3270_Jump: 64786
+                KEY_3270_KeyClick: 64785
+                KEY_3270_Left2: 64772
+                KEY_3270_PA1: 64778
+                KEY_3270_PA2: 64779
+                KEY_3270_PA3: 64780
+                KEY_3270_Play: 64790
+                KEY_3270_PrintScreen: 64797
+                KEY_3270_Quit: 64777
+                KEY_3270_Record: 64792
+                KEY_3270_Reset: 64776
+                KEY_3270_Right2: 64771
+                KEY_3270_Rule: 64788
+                KEY_3270_Setup: 64791
+                KEY_3270_Test: 64781
+                KEY_4: 52
+                KEY_5: 53
+                KEY_6: 54
+                KEY_7: 55
+                KEY_8: 56
+                KEY_9: 57
+                KEY_A: 65
+                KEY_AE: 198
+                KEY_Aacute: 193
+                KEY_Abelowdot: 16785056
+                KEY_Abreve: 451
+                KEY_Abreveacute: 16785070
+                KEY_Abrevebelowdot: 16785078
+                KEY_Abrevegrave: 16785072
+                KEY_Abrevehook: 16785074
+                KEY_Abrevetilde: 16785076
+                KEY_AccessX_Enable: 65136
+                KEY_AccessX_Feedback_Enable: 65137
+                KEY_Acircumflex: 194
+                KEY_Acircumflexacute: 16785060
+                KEY_Acircumflexbelowdot: 16785068
+                KEY_Acircumflexgrave: 16785062
+                KEY_Acircumflexhook: 16785064
+                KEY_Acircumflextilde: 16785066
+                KEY_AddFavorite: 269025081
+                KEY_Adiaeresis: 196
+                KEY_Agrave: 192
+                KEY_Ahook: 16785058
+                KEY_Alt_L: 65513
+                KEY_Alt_R: 65514
+                KEY_Amacron: 960
+                KEY_Aogonek: 417
+                KEY_ApplicationLeft: 269025104
+                KEY_ApplicationRight: 269025105
+                KEY_Arabic_0: 16778848
+                KEY_Arabic_1: 16778849
+                KEY_Arabic_2: 16778850
+                KEY_Arabic_3: 16778851
+                KEY_Arabic_4: 16778852
+                KEY_Arabic_5: 16778853
+                KEY_Arabic_6: 16778854
+                KEY_Arabic_7: 16778855
+                KEY_Arabic_8: 16778856
+                KEY_Arabic_9: 16778857
+                KEY_Arabic_ain: 1497
+                KEY_Arabic_alef: 1479
+                KEY_Arabic_alefmaksura: 1513
+                KEY_Arabic_beh: 1480
+                KEY_Arabic_comma: 1452
+                KEY_Arabic_dad: 1494
+                KEY_Arabic_dal: 1487
+                KEY_Arabic_damma: 1519
+                KEY_Arabic_dammatan: 1516
+                KEY_Arabic_ddal: 16778888
+                KEY_Arabic_farsi_yeh: 16778956
+                KEY_Arabic_fatha: 1518
+                KEY_Arabic_fathatan: 1515
+                KEY_Arabic_feh: 1505
+                KEY_Arabic_fullstop: 16778964
+                KEY_Arabic_gaf: 16778927
+                KEY_Arabic_ghain: 1498
+                KEY_Arabic_ha: 1511
+                KEY_Arabic_hah: 1485
+                KEY_Arabic_hamza: 1473
+                KEY_Arabic_hamza_above: 16778836
+                KEY_Arabic_hamza_below: 16778837
+                KEY_Arabic_hamzaonalef: 1475
+                KEY_Arabic_hamzaonwaw: 1476
+                KEY_Arabic_hamzaonyeh: 1478
+                KEY_Arabic_hamzaunderalef: 1477
+                KEY_Arabic_heh: 1511
+                KEY_Arabic_heh_doachashmee: 16778942
+                KEY_Arabic_heh_goal: 16778945
+                KEY_Arabic_jeem: 1484
+                KEY_Arabic_jeh: 16778904
+                KEY_Arabic_kaf: 1507
+                KEY_Arabic_kasra: 1520
+                KEY_Arabic_kasratan: 1517
+                KEY_Arabic_keheh: 16778921
+                KEY_Arabic_khah: 1486
+                KEY_Arabic_lam: 1508
+                KEY_Arabic_madda_above: 16778835
+                KEY_Arabic_maddaonalef: 1474
+                KEY_Arabic_meem: 1509
+                KEY_Arabic_noon: 1510
+                KEY_Arabic_noon_ghunna: 16778938
+                KEY_Arabic_peh: 16778878
+                KEY_Arabic_percent: 16778858
+                KEY_Arabic_qaf: 1506
+                KEY_Arabic_question_mark: 1471
+                KEY_Arabic_ra: 1489
+                KEY_Arabic_rreh: 16778897
+                KEY_Arabic_sad: 1493
+                KEY_Arabic_seen: 1491
+                KEY_Arabic_semicolon: 1467
+                KEY_Arabic_shadda: 1521
+                KEY_Arabic_sheen: 1492
+                KEY_Arabic_sukun: 1522
+                KEY_Arabic_superscript_alef: 16778864
+                KEY_Arabic_switch: 65406
+                KEY_Arabic_tah: 1495
+                KEY_Arabic_tatweel: 1504
+                KEY_Arabic_tcheh: 16778886
+                KEY_Arabic_teh: 1482
+                KEY_Arabic_tehmarbuta: 1481
+                KEY_Arabic_thal: 1488
+                KEY_Arabic_theh: 1483
+                KEY_Arabic_tteh: 16778873
+                KEY_Arabic_veh: 16778916
+                KEY_Arabic_waw: 1512
+                KEY_Arabic_yeh: 1514
+                KEY_Arabic_yeh_baree: 16778962
+                KEY_Arabic_zah: 1496
+                KEY_Arabic_zain: 1490
+                KEY_Aring: 197
+                KEY_Armenian_AT: 16778552
+                KEY_Armenian_AYB: 16778545
+                KEY_Armenian_BEN: 16778546
+                KEY_Armenian_CHA: 16778569
+                KEY_Armenian_DA: 16778548
+                KEY_Armenian_DZA: 16778561
+                KEY_Armenian_E: 16778551
+                KEY_Armenian_FE: 16778582
+                KEY_Armenian_GHAT: 16778562
+                KEY_Armenian_GIM: 16778547
+                KEY_Armenian_HI: 16778565
+                KEY_Armenian_HO: 16778560
+                KEY_Armenian_INI: 16778555
+                KEY_Armenian_JE: 16778571
+                KEY_Armenian_KE: 16778580
+                KEY_Armenian_KEN: 16778559
+                KEY_Armenian_KHE: 16778557
+                KEY_Armenian_LYUN: 16778556
+                KEY_Armenian_MEN: 16778564
+                KEY_Armenian_NU: 16778566
+                KEY_Armenian_O: 16778581
+                KEY_Armenian_PE: 16778570
+                KEY_Armenian_PYUR: 16778579
+                KEY_Armenian_RA: 16778572
+                KEY_Armenian_RE: 16778576
+                KEY_Armenian_SE: 16778573
+                KEY_Armenian_SHA: 16778567
+                KEY_Armenian_TCHE: 16778563
+                KEY_Armenian_TO: 16778553
+                KEY_Armenian_TSA: 16778558
+                KEY_Armenian_TSO: 16778577
+                KEY_Armenian_TYUN: 16778575
+                KEY_Armenian_VEV: 16778574
+                KEY_Armenian_VO: 16778568
+                KEY_Armenian_VYUN: 16778578
+                KEY_Armenian_YECH: 16778549
+                KEY_Armenian_ZA: 16778550
+                KEY_Armenian_ZHE: 16778554
+                KEY_Armenian_accent: 16778587
+                KEY_Armenian_amanak: 16778588
+                KEY_Armenian_apostrophe: 16778586
+                KEY_Armenian_at: 16778600
+                KEY_Armenian_ayb: 16778593
+                KEY_Armenian_ben: 16778594
+                KEY_Armenian_but: 16778589
+                KEY_Armenian_cha: 16778617
+                KEY_Armenian_da: 16778596
+                KEY_Armenian_dza: 16778609
+                KEY_Armenian_e: 16778599
+                KEY_Armenian_exclam: 16778588
+                KEY_Armenian_fe: 16778630
+                KEY_Armenian_full_stop: 16778633
+                KEY_Armenian_ghat: 16778610
+                KEY_Armenian_gim: 16778595
+                KEY_Armenian_hi: 16778613
+                KEY_Armenian_ho: 16778608
+                KEY_Armenian_hyphen: 16778634
+                KEY_Armenian_ini: 16778603
+                KEY_Armenian_je: 16778619
+                KEY_Armenian_ke: 16778628
+                KEY_Armenian_ken: 16778607
+                KEY_Armenian_khe: 16778605
+                KEY_Armenian_ligature_ew: 16778631
+                KEY_Armenian_lyun: 16778604
+                KEY_Armenian_men: 16778612
+                KEY_Armenian_nu: 16778614
+                KEY_Armenian_o: 16778629
+                KEY_Armenian_paruyk: 16778590
+                KEY_Armenian_pe: 16778618
+                KEY_Armenian_pyur: 16778627
+                KEY_Armenian_question: 16778590
+                KEY_Armenian_ra: 16778620
+                KEY_Armenian_re: 16778624
+                KEY_Armenian_se: 16778621
+                KEY_Armenian_separation_mark: 16778589
+                KEY_Armenian_sha: 16778615
+                KEY_Armenian_shesht: 16778587
+                KEY_Armenian_tche: 16778611
+                KEY_Armenian_to: 16778601
+                KEY_Armenian_tsa: 16778606
+                KEY_Armenian_tso: 16778625
+                KEY_Armenian_tyun: 16778623
+                KEY_Armenian_verjaket: 16778633
+                KEY_Armenian_vev: 16778622
+                KEY_Armenian_vo: 16778616
+                KEY_Armenian_vyun: 16778626
+                KEY_Armenian_yech: 16778597
+                KEY_Armenian_yentamna: 16778634
+                KEY_Armenian_za: 16778598
+                KEY_Armenian_zhe: 16778602
+                KEY_Atilde: 195
+                KEY_AudibleBell_Enable: 65146
+                KEY_AudioCycleTrack: 269025179
+                KEY_AudioForward: 269025175
+                KEY_AudioLowerVolume: 269025041
+                KEY_AudioMedia: 269025074
+                KEY_AudioMicMute: 269025202
+                KEY_AudioMute: 269025042
+                KEY_AudioNext: 269025047
+                KEY_AudioPause: 269025073
+                KEY_AudioPlay: 269025044
+                KEY_AudioPreset: 269025206
+                KEY_AudioPrev: 269025046
+                KEY_AudioRaiseVolume: 269025043
+                KEY_AudioRandomPlay: 269025177
+                KEY_AudioRecord: 269025052
+                KEY_AudioRepeat: 269025176
+                KEY_AudioRewind: 269025086
+                KEY_AudioStop: 269025045
+                KEY_Away: 269025165
+                KEY_B: 66
+                KEY_Babovedot: 16784898
+                KEY_Back: 269025062
+                KEY_BackForward: 269025087
+                KEY_BackSpace: 65288
+                KEY_Battery: 269025171
+                KEY_Begin: 65368
+                KEY_Blue: 269025190
+                KEY_Bluetooth: 269025172
+                KEY_Book: 269025106
+                KEY_BounceKeys_Enable: 65140
+                KEY_Break: 65387
+                KEY_BrightnessAdjust: 269025083
+                KEY_Byelorussian_SHORTU: 1726
+                KEY_Byelorussian_shortu: 1710
+                KEY_C: 67
+                KEY_CD: 269025107
+                KEY_CH: 65186
+                KEY_C_H: 65189
+                KEY_C_h: 65188
+                KEY_Cabovedot: 709
+                KEY_Cacute: 454
+                KEY_Calculator: 269025053
+                KEY_Calendar: 269025056
+                KEY_Cancel: 65385
+                KEY_Caps_Lock: 65509
+                KEY_Ccaron: 456
+                KEY_Ccedilla: 199
+                KEY_Ccircumflex: 710
+                KEY_Ch: 65185
+                KEY_Clear: 65291
+                KEY_ClearGrab: 269024801
+                KEY_Close: 269025110
+                KEY_Codeinput: 65335
+                KEY_ColonSign: 16785569
+                KEY_Community: 269025085
+                KEY_ContrastAdjust: 269025058
+                KEY_Control_L: 65507
+                KEY_Control_R: 65508
+                KEY_Copy: 269025111
+                KEY_CruzeiroSign: 16785570
+                KEY_Cut: 269025112
+                KEY_CycleAngle: 269025180
+                KEY_Cyrillic_A: 1761
+                KEY_Cyrillic_BE: 1762
+                KEY_Cyrillic_CHE: 1790
+                KEY_Cyrillic_CHE_descender: 16778422
+                KEY_Cyrillic_CHE_vertstroke: 16778424
+                KEY_Cyrillic_DE: 1764
+                KEY_Cyrillic_DZHE: 1727
+                KEY_Cyrillic_E: 1788
+                KEY_Cyrillic_EF: 1766
+                KEY_Cyrillic_EL: 1772
+                KEY_Cyrillic_EM: 1773
+                KEY_Cyrillic_EN: 1774
+                KEY_Cyrillic_EN_descender: 16778402
+                KEY_Cyrillic_ER: 1778
+                KEY_Cyrillic_ES: 1779
+                KEY_Cyrillic_GHE: 1767
+                KEY_Cyrillic_GHE_bar: 16778386
+                KEY_Cyrillic_HA: 1768
+                KEY_Cyrillic_HARDSIGN: 1791
+                KEY_Cyrillic_HA_descender: 16778418
+                KEY_Cyrillic_I: 1769
+                KEY_Cyrillic_IE: 1765
+                KEY_Cyrillic_IO: 1715
+                KEY_Cyrillic_I_macron: 16778466
+                KEY_Cyrillic_JE: 1720
+                KEY_Cyrillic_KA: 1771
+                KEY_Cyrillic_KA_descender: 16778394
+                KEY_Cyrillic_KA_vertstroke: 16778396
+                KEY_Cyrillic_LJE: 1721
+                KEY_Cyrillic_NJE: 1722
+                KEY_Cyrillic_O: 1775
+                KEY_Cyrillic_O_bar: 16778472
+                KEY_Cyrillic_PE: 1776
+                KEY_Cyrillic_SCHWA: 16778456
+                KEY_Cyrillic_SHA: 1787
+                KEY_Cyrillic_SHCHA: 1789
+                KEY_Cyrillic_SHHA: 16778426
+                KEY_Cyrillic_SHORTI: 1770
+                KEY_Cyrillic_SOFTSIGN: 1784
+                KEY_Cyrillic_TE: 1780
+                KEY_Cyrillic_TSE: 1763
+                KEY_Cyrillic_U: 1781
+                KEY_Cyrillic_U_macron: 16778478
+                KEY_Cyrillic_U_straight: 16778414
+                KEY_Cyrillic_U_straight_bar: 16778416
+                KEY_Cyrillic_VE: 1783
+                KEY_Cyrillic_YA: 1777
+                KEY_Cyrillic_YERU: 1785
+                KEY_Cyrillic_YU: 1760
+                KEY_Cyrillic_ZE: 1786
+                KEY_Cyrillic_ZHE: 1782
+                KEY_Cyrillic_ZHE_descender: 16778390
+                KEY_Cyrillic_a: 1729
+                KEY_Cyrillic_be: 1730
+                KEY_Cyrillic_che: 1758
+                KEY_Cyrillic_che_descender: 16778423
+                KEY_Cyrillic_che_vertstroke: 16778425
+                KEY_Cyrillic_de: 1732
+                KEY_Cyrillic_dzhe: 1711
+                KEY_Cyrillic_e: 1756
+                KEY_Cyrillic_ef: 1734
+                KEY_Cyrillic_el: 1740
+                KEY_Cyrillic_em: 1741
+                KEY_Cyrillic_en: 1742
+                KEY_Cyrillic_en_descender: 16778403
+                KEY_Cyrillic_er: 1746
+                KEY_Cyrillic_es: 1747
+                KEY_Cyrillic_ghe: 1735
+                KEY_Cyrillic_ghe_bar: 16778387
+                KEY_Cyrillic_ha: 1736
+                KEY_Cyrillic_ha_descender: 16778419
+                KEY_Cyrillic_hardsign: 1759
+                KEY_Cyrillic_i: 1737
+                KEY_Cyrillic_i_macron: 16778467
+                KEY_Cyrillic_ie: 1733
+                KEY_Cyrillic_io: 1699
+                KEY_Cyrillic_je: 1704
+                KEY_Cyrillic_ka: 1739
+                KEY_Cyrillic_ka_descender: 16778395
+                KEY_Cyrillic_ka_vertstroke: 16778397
+                KEY_Cyrillic_lje: 1705
+                KEY_Cyrillic_nje: 1706
+                KEY_Cyrillic_o: 1743
+                KEY_Cyrillic_o_bar: 16778473
+                KEY_Cyrillic_pe: 1744
+                KEY_Cyrillic_schwa: 16778457
+                KEY_Cyrillic_sha: 1755
+                KEY_Cyrillic_shcha: 1757
+                KEY_Cyrillic_shha: 16778427
+                KEY_Cyrillic_shorti: 1738
+                KEY_Cyrillic_softsign: 1752
+                KEY_Cyrillic_te: 1748
+                KEY_Cyrillic_tse: 1731
+                KEY_Cyrillic_u: 1749
+                KEY_Cyrillic_u_macron: 16778479
+                KEY_Cyrillic_u_straight: 16778415
+                KEY_Cyrillic_u_straight_bar: 16778417
+                KEY_Cyrillic_ve: 1751
+                KEY_Cyrillic_ya: 1745
+                KEY_Cyrillic_yeru: 1753
+                KEY_Cyrillic_yu: 1728
+                KEY_Cyrillic_ze: 1754
+                KEY_Cyrillic_zhe: 1750
+                KEY_Cyrillic_zhe_descender: 16778391
+                KEY_D: 68
+                KEY_DOS: 269025114
+                KEY_Dabovedot: 16784906
+                KEY_Dcaron: 463
+                KEY_Delete: 65535
+                KEY_Display: 269025113
+                KEY_Documents: 269025115
+                KEY_DongSign: 16785579
+                KEY_Down: 65364
+                KEY_Dstroke: 464
+                KEY_E: 69
+                KEY_ENG: 957
+                KEY_ETH: 208
+                KEY_EZH: 16777655
+                KEY_Eabovedot: 972
+                KEY_Eacute: 201
+                KEY_Ebelowdot: 16785080
+                KEY_Ecaron: 460
+                KEY_Ecircumflex: 202
+                KEY_Ecircumflexacute: 16785086
+                KEY_Ecircumflexbelowdot: 16785094
+                KEY_Ecircumflexgrave: 16785088
+                KEY_Ecircumflexhook: 16785090
+                KEY_Ecircumflextilde: 16785092
+                KEY_EcuSign: 16785568
+                KEY_Ediaeresis: 203
+                KEY_Egrave: 200
+                KEY_Ehook: 16785082
+                KEY_Eisu_Shift: 65327
+                KEY_Eisu_toggle: 65328
+                KEY_Eject: 269025068
+                KEY_Emacron: 938
+                KEY_End: 65367
+                KEY_Eogonek: 458
+                KEY_Escape: 65307
+                KEY_Eth: 208
+                KEY_Etilde: 16785084
+                KEY_EuroSign: 8364
+                KEY_Excel: 269025116
+                KEY_Execute: 65378
+                KEY_Explorer: 269025117
+                KEY_F: 70
+                KEY_F1: 65470
+                KEY_F10: 65479
+                KEY_F11: 65480
+                KEY_F12: 65481
+                KEY_F13: 65482
+                KEY_F14: 65483
+                KEY_F15: 65484
+                KEY_F16: 65485
+                KEY_F17: 65486
+                KEY_F18: 65487
+                KEY_F19: 65488
+                KEY_F2: 65471
+                KEY_F20: 65489
+                KEY_F21: 65490
+                KEY_F22: 65491
+                KEY_F23: 65492
+                KEY_F24: 65493
+                KEY_F25: 65494
+                KEY_F26: 65495
+                KEY_F27: 65496
+                KEY_F28: 65497
+                KEY_F29: 65498
+                KEY_F3: 65472
+                KEY_F30: 65499
+                KEY_F31: 65500
+                KEY_F32: 65501
+                KEY_F33: 65502
+                KEY_F34: 65503
+                KEY_F35: 65504
+                KEY_F4: 65473
+                KEY_F5: 65474
+                KEY_F6: 65475
+                KEY_F7: 65476
+                KEY_F8: 65477
+                KEY_F9: 65478
+                KEY_FFrancSign: 16785571
+                KEY_Fabovedot: 16784926
+                KEY_Farsi_0: 16778992
+                KEY_Farsi_1: 16778993
+                KEY_Farsi_2: 16778994
+                KEY_Farsi_3: 16778995
+                KEY_Farsi_4: 16778996
+                KEY_Farsi_5: 16778997
+                KEY_Farsi_6: 16778998
+                KEY_Farsi_7: 16778999
+                KEY_Farsi_8: 16779000
+                KEY_Farsi_9: 16779001
+                KEY_Farsi_yeh: 16778956
+                KEY_Favorites: 269025072
+                KEY_Finance: 269025084
+                KEY_Find: 65384
+                KEY_First_Virtual_Screen: 65232
+                KEY_Forward: 269025063
+                KEY_FrameBack: 269025181
+                KEY_FrameForward: 269025182
+                KEY_G: 71
+                KEY_Gabovedot: 725
+                KEY_Game: 269025118
+                KEY_Gbreve: 683
+                KEY_Gcaron: 16777702
+                KEY_Gcedilla: 939
+                KEY_Gcircumflex: 728
+                KEY_Georgian_an: 16781520
+                KEY_Georgian_ban: 16781521
+                KEY_Georgian_can: 16781546
+                KEY_Georgian_char: 16781549
+                KEY_Georgian_chin: 16781545
+                KEY_Georgian_cil: 16781548
+                KEY_Georgian_don: 16781523
+                KEY_Georgian_en: 16781524
+                KEY_Georgian_fi: 16781558
+                KEY_Georgian_gan: 16781522
+                KEY_Georgian_ghan: 16781542
+                KEY_Georgian_hae: 16781552
+                KEY_Georgian_har: 16781556
+                KEY_Georgian_he: 16781553
+                KEY_Georgian_hie: 16781554
+                KEY_Georgian_hoe: 16781557
+                KEY_Georgian_in: 16781528
+                KEY_Georgian_jhan: 16781551
+                KEY_Georgian_jil: 16781547
+                KEY_Georgian_kan: 16781529
+                KEY_Georgian_khar: 16781541
+                KEY_Georgian_las: 16781530
+                KEY_Georgian_man: 16781531
+                KEY_Georgian_nar: 16781532
+                KEY_Georgian_on: 16781533
+                KEY_Georgian_par: 16781534
+                KEY_Georgian_phar: 16781540
+                KEY_Georgian_qar: 16781543
+                KEY_Georgian_rae: 16781536
+                KEY_Georgian_san: 16781537
+                KEY_Georgian_shin: 16781544
+                KEY_Georgian_tan: 16781527
+                KEY_Georgian_tar: 16781538
+                KEY_Georgian_un: 16781539
+                KEY_Georgian_vin: 16781525
+                KEY_Georgian_we: 16781555
+                KEY_Georgian_xan: 16781550
+                KEY_Georgian_zen: 16781526
+                KEY_Georgian_zhar: 16781535
+                KEY_Go: 269025119
+                KEY_Greek_ALPHA: 1985
+                KEY_Greek_ALPHAaccent: 1953
+                KEY_Greek_BETA: 1986
+                KEY_Greek_CHI: 2007
+                KEY_Greek_DELTA: 1988
+                KEY_Greek_EPSILON: 1989
+                KEY_Greek_EPSILONaccent: 1954
+                KEY_Greek_ETA: 1991
+                KEY_Greek_ETAaccent: 1955
+                KEY_Greek_GAMMA: 1987
+                KEY_Greek_IOTA: 1993
+                KEY_Greek_IOTAaccent: 1956
+                KEY_Greek_IOTAdiaeresis: 1957
+                KEY_Greek_IOTAdieresis: 1957
+                KEY_Greek_KAPPA: 1994
+                KEY_Greek_LAMBDA: 1995
+                KEY_Greek_LAMDA: 1995
+                KEY_Greek_MU: 1996
+                KEY_Greek_NU: 1997
+                KEY_Greek_OMEGA: 2009
+                KEY_Greek_OMEGAaccent: 1963
+                KEY_Greek_OMICRON: 1999
+                KEY_Greek_OMICRONaccent: 1959
+                KEY_Greek_PHI: 2006
+                KEY_Greek_PI: 2000
+                KEY_Greek_PSI: 2008
+                KEY_Greek_RHO: 2001
+                KEY_Greek_SIGMA: 2002
+                KEY_Greek_TAU: 2004
+                KEY_Greek_THETA: 1992
+                KEY_Greek_UPSILON: 2005
+                KEY_Greek_UPSILONaccent: 1960
+                KEY_Greek_UPSILONdieresis: 1961
+                KEY_Greek_XI: 1998
+                KEY_Greek_ZETA: 1990
+                KEY_Greek_accentdieresis: 1966
+                KEY_Greek_alpha: 2017
+                KEY_Greek_alphaaccent: 1969
+                KEY_Greek_beta: 2018
+                KEY_Greek_chi: 2039
+                KEY_Greek_delta: 2020
+                KEY_Greek_epsilon: 2021
+                KEY_Greek_epsilonaccent: 1970
+                KEY_Greek_eta: 2023
+                KEY_Greek_etaaccent: 1971
+                KEY_Greek_finalsmallsigma: 2035
+                KEY_Greek_gamma: 2019
+                KEY_Greek_horizbar: 1967
+                KEY_Greek_iota: 2025
+                KEY_Greek_iotaaccent: 1972
+                KEY_Greek_iotaaccentdieresis: 1974
+                KEY_Greek_iotadieresis: 1973
+                KEY_Greek_kappa: 2026
+                KEY_Greek_lambda: 2027
+                KEY_Greek_lamda: 2027
+                KEY_Greek_mu: 2028
+                KEY_Greek_nu: 2029
+                KEY_Greek_omega: 2041
+                KEY_Greek_omegaaccent: 1979
+                KEY_Greek_omicron: 2031
+                KEY_Greek_omicronaccent: 1975
+                KEY_Greek_phi: 2038
+                KEY_Greek_pi: 2032
+                KEY_Greek_psi: 2040
+                KEY_Greek_rho: 2033
+                KEY_Greek_sigma: 2034
+                KEY_Greek_switch: 65406
+                KEY_Greek_tau: 2036
+                KEY_Greek_theta: 2024
+                KEY_Greek_upsilon: 2037
+                KEY_Greek_upsilonaccent: 1976
+                KEY_Greek_upsilonaccentdieresis: 1978
+                KEY_Greek_upsilondieresis: 1977
+                KEY_Greek_xi: 2030
+                KEY_Greek_zeta: 2022
+                KEY_Green: 269025188
+                KEY_H: 72
+                KEY_Hangul: 65329
+                KEY_Hangul_A: 3775
+                KEY_Hangul_AE: 3776
+                KEY_Hangul_AraeA: 3830
+                KEY_Hangul_AraeAE: 3831
+                KEY_Hangul_Banja: 65337
+                KEY_Hangul_Cieuc: 3770
+                KEY_Hangul_Codeinput: 65335
+                KEY_Hangul_Dikeud: 3751
+                KEY_Hangul_E: 3780
+                KEY_Hangul_EO: 3779
+                KEY_Hangul_EU: 3793
+                KEY_Hangul_End: 65331
+                KEY_Hangul_Hanja: 65332
+                KEY_Hangul_Hieuh: 3774
+                KEY_Hangul_I: 3795
+                KEY_Hangul_Ieung: 3767
+                KEY_Hangul_J_Cieuc: 3818
+                KEY_Hangul_J_Dikeud: 3802
+                KEY_Hangul_J_Hieuh: 3822
+                KEY_Hangul_J_Ieung: 3816
+                KEY_Hangul_J_Jieuj: 3817
+                KEY_Hangul_J_Khieuq: 3819
+                KEY_Hangul_J_Kiyeog: 3796
+                KEY_Hangul_J_KiyeogSios: 3798
+                KEY_Hangul_J_KkogjiDalrinIeung: 3833
+                KEY_Hangul_J_Mieum: 3811
+                KEY_Hangul_J_Nieun: 3799
+                KEY_Hangul_J_NieunHieuh: 3801
+                KEY_Hangul_J_NieunJieuj: 3800
+                KEY_Hangul_J_PanSios: 3832
+                KEY_Hangul_J_Phieuf: 3821
+                KEY_Hangul_J_Pieub: 3812
+                KEY_Hangul_J_PieubSios: 3813
+                KEY_Hangul_J_Rieul: 3803
+                KEY_Hangul_J_RieulHieuh: 3810
+                KEY_Hangul_J_RieulKiyeog: 3804
+                KEY_Hangul_J_RieulMieum: 3805
+                KEY_Hangul_J_RieulPhieuf: 3809
+                KEY_Hangul_J_RieulPieub: 3806
+                KEY_Hangul_J_RieulSios: 3807
+                KEY_Hangul_J_RieulTieut: 3808
+                KEY_Hangul_J_Sios: 3814
+                KEY_Hangul_J_SsangKiyeog: 3797
+                KEY_Hangul_J_SsangSios: 3815
+                KEY_Hangul_J_Tieut: 3820
+                KEY_Hangul_J_YeorinHieuh: 3834
+                KEY_Hangul_Jamo: 65333
+                KEY_Hangul_Jeonja: 65336
+                KEY_Hangul_Jieuj: 3768
+                KEY_Hangul_Khieuq: 3771
+                KEY_Hangul_Kiyeog: 3745
+                KEY_Hangul_KiyeogSios: 3747
+                KEY_Hangul_KkogjiDalrinIeung: 3827
+                KEY_Hangul_Mieum: 3761
+                KEY_Hangul_MultipleCandidate: 65341
+                KEY_Hangul_Nieun: 3748
+                KEY_Hangul_NieunHieuh: 3750
+                KEY_Hangul_NieunJieuj: 3749
+                KEY_Hangul_O: 3783
+                KEY_Hangul_OE: 3786
+                KEY_Hangul_PanSios: 3826
+                KEY_Hangul_Phieuf: 3773
+                KEY_Hangul_Pieub: 3762
+                KEY_Hangul_PieubSios: 3764
+                KEY_Hangul_PostHanja: 65339
+                KEY_Hangul_PreHanja: 65338
+                KEY_Hangul_PreviousCandidate: 65342
+                KEY_Hangul_Rieul: 3753
+                KEY_Hangul_RieulHieuh: 3760
+                KEY_Hangul_RieulKiyeog: 3754
+                KEY_Hangul_RieulMieum: 3755
+                KEY_Hangul_RieulPhieuf: 3759
+                KEY_Hangul_RieulPieub: 3756
+                KEY_Hangul_RieulSios: 3757
+                KEY_Hangul_RieulTieut: 3758
+                KEY_Hangul_RieulYeorinHieuh: 3823
+                KEY_Hangul_Romaja: 65334
+                KEY_Hangul_SingleCandidate: 65340
+                KEY_Hangul_Sios: 3765
+                KEY_Hangul_Special: 65343
+                KEY_Hangul_SsangDikeud: 3752
+                KEY_Hangul_SsangJieuj: 3769
+                KEY_Hangul_SsangKiyeog: 3746
+                KEY_Hangul_SsangPieub: 3763
+                KEY_Hangul_SsangSios: 3766
+                KEY_Hangul_Start: 65330
+                KEY_Hangul_SunkyeongeumMieum: 3824
+                KEY_Hangul_SunkyeongeumPhieuf: 3828
+                KEY_Hangul_SunkyeongeumPieub: 3825
+                KEY_Hangul_Tieut: 3772
+                KEY_Hangul_U: 3788
+                KEY_Hangul_WA: 3784
+                KEY_Hangul_WAE: 3785
+                KEY_Hangul_WE: 3790
+                KEY_Hangul_WEO: 3789
+                KEY_Hangul_WI: 3791
+                KEY_Hangul_YA: 3777
+                KEY_Hangul_YAE: 3778
+                KEY_Hangul_YE: 3782
+                KEY_Hangul_YEO: 3781
+                KEY_Hangul_YI: 3794
+                KEY_Hangul_YO: 3787
+                KEY_Hangul_YU: 3792
+                KEY_Hangul_YeorinHieuh: 3829
+                KEY_Hangul_switch: 65406
+                KEY_Hankaku: 65321
+                KEY_Hcircumflex: 678
+                KEY_Hebrew_switch: 65406
+                KEY_Help: 65386
+                KEY_Henkan: 65315
+                KEY_Henkan_Mode: 65315
+                KEY_Hibernate: 269025192
+                KEY_Hiragana: 65317
+                KEY_Hiragana_Katakana: 65319
+                KEY_History: 269025079
+                KEY_Home: 65360
+                KEY_HomePage: 269025048
+                KEY_HotLinks: 269025082
+                KEY_Hstroke: 673
+                KEY_Hyper_L: 65517
+                KEY_Hyper_R: 65518
+                KEY_I: 73
+                KEY_ISO_Center_Object: 65075
+                KEY_ISO_Continuous_Underline: 65072
+                KEY_ISO_Discontinuous_Underline: 65073
+                KEY_ISO_Emphasize: 65074
+                KEY_ISO_Enter: 65076
+                KEY_ISO_Fast_Cursor_Down: 65071
+                KEY_ISO_Fast_Cursor_Left: 65068
+                KEY_ISO_Fast_Cursor_Right: 65069
+                KEY_ISO_Fast_Cursor_Up: 65070
+                KEY_ISO_First_Group: 65036
+                KEY_ISO_First_Group_Lock: 65037
+                KEY_ISO_Group_Latch: 65030
+                KEY_ISO_Group_Lock: 65031
+                KEY_ISO_Group_Shift: 65406
+                KEY_ISO_Last_Group: 65038
+                KEY_ISO_Last_Group_Lock: 65039
+                KEY_ISO_Left_Tab: 65056
+                KEY_ISO_Level2_Latch: 65026
+                KEY_ISO_Level3_Latch: 65028
+                KEY_ISO_Level3_Lock: 65029
+                KEY_ISO_Level3_Shift: 65027
+                KEY_ISO_Level5_Latch: 65042
+                KEY_ISO_Level5_Lock: 65043
+                KEY_ISO_Level5_Shift: 65041
+                KEY_ISO_Lock: 65025
+                KEY_ISO_Move_Line_Down: 65058
+                KEY_ISO_Move_Line_Up: 65057
+                KEY_ISO_Next_Group: 65032
+                KEY_ISO_Next_Group_Lock: 65033
+                KEY_ISO_Partial_Line_Down: 65060
+                KEY_ISO_Partial_Line_Up: 65059
+                KEY_ISO_Partial_Space_Left: 65061
+                KEY_ISO_Partial_Space_Right: 65062
+                KEY_ISO_Prev_Group: 65034
+                KEY_ISO_Prev_Group_Lock: 65035
+                KEY_ISO_Release_Both_Margins: 65067
+                KEY_ISO_Release_Margin_Left: 65065
+                KEY_ISO_Release_Margin_Right: 65066
+                KEY_ISO_Set_Margin_Left: 65063
+                KEY_ISO_Set_Margin_Right: 65064
+                KEY_Iabovedot: 681
+                KEY_Iacute: 205
+                KEY_Ibelowdot: 16785098
+                KEY_Ibreve: 16777516
+                KEY_Icircumflex: 206
+                KEY_Idiaeresis: 207
+                KEY_Igrave: 204
+                KEY_Ihook: 16785096
+                KEY_Imacron: 975
+                KEY_Insert: 65379
+                KEY_Iogonek: 967
+                KEY_Itilde: 933
+                KEY_J: 74
+                KEY_Jcircumflex: 684
+                KEY_K: 75
+                KEY_KP_0: 65456
+                KEY_KP_1: 65457
+                KEY_KP_2: 65458
+                KEY_KP_3: 65459
+                KEY_KP_4: 65460
+                KEY_KP_5: 65461
+                KEY_KP_6: 65462
+                KEY_KP_7: 65463
+                KEY_KP_8: 65464
+                KEY_KP_9: 65465
+                KEY_KP_Add: 65451
+                KEY_KP_Begin: 65437
+                KEY_KP_Decimal: 65454
+                KEY_KP_Delete: 65439
+                KEY_KP_Divide: 65455
+                KEY_KP_Down: 65433
+                KEY_KP_End: 65436
+                KEY_KP_Enter: 65421
+                KEY_KP_Equal: 65469
+                KEY_KP_F1: 65425
+                KEY_KP_F2: 65426
+                KEY_KP_F3: 65427
+                KEY_KP_F4: 65428
+                KEY_KP_Home: 65429
+                KEY_KP_Insert: 65438
+                KEY_KP_Left: 65430
+                KEY_KP_Multiply: 65450
+                KEY_KP_Next: 65435
+                KEY_KP_Page_Down: 65435
+                KEY_KP_Page_Up: 65434
+                KEY_KP_Prior: 65434
+                KEY_KP_Right: 65432
+                KEY_KP_Separator: 65452
+                KEY_KP_Space: 65408
+                KEY_KP_Subtract: 65453
+                KEY_KP_Tab: 65417
+                KEY_KP_Up: 65431
+                KEY_Kana_Lock: 65325
+                KEY_Kana_Shift: 65326
+                KEY_Kanji: 65313
+                KEY_Kanji_Bangou: 65335
+                KEY_Katakana: 65318
+                KEY_KbdBrightnessDown: 269025030
+                KEY_KbdBrightnessUp: 269025029
+                KEY_KbdLightOnOff: 269025028
+                KEY_Kcedilla: 979
+                KEY_Keyboard: 269025203
+                KEY_Korean_Won: 3839
+                KEY_L: 76
+                KEY_L1: 65480
+                KEY_L10: 65489
+                KEY_L2: 65481
+                KEY_L3: 65482
+                KEY_L4: 65483
+                KEY_L5: 65484
+                KEY_L6: 65485
+                KEY_L7: 65486
+                KEY_L8: 65487
+                KEY_L9: 65488
+                KEY_Lacute: 453
+                KEY_Last_Virtual_Screen: 65236
+                KEY_Launch0: 269025088
+                KEY_Launch1: 269025089
+                KEY_Launch2: 269025090
+                KEY_Launch3: 269025091
+                KEY_Launch4: 269025092
+                KEY_Launch5: 269025093
+                KEY_Launch6: 269025094
+                KEY_Launch7: 269025095
+                KEY_Launch8: 269025096
+                KEY_Launch9: 269025097
+                KEY_LaunchA: 269025098
+                KEY_LaunchB: 269025099
+                KEY_LaunchC: 269025100
+                KEY_LaunchD: 269025101
+                KEY_LaunchE: 269025102
+                KEY_LaunchF: 269025103
+                KEY_Lbelowdot: 16784950
+                KEY_Lcaron: 421
+                KEY_Lcedilla: 934
+                KEY_Left: 65361
+                KEY_LightBulb: 269025077
+                KEY_Linefeed: 65290
+                KEY_LiraSign: 16785572
+                KEY_LogGrabInfo: 269024805
+                KEY_LogOff: 269025121
+                KEY_LogWindowTree: 269024804
+                KEY_Lstroke: 419
+                KEY_M: 77
+                KEY_Mabovedot: 16784960
+                KEY_Macedonia_DSE: 1717
+                KEY_Macedonia_GJE: 1714
+                KEY_Macedonia_KJE: 1724
+                KEY_Macedonia_dse: 1701
+                KEY_Macedonia_gje: 1698
+                KEY_Macedonia_kje: 1708
+                KEY_Mae_Koho: 65342
+                KEY_Mail: 269025049
+                KEY_MailForward: 269025168
+                KEY_Market: 269025122
+                KEY_Massyo: 65324
+                KEY_Meeting: 269025123
+                KEY_Memo: 269025054
+                KEY_Menu: 65383
+                KEY_MenuKB: 269025125
+                KEY_MenuPB: 269025126
+                KEY_Messenger: 269025166
+                KEY_Meta_L: 65511
+                KEY_Meta_R: 65512
+                KEY_MillSign: 16785573
+                KEY_ModeLock: 269025025
+                KEY_Mode_switch: 65406
+                KEY_MonBrightnessDown: 269025027
+                KEY_MonBrightnessUp: 269025026
+                KEY_MouseKeys_Accel_Enable: 65143
+                KEY_MouseKeys_Enable: 65142
+                KEY_Muhenkan: 65314
+                KEY_Multi_key: 65312
+                KEY_MultipleCandidate: 65341
+                KEY_Music: 269025170
+                KEY_MyComputer: 269025075
+                KEY_MySites: 269025127
+                KEY_N: 78
+                KEY_Nacute: 465
+                KEY_NairaSign: 16785574
+                KEY_Ncaron: 466
+                KEY_Ncedilla: 977
+                KEY_New: 269025128
+                KEY_NewSheqelSign: 16785578
+                KEY_News: 269025129
+                KEY_Next: 65366
+                KEY_Next_VMode: 269024802
+                KEY_Next_Virtual_Screen: 65234
+                KEY_Ntilde: 209
+                KEY_Num_Lock: 65407
+                KEY_O: 79
+                KEY_OE: 5052
+                KEY_Oacute: 211
+                KEY_Obarred: 16777631
+                KEY_Obelowdot: 16785100
+                KEY_Ocaron: 16777681
+                KEY_Ocircumflex: 212
+                KEY_Ocircumflexacute: 16785104
+                KEY_Ocircumflexbelowdot: 16785112
+                KEY_Ocircumflexgrave: 16785106
+                KEY_Ocircumflexhook: 16785108
+                KEY_Ocircumflextilde: 16785110
+                KEY_Odiaeresis: 214
+                KEY_Odoubleacute: 469
+                KEY_OfficeHome: 269025130
+                KEY_Ograve: 210
+                KEY_Ohook: 16785102
+                KEY_Ohorn: 16777632
+                KEY_Ohornacute: 16785114
+                KEY_Ohornbelowdot: 16785122
+                KEY_Ohorngrave: 16785116
+                KEY_Ohornhook: 16785118
+                KEY_Ohorntilde: 16785120
+                KEY_Omacron: 978
+                KEY_Ooblique: 216
+                KEY_Open: 269025131
+                KEY_OpenURL: 269025080
+                KEY_Option: 269025132
+                KEY_Oslash: 216
+                KEY_Otilde: 213
+                KEY_Overlay1_Enable: 65144
+                KEY_Overlay2_Enable: 65145
+                KEY_P: 80
+                KEY_Pabovedot: 16784982
+                KEY_Page_Down: 65366
+                KEY_Page_Up: 65365
+                KEY_Paste: 269025133
+                KEY_Pause: 65299
+                KEY_PesetaSign: 16785575
+                KEY_Phone: 269025134
+                KEY_Pictures: 269025169
+                KEY_Pointer_Accelerate: 65274
+                KEY_Pointer_Button1: 65257
+                KEY_Pointer_Button2: 65258
+                KEY_Pointer_Button3: 65259
+                KEY_Pointer_Button4: 65260
+                KEY_Pointer_Button5: 65261
+                KEY_Pointer_Button_Dflt: 65256
+                KEY_Pointer_DblClick1: 65263
+                KEY_Pointer_DblClick2: 65264
+                KEY_Pointer_DblClick3: 65265
+                KEY_Pointer_DblClick4: 65266
+                KEY_Pointer_DblClick5: 65267
+                KEY_Pointer_DblClick_Dflt: 65262
+                KEY_Pointer_DfltBtnNext: 65275
+                KEY_Pointer_DfltBtnPrev: 65276
+                KEY_Pointer_Down: 65251
+                KEY_Pointer_DownLeft: 65254
+                KEY_Pointer_DownRight: 65255
+                KEY_Pointer_Drag1: 65269
+                KEY_Pointer_Drag2: 65270
+                KEY_Pointer_Drag3: 65271
+                KEY_Pointer_Drag4: 65272
+                KEY_Pointer_Drag5: 65277
+                KEY_Pointer_Drag_Dflt: 65268
+                KEY_Pointer_EnableKeys: 65273
+                KEY_Pointer_Left: 65248
+                KEY_Pointer_Right: 65249
+                KEY_Pointer_Up: 65250
+                KEY_Pointer_UpLeft: 65252
+                KEY_Pointer_UpRight: 65253
+                KEY_PowerDown: 269025057
+                KEY_PowerOff: 269025066
+                KEY_Prev_VMode: 269024803
+                KEY_Prev_Virtual_Screen: 65233
+                KEY_PreviousCandidate: 65342
+                KEY_Print: 65377
+                KEY_Prior: 65365
+                KEY_Q: 81
+                KEY_R: 82
+                KEY_R1: 65490
+                KEY_R10: 65499
+                KEY_R11: 65500
+                KEY_R12: 65501
+                KEY_R13: 65502
+                KEY_R14: 65503
+                KEY_R15: 65504
+                KEY_R2: 65491
+                KEY_R3: 65492
+                KEY_R4: 65493
+                KEY_R5: 65494
+                KEY_R6: 65495
+                KEY_R7: 65496
+                KEY_R8: 65497
+                KEY_R9: 65498
+                KEY_RFKill: 269025205
+                KEY_Racute: 448
+                KEY_Rcaron: 472
+                KEY_Rcedilla: 931
+                KEY_Red: 269025187
+                KEY_Redo: 65382
+                KEY_Refresh: 269025065
+                KEY_Reload: 269025139
+                KEY_RepeatKeys_Enable: 65138
+                KEY_Reply: 269025138
+                KEY_Return: 65293
+                KEY_Right: 65363
+                KEY_RockerDown: 269025060
+                KEY_RockerEnter: 269025061
+                KEY_RockerUp: 269025059
+                KEY_Romaji: 65316
+                KEY_RotateWindows: 269025140
+                KEY_RotationKB: 269025142
+                KEY_RotationPB: 269025141
+                KEY_RupeeSign: 16785576
+                KEY_S: 83
+                KEY_SCHWA: 16777615
+                KEY_Sabovedot: 16784992
+                KEY_Sacute: 422
+                KEY_Save: 269025143
+                KEY_Scaron: 425
+                KEY_Scedilla: 426
+                KEY_Scircumflex: 734
+                KEY_ScreenSaver: 269025069
+                KEY_ScrollClick: 269025146
+                KEY_ScrollDown: 269025145
+                KEY_ScrollUp: 269025144
+                KEY_Scroll_Lock: 65300
+                KEY_Search: 269025051
+                KEY_Select: 65376
+                KEY_SelectButton: 269025184
+                KEY_Send: 269025147
+                KEY_Serbian_DJE: 1713
+                KEY_Serbian_DZE: 1727
+                KEY_Serbian_JE: 1720
+                KEY_Serbian_LJE: 1721
+                KEY_Serbian_NJE: 1722
+                KEY_Serbian_TSHE: 1723
+                KEY_Serbian_dje: 1697
+                KEY_Serbian_dze: 1711
+                KEY_Serbian_je: 1704
+                KEY_Serbian_lje: 1705
+                KEY_Serbian_nje: 1706
+                KEY_Serbian_tshe: 1707
+                KEY_Shift_L: 65505
+                KEY_Shift_Lock: 65510
+                KEY_Shift_R: 65506
+                KEY_Shop: 269025078
+                KEY_SingleCandidate: 65340
+                KEY_Sinh_a: 16780677
+                KEY_Sinh_aa: 16780678
+                KEY_Sinh_aa2: 16780751
+                KEY_Sinh_ae: 16780679
+                KEY_Sinh_ae2: 16780752
+                KEY_Sinh_aee: 16780680
+                KEY_Sinh_aee2: 16780753
+                KEY_Sinh_ai: 16780691
+                KEY_Sinh_ai2: 16780763
+                KEY_Sinh_al: 16780746
+                KEY_Sinh_au: 16780694
+                KEY_Sinh_au2: 16780766
+                KEY_Sinh_ba: 16780726
+                KEY_Sinh_bha: 16780727
+                KEY_Sinh_ca: 16780704
+                KEY_Sinh_cha: 16780705
+                KEY_Sinh_dda: 16780713
+                KEY_Sinh_ddha: 16780714
+                KEY_Sinh_dha: 16780719
+                KEY_Sinh_dhha: 16780720
+                KEY_Sinh_e: 16780689
+                KEY_Sinh_e2: 16780761
+                KEY_Sinh_ee: 16780690
+                KEY_Sinh_ee2: 16780762
+                KEY_Sinh_fa: 16780742
+                KEY_Sinh_ga: 16780700
+                KEY_Sinh_gha: 16780701
+                KEY_Sinh_h2: 16780675
+                KEY_Sinh_ha: 16780740
+                KEY_Sinh_i: 16780681
+                KEY_Sinh_i2: 16780754
+                KEY_Sinh_ii: 16780682
+                KEY_Sinh_ii2: 16780755
+                KEY_Sinh_ja: 16780706
+                KEY_Sinh_jha: 16780707
+                KEY_Sinh_jnya: 16780709
+                KEY_Sinh_ka: 16780698
+                KEY_Sinh_kha: 16780699
+                KEY_Sinh_kunddaliya: 16780788
+                KEY_Sinh_la: 16780733
+                KEY_Sinh_lla: 16780741
+                KEY_Sinh_lu: 16780687
+                KEY_Sinh_lu2: 16780767
+                KEY_Sinh_luu: 16780688
+                KEY_Sinh_luu2: 16780787
+                KEY_Sinh_ma: 16780728
+                KEY_Sinh_mba: 16780729
+                KEY_Sinh_na: 16780721
+                KEY_Sinh_ndda: 16780716
+                KEY_Sinh_ndha: 16780723
+                KEY_Sinh_ng: 16780674
+                KEY_Sinh_ng2: 16780702
+                KEY_Sinh_nga: 16780703
+                KEY_Sinh_nja: 16780710
+                KEY_Sinh_nna: 16780715
+                KEY_Sinh_nya: 16780708
+                KEY_Sinh_o: 16780692
+                KEY_Sinh_o2: 16780764
+                KEY_Sinh_oo: 16780693
+                KEY_Sinh_oo2: 16780765
+                KEY_Sinh_pa: 16780724
+                KEY_Sinh_pha: 16780725
+                KEY_Sinh_ra: 16780731
+                KEY_Sinh_ri: 16780685
+                KEY_Sinh_rii: 16780686
+                KEY_Sinh_ru2: 16780760
+                KEY_Sinh_ruu2: 16780786
+                KEY_Sinh_sa: 16780739
+                KEY_Sinh_sha: 16780737
+                KEY_Sinh_ssha: 16780738
+                KEY_Sinh_tha: 16780717
+                KEY_Sinh_thha: 16780718
+                KEY_Sinh_tta: 16780711
+                KEY_Sinh_ttha: 16780712
+                KEY_Sinh_u: 16780683
+                KEY_Sinh_u2: 16780756
+                KEY_Sinh_uu: 16780684
+                KEY_Sinh_uu2: 16780758
+                KEY_Sinh_va: 16780736
+                KEY_Sinh_ya: 16780730
+                KEY_Sleep: 269025071
+                KEY_SlowKeys_Enable: 65139
+                KEY_Spell: 269025148
+                KEY_SplitScreen: 269025149
+                KEY_Standby: 269025040
+                KEY_Start: 269025050
+                KEY_StickyKeys_Enable: 65141
+                KEY_Stop: 269025064
+                KEY_Subtitle: 269025178
+                KEY_Super_L: 65515
+                KEY_Super_R: 65516
+                KEY_Support: 269025150
+                KEY_Suspend: 269025191
+                KEY_Switch_VT_1: 269024769
+                KEY_Switch_VT_10: 269024778
+                KEY_Switch_VT_11: 269024779
+                KEY_Switch_VT_12: 269024780
+                KEY_Switch_VT_2: 269024770
+                KEY_Switch_VT_3: 269024771
+                KEY_Switch_VT_4: 269024772
+                KEY_Switch_VT_5: 269024773
+                KEY_Switch_VT_6: 269024774
+                KEY_Switch_VT_7: 269024775
+                KEY_Switch_VT_8: 269024776
+                KEY_Switch_VT_9: 269024777
+                KEY_Sys_Req: 65301
+                KEY_T: 84
+                KEY_THORN: 222
+                KEY_Tab: 65289
+                KEY_Tabovedot: 16785002
+                KEY_TaskPane: 269025151
+                KEY_Tcaron: 427
+                KEY_Tcedilla: 478
+                KEY_Terminal: 269025152
+                KEY_Terminate_Server: 65237
+                KEY_Thai_baht: 3551
+                KEY_Thai_bobaimai: 3514
+                KEY_Thai_chochan: 3496
+                KEY_Thai_chochang: 3498
+                KEY_Thai_choching: 3497
+                KEY_Thai_chochoe: 3500
+                KEY_Thai_dochada: 3502
+                KEY_Thai_dodek: 3508
+                KEY_Thai_fofa: 3517
+                KEY_Thai_fofan: 3519
+                KEY_Thai_hohip: 3531
+                KEY_Thai_honokhuk: 3534
+                KEY_Thai_khokhai: 3490
+                KEY_Thai_khokhon: 3493
+                KEY_Thai_khokhuat: 3491
+                KEY_Thai_khokhwai: 3492
+                KEY_Thai_khorakhang: 3494
+                KEY_Thai_kokai: 3489
+                KEY_Thai_lakkhangyao: 3557
+                KEY_Thai_lekchet: 3575
+                KEY_Thai_lekha: 3573
+                KEY_Thai_lekhok: 3574
+                KEY_Thai_lekkao: 3577
+                KEY_Thai_leknung: 3569
+                KEY_Thai_lekpaet: 3576
+                KEY_Thai_leksam: 3571
+                KEY_Thai_leksi: 3572
+                KEY_Thai_leksong: 3570
+                KEY_Thai_leksun: 3568
+                KEY_Thai_lochula: 3532
+                KEY_Thai_loling: 3525
+                KEY_Thai_lu: 3526
+                KEY_Thai_maichattawa: 3563
+                KEY_Thai_maiek: 3560
+                KEY_Thai_maihanakat: 3537
+                KEY_Thai_maihanakat_maitho: 3550
+                KEY_Thai_maitaikhu: 3559
+                KEY_Thai_maitho: 3561
+                KEY_Thai_maitri: 3562
+                KEY_Thai_maiyamok: 3558
+                KEY_Thai_moma: 3521
+                KEY_Thai_ngongu: 3495
+                KEY_Thai_nikhahit: 3565
+                KEY_Thai_nonen: 3507
+                KEY_Thai_nonu: 3513
+                KEY_Thai_oang: 3533
+                KEY_Thai_paiyannoi: 3535
+                KEY_Thai_phinthu: 3546
+                KEY_Thai_phophan: 3518
+                KEY_Thai_phophung: 3516
+                KEY_Thai_phosamphao: 3520
+                KEY_Thai_popla: 3515
+                KEY_Thai_rorua: 3523
+                KEY_Thai_ru: 3524
+                KEY_Thai_saraa: 3536
+                KEY_Thai_saraaa: 3538
+                KEY_Thai_saraae: 3553
+                KEY_Thai_saraaimaimalai: 3556
+                KEY_Thai_saraaimaimuan: 3555
+                KEY_Thai_saraam: 3539
+                KEY_Thai_sarae: 3552
+                KEY_Thai_sarai: 3540
+                KEY_Thai_saraii: 3541
+                KEY_Thai_sarao: 3554
+                KEY_Thai_sarau: 3544
+                KEY_Thai_saraue: 3542
+                KEY_Thai_sarauee: 3543
+                KEY_Thai_sarauu: 3545
+                KEY_Thai_sorusi: 3529
+                KEY_Thai_sosala: 3528
+                KEY_Thai_soso: 3499
+                KEY_Thai_sosua: 3530
+                KEY_Thai_thanthakhat: 3564
+                KEY_Thai_thonangmontho: 3505
+                KEY_Thai_thophuthao: 3506
+                KEY_Thai_thothahan: 3511
+                KEY_Thai_thothan: 3504
+                KEY_Thai_thothong: 3512
+                KEY_Thai_thothung: 3510
+                KEY_Thai_topatak: 3503
+                KEY_Thai_totao: 3509
+                KEY_Thai_wowaen: 3527
+                KEY_Thai_yoyak: 3522
+                KEY_Thai_yoying: 3501
+                KEY_Thorn: 222
+                KEY_Time: 269025183
+                KEY_ToDoList: 269025055
+                KEY_Tools: 269025153
+                KEY_TopMenu: 269025186
+                KEY_TouchpadOff: 269025201
+                KEY_TouchpadOn: 269025200
+                KEY_TouchpadToggle: 269025193
+                KEY_Touroku: 65323
+                KEY_Travel: 269025154
+                KEY_Tslash: 940
+                KEY_U: 85
+                KEY_UWB: 269025174
+                KEY_Uacute: 218
+                KEY_Ubelowdot: 16785124
+                KEY_Ubreve: 733
+                KEY_Ucircumflex: 219
+                KEY_Udiaeresis: 220
+                KEY_Udoubleacute: 475
+                KEY_Ugrave: 217
+                KEY_Uhook: 16785126
+                KEY_Uhorn: 16777647
+                KEY_Uhornacute: 16785128
+                KEY_Uhornbelowdot: 16785136
+                KEY_Uhorngrave: 16785130
+                KEY_Uhornhook: 16785132
+                KEY_Uhorntilde: 16785134
+                KEY_Ukrainian_GHE_WITH_UPTURN: 1725
+                KEY_Ukrainian_I: 1718
+                KEY_Ukrainian_IE: 1716
+                KEY_Ukrainian_YI: 1719
+                KEY_Ukrainian_ghe_with_upturn: 1709
+                KEY_Ukrainian_i: 1702
+                KEY_Ukrainian_ie: 1700
+                KEY_Ukrainian_yi: 1703
+                KEY_Ukranian_I: 1718
+                KEY_Ukranian_JE: 1716
+                KEY_Ukranian_YI: 1719
+                KEY_Ukranian_i: 1702
+                KEY_Ukranian_je: 1700
+                KEY_Ukranian_yi: 1703
+                KEY_Umacron: 990
+                KEY_Undo: 65381
+                KEY_Ungrab: 269024800
+                KEY_Uogonek: 985
+                KEY_Up: 65362
+                KEY_Uring: 473
+                KEY_User1KB: 269025157
+                KEY_User2KB: 269025158
+                KEY_UserPB: 269025156
+                KEY_Utilde: 989
+                KEY_V: 86
+                KEY_VendorHome: 269025076
+                KEY_Video: 269025159
+                KEY_View: 269025185
+                KEY_VoidSymbol: 16777215
+                KEY_W: 87
+                KEY_WLAN: 269025173
+                KEY_WWAN: 269025204
+                KEY_WWW: 269025070
+                KEY_Wacute: 16785026
+                KEY_WakeUp: 269025067
+                KEY_Wcircumflex: 16777588
+                KEY_Wdiaeresis: 16785028
+                KEY_WebCam: 269025167
+                KEY_Wgrave: 16785024
+                KEY_WheelButton: 269025160
+                KEY_WindowClear: 269025109
+                KEY_WonSign: 16785577
+                KEY_Word: 269025161
+                KEY_X: 88
+                KEY_Xabovedot: 16785034
+                KEY_Xfer: 269025162
+                KEY_Y: 89
+                KEY_Yacute: 221
+                KEY_Ybelowdot: 16785140
+                KEY_Ycircumflex: 16777590
+                KEY_Ydiaeresis: 5054
+                KEY_Yellow: 269025189
+                KEY_Ygrave: 16785138
+                KEY_Yhook: 16785142
+                KEY_Ytilde: 16785144
+                KEY_Z: 90
+                KEY_Zabovedot: 431
+                KEY_Zacute: 428
+                KEY_Zcaron: 430
+                KEY_Zen_Koho: 65341
+                KEY_Zenkaku: 65320
+                KEY_Zenkaku_Hankaku: 65322
+                KEY_ZoomIn: 269025163
+                KEY_ZoomOut: 269025164
+                KEY_Zstroke: 16777653
+                KEY_a: 97
+                KEY_aacute: 225
+                KEY_abelowdot: 16785057
+                KEY_abovedot: 511
+                KEY_abreve: 483
+                KEY_abreveacute: 16785071
+                KEY_abrevebelowdot: 16785079
+                KEY_abrevegrave: 16785073
+                KEY_abrevehook: 16785075
+                KEY_abrevetilde: 16785077
+                KEY_acircumflex: 226
+                KEY_acircumflexacute: 16785061
+                KEY_acircumflexbelowdot: 16785069
+                KEY_acircumflexgrave: 16785063
+                KEY_acircumflexhook: 16785065
+                KEY_acircumflextilde: 16785067
+                KEY_acute: 180
+                KEY_adiaeresis: 228
+                KEY_ae: 230
+                KEY_agrave: 224
+                KEY_ahook: 16785059
+                KEY_amacron: 992
+                KEY_ampersand: 38
+                KEY_aogonek: 433
+                KEY_apostrophe: 39
+                KEY_approxeq: 16785992
+                KEY_approximate: 2248
+                KEY_aring: 229
+                KEY_asciicircum: 94
+                KEY_asciitilde: 126
+                KEY_asterisk: 42
+                KEY_at: 64
+                KEY_atilde: 227
+                KEY_b: 98
+                KEY_babovedot: 16784899
+                KEY_backslash: 92
+                KEY_ballotcross: 2804
+                KEY_bar: 124
+                KEY_because: 16785973
+                KEY_blank: 2527
+                KEY_botintegral: 2213
+                KEY_botleftparens: 2220
+                KEY_botleftsqbracket: 2216
+                KEY_botleftsummation: 2226
+                KEY_botrightparens: 2222
+                KEY_botrightsqbracket: 2218
+                KEY_botrightsummation: 2230
+                KEY_bott: 2550
+                KEY_botvertsummationconnector: 2228
+                KEY_braceleft: 123
+                KEY_braceright: 125
+                KEY_bracketleft: 91
+                KEY_bracketright: 93
+                KEY_braille_blank: 16787456
+                KEY_braille_dot_1: 65521
+                KEY_braille_dot_10: 65530
+                KEY_braille_dot_2: 65522
+                KEY_braille_dot_3: 65523
+                KEY_braille_dot_4: 65524
+                KEY_braille_dot_5: 65525
+                KEY_braille_dot_6: 65526
+                KEY_braille_dot_7: 65527
+                KEY_braille_dot_8: 65528
+                KEY_braille_dot_9: 65529
+                KEY_braille_dots_1: 16787457
+                KEY_braille_dots_12: 16787459
+                KEY_braille_dots_123: 16787463
+                KEY_braille_dots_1234: 16787471
+                KEY_braille_dots_12345: 16787487
+                KEY_braille_dots_123456: 16787519
+                KEY_braille_dots_1234567: 16787583
+                KEY_braille_dots_12345678: 16787711
+                KEY_braille_dots_1234568: 16787647
+                KEY_braille_dots_123457: 16787551
+                KEY_braille_dots_1234578: 16787679
+                KEY_braille_dots_123458: 16787615
+                KEY_braille_dots_12346: 16787503
+                KEY_braille_dots_123467: 16787567
+                KEY_braille_dots_1234678: 16787695
+                KEY_braille_dots_123468: 16787631
+                KEY_braille_dots_12347: 16787535
+                KEY_braille_dots_123478: 16787663
+                KEY_braille_dots_12348: 16787599
+                KEY_braille_dots_1235: 16787479
+                KEY_braille_dots_12356: 16787511
+                KEY_braille_dots_123567: 16787575
+                KEY_braille_dots_1235678: 16787703
+                KEY_braille_dots_123568: 16787639
+                KEY_braille_dots_12357: 16787543
+                KEY_braille_dots_123578: 16787671
+                KEY_braille_dots_12358: 16787607
+                KEY_braille_dots_1236: 16787495
+                KEY_braille_dots_12367: 16787559
+                KEY_braille_dots_123678: 16787687
+                KEY_braille_dots_12368: 16787623
+                KEY_braille_dots_1237: 16787527
+                KEY_braille_dots_12378: 16787655
+                KEY_braille_dots_1238: 16787591
+                KEY_braille_dots_124: 16787467
+                KEY_braille_dots_1245: 16787483
+                KEY_braille_dots_12456: 16787515
+                KEY_braille_dots_124567: 16787579
+                KEY_braille_dots_1245678: 16787707
+                KEY_braille_dots_124568: 16787643
+                KEY_braille_dots_12457: 16787547
+                KEY_braille_dots_124578: 16787675
+                KEY_braille_dots_12458: 16787611
+                KEY_braille_dots_1246: 16787499
+                KEY_braille_dots_12467: 16787563
+                KEY_braille_dots_124678: 16787691
+                KEY_braille_dots_12468: 16787627
+                KEY_braille_dots_1247: 16787531
+                KEY_braille_dots_12478: 16787659
+                KEY_braille_dots_1248: 16787595
+                KEY_braille_dots_125: 16787475
+                KEY_braille_dots_1256: 16787507
+                KEY_braille_dots_12567: 16787571
+                KEY_braille_dots_125678: 16787699
+                KEY_braille_dots_12568: 16787635
+                KEY_braille_dots_1257: 16787539
+                KEY_braille_dots_12578: 16787667
+                KEY_braille_dots_1258: 16787603
+                KEY_braille_dots_126: 16787491
+                KEY_braille_dots_1267: 16787555
+                KEY_braille_dots_12678: 16787683
+                KEY_braille_dots_1268: 16787619
+                KEY_braille_dots_127: 16787523
+                KEY_braille_dots_1278: 16787651
+                KEY_braille_dots_128: 16787587
+                KEY_braille_dots_13: 16787461
+                KEY_braille_dots_134: 16787469
+                KEY_braille_dots_1345: 16787485
+                KEY_braille_dots_13456: 16787517
+                KEY_braille_dots_134567: 16787581
+                KEY_braille_dots_1345678: 16787709
+                KEY_braille_dots_134568: 16787645
+                KEY_braille_dots_13457: 16787549
+                KEY_braille_dots_134578: 16787677
+                KEY_braille_dots_13458: 16787613
+                KEY_braille_dots_1346: 16787501
+                KEY_braille_dots_13467: 16787565
+                KEY_braille_dots_134678: 16787693
+                KEY_braille_dots_13468: 16787629
+                KEY_braille_dots_1347: 16787533
+                KEY_braille_dots_13478: 16787661
+                KEY_braille_dots_1348: 16787597
+                KEY_braille_dots_135: 16787477
+                KEY_braille_dots_1356: 16787509
+                KEY_braille_dots_13567: 16787573
+                KEY_braille_dots_135678: 16787701
+                KEY_braille_dots_13568: 16787637
+                KEY_braille_dots_1357: 16787541
+                KEY_braille_dots_13578: 16787669
+                KEY_braille_dots_1358: 16787605
+                KEY_braille_dots_136: 16787493
+                KEY_braille_dots_1367: 16787557
+                KEY_braille_dots_13678: 16787685
+                KEY_braille_dots_1368: 16787621
+                KEY_braille_dots_137: 16787525
+                KEY_braille_dots_1378: 16787653
+                KEY_braille_dots_138: 16787589
+                KEY_braille_dots_14: 16787465
+                KEY_braille_dots_145: 16787481
+                KEY_braille_dots_1456: 16787513
+                KEY_braille_dots_14567: 16787577
+                KEY_braille_dots_145678: 16787705
+                KEY_braille_dots_14568: 16787641
+                KEY_braille_dots_1457: 16787545
+                KEY_braille_dots_14578: 16787673
+                KEY_braille_dots_1458: 16787609
+                KEY_braille_dots_146: 16787497
+                KEY_braille_dots_1467: 16787561
+                KEY_braille_dots_14678: 16787689
+                KEY_braille_dots_1468: 16787625
+                KEY_braille_dots_147: 16787529
+                KEY_braille_dots_1478: 16787657
+                KEY_braille_dots_148: 16787593
+                KEY_braille_dots_15: 16787473
+                KEY_braille_dots_156: 16787505
+                KEY_braille_dots_1567: 16787569
+                KEY_braille_dots_15678: 16787697
+                KEY_braille_dots_1568: 16787633
+                KEY_braille_dots_157: 16787537
+                KEY_braille_dots_1578: 16787665
+                KEY_braille_dots_158: 16787601
+                KEY_braille_dots_16: 16787489
+                KEY_braille_dots_167: 16787553
+                KEY_braille_dots_1678: 16787681
+                KEY_braille_dots_168: 16787617
+                KEY_braille_dots_17: 16787521
+                KEY_braille_dots_178: 16787649
+                KEY_braille_dots_18: 16787585
+                KEY_braille_dots_2: 16787458
+                KEY_braille_dots_23: 16787462
+                KEY_braille_dots_234: 16787470
+                KEY_braille_dots_2345: 16787486
+                KEY_braille_dots_23456: 16787518
+                KEY_braille_dots_234567: 16787582
+                KEY_braille_dots_2345678: 16787710
+                KEY_braille_dots_234568: 16787646
+                KEY_braille_dots_23457: 16787550
+                KEY_braille_dots_234578: 16787678
+                KEY_braille_dots_23458: 16787614
+                KEY_braille_dots_2346: 16787502
+                KEY_braille_dots_23467: 16787566
+                KEY_braille_dots_234678: 16787694
+                KEY_braille_dots_23468: 16787630
+                KEY_braille_dots_2347: 16787534
+                KEY_braille_dots_23478: 16787662
+                KEY_braille_dots_2348: 16787598
+                KEY_braille_dots_235: 16787478
+                KEY_braille_dots_2356: 16787510
+                KEY_braille_dots_23567: 16787574
+                KEY_braille_dots_235678: 16787702
+                KEY_braille_dots_23568: 16787638
+                KEY_braille_dots_2357: 16787542
+                KEY_braille_dots_23578: 16787670
+                KEY_braille_dots_2358: 16787606
+                KEY_braille_dots_236: 16787494
+                KEY_braille_dots_2367: 16787558
+                KEY_braille_dots_23678: 16787686
+                KEY_braille_dots_2368: 16787622
+                KEY_braille_dots_237: 16787526
+                KEY_braille_dots_2378: 16787654
+                KEY_braille_dots_238: 16787590
+                KEY_braille_dots_24: 16787466
+                KEY_braille_dots_245: 16787482
+                KEY_braille_dots_2456: 16787514
+                KEY_braille_dots_24567: 16787578
+                KEY_braille_dots_245678: 16787706
+                KEY_braille_dots_24568: 16787642
+                KEY_braille_dots_2457: 16787546
+                KEY_braille_dots_24578: 16787674
+                KEY_braille_dots_2458: 16787610
+                KEY_braille_dots_246: 16787498
+                KEY_braille_dots_2467: 16787562
+                KEY_braille_dots_24678: 16787690
+                KEY_braille_dots_2468: 16787626
+                KEY_braille_dots_247: 16787530
+                KEY_braille_dots_2478: 16787658
+                KEY_braille_dots_248: 16787594
+                KEY_braille_dots_25: 16787474
+                KEY_braille_dots_256: 16787506
+                KEY_braille_dots_2567: 16787570
+                KEY_braille_dots_25678: 16787698
+                KEY_braille_dots_2568: 16787634
+                KEY_braille_dots_257: 16787538
+                KEY_braille_dots_2578: 16787666
+                KEY_braille_dots_258: 16787602
+                KEY_braille_dots_26: 16787490
+                KEY_braille_dots_267: 16787554
+                KEY_braille_dots_2678: 16787682
+                KEY_braille_dots_268: 16787618
+                KEY_braille_dots_27: 16787522
+                KEY_braille_dots_278: 16787650
+                KEY_braille_dots_28: 16787586
+                KEY_braille_dots_3: 16787460
+                KEY_braille_dots_34: 16787468
+                KEY_braille_dots_345: 16787484
+                KEY_braille_dots_3456: 16787516
+                KEY_braille_dots_34567: 16787580
+                KEY_braille_dots_345678: 16787708
+                KEY_braille_dots_34568: 16787644
+                KEY_braille_dots_3457: 16787548
+                KEY_braille_dots_34578: 16787676
+                KEY_braille_dots_3458: 16787612
+                KEY_braille_dots_346: 16787500
+                KEY_braille_dots_3467: 16787564
+                KEY_braille_dots_34678: 16787692
+                KEY_braille_dots_3468: 16787628
+                KEY_braille_dots_347: 16787532
+                KEY_braille_dots_3478: 16787660
+                KEY_braille_dots_348: 16787596
+                KEY_braille_dots_35: 16787476
+                KEY_braille_dots_356: 16787508
+                KEY_braille_dots_3567: 16787572
+                KEY_braille_dots_35678: 16787700
+                KEY_braille_dots_3568: 16787636
+                KEY_braille_dots_357: 16787540
+                KEY_braille_dots_3578: 16787668
+                KEY_braille_dots_358: 16787604
+                KEY_braille_dots_36: 16787492
+                KEY_braille_dots_367: 16787556
+                KEY_braille_dots_3678: 16787684
+                KEY_braille_dots_368: 16787620
+                KEY_braille_dots_37: 16787524
+                KEY_braille_dots_378: 16787652
+                KEY_braille_dots_38: 16787588
+                KEY_braille_dots_4: 16787464
+                KEY_braille_dots_45: 16787480
+                KEY_braille_dots_456: 16787512
+                KEY_braille_dots_4567: 16787576
+                KEY_braille_dots_45678: 16787704
+                KEY_braille_dots_4568: 16787640
+                KEY_braille_dots_457: 16787544
+                KEY_braille_dots_4578: 16787672
+                KEY_braille_dots_458: 16787608
+                KEY_braille_dots_46: 16787496
+                KEY_braille_dots_467: 16787560
+                KEY_braille_dots_4678: 16787688
+                KEY_braille_dots_468: 16787624
+                KEY_braille_dots_47: 16787528
+                KEY_braille_dots_478: 16787656
+                KEY_braille_dots_48: 16787592
+                KEY_braille_dots_5: 16787472
+                KEY_braille_dots_56: 16787504
+                KEY_braille_dots_567: 16787568
+                KEY_braille_dots_5678: 16787696
+                KEY_braille_dots_568: 16787632
+                KEY_braille_dots_57: 16787536
+                KEY_braille_dots_578: 16787664
+                KEY_braille_dots_58: 16787600
+                KEY_braille_dots_6: 16787488
+                KEY_braille_dots_67: 16787552
+                KEY_braille_dots_678: 16787680
+                KEY_braille_dots_68: 16787616
+                KEY_braille_dots_7: 16787520
+                KEY_braille_dots_78: 16787648
+                KEY_braille_dots_8: 16787584
+                KEY_breve: 418
+                KEY_brokenbar: 166
+                KEY_c: 99
+                KEY_c_h: 65187
+                KEY_cabovedot: 741
+                KEY_cacute: 486
+                KEY_careof: 2744
+                KEY_caret: 2812
+                KEY_caron: 439
+                KEY_ccaron: 488
+                KEY_ccedilla: 231
+                KEY_ccircumflex: 742
+                KEY_cedilla: 184
+                KEY_cent: 162
+                KEY_ch: 65184
+                KEY_checkerboard: 2529
+                KEY_checkmark: 2803
+                KEY_circle: 3023
+                KEY_club: 2796
+                KEY_colon: 58
+                KEY_combining_acute: 16777985
+                KEY_combining_belowdot: 16778019
+                KEY_combining_grave: 16777984
+                KEY_combining_hook: 16777993
+                KEY_combining_tilde: 16777987
+                KEY_comma: 44
+                KEY_containsas: 16785931
+                KEY_copyright: 169
+                KEY_cr: 2532
+                KEY_crossinglines: 2542
+                KEY_cuberoot: 16785947
+                KEY_currency: 164
+                KEY_cursor: 2815
+                KEY_d: 100
+                KEY_dabovedot: 16784907
+                KEY_dagger: 2801
+                KEY_dcaron: 495
+                KEY_dead_A: 65153
+                KEY_dead_E: 65155
+                KEY_dead_I: 65157
+                KEY_dead_O: 65159
+                KEY_dead_SCHWA: 65163
+                KEY_dead_U: 65161
+                KEY_dead_a: 65152
+                KEY_dead_abovecomma: 65124
+                KEY_dead_abovedot: 65110
+                KEY_dead_abovereversedcomma: 65125
+                KEY_dead_abovering: 65112
+                KEY_dead_aboveverticalline: 65169
+                KEY_dead_acute: 65105
+                KEY_dead_belowbreve: 65131
+                KEY_dead_belowcircumflex: 65129
+                KEY_dead_belowcomma: 65134
+                KEY_dead_belowdiaeresis: 65132
+                KEY_dead_belowdot: 65120
+                KEY_dead_belowmacron: 65128
+                KEY_dead_belowring: 65127
+                KEY_dead_belowtilde: 65130
+                KEY_dead_belowverticalline: 65170
+                KEY_dead_breve: 65109
+                KEY_dead_capital_schwa: 65163
+                KEY_dead_caron: 65114
+                KEY_dead_cedilla: 65115
+                KEY_dead_circumflex: 65106
+                KEY_dead_currency: 65135
+                KEY_dead_dasia: 65125
+                KEY_dead_diaeresis: 65111
+                KEY_dead_doubleacute: 65113
+                KEY_dead_doublegrave: 65126
+                KEY_dead_e: 65154
+                KEY_dead_grave: 65104
+                KEY_dead_greek: 65164
+                KEY_dead_hamza: 65165
+                KEY_dead_hook: 65121
+                KEY_dead_horn: 65122
+                KEY_dead_i: 65156
+                KEY_dead_invertedbreve: 65133
+                KEY_dead_iota: 65117
+                KEY_dead_longsolidusoverlay: 65171
+                KEY_dead_lowline: 65168
+                KEY_dead_macron: 65108
+                KEY_dead_o: 65158
+                KEY_dead_ogonek: 65116
+                KEY_dead_perispomeni: 65107
+                KEY_dead_psili: 65124
+                KEY_dead_schwa: 65162
+                KEY_dead_semivoiced_sound: 65119
+                KEY_dead_small_schwa: 65162
+                KEY_dead_stroke: 65123
+                KEY_dead_tilde: 65107
+                KEY_dead_u: 65160
+                KEY_dead_voiced_sound: 65118
+                KEY_decimalpoint: 2749
+                KEY_degree: 176
+                KEY_diaeresis: 168
+                KEY_diamond: 2797
+                KEY_digitspace: 2725
+                KEY_dintegral: 16785964
+                KEY_division: 247
+                KEY_dollar: 36
+                KEY_doubbaselinedot: 2735
+                KEY_doubleacute: 445
+                KEY_doubledagger: 2802
+                KEY_doublelowquotemark: 2814
+                KEY_downarrow: 2302
+                KEY_downcaret: 2984
+                KEY_downshoe: 3030
+                KEY_downstile: 3012
+                KEY_downtack: 3010
+                KEY_dstroke: 496
+                KEY_e: 101
+                KEY_eabovedot: 1004
+                KEY_eacute: 233
+                KEY_ebelowdot: 16785081
+                KEY_ecaron: 492
+                KEY_ecircumflex: 234
+                KEY_ecircumflexacute: 16785087
+                KEY_ecircumflexbelowdot: 16785095
+                KEY_ecircumflexgrave: 16785089
+                KEY_ecircumflexhook: 16785091
+                KEY_ecircumflextilde: 16785093
+                KEY_ediaeresis: 235
+                KEY_egrave: 232
+                KEY_ehook: 16785083
+                KEY_eightsubscript: 16785544
+                KEY_eightsuperior: 16785528
+                KEY_elementof: 16785928
+                KEY_ellipsis: 2734
+                KEY_em3space: 2723
+                KEY_em4space: 2724
+                KEY_emacron: 954
+                KEY_emdash: 2729
+                KEY_emfilledcircle: 2782
+                KEY_emfilledrect: 2783
+                KEY_emopencircle: 2766
+                KEY_emopenrectangle: 2767
+                KEY_emptyset: 16785925
+                KEY_emspace: 2721
+                KEY_endash: 2730
+                KEY_enfilledcircbullet: 2790
+                KEY_enfilledsqbullet: 2791
+                KEY_eng: 959
+                KEY_enopencircbullet: 2784
+                KEY_enopensquarebullet: 2785
+                KEY_enspace: 2722
+                KEY_eogonek: 490
+                KEY_equal: 61
+                KEY_eth: 240
+                KEY_etilde: 16785085
+                KEY_exclam: 33
+                KEY_exclamdown: 161
+                KEY_ezh: 16777874
+                KEY_f: 102
+                KEY_fabovedot: 16784927
+                KEY_femalesymbol: 2808
+                KEY_ff: 2531
+                KEY_figdash: 2747
+                KEY_filledlefttribullet: 2780
+                KEY_filledrectbullet: 2779
+                KEY_filledrighttribullet: 2781
+                KEY_filledtribulletdown: 2793
+                KEY_filledtribulletup: 2792
+                KEY_fiveeighths: 2757
+                KEY_fivesixths: 2743
+                KEY_fivesubscript: 16785541
+                KEY_fivesuperior: 16785525
+                KEY_fourfifths: 2741
+                KEY_foursubscript: 16785540
+                KEY_foursuperior: 16785524
+                KEY_fourthroot: 16785948
+                KEY_function: 2294
+                KEY_g: 103
+                KEY_gabovedot: 757
+                KEY_gbreve: 699
+                KEY_gcaron: 16777703
+                KEY_gcedilla: 955
+                KEY_gcircumflex: 760
+                KEY_grave: 96
+                KEY_greater: 62
+                KEY_greaterthanequal: 2238
+                KEY_guillemetleft: 171
+                KEY_guillemetright: 187
+                KEY_guillemotleft: 171
+                KEY_guillemotright: 187
+                KEY_h: 104
+                KEY_hairspace: 2728
+                KEY_hcircumflex: 694
+                KEY_heart: 2798
+                KEY_hebrew_aleph: 3296
+                KEY_hebrew_ayin: 3314
+                KEY_hebrew_bet: 3297
+                KEY_hebrew_beth: 3297
+                KEY_hebrew_chet: 3303
+                KEY_hebrew_dalet: 3299
+                KEY_hebrew_daleth: 3299
+                KEY_hebrew_doublelowline: 3295
+                KEY_hebrew_finalkaph: 3306
+                KEY_hebrew_finalmem: 3309
+                KEY_hebrew_finalnun: 3311
+                KEY_hebrew_finalpe: 3315
+                KEY_hebrew_finalzade: 3317
+                KEY_hebrew_finalzadi: 3317
+                KEY_hebrew_gimel: 3298
+                KEY_hebrew_gimmel: 3298
+                KEY_hebrew_he: 3300
+                KEY_hebrew_het: 3303
+                KEY_hebrew_kaph: 3307
+                KEY_hebrew_kuf: 3319
+                KEY_hebrew_lamed: 3308
+                KEY_hebrew_mem: 3310
+                KEY_hebrew_nun: 3312
+                KEY_hebrew_pe: 3316
+                KEY_hebrew_qoph: 3319
+                KEY_hebrew_resh: 3320
+                KEY_hebrew_samech: 3313
+                KEY_hebrew_samekh: 3313
+                KEY_hebrew_shin: 3321
+                KEY_hebrew_taf: 3322
+                KEY_hebrew_taw: 3322
+                KEY_hebrew_tet: 3304
+                KEY_hebrew_teth: 3304
+                KEY_hebrew_waw: 3301
+                KEY_hebrew_yod: 3305
+                KEY_hebrew_zade: 3318
+                KEY_hebrew_zadi: 3318
+                KEY_hebrew_zain: 3302
+                KEY_hebrew_zayin: 3302
+                KEY_hexagram: 2778
+                KEY_horizconnector: 2211
+                KEY_horizlinescan1: 2543
+                KEY_horizlinescan3: 2544
+                KEY_horizlinescan5: 2545
+                KEY_horizlinescan7: 2546
+                KEY_horizlinescan9: 2547
+                KEY_hstroke: 689
+                KEY_ht: 2530
+                KEY_hyphen: 173
+                KEY_i: 105
+                KEY_iTouch: 269025120
+                KEY_iacute: 237
+                KEY_ibelowdot: 16785099
+                KEY_ibreve: 16777517
+                KEY_icircumflex: 238
+                KEY_identical: 2255
+                KEY_idiaeresis: 239
+                KEY_idotless: 697
+                KEY_ifonlyif: 2253
+                KEY_igrave: 236
+                KEY_ihook: 16785097
+                KEY_imacron: 1007
+                KEY_implies: 2254
+                KEY_includedin: 2266
+                KEY_includes: 2267
+                KEY_infinity: 2242
+                KEY_integral: 2239
+                KEY_intersection: 2268
+                KEY_iogonek: 999
+                KEY_itilde: 949
+                KEY_j: 106
+                KEY_jcircumflex: 700
+                KEY_jot: 3018
+                KEY_k: 107
+                KEY_kana_A: 1201
+                KEY_kana_CHI: 1217
+                KEY_kana_E: 1204
+                KEY_kana_FU: 1228
+                KEY_kana_HA: 1226
+                KEY_kana_HE: 1229
+                KEY_kana_HI: 1227
+                KEY_kana_HO: 1230
+                KEY_kana_HU: 1228
+                KEY_kana_I: 1202
+                KEY_kana_KA: 1206
+                KEY_kana_KE: 1209
+                KEY_kana_KI: 1207
+                KEY_kana_KO: 1210
+                KEY_kana_KU: 1208
+                KEY_kana_MA: 1231
+                KEY_kana_ME: 1234
+                KEY_kana_MI: 1232
+                KEY_kana_MO: 1235
+                KEY_kana_MU: 1233
+                KEY_kana_N: 1245
+                KEY_kana_NA: 1221
+                KEY_kana_NE: 1224
+                KEY_kana_NI: 1222
+                KEY_kana_NO: 1225
+                KEY_kana_NU: 1223
+                KEY_kana_O: 1205
+                KEY_kana_RA: 1239
+                KEY_kana_RE: 1242
+                KEY_kana_RI: 1240
+                KEY_kana_RO: 1243
+                KEY_kana_RU: 1241
+                KEY_kana_SA: 1211
+                KEY_kana_SE: 1214
+                KEY_kana_SHI: 1212
+                KEY_kana_SO: 1215
+                KEY_kana_SU: 1213
+                KEY_kana_TA: 1216
+                KEY_kana_TE: 1219
+                KEY_kana_TI: 1217
+                KEY_kana_TO: 1220
+                KEY_kana_TSU: 1218
+                KEY_kana_TU: 1218
+                KEY_kana_U: 1203
+                KEY_kana_WA: 1244
+                KEY_kana_WO: 1190
+                KEY_kana_YA: 1236
+                KEY_kana_YO: 1238
+                KEY_kana_YU: 1237
+                KEY_kana_a: 1191
+                KEY_kana_closingbracket: 1187
+                KEY_kana_comma: 1188
+                KEY_kana_conjunctive: 1189
+                KEY_kana_e: 1194
+                KEY_kana_fullstop: 1185
+                KEY_kana_i: 1192
+                KEY_kana_middledot: 1189
+                KEY_kana_o: 1195
+                KEY_kana_openingbracket: 1186
+                KEY_kana_switch: 65406
+                KEY_kana_tsu: 1199
+                KEY_kana_tu: 1199
+                KEY_kana_u: 1193
+                KEY_kana_ya: 1196
+                KEY_kana_yo: 1198
+                KEY_kana_yu: 1197
+                KEY_kappa: 930
+                KEY_kcedilla: 1011
+                KEY_kra: 930
+                KEY_l: 108
+                KEY_lacute: 485
+                KEY_latincross: 2777
+                KEY_lbelowdot: 16784951
+                KEY_lcaron: 437
+                KEY_lcedilla: 950
+                KEY_leftanglebracket: 2748
+                KEY_leftarrow: 2299
+                KEY_leftcaret: 2979
+                KEY_leftdoublequotemark: 2770
+                KEY_leftmiddlecurlybrace: 2223
+                KEY_leftopentriangle: 2764
+                KEY_leftpointer: 2794
+                KEY_leftradical: 2209
+                KEY_leftshoe: 3034
+                KEY_leftsinglequotemark: 2768
+                KEY_leftt: 2548
+                KEY_lefttack: 3036
+                KEY_less: 60
+                KEY_lessthanequal: 2236
+                KEY_lf: 2533
+                KEY_logicaland: 2270
+                KEY_logicalor: 2271
+                KEY_lowleftcorner: 2541
+                KEY_lowrightcorner: 2538
+                KEY_lstroke: 435
+                KEY_m: 109
+                KEY_mabovedot: 16784961
+                KEY_macron: 175
+                KEY_malesymbol: 2807
+                KEY_maltesecross: 2800
+                KEY_marker: 2751
+                KEY_masculine: 186
+                KEY_minus: 45
+                KEY_minutes: 2774
+                KEY_mu: 181
+                KEY_multiply: 215
+                KEY_musicalflat: 2806
+                KEY_musicalsharp: 2805
+                KEY_n: 110
+                KEY_nabla: 2245
+                KEY_nacute: 497
+                KEY_ncaron: 498
+                KEY_ncedilla: 1009
+                KEY_ninesubscript: 16785545
+                KEY_ninesuperior: 16785529
+                KEY_nl: 2536
+                KEY_nobreakspace: 160
+                KEY_notapproxeq: 16785991
+                KEY_notelementof: 16785929
+                KEY_notequal: 2237
+                KEY_notidentical: 16786018
+                KEY_notsign: 172
+                KEY_ntilde: 241
+                KEY_numbersign: 35
+                KEY_numerosign: 1712
+                KEY_o: 111
+                KEY_oacute: 243
+                KEY_obarred: 16777845
+                KEY_obelowdot: 16785101
+                KEY_ocaron: 16777682
+                KEY_ocircumflex: 244
+                KEY_ocircumflexacute: 16785105
+                KEY_ocircumflexbelowdot: 16785113
+                KEY_ocircumflexgrave: 16785107
+                KEY_ocircumflexhook: 16785109
+                KEY_ocircumflextilde: 16785111
+                KEY_odiaeresis: 246
+                KEY_odoubleacute: 501
+                KEY_oe: 5053
+                KEY_ogonek: 434
+                KEY_ograve: 242
+                KEY_ohook: 16785103
+                KEY_ohorn: 16777633
+                KEY_ohornacute: 16785115
+                KEY_ohornbelowdot: 16785123
+                KEY_ohorngrave: 16785117
+                KEY_ohornhook: 16785119
+                KEY_ohorntilde: 16785121
+                KEY_omacron: 1010
+                KEY_oneeighth: 2755
+                KEY_onefifth: 2738
+                KEY_onehalf: 189
+                KEY_onequarter: 188
+                KEY_onesixth: 2742
+                KEY_onesubscript: 16785537
+                KEY_onesuperior: 185
+                KEY_onethird: 2736
+                KEY_ooblique: 248
+                KEY_openrectbullet: 2786
+                KEY_openstar: 2789
+                KEY_opentribulletdown: 2788
+                KEY_opentribulletup: 2787
+                KEY_ordfeminine: 170
+                KEY_ordmasculine: 186
+                KEY_oslash: 248
+                KEY_otilde: 245
+                KEY_overbar: 3008
+                KEY_overline: 1150
+                KEY_p: 112
+                KEY_pabovedot: 16784983
+                KEY_paragraph: 182
+                KEY_parenleft: 40
+                KEY_parenright: 41
+                KEY_partdifferential: 16785922
+                KEY_partialderivative: 2287
+                KEY_percent: 37
+                KEY_period: 46
+                KEY_periodcentered: 183
+                KEY_permille: 2773
+                KEY_phonographcopyright: 2811
+                KEY_plus: 43
+                KEY_plusminus: 177
+                KEY_prescription: 2772
+                KEY_prolongedsound: 1200
+                KEY_punctspace: 2726
+                KEY_q: 113
+                KEY_quad: 3020
+                KEY_question: 63
+                KEY_questiondown: 191
+                KEY_quotedbl: 34
+                KEY_quoteleft: 96
+                KEY_quoteright: 39
+                KEY_r: 114
+                KEY_racute: 480
+                KEY_radical: 2262
+                KEY_rcaron: 504
+                KEY_rcedilla: 947
+                KEY_registered: 174
+                KEY_rightanglebracket: 2750
+                KEY_rightarrow: 2301
+                KEY_rightcaret: 2982
+                KEY_rightdoublequotemark: 2771
+                KEY_rightmiddlecurlybrace: 2224
+                KEY_rightmiddlesummation: 2231
+                KEY_rightopentriangle: 2765
+                KEY_rightpointer: 2795
+                KEY_rightshoe: 3032
+                KEY_rightsinglequotemark: 2769
+                KEY_rightt: 2549
+                KEY_righttack: 3068
+                KEY_s: 115
+                KEY_sabovedot: 16784993
+                KEY_sacute: 438
+                KEY_scaron: 441
+                KEY_scedilla: 442
+                KEY_schwa: 16777817
+                KEY_scircumflex: 766
+                KEY_script_switch: 65406
+                KEY_seconds: 2775
+                KEY_section: 167
+                KEY_semicolon: 59
+                KEY_semivoicedsound: 1247
+                KEY_seveneighths: 2758
+                KEY_sevensubscript: 16785543
+                KEY_sevensuperior: 16785527
+                KEY_signaturemark: 2762
+                KEY_signifblank: 2732
+                KEY_similarequal: 2249
+                KEY_singlelowquotemark: 2813
+                KEY_sixsubscript: 16785542
+                KEY_sixsuperior: 16785526
+                KEY_slash: 47
+                KEY_soliddiamond: 2528
+                KEY_space: 32
+                KEY_squareroot: 16785946
+                KEY_ssharp: 223
+                KEY_sterling: 163
+                KEY_stricteq: 16786019
+                KEY_t: 116
+                KEY_tabovedot: 16785003
+                KEY_tcaron: 443
+                KEY_tcedilla: 510
+                KEY_telephone: 2809
+                KEY_telephonerecorder: 2810
+                KEY_therefore: 2240
+                KEY_thinspace: 2727
+                KEY_thorn: 254
+                KEY_threeeighths: 2756
+                KEY_threefifths: 2740
+                KEY_threequarters: 190
+                KEY_threesubscript: 16785539
+                KEY_threesuperior: 179
+                KEY_tintegral: 16785965
+                KEY_topintegral: 2212
+                KEY_topleftparens: 2219
+                KEY_topleftradical: 2210
+                KEY_topleftsqbracket: 2215
+                KEY_topleftsummation: 2225
+                KEY_toprightparens: 2221
+                KEY_toprightsqbracket: 2217
+                KEY_toprightsummation: 2229
+                KEY_topt: 2551
+                KEY_topvertsummationconnector: 2227
+                KEY_trademark: 2761
+                KEY_trademarkincircle: 2763
+                KEY_tslash: 956
+                KEY_twofifths: 2739
+                KEY_twosubscript: 16785538
+                KEY_twosuperior: 178
+                KEY_twothirds: 2737
+                KEY_u: 117
+                KEY_uacute: 250
+                KEY_ubelowdot: 16785125
+                KEY_ubreve: 765
+                KEY_ucircumflex: 251
+                KEY_udiaeresis: 252
+                KEY_udoubleacute: 507
+                KEY_ugrave: 249
+                KEY_uhook: 16785127
+                KEY_uhorn: 16777648
+                KEY_uhornacute: 16785129
+                KEY_uhornbelowdot: 16785137
+                KEY_uhorngrave: 16785131
+                KEY_uhornhook: 16785133
+                KEY_uhorntilde: 16785135
+                KEY_umacron: 1022
+                KEY_underbar: 3014
+                KEY_underscore: 95
+                KEY_union: 2269
+                KEY_uogonek: 1017
+                KEY_uparrow: 2300
+                KEY_upcaret: 2985
+                KEY_upleftcorner: 2540
+                KEY_uprightcorner: 2539
+                KEY_upshoe: 3011
+                KEY_upstile: 3027
+                KEY_uptack: 3022
+                KEY_uring: 505
+                KEY_utilde: 1021
+                KEY_v: 118
+                KEY_variation: 2241
+                KEY_vertbar: 2552
+                KEY_vertconnector: 2214
+                KEY_voicedsound: 1246
+                KEY_vt: 2537
+                KEY_w: 119
+                KEY_wacute: 16785027
+                KEY_wcircumflex: 16777589
+                KEY_wdiaeresis: 16785029
+                KEY_wgrave: 16785025
+                KEY_x: 120
+                KEY_xabovedot: 16785035
+                KEY_y: 121
+                KEY_yacute: 253
+                KEY_ybelowdot: 16785141
+                KEY_ycircumflex: 16777591
+                KEY_ydiaeresis: 255
+                KEY_yen: 165
+                KEY_ygrave: 16785139
+                KEY_yhook: 16785143
+                KEY_ytilde: 16785145
+                KEY_z: 122
+                KEY_zabovedot: 447
+                KEY_zacute: 444
+                KEY_zcaron: 446
+                KEY_zerosubscript: 16785536
+                KEY_zerosuperior: 16785520
+                KEY_zstroke: 16777654
+                KP_0: 65456
+                KP_1: 65457
+                KP_2: 65458
+                KP_3: 65459
+                KP_4: 65460
+                KP_5: 65461
+                KP_6: 65462
+                KP_7: 65463
+                KP_8: 65464
+                KP_9: 65465
+                KP_Add: 65451
+                KP_Begin: 65437
+                KP_Decimal: 65454
+                KP_Delete: 65439
+                KP_Divide: 65455
+                KP_Down: 65433
+                KP_End: 65436
+                KP_Enter: 65421
+                KP_Equal: 65469
+                KP_F1: 65425
+                KP_F2: 65426
+                KP_F3: 65427
+                KP_F4: 65428
+                KP_Home: 65429
+                KP_Insert: 65438
+                KP_Left: 65430
+                KP_Multiply: 65450
+                KP_Next: 65435
+                KP_Page_Down: 65435
+                KP_Page_Up: 65434
+                KP_Prior: 65434
+                KP_Right: 65432
+                KP_Separator: 65452
+                KP_Space: 65408
+                KP_Subtract: 65453
+                KP_Tab: 65417
+                KP_Up: 65431
+                Kana_Lock: 65325
+                Kana_Shift: 65326
+                Kanji: 65313
+                Kanji_Bangou: 65335
+                Katakana: 65318
+                Kcedilla: 979
+                Korean_Won: 3839
+                L: 76
+                L1: 65480
+                L10: 65489
+                L2: 65481
+                L3: 65482
+                L4: 65483
+                L5: 65484
+                L6: 65485
+                L7: 65486
+                L8: 65487
+                L9: 65488
+                Lacute: 453
+                Last_Virtual_Screen: 65236
+                Lbelowdot: 16784950
+                Lcaron: 421
+                Lcedilla: 934
+                Left: 65361
+                Linefeed: 65290
+                LiraSign: 16785572
+                Lstroke: 419
+                M: 77
+                MAJOR_VERSION: 1
+                MAX_COMPOSE_LEN: 255
+                MICRO_VERSION: 32
+                MINOR_VERSION: 5
+                MODIFIER_FILTER: 1124073709
+                Mabovedot: 16784960
+                Macedonia_DSE: 1717
+                Macedonia_GJE: 1714
+                Macedonia_KJE: 1724
+                Macedonia_dse: 1701
+                Macedonia_gje: 1698
+                Macedonia_kje: 1708
+                Mae_Koho: 65342
+                Massyo: 65324
+                Menu: 65383
+                Meta_L: 65511
+                Meta_R: 65512
+                MillSign: 16785573
+                Mode_switch: 65406
+                MouseKeys_Accel_Enable: 65143
+                MouseKeys_Enable: 65142
+                Muhenkan: 65314
+                Multi_key: 65312
+                MultipleCandidate: 65341
+                N: 78
+                Nacute: 465
+                NairaSign: 16785574
+                Ncaron: 466
+                Ncedilla: 977
+                NewSheqelSign: 16785578
+                Next: 65366
+                Next_Virtual_Screen: 65234
+                Ntilde: 209
+                Num_Lock: 65407
+                O: 79
+                OE: 5052
+                Oacute: 211
+                Obarred: 16777631
+                Obelowdot: 16785100
+                Ocaron: 16777681
+                Ocircumflex: 212
+                Ocircumflexacute: 16785104
+                Ocircumflexbelowdot: 16785112
+                Ocircumflexgrave: 16785106
+                Ocircumflexhook: 16785108
+                Ocircumflextilde: 16785110
+                Odiaeresis: 214
+                Odoubleacute: 469
+                Ograve: 210
+                Ohook: 16785102
+                Ohorn: 16777632
+                Ohornacute: 16785114
+                Ohornbelowdot: 16785122
+                Ohorngrave: 16785116
+                Ohornhook: 16785118
+                Ohorntilde: 16785120
+                Omacron: 978
+                Ooblique: 216
+                Oslash: 216
+                Otilde: 213
+                Overlay1_Enable: 65144
+                Overlay2_Enable: 65145
+                P: 80
+                PATH_CONFIG: "/org/freedesktop/IBus/Config"
+                PATH_FACTORY: "/org/freedesktop/IBus/Factory"
+                PATH_IBUS: "/org/freedesktop/IBus"
+                PATH_INPUT_CONTEXT: "/org/freedesktop/IBus/InputContext_%d"
+                PATH_NOTIFICATIONS: "/org/freedesktop/IBus/Notifications"
+                PATH_PANEL: "/org/freedesktop/IBus/Panel"
+                PATH_PANEL_EXTENSION_EMOJI: "/org/freedesktop/IBus/Panel/Extension/Emoji"
+                Pabovedot: 16784982
+                Page_Down: 65366
+                Page_Up: 65365
+                Pause: 65299
+                PesetaSign: 16785575
+                Pointer_Accelerate: 65274
+                Pointer_Button1: 65257
+                Pointer_Button2: 65258
+                Pointer_Button3: 65259
+                Pointer_Button4: 65260
+                Pointer_Button5: 65261
+                Pointer_Button_Dflt: 65256
+                Pointer_DblClick1: 65263
+                Pointer_DblClick2: 65264
+                Pointer_DblClick3: 65265
+                Pointer_DblClick4: 65266
+                Pointer_DblClick5: 65267
+                Pointer_DblClick_Dflt: 65262
+                Pointer_DfltBtnNext: 65275
+                Pointer_DfltBtnPrev: 65276
+                Pointer_Down: 65251
+                Pointer_DownLeft: 65254
+                Pointer_DownRight: 65255
+                Pointer_Drag1: 65269
+                Pointer_Drag2: 65270
+                Pointer_Drag3: 65271
+                Pointer_Drag4: 65272
+                Pointer_Drag5: 65277
+                Pointer_Drag_Dflt: 65268
+                Pointer_EnableKeys: 65273
+                Pointer_Left: 65248
+                Pointer_Right: 65249
+                Pointer_Up: 65250
+                Pointer_UpLeft: 65252
+                Pointer_UpRight: 65253
+                Prev_Virtual_Screen: 65233
+                PreviousCandidate: 65342
+                Print: 65377
+                Prior: 65365
+                Q: 81
+                R: 82
+                R1: 65490
+                R10: 65499
+                R11: 65500
+                R12: 65501
+                R13: 65502
+                R14: 65503
+                R15: 65504
+                R2: 65491
+                R3: 65492
+                R4: 65493
+                R5: 65494
+                R6: 65495
+                R7: 65496
+                R8: 65497
+                R9: 65498
+                Racute: 448
+                Rcaron: 472
+                Rcedilla: 931
+                Redo: 65382
+                RepeatKeys_Enable: 65138
+                Return: 65293
+                Right: 65363
+                Romaji: 65316
+                RupeeSign: 16785576
+                S: 83
+                SCHWA: 16777615
+                SERVICE_CONFIG: "org.freedesktop.IBus.Config"
+                SERVICE_IBUS: "org.freedesktop.IBus"
+                SERVICE_NOTIFICATIONS: "org.freedesktop.IBus.Notifications"
+                SERVICE_PANEL: "org.freedesktop.IBus.Panel"
+                SERVICE_PANEL_EXTENSION: "org.freedesktop.IBus.Panel.Extension"
+                SERVICE_PANEL_EXTENSION_EMOJI: "org.freedesktop.IBus.Panel.Extension.Emoji"
+                SERVICE_PORTAL: "org.freedesktop.portal.IBus"
+                Sabovedot: 16784992
+                Sacute: 422
+                Scaron: 425
+                Scedilla: 426
+                Scircumflex: 734
+                Scroll_Lock: 65300
+                Select: 65376
+                Serbian_DJE: 1713
+                Serbian_DZE: 1727
+                Serbian_JE: 1720
+                Serbian_LJE: 1721
+                Serbian_NJE: 1722
+                Serbian_TSHE: 1723
+                Serbian_dje: 1697
+                Serbian_dze: 1711
+                Serbian_je: 1704
+                Serbian_lje: 1705
+                Serbian_nje: 1706
+                Serbian_tshe: 1707
+                Shift_L: 65505
+                Shift_Lock: 65510
+                Shift_R: 65506
+                SingleCandidate: 65340
+                SlowKeys_Enable: 65139
+                StickyKeys_Enable: 65141
+                Super_L: 65515
+                Super_R: 65516
+                Sys_Req: 65301
+                T: 84
+                THORN: 222
+                Tab: 65289
+                Tabovedot: 16785002
+                Tcaron: 427
+                Tcedilla: 478
+                Terminate_Server: 65237
+                Thai_baht: 3551
+                Thai_bobaimai: 3514
+                Thai_chochan: 3496
+                Thai_chochang: 3498
+                Thai_choching: 3497
+                Thai_chochoe: 3500
+                Thai_dochada: 3502
+                Thai_dodek: 3508
+                Thai_fofa: 3517
+                Thai_fofan: 3519
+                Thai_hohip: 3531
+                Thai_honokhuk: 3534
+                Thai_khokhai: 3490
+                Thai_khokhon: 3493
+                Thai_khokhuat: 3491
+                Thai_khokhwai: 3492
+                Thai_khorakhang: 3494
+                Thai_kokai: 3489
+                Thai_lakkhangyao: 3557
+                Thai_lekchet: 3575
+                Thai_lekha: 3573
+                Thai_lekhok: 3574
+                Thai_lekkao: 3577
+                Thai_leknung: 3569
+                Thai_lekpaet: 3576
+                Thai_leksam: 3571
+                Thai_leksi: 3572
+                Thai_leksong: 3570
+                Thai_leksun: 3568
+                Thai_lochula: 3532
+                Thai_loling: 3525
+                Thai_lu: 3526
+                Thai_maichattawa: 3563
+                Thai_maiek: 3560
+                Thai_maihanakat: 3537
+                Thai_maihanakat_maitho: 3550
+                Thai_maitaikhu: 3559
+                Thai_maitho: 3561
+                Thai_maitri: 3562
+                Thai_maiyamok: 3558
+                Thai_moma: 3521
+                Thai_ngongu: 3495
+                Thai_nikhahit: 3565
+                Thai_nonen: 3507
+                Thai_nonu: 3513
+                Thai_oang: 3533
+                Thai_paiyannoi: 3535
+                Thai_phinthu: 3546
+                Thai_phophan: 3518
+                Thai_phophung: 3516
+                Thai_phosamphao: 3520
+                Thai_popla: 3515
+                Thai_rorua: 3523
+                Thai_ru: 3524
+                Thai_saraa: 3536
+                Thai_saraaa: 3538
+                Thai_saraae: 3553
+                Thai_saraaimaimalai: 3556
+                Thai_saraaimaimuan: 3555
+                Thai_saraam: 3539
+                Thai_sarae: 3552
+                Thai_sarai: 3540
+                Thai_saraii: 3541
+                Thai_sarao: 3554
+                Thai_sarau: 3544
+                Thai_saraue: 3542
+                Thai_sarauee: 3543
+                Thai_sarauu: 3545
+                Thai_sorusi: 3529
+                Thai_sosala: 3528
+                Thai_soso: 3499
+                Thai_sosua: 3530
+                Thai_thanthakhat: 3564
+                Thai_thonangmontho: 3505
+                Thai_thophuthao: 3506
+                Thai_thothahan: 3511
+                Thai_thothan: 3504
+                Thai_thothong: 3512
+                Thai_thothung: 3510
+                Thai_topatak: 3503
+                Thai_totao: 3509
+                Thai_wowaen: 3527
+                Thai_yoyak: 3522
+                Thai_yoying: 3501
+                Thorn: 222
+                Touroku: 65323
+                Tslash: 940
+                U: 85
+                Uacute: 218
+                Ubelowdot: 16785124
+                Ubreve: 733
+                Ucircumflex: 219
+                Udiaeresis: 220
+                Udoubleacute: 475
+                Ugrave: 217
+                Uhook: 16785126
+                Uhorn: 16777647
+                Uhornacute: 16785128
+                Uhornbelowdot: 16785136
+                Uhorngrave: 16785130
+                Uhornhook: 16785132
+                Uhorntilde: 16785134
+                Ukrainian_GHE_WITH_UPTURN: 1725
+                Ukrainian_I: 1718
+                Ukrainian_IE: 1716
+                Ukrainian_YI: 1719
+                Ukrainian_ghe_with_upturn: 1709
+                Ukrainian_i: 1702
+                Ukrainian_ie: 1700
+                Ukrainian_yi: 1703
+                Ukranian_I: 1718
+                Ukranian_JE: 1716
+                Ukranian_YI: 1719
+                Ukranian_i: 1702
+                Ukranian_je: 1700
+                Ukranian_yi: 1703
+                Umacron: 990
+                Undo: 65381
+                Uogonek: 985
+                Up: 65362
+                Uring: 473
+                Utilde: 989
+                V: 86
+                VoidSymbol: 16777215
+                W: 87
+                Wacute: 16785026
+                Wcircumflex: 16777588
+                Wdiaeresis: 16785028
+                Wgrave: 16785024
+                WonSign: 16785577
+                X: 88
+                Xabovedot: 16785034
+                Y: 89
+                Yacute: 221
+                Ybelowdot: 16785140
+                Ycircumflex: 16777590
+                Ydiaeresis: 5054
+                Ygrave: 16785138
+                Yhook: 16785142
+                Ytilde: 16785144
+                Z: 90
+                Zabovedot: 431
+                Zacute: 428
+                Zcaron: 430
+                Zen_Koho: 65341
+                Zenkaku: 65320
+                Zenkaku_Hankaku: 65322
+                Zstroke: 16777653
+                a: 97
+                aacute: 225
+                abelowdot: 16785057
+                abovedot: 511
+                abreve: 483
+                abreveacute: 16785071
+                abrevebelowdot: 16785079
+                abrevegrave: 16785073
+                abrevehook: 16785075
+                abrevetilde: 16785077
+                acircumflex: 226
+                acircumflexacute: 16785061
+                acircumflexbelowdot: 16785069
+                acircumflexgrave: 16785063
+                acircumflexhook: 16785065
+                acircumflextilde: 16785067
+                acute: 180
+                adiaeresis: 228
+                ae: 230
+                agrave: 224
+                ahook: 16785059
+                amacron: 992
+                ampersand: 38
+                aogonek: 433
+                apostrophe: 39
+                approxeq: 16785992
+                approximate: 2248
+                aring: 229
+                asciicircum: 94
+                asciitilde: 126
+                asterisk: 42
+                at: 64
+                atilde: 227
+                b: 98
+                babovedot: 16784899
+                backslash: 92
+                ballotcross: 2804
+                bar: 124
+                because: 16785973
+                blank: 2527
+                botintegral: 2213
+                botleftparens: 2220
+                botleftsqbracket: 2216
+                botleftsummation: 2226
+                botrightparens: 2222
+                botrightsqbracket: 2218
+                botrightsummation: 2230
+                bott: 2550
+                botvertsummationconnector: 2228
+                braceleft: 123
+                braceright: 125
+                bracketleft: 91
+                bracketright: 93
+                braille_blank: 16787456
+                braille_dot_1: 65521
+                braille_dot_10: 65530
+                braille_dot_2: 65522
+                braille_dot_3: 65523
+                braille_dot_4: 65524
+                braille_dot_5: 65525
+                braille_dot_6: 65526
+                braille_dot_7: 65527
+                braille_dot_8: 65528
+                braille_dot_9: 65529
+                braille_dots_1: 16787457
+                braille_dots_12: 16787459
+                braille_dots_123: 16787463
+                braille_dots_1234: 16787471
+                braille_dots_12345: 16787487
+                braille_dots_123456: 16787519
+                braille_dots_1234567: 16787583
+                braille_dots_12345678: 16787711
+                braille_dots_1234568: 16787647
+                braille_dots_123457: 16787551
+                braille_dots_1234578: 16787679
+                braille_dots_123458: 16787615
+                braille_dots_12346: 16787503
+                braille_dots_123467: 16787567
+                braille_dots_1234678: 16787695
+                braille_dots_123468: 16787631
+                braille_dots_12347: 16787535
+                braille_dots_123478: 16787663
+                braille_dots_12348: 16787599
+                braille_dots_1235: 16787479
+                braille_dots_12356: 16787511
+                braille_dots_123567: 16787575
+                braille_dots_1235678: 16787703
+                braille_dots_123568: 16787639
+                braille_dots_12357: 16787543
+                braille_dots_123578: 16787671
+                braille_dots_12358: 16787607
+                braille_dots_1236: 16787495
+                braille_dots_12367: 16787559
+                braille_dots_123678: 16787687
+                braille_dots_12368: 16787623
+                braille_dots_1237: 16787527
+                braille_dots_12378: 16787655
+                braille_dots_1238: 16787591
+                braille_dots_124: 16787467
+                braille_dots_1245: 16787483
+                braille_dots_12456: 16787515
+                braille_dots_124567: 16787579
+                braille_dots_1245678: 16787707
+                braille_dots_124568: 16787643
+                braille_dots_12457: 16787547
+                braille_dots_124578: 16787675
+                braille_dots_12458: 16787611
+                braille_dots_1246: 16787499
+                braille_dots_12467: 16787563
+                braille_dots_124678: 16787691
+                braille_dots_12468: 16787627
+                braille_dots_1247: 16787531
+                braille_dots_12478: 16787659
+                braille_dots_1248: 16787595
+                braille_dots_125: 16787475
+                braille_dots_1256: 16787507
+                braille_dots_12567: 16787571
+                braille_dots_125678: 16787699
+                braille_dots_12568: 16787635
+                braille_dots_1257: 16787539
+                braille_dots_12578: 16787667
+                braille_dots_1258: 16787603
+                braille_dots_126: 16787491
+                braille_dots_1267: 16787555
+                braille_dots_12678: 16787683
+                braille_dots_1268: 16787619
+                braille_dots_127: 16787523
+                braille_dots_1278: 16787651
+                braille_dots_128: 16787587
+                braille_dots_13: 16787461
+                braille_dots_134: 16787469
+                braille_dots_1345: 16787485
+                braille_dots_13456: 16787517
+                braille_dots_134567: 16787581
+                braille_dots_1345678: 16787709
+                braille_dots_134568: 16787645
+                braille_dots_13457: 16787549
+                braille_dots_134578: 16787677
+                braille_dots_13458: 16787613
+                braille_dots_1346: 16787501
+                braille_dots_13467: 16787565
+                braille_dots_134678: 16787693
+                braille_dots_13468: 16787629
+                braille_dots_1347: 16787533
+                braille_dots_13478: 16787661
+                braille_dots_1348: 16787597
+                braille_dots_135: 16787477
+                braille_dots_1356: 16787509
+                braille_dots_13567: 16787573
+                braille_dots_135678: 16787701
+                braille_dots_13568: 16787637
+                braille_dots_1357: 16787541
+                braille_dots_13578: 16787669
+                braille_dots_1358: 16787605
+                braille_dots_136: 16787493
+                braille_dots_1367: 16787557
+                braille_dots_13678: 16787685
+                braille_dots_1368: 16787621
+                braille_dots_137: 16787525
+                braille_dots_1378: 16787653
+                braille_dots_138: 16787589
+                braille_dots_14: 16787465
+                braille_dots_145: 16787481
+                braille_dots_1456: 16787513
+                braille_dots_14567: 16787577
+                braille_dots_145678: 16787705
+                braille_dots_14568: 16787641
+                braille_dots_1457: 16787545
+                braille_dots_14578: 16787673
+                braille_dots_1458: 16787609
+                braille_dots_146: 16787497
+                braille_dots_1467: 16787561
+                braille_dots_14678: 16787689
+                braille_dots_1468: 16787625
+                braille_dots_147: 16787529
+                braille_dots_1478: 16787657
+                braille_dots_148: 16787593
+                braille_dots_15: 16787473
+                braille_dots_156: 16787505
+                braille_dots_1567: 16787569
+                braille_dots_15678: 16787697
+                braille_dots_1568: 16787633
+                braille_dots_157: 16787537
+                braille_dots_1578: 16787665
+                braille_dots_158: 16787601
+                braille_dots_16: 16787489
+                braille_dots_167: 16787553
+                braille_dots_1678: 16787681
+                braille_dots_168: 16787617
+                braille_dots_17: 16787521
+                braille_dots_178: 16787649
+                braille_dots_18: 16787585
+                braille_dots_2: 16787458
+                braille_dots_23: 16787462
+                braille_dots_234: 16787470
+                braille_dots_2345: 16787486
+                braille_dots_23456: 16787518
+                braille_dots_234567: 16787582
+                braille_dots_2345678: 16787710
+                braille_dots_234568: 16787646
+                braille_dots_23457: 16787550
+                braille_dots_234578: 16787678
+                braille_dots_23458: 16787614
+                braille_dots_2346: 16787502
+                braille_dots_23467: 16787566
+                braille_dots_234678: 16787694
+                braille_dots_23468: 16787630
+                braille_dots_2347: 16787534
+                braille_dots_23478: 16787662
+                braille_dots_2348: 16787598
+                braille_dots_235: 16787478
+                braille_dots_2356: 16787510
+                braille_dots_23567: 16787574
+                braille_dots_235678: 16787702
+                braille_dots_23568: 16787638
+                braille_dots_2357: 16787542
+                braille_dots_23578: 16787670
+                braille_dots_2358: 16787606
+                braille_dots_236: 16787494
+                braille_dots_2367: 16787558
+                braille_dots_23678: 16787686
+                braille_dots_2368: 16787622
+                braille_dots_237: 16787526
+                braille_dots_2378: 16787654
+                braille_dots_238: 16787590
+                braille_dots_24: 16787466
+                braille_dots_245: 16787482
+                braille_dots_2456: 16787514
+                braille_dots_24567: 16787578
+                braille_dots_245678: 16787706
+                braille_dots_24568: 16787642
+                braille_dots_2457: 16787546
+                braille_dots_24578: 16787674
+                braille_dots_2458: 16787610
+                braille_dots_246: 16787498
+                braille_dots_2467: 16787562
+                braille_dots_24678: 16787690
+                braille_dots_2468: 16787626
+                braille_dots_247: 16787530
+                braille_dots_2478: 16787658
+                braille_dots_248: 16787594
+                braille_dots_25: 16787474
+                braille_dots_256: 16787506
+                braille_dots_2567: 16787570
+                braille_dots_25678: 16787698
+                braille_dots_2568: 16787634
+                braille_dots_257: 16787538
+                braille_dots_2578: 16787666
+                braille_dots_258: 16787602
+                braille_dots_26: 16787490
+                braille_dots_267: 16787554
+                braille_dots_2678: 16787682
+                braille_dots_268: 16787618
+                braille_dots_27: 16787522
+                braille_dots_278: 16787650
+                braille_dots_28: 16787586
+                braille_dots_3: 16787460
+                braille_dots_34: 16787468
+                braille_dots_345: 16787484
+                braille_dots_3456: 16787516
+                braille_dots_34567: 16787580
+                braille_dots_345678: 16787708
+                braille_dots_34568: 16787644
+                braille_dots_3457: 16787548
+                braille_dots_34578: 16787676
+                braille_dots_3458: 16787612
+                braille_dots_346: 16787500
+                braille_dots_3467: 16787564
+                braille_dots_34678: 16787692
+                braille_dots_3468: 16787628
+                braille_dots_347: 16787532
+                braille_dots_3478: 16787660
+                braille_dots_348: 16787596
+                braille_dots_35: 16787476
+                braille_dots_356: 16787508
+                braille_dots_3567: 16787572
+                braille_dots_35678: 16787700
+                braille_dots_3568: 16787636
+                braille_dots_357: 16787540
+                braille_dots_3578: 16787668
+                braille_dots_358: 16787604
+                braille_dots_36: 16787492
+                braille_dots_367: 16787556
+                braille_dots_3678: 16787684
+                braille_dots_368: 16787620
+                braille_dots_37: 16787524
+                braille_dots_378: 16787652
+                braille_dots_38: 16787588
+                braille_dots_4: 16787464
+                braille_dots_45: 16787480
+                braille_dots_456: 16787512
+                braille_dots_4567: 16787576
+                braille_dots_45678: 16787704
+                braille_dots_4568: 16787640
+                braille_dots_457: 16787544
+                braille_dots_4578: 16787672
+                braille_dots_458: 16787608
+                braille_dots_46: 16787496
+                braille_dots_467: 16787560
+                braille_dots_4678: 16787688
+                braille_dots_468: 16787624
+                braille_dots_47: 16787528
+                braille_dots_478: 16787656
+                braille_dots_48: 16787592
+                braille_dots_5: 16787472
+                braille_dots_56: 16787504
+                braille_dots_567: 16787568
+                braille_dots_5678: 16787696
+                braille_dots_568: 16787632
+                braille_dots_57: 16787536
+                braille_dots_578: 16787664
+                braille_dots_58: 16787600
+                braille_dots_6: 16787488
+                braille_dots_67: 16787552
+                braille_dots_678: 16787680
+                braille_dots_68: 16787616
+                braille_dots_7: 16787520
+                braille_dots_78: 16787648
+                braille_dots_8: 16787584
+                breve: 418
+                brokenbar: 166
+                c: 99
+                cabovedot: 741
+                cacute: 486
+                careof: 2744
+                caret: 2812
+                caron: 439
+                ccaron: 488
+                ccedilla: 231
+                ccircumflex: 742
+                cedilla: 184
+                cent: 162
+                checkerboard: 2529
+                checkmark: 2803
+                circle: 3023
+                club: 2796
+                colon: 58
+                comma: 44
+                containsas: 16785931
+                copyright: 169
+                cr: 2532
+                crossinglines: 2542
+                cuberoot: 16785947
+                currency: 164
+                cursor: 2815
+                d: 100
+                dabovedot: 16784907
+                dagger: 2801
+                dcaron: 495
+                dead_abovecomma: 65124
+                dead_abovedot: 65110
+                dead_abovereversedcomma: 65125
+                dead_abovering: 65112
+                dead_acute: 65105
+                dead_belowbreve: 65131
+                dead_belowcircumflex: 65129
+                dead_belowdiaeresis: 65132
+                dead_belowdot: 65120
+                dead_belowmacron: 65128
+                dead_belowring: 65127
+                dead_belowtilde: 65130
+                dead_breve: 65109
+                dead_caron: 65114
+                dead_cedilla: 65115
+                dead_circumflex: 65106
+                dead_dasia: 65125
+                dead_diaeresis: 65111
+                dead_doubleacute: 65113
+                dead_grave: 65104
+                dead_hook: 65121
+                dead_horn: 65122
+                dead_iota: 65117
+                dead_macron: 65108
+                dead_ogonek: 65116
+                dead_perispomeni: 65107
+                dead_psili: 65124
+                dead_semivoiced_sound: 65119
+                dead_stroke: 65123
+                dead_tilde: 65107
+                dead_voiced_sound: 65118
+                decimalpoint: 2749
+                degree: 176
+                diaeresis: 168
+                diamond: 2797
+                digitspace: 2725
+                dintegral: 16785964
+                division: 247
+                dollar: 36
+                doubbaselinedot: 2735
+                doubleacute: 445
+                doubledagger: 2802
+                doublelowquotemark: 2814
+                downarrow: 2302
+                downcaret: 2984
+                downshoe: 3030
+                downstile: 3012
+                downtack: 3010
+                dstroke: 496
+                e: 101
+                eabovedot: 1004
+                eacute: 233
+                ebelowdot: 16785081
+                ecaron: 492
+                ecircumflex: 234
+                ecircumflexacute: 16785087
+                ecircumflexbelowdot: 16785095
+                ecircumflexgrave: 16785089
+                ecircumflexhook: 16785091
+                ecircumflextilde: 16785093
+                ediaeresis: 235
+                egrave: 232
+                ehook: 16785083
+                eightsubscript: 16785544
+                eightsuperior: 16785528
+                elementof: 16785928
+                ellipsis: 2734
+                em3space: 2723
+                em4space: 2724
+                emacron: 954
+                emdash: 2729
+                emfilledcircle: 2782
+                emfilledrect: 2783
+                emopencircle: 2766
+                emopenrectangle: 2767
+                emptyset: 16785925
+                emspace: 2721
+                endash: 2730
+                enfilledcircbullet: 2790
+                enfilledsqbullet: 2791
+                eng: 959
+                enopencircbullet: 2784
+                enopensquarebullet: 2785
+                enspace: 2722
+                eogonek: 490
+                equal: 61
+                eth: 240
+                etilde: 16785085
+                exclam: 33
+                exclamdown: 161
+                f: 102
+                fabovedot: 16784927
+                femalesymbol: 2808
+                ff: 2531
+                figdash: 2747
+                filledlefttribullet: 2780
+                filledrectbullet: 2779
+                filledrighttribullet: 2781
+                filledtribulletdown: 2793
+                filledtribulletup: 2792
+                fiveeighths: 2757
+                fivesixths: 2743
+                fivesubscript: 16785541
+                fivesuperior: 16785525
+                fourfifths: 2741
+                foursubscript: 16785540
+                foursuperior: 16785524
+                fourthroot: 16785948
+                function: 2294
+                g: 103
+                gabovedot: 757
+                gbreve: 699
+                gcaron: 16777703
+                gcedilla: 955
+                gcircumflex: 760
+                grave: 96
+                greater: 62
+                greaterthanequal: 2238
+                guillemotleft: 171
+                guillemotright: 187
+                h: 104
+                hairspace: 2728
+                hcircumflex: 694
+                heart: 2798
+                hebrew_aleph: 3296
+                hebrew_ayin: 3314
+                hebrew_bet: 3297
+                hebrew_beth: 3297
+                hebrew_chet: 3303
+                hebrew_dalet: 3299
+                hebrew_daleth: 3299
+                hebrew_doublelowline: 3295
+                hebrew_finalkaph: 3306
+                hebrew_finalmem: 3309
+                hebrew_finalnun: 3311
+                hebrew_finalpe: 3315
+                hebrew_finalzade: 3317
+                hebrew_finalzadi: 3317
+                hebrew_gimel: 3298
+                hebrew_gimmel: 3298
+                hebrew_he: 3300
+                hebrew_het: 3303
+                hebrew_kaph: 3307
+                hebrew_kuf: 3319
+                hebrew_lamed: 3308
+                hebrew_mem: 3310
+                hebrew_nun: 3312
+                hebrew_pe: 3316
+                hebrew_qoph: 3319
+                hebrew_resh: 3320
+                hebrew_samech: 3313
+                hebrew_samekh: 3313
+                hebrew_shin: 3321
+                hebrew_taf: 3322
+                hebrew_taw: 3322
+                hebrew_tet: 3304
+                hebrew_teth: 3304
+                hebrew_waw: 3301
+                hebrew_yod: 3305
+                hebrew_zade: 3318
+                hebrew_zadi: 3318
+                hebrew_zain: 3302
+                hebrew_zayin: 3302
+                hexagram: 2778
+                horizconnector: 2211
+                horizlinescan1: 2543
+                horizlinescan3: 2544
+                horizlinescan5: 2545
+                horizlinescan7: 2546
+                horizlinescan9: 2547
+                hstroke: 689
+                ht: 2530
+                hyphen: 173
+                i: 105
+                iacute: 237
+                ibelowdot: 16785099
+                ibreve: 16777517
+                icircumflex: 238
+                identical: 2255
+                idiaeresis: 239
+                idotless: 697
+                ifonlyif: 2253
+                igrave: 236
+                ihook: 16785097
+                imacron: 1007
+                implies: 2254
+                includedin: 2266
+                includes: 2267
+                infinity: 2242
+                integral: 2239
+                intersection: 2268
+                iogonek: 999
+                itilde: 949
+                j: 106
+                jcircumflex: 700
+                jot: 3018
+                k: 107
+                kana_A: 1201
+                kana_CHI: 1217
+                kana_E: 1204
+                kana_FU: 1228
+                kana_HA: 1226
+                kana_HE: 1229
+                kana_HI: 1227
+                kana_HO: 1230
+                kana_HU: 1228
+                kana_I: 1202
+                kana_KA: 1206
+                kana_KE: 1209
+                kana_KI: 1207
+                kana_KO: 1210
+                kana_KU: 1208
+                kana_MA: 1231
+                kana_ME: 1234
+                kana_MI: 1232
+                kana_MO: 1235
+                kana_MU: 1233
+                kana_N: 1245
+                kana_NA: 1221
+                kana_NE: 1224
+                kana_NI: 1222
+                kana_NO: 1225
+                kana_NU: 1223
+                kana_O: 1205
+                kana_RA: 1239
+                kana_RE: 1242
+                kana_RI: 1240
+                kana_RO: 1243
+                kana_RU: 1241
+                kana_SA: 1211
+                kana_SE: 1214
+                kana_SHI: 1212
+                kana_SO: 1215
+                kana_SU: 1213
+                kana_TA: 1216
+                kana_TE: 1219
+                kana_TI: 1217
+                kana_TO: 1220
+                kana_TSU: 1218
+                kana_TU: 1218
+                kana_U: 1203
+                kana_WA: 1244
+                kana_WO: 1190
+                kana_YA: 1236
+                kana_YO: 1238
+                kana_YU: 1237
+                kana_a: 1191
+                kana_closingbracket: 1187
+                kana_comma: 1188
+                kana_conjunctive: 1189
+                kana_e: 1194
+                kana_fullstop: 1185
+                kana_i: 1192
+                kana_middledot: 1189
+                kana_o: 1195
+                kana_openingbracket: 1186
+                kana_switch: 65406
+                kana_tsu: 1199
+                kana_tu: 1199
+                kana_u: 1193
+                kana_ya: 1196
+                kana_yo: 1198
+                kana_yu: 1197
+                kappa: 930
+                kcedilla: 1011
+                kra: 930
+                l: 108
+                lacute: 485
+                latincross: 2777
+                lbelowdot: 16784951
+                lcaron: 437
+                lcedilla: 950
+                leftanglebracket: 2748
+                leftarrow: 2299
+                leftcaret: 2979
+                leftdoublequotemark: 2770
+                leftmiddlecurlybrace: 2223
+                leftopentriangle: 2764
+                leftpointer: 2794
+                leftradical: 2209
+                leftshoe: 3034
+                leftsinglequotemark: 2768
+                leftt: 2548
+                lefttack: 3036
+                less: 60
+                lessthanequal: 2236
+                lf: 2533
+                logicaland: 2270
+                logicalor: 2271
+                lowleftcorner: 2541
+                lowrightcorner: 2538
+                lstroke: 435
+                m: 109
+                mabovedot: 16784961
+                macron: 175
+                malesymbol: 2807
+                maltesecross: 2800
+                marker: 2751
+                masculine: 186
+                minus: 45
+                minutes: 2774
+                mu: 181
+                multiply: 215
+                musicalflat: 2806
+                musicalsharp: 2805
+                n: 110
+                nabla: 2245
+                nacute: 497
+                ncaron: 498
+                ncedilla: 1009
+                ninesubscript: 16785545
+                ninesuperior: 16785529
+                nl: 2536
+                nobreakspace: 160
+                notapproxeq: 16785991
+                notelementof: 16785929
+                notequal: 2237
+                notidentical: 16786018
+                notsign: 172
+                ntilde: 241
+                numbersign: 35
+                numerosign: 1712
+                o: 111
+                oacute: 243
+                obarred: 16777845
+                obelowdot: 16785101
+                ocaron: 16777682
+                ocircumflex: 244
+                ocircumflexacute: 16785105
+                ocircumflexbelowdot: 16785113
+                ocircumflexgrave: 16785107
+                ocircumflexhook: 16785109
+                ocircumflextilde: 16785111
+                odiaeresis: 246
+                odoubleacute: 501
+                oe: 5053
+                ogonek: 434
+                ograve: 242
+                ohook: 16785103
+                ohorn: 16777633
+                ohornacute: 16785115
+                ohornbelowdot: 16785123
+                ohorngrave: 16785117
+                ohornhook: 16785119
+                ohorntilde: 16785121
+                omacron: 1010
+                oneeighth: 2755
+                onefifth: 2738
+                onehalf: 189
+                onequarter: 188
+                onesixth: 2742
+                onesubscript: 16785537
+                onesuperior: 185
+                onethird: 2736
+                ooblique: 248
+                openrectbullet: 2786
+                openstar: 2789
+                opentribulletdown: 2788
+                opentribulletup: 2787
+                ordfeminine: 170
+                oslash: 248
+                otilde: 245
+                overbar: 3008
+                overline: 1150
+                p: 112
+                pabovedot: 16784983
+                paragraph: 182
+                parenleft: 40
+                parenright: 41
+                partdifferential: 16785922
+                partialderivative: 2287
+                percent: 37
+                period: 46
+                periodcentered: 183
+                phonographcopyright: 2811
+                plus: 43
+                plusminus: 177
+                prescription: 2772
+                prolongedsound: 1200
+                punctspace: 2726
+                q: 113
+                quad: 3020
+                question: 63
+                questiondown: 191
+                quotedbl: 34
+                quoteleft: 96
+                quoteright: 39
+                r: 114
+                racute: 480
+                radical: 2262
+                rcaron: 504
+                rcedilla: 947
+                registered: 174
+                rightanglebracket: 2750
+                rightarrow: 2301
+                rightcaret: 2982
+                rightdoublequotemark: 2771
+                rightmiddlecurlybrace: 2224
+                rightmiddlesummation: 2231
+                rightopentriangle: 2765
+                rightpointer: 2795
+                rightshoe: 3032
+                rightsinglequotemark: 2769
+                rightt: 2549
+                righttack: 3068
+                s: 115
+                sabovedot: 16784993
+                sacute: 438
+                scaron: 441
+                scedilla: 442
+                schwa: 16777817
+                scircumflex: 766
+                script_switch: 65406
+                seconds: 2775
+                section: 167
+                semicolon: 59
+                semivoicedsound: 1247
+                seveneighths: 2758
+                sevensubscript: 16785543
+                sevensuperior: 16785527
+                signaturemark: 2762
+                signifblank: 2732
+                similarequal: 2249
+                singlelowquotemark: 2813
+                sixsubscript: 16785542
+                sixsuperior: 16785526
+                slash: 47
+                soliddiamond: 2528
+                space: 32
+                squareroot: 16785946
+                ssharp: 223
+                sterling: 163
+                stricteq: 16786019
+                t: 116
+                tabovedot: 16785003
+                tcaron: 443
+                tcedilla: 510
+                telephone: 2809
+                telephonerecorder: 2810
+                therefore: 2240
+                thinspace: 2727
+                thorn: 254
+                threeeighths: 2756
+                threefifths: 2740
+                threequarters: 190
+                threesubscript: 16785539
+                threesuperior: 179
+                tintegral: 16785965
+                topintegral: 2212
+                topleftparens: 2219
+                topleftradical: 2210
+                topleftsqbracket: 2215
+                topleftsummation: 2225
+                toprightparens: 2221
+                toprightsqbracket: 2217
+                toprightsummation: 2229
+                topt: 2551
+                topvertsummationconnector: 2227
+                trademark: 2761
+                trademarkincircle: 2763
+                tslash: 956
+                twofifths: 2739
+                twosubscript: 16785538
+                twosuperior: 178
+                twothirds: 2737
+                u: 117
+                uacute: 250
+                ubelowdot: 16785125
+                ubreve: 765
+                ucircumflex: 251
+                udiaeresis: 252
+                udoubleacute: 507
+                ugrave: 249
+                uhook: 16785127
+                uhorn: 16777648
+                uhornacute: 16785129
+                uhornbelowdot: 16785137
+                uhorngrave: 16785131
+                uhornhook: 16785133
+                uhorntilde: 16785135
+                umacron: 1022
+                underbar: 3014
+                underscore: 95
+                union: 2269
+                uogonek: 1017
+                uparrow: 2300
+                upcaret: 2985
+                upleftcorner: 2540
+                uprightcorner: 2539
+                upshoe: 3011
+                upstile: 3027
+                uptack: 3022
+                uring: 505
+                utilde: 1021
+                v: 118
+                variation: 2241
+                vertbar: 2552
+                vertconnector: 2214
+                voicedsound: 1246
+                vt: 2537
+                w: 119
+                wacute: 16785027
+                wcircumflex: 16777589
+                wdiaeresis: 16785029
+                wgrave: 16785025
+                x: 120
+                xabovedot: 16785035
+                y: 121
+                yacute: 253
+                ybelowdot: 16785141
+                ycircumflex: 16777591
+                ydiaeresis: 255
+                yen: 165
+                ygrave: 16785139
+                yhook: 16785143
+                ytilde: 16785145
+                z: 122
+                zabovedot: 447
+                zacute: 444
+                zcaron: 446
+                zerosubscript: 16785536
+                zerosuperior: 16785520
+                zstroke: 16777654
+                /**
+                 * Converts an accelerator keyval and modifier mask into a string
+                 * parseable by gtk_accelerator_parse(). For example, if you pass in
+                 * #IBUS_KEY_q and #IBUS_CONTROL_MASK, this function returns “&lt;Control&gt;q”.
+                 *
+                 * If you need to display accelerators in the user interface,
+                 * see gtk_accelerator_get_label().
+                 * @param accelerator_key accelerator keyval
+                 * @param accelerator_mods accelerator modifier mask
+                 * @returns a newly-allocated accelerator name
+                 */
+                accelerator_name(accelerator_key: number, accelerator_mods: ModifierType): string
+                /**
+                 * Parses a string representing an accelerator. The format looks like
+                 * “&lt;Control&gt;a” or “&lt;Shift&gt;&lt;Alt&gt;F1” or “&lt;Release%gt;z”
+                 * (the last one is for key release).
+                 *
+                 * The parser is fairly liberal and allows lower or upper case, and also
+                 * abbreviations such as “&lt;Ctl&gt;” and “&lt;Ctrl&gt;”. Key names are
+                 * parsed using gdk_keyval_from_name(). For character keys the name is not the
+                 * symbol, but the lowercase name, e.g. one would use “&lt;Ctrl&gt;minus”
+                 * instead of “&lt;Ctrl&gt;-”.
+                 *
+                 * If the parse fails, `accelerator_key` and `accelerator_mods` will
+                 * be set to 0 (zero).
+                 * @since 1.5.18
+                 * @param accelerator string representing an accelerator
+                 * @returns , return location for accelerator     keyval, or %NULL, return location for accelerator     modifier mask, %NULL
+                 */
+                accelerator_parse(accelerator: string): [number, ModifierType]
+                /**
+                 * Determines whether a given keyval and modifier mask constitute
+                 * a valid keyboard accelerator. For example, the #IBUS_KEY_a keyval
+                 * plus #IBUS_CONTROL_MASK is valid - this is a “Ctrl+a” accelerator.
+                 * But, you can't, for instance, use the #IBUS_KEY_Control_L keyval
+                 * as an accelerator.
+                 * @param keyval a GDK keyval
+                 * @param modifiers modifier mask
+                 * @returns %TRUE if the accelerator is valid
+                 */
+                accelerator_valid(keyval: number, modifiers: ModifierType): boolean
+                /**
+                 * Creates a new background #IBusAttribute.
+                 * @param color Color in RGB.
+                 * @param start_index Where attribute starts.
+                 * @param end_index Where attribute ends.
+                 * @returns A newly allocated #IBusAttribute.
+                 */
+                attr_background_new(color: number, start_index: number, end_index: number): Attribute
+                /**
+                 * Creates a new foreground #IBusAttribute.
+                 * @param color Color in RGB.
+                 * @param start_index Where attribute starts.
+                 * @param end_index Where attribute ends.
+                 * @returns A newly allocated #IBusAttribute.
+                 */
+                attr_foreground_new(color: number, start_index: number, end_index: number): Attribute
+                /**
+                 * Creates a new underline #IBusAttribute.
+                 * @param underline_type Type of underline.
+                 * @param start_index Where attribute starts.
+                 * @param end_index Where attribute ends.
+                 * @returns A newly allocated #IBusAttribute.
+                 */
+                attr_underline_new(underline_type: number, start_index: number, end_index: number): Attribute
+                /**
+                 * @param path A path of the saved dictionary file.
+                 * @returns An Emoji dictionary file loaded from the saved cache file.  A hash table of { emoji character, #IBusEmojiData object } is loaded from the saved cache file. Recommend to use ibus_emoji_data_load() instead becase GSList in GHashTable does not work with Gir and Vala. Calls ibus_emoji_data_load() internally.
+                 */
+                emoji_dict_load(path: string): Record<string, never>
+                /**
+                 * @param dict An Emoji dictionary
+                 * @param emoji an emoji character
+                 * @returns An #IBusEmojiData of `emoji`. This API was prepared for the old dict foramat with Gir and Vala but no longer needed. Use ibus_emoji_data_load() instead.
+                 */
+                emoji_dict_lookup(dict: Record<string, EmojiData>, emoji: string): EmojiData
+                /**
+                 * Saves the Emoji dictionary to the cache file.
+                 * Recommend to use ibus_emoji_data_save() instead becase GSList in
+                 * GHashTable does not work with Gir and Vala.
+                 * Calls ibus_emoji_data_save() internally. The format of the hash table
+                 * changed and now is { emoji character, #IBusEmojiData object }.
+                 * @param path A path of the saved dictionary file.
+                 * @param dict An Emoji dictionary
+                 */
+                emoji_dict_save(path: string, dict: Record<string, never>): void
+                /**
+                 */
+                error_quark(): GLib.Quark
+                /**
+                 * Free a list of strings.
+                 * @deprecated This function has been deprecated and should not be used in newly written code.
+                 * @param strv List of strings.
+                 */
+                free_strv(strv: string): void
+                /**
+                 * Return the D-Bus address of IBus.
+                 * It will find the address from following source:
+                 * <orderedlist>
+                 *    <listitem><para>Environment variable IBUS_ADDRESS</para></listitem>
+                 *    <listitem><para>Socket file under ~/.config/ibus/bus/</para></listitem>
+                 * </orderedlist>
+                 * @returns D-Bus address of IBus. %NULL for not found.  See also: ibus_write_address().
+                 */
+                get_address(): string
+                /**
+                 * Get UID of ibus-daemon.
+                 * @deprecated This function has been deprecated and should not be used in newly written code.
+                 * @returns UID of ibus-daemon; or 0 if UID is not available.
+                 */
+                get_daemon_uid(): number
+                /**
+                 * @param _locale A const locale name.
+                 * @returns translated language name
+                 */
+                get_language_name(_locale: string): string
+                /**
+                 * Obtains the machine UUID of the machine this process is running on.
+                 * @returns A newly allocated string that shows the UUID of the machine.
+                 */
+                get_local_machine_id(): string
+                /**
+                 * Get the path of socket file.
+                 * @returns A newly allocated string that stores the path of socket file.
+                 */
+                get_socket_path(): string
+                /**
+                 * Get the GDBus timeout in milliseconds. The timeout is for clients (e.g.
+                 * im-ibus.so), not for ibus-daemon.
+                 * Note that the timeout for ibus-daemon could be set by --timeout command
+                 * line option of the daemon.
+                 * @returns A GDBus timeout in milliseconds. -1 when default timeout for     GDBus should be used.
+                 */
+                get_timeout(): number
+                /**
+                 * @param _locale A const locale name.
+                 * @returns untranslated language name
+                 */
+                get_untranslated_language_name(_locale: string): string
+                /**
+                 * Get the current user name.
+                 * It is determined by:
+                 * <orderedlist>
+                 *    <listitem><para>getlogin()</para></listitem>
+                 *    <listitem><para>Environment variable SUDO_USER</para></listitem>
+                 *    <listitem><para>Environment variable USERHELPER_UID</para></listitem>
+                 *    <listitem><para>Environment variable USERNAME</para></listitem>
+                 *    <listitem><para>Environment variable LOGNAME</para></listitem>
+                 *    <listitem><para>Environment variable USER</para></listitem>
+                 *    <listitem><para>Environment variable LNAME</para></listitem>
+                 * </orderedlist>
+                 * @returns A newly allocated string that stores current user name.
+                 */
+                get_user_name(): string
+                /**
+                 * Initialize the ibus types.
+                 */
+                init(): void
+                /**
+                 * Parse key event string and return key symbol and modifiers.
+                 * @param string Key event string.
+                 * @returns %TRUE for succeed; %FALSE if failed., Variable that hold key symbol result., Variable that hold modifiers result.
+                 */
+                key_event_from_string(string: string): [boolean, number, number]
+                /**
+                 * Return the name of a key symbol and modifiers.
+                 *
+                 * For example, if press ctrl, shift, and enter, then this function returns:
+                 * Shift+Control+enter.
+                 * @param keyval Key symbol.
+                 * @param modifiers Modifiers such as Ctrl or Shift.
+                 * @returns The name of a key symbol and modifier.
+                 */
+                key_event_to_string(keyval: number, modifiers: number): string
+                /**
+                 * Obtains the upper- and lower-case versions of the keyval `symbol`.
+                 * Examples of keyvals are #IBUS_KEY_a, #IBUS_KEY_Return, #IBUS_KEY_F1, etc.
+                 * @param symbol a keyval
+                 * @returns , return location for lowercase version of `symbol`, return location for uppercase version of `symbol`
+                 */
+                keyval_convert_case(symbol: number): [number, number]
+                /**
+                 * Return the key symbol that associate with the key name.
+                 * @param keyval_name Key name in #gdk_keys_by_name.
+                 * @returns Corresponding key symbol.
+                 */
+                keyval_from_name(keyval_name: string): number
+                /**
+                 * Return the name of a key symbol.
+                 *
+                 * Note that the returned string is used internally, so don't free it.
+                 * @param keyval Key symbol.
+                 * @returns Corresponding key name. %NULL if no such key symbol.
+                 */
+                keyval_name(keyval: number): string
+                /**
+                 * Converts a key value to lower case, if applicable.
+                 * @param keyval a key value.
+                 * @returns the lower case form of `keyval`, or `keyval` itself if it is already  in lower case or it is not subject to case conversion.
+                 */
+                keyval_to_lower(keyval: number): number
+                /**
+                 * Convert from an IBus key symbol to the corresponding ISO10646 (Unicode)
+                 * character.
+                 * @param keyval an IBus key symbol
+                 * @returns the corresponding unicode character, or 0 if there          is no corresponding character.
+                 */
+                keyval_to_unicode(keyval: number): string
+                /**
+                 * Converts a key value to upper case, if applicable.
+                 * @param keyval a key value.
+                 * @returns the upper case form of `keyval`, or `keyval` itself if it is already   in upper case or it is not subject to case conversion.
+                 */
+                keyval_to_upper(keyval: number): number
+                /**
+                 * Runs an IBus main loop until ibus_quit() is called in the loop.
+                 *
+                 * See also: ibus_quit().
+                 */
+                main(): void
+                /**
+                 * Stops an IBus from running.
+                 *
+                 * Any calls to ibus_quit() for the loop will return.
+                 * See also: ibus_main().
+                 */
+                quit(): void
+                /**
+                 * Set the display address.
+                 * @param display Display address, as in DISPLAY environment for X.
+                 */
+                set_display(display: string): void
+                /**
+                 * Sets GLIB's log handler to ours. Our log handler adds time info
+                 * including hour, minute, second, and microsecond, like:
+                 *
+                 * (ibus-daemon:7088): IBUS-DEBUG: 18:06:45.822819: ibus-daemon started
+                 *
+                 * If `verbose` is %TRUE, all levels of messages will be logged. Otherwise,
+                 * DEBUG and WARNING messages will be ignored.  The function is used in
+                 * ibus-daemon, but can be useful for IBus client programs as well for
+                 * debugging. It's totally fine for not calling this function. If you
+                 * don't set a custom GLIB log handler, the default GLIB log handler will
+                 * be used.
+                 * @param verbose TRUE for verbose logging.
+                 */
+                set_log_handler(verbose: boolean): void
+                /**
+                 * Convert from a ISO10646 character to a key symbol.
+                 * @param wc a ISO10646 encoded character
+                 * @returns the corresponding IBus key symbol, if one exists.          or, if there is no corresponding symbol,          `wc | 0x01000000`
+                 */
+                unicode_to_keyval(wc: string): number
+                /**
+                 * Remove the log handler which is set by ibus_set_log_handler.
+                 */
+                unset_log_handler(): void
+                /**
+                 * Write D-Bus address to socket file.
+                 *
+                 * See also: ibus_get_address().
+                 * @param address D-Bus address of IBus.
+                 */
+                write_address(address: string): void
+                /**
+                 * Parse a string buffer which contains an XML-formatted string,
+                 * and return a corresponding XML tree.
+                 * @param buffer Buffer to be parsed.
+                 * @returns Root node of parsed XML tree.
+                 */
+                xml_parse_buffer(buffer: string): XML
+                /**
+                 * Parse an XML file and return a corresponding XML tree.
+                 * @param name File name to be parsed.
+                 * @returns Root node of parsed XML tree.
+                 */
+                xml_parse_file(name: string): XML
+            }
         }
+
+        const IBus: IBus.$Exports
     }
 
-    const IBus: IBus.$Exports
-    export default IBus
+    export default GI.IBus
 }

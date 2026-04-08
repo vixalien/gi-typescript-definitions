@@ -10,911 +10,979 @@ declare module "gi://CudaGst?version=1.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type GLib from "gi://GLib?version=2.0"
 
-    
-
-    namespace CudaGst {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface DA_ARRAY3D_DESCRIPTORStruct {
-            readonly $gtype: GObject.GType<DA_ARRAY3D_DESCRIPTOR>
-            [Symbol.hasInstance](instance: unknown): instance is DA_ARRAY3D_DESCRIPTOR
+        namespace CudaGst {
+            
+
+            interface DA_ARRAY3D_DESCRIPTORStruct {
+                readonly $gtype: GObject.GType<DA_ARRAY3D_DESCRIPTOR>
+                new (fields?: {
+                    width?: number
+                    height?: number
+                    depth?: number
+                    num_channels?: number
+                    flags?: number
+                }): DA_ARRAY3D_DESCRIPTOR
+            }
+
+            interface DA_ARRAY3D_DESCRIPTOR {
+                /**
+                 */
+                width: number
+                /**
+                 */
+                height: number
+                /**
+                 */
+                depth: number
+                /**
+                 */
+                num_channels: number
+                /**
+                 */
+                flags: number
+            }
+
+            interface $Exports {
+                DA_ARRAY3D_DESCRIPTOR: DA_ARRAY3D_DESCRIPTORStruct
+            }
+            
+
+            interface DA_EXTERNAL_MEMORY_BUFFER_DESCStruct {
+                readonly $gtype: GObject.GType<DA_EXTERNAL_MEMORY_BUFFER_DESC>
+                new (fields?: {
+                    flags?: number
+                    reserved?: number[]
+                }): DA_EXTERNAL_MEMORY_BUFFER_DESC
+            }
+
+            interface DA_EXTERNAL_MEMORY_BUFFER_DESC {
+                /**
+                 */
+                flags: number
+                /**
+                 */
+                reserved: number[]
+            }
+
+            interface $Exports {
+                DA_EXTERNAL_MEMORY_BUFFER_DESC: DA_EXTERNAL_MEMORY_BUFFER_DESCStruct
+            }
+            
+
+            interface DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESCStruct {
+                readonly $gtype: GObject.GType<DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC>
+                new (fields?: {
+                    array_desc?: DA_ARRAY3D_DESCRIPTOR
+                    num_levels?: number
+                    reserved?: number[]
+                }): DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC
+            }
+
+            interface DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC {
+                /**
+                 */
+                array_desc: DA_ARRAY3D_DESCRIPTOR
+                /**
+                 */
+                num_levels: number
+                /**
+                 */
+                reserved: number[]
+            }
+
+            interface $Exports {
+                DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC: DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESCStruct
+            }
+            
+
+            interface DA_MEMCPY2DStruct {
+                readonly $gtype: GObject.GType<DA_MEMCPY2D>
+                new (fields?: {
+                    src_x_in_bytes?: number
+                    src_y?: number
+                    src_host?: never
+                    src_pitch?: number
+                    dst_x_in_bytes?: number
+                    dst_y?: number
+                    dst_host?: never
+                    dst_pitch?: number
+                    width_in_bytes?: number
+                    height?: number
+                }): DA_MEMCPY2D
+            }
+
+            interface DA_MEMCPY2D {
+                /**
+                 */
+                src_x_in_bytes: number
+                /**
+                 */
+                src_y: number
+                /**
+                 */
+                src_host: never
+                /**
+                 */
+                src_pitch: number
+                /**
+                 */
+                dst_x_in_bytes: number
+                /**
+                 */
+                dst_y: number
+                /**
+                 */
+                dst_host: never
+                /**
+                 */
+                dst_pitch: number
+                /**
+                 */
+                width_in_bytes: number
+                /**
+                 */
+                height: number
+            }
+
+            interface $Exports {
+                DA_MEMCPY2D: DA_MEMCPY2DStruct
+            }
+            
+
+            interface DA_RESOURCE_DESCStruct {
+                readonly $gtype: GObject.GType<DA_RESOURCE_DESC>
+                new (fields?: {
+                    flags?: number
+                }): DA_RESOURCE_DESC
+            }
+
+            interface DA_RESOURCE_DESC {
+                /**
+                 */
+                flags: number
+            }
+
+            interface $Exports {
+                DA_RESOURCE_DESC: DA_RESOURCE_DESCStruct
+            }
+            
+
+            interface DA_RESOURCE_VIEW_DESCStruct {
+                readonly $gtype: GObject.GType<DA_RESOURCE_VIEW_DESC>
+                new (fields?: {
+                    width?: number
+                    height?: number
+                    depth?: number
+                    first_mipmap_level?: number
+                    last_mipmap_level?: number
+                    first_layer?: number
+                    last_layer?: number
+                    reserved?: number[]
+                }): DA_RESOURCE_VIEW_DESC
+            }
+
+            interface DA_RESOURCE_VIEW_DESC {
+                /**
+                 */
+                width: number
+                /**
+                 */
+                height: number
+                /**
+                 */
+                depth: number
+                /**
+                 */
+                first_mipmap_level: number
+                /**
+                 */
+                last_mipmap_level: number
+                /**
+                 */
+                first_layer: number
+                /**
+                 */
+                last_layer: number
+                /**
+                 */
+                reserved: number[]
+            }
+
+            interface $Exports {
+                DA_RESOURCE_VIEW_DESC: DA_RESOURCE_VIEW_DESCStruct
+            }
+            
+
+            interface DA_TEXTURE_DESCStruct {
+                readonly $gtype: GObject.GType<DA_TEXTURE_DESC>
+                new (fields?: {
+                    flags?: number
+                    max_anisotropy?: number
+                    mipmap_level_bias?: number
+                    min_mipmap_level_clamp?: number
+                    max_mipmap_level_clamp?: number
+                    border_color?: number[]
+                    reserved?: number[]
+                }): DA_TEXTURE_DESC
+            }
+
+            interface DA_TEXTURE_DESC {
+                /**
+                 */
+                flags: number
+                /**
+                 */
+                max_anisotropy: number
+                /**
+                 */
+                mipmap_level_bias: number
+                /**
+                 */
+                min_mipmap_level_clamp: number
+                /**
+                 */
+                max_mipmap_level_clamp: number
+                /**
+                 */
+                border_color: number[]
+                /**
+                 */
+                reserved: number[]
+            }
+
+            interface $Exports {
+                DA_TEXTURE_DESC: DA_TEXTURE_DESCStruct
+            }
+            
+
+            interface ipcEventHandleStruct {
+                readonly $gtype: GObject.GType<ipcEventHandle>
+                new (fields?: {
+                    reserved?: number[]
+                }): ipcEventHandle
+            }
+
+            interface ipcEventHandle {
+                /**
+                 */
+                reserved: number[]
+            }
+
+            interface $Exports {
+                ipcEventHandle: ipcEventHandleStruct
+            }
+            
+
+            interface ipcMemHandleStruct {
+                readonly $gtype: GObject.GType<ipcMemHandle>
+                new (fields?: {
+                    reserved?: number[]
+                }): ipcMemHandle
+            }
+
+            interface ipcMemHandle {
+                /**
+                 */
+                reserved: number[]
+            }
+
+            interface $Exports {
+                ipcMemHandle: ipcMemHandleStruct
+            }
+            
+
+            interface memAccessDescStruct {
+                readonly $gtype: GObject.GType<memAccessDesc>
+                new (fields?: {
+                }): memAccessDesc
+            }
+
+            interface memAccessDesc {
+            }
+
+            interface $Exports {
+                memAccessDesc: memAccessDescStruct
+            }
+            
+
+            interface memAllocationPropStruct {
+                readonly $gtype: GObject.GType<memAllocationProp>
+                new (fields?: {
+                    win32_handle_meta_data?: never
+                }): memAllocationProp
+            }
+
+            interface memAllocationProp {
+                /**
+                 */
+                win32_handle_meta_data: never
+            }
+
+            interface $Exports {
+                memAllocationProp: memAllocationPropStruct
+            }
+            
+
+            interface memAllocationPropAllocFlagsStruct {
+                readonly $gtype: GObject.GType<memAllocationPropAllocFlags>
+                new (fields?: {
+                    compression_type?: number
+                    gpu_direct_rdma_capable?: number
+                    usage?: number
+                    reserved?: Uint8Array
+                }): memAllocationPropAllocFlags
+            }
+
+            interface memAllocationPropAllocFlags {
+                /**
+                 */
+                compression_type: number
+                /**
+                 */
+                gpu_direct_rdma_capable: number
+                /**
+                 */
+                usage: number
+                /**
+                 */
+                reserved: Uint8Array
+            }
+
+            interface $Exports {
+                memAllocationPropAllocFlags: memAllocationPropAllocFlagsStruct
+            }
+            
+
+            interface memLocationStruct {
+                readonly $gtype: GObject.GType<memLocation>
+                new (fields?: {
+                    id?: number
+                }): memLocation
+            }
+
+            interface memLocation {
+                /**
+                 */
+                id: number
+            }
+
+            interface $Exports {
+                memLocation: memLocationStruct
+            }
+            
+
+            interface memPoolPropsStruct {
+                readonly $gtype: GObject.GType<memPoolProps>
+                new (fields?: {
+                    win32_security_attributes?: never
+                    max_size?: number
+                    reserved?: Uint8Array
+                }): memPoolProps
+            }
+
+            interface memPoolProps {
+                /**
+                 */
+                win32_security_attributes: never
+                /**
+                 */
+                max_size: number
+                /**
+                 */
+                reserved: Uint8Array
+            }
+
+            interface $Exports {
+                memPoolProps: memPoolPropsStruct
+            }
+            
+            interface GLDeviceListEnum {
+                readonly $gtype: GObject.GType<GLDeviceList>
+                /**
+                 */
+                readonly "GL_DEVICE_LIST_ALL": 1
+            }
+            type GLDeviceList = GLDeviceListEnum[Exclude<keyof GLDeviceListEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                GLDeviceList: GLDeviceListEnum
+            }
+            
+            interface address_modeEnum {
+                readonly $gtype: GObject.GType<address_mode>
+                /**
+                 */
+                readonly "WRAP": 0
+                /**
+                 */
+                readonly "CLAMP": 1
+                /**
+                 */
+                readonly "MIRROR": 2
+                /**
+                 */
+                readonly "BORDER": 3
+            }
+            type address_mode = address_modeEnum[Exclude<keyof address_modeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                address_mode: address_modeEnum
+            }
+            
+            interface array_formatEnum {
+                readonly $gtype: GObject.GType<array_format>
+                /**
+                 */
+                readonly "INT8": 1
+                /**
+                 */
+                readonly "INT16": 2
+            }
+            type array_format = array_formatEnum[Exclude<keyof array_formatEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                array_format: array_formatEnum
+            }
+            
+            interface device_attributeEnum {
+                readonly $gtype: GObject.GType<device_attribute>
+                /**
+                 */
+                readonly "TEXTURE_ALIGNMENT": 14
+                /**
+                 */
+                readonly "UNIFIED_ADDRESSING": 41
+                /**
+                 */
+                readonly "COMPUTE_CAPABILITY_MAJOR": 75
+                /**
+                 */
+                readonly "COMPUTE_CAPABILITY_MINOR": 76
+                /**
+                 */
+                readonly "VIRTUAL_MEMORY_MANAGEMENT_SUPPORTED": 102
+                /**
+                 */
+                readonly "HANDLE_TYPE_POSIX_FILE_DESCRIPTOR_SUPPORTED": 103
+                /**
+                 */
+                readonly "HANDLE_TYPE_WIN32_HANDLE_SUPPORTED": 104
+                /**
+                 */
+                readonly "HANDLE_TYPE_WIN32_KMT_HANDLE_SUPPORTED": 105
+                /**
+                 */
+                readonly "MEMORY_POOLS_SUPPORTED": 115
+            }
+            type device_attribute = device_attributeEnum[Exclude<keyof device_attributeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                device_attribute: device_attributeEnum
+            }
+            
+            interface event_flagsEnum {
+                readonly $gtype: GObject.GType<event_flags>
+                /**
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 */
+                readonly "BLOCKING_SYNC": 1
+                /**
+                 */
+                readonly "DISABLE_TIMING": 2
+                /**
+                 */
+                readonly "INTERPROCESS": 4
+            }
+            type event_flags = event_flagsEnum[Exclude<keyof event_flagsEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                event_flags: event_flagsEnum
+            }
+            
+            interface externalMemoryHandleTypeEnum {
+                readonly $gtype: GObject.GType<externalMemoryHandleType>
+                /**
+                 */
+                readonly "OPAQUE_FD": 1
+                /**
+                 */
+                readonly "OPAQUE_WIN32": 2
+                /**
+                 */
+                readonly "OPAQUE_WIN32_KMT": 3
+                /**
+                 */
+                readonly "D3D12_HEAP": 4
+                /**
+                 */
+                readonly "D3D12_RESOURCE": 5
+                /**
+                 */
+                readonly "D3D11_RESOURCE": 6
+                /**
+                 */
+                readonly "D3D11_RESOURCE_KMT": 7
+                /**
+                 */
+                readonly "NVSCIBUF": 8
+            }
+            type externalMemoryHandleType = externalMemoryHandleTypeEnum[Exclude<keyof externalMemoryHandleTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                externalMemoryHandleType: externalMemoryHandleTypeEnum
+            }
+            
+            interface externalSemaphoreHandleTypeEnum {
+                readonly $gtype: GObject.GType<externalSemaphoreHandleType>
+                /**
+                 */
+                readonly "OPAQUE_FD": 1
+                /**
+                 */
+                readonly "OPAQUE_WIN32": 2
+                /**
+                 */
+                readonly "OPAQUE_WIN32_KMT": 3
+                /**
+                 */
+                readonly "D3D12_FENCE": 4
+                /**
+                 */
+                readonly "D3D11_FENCE": 5
+                /**
+                 */
+                readonly "NVSCISYNC": 6
+                /**
+                 */
+                readonly "D3D11_KEYED_MUTEX": 7
+                /**
+                 */
+                readonly "D3D11_KEYED_MUTEX_KMT": 8
+                /**
+                 */
+                readonly "TIMELINE_SEMAPHORE_FD": 9
+                /**
+                 */
+                readonly "TIMELINE_SEMAPHORE_WIN32": 10
+            }
+            type externalSemaphoreHandleType = externalSemaphoreHandleTypeEnum[Exclude<keyof externalSemaphoreHandleTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                externalSemaphoreHandleType: externalSemaphoreHandleTypeEnum
+            }
+            
+            interface filter_modeEnum {
+                readonly $gtype: GObject.GType<filter_mode>
+                /**
+                 */
+                readonly "POINT": 0
+                /**
+                 */
+                readonly "LINEAR": 1
+            }
+            type filter_mode = filter_modeEnum[Exclude<keyof filter_modeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                filter_mode: filter_modeEnum
+            }
+            
+            interface graphicsMapResourceFlagsEnum {
+                readonly $gtype: GObject.GType<graphicsMapResourceFlags>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "READ_ONLY": 1
+                /**
+                 */
+                readonly "WRITE_DISCARD": 2
+            }
+            type graphicsMapResourceFlags = graphicsMapResourceFlagsEnum[Exclude<keyof graphicsMapResourceFlagsEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                graphicsMapResourceFlags: graphicsMapResourceFlagsEnum
+            }
+            
+            interface graphicsRegisterFlagsEnum {
+                readonly $gtype: GObject.GType<graphicsRegisterFlags>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "READ_ONLY": 1
+                /**
+                 */
+                readonly "WRITE_DISCARD": 2
+                /**
+                 */
+                readonly "SURFACE_LOAD_STORE": 4
+                /**
+                 */
+                readonly "TEXTURE_GATHER": 8
+            }
+            type graphicsRegisterFlags = graphicsRegisterFlagsEnum[Exclude<keyof graphicsRegisterFlagsEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                graphicsRegisterFlags: graphicsRegisterFlagsEnum
+            }
+            
+            interface ipcMem_flagsEnum {
+                readonly $gtype: GObject.GType<ipcMem_flags>
+                /**
+                 */
+                readonly "IPC_MEM_LAZY_ENABLE_PEER_ACCESS": 1
+            }
+            type ipcMem_flags = ipcMem_flagsEnum[Exclude<keyof ipcMem_flagsEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ipcMem_flags: ipcMem_flagsEnum
+            }
+            
+            interface limitEnum {
+                readonly $gtype: GObject.GType<limit>
+                /**
+                 */
+                readonly "STACK_SIZE": 0
+                /**
+                 */
+                readonly "PRINTF_FIFO_SIZE": 1
+                /**
+                 */
+                readonly "MALLOC_HEAP_SIZE": 2
+                /**
+                 */
+                readonly "DEV_RUNTIME_SYNC_DEPTH": 3
+                /**
+                 */
+                readonly "DEV_RUNTIME_PENDING_LAUNCH_COUNT": 4
+                /**
+                 */
+                readonly "MAX_L2_FETCH_GRANULARITY": 5
+                /**
+                 */
+                readonly "PERSISTING_L2_CACHE_SIZE": 6
+                /**
+                 */
+                readonly "SHMEM_SIZE": 7
+                /**
+                 */
+                readonly "CIG_ENABLED": 8
+                /**
+                 */
+                readonly "CIG_SHMEM_FALLBACK_ENABLED": 9
+            }
+            type limit = limitEnum[Exclude<keyof limitEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                limit: limitEnum
+            }
+            
+            interface memAccess_flagsEnum {
+                readonly $gtype: GObject.GType<memAccess_flags>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "READ": 1
+                /**
+                 */
+                readonly "READWRITE": 3
+                /**
+                 */
+                readonly "MAX": 2147483647
+            }
+            type memAccess_flags = memAccess_flagsEnum[Exclude<keyof memAccess_flagsEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                memAccess_flags: memAccess_flagsEnum
+            }
+            
+            interface memAllocationGranularity_flagsEnum {
+                readonly $gtype: GObject.GType<memAllocationGranularity_flags>
+                /**
+                 */
+                readonly "MINIMUM": 0
+                /**
+                 */
+                readonly "RECOMMENDED": 1
+            }
+            type memAllocationGranularity_flags = memAllocationGranularity_flagsEnum[Exclude<keyof memAllocationGranularity_flagsEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                memAllocationGranularity_flags: memAllocationGranularity_flagsEnum
+            }
+            
+            interface memAllocationHandleTypeEnum {
+                readonly $gtype: GObject.GType<memAllocationHandleType>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "POSIX_FILE_DESCRIPTOR": 1
+                /**
+                 */
+                readonly "WIN32": 2
+                /**
+                 */
+                readonly "WIN32_KMT": 4
+                /**
+                 */
+                readonly "MAX": 2147483647
+            }
+            type memAllocationHandleType = memAllocationHandleTypeEnum[Exclude<keyof memAllocationHandleTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                memAllocationHandleType: memAllocationHandleTypeEnum
+            }
+            
+            interface memAllocationTypeEnum {
+                readonly $gtype: GObject.GType<memAllocationType>
+                /**
+                 */
+                readonly "INVALID": 0
+                /**
+                 */
+                readonly "PINNED": 1
+                /**
+                 */
+                readonly "MAX": 2147483647
+            }
+            type memAllocationType = memAllocationTypeEnum[Exclude<keyof memAllocationTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                memAllocationType: memAllocationTypeEnum
+            }
+            
+            interface memLocationTypeEnum {
+                readonly $gtype: GObject.GType<memLocationType>
+                /**
+                 */
+                readonly "INVALID": 0
+                /**
+                 */
+                readonly "DEVICE": 1
+                /**
+                 */
+                readonly "MAX": 2147483647
+            }
+            type memLocationType = memLocationTypeEnum[Exclude<keyof memLocationTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                memLocationType: memLocationTypeEnum
+            }
+            
+            interface memPool_attributeEnum {
+                readonly $gtype: GObject.GType<memPool_attribute>
+                /**
+                 */
+                readonly "REUSE_FOLLOW_EVENT_DEPENDENCIES": 1
+                /**
+                 */
+                readonly "REUSE_ALLOW_OPPORTUNISTIC": 2
+                /**
+                 */
+                readonly "REUSE_ALLOW_INTERNAL_DEPENDENCIES": 3
+                /**
+                 */
+                readonly "RELEASE_THRESHOLD": 4
+                /**
+                 */
+                readonly "RESERVED_MEM_CURRENT": 5
+                /**
+                 */
+                readonly "RESERVED_MEM_HIGH": 6
+                /**
+                 */
+                readonly "USED_MEM_CURRENT": 7
+                /**
+                 */
+                readonly "USED_MEM_HIGH": 8
+            }
+            type memPool_attribute = memPool_attributeEnum[Exclude<keyof memPool_attributeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                memPool_attribute: memPool_attributeEnum
+            }
+            
+            interface memorytypeEnum {
+                readonly $gtype: GObject.GType<memorytype>
+                /**
+                 */
+                readonly "HOST": 1
+                /**
+                 */
+                readonly "DEVICE": 2
+                /**
+                 */
+                readonly "ARRAY": 3
+                /**
+                 */
+                readonly "UNIFIED": 4
+            }
+            type memorytype = memorytypeEnum[Exclude<keyof memorytypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                memorytype: memorytypeEnum
+            }
+            
+            interface resourceViewFormatEnum {
+                readonly $gtype: GObject.GType<resourceViewFormat>
+                /**
+                 */
+                readonly "RES_VIEW_FORMAT_NONE": 0
+            }
+            type resourceViewFormat = resourceViewFormatEnum[Exclude<keyof resourceViewFormatEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                resourceViewFormat: resourceViewFormatEnum
+            }
+            
+            interface resourcetypeEnum {
+                readonly $gtype: GObject.GType<resourcetype>
+                /**
+                 */
+                readonly "ARRAY": 0
+                /**
+                 */
+                readonly "MIPMAPPED_ARRAY": 1
+                /**
+                 */
+                readonly "LINEAR": 2
+                /**
+                 */
+                readonly "PITCH2D": 3
+            }
+            type resourcetype = resourcetypeEnum[Exclude<keyof resourcetypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                resourcetype: resourcetypeEnum
+            }
+            
+            interface resultEnum {
+                readonly $gtype: GObject.GType<result>
+                /**
+                 */
+                readonly "SUCCESS": 0
+                /**
+                 */
+                readonly "ERROR_NO_DEVICE": 100
+                /**
+                 */
+                readonly "ERROR_ALREADY_MAPPED": 208
+                /**
+                 */
+                readonly "ERROR_NOT_SUPPORTED": 801
+            }
+            type result = resultEnum[Exclude<keyof resultEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                result: resultEnum
+            }
+            
+            interface stream_flagsEnum {
+                readonly $gtype: GObject.GType<stream_flags>
+                /**
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 */
+                readonly "NON_BLOCKING": 1
+            }
+            type stream_flags = stream_flagsEnum[Exclude<keyof stream_flagsEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                stream_flags: stream_flagsEnum
+            }
+            /**
+             */
+            type array = never
+            /**
+             */
+            type context = never
+            /**
+             */
+            type device = number
+            /**
+             */
+            type deviceptr = never
+            /**
+             */
+            type event = never
+            /**
+             */
+            type externalMemory = never
+            /**
+             */
+            type externalSemaphore = never
+            /**
+             */
+            type _function = never
+            /**
+             */
+            type graphicsResource = never
+            /**
+             */
+            type memoryPool = never
+            /**
+             */
+            type mipmappedArray = never
+            /**
+             */
+            type module = never
+            /**
+             */
+            type stream = never
+            /**
+             */
+            type texObject = number
+
+            interface $Exports {
+                __name__: "CudaGst"
+                __version__: "1.0"
+                IPC_HANDLE_SIZE: 64
+                TRSF_READ_AS_INTEGER: 1
+                VERSION: 10000
+            }
         }
 
-        interface DA_ARRAY3D_DESCRIPTOR {
-            /**
-             */
-            width: number
-            /**
-             */
-            height: number
-            /**
-             */
-            depth: number
-            /**
-             */
-            num_channels: number
-            /**
-             */
-            flags: number
-        }
-
-        interface $Exports {
-            DA_ARRAY3D_DESCRIPTOR: DA_ARRAY3D_DESCRIPTORStruct
-        }
-        
-
-        interface DA_EXTERNAL_MEMORY_BUFFER_DESCStruct {
-            readonly $gtype: GObject.GType<DA_EXTERNAL_MEMORY_BUFFER_DESC>
-            [Symbol.hasInstance](instance: unknown): instance is DA_EXTERNAL_MEMORY_BUFFER_DESC
-        }
-
-        interface DA_EXTERNAL_MEMORY_BUFFER_DESC {
-            /**
-             */
-            flags: number
-            /**
-             */
-            reserved: number[]
-        }
-
-        interface $Exports {
-            DA_EXTERNAL_MEMORY_BUFFER_DESC: DA_EXTERNAL_MEMORY_BUFFER_DESCStruct
-        }
-        
-
-        interface DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESCStruct {
-            readonly $gtype: GObject.GType<DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC>
-            [Symbol.hasInstance](instance: unknown): instance is DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC
-        }
-
-        interface DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC {
-            /**
-             */
-            array_desc: DA_ARRAY3D_DESCRIPTOR
-            /**
-             */
-            num_levels: number
-            /**
-             */
-            reserved: number[]
-        }
-
-        interface $Exports {
-            DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC: DA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESCStruct
-        }
-        
-
-        interface DA_MEMCPY2DStruct {
-            readonly $gtype: GObject.GType<DA_MEMCPY2D>
-            [Symbol.hasInstance](instance: unknown): instance is DA_MEMCPY2D
-        }
-
-        interface DA_MEMCPY2D {
-            /**
-             */
-            src_x_in_bytes: number
-            /**
-             */
-            src_y: number
-            /**
-             */
-            src_host: never
-            /**
-             */
-            src_pitch: number
-            /**
-             */
-            dst_x_in_bytes: number
-            /**
-             */
-            dst_y: number
-            /**
-             */
-            dst_host: never
-            /**
-             */
-            dst_pitch: number
-            /**
-             */
-            width_in_bytes: number
-            /**
-             */
-            height: number
-        }
-
-        interface $Exports {
-            DA_MEMCPY2D: DA_MEMCPY2DStruct
-        }
-        
-
-        interface DA_RESOURCE_DESCStruct {
-            readonly $gtype: GObject.GType<DA_RESOURCE_DESC>
-            [Symbol.hasInstance](instance: unknown): instance is DA_RESOURCE_DESC
-        }
-
-        interface DA_RESOURCE_DESC {
-            /**
-             */
-            flags: number
-        }
-
-        interface $Exports {
-            DA_RESOURCE_DESC: DA_RESOURCE_DESCStruct
-        }
-        
-
-        interface DA_RESOURCE_VIEW_DESCStruct {
-            readonly $gtype: GObject.GType<DA_RESOURCE_VIEW_DESC>
-            [Symbol.hasInstance](instance: unknown): instance is DA_RESOURCE_VIEW_DESC
-        }
-
-        interface DA_RESOURCE_VIEW_DESC {
-            /**
-             */
-            width: number
-            /**
-             */
-            height: number
-            /**
-             */
-            depth: number
-            /**
-             */
-            first_mipmap_level: number
-            /**
-             */
-            last_mipmap_level: number
-            /**
-             */
-            first_layer: number
-            /**
-             */
-            last_layer: number
-            /**
-             */
-            reserved: number[]
-        }
-
-        interface $Exports {
-            DA_RESOURCE_VIEW_DESC: DA_RESOURCE_VIEW_DESCStruct
-        }
-        
-
-        interface DA_TEXTURE_DESCStruct {
-            readonly $gtype: GObject.GType<DA_TEXTURE_DESC>
-            [Symbol.hasInstance](instance: unknown): instance is DA_TEXTURE_DESC
-        }
-
-        interface DA_TEXTURE_DESC {
-            /**
-             */
-            flags: number
-            /**
-             */
-            max_anisotropy: number
-            /**
-             */
-            mipmap_level_bias: number
-            /**
-             */
-            min_mipmap_level_clamp: number
-            /**
-             */
-            max_mipmap_level_clamp: number
-            /**
-             */
-            border_color: number[]
-            /**
-             */
-            reserved: number[]
-        }
-
-        interface $Exports {
-            DA_TEXTURE_DESC: DA_TEXTURE_DESCStruct
-        }
-        
-
-        interface ipcEventHandleStruct {
-            readonly $gtype: GObject.GType<ipcEventHandle>
-            [Symbol.hasInstance](instance: unknown): instance is ipcEventHandle
-        }
-
-        interface ipcEventHandle {
-            /**
-             */
-            reserved: number[]
-        }
-
-        interface $Exports {
-            ipcEventHandle: ipcEventHandleStruct
-        }
-        
-
-        interface ipcMemHandleStruct {
-            readonly $gtype: GObject.GType<ipcMemHandle>
-            [Symbol.hasInstance](instance: unknown): instance is ipcMemHandle
-        }
-
-        interface ipcMemHandle {
-            /**
-             */
-            reserved: number[]
-        }
-
-        interface $Exports {
-            ipcMemHandle: ipcMemHandleStruct
-        }
-        
-
-        interface memAccessDescStruct {
-            readonly $gtype: GObject.GType<memAccessDesc>
-            [Symbol.hasInstance](instance: unknown): instance is memAccessDesc
-        }
-
-        interface memAccessDesc {
-        }
-
-        interface $Exports {
-            memAccessDesc: memAccessDescStruct
-        }
-        
-
-        interface memAllocationPropStruct {
-            readonly $gtype: GObject.GType<memAllocationProp>
-            [Symbol.hasInstance](instance: unknown): instance is memAllocationProp
-        }
-
-        interface memAllocationProp {
-            /**
-             */
-            win32_handle_meta_data: never
-        }
-
-        interface $Exports {
-            memAllocationProp: memAllocationPropStruct
-        }
-        
-
-        interface memAllocationPropAllocFlagsStruct {
-            readonly $gtype: GObject.GType<memAllocationPropAllocFlags>
-            [Symbol.hasInstance](instance: unknown): instance is memAllocationPropAllocFlags
-        }
-
-        interface memAllocationPropAllocFlags {
-            /**
-             */
-            compression_type: number
-            /**
-             */
-            gpu_direct_rdma_capable: number
-            /**
-             */
-            usage: number
-            /**
-             */
-            reserved: Uint8Array
-        }
-
-        interface $Exports {
-            memAllocationPropAllocFlags: memAllocationPropAllocFlagsStruct
-        }
-        
-
-        interface memLocationStruct {
-            readonly $gtype: GObject.GType<memLocation>
-            [Symbol.hasInstance](instance: unknown): instance is memLocation
-        }
-
-        interface memLocation {
-            /**
-             */
-            id: number
-        }
-
-        interface $Exports {
-            memLocation: memLocationStruct
-        }
-        
-
-        interface memPoolPropsStruct {
-            readonly $gtype: GObject.GType<memPoolProps>
-            [Symbol.hasInstance](instance: unknown): instance is memPoolProps
-        }
-
-        interface memPoolProps {
-            /**
-             */
-            win32_security_attributes: never
-            /**
-             */
-            max_size: number
-            /**
-             */
-            reserved: Uint8Array
-        }
-
-        interface $Exports {
-            memPoolProps: memPoolPropsStruct
-        }
-        
-        interface GLDeviceListEnum {
-            readonly $gtype: GObject.GType<GLDeviceList>
-            /**
-             */
-            readonly "GL_DEVICE_LIST_ALL": 1
-        }
-        type GLDeviceList = GLDeviceListEnum[Exclude<keyof GLDeviceListEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            GLDeviceList: GLDeviceListEnum
-        }
-        
-        interface address_modeEnum {
-            readonly $gtype: GObject.GType<address_mode>
-            /**
-             */
-            readonly "WRAP": 0
-            /**
-             */
-            readonly "CLAMP": 1
-            /**
-             */
-            readonly "MIRROR": 2
-            /**
-             */
-            readonly "BORDER": 3
-        }
-        type address_mode = address_modeEnum[Exclude<keyof address_modeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            address_mode: address_modeEnum
-        }
-        
-        interface array_formatEnum {
-            readonly $gtype: GObject.GType<array_format>
-            /**
-             */
-            readonly "INT8": 1
-            /**
-             */
-            readonly "INT16": 2
-        }
-        type array_format = array_formatEnum[Exclude<keyof array_formatEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            array_format: array_formatEnum
-        }
-        
-        interface device_attributeEnum {
-            readonly $gtype: GObject.GType<device_attribute>
-            /**
-             */
-            readonly "TEXTURE_ALIGNMENT": 14
-            /**
-             */
-            readonly "UNIFIED_ADDRESSING": 41
-            /**
-             */
-            readonly "COMPUTE_CAPABILITY_MAJOR": 75
-            /**
-             */
-            readonly "COMPUTE_CAPABILITY_MINOR": 76
-            /**
-             */
-            readonly "VIRTUAL_MEMORY_MANAGEMENT_SUPPORTED": 102
-            /**
-             */
-            readonly "HANDLE_TYPE_POSIX_FILE_DESCRIPTOR_SUPPORTED": 103
-            /**
-             */
-            readonly "HANDLE_TYPE_WIN32_HANDLE_SUPPORTED": 104
-            /**
-             */
-            readonly "HANDLE_TYPE_WIN32_KMT_HANDLE_SUPPORTED": 105
-            /**
-             */
-            readonly "MEMORY_POOLS_SUPPORTED": 115
-        }
-        type device_attribute = device_attributeEnum[Exclude<keyof device_attributeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            device_attribute: device_attributeEnum
-        }
-        
-        interface event_flagsEnum {
-            readonly $gtype: GObject.GType<event_flags>
-            /**
-             */
-            readonly "DEFAULT": 0
-            /**
-             */
-            readonly "BLOCKING_SYNC": 1
-            /**
-             */
-            readonly "DISABLE_TIMING": 2
-            /**
-             */
-            readonly "INTERPROCESS": 4
-        }
-        type event_flags = event_flagsEnum[Exclude<keyof event_flagsEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            event_flags: event_flagsEnum
-        }
-        
-        interface externalMemoryHandleTypeEnum {
-            readonly $gtype: GObject.GType<externalMemoryHandleType>
-            /**
-             */
-            readonly "OPAQUE_FD": 1
-            /**
-             */
-            readonly "OPAQUE_WIN32": 2
-            /**
-             */
-            readonly "OPAQUE_WIN32_KMT": 3
-            /**
-             */
-            readonly "D3D12_HEAP": 4
-            /**
-             */
-            readonly "D3D12_RESOURCE": 5
-            /**
-             */
-            readonly "D3D11_RESOURCE": 6
-            /**
-             */
-            readonly "D3D11_RESOURCE_KMT": 7
-            /**
-             */
-            readonly "NVSCIBUF": 8
-        }
-        type externalMemoryHandleType = externalMemoryHandleTypeEnum[Exclude<keyof externalMemoryHandleTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            externalMemoryHandleType: externalMemoryHandleTypeEnum
-        }
-        
-        interface externalSemaphoreHandleTypeEnum {
-            readonly $gtype: GObject.GType<externalSemaphoreHandleType>
-            /**
-             */
-            readonly "OPAQUE_FD": 1
-            /**
-             */
-            readonly "OPAQUE_WIN32": 2
-            /**
-             */
-            readonly "OPAQUE_WIN32_KMT": 3
-            /**
-             */
-            readonly "D3D12_FENCE": 4
-            /**
-             */
-            readonly "D3D11_FENCE": 5
-            /**
-             */
-            readonly "NVSCISYNC": 6
-            /**
-             */
-            readonly "D3D11_KEYED_MUTEX": 7
-            /**
-             */
-            readonly "D3D11_KEYED_MUTEX_KMT": 8
-            /**
-             */
-            readonly "TIMELINE_SEMAPHORE_FD": 9
-            /**
-             */
-            readonly "TIMELINE_SEMAPHORE_WIN32": 10
-        }
-        type externalSemaphoreHandleType = externalSemaphoreHandleTypeEnum[Exclude<keyof externalSemaphoreHandleTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            externalSemaphoreHandleType: externalSemaphoreHandleTypeEnum
-        }
-        
-        interface filter_modeEnum {
-            readonly $gtype: GObject.GType<filter_mode>
-            /**
-             */
-            readonly "POINT": 0
-            /**
-             */
-            readonly "LINEAR": 1
-        }
-        type filter_mode = filter_modeEnum[Exclude<keyof filter_modeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            filter_mode: filter_modeEnum
-        }
-        
-        interface graphicsMapResourceFlagsEnum {
-            readonly $gtype: GObject.GType<graphicsMapResourceFlags>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "READ_ONLY": 1
-            /**
-             */
-            readonly "WRITE_DISCARD": 2
-        }
-        type graphicsMapResourceFlags = graphicsMapResourceFlagsEnum[Exclude<keyof graphicsMapResourceFlagsEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            graphicsMapResourceFlags: graphicsMapResourceFlagsEnum
-        }
-        
-        interface graphicsRegisterFlagsEnum {
-            readonly $gtype: GObject.GType<graphicsRegisterFlags>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "READ_ONLY": 1
-            /**
-             */
-            readonly "WRITE_DISCARD": 2
-            /**
-             */
-            readonly "SURFACE_LOAD_STORE": 4
-            /**
-             */
-            readonly "TEXTURE_GATHER": 8
-        }
-        type graphicsRegisterFlags = graphicsRegisterFlagsEnum[Exclude<keyof graphicsRegisterFlagsEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            graphicsRegisterFlags: graphicsRegisterFlagsEnum
-        }
-        
-        interface ipcMem_flagsEnum {
-            readonly $gtype: GObject.GType<ipcMem_flags>
-            /**
-             */
-            readonly "IPC_MEM_LAZY_ENABLE_PEER_ACCESS": 1
-        }
-        type ipcMem_flags = ipcMem_flagsEnum[Exclude<keyof ipcMem_flagsEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ipcMem_flags: ipcMem_flagsEnum
-        }
-        
-        interface limitEnum {
-            readonly $gtype: GObject.GType<limit>
-            /**
-             */
-            readonly "STACK_SIZE": 0
-            /**
-             */
-            readonly "PRINTF_FIFO_SIZE": 1
-            /**
-             */
-            readonly "MALLOC_HEAP_SIZE": 2
-            /**
-             */
-            readonly "DEV_RUNTIME_SYNC_DEPTH": 3
-            /**
-             */
-            readonly "DEV_RUNTIME_PENDING_LAUNCH_COUNT": 4
-            /**
-             */
-            readonly "MAX_L2_FETCH_GRANULARITY": 5
-            /**
-             */
-            readonly "PERSISTING_L2_CACHE_SIZE": 6
-            /**
-             */
-            readonly "SHMEM_SIZE": 7
-            /**
-             */
-            readonly "CIG_ENABLED": 8
-            /**
-             */
-            readonly "CIG_SHMEM_FALLBACK_ENABLED": 9
-        }
-        type limit = limitEnum[Exclude<keyof limitEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            limit: limitEnum
-        }
-        
-        interface memAccess_flagsEnum {
-            readonly $gtype: GObject.GType<memAccess_flags>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "READ": 1
-            /**
-             */
-            readonly "READWRITE": 3
-            /**
-             */
-            readonly "MAX": 2147483647
-        }
-        type memAccess_flags = memAccess_flagsEnum[Exclude<keyof memAccess_flagsEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            memAccess_flags: memAccess_flagsEnum
-        }
-        
-        interface memAllocationGranularity_flagsEnum {
-            readonly $gtype: GObject.GType<memAllocationGranularity_flags>
-            /**
-             */
-            readonly "MINIMUM": 0
-            /**
-             */
-            readonly "RECOMMENDED": 1
-        }
-        type memAllocationGranularity_flags = memAllocationGranularity_flagsEnum[Exclude<keyof memAllocationGranularity_flagsEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            memAllocationGranularity_flags: memAllocationGranularity_flagsEnum
-        }
-        
-        interface memAllocationHandleTypeEnum {
-            readonly $gtype: GObject.GType<memAllocationHandleType>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "POSIX_FILE_DESCRIPTOR": 1
-            /**
-             */
-            readonly "WIN32": 2
-            /**
-             */
-            readonly "WIN32_KMT": 4
-            /**
-             */
-            readonly "MAX": 2147483647
-        }
-        type memAllocationHandleType = memAllocationHandleTypeEnum[Exclude<keyof memAllocationHandleTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            memAllocationHandleType: memAllocationHandleTypeEnum
-        }
-        
-        interface memAllocationTypeEnum {
-            readonly $gtype: GObject.GType<memAllocationType>
-            /**
-             */
-            readonly "INVALID": 0
-            /**
-             */
-            readonly "PINNED": 1
-            /**
-             */
-            readonly "MAX": 2147483647
-        }
-        type memAllocationType = memAllocationTypeEnum[Exclude<keyof memAllocationTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            memAllocationType: memAllocationTypeEnum
-        }
-        
-        interface memLocationTypeEnum {
-            readonly $gtype: GObject.GType<memLocationType>
-            /**
-             */
-            readonly "INVALID": 0
-            /**
-             */
-            readonly "DEVICE": 1
-            /**
-             */
-            readonly "MAX": 2147483647
-        }
-        type memLocationType = memLocationTypeEnum[Exclude<keyof memLocationTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            memLocationType: memLocationTypeEnum
-        }
-        
-        interface memPool_attributeEnum {
-            readonly $gtype: GObject.GType<memPool_attribute>
-            /**
-             */
-            readonly "REUSE_FOLLOW_EVENT_DEPENDENCIES": 1
-            /**
-             */
-            readonly "REUSE_ALLOW_OPPORTUNISTIC": 2
-            /**
-             */
-            readonly "REUSE_ALLOW_INTERNAL_DEPENDENCIES": 3
-            /**
-             */
-            readonly "RELEASE_THRESHOLD": 4
-            /**
-             */
-            readonly "RESERVED_MEM_CURRENT": 5
-            /**
-             */
-            readonly "RESERVED_MEM_HIGH": 6
-            /**
-             */
-            readonly "USED_MEM_CURRENT": 7
-            /**
-             */
-            readonly "USED_MEM_HIGH": 8
-        }
-        type memPool_attribute = memPool_attributeEnum[Exclude<keyof memPool_attributeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            memPool_attribute: memPool_attributeEnum
-        }
-        
-        interface memorytypeEnum {
-            readonly $gtype: GObject.GType<memorytype>
-            /**
-             */
-            readonly "HOST": 1
-            /**
-             */
-            readonly "DEVICE": 2
-            /**
-             */
-            readonly "ARRAY": 3
-            /**
-             */
-            readonly "UNIFIED": 4
-        }
-        type memorytype = memorytypeEnum[Exclude<keyof memorytypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            memorytype: memorytypeEnum
-        }
-        
-        interface resourceViewFormatEnum {
-            readonly $gtype: GObject.GType<resourceViewFormat>
-            /**
-             */
-            readonly "RES_VIEW_FORMAT_NONE": 0
-        }
-        type resourceViewFormat = resourceViewFormatEnum[Exclude<keyof resourceViewFormatEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            resourceViewFormat: resourceViewFormatEnum
-        }
-        
-        interface resourcetypeEnum {
-            readonly $gtype: GObject.GType<resourcetype>
-            /**
-             */
-            readonly "ARRAY": 0
-            /**
-             */
-            readonly "MIPMAPPED_ARRAY": 1
-            /**
-             */
-            readonly "LINEAR": 2
-            /**
-             */
-            readonly "PITCH2D": 3
-        }
-        type resourcetype = resourcetypeEnum[Exclude<keyof resourcetypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            resourcetype: resourcetypeEnum
-        }
-        
-        interface resultEnum {
-            readonly $gtype: GObject.GType<result>
-            /**
-             */
-            readonly "SUCCESS": 0
-            /**
-             */
-            readonly "ERROR_NO_DEVICE": 100
-            /**
-             */
-            readonly "ERROR_ALREADY_MAPPED": 208
-            /**
-             */
-            readonly "ERROR_NOT_SUPPORTED": 801
-        }
-        type result = resultEnum[Exclude<keyof resultEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            result: resultEnum
-        }
-        
-        interface stream_flagsEnum {
-            readonly $gtype: GObject.GType<stream_flags>
-            /**
-             */
-            readonly "DEFAULT": 0
-            /**
-             */
-            readonly "NON_BLOCKING": 1
-        }
-        type stream_flags = stream_flagsEnum[Exclude<keyof stream_flagsEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            stream_flags: stream_flagsEnum
-        }
-        /**
-         */
-        type array = never
-        /**
-         */
-        type context = never
-        /**
-         */
-        type device = number
-        /**
-         */
-        type deviceptr = never
-        /**
-         */
-        type event = never
-        /**
-         */
-        type externalMemory = never
-        /**
-         */
-        type externalSemaphore = never
-        /**
-         */
-        type _function = never
-        /**
-         */
-        type graphicsResource = never
-        /**
-         */
-        type memoryPool = never
-        /**
-         */
-        type mipmappedArray = never
-        /**
-         */
-        type module = never
-        /**
-         */
-        type stream = never
-        /**
-         */
-        type texObject = number
-
-        interface $Exports {
-            __name__: "CudaGst"
-            __version: "1.0"
-            IPC_HANDLE_SIZE: 64
-            TRSF_READ_AS_INTEGER: 1
-            VERSION: 10000
-        }
+        const CudaGst: CudaGst.$Exports
     }
 
-    const CudaGst: CudaGst.$Exports
-    export default CudaGst
+    export default GI.CudaGst
 }

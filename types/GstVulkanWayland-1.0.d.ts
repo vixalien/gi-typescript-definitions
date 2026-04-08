@@ -22,69 +22,76 @@ declare module "gi://GstVulkanWayland?version=1.0" {
     import type Vulkan from "gi://Vulkan?version=1.0"
     import type GstVulkan from "gi://GstVulkan?version=1.0"
 
-    
-
-    namespace GstVulkanWayland {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace VulkanDisplayWayland {
-            interface SignalSignatures extends GstVulkan.VulkanDisplay.SignalSignatures {
+        namespace GstVulkanWayland {
+            
+
+            namespace VulkanDisplayWayland {
+                interface SignalSignatures extends GstVulkan.VulkanDisplay.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GstVulkan.VulkanDisplay.ReadableProperties {
+                }
+
+                interface WritableProperties extends GstVulkan.VulkanDisplay.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GstVulkan.VulkanDisplay.ConstructOnlyProperties {
+                }
             }
 
-            interface ReadableProperties extends GstVulkan.VulkanDisplay.ReadableProperties {
+            interface VulkanDisplayWayland extends GstVulkan.VulkanDisplay {
+                readonly $signals: VulkanDisplayWayland.SignalSignatures
+                readonly $readableProperties: VulkanDisplayWayland.ReadableProperties
+                readonly $writableProperties: VulkanDisplayWayland.WritableProperties
+                readonly $constructOnlyProperties: VulkanDisplayWayland.ConstructOnlyProperties
             }
 
-            interface WritableProperties extends GstVulkan.VulkanDisplay.WritableProperties {
+            interface VulkanDisplayWaylandClass extends Omit<GstVulkan.VulkanDisplayClass, "new"> {
+                readonly $gtype: GObject.GType<VulkanDisplayWayland>
+                readonly prototype: VulkanDisplayWayland
+
+                new (props?: Partial<GObject.ConstructorProps<VulkanDisplayWayland>>): VulkanDisplayWayland
+                /**
+                 * Create a new #GstVulkanDisplayWayland from the wayland display name.  See `wl_display_connect`()
+                 * for details on what is a valid name.
+                 * @since 1.18
+                 * @param name a display name
+                 * @returns a new #GstVulkanDisplayWayland or %NULL
+                 */
+                "new"(name: string | null): VulkanDisplayWayland | null
+                /**
+                 * Creates a new display connection from a wl_display Display.
+                 * @since 1.18
+                 * @param display an existing, wayland display
+                 * @returns a new #GstVulkanDisplayWayland
+                 */
+                new_with_display(display: never | null): VulkanDisplayWayland
             }
 
-            interface ConstructOnlyProperties extends GstVulkan.VulkanDisplay.ConstructOnlyProperties {
+            interface $Exports {
+                /**
+                 * the contents of a #GstVulkanDisplayWayland are private and should only be accessed
+                 * through the provided API
+                 * @since 1.18
+                 */
+                VulkanDisplayWayland: VulkanDisplayWaylandClass
+            }
+
+            interface $Exports {
+                __name__: "GstVulkanWayland"
+                __version__: "1.0"
             }
         }
 
-        interface VulkanDisplayWayland extends GstVulkan.VulkanDisplay {
-            readonly $signals: VulkanDisplayWayland.SignalSignatures
-            readonly $readableProperties: VulkanDisplayWayland.ReadableProperties
-            readonly $writableProperties: VulkanDisplayWayland.WritableProperties
-            readonly $constructOnlyProperties: VulkanDisplayWayland.ConstructOnlyProperties
-        }
-
-        interface VulkanDisplayWaylandClass extends Omit<GstVulkan.VulkanDisplayClass, "new"> {
-            readonly $gtype: GObject.GType<VulkanDisplayWayland>
-            readonly prototype: VulkanDisplayWayland
-
-            new (props?: Partial<GObject.ConstructorProps<VulkanDisplayWayland>>): VulkanDisplayWayland
-            /**
-             * Create a new #GstVulkanDisplayWayland from the wayland display name.  See `wl_display_connect`()
-             * for details on what is a valid name.
-             * @since 1.18
-             * @param name a display name
-             * @returns a new #GstVulkanDisplayWayland or %NULL
-             */
-            "new"(name: string | null): VulkanDisplayWayland | null
-            /**
-             * Creates a new display connection from a wl_display Display.
-             * @since 1.18
-             * @param display an existing, wayland display
-             * @returns a new #GstVulkanDisplayWayland
-             */
-            new_with_display(display: never | null): VulkanDisplayWayland
-        }
-
-        interface $Exports {
-            /**
-             * the contents of a #GstVulkanDisplayWayland are private and should only be accessed
-             * through the provided API
-             * @since 1.18
-             */
-            VulkanDisplayWayland: VulkanDisplayWaylandClass
-        }
-
-        interface $Exports {
-            __name__: "GstVulkanWayland"
-            __version: "1.0"
-        }
+        const GstVulkanWayland: GstVulkanWayland.$Exports
     }
 
-    const GstVulkanWayland: GstVulkanWayland.$Exports
-    export default GstVulkanWayland
+    export default GI.GstVulkanWayland
 }

@@ -14,1092 +14,1105 @@ declare module "gi://GstMse?version=1.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type Gst from "gi://Gst?version=1.0"
 
-    
-
-    namespace GstMse {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        namespace MediaSource {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+        namespace GstMse {
+            
+
+            namespace MediaSource {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                    /**
+                     */
+                    "on-source-close"(): void
+                    /**
+                     * Emitted when `self` has ended, normally through
+                     * gst_media_source_end_of_stream().
+                     *
+                     * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-onsourceended)
+                     * @since 1.24
+                     */
+                    "on-source-ended"(): void
+                    /**
+                     * Emitted when `self` has been opened.
+                     *
+                     * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-onsourceopen)
+                     * @since 1.24
+                     */
+                    "on-source-open"(): void
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "active-source-buffers": SourceBufferList
+                    "duration": number
+                    "position": number
+                    "ready-state": MediaSourceReadyState
+                    "source-buffers": SourceBufferList
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "active-source-buffers": SourceBufferList
+                    "duration": number
+                    "position": number
+                    "ready-state": MediaSourceReadyState
+                    "source-buffers": SourceBufferList
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface MediaSource extends Gst.Object {
+                readonly $signals: MediaSource.SignalSignatures
+                readonly $readableProperties: MediaSource.ReadableProperties
+                readonly $writableProperties: MediaSource.WritableProperties
+                readonly $constructOnlyProperties: MediaSource.ConstructOnlyProperties
                 /**
-                 */
-                "on-source-close"(): void
-                /**
-                 * Emitted when @self has ended, normally through
-                 * gst_media_source_end_of_stream().
+                 * A #GstSourceBufferList of every #GstSourceBuffer in this Media Source that
+                 * is considered active
                  *
-                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-onsourceended)
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-activesourcebuffers)
                  * @since 1.24
                  */
-                "on-source-ended"(): void
+                get activeSourceBuffers(): SourceBufferList
+                set activeSourceBuffers(value: SourceBufferList)
                 /**
-                 * Emitted when @self has been opened.
+                 * The Duration of the Media Source as a #GstClockTime
                  *
-                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-onsourceopen)
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-duration)
+                 * @since 1.24
+                 * @default 18446744073709551615
+                 */
+                get duration(): number
+                set duration(value: number)
+                /**
+                 * The position of the player consuming from the Media Source
+                 * @since 1.24
+                 * @default 18446744073709551615
+                 */
+                get position(): number
+                set position(value: number)
+                /**
+                 * The Ready State of the Media Source
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-readystate)
+                 * @since 1.24
+                 * @default GST_MEDIA_SOURCE_READY_STATE_CLOSED
+                 */
+                get readyState(): MediaSourceReadyState
+                set readyState(value: MediaSourceReadyState)
+                /**
+                 * A #GstSourceBufferList of every #GstSourceBuffer in this Media Source
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-sourcebuffers)
                  * @since 1.24
                  */
-                "on-source-open"(): void
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "active-source-buffers": SourceBufferList
-                "duration": number
-                "position": number
-                "ready-state": MediaSourceReadyState
-                "source-buffers": SourceBufferList
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "active-source-buffers": SourceBufferList
-                "duration": number
-                "position": number
-                "ready-state": MediaSourceReadyState
-                "source-buffers": SourceBufferList
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface MediaSource extends Gst.Object {
-            readonly $signals: MediaSource.SignalSignatures
-            readonly $readableProperties: MediaSource.ReadableProperties
-            readonly $writableProperties: MediaSource.WritableProperties
-            readonly $constructOnlyProperties: MediaSource.ConstructOnlyProperties
-            /**
-             * A #GstSourceBufferList of every #GstSourceBuffer in this Media Source that
-             * is considered active
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-activesourcebuffers)
-             * @since 1.24
-             */
-            get activeSourceBuffers(): SourceBufferList
-            set activeSourceBuffers(value: SourceBufferList)
-            /**
-             * The Duration of the Media Source as a #GstClockTime
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-duration)
-             * @since 1.24
-             * @default 18446744073709551615
-             */
-            get duration(): number
-            set duration(value: number)
-            /**
-             * The position of the player consuming from the Media Source
-             * @since 1.24
-             * @default 18446744073709551615
-             */
-            get position(): number
-            set position(value: number)
-            /**
-             * The Ready State of the Media Source
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-readystate)
-             * @since 1.24
-             * @default GST_MEDIA_SOURCE_READY_STATE_CLOSED
-             */
-            get readyState(): MediaSourceReadyState
-            set readyState(value: MediaSourceReadyState)
-            /**
-             * A #GstSourceBufferList of every #GstSourceBuffer in this Media Source
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-sourcebuffers)
-             * @since 1.24
-             */
-            get sourceBuffers(): SourceBufferList
-            set sourceBuffers(value: SourceBufferList)
-            /**
-             * Add a #GstSourceBuffer to this #GstMediaSource of the specified media type.
-             * The Media Source must be in the #GstMediaSourceReadyState %GST_MEDIA_SOURCE_READY_STATE_OPEN.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-addsourcebuffer)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param type A MIME type describing the format of the incoming media
-             * @returns a new #GstSourceBuffer instance on success, otherwise `NULL`
-             */
-            add_source_buffer(type: string): SourceBuffer
-            /**
-             * Associates @self with @element.
-             * Normally, the Element will be part of a #GstPipeline that plays back the data
-             * submitted to the Media Source's Source Buffers.
-             *
-             * #GstMseSrc is a special source element that is designed to consume media from
-             * a #GstMediaSource.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dfn-attaching-to-a-media-element)
-             * @since 1.24
-             * @param element #GstMseSrc source Element
-             */
-            attach(element: MseSrc): void
-            /**
-             * Clear the live seekable range for @self. This will inform the component
-             * playing this Media Source that there is no seekable time range.
-             *
-             * If the ready state is not %GST_MEDIA_SOURCE_READY_STATE_OPEN, it will fail
-             * and set an error.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-clearliveseekablerange)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            clear_live_seekable_range(): boolean
-            /**
-             * Detaches @self from any #GstMseSrc element that it may be associated with.
-             * @since 1.24
-             */
-            detach(): void
-            /**
-             * Mark @self as reaching the end of stream, disallowing new data inputs.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-endofstream)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param eos_error The error type, if any
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            end_of_stream(eos_error: MediaSourceEOSError): boolean
-            /**
-             * Gets a #GstSourceBufferList containing all the Source Buffers currently
-             * associated with this Media Source that are considered "active."
-             * For a Source Buffer to be considered active, either its video track is
-             * selected, its audio track is enabled, or its text track is visible or hidden.
-             * This object will reflect any future changes to the parent Media Source as
-             * well.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-activesourcebuffers)
-             * @since 1.24
-             * @returns a new #GstSourceBufferList instance
-             */
-            get_active_source_buffers(): SourceBufferList
-            /**
-             * Gets the current duration of @self.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-duration)
-             * @since 1.24
-             * @returns the current duration as a #GstClockTime
-             */
-            get_duration(): Gst.ClockTime
-            /**
-             * Get the live seekable range of @self. Will fill in the supplied @range with
-             * the current live seekable range.
-             * @since 1.24
-             * @returns , time range
-             */
-            get_live_seekable_range(): MediaSourceRange
-            /**
-             * Gets the current playback position of the Media Source.
-             * @since 1.24
-             * @returns the current playback position as a #GstClockTime
-             */
-            get_position(): Gst.ClockTime
-            /**
-             * Gets the current Ready State of the Media Source.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-readystate)
-             * @since 1.24
-             * @returns the current #GstMediaSourceReadyState value
-             */
-            get_ready_state(): MediaSourceReadyState
-            /**
-             * Gets a #GstSourceBufferList containing all the Source Buffers currently
-             * associated with this Media Source. This object will reflect any future
-             * changes to the parent Media Source as well.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-sourcebuffers)
-             * @since 1.24
-             * @returns a #GstSourceBufferList instance
-             */
-            get_source_buffers(): SourceBufferList
-            /**
-             * Remove @buffer from @self.
-             *
-             * @buffer must have been created as a child of @self and @self must be in the
-             * #GstMediaSourceReadyState %GST_MEDIA_SOURCE_READY_STATE_OPEN.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-removesourcebuffer)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param buffer #GstSourceBuffer instance
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            remove_source_buffer(buffer: SourceBuffer): boolean
-            /**
-             * Sets the duration of @self.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-duration)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param duration The new duration to apply to @self.
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            set_duration(duration: Gst.ClockTime): boolean
-            /**
-             * Set the live seekable range for @self. This range informs the component
-             * playing this Media Source what it can allow the user to seek through.
-             *
-             * If the ready state is not %GST_MEDIA_SOURCE_READY_STATE_OPEN, or the supplied
-             * @start time is later than @end it will fail and set an error.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-setliveseekablerange)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param start The earliest point in the stream considered seekable
-             * @param end The latest point in the stream considered seekable
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            set_live_seekable_range(start: Gst.ClockTime, end: Gst.ClockTime): boolean
-        }
-
-        interface MediaSourceClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<MediaSource>
-            readonly prototype: MediaSource
-
-            new (props?: Partial<GObject.ConstructorProps<MediaSource>>): MediaSource
-            /**
-             * Creates a new #GstMediaSource instance. The instance is in the
-             * %GST_MEDIA_SOURCE_READY_STATE_CLOSED state and is not associated with any
-             * media player.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-constructor)
-             * @since 1.24
-             * @returns a new #GstMediaSource instance
-             */
-            "new"(): MediaSource
-            /**
-             * Determines whether the current Media Source configuration can process media
-             * of the supplied @type.
-             * @since 1.24
-             * @param type A MIME type value
-             * @returns `TRUE` when supported, `FALSE` otherwise
-             */
-            is_type_supported(type: string): boolean
-        }
-
-        interface $Exports {
-            /**
-             * #GstMediaSource is the entry point into the W3C Media Source API. It offers
-             * functionality similar to #GstAppSrc for client-side web or JavaScript
-             * applications decoupling the source of media from its processing and playback.
-             *
-             * To interact with a Media Source, connect it to a #GstMseSrc that is in some
-             * #GstPipeline using gst_media_source_attach(). Then create at least one
-             * #GstSourceBuffer using gst_media_source_add_source_buffer(). Finally, feed
-             * some media data to the Source Buffer(s) using
-             * gst_source_buffer_append_buffer() and play the pipeline.
-             * @since 1.24
-             */
-            MediaSource: MediaSourceClass
-        }
-        
-
-        namespace MseSrc {
-            interface SignalSignatures extends Gst.Element.SignalSignatures, Gst.URIHandler.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Element.ReadableProperties, Gst.URIHandler.ReadableProperties {
-                "duration": number
-                "n-audio": number
-                "n-text": number
-                "n-video": number
-                "position": number
-                "ready-state": MseSrcReadyState
-            }
-
-            interface WritableProperties extends Gst.Element.WritableProperties, Gst.URIHandler.WritableProperties {
-                "duration": number
-                "n-audio": number
-                "n-text": number
-                "n-video": number
-                "position": number
-                "ready-state": MseSrcReadyState
-            }
-
-            interface ConstructOnlyProperties extends Gst.Element.ConstructOnlyProperties, Gst.URIHandler.ConstructOnlyProperties {
-            }
-        }
-
-        interface MseSrc extends Gst.Element, Gst.URIHandler {
-            readonly $signals: MseSrc.SignalSignatures
-            readonly $readableProperties: MseSrc.ReadableProperties
-            readonly $writableProperties: MseSrc.WritableProperties
-            readonly $constructOnlyProperties: MseSrc.ConstructOnlyProperties
-            /**
-             * The duration of the stream as a #GstClockTime
-             *
-             * [Specification](https://html.spec.whatwg.org/multipage/media.html#dom-media-duration)
-             * @since 1.24
-             * @default 18446744073709551615
-             */
-            get duration(): number
-            set duration(value: number)
-            /**
-             * The number of audio tracks in the Media Source
-             * @since 1.24
-             * @default 0
-             */
-            get nAudio(): number
-            set nAudio(value: number)
-            /**
-             * The number of text tracks in the Media Source
-             * @since 1.24
-             * @default 0
-             */
-            get nText(): number
-            set nText(value: number)
-            /**
-             * The number of video tracks in the Media Source
-             * @since 1.24
-             * @default 0
-             */
-            get nVideo(): number
-            set nVideo(value: number)
-            /**
-             * The playback position as a #GstClockTime
-             *
-             * [Specification](https://html.spec.whatwg.org/multipage/media.html#current-playback-position)
-             * @since 1.24
-             * @default 0
-             */
-            get position(): number
-            set position(value: number)
-            /**
-             * The Ready State of this element, describing to what level it can supply
-             * content for the current #GstMseSrc:position. This is a separate concept
-             * from #GstMediaSource:ready-state: and corresponds to the HTML Media
-             * Element's Ready State.
-             *
-             * [Specification](https://html.spec.whatwg.org/multipage/media.html#ready-states)
-             * @since 1.24
-             * @default GST_MSE_SRC_READY_STATE_HAVE_NOTHING
-             */
-            get readyState(): MseSrcReadyState
-            set readyState(value: MseSrcReadyState)
-            /**
-             * Gets the duration of @self.
-             *
-             * [Specification](https://html.spec.whatwg.org/multipage/media.html#dom-media-duration)
-             * @since 1.24
-             * @returns The duration of this stream as a #GstClockTime
-             */
-            get_duration(): Gst.ClockTime
-            /**
-             * @since 1.24
-             * @returns the number of audio tracks available from this source
-             */
-            get_n_audio(): number
-            /**
-             * @since 1.24
-             * @returns the number of text tracks available from this source
-             */
-            get_n_text(): number
-            /**
-             * @since 1.24
-             * @returns the number of video tracks available from this source
-             */
-            get_n_video(): number
-            /**
-             * Gets the current playback position of @self.
-             *
-             * [Specification](https://html.spec.whatwg.org/multipage/media.html#current-playback-position)
-             * @since 1.24
-             * @returns The playback position of this Element as a #GstClockTime
-             */
-            get_position(): Gst.ClockTime
-            /**
-             * The Ready State of @self, describing to what level it can supply content for
-             * the current #GstMseSrc:position. This is a separate concept from
-             * #GstMediaSource:ready-state: and corresponds to the HTML Media Element's
-             * Ready State.
-             *
-             * [Specification](https://html.spec.whatwg.org/multipage/media.html#ready-states)
-             * @since 1.24
-             * @returns the current #GstMseSrcReadyState
-             */
-            get_ready_state(): MseSrcReadyState
-        }
-
-        interface MseSrcClass extends Omit<Gst.ElementClass, "new"> {
-            readonly $gtype: GObject.GType<MseSrc>
-            readonly prototype: MseSrc
-
-            new (props?: Partial<GObject.ConstructorProps<MseSrc>>): MseSrc
-        }
-
-        interface $Exports {
-            /**
-             * #GstMseSrc is a source Element that interacts with a #GstMediaSource to
-             * consume #GstSample<!-- -->s processed by the Media Source and supplies them
-             * to the containing #GstPipeline. In the perspective of the Media Source API,
-             * this element fulfills the basis of the Media Element's role relating to
-             * working with a Media Source. The remaining responsibilities are meant to be
-             * fulfilled by the application and #GstPlay can be used to satisfy many of
-             * them.
-             *
-             * Once added to a Pipeline, this element should be attached to a Media Source
-             * using gst_media_source_attach().
-             * @since 1.24
-             */
-            MseSrc: MseSrcClass
-        }
-        
-
-        namespace MseSrcPad {
-            interface SignalSignatures extends Gst.Pad.SignalSignatures {
-            }
-
-            interface ReadableProperties extends Gst.Pad.ReadableProperties {
-            }
-
-            interface WritableProperties extends Gst.Pad.WritableProperties {
-            }
-
-            interface ConstructOnlyProperties extends Gst.Pad.ConstructOnlyProperties {
-            }
-        }
-
-        interface MseSrcPad extends Gst.Pad {
-            readonly $signals: MseSrcPad.SignalSignatures
-            readonly $readableProperties: MseSrcPad.ReadableProperties
-            readonly $writableProperties: MseSrcPad.WritableProperties
-            readonly $constructOnlyProperties: MseSrcPad.ConstructOnlyProperties
-        }
-
-        interface MseSrcPadClass extends Omit<Gst.PadClass, "new"> {
-            readonly $gtype: GObject.GType<MseSrcPad>
-            readonly prototype: MseSrcPad
-
-            new (props?: Partial<GObject.ConstructorProps<MseSrcPad>>): MseSrcPad
-        }
-
-        interface $Exports {
-            /**
-             * @since 1.24
-             */
-            MseSrcPad: MseSrcPadClass
-        }
-        
-
-        namespace SourceBuffer {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                get sourceBuffers(): SourceBufferList
+                set sourceBuffers(value: SourceBufferList)
                 /**
-                 * Emitted when @self was aborted after a call to gst_source_buffer_abort().
+                 * Add a #GstSourceBuffer to this #GstMediaSource of the specified media type.
+                 * The Media Source must be in the #GstMediaSourceReadyState %GST_MEDIA_SOURCE_READY_STATE_OPEN.
                  *
-                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onabort)
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-addsourcebuffer)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param type A MIME type describing the format of the incoming media
+                 * @returns a new #GstSourceBuffer instance on success, otherwise `NULL`
+                 */
+                add_source_buffer(type: string): SourceBuffer
+                /**
+                 * Associates `self` with `element`.
+                 * Normally, the Element will be part of a #GstPipeline that plays back the data
+                 * submitted to the Media Source's Source Buffers.
+                 *
+                 * #GstMseSrc is a special source element that is designed to consume media from
+                 * a #GstMediaSource.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dfn-attaching-to-a-media-element)
+                 * @since 1.24
+                 * @param element #GstMseSrc source Element
+                 */
+                attach(element: MseSrc): void
+                /**
+                 * Clear the live seekable range for `self`. This will inform the component
+                 * playing this Media Source that there is no seekable time range.
+                 *
+                 * If the ready state is not %GST_MEDIA_SOURCE_READY_STATE_OPEN, it will fail
+                 * and set an error.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-clearliveseekablerange)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                clear_live_seekable_range(): boolean
+                /**
+                 * Detaches `self` from any #GstMseSrc element that it may be associated with.
                  * @since 1.24
                  */
-                "on-abort"(): void
+                detach(): void
                 /**
-                 * Emitted when @self has encountered an error after a call to
-                 * gst_source_buffer_append_buffer().
+                 * Mark `self` as reaching the end of stream, disallowing new data inputs.
                  *
-                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onerror)
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-endofstream)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param eos_error The error type, if any
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                end_of_stream(eos_error: MediaSourceEOSError): boolean
+                /**
+                 * Gets a #GstSourceBufferList containing all the Source Buffers currently
+                 * associated with this Media Source that are considered "active."
+                 * For a Source Buffer to be considered active, either its video track is
+                 * selected, its audio track is enabled, or its text track is visible or hidden.
+                 * This object will reflect any future changes to the parent Media Source as
+                 * well.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-activesourcebuffers)
+                 * @since 1.24
+                 * @returns a new #GstSourceBufferList instance
+                 */
+                get_active_source_buffers(): SourceBufferList
+                /**
+                 * Gets the current duration of `self`.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-duration)
+                 * @since 1.24
+                 * @returns the current duration as a #GstClockTime
+                 */
+                get_duration(): Gst.ClockTime
+                /**
+                 * Get the live seekable range of `self`. Will fill in the supplied `range` with
+                 * the current live seekable range.
+                 * @since 1.24
+                 * @returns , time range
+                 */
+                get_live_seekable_range(): MediaSourceRange
+                /**
+                 * Gets the current playback position of the Media Source.
+                 * @since 1.24
+                 * @returns the current playback position as a #GstClockTime
+                 */
+                get_position(): Gst.ClockTime
+                /**
+                 * Gets the current Ready State of the Media Source.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-readystate)
+                 * @since 1.24
+                 * @returns the current #GstMediaSourceReadyState value
+                 */
+                get_ready_state(): MediaSourceReadyState
+                /**
+                 * Gets a #GstSourceBufferList containing all the Source Buffers currently
+                 * associated with this Media Source. This object will reflect any future
+                 * changes to the parent Media Source as well.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-sourcebuffers)
+                 * @since 1.24
+                 * @returns a #GstSourceBufferList instance
+                 */
+                get_source_buffers(): SourceBufferList
+                /**
+                 * Remove `buffer` from `self`.
+                 *
+                 *  `buffer` must have been created as a child of `self` and `self` must be in the
+                 * #GstMediaSourceReadyState %GST_MEDIA_SOURCE_READY_STATE_OPEN.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-removesourcebuffer)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param buffer #GstSourceBuffer instance
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                remove_source_buffer(buffer: SourceBuffer): boolean
+                /**
+                 * Sets the duration of `self`.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-duration)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param duration The new duration to apply to `self`.
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                set_duration(duration: Gst.ClockTime): boolean
+                /**
+                 * Set the live seekable range for `self`. This range informs the component
+                 * playing this Media Source what it can allow the user to seek through.
+                 *
+                 * If the ready state is not %GST_MEDIA_SOURCE_READY_STATE_OPEN, or the supplied
+                 *  `start` time is later than `end` it will fail and set an error.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-setliveseekablerange)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param start The earliest point in the stream considered seekable
+                 * @param end The latest point in the stream considered seekable
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                set_live_seekable_range(start: Gst.ClockTime, end: Gst.ClockTime): boolean
+            }
+
+            interface MediaSourceClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<MediaSource>
+                readonly prototype: MediaSource
+
+                new (props?: Partial<GObject.ConstructorProps<MediaSource>>): MediaSource
+                /**
+                 * Creates a new #GstMediaSource instance. The instance is in the
+                 * %GST_MEDIA_SOURCE_READY_STATE_CLOSED state and is not associated with any
+                 * media player.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-constructor)
+                 * @since 1.24
+                 * @returns a new #GstMediaSource instance
+                 */
+                "new"(): MediaSource
+                /**
+                 * Determines whether the current Media Source configuration can process media
+                 * of the supplied `type`.
+                 * @since 1.24
+                 * @param type A MIME type value
+                 * @returns `TRUE` when supported, `FALSE` otherwise
+                 */
+                is_type_supported(type: string): boolean
+            }
+
+            interface $Exports {
+                /**
+                 * #GstMediaSource is the entry point into the W3C Media Source API. It offers
+                 * functionality similar to #GstAppSrc for client-side web or JavaScript
+                 * applications decoupling the source of media from its processing and playback.
+                 *
+                 * To interact with a Media Source, connect it to a #GstMseSrc that is in some
+                 * #GstPipeline using gst_media_source_attach(). Then create at least one
+                 * #GstSourceBuffer using gst_media_source_add_source_buffer(). Finally, feed
+                 * some media data to the Source Buffer(s) using
+                 * gst_source_buffer_append_buffer() and play the pipeline.
                  * @since 1.24
                  */
-                "on-error"(): void
+                MediaSource: MediaSourceClass
+            }
+            
+
+            namespace MseSrc {
+                interface SignalSignatures extends Gst.Element.SignalSignatures, Gst.URIHandler.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Element.ReadableProperties, Gst.URIHandler.ReadableProperties {
+                    "duration": number
+                    "n-audio": number
+                    "n-text": number
+                    "n-video": number
+                    "position": number
+                    "ready-state": MseSrcReadyState
+                }
+
+                interface WritableProperties extends Gst.Element.WritableProperties, Gst.URIHandler.WritableProperties {
+                    "duration": number
+                    "n-audio": number
+                    "n-text": number
+                    "n-video": number
+                    "position": number
+                    "ready-state": MseSrcReadyState
+                }
+
+                interface ConstructOnlyProperties extends Gst.Element.ConstructOnlyProperties, Gst.URIHandler.ConstructOnlyProperties {
+                }
+            }
+
+            interface MseSrc extends Gst.Element, Gst.URIHandler {
+                readonly $signals: MseSrc.SignalSignatures
+                readonly $readableProperties: MseSrc.ReadableProperties
+                readonly $writableProperties: MseSrc.WritableProperties
+                readonly $constructOnlyProperties: MseSrc.ConstructOnlyProperties
                 /**
-                 * Emitted when @self has successfully processed data after a call to
-                 * gst_source_buffer_append_buffer().
+                 * The duration of the stream as a #GstClockTime
                  *
-                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onupdate)
+                 * [Specification](https://html.spec.whatwg.org/multipage/media.html#dom-media-duration)
+                 * @since 1.24
+                 * @default 18446744073709551615
+                 */
+                get duration(): number
+                set duration(value: number)
+                /**
+                 * The number of audio tracks in the Media Source
+                 * @since 1.24
+                 * @default 0
+                 */
+                get nAudio(): number
+                set nAudio(value: number)
+                /**
+                 * The number of text tracks in the Media Source
+                 * @since 1.24
+                 * @default 0
+                 */
+                get nText(): number
+                set nText(value: number)
+                /**
+                 * The number of video tracks in the Media Source
+                 * @since 1.24
+                 * @default 0
+                 */
+                get nVideo(): number
+                set nVideo(value: number)
+                /**
+                 * The playback position as a #GstClockTime
+                 *
+                 * [Specification](https://html.spec.whatwg.org/multipage/media.html#current-playback-position)
+                 * @since 1.24
+                 * @default 0
+                 */
+                get position(): number
+                set position(value: number)
+                /**
+                 * The Ready State of this element, describing to what level it can supply
+                 * content for the current #GstMseSrc:position. This is a separate concept
+                 * from #GstMediaSource:ready-state: and corresponds to the HTML Media
+                 * Element's Ready State.
+                 *
+                 * [Specification](https://html.spec.whatwg.org/multipage/media.html#ready-states)
+                 * @since 1.24
+                 * @default GST_MSE_SRC_READY_STATE_HAVE_NOTHING
+                 */
+                get readyState(): MseSrcReadyState
+                set readyState(value: MseSrcReadyState)
+                /**
+                 * Gets the duration of `self`.
+                 *
+                 * [Specification](https://html.spec.whatwg.org/multipage/media.html#dom-media-duration)
+                 * @since 1.24
+                 * @returns The duration of this stream as a #GstClockTime
+                 */
+                get_duration(): Gst.ClockTime
+                /**
+                 * @since 1.24
+                 * @returns the number of audio tracks available from this source
+                 */
+                get_n_audio(): number
+                /**
+                 * @since 1.24
+                 * @returns the number of text tracks available from this source
+                 */
+                get_n_text(): number
+                /**
+                 * @since 1.24
+                 * @returns the number of video tracks available from this source
+                 */
+                get_n_video(): number
+                /**
+                 * Gets the current playback position of `self`.
+                 *
+                 * [Specification](https://html.spec.whatwg.org/multipage/media.html#current-playback-position)
+                 * @since 1.24
+                 * @returns The playback position of this Element as a #GstClockTime
+                 */
+                get_position(): Gst.ClockTime
+                /**
+                 * The Ready State of `self`, describing to what level it can supply content for
+                 * the current #GstMseSrc:position. This is a separate concept from
+                 * #GstMediaSource:ready-state: and corresponds to the HTML Media Element's
+                 * Ready State.
+                 *
+                 * [Specification](https://html.spec.whatwg.org/multipage/media.html#ready-states)
+                 * @since 1.24
+                 * @returns the current #GstMseSrcReadyState
+                 */
+                get_ready_state(): MseSrcReadyState
+            }
+
+            interface MseSrcClass extends Omit<Gst.ElementClass, "new"> {
+                readonly $gtype: GObject.GType<MseSrc>
+                readonly prototype: MseSrc
+
+                new (props?: Partial<GObject.ConstructorProps<MseSrc>>): MseSrc
+            }
+
+            interface $Exports {
+                /**
+                 * #GstMseSrc is a source Element that interacts with a #GstMediaSource to
+                 * consume #GstSample<!-- -->s processed by the Media Source and supplies them
+                 * to the containing #GstPipeline. In the perspective of the Media Source API,
+                 * this element fulfills the basis of the Media Element's role relating to
+                 * working with a Media Source. The remaining responsibilities are meant to be
+                 * fulfilled by the application and #GstPlay can be used to satisfy many of
+                 * them.
+                 *
+                 * Once added to a Pipeline, this element should be attached to a Media Source
+                 * using gst_media_source_attach().
                  * @since 1.24
                  */
-                "on-update"(): void
+                MseSrc: MseSrcClass
+            }
+            
+
+            namespace MseSrcPad {
+                interface SignalSignatures extends Gst.Pad.SignalSignatures {
+                }
+
+                interface ReadableProperties extends Gst.Pad.ReadableProperties {
+                }
+
+                interface WritableProperties extends Gst.Pad.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends Gst.Pad.ConstructOnlyProperties {
+                }
+            }
+
+            interface MseSrcPad extends Gst.Pad {
+                readonly $signals: MseSrcPad.SignalSignatures
+                readonly $readableProperties: MseSrcPad.ReadableProperties
+                readonly $writableProperties: MseSrcPad.WritableProperties
+                readonly $constructOnlyProperties: MseSrcPad.ConstructOnlyProperties
+            }
+
+            interface MseSrcPadClass extends Omit<Gst.PadClass, "new"> {
+                readonly $gtype: GObject.GType<MseSrcPad>
+                readonly prototype: MseSrcPad
+
+                new (props?: Partial<GObject.ConstructorProps<MseSrcPad>>): MseSrcPad
+            }
+
+            interface $Exports {
                 /**
-                 * Emitted when @self is no longer in the updating state after a call to
-                 * gst_source_buffer_append_buffer(). This can happen after a successful or
-                 * unsuccessful append.
-                 *
-                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onupdateend)
                  * @since 1.24
                  */
-                "on-update-end"(): void
+                MseSrcPad: MseSrcPadClass
+            }
+            
+
+            namespace SourceBuffer {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                    /**
+                     * Emitted when `self` was aborted after a call to gst_source_buffer_abort().
+                     *
+                     * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onabort)
+                     * @since 1.24
+                     */
+                    "on-abort"(): void
+                    /**
+                     * Emitted when `self` has encountered an error after a call to
+                     * gst_source_buffer_append_buffer().
+                     *
+                     * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onerror)
+                     * @since 1.24
+                     */
+                    "on-error"(): void
+                    /**
+                     * Emitted when `self` has successfully processed data after a call to
+                     * gst_source_buffer_append_buffer().
+                     *
+                     * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onupdate)
+                     * @since 1.24
+                     */
+                    "on-update"(): void
+                    /**
+                     * Emitted when `self` is no longer in the updating state after a call to
+                     * gst_source_buffer_append_buffer(). This can happen after a successful or
+                     * unsuccessful append.
+                     *
+                     * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onupdateend)
+                     * @since 1.24
+                     */
+                    "on-update-end"(): void
+                    /**
+                     * Emitted when `self` has begun to process data after a call to
+                     * gst_source_buffer_append_buffer().
+                     *
+                     * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onupdatestart)
+                     * @since 1.24
+                     */
+                    "on-update-start"(): void
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "append-mode": SourceBufferAppendMode
+                    "append-window-end": number
+                    "append-window-start": number
+                    "buffered": never[]
+                    "content-type": string
+                    "timestamp-offset": number
+                    "updating": boolean
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "append-mode": SourceBufferAppendMode
+                    "append-window-end": number
+                    "append-window-start": number
+                    "buffered": never[]
+                    "content-type": string
+                    "timestamp-offset": number
+                    "updating": boolean
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface SourceBuffer extends Gst.Object {
+                readonly $signals: SourceBuffer.SignalSignatures
+                readonly $readableProperties: SourceBuffer.ReadableProperties
+                readonly $writableProperties: SourceBuffer.WritableProperties
+                readonly $constructOnlyProperties: SourceBuffer.ConstructOnlyProperties
                 /**
-                 * Emitted when @self has begun to process data after a call to
-                 * gst_source_buffer_append_buffer().
+                 * Affects how timestamps of processed media segments are interpreted.
+                 * In %GST_SOURCE_BUFFER_APPEND_MODE_SEGMENTS, the start timestamp of a
+                 * processed media segment is used directly along with
+                 * #GstSourceBuffer:timestamp-offset .
+                 * In %GST_SOURCE_BUFFER_APPEND_MODE_SEQUENCE, the timestamp of a
+                 * processed media segment is ignored and replaced with the end time of the
+                 * most recently appended segment.
                  *
-                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onupdatestart)
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-mode)
+                 * @since 1.24
+                 * @default GST_SOURCE_BUFFER_APPEND_MODE_SEGMENTS
+                 */
+                get appendMode(): SourceBufferAppendMode
+                set appendMode(value: SourceBufferAppendMode)
+                /**
+                 * Any segments processed which have a start time greater than this value will
+                 * be ignored by this Source Buffer.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowend)
+                 * @since 1.24
+                 * @default 18446744073709551615
+                 */
+                get appendWindowEnd(): number
+                set appendWindowEnd(value: number)
+                /**
+                 * Any segments processed which end before this value will be ignored by this
+                 * Source Buffer.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowstart)
+                 * @since 1.24
+                 * @default 0
+                 */
+                get appendWindowStart(): number
+                set appendWindowStart(value: number)
+                /**
+                 * The set of Time Intervals that have been loaded into the current Source
+                 * Buffer
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-buffered)
                  * @since 1.24
                  */
-                "on-update-start"(): void
-            }
-
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "append-mode": SourceBufferAppendMode
-                "append-window-end": number
-                "append-window-start": number
-                "buffered": never[]
-                "content-type": string
-                "timestamp-offset": number
-                "updating": boolean
-            }
-
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "append-mode": SourceBufferAppendMode
-                "append-window-end": number
-                "append-window-start": number
-                "buffered": never[]
-                "content-type": string
-                "timestamp-offset": number
-                "updating": boolean
-            }
-
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
-            }
-        }
-
-        interface SourceBuffer extends Gst.Object {
-            readonly $signals: SourceBuffer.SignalSignatures
-            readonly $readableProperties: SourceBuffer.ReadableProperties
-            readonly $writableProperties: SourceBuffer.WritableProperties
-            readonly $constructOnlyProperties: SourceBuffer.ConstructOnlyProperties
-            /**
-             * Affects how timestamps of processed media segments are interpreted.
-             * In %GST_SOURCE_BUFFER_APPEND_MODE_SEGMENTS, the start timestamp of a
-             * processed media segment is used directly along with
-             * #GstSourceBuffer:timestamp-offset .
-             * In %GST_SOURCE_BUFFER_APPEND_MODE_SEQUENCE, the timestamp of a
-             * processed media segment is ignored and replaced with the end time of the
-             * most recently appended segment.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-mode)
-             * @since 1.24
-             * @default GST_SOURCE_BUFFER_APPEND_MODE_SEGMENTS
-             */
-            get appendMode(): SourceBufferAppendMode
-            set appendMode(value: SourceBufferAppendMode)
-            /**
-             * Any segments processed which have a start time greater than this value will
-             * be ignored by this Source Buffer.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowend)
-             * @since 1.24
-             * @default 18446744073709551615
-             */
-            get appendWindowEnd(): number
-            set appendWindowEnd(value: number)
-            /**
-             * Any segments processed which end before this value will be ignored by this
-             * Source Buffer.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowstart)
-             * @since 1.24
-             * @default 0
-             */
-            get appendWindowStart(): number
-            set appendWindowStart(value: number)
-            /**
-             * The set of Time Intervals that have been loaded into the current Source
-             * Buffer
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-buffered)
-             * @since 1.24
-             */
-            get buffered(): never[]
-            set buffered(value: never[])
-            /**
-             * The MIME content-type of the data stream
-             * @since 1.24
-             * @default NULL
-             */
-            get contentType(): string
-            set contentType(value: string)
-            /**
-             * The next media segment appended to the current Source Buffer will have its
-             * start timestamp increased by this amount.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-timestampoffset)
-             * @since 1.24
-             * @default 0
-             */
-            get timestampOffset(): number
-            set timestampOffset(value: number)
-            /**
-             * Whether the current source buffer is still asynchronously processing
-             * previously issued commands.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-updating)
-             * @since 1.24
-             * @default FALSE
-             */
-            get updating(): boolean
-            set updating(value: boolean)
-            /**
-             * Attempts to end any processing of the currently pending data and reset the
-             * media parser.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-abort)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            abort(): boolean
-            /**
-             * Schedules the bytes inside @buf to be processed by @self. When it is possible
-             * to accept the supplied data, it will be processed asynchronously and fill in
-             * the track buffers for playback purposes.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendbuffer)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param buf The media data to append
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            append_buffer(buf: Gst.Buffer): boolean
-            /**
-             * Attempts to change the content type of @self to @type. Any new data appended
-             * to the Source Buffer must be of the supplied @type afterward.
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param type the desired content type
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            change_content_type(type: string): boolean
-            /**
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-mode)
-             * @since 1.24
-             * @returns The current #GstSourceBufferAppendMode
-             */
-            get_append_mode(): SourceBufferAppendMode
-            /**
-             * Returns the current append window end time. Any segment processed that starts
-             * after this value will be ignored.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowend)
-             * @since 1.24
-             * @returns The current Append Window end time as a #GstClockTime
-             */
-            get_append_window_end(): Gst.ClockTime
-            /**
-             * Returns the current append window start time. Any segment processed that ends
-             * earlier than this value will be ignored.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowstart)
-             * @since 1.24
-             * @returns The current Append Window start time as a #GstClockTime
-             */
-            get_append_window_start(): Gst.ClockTime
-            /**
-             * Returns a sequence of #GstMediaSourceRange values representing which segments
-             * of @self are buffered in memory.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-buffered)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @returns a #GArray of #GstMediaSourceRange values.
-             */
-            get_buffered(): MediaSourceRange[]
-            /**
-             * Returns the current content type of @self.
-             * @since 1.24
-             * @returns a string representing the content type
-             */
-            get_content_type(): string
-            /**
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-timestampoffset)
-             * @since 1.24
-             * @returns The current timestamp offset as a #GstClockTime
-             */
-            get_timestamp_offset(): Gst.ClockTime
-            /**
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-updating)
-             * @since 1.24
-             * @returns Whether `self` is currently adding or removing media content.
-             */
-            get_updating(): boolean
-            /**
-             * Attempts to remove any parsed data between @start and @end from @self.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-remove)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param start The beginning timestamp of data to remove
-             * @param end The end timestamp of data to remove
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            remove(start: Gst.ClockTime, end: Gst.ClockTime): boolean
-            /**
-             * Changes the Append Mode of @self. This influences what timestamps will be
-             * assigned to media processed by this Source Buffer. In Segment mode, the
-             * timestamps in each segment determine the position of each sample after it
-             * is processed. In Sequence mode, the timestamp of each processed sample is
-             * generated based on the end of the most recently processed segment.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-mode)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param mode #GstSourceBufferAppendMode the desired Append Mode
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            set_append_mode(mode: SourceBufferAppendMode): boolean
-            /**
-             * Modifies the current append window end of @self. If successful, samples
-             * processed after setting this value that start after this point will be
-             * ignored.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowend)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param end the append window end
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            set_append_window_end(end: Gst.ClockTime): boolean
-            /**
-             * Modifies the current append window start of @self. If successful, samples
-             * processed after setting this value that end before this point will be
-             * ignored.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowstart)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param start the append window start
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            set_append_window_start(start: Gst.ClockTime): boolean
-            /**
-             * Attempt to set the timestamp offset of @self. Any media processed after this
-             * value is set will have this value added to its start time.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-timestampoffset)
-             * @throws {GLib.Error}
-             * @since 1.24
-             * @param offset The new timestamp offset
-             * @returns `TRUE` on success, `FALSE` otherwise
-             */
-            set_timestamp_offset(offset: Gst.ClockTime): boolean
-        }
-
-        interface SourceBufferClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<SourceBuffer>
-            readonly prototype: SourceBuffer
-
-            new (props?: Partial<GObject.ConstructorProps<SourceBuffer>>): SourceBuffer
-        }
-
-        interface $Exports {
-            /**
-             * The Source Buffer is the primary means of data flow between an application
-             * and the Media Source API. It represents a single timeline of media,
-             * containing some combination of audio, video, and text tracks.
-             * An application is responsible for feeding raw data into the Source Buffer
-             * using gst_source_buffer_append_buffer() and the Source Buffer will
-             * asynchronously process the data into tracks of time-coded multimedia samples.
-             *
-             * The application as well as the associated playback component can then select
-             * to play media from any subset of tracks across all Source Buffers of a Media
-             * Source.
-             *
-             * A few control points are also provided to customize the behavior.
-             *
-             *  - #GstSourceBuffer:append-mode controls how timestamps of processed samples are
-             *  interpreted. They are either inserted in the timeline directly where the
-             *  decoded media states they should, or inserted directly after the previously
-             *  encountered sample.
-             *
-             *  - #GstSourceBuffer:append-window-start / #GstSourceBuffer:append-window-end
-             *  control the planned time window where media from appended data can be added
-             *  to the current timeline. Any samples outside that range may be ignored.
-             *
-             *  - #GstSourceBuffer:timestamp-offset is added to the start time of any sample
-             *  processed.
-             * @since 1.24
-             */
-            SourceBuffer: SourceBufferClass
-        }
-        
-
-        namespace SourceBufferList {
-            interface SignalSignatures extends Gst.Object.SignalSignatures {
+                get buffered(): never[]
+                set buffered(value: never[])
                 /**
-                 * Emitted when a #GstSourceBuffer has been added to this list.
+                 * The MIME content-type of the data stream
+                 * @since 1.24
+                 * @default NULL
+                 */
+                get contentType(): string
+                set contentType(value: string)
+                /**
+                 * The next media segment appended to the current Source Buffer will have its
+                 * start timestamp increased by this amount.
                  *
-                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebufferlist-onaddsourcebuffer)
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-timestampoffset)
+                 * @since 1.24
+                 * @default 0
+                 */
+                get timestampOffset(): number
+                set timestampOffset(value: number)
+                /**
+                 * Whether the current source buffer is still asynchronously processing
+                 * previously issued commands.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-updating)
+                 * @since 1.24
+                 * @default FALSE
+                 */
+                get updating(): boolean
+                set updating(value: boolean)
+                /**
+                 * Attempts to end any processing of the currently pending data and reset the
+                 * media parser.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-abort)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                abort(): boolean
+                /**
+                 * Schedules the bytes inside `buf` to be processed by `self`. When it is possible
+                 * to accept the supplied data, it will be processed asynchronously and fill in
+                 * the track buffers for playback purposes.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendbuffer)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param buf The media data to append
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                append_buffer(buf: Gst.Buffer): boolean
+                /**
+                 * Attempts to change the content type of `self` to `type`. Any new data appended
+                 * to the Source Buffer must be of the supplied `type` afterward.
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param type the desired content type
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                change_content_type(type: string): boolean
+                /**
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-mode)
+                 * @since 1.24
+                 * @returns The current #GstSourceBufferAppendMode
+                 */
+                get_append_mode(): SourceBufferAppendMode
+                /**
+                 * Returns the current append window end time. Any segment processed that starts
+                 * after this value will be ignored.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowend)
+                 * @since 1.24
+                 * @returns The current Append Window end time as a #GstClockTime
+                 */
+                get_append_window_end(): Gst.ClockTime
+                /**
+                 * Returns the current append window start time. Any segment processed that ends
+                 * earlier than this value will be ignored.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowstart)
+                 * @since 1.24
+                 * @returns The current Append Window start time as a #GstClockTime
+                 */
+                get_append_window_start(): Gst.ClockTime
+                /**
+                 * Returns a sequence of #GstMediaSourceRange values representing which segments
+                 * of `self` are buffered in memory.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-buffered)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @returns a #GArray of #GstMediaSourceRange values.
+                 */
+                get_buffered(): MediaSourceRange[]
+                /**
+                 * Returns the current content type of `self`.
+                 * @since 1.24
+                 * @returns a string representing the content type
+                 */
+                get_content_type(): string
+                /**
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-timestampoffset)
+                 * @since 1.24
+                 * @returns The current timestamp offset as a #GstClockTime
+                 */
+                get_timestamp_offset(): Gst.ClockTime
+                /**
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-updating)
+                 * @since 1.24
+                 * @returns Whether `self` is currently adding or removing media content.
+                 */
+                get_updating(): boolean
+                /**
+                 * Attempts to remove any parsed data between `start` and `end` from `self`.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-remove)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param start The beginning timestamp of data to remove
+                 * @param end The end timestamp of data to remove
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                remove(start: Gst.ClockTime, end: Gst.ClockTime): boolean
+                /**
+                 * Changes the Append Mode of `self`. This influences what timestamps will be
+                 * assigned to media processed by this Source Buffer. In Segment mode, the
+                 * timestamps in each segment determine the position of each sample after it
+                 * is processed. In Sequence mode, the timestamp of each processed sample is
+                 * generated based on the end of the most recently processed segment.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-mode)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param mode #GstSourceBufferAppendMode the desired Append Mode
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                set_append_mode(mode: SourceBufferAppendMode): boolean
+                /**
+                 * Modifies the current append window end of `self`. If successful, samples
+                 * processed after setting this value that start after this point will be
+                 * ignored.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowend)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param end the append window end
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                set_append_window_end(end: Gst.ClockTime): boolean
+                /**
+                 * Modifies the current append window start of `self`. If successful, samples
+                 * processed after setting this value that end before this point will be
+                 * ignored.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-appendwindowstart)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param start the append window start
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                set_append_window_start(start: Gst.ClockTime): boolean
+                /**
+                 * Attempt to set the timestamp offset of `self`. Any media processed after this
+                 * value is set will have this value added to its start time.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-timestampoffset)
+                 * @throws {GLib.Error}
+                 * @since 1.24
+                 * @param offset The new timestamp offset
+                 * @returns `TRUE` on success, `FALSE` otherwise
+                 */
+                set_timestamp_offset(offset: Gst.ClockTime): boolean
+            }
+
+            interface SourceBufferClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<SourceBuffer>
+                readonly prototype: SourceBuffer
+
+                new (props?: Partial<GObject.ConstructorProps<SourceBuffer>>): SourceBuffer
+            }
+
+            interface $Exports {
+                /**
+                 * The Source Buffer is the primary means of data flow between an application
+                 * and the Media Source API. It represents a single timeline of media,
+                 * containing some combination of audio, video, and text tracks.
+                 * An application is responsible for feeding raw data into the Source Buffer
+                 * using gst_source_buffer_append_buffer() and the Source Buffer will
+                 * asynchronously process the data into tracks of time-coded multimedia samples.
+                 *
+                 * The application as well as the associated playback component can then select
+                 * to play media from any subset of tracks across all Source Buffers of a Media
+                 * Source.
+                 *
+                 * A few control points are also provided to customize the behavior.
+                 *
+                 *  - #GstSourceBuffer:append-mode controls how timestamps of processed samples are
+                 *  interpreted. They are either inserted in the timeline directly where the
+                 *  decoded media states they should, or inserted directly after the previously
+                 *  encountered sample.
+                 *
+                 *  - #GstSourceBuffer:append-window-start / #GstSourceBuffer:append-window-end
+                 *  control the planned time window where media from appended data can be added
+                 *  to the current timeline. Any samples outside that range may be ignored.
+                 *
+                 *  - #GstSourceBuffer:timestamp-offset is added to the start time of any sample
+                 *  processed.
                  * @since 1.24
                  */
-                "on-sourcebuffer-added"(): void
+                SourceBuffer: SourceBufferClass
+            }
+            
+
+            namespace SourceBufferList {
+                interface SignalSignatures extends Gst.Object.SignalSignatures {
+                    /**
+                     * Emitted when a #GstSourceBuffer has been added to this list.
+                     *
+                     * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebufferlist-onaddsourcebuffer)
+                     * @since 1.24
+                     */
+                    "on-sourcebuffer-added"(): void
+                    /**
+                     * Emitted when a #GstSourceBuffer has been removed from this list.
+                     *
+                     * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebufferlist-onremovesourcebuffer)
+                     * @since 1.24
+                     */
+                    "on-sourcebuffer-removed"(): void
+                }
+
+                interface ReadableProperties extends Gst.Object.ReadableProperties {
+                    "length": number
+                }
+
+                interface WritableProperties extends Gst.Object.WritableProperties {
+                    "length": number
+                }
+
+                interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface SourceBufferList extends Gst.Object {
+                readonly $signals: SourceBufferList.SignalSignatures
+                readonly $readableProperties: SourceBufferList.ReadableProperties
+                readonly $writableProperties: SourceBufferList.WritableProperties
+                readonly $constructOnlyProperties: SourceBufferList.ConstructOnlyProperties
                 /**
-                 * Emitted when a #GstSourceBuffer has been removed from this list.
+                 * The number of #GstSourceBuffer<!-- -->s contained by this structure
                  *
-                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebufferlist-onremovesourcebuffer)
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebufferlist-length)
+                 * @since 1.24
+                 * @default 0
+                 */
+                get length(): number
+                set length(value: number)
+                /**
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebufferlist-length)
+                 * @since 1.24
+                 * @returns The number of #GstSourceBuffer objects in the list
+                 */
+                get_length(): number
+                /**
+                 * Retrieves the #GstSourceBuffer at `index` from `self`. If `index` is greater than
+                 * the highest index in the list, it will return `NULL`.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dfn-sourcebufferlist-getter)
+                 * @since 1.24
+                 * @param index index of requested Source Buffer
+                 * @returns The requested #GstSourceBuffer or `NULL`
+                 */
+                index(index: number): SourceBuffer | null
+            }
+
+            interface SourceBufferListClass extends Omit<Gst.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<SourceBufferList>
+                readonly prototype: SourceBufferList
+
+                new (props?: Partial<GObject.ConstructorProps<SourceBufferList>>): SourceBufferList
+            }
+
+            interface $Exports {
+                /**
+                 * The Source Buffer List is a list of #GstSourceBuffer<!-- -->s that can be
+                 * indexed numerically and monitored for changes. The list itself cannot be
+                 * modified through this interface, though the Source Buffers it holds can be
+                 * modified after retrieval.
+                 *
+                 * It is used by #GstMediaSource to provide direct access to its child
+                 * #GstSourceBuffer<!-- -->s through #GstMediaSource:source-buffers as well as
+                 * informing clients which of the Source Buffers are active through
+                 * #GstMediaSource:active-source-buffers.
                  * @since 1.24
                  */
-                "on-sourcebuffer-removed"(): void
+                SourceBufferList: SourceBufferListClass
+            }
+            
+
+            interface MediaSourceRangeStruct {
+                readonly $gtype: GObject.GType<MediaSourceRange>
+                new (fields?: {
+                    start?: Gst.ClockTime
+                    end?: Gst.ClockTime
+                }): MediaSourceRange
             }
 
-            interface ReadableProperties extends Gst.Object.ReadableProperties {
-                "length": number
+            interface MediaSourceRange {
+                /**
+                 * The start of this range.
+                 */
+                start: Gst.ClockTime
+                /**
+                 * The end of this range.
+                 */
+                end: Gst.ClockTime
             }
 
-            interface WritableProperties extends Gst.Object.WritableProperties {
-                "length": number
+            interface $Exports {
+                MediaSourceRange: MediaSourceRangeStruct
+            }
+            
+
+            interface SourceBufferIntervalStruct {
+                readonly $gtype: GObject.GType<SourceBufferInterval>
+                new (fields?: {
+                    start?: Gst.ClockTime
+                    end?: Gst.ClockTime
+                }): SourceBufferInterval
             }
 
-            interface ConstructOnlyProperties extends Gst.Object.ConstructOnlyProperties {
+            interface SourceBufferInterval {
+                /**
+                 */
+                start: Gst.ClockTime
+                /**
+                 */
+                end: Gst.ClockTime
             }
-        }
 
-        interface SourceBufferList extends Gst.Object {
-            readonly $signals: SourceBufferList.SignalSignatures
-            readonly $readableProperties: SourceBufferList.ReadableProperties
-            readonly $writableProperties: SourceBufferList.WritableProperties
-            readonly $constructOnlyProperties: SourceBufferList.ConstructOnlyProperties
-            /**
-             * The number of #GstSourceBuffer<!-- -->s contained by this structure
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebufferlist-length)
-             * @since 1.24
-             * @default 0
-             */
-            get length(): number
-            set length(value: number)
-            /**
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebufferlist-length)
-             * @since 1.24
-             * @returns The number of #GstSourceBuffer objects in the list
-             */
-            get_length(): number
-            /**
-             * Retrieves the #GstSourceBuffer at @index from @self. If @index is greater than
-             * the highest index in the list, it will return `NULL`.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dfn-sourcebufferlist-getter)
-             * @since 1.24
-             * @param index index of requested Source Buffer
-             * @returns The requested #GstSourceBuffer or `NULL`
-             */
-            index(index: number): SourceBuffer | null
-        }
+            interface $Exports {
+                SourceBufferInterval: SourceBufferIntervalStruct
+            }
+            
+            interface MediaSourceEOSErrorEnum {
+                readonly $gtype: GObject.GType<MediaSourceEOSError>
+                /**
+                 * End the stream successfully
+                 */
+                readonly "NONE": 0
+                /**
+                 * End the stream due to a networking error
+                 */
+                readonly "NETWORK": 1
+                /**
+                 * End the stream due to a decoding error
+                 */
+                readonly "DECODE": 2
+            }
+            type MediaSourceEOSError = MediaSourceEOSErrorEnum[Exclude<keyof MediaSourceEOSErrorEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Reasons for ending a #GstMediaSource using gst_media_source_end_of_stream().
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-endofstreamerror)
+                 * @since 1.24
+                 */
+                MediaSourceEOSError: MediaSourceEOSErrorEnum
+            }
+            
+            interface MediaSourceError extends GLib.Error {}
 
-        interface SourceBufferListClass extends Omit<Gst.ObjectClass, "new"> {
-            readonly $gtype: GObject.GType<SourceBufferList>
-            readonly prototype: SourceBufferList
+            interface MediaSourceErrorEnum {
+                readonly $gtype: GObject.GType<MediaSourceError>
 
-            new (props?: Partial<GObject.ConstructorProps<SourceBufferList>>): SourceBufferList
-        }
-
-        interface $Exports {
-            /**
-             * The Source Buffer List is a list of #GstSourceBuffer<!-- -->s that can be
-             * indexed numerically and monitored for changes. The list itself cannot be
-             * modified through this interface, though the Source Buffers it holds can be
-             * modified after retrieval.
-             *
-             * It is used by #GstMediaSource to provide direct access to its child
-             * #GstSourceBuffer<!-- -->s through #GstMediaSource:source-buffers as well as
-             * informing clients which of the Source Buffers are active through
-             * #GstMediaSource:active-source-buffers.
-             * @since 1.24
-             */
-            SourceBufferList: SourceBufferListClass
-        }
-        
-
-        interface MediaSourceRangeStruct {
-            readonly $gtype: GObject.GType<MediaSourceRange>
-            [Symbol.hasInstance](instance: unknown): instance is MediaSourceRange
-        }
-
-        interface MediaSourceRange {
-            /**
-             * The start of this range.
-             */
-            start: Gst.ClockTime
-            /**
-             * The end of this range.
-             */
-            end: Gst.ClockTime
-        }
-
-        interface $Exports {
-            MediaSourceRange: MediaSourceRangeStruct
-        }
-        
-
-        interface SourceBufferIntervalStruct {
-            readonly $gtype: GObject.GType<SourceBufferInterval>
-            [Symbol.hasInstance](instance: unknown): instance is SourceBufferInterval
-        }
-
-        interface SourceBufferInterval {
-            /**
-             */
-            start: Gst.ClockTime
-            /**
-             */
-            end: Gst.ClockTime
-        }
-
-        interface $Exports {
-            SourceBufferInterval: SourceBufferIntervalStruct
-        }
-        
-        interface MediaSourceEOSErrorEnum {
-            readonly $gtype: GObject.GType<MediaSourceEOSError>
-            /**
-             * End the stream successfully
-             */
-            readonly "NONE": 0
-            /**
-             * End the stream due to a networking error
-             */
-            readonly "NETWORK": 1
-            /**
-             * End the stream due to a decoding error
-             */
-            readonly "DECODE": 2
-        }
-        type MediaSourceEOSError = MediaSourceEOSErrorEnum[Exclude<keyof MediaSourceEOSErrorEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Reasons for ending a #GstMediaSource using gst_media_source_end_of_stream().
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-endofstreamerror)
-             * @since 1.24
-             */
-            MediaSourceEOSError: MediaSourceEOSErrorEnum
-        }
-        
-        interface MediaSourceError extends GLib.Error {}
-
-        interface MediaSourceErrorEnum {
-            readonly $gtype: GObject.GType<MediaSourceError>
-
-            new(props: { message: string, code: number }): MediaSourceError
-            /**
-             */
-            readonly "INVALID_STATE": 0
-            /**
-             */
-            readonly "TYPE": 1
-            /**
-             */
-            readonly "NOT_SUPPORTED": 2
-            /**
-             */
-            readonly "NOT_FOUND": 3
-            /**
-             */
-            readonly "QUOTA_EXCEEDED": 4
-            /**
-         * Any error type that can be reported by the Media Source API.
-         * @since 1.24
-         */
-        quark: () => GLib.Quark
-        }
-
-        interface $Exports {
-            /**
-             * Any error that can occur within #GstMediaSource or #GstSourceBuffer APIs.
-             * These values correspond directly to those in the Web IDL specification.
-             *
-             * [Specification](https://webidl.spec.whatwg.org/#idl-DOMException-error-names)
-             * @since 1.24
-             */
-            MediaSourceError: MediaSourceErrorEnum
-        }
-        
-        interface MediaSourceReadyStateEnum {
-            readonly $gtype: GObject.GType<MediaSourceReadyState>
-            /**
-             * The #GstMediaSource is not connected to
-             * any playback element.
-             */
-            readonly "CLOSED": 0
-            /**
-             * The #GstMediaSource is connected to a
-             * playback element and ready to append data to its #GstSourceBuffer (s).
-             */
-            readonly "OPEN": 1
-            /**
-             * gst_media_source_end_of_stream() has
-             * been called on the current #GstMediaSource
-             */
-            readonly "ENDED": 2
-        }
-        type MediaSourceReadyState = MediaSourceReadyStateEnum[Exclude<keyof MediaSourceReadyStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Describes the possible states of the Media Source.
-             *
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-readystate)
-             * @since 1.24
-             */
-            MediaSourceReadyState: MediaSourceReadyStateEnum
-        }
-        
-        interface MseSrcReadyStateEnum {
-            readonly $gtype: GObject.GType<MseSrcReadyState>
-            /**
-             * No information is available about the
-             * stream
-             */
-            readonly "NOTHING": 0
-            /**
-             * The duration is available and video
-             * dimensions are available if the stream contains video
-             */
-            readonly "METADATA": 1
-            /**
-             * The current playback position can
-             * be presented but future information is not available
-             */
-            readonly "CURRENT_DATA": 2
-            /**
-             * There is data for the current
-             * position and some amount in the future and any text tracks are ready.
-             */
-            readonly "FUTURE_DATA": 3
-            /**
-             * Either there is enough data to
-             * play the stream through at the current playback and input rate or the input
-             * buffer is full.
-             */
-            readonly "ENOUGH_DATA": 4
-        }
-        type MseSrcReadyState = MseSrcReadyStateEnum[Exclude<keyof MseSrcReadyStateEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * Describes how much information a #GstMseSrc has about the media it is playing
-             * back at the current playback #GstMseSrc:position. This type corresponds
-             * directly to the ready state of a HTML Media Element and is a separate concept
-             * from #GstMediaSourceReadyState.
-             *
-             * [Specification](https://html.spec.whatwg.org/multipage/media.html#ready-states)
-             * @since 1.24
-             */
-            MseSrcReadyState: MseSrcReadyStateEnum
-        }
-        
-        interface SourceBufferAppendModeEnum {
-            readonly $gtype: GObject.GType<SourceBufferAppendMode>
-            /**
-             */
-            readonly "SEGMENTS": 0
-            /**
-             */
-            readonly "SEQUENCE": 1
-        }
-        type SourceBufferAppendMode = SourceBufferAppendModeEnum[Exclude<keyof SourceBufferAppendModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             * [Specification](https://www.w3.org/TR/media-source-2/#dom-appendmode)
-             * @since 1.24
-             */
-            SourceBufferAppendMode: SourceBufferAppendModeEnum
-        }
-
-        interface $Exports {
-            __name__: "GstMse"
-            __version: "1.0"
-            /**
+                new(props: { message: string, code: number }): MediaSourceError
+                /**
+                 */
+                readonly "INVALID_STATE": 0
+                /**
+                 */
+                readonly "TYPE": 1
+                /**
+                 */
+                readonly "NOT_SUPPORTED": 2
+                /**
+                 */
+                readonly "NOT_FOUND": 3
+                /**
+                 */
+                readonly "QUOTA_EXCEEDED": 4
+                /**
              * Any error type that can be reported by the Media Source API.
              * @since 1.24
              */
-            media_source_error_quark(): GLib.Quark
+            quark: () => GLib.Quark
+            }
+
+            interface $Exports {
+                /**
+                 * Any error that can occur within #GstMediaSource or #GstSourceBuffer APIs.
+                 * These values correspond directly to those in the Web IDL specification.
+                 *
+                 * [Specification](https://webidl.spec.whatwg.org/#idl-DOMException-error-names)
+                 * @since 1.24
+                 */
+                MediaSourceError: MediaSourceErrorEnum
+            }
+            
+            interface MediaSourceReadyStateEnum {
+                readonly $gtype: GObject.GType<MediaSourceReadyState>
+                /**
+                 * The #GstMediaSource is not connected to
+                 * any playback element.
+                 */
+                readonly "CLOSED": 0
+                /**
+                 * The #GstMediaSource is connected to a
+                 * playback element and ready to append data to its #GstSourceBuffer (s).
+                 */
+                readonly "OPEN": 1
+                /**
+                 * gst_media_source_end_of_stream() has
+                 * been called on the current #GstMediaSource
+                 */
+                readonly "ENDED": 2
+            }
+            type MediaSourceReadyState = MediaSourceReadyStateEnum[Exclude<keyof MediaSourceReadyStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Describes the possible states of the Media Source.
+                 *
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-readystate)
+                 * @since 1.24
+                 */
+                MediaSourceReadyState: MediaSourceReadyStateEnum
+            }
+            
+            interface MseSrcReadyStateEnum {
+                readonly $gtype: GObject.GType<MseSrcReadyState>
+                /**
+                 * No information is available about the
+                 * stream
+                 */
+                readonly "NOTHING": 0
+                /**
+                 * The duration is available and video
+                 * dimensions are available if the stream contains video
+                 */
+                readonly "METADATA": 1
+                /**
+                 * The current playback position can
+                 * be presented but future information is not available
+                 */
+                readonly "CURRENT_DATA": 2
+                /**
+                 * There is data for the current
+                 * position and some amount in the future and any text tracks are ready.
+                 */
+                readonly "FUTURE_DATA": 3
+                /**
+                 * Either there is enough data to
+                 * play the stream through at the current playback and input rate or the input
+                 * buffer is full.
+                 */
+                readonly "ENOUGH_DATA": 4
+            }
+            type MseSrcReadyState = MseSrcReadyStateEnum[Exclude<keyof MseSrcReadyStateEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * Describes how much information a #GstMseSrc has about the media it is playing
+                 * back at the current playback #GstMseSrc:position. This type corresponds
+                 * directly to the ready state of a HTML Media Element and is a separate concept
+                 * from #GstMediaSourceReadyState.
+                 *
+                 * [Specification](https://html.spec.whatwg.org/multipage/media.html#ready-states)
+                 * @since 1.24
+                 */
+                MseSrcReadyState: MseSrcReadyStateEnum
+            }
+            
+            interface SourceBufferAppendModeEnum {
+                readonly $gtype: GObject.GType<SourceBufferAppendMode>
+                /**
+                 */
+                readonly "SEGMENTS": 0
+                /**
+                 */
+                readonly "SEQUENCE": 1
+            }
+            type SourceBufferAppendMode = SourceBufferAppendModeEnum[Exclude<keyof SourceBufferAppendModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 * [Specification](https://www.w3.org/TR/media-source-2/#dom-appendmode)
+                 * @since 1.24
+                 */
+                SourceBufferAppendMode: SourceBufferAppendModeEnum
+            }
+
+            interface $Exports {
+                __name__: "GstMse"
+                __version__: "1.0"
+                /**
+                 * Any error type that can be reported by the Media Source API.
+                 * @since 1.24
+                 */
+                media_source_error_quark(): GLib.Quark
+            }
         }
+
+        const GstMse: GstMse.$Exports
     }
 
-    const GstMse: GstMse.$Exports
-    export default GstMse
+    export default GI.GstMse
 }

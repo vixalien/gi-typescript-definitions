@@ -10,806 +10,813 @@ declare module "gi://GDesktopEnums?version=3.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type GLib from "gi://GLib?version=2.0"
 
-    
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
+        
 
-    namespace GDesktopEnums {
-        
-        interface AccentColorEnum {
-            readonly $gtype: GObject.GType<AccentColor>
-            /**
-             */
-            readonly "BLUE": 0
-            /**
-             */
-            readonly "TEAL": 1
-            /**
-             */
-            readonly "GREEN": 2
-            /**
-             */
-            readonly "YELLOW": 3
-            /**
-             */
-            readonly "ORANGE": 4
-            /**
-             */
-            readonly "RED": 5
-            /**
-             */
-            readonly "PINK": 6
-            /**
-             */
-            readonly "PURPLE": 7
-            /**
-             */
-            readonly "SLATE": 8
-        }
-        type AccentColor = AccentColorEnum[Exclude<keyof AccentColorEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            AccentColor: AccentColorEnum
-        }
-        
-        interface BackgroundShadingEnum {
-            readonly $gtype: GObject.GType<BackgroundShading>
-            /**
-             */
-            readonly "SOLID": 0
-            /**
-             */
-            readonly "VERTICAL": 1
-            /**
-             */
-            readonly "HORIZONTAL": 2
-        }
-        type BackgroundShading = BackgroundShadingEnum[Exclude<keyof BackgroundShadingEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            BackgroundShading: BackgroundShadingEnum
-        }
-        
-        interface BackgroundStyleEnum {
-            readonly $gtype: GObject.GType<BackgroundStyle>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "WALLPAPER": 1
-            /**
-             */
-            readonly "CENTERED": 2
-            /**
-             */
-            readonly "SCALED": 3
-            /**
-             */
-            readonly "STRETCHED": 4
-            /**
-             */
-            readonly "ZOOM": 5
-            /**
-             */
-            readonly "SPANNED": 6
-        }
-        type BackgroundStyle = BackgroundStyleEnum[Exclude<keyof BackgroundStyleEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            BackgroundStyle: BackgroundStyleEnum
-        }
-        
-        interface ClockFormatEnum {
-            readonly $gtype: GObject.GType<ClockFormat>
-            /**
-             */
-            readonly "24H": 0
-            /**
-             */
-            readonly "12H": 1
-        }
-        type ClockFormat = ClockFormatEnum[Exclude<keyof ClockFormatEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ClockFormat: ClockFormatEnum
-        }
-        
-        interface ColorSchemeEnum {
-            readonly $gtype: GObject.GType<ColorScheme>
-            /**
-             */
-            readonly "DEFAULT": 0
-            /**
-             */
-            readonly "PREFER_DARK": 1
-            /**
-             */
-            readonly "PREFER_LIGHT": 2
-        }
-        type ColorScheme = ColorSchemeEnum[Exclude<keyof ColorSchemeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ColorScheme: ColorSchemeEnum
-        }
-        
-        interface DeviceSendEventsEnum {
-            readonly $gtype: GObject.GType<DeviceSendEvents>
-            /**
-             */
-            readonly "ENABLED": 0
-            /**
-             */
-            readonly "DISABLED": 1
-            /**
-             */
-            readonly "DISABLED_ON_EXTERNAL_MOUSE": 2
-        }
-        type DeviceSendEvents = DeviceSendEventsEnum[Exclude<keyof DeviceSendEventsEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            DeviceSendEvents: DeviceSendEventsEnum
-        }
-        
-        interface FocusModeEnum {
-            readonly $gtype: GObject.GType<FocusMode>
-            /**
-             */
-            readonly "CLICK": 0
-            /**
-             */
-            readonly "SLOPPY": 1
-            /**
-             */
-            readonly "MOUSE": 2
-        }
-        type FocusMode = FocusModeEnum[Exclude<keyof FocusModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            FocusMode: FocusModeEnum
-        }
-        
-        interface FocusNewWindowsEnum {
-            readonly $gtype: GObject.GType<FocusNewWindows>
-            /**
-             */
-            readonly "SMART": 0
-            /**
-             */
-            readonly "STRICT": 1
-        }
-        type FocusNewWindows = FocusNewWindowsEnum[Exclude<keyof FocusNewWindowsEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            FocusNewWindows: FocusNewWindowsEnum
-        }
-        
-        interface FontAntialiasingModeEnum {
-            readonly $gtype: GObject.GType<FontAntialiasingMode>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "GRAYSCALE": 1
-            /**
-             */
-            readonly "RGBA": 2
-        }
-        type FontAntialiasingMode = FontAntialiasingModeEnum[Exclude<keyof FontAntialiasingModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            FontAntialiasingMode: FontAntialiasingModeEnum
-        }
-        
-        interface FontHintingEnum {
-            readonly $gtype: GObject.GType<FontHinting>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "SLIGHT": 1
-            /**
-             */
-            readonly "MEDIUM": 2
-            /**
-             */
-            readonly "FULL": 3
-        }
-        type FontHinting = FontHintingEnum[Exclude<keyof FontHintingEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            FontHinting: FontHintingEnum
-        }
-        
-        interface FontRenderingEnum {
-            readonly $gtype: GObject.GType<FontRendering>
-            /**
-             */
-            readonly "AUTOMATIC": 0
-            /**
-             */
-            readonly "MANUAL": 1
-        }
-        type FontRendering = FontRenderingEnum[Exclude<keyof FontRenderingEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            FontRendering: FontRenderingEnum
-        }
-        
-        interface FontRgbaOrderEnum {
-            readonly $gtype: GObject.GType<FontRgbaOrder>
-            /**
-             */
-            readonly "RGBA": 0
-            /**
-             */
-            readonly "RGB": 1
-            /**
-             */
-            readonly "BGR": 2
-            /**
-             */
-            readonly "VRGB": 3
-            /**
-             */
-            readonly "VBGR": 4
-        }
-        type FontRgbaOrder = FontRgbaOrderEnum[Exclude<keyof FontRgbaOrderEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            FontRgbaOrder: FontRgbaOrderEnum
-        }
-        
-        interface LocationAccuracyLevelEnum {
-            readonly $gtype: GObject.GType<LocationAccuracyLevel>
-            /**
-             */
-            readonly "COUNTRY": 0
-            /**
-             */
-            readonly "CITY": 1
-            /**
-             */
-            readonly "NEIGHBORHOOD": 2
-            /**
-             */
-            readonly "STREET": 3
-            /**
-             */
-            readonly "EXACT": 4
-        }
-        type LocationAccuracyLevel = LocationAccuracyLevelEnum[Exclude<keyof LocationAccuracyLevelEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            LocationAccuracyLevel: LocationAccuracyLevelEnum
-        }
-        
-        interface MagnifierCaretTrackingModeEnum {
-            readonly $gtype: GObject.GType<MagnifierCaretTrackingMode>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "CENTERED": 1
-            /**
-             */
-            readonly "PROPORTIONAL": 2
-            /**
-             */
-            readonly "PUSH": 3
-        }
-        type MagnifierCaretTrackingMode = MagnifierCaretTrackingModeEnum[Exclude<keyof MagnifierCaretTrackingModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            MagnifierCaretTrackingMode: MagnifierCaretTrackingModeEnum
-        }
-        
-        interface MagnifierFocusTrackingModeEnum {
-            readonly $gtype: GObject.GType<MagnifierFocusTrackingMode>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "CENTERED": 1
-            /**
-             */
-            readonly "PROPORTIONAL": 2
-            /**
-             */
-            readonly "PUSH": 3
-        }
-        type MagnifierFocusTrackingMode = MagnifierFocusTrackingModeEnum[Exclude<keyof MagnifierFocusTrackingModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            MagnifierFocusTrackingMode: MagnifierFocusTrackingModeEnum
-        }
-        
-        interface MagnifierMouseTrackingModeEnum {
-            readonly $gtype: GObject.GType<MagnifierMouseTrackingMode>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "CENTERED": 1
-            /**
-             */
-            readonly "PROPORTIONAL": 2
-            /**
-             */
-            readonly "PUSH": 3
-        }
-        type MagnifierMouseTrackingMode = MagnifierMouseTrackingModeEnum[Exclude<keyof MagnifierMouseTrackingModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            MagnifierMouseTrackingMode: MagnifierMouseTrackingModeEnum
-        }
-        
-        interface MagnifierScreenPositionEnum {
-            readonly $gtype: GObject.GType<MagnifierScreenPosition>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "FULL_SCREEN": 1
-            /**
-             */
-            readonly "TOP_HALF": 2
-            /**
-             */
-            readonly "BOTTOM_HALF": 3
-            /**
-             */
-            readonly "LEFT_HALF": 4
-            /**
-             */
-            readonly "RIGHT_HALF": 5
-        }
-        type MagnifierScreenPosition = MagnifierScreenPositionEnum[Exclude<keyof MagnifierScreenPositionEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            MagnifierScreenPosition: MagnifierScreenPositionEnum
-        }
-        
-        interface MouseDwellDirectionEnum {
-            readonly $gtype: GObject.GType<MouseDwellDirection>
-            /**
-             */
-            readonly "LEFT": 0
-            /**
-             */
-            readonly "RIGHT": 1
-            /**
-             */
-            readonly "UP": 2
-            /**
-             */
-            readonly "DOWN": 3
-        }
-        type MouseDwellDirection = MouseDwellDirectionEnum[Exclude<keyof MouseDwellDirectionEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            MouseDwellDirection: MouseDwellDirectionEnum
-        }
-        
-        interface MouseDwellModeEnum {
-            readonly $gtype: GObject.GType<MouseDwellMode>
-            /**
-             */
-            readonly "WINDOW": 0
-            /**
-             */
-            readonly "GESTURE": 1
-        }
-        type MouseDwellMode = MouseDwellModeEnum[Exclude<keyof MouseDwellModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            MouseDwellMode: MouseDwellModeEnum
-        }
-        
-        interface PadButtonActionEnum {
-            readonly $gtype: GObject.GType<PadButtonAction>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "HELP": 1
-            /**
-             */
-            readonly "SWITCH_MONITOR": 2
-            /**
-             */
-            readonly "KEYBINDING": 3
-        }
-        type PadButtonAction = PadButtonActionEnum[Exclude<keyof PadButtonActionEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            PadButtonAction: PadButtonActionEnum
-        }
-        
-        interface PointerAccelProfileEnum {
-            readonly $gtype: GObject.GType<PointerAccelProfile>
-            /**
-             */
-            readonly "DEFAULT": 0
-            /**
-             */
-            readonly "FLAT": 1
-            /**
-             */
-            readonly "ADAPTIVE": 2
-        }
-        type PointerAccelProfile = PointerAccelProfileEnum[Exclude<keyof PointerAccelProfileEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            PointerAccelProfile: PointerAccelProfileEnum
-        }
-        
-        interface PointingStickScrollMethodEnum {
-            readonly $gtype: GObject.GType<PointingStickScrollMethod>
-            /**
-             */
-            readonly "DEFAULT": 0
-            /**
-             */
-            readonly "NONE": 1
-            /**
-             */
-            readonly "ON_BUTTON_DOWN": 2
-        }
-        type PointingStickScrollMethod = PointingStickScrollMethodEnum[Exclude<keyof PointingStickScrollMethodEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            PointingStickScrollMethod: PointingStickScrollMethodEnum
-        }
-        
-        interface ProxyModeEnum {
-            readonly $gtype: GObject.GType<ProxyMode>
-            /**
-             */
-            readonly "NONE": 0
-            /**
-             */
-            readonly "MANUAL": 1
-            /**
-             */
-            readonly "AUTO": 2
-        }
-        type ProxyMode = ProxyModeEnum[Exclude<keyof ProxyModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ProxyMode: ProxyModeEnum
-        }
-        
-        interface ReducedMotionEnum {
-            readonly $gtype: GObject.GType<ReducedMotion>
-            /**
-             */
-            readonly "NO_PREFERENCE": 0
-            /**
-             */
-            readonly "REDUCE": 1
-        }
-        type ReducedMotion = ReducedMotionEnum[Exclude<keyof ReducedMotionEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ReducedMotion: ReducedMotionEnum
-        }
-        
-        interface ScreensaverModeEnum {
-            readonly $gtype: GObject.GType<ScreensaverMode>
-            /**
-             */
-            readonly "BLANK_ONLY": 0
-            /**
-             */
-            readonly "RANDOM": 1
-            /**
-             */
-            readonly "SINGLE": 2
-        }
-        type ScreensaverMode = ScreensaverModeEnum[Exclude<keyof ScreensaverModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ScreensaverMode: ScreensaverModeEnum
-        }
-        
-        interface StylusButtonActionEnum {
-            readonly $gtype: GObject.GType<StylusButtonAction>
-            /**
-             */
-            readonly "DEFAULT": 0
-            /**
-             */
-            readonly "MIDDLE": 1
-            /**
-             */
-            readonly "RIGHT": 2
-            /**
-             */
-            readonly "BACK": 3
-            /**
-             */
-            readonly "FORWARD": 4
-            /**
-             */
-            readonly "SWITCH_MONITOR": 5
-            /**
-             */
-            readonly "KEYBINDING": 6
-        }
-        type StylusButtonAction = StylusButtonActionEnum[Exclude<keyof StylusButtonActionEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            StylusButtonAction: StylusButtonActionEnum
-        }
-        
-        interface StylusEraserButtonModeEnum {
-            readonly $gtype: GObject.GType<StylusEraserButtonMode>
-            /**
-             */
-            readonly "DEFAULT": 0
-            /**
-             */
-            readonly "BUTTON": 1
-        }
-        type StylusEraserButtonMode = StylusEraserButtonModeEnum[Exclude<keyof StylusEraserButtonModeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            StylusEraserButtonMode: StylusEraserButtonModeEnum
-        }
-        
-        interface TabletMappingEnum {
-            readonly $gtype: GObject.GType<TabletMapping>
-            /**
-             */
-            readonly "ABSOLUTE": 0
-            /**
-             */
-            readonly "RELATIVE": 1
-        }
-        type TabletMapping = TabletMappingEnum[Exclude<keyof TabletMappingEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            TabletMapping: TabletMappingEnum
-        }
-        
-        interface TitlebarActionEnum {
-            readonly $gtype: GObject.GType<TitlebarAction>
-            /**
-             */
-            readonly "TOGGLE_SHADE": 0
-            /**
-             */
-            readonly "TOGGLE_MAXIMIZE": 1
-            /**
-             */
-            readonly "TOGGLE_MAXIMIZE_HORIZONTALLY": 2
-            /**
-             */
-            readonly "TOGGLE_MAXIMIZE_VERTICALLY": 3
-            /**
-             */
-            readonly "MINIMIZE": 4
-            /**
-             */
-            readonly "NONE": 5
-            /**
-             */
-            readonly "LOWER": 6
-            /**
-             */
-            readonly "MENU": 7
-        }
-        type TitlebarAction = TitlebarActionEnum[Exclude<keyof TitlebarActionEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            TitlebarAction: TitlebarActionEnum
-        }
-        
-        interface ToolbarIconSizeEnum {
-            readonly $gtype: GObject.GType<ToolbarIconSize>
-            /**
-             */
-            readonly "SMALL": 0
-            /**
-             */
-            readonly "LARGE": 1
-        }
-        type ToolbarIconSize = ToolbarIconSizeEnum[Exclude<keyof ToolbarIconSizeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ToolbarIconSize: ToolbarIconSizeEnum
-        }
-        
-        interface ToolbarStyleEnum {
-            readonly $gtype: GObject.GType<ToolbarStyle>
-            /**
-             */
-            readonly "BOTH": 0
-            /**
-             */
-            readonly "BOTH_HORIZ": 1
-            /**
-             */
-            readonly "ICONS": 2
-            /**
-             */
-            readonly "TEXT": 3
-        }
-        type ToolbarStyle = ToolbarStyleEnum[Exclude<keyof ToolbarStyleEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            ToolbarStyle: ToolbarStyleEnum
-        }
-        
-        interface TouchpadClickMethodEnum {
-            readonly $gtype: GObject.GType<TouchpadClickMethod>
-            /**
-             */
-            readonly "DEFAULT": 0
-            /**
-             */
-            readonly "NONE": 1
-            /**
-             */
-            readonly "AREAS": 2
-            /**
-             */
-            readonly "FINGERS": 3
-        }
-        type TouchpadClickMethod = TouchpadClickMethodEnum[Exclude<keyof TouchpadClickMethodEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            TouchpadClickMethod: TouchpadClickMethodEnum
-        }
-        
-        interface TouchpadHandednessEnum {
-            readonly $gtype: GObject.GType<TouchpadHandedness>
-            /**
-             */
-            readonly "RIGHT": 0
-            /**
-             */
-            readonly "LEFT": 1
-            /**
-             */
-            readonly "MOUSE": 2
-        }
-        type TouchpadHandedness = TouchpadHandednessEnum[Exclude<keyof TouchpadHandednessEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            TouchpadHandedness: TouchpadHandednessEnum
-        }
-        
-        interface TouchpadTapButtonMapEnum {
-            readonly $gtype: GObject.GType<TouchpadTapButtonMap>
-            /**
-             */
-            readonly "DEFAULT": 0
-            /**
-             */
-            readonly "LRM": 1
-            /**
-             */
-            readonly "LMR": 2
-        }
-        type TouchpadTapButtonMap = TouchpadTapButtonMapEnum[Exclude<keyof TouchpadTapButtonMapEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            TouchpadTapButtonMap: TouchpadTapButtonMapEnum
-        }
-        
-        interface UsbProtectionEnum {
-            readonly $gtype: GObject.GType<UsbProtection>
-            /**
-             */
-            readonly "LOCKSCREEN": 0
-            /**
-             */
-            readonly "ALWAYS": 1
-        }
-        type UsbProtection = UsbProtectionEnum[Exclude<keyof UsbProtectionEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            UsbProtection: UsbProtectionEnum
-        }
-        
-        interface VisualBellTypeEnum {
-            readonly $gtype: GObject.GType<VisualBellType>
-            /**
-             */
-            readonly "FULLSCREEN_FLASH": 0
-            /**
-             */
-            readonly "FRAME_FLASH": 1
-        }
-        type VisualBellType = VisualBellTypeEnum[Exclude<keyof VisualBellTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            VisualBellType: VisualBellTypeEnum
-        }
-        
-        interface WeekdayEnum {
-            readonly $gtype: GObject.GType<Weekday>
-            /**
-             */
-            readonly "DEFAULT": 0
-            /**
-             */
-            readonly "MONDAY": 1
-            /**
-             */
-            readonly "TUESDAY": 2
-            /**
-             */
-            readonly "WEDNESDAY": 3
-            /**
-             */
-            readonly "THURSDAY": 4
-            /**
-             */
-            readonly "FRIDAY": 5
-            /**
-             */
-            readonly "SATURDAY": 6
-            /**
-             */
-            readonly "SUNDAY": 7
-        }
-        type Weekday = WeekdayEnum[Exclude<keyof WeekdayEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            Weekday: WeekdayEnum
+        namespace GDesktopEnums {
+            
+            interface AccentColorEnum {
+                readonly $gtype: GObject.GType<AccentColor>
+                /**
+                 */
+                readonly "BLUE": 0
+                /**
+                 */
+                readonly "TEAL": 1
+                /**
+                 */
+                readonly "GREEN": 2
+                /**
+                 */
+                readonly "YELLOW": 3
+                /**
+                 */
+                readonly "ORANGE": 4
+                /**
+                 */
+                readonly "RED": 5
+                /**
+                 */
+                readonly "PINK": 6
+                /**
+                 */
+                readonly "PURPLE": 7
+                /**
+                 */
+                readonly "SLATE": 8
+            }
+            type AccentColor = AccentColorEnum[Exclude<keyof AccentColorEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                AccentColor: AccentColorEnum
+            }
+            
+            interface BackgroundShadingEnum {
+                readonly $gtype: GObject.GType<BackgroundShading>
+                /**
+                 */
+                readonly "SOLID": 0
+                /**
+                 */
+                readonly "VERTICAL": 1
+                /**
+                 */
+                readonly "HORIZONTAL": 2
+            }
+            type BackgroundShading = BackgroundShadingEnum[Exclude<keyof BackgroundShadingEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                BackgroundShading: BackgroundShadingEnum
+            }
+            
+            interface BackgroundStyleEnum {
+                readonly $gtype: GObject.GType<BackgroundStyle>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "WALLPAPER": 1
+                /**
+                 */
+                readonly "CENTERED": 2
+                /**
+                 */
+                readonly "SCALED": 3
+                /**
+                 */
+                readonly "STRETCHED": 4
+                /**
+                 */
+                readonly "ZOOM": 5
+                /**
+                 */
+                readonly "SPANNED": 6
+            }
+            type BackgroundStyle = BackgroundStyleEnum[Exclude<keyof BackgroundStyleEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                BackgroundStyle: BackgroundStyleEnum
+            }
+            
+            interface ClockFormatEnum {
+                readonly $gtype: GObject.GType<ClockFormat>
+                /**
+                 */
+                readonly "24H": 0
+                /**
+                 */
+                readonly "12H": 1
+            }
+            type ClockFormat = ClockFormatEnum[Exclude<keyof ClockFormatEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ClockFormat: ClockFormatEnum
+            }
+            
+            interface ColorSchemeEnum {
+                readonly $gtype: GObject.GType<ColorScheme>
+                /**
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 */
+                readonly "PREFER_DARK": 1
+                /**
+                 */
+                readonly "PREFER_LIGHT": 2
+            }
+            type ColorScheme = ColorSchemeEnum[Exclude<keyof ColorSchemeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ColorScheme: ColorSchemeEnum
+            }
+            
+            interface DeviceSendEventsEnum {
+                readonly $gtype: GObject.GType<DeviceSendEvents>
+                /**
+                 */
+                readonly "ENABLED": 0
+                /**
+                 */
+                readonly "DISABLED": 1
+                /**
+                 */
+                readonly "DISABLED_ON_EXTERNAL_MOUSE": 2
+            }
+            type DeviceSendEvents = DeviceSendEventsEnum[Exclude<keyof DeviceSendEventsEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                DeviceSendEvents: DeviceSendEventsEnum
+            }
+            
+            interface FocusModeEnum {
+                readonly $gtype: GObject.GType<FocusMode>
+                /**
+                 */
+                readonly "CLICK": 0
+                /**
+                 */
+                readonly "SLOPPY": 1
+                /**
+                 */
+                readonly "MOUSE": 2
+            }
+            type FocusMode = FocusModeEnum[Exclude<keyof FocusModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                FocusMode: FocusModeEnum
+            }
+            
+            interface FocusNewWindowsEnum {
+                readonly $gtype: GObject.GType<FocusNewWindows>
+                /**
+                 */
+                readonly "SMART": 0
+                /**
+                 */
+                readonly "STRICT": 1
+            }
+            type FocusNewWindows = FocusNewWindowsEnum[Exclude<keyof FocusNewWindowsEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                FocusNewWindows: FocusNewWindowsEnum
+            }
+            
+            interface FontAntialiasingModeEnum {
+                readonly $gtype: GObject.GType<FontAntialiasingMode>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "GRAYSCALE": 1
+                /**
+                 */
+                readonly "RGBA": 2
+            }
+            type FontAntialiasingMode = FontAntialiasingModeEnum[Exclude<keyof FontAntialiasingModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                FontAntialiasingMode: FontAntialiasingModeEnum
+            }
+            
+            interface FontHintingEnum {
+                readonly $gtype: GObject.GType<FontHinting>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "SLIGHT": 1
+                /**
+                 */
+                readonly "MEDIUM": 2
+                /**
+                 */
+                readonly "FULL": 3
+            }
+            type FontHinting = FontHintingEnum[Exclude<keyof FontHintingEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                FontHinting: FontHintingEnum
+            }
+            
+            interface FontRenderingEnum {
+                readonly $gtype: GObject.GType<FontRendering>
+                /**
+                 */
+                readonly "AUTOMATIC": 0
+                /**
+                 */
+                readonly "MANUAL": 1
+            }
+            type FontRendering = FontRenderingEnum[Exclude<keyof FontRenderingEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                FontRendering: FontRenderingEnum
+            }
+            
+            interface FontRgbaOrderEnum {
+                readonly $gtype: GObject.GType<FontRgbaOrder>
+                /**
+                 */
+                readonly "RGBA": 0
+                /**
+                 */
+                readonly "RGB": 1
+                /**
+                 */
+                readonly "BGR": 2
+                /**
+                 */
+                readonly "VRGB": 3
+                /**
+                 */
+                readonly "VBGR": 4
+            }
+            type FontRgbaOrder = FontRgbaOrderEnum[Exclude<keyof FontRgbaOrderEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                FontRgbaOrder: FontRgbaOrderEnum
+            }
+            
+            interface LocationAccuracyLevelEnum {
+                readonly $gtype: GObject.GType<LocationAccuracyLevel>
+                /**
+                 */
+                readonly "COUNTRY": 0
+                /**
+                 */
+                readonly "CITY": 1
+                /**
+                 */
+                readonly "NEIGHBORHOOD": 2
+                /**
+                 */
+                readonly "STREET": 3
+                /**
+                 */
+                readonly "EXACT": 4
+            }
+            type LocationAccuracyLevel = LocationAccuracyLevelEnum[Exclude<keyof LocationAccuracyLevelEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                LocationAccuracyLevel: LocationAccuracyLevelEnum
+            }
+            
+            interface MagnifierCaretTrackingModeEnum {
+                readonly $gtype: GObject.GType<MagnifierCaretTrackingMode>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "CENTERED": 1
+                /**
+                 */
+                readonly "PROPORTIONAL": 2
+                /**
+                 */
+                readonly "PUSH": 3
+            }
+            type MagnifierCaretTrackingMode = MagnifierCaretTrackingModeEnum[Exclude<keyof MagnifierCaretTrackingModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                MagnifierCaretTrackingMode: MagnifierCaretTrackingModeEnum
+            }
+            
+            interface MagnifierFocusTrackingModeEnum {
+                readonly $gtype: GObject.GType<MagnifierFocusTrackingMode>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "CENTERED": 1
+                /**
+                 */
+                readonly "PROPORTIONAL": 2
+                /**
+                 */
+                readonly "PUSH": 3
+            }
+            type MagnifierFocusTrackingMode = MagnifierFocusTrackingModeEnum[Exclude<keyof MagnifierFocusTrackingModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                MagnifierFocusTrackingMode: MagnifierFocusTrackingModeEnum
+            }
+            
+            interface MagnifierMouseTrackingModeEnum {
+                readonly $gtype: GObject.GType<MagnifierMouseTrackingMode>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "CENTERED": 1
+                /**
+                 */
+                readonly "PROPORTIONAL": 2
+                /**
+                 */
+                readonly "PUSH": 3
+            }
+            type MagnifierMouseTrackingMode = MagnifierMouseTrackingModeEnum[Exclude<keyof MagnifierMouseTrackingModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                MagnifierMouseTrackingMode: MagnifierMouseTrackingModeEnum
+            }
+            
+            interface MagnifierScreenPositionEnum {
+                readonly $gtype: GObject.GType<MagnifierScreenPosition>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "FULL_SCREEN": 1
+                /**
+                 */
+                readonly "TOP_HALF": 2
+                /**
+                 */
+                readonly "BOTTOM_HALF": 3
+                /**
+                 */
+                readonly "LEFT_HALF": 4
+                /**
+                 */
+                readonly "RIGHT_HALF": 5
+            }
+            type MagnifierScreenPosition = MagnifierScreenPositionEnum[Exclude<keyof MagnifierScreenPositionEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                MagnifierScreenPosition: MagnifierScreenPositionEnum
+            }
+            
+            interface MouseDwellDirectionEnum {
+                readonly $gtype: GObject.GType<MouseDwellDirection>
+                /**
+                 */
+                readonly "LEFT": 0
+                /**
+                 */
+                readonly "RIGHT": 1
+                /**
+                 */
+                readonly "UP": 2
+                /**
+                 */
+                readonly "DOWN": 3
+            }
+            type MouseDwellDirection = MouseDwellDirectionEnum[Exclude<keyof MouseDwellDirectionEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                MouseDwellDirection: MouseDwellDirectionEnum
+            }
+            
+            interface MouseDwellModeEnum {
+                readonly $gtype: GObject.GType<MouseDwellMode>
+                /**
+                 */
+                readonly "WINDOW": 0
+                /**
+                 */
+                readonly "GESTURE": 1
+            }
+            type MouseDwellMode = MouseDwellModeEnum[Exclude<keyof MouseDwellModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                MouseDwellMode: MouseDwellModeEnum
+            }
+            
+            interface PadButtonActionEnum {
+                readonly $gtype: GObject.GType<PadButtonAction>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "HELP": 1
+                /**
+                 */
+                readonly "SWITCH_MONITOR": 2
+                /**
+                 */
+                readonly "KEYBINDING": 3
+            }
+            type PadButtonAction = PadButtonActionEnum[Exclude<keyof PadButtonActionEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                PadButtonAction: PadButtonActionEnum
+            }
+            
+            interface PointerAccelProfileEnum {
+                readonly $gtype: GObject.GType<PointerAccelProfile>
+                /**
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 */
+                readonly "FLAT": 1
+                /**
+                 */
+                readonly "ADAPTIVE": 2
+            }
+            type PointerAccelProfile = PointerAccelProfileEnum[Exclude<keyof PointerAccelProfileEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                PointerAccelProfile: PointerAccelProfileEnum
+            }
+            
+            interface PointingStickScrollMethodEnum {
+                readonly $gtype: GObject.GType<PointingStickScrollMethod>
+                /**
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 */
+                readonly "NONE": 1
+                /**
+                 */
+                readonly "ON_BUTTON_DOWN": 2
+            }
+            type PointingStickScrollMethod = PointingStickScrollMethodEnum[Exclude<keyof PointingStickScrollMethodEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                PointingStickScrollMethod: PointingStickScrollMethodEnum
+            }
+            
+            interface ProxyModeEnum {
+                readonly $gtype: GObject.GType<ProxyMode>
+                /**
+                 */
+                readonly "NONE": 0
+                /**
+                 */
+                readonly "MANUAL": 1
+                /**
+                 */
+                readonly "AUTO": 2
+            }
+            type ProxyMode = ProxyModeEnum[Exclude<keyof ProxyModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ProxyMode: ProxyModeEnum
+            }
+            
+            interface ReducedMotionEnum {
+                readonly $gtype: GObject.GType<ReducedMotion>
+                /**
+                 */
+                readonly "NO_PREFERENCE": 0
+                /**
+                 */
+                readonly "REDUCE": 1
+            }
+            type ReducedMotion = ReducedMotionEnum[Exclude<keyof ReducedMotionEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ReducedMotion: ReducedMotionEnum
+            }
+            
+            interface ScreensaverModeEnum {
+                readonly $gtype: GObject.GType<ScreensaverMode>
+                /**
+                 */
+                readonly "BLANK_ONLY": 0
+                /**
+                 */
+                readonly "RANDOM": 1
+                /**
+                 */
+                readonly "SINGLE": 2
+            }
+            type ScreensaverMode = ScreensaverModeEnum[Exclude<keyof ScreensaverModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ScreensaverMode: ScreensaverModeEnum
+            }
+            
+            interface StylusButtonActionEnum {
+                readonly $gtype: GObject.GType<StylusButtonAction>
+                /**
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 */
+                readonly "MIDDLE": 1
+                /**
+                 */
+                readonly "RIGHT": 2
+                /**
+                 */
+                readonly "BACK": 3
+                /**
+                 */
+                readonly "FORWARD": 4
+                /**
+                 */
+                readonly "SWITCH_MONITOR": 5
+                /**
+                 */
+                readonly "KEYBINDING": 6
+            }
+            type StylusButtonAction = StylusButtonActionEnum[Exclude<keyof StylusButtonActionEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                StylusButtonAction: StylusButtonActionEnum
+            }
+            
+            interface StylusEraserButtonModeEnum {
+                readonly $gtype: GObject.GType<StylusEraserButtonMode>
+                /**
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 */
+                readonly "BUTTON": 1
+            }
+            type StylusEraserButtonMode = StylusEraserButtonModeEnum[Exclude<keyof StylusEraserButtonModeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                StylusEraserButtonMode: StylusEraserButtonModeEnum
+            }
+            
+            interface TabletMappingEnum {
+                readonly $gtype: GObject.GType<TabletMapping>
+                /**
+                 */
+                readonly "ABSOLUTE": 0
+                /**
+                 */
+                readonly "RELATIVE": 1
+            }
+            type TabletMapping = TabletMappingEnum[Exclude<keyof TabletMappingEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                TabletMapping: TabletMappingEnum
+            }
+            
+            interface TitlebarActionEnum {
+                readonly $gtype: GObject.GType<TitlebarAction>
+                /**
+                 */
+                readonly "TOGGLE_SHADE": 0
+                /**
+                 */
+                readonly "TOGGLE_MAXIMIZE": 1
+                /**
+                 */
+                readonly "TOGGLE_MAXIMIZE_HORIZONTALLY": 2
+                /**
+                 */
+                readonly "TOGGLE_MAXIMIZE_VERTICALLY": 3
+                /**
+                 */
+                readonly "MINIMIZE": 4
+                /**
+                 */
+                readonly "NONE": 5
+                /**
+                 */
+                readonly "LOWER": 6
+                /**
+                 */
+                readonly "MENU": 7
+            }
+            type TitlebarAction = TitlebarActionEnum[Exclude<keyof TitlebarActionEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                TitlebarAction: TitlebarActionEnum
+            }
+            
+            interface ToolbarIconSizeEnum {
+                readonly $gtype: GObject.GType<ToolbarIconSize>
+                /**
+                 */
+                readonly "SMALL": 0
+                /**
+                 */
+                readonly "LARGE": 1
+            }
+            type ToolbarIconSize = ToolbarIconSizeEnum[Exclude<keyof ToolbarIconSizeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ToolbarIconSize: ToolbarIconSizeEnum
+            }
+            
+            interface ToolbarStyleEnum {
+                readonly $gtype: GObject.GType<ToolbarStyle>
+                /**
+                 */
+                readonly "BOTH": 0
+                /**
+                 */
+                readonly "BOTH_HORIZ": 1
+                /**
+                 */
+                readonly "ICONS": 2
+                /**
+                 */
+                readonly "TEXT": 3
+            }
+            type ToolbarStyle = ToolbarStyleEnum[Exclude<keyof ToolbarStyleEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                ToolbarStyle: ToolbarStyleEnum
+            }
+            
+            interface TouchpadClickMethodEnum {
+                readonly $gtype: GObject.GType<TouchpadClickMethod>
+                /**
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 */
+                readonly "NONE": 1
+                /**
+                 */
+                readonly "AREAS": 2
+                /**
+                 */
+                readonly "FINGERS": 3
+            }
+            type TouchpadClickMethod = TouchpadClickMethodEnum[Exclude<keyof TouchpadClickMethodEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                TouchpadClickMethod: TouchpadClickMethodEnum
+            }
+            
+            interface TouchpadHandednessEnum {
+                readonly $gtype: GObject.GType<TouchpadHandedness>
+                /**
+                 */
+                readonly "RIGHT": 0
+                /**
+                 */
+                readonly "LEFT": 1
+                /**
+                 */
+                readonly "MOUSE": 2
+            }
+            type TouchpadHandedness = TouchpadHandednessEnum[Exclude<keyof TouchpadHandednessEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                TouchpadHandedness: TouchpadHandednessEnum
+            }
+            
+            interface TouchpadTapButtonMapEnum {
+                readonly $gtype: GObject.GType<TouchpadTapButtonMap>
+                /**
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 */
+                readonly "LRM": 1
+                /**
+                 */
+                readonly "LMR": 2
+            }
+            type TouchpadTapButtonMap = TouchpadTapButtonMapEnum[Exclude<keyof TouchpadTapButtonMapEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                TouchpadTapButtonMap: TouchpadTapButtonMapEnum
+            }
+            
+            interface UsbProtectionEnum {
+                readonly $gtype: GObject.GType<UsbProtection>
+                /**
+                 */
+                readonly "LOCKSCREEN": 0
+                /**
+                 */
+                readonly "ALWAYS": 1
+            }
+            type UsbProtection = UsbProtectionEnum[Exclude<keyof UsbProtectionEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                UsbProtection: UsbProtectionEnum
+            }
+            
+            interface VisualBellTypeEnum {
+                readonly $gtype: GObject.GType<VisualBellType>
+                /**
+                 */
+                readonly "FULLSCREEN_FLASH": 0
+                /**
+                 */
+                readonly "FRAME_FLASH": 1
+            }
+            type VisualBellType = VisualBellTypeEnum[Exclude<keyof VisualBellTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                VisualBellType: VisualBellTypeEnum
+            }
+            
+            interface WeekdayEnum {
+                readonly $gtype: GObject.GType<Weekday>
+                /**
+                 */
+                readonly "DEFAULT": 0
+                /**
+                 */
+                readonly "MONDAY": 1
+                /**
+                 */
+                readonly "TUESDAY": 2
+                /**
+                 */
+                readonly "WEDNESDAY": 3
+                /**
+                 */
+                readonly "THURSDAY": 4
+                /**
+                 */
+                readonly "FRIDAY": 5
+                /**
+                 */
+                readonly "SATURDAY": 6
+                /**
+                 */
+                readonly "SUNDAY": 7
+            }
+            type Weekday = WeekdayEnum[Exclude<keyof WeekdayEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                Weekday: WeekdayEnum
+            }
+
+            interface $Exports {
+                __name__: "GDesktopEnums"
+                __version__: "3.0"
+            }
         }
 
-        interface $Exports {
-            __name__: "GDesktopEnums"
-            __version: "3.0"
-        }
+        const GDesktopEnums: GDesktopEnums.$Exports
     }
 
-    const GDesktopEnums: GDesktopEnums.$Exports
-    export default GDesktopEnums
+    export default GI.GDesktopEnums
 }

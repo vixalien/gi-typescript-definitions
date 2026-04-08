@@ -10,100 +10,112 @@ declare module "gi://DBus?version=1.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type GLib from "gi://GLib?version=2.0"
 
-    
-
-    namespace DBus {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface ConnectionStruct {
-            readonly $gtype: GObject.GType<Connection>
-            [Symbol.hasInstance](instance: unknown): instance is Connection
+        namespace DBus {
+            
+
+            interface ConnectionStruct {
+                readonly $gtype: GObject.GType<Connection>
+                new (fields?: {
+                }): Connection
+            }
+
+            interface Connection {
+            }
+
+            interface $Exports {
+                Connection: ConnectionStruct
+            }
+            
+
+            interface ErrorStruct {
+                readonly $gtype: GObject.GType<Error>
+                new (fields?: {
+                }): Error
+            }
+
+            interface Error {
+            }
+
+            interface $Exports {
+                Error: ErrorStruct
+            }
+            
+
+            interface MessageStruct {
+                readonly $gtype: GObject.GType<Message>
+                new (fields?: {
+                }): Message
+            }
+
+            interface Message {
+            }
+
+            interface $Exports {
+                Message: MessageStruct
+            }
+            
+
+            interface MessageIterStruct {
+                readonly $gtype: GObject.GType<MessageIter>
+                new (fields?: {
+                }): MessageIter
+            }
+
+            interface MessageIter {
+            }
+
+            interface $Exports {
+                MessageIter: MessageIterStruct
+            }
+            
+
+            interface PendingCallStruct {
+                readonly $gtype: GObject.GType<PendingCall>
+                new (fields?: {
+                }): PendingCall
+            }
+
+            interface PendingCall {
+            }
+
+            interface $Exports {
+                PendingCall: PendingCallStruct
+            }
+            
+            interface BusTypeEnum {
+                readonly $gtype: GObject.GType<BusType>
+                /**
+                 */
+                readonly "SESSION": 0
+                /**
+                 */
+                readonly "SYSTEM": 1
+                /**
+                 */
+                readonly "STARTER": 2
+            }
+            type BusType = BusTypeEnum[Exclude<keyof BusTypeEnum, "$gtype">]
+            interface $Exports {
+                /**
+                 */
+                BusType: BusTypeEnum
+            }
+
+            interface $Exports {
+                __name__: "DBus"
+                __version__: "1.0"
+            }
         }
 
-        interface Connection {
-        }
-
-        interface $Exports {
-            Connection: ConnectionStruct
-        }
-        
-
-        interface ErrorStruct {
-            readonly $gtype: GObject.GType<Error>
-            [Symbol.hasInstance](instance: unknown): instance is Error
-        }
-
-        interface Error {
-        }
-
-        interface $Exports {
-            Error: ErrorStruct
-        }
-        
-
-        interface MessageStruct {
-            readonly $gtype: GObject.GType<Message>
-            [Symbol.hasInstance](instance: unknown): instance is Message
-        }
-
-        interface Message {
-        }
-
-        interface $Exports {
-            Message: MessageStruct
-        }
-        
-
-        interface MessageIterStruct {
-            readonly $gtype: GObject.GType<MessageIter>
-            [Symbol.hasInstance](instance: unknown): instance is MessageIter
-        }
-
-        interface MessageIter {
-        }
-
-        interface $Exports {
-            MessageIter: MessageIterStruct
-        }
-        
-
-        interface PendingCallStruct {
-            readonly $gtype: GObject.GType<PendingCall>
-            [Symbol.hasInstance](instance: unknown): instance is PendingCall
-        }
-
-        interface PendingCall {
-        }
-
-        interface $Exports {
-            PendingCall: PendingCallStruct
-        }
-        
-        interface BusTypeEnum {
-            readonly $gtype: GObject.GType<BusType>
-            /**
-             */
-            readonly "SESSION": 0
-            /**
-             */
-            readonly "SYSTEM": 1
-            /**
-             */
-            readonly "STARTER": 2
-        }
-        type BusType = BusTypeEnum[Exclude<keyof BusTypeEnum, "$gtype">]
-        interface $Exports {
-            /**
-             */
-            BusType: BusTypeEnum
-        }
-
-        interface $Exports {
-            __name__: "DBus"
-            __version: "1.0"
-        }
+        const DBus: DBus.$Exports
     }
 
-    const DBus: DBus.$Exports
-    export default DBus
+    export default GI.DBus
 }

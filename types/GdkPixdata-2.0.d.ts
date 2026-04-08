@@ -16,227 +16,240 @@ declare module "gi://GdkPixdata?version=2.0" {
     import type Gio from "gi://Gio?version=2.0"
     import type GdkPixbuf from "gi://GdkPixbuf?version=2.0"
 
-    
-
-    namespace GdkPixdata {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface PixdataStruct {
-            readonly $gtype: GObject.GType<Pixdata>
-            [Symbol.hasInstance](instance: unknown): instance is Pixdata
+        namespace GdkPixdata {
+            
+
+            interface PixdataStruct {
+                readonly $gtype: GObject.GType<Pixdata>
+                new (fields?: {
+                    magic?: number
+                    length?: number
+                    pixdata_type?: number
+                    rowstride?: number
+                    width?: number
+                    height?: number
+                    pixel_data?: Uint8Array
+                }): Pixdata
+            }
+
+            interface Pixdata {
+                /**
+                 * magic number. A valid `GdkPixdata` structure must have
+                 *   `GDK_PIXBUF_MAGIC_NUMBER` here
+                 */
+                magic: number
+                /**
+                 * less than 1 to disable length checks, otherwise
+                 *   `GDK_PIXDATA_HEADER_LENGTH` plus the length of `pixel_data`
+                 */
+                length: number
+                /**
+                 * information about colorspace, sample width and
+                 *   encoding, in a `GdkPixdataType`
+                 */
+                pixdata_type: number
+                /**
+                 * Distance in bytes between rows
+                 */
+                rowstride: number
+                /**
+                 * Width of the image in pixels
+                 */
+                width: number
+                /**
+                 * Height of the image in pixels
+                 */
+                height: number
+                /**
+                 * `width` x `height`
+                 *   pixels, encoded according to `pixdata_type` and `rowstride`
+                 */
+                pixel_data: Uint8Array
+                /**
+                 * Deserializes (reconstruct) a #GdkPixdata structure from a byte stream.
+                 *
+                 * The byte stream consists of a straightforward writeout of the
+                 * `GdkPixdata` fields in network byte order, plus the `pixel_data`
+                 * bytes the structure points to.
+                 *
+                 * The `pixdata` contents are reconstructed byte by byte and are checked
+                 * for validity.
+                 *
+                 * This function may fail with `GDK_PIXBUF_ERROR_CORRUPT_IMAGE`
+                 * or `GDK_PIXBUF_ERROR_UNKNOWN_TYPE`.
+                 * @throws {GLib.Error}
+                 * @deprecated since 2.32 Use `GResource` instead.
+                 * @param stream stream of bytes containing a   serialized #GdkPixdata structure.
+                 * @returns Upon successful deserialization `TRUE` is returned, `FALSE` otherwise.
+                 */
+                deserialize(stream: Uint8Array): boolean
+                /**
+                 * Serializes a #GdkPixdata structure into a byte stream.
+                 * The byte stream consists of a straightforward writeout of the
+                 * #GdkPixdata fields in network byte order, plus the `pixel_data`
+                 * bytes the structure points to.
+                 * @deprecated since 2.32 Use #GResource instead.
+                 * @returns A newly-allocated string containing the serialized #GdkPixdata structure.
+                 */
+                serialize(): Uint8Array
+                /**
+                 * Generates C source code suitable for compiling images directly
+                 * into programs.
+                 *
+                 * GdkPixbuf ships with a program called `gdk-pixbuf-csource`, which offers
+                 * a command line interface to this function.
+                 * @deprecated since 2.32 Use #GResource instead.
+                 * @param name used for naming generated data structures or macros
+                 * @param dump_type the kind of C source to be generated
+                 * @returns a newly-allocated string buffer containing   the C source form of `pixdata`.
+                 */
+                to_csource(name: string, dump_type: PixdataDumpType): GLib.String
+            }
+
+            interface $Exports {
+                Pixdata: PixdataStruct
+            }
+            
+            interface PixdataDumpTypeBitfield {
+                readonly $gtype: GObject.GType<PixdataDumpType>
+                /**
+                 * Generate pixbuf data stream (a single
+                 *    string containing a serialized #GdkPixdata structure in network byte
+                 *    order).
+                 */
+                readonly "PIXDATA_STREAM": 0
+                /**
+                 * Generate #GdkPixdata structure (needs
+                 *    the #GdkPixdata structure definition from gdk-pixdata.h).
+                 */
+                readonly "PIXDATA_STRUCT": 1
+                /**
+                 * Generate <function>*_ROWSTRIDE</function>,
+                 *    <function>*_WIDTH</function>, <function>*_HEIGHT</function>,
+                 *    <function>*_BYTES_PER_PIXEL</function> and
+                 *    <function>*_RLE_PIXEL_DATA</function> or <function>*_PIXEL_DATA</function>
+                 *    macro definitions for the image.
+                 */
+                readonly "MACROS": 2
+                /**
+                 * Generate GLib data types instead of
+                 *    standard C data types.
+                 */
+                readonly "GTYPES": 0
+                /**
+                 * Generate standard C data types instead of
+                 *    GLib data types.
+                 */
+                readonly "CTYPES": 256
+                /**
+                 * Generate static symbols.
+                 */
+                readonly "STATIC": 512
+                /**
+                 * Generate const symbols.
+                 */
+                readonly "CONST": 1024
+                /**
+                 * Provide a <function>*_RUN_LENGTH_DECODE(image_buf, rle_data, size, bpp)</function>
+                 *    macro definition  to  decode  run-length encoded image data.
+                 */
+                readonly "RLE_DECODER": 65536
+            }
+            type PixdataDumpType = number
+            interface $Exports {
+                /**
+                 * An enumeration which is used by gdk_pixdata_to_csource() to
+                 * determine the form of C source to be generated. The three values
+                 *  `GDK_PIXDATA_DUMP_PIXDATA_STREAM`, `GDK_PIXDATA_DUMP_PIXDATA_STRUCT`
+                 * and `GDK_PIXDATA_DUMP_MACROS` are mutually exclusive, as are
+                 *  `GDK_PIXBUF_DUMP_GTYPES` and `GDK_PIXBUF_DUMP_CTYPES`. The remaining
+                 * elements are optional flags that can be freely added.
+                 * @deprecated since 2.32
+                 */
+                PixdataDumpType: PixdataDumpTypeBitfield
+            }
+            
+            interface PixdataTypeBitfield {
+                readonly $gtype: GObject.GType<PixdataType>
+                /**
+                 * each pixel has red, green and blue samples.
+                 */
+                readonly "COLOR_TYPE_RGB": 1
+                /**
+                 * each pixel has red, green and blue samples
+                 *    and an alpha value.
+                 */
+                readonly "COLOR_TYPE_RGBA": 2
+                /**
+                 * mask for the colortype flags of the enum.
+                 */
+                readonly "COLOR_TYPE_MASK": 255
+                /**
+                 * each sample has 8 bits.
+                 */
+                readonly "SAMPLE_WIDTH_8": 65536
+                /**
+                 * mask for the sample width flags of the enum.
+                 */
+                readonly "SAMPLE_WIDTH_MASK": 983040
+                /**
+                 * the pixel data is in raw form.
+                 */
+                readonly "ENCODING_RAW": 16777216
+                /**
+                 * the pixel data is run-length encoded. Runs may
+                 *    be up to 127 bytes long; their length is stored in a single byte
+                 *    preceding the pixel data for the run. If a run is constant, its length
+                 *    byte has the high bit set and the pixel data consists of a single pixel
+                 *    which must be repeated.
+                 */
+                readonly "ENCODING_RLE": 33554432
+                /**
+                 * mask for the encoding flags of the enum.
+                 */
+                readonly "ENCODING_MASK": 251658240
+            }
+            type PixdataType = number
+            interface $Exports {
+                /**
+                 * An enumeration containing three sets of flags for a #GdkPixdata struct:
+                 * one for the used colorspace, one for the width of the samples and one
+                 * for the encoding of the pixel data.
+                 * @deprecated since 2.32
+                 */
+                PixdataType: PixdataTypeBitfield
+            }
+
+            interface $Exports {
+                __name__: "GdkPixdata"
+                __version__: "2.0"
+                PIXBUF_MAGIC_NUMBER: 1197763408
+                PIXDATA_HEADER_LENGTH: 24
+                /**
+                 * Converts a `GdkPixdata` to a `GdkPixbuf`.
+                 *
+                 * If `copy_pixels` is `TRUE` or if the pixel data is run-length-encoded,
+                 * the pixel data is copied into newly-allocated memory; otherwise it is
+                 * reused.
+                 * @throws {GLib.Error}
+                 * @deprecated since 2.32 Use `GResource` instead.
+                 * @param pixdata a #GdkPixdata to convert into a `GdkPixbuf`.
+                 * @param copy_pixels whether to copy raw pixel data; run-length encoded   pixel data is always copied.
+                 * @returns a new pixbuf
+                 */
+                pixbuf_from_pixdata(pixdata: Pixdata, copy_pixels: boolean): GdkPixbuf.Pixbuf
+            }
         }
 
-        interface Pixdata {
-            /**
-             * magic number. A valid `GdkPixdata` structure must have
-             *   `GDK_PIXBUF_MAGIC_NUMBER` here
-             */
-            magic: number
-            /**
-             * less than 1 to disable length checks, otherwise
-             *   `GDK_PIXDATA_HEADER_LENGTH` plus the length of `pixel_data`
-             */
-            length: number
-            /**
-             * information about colorspace, sample width and
-             *   encoding, in a `GdkPixdataType`
-             */
-            pixdata_type: number
-            /**
-             * Distance in bytes between rows
-             */
-            rowstride: number
-            /**
-             * Width of the image in pixels
-             */
-            width: number
-            /**
-             * Height of the image in pixels
-             */
-            height: number
-            /**
-             * `width` x `height`
-             *   pixels, encoded according to `pixdata_type` and `rowstride`
-             */
-            pixel_data: Uint8Array
-            /**
-             * Deserializes (reconstruct) a #GdkPixdata structure from a byte stream.
-             *
-             * The byte stream consists of a straightforward writeout of the
-             * `GdkPixdata` fields in network byte order, plus the `pixel_data`
-             * bytes the structure points to.
-             *
-             * The `pixdata` contents are reconstructed byte by byte and are checked
-             * for validity.
-             *
-             * This function may fail with `GDK_PIXBUF_ERROR_CORRUPT_IMAGE`
-             * or `GDK_PIXBUF_ERROR_UNKNOWN_TYPE`.
-             * @throws {GLib.Error}
-             * @deprecated since 2.32 Use `GResource` instead.
-             * @param stream stream of bytes containing a
-              serialized #GdkPixdata structure.
-             * @returns Upon successful deserialization `TRUE` is returned, `FALSE` otherwise.
-             */
-            deserialize(stream: Uint8Array): boolean
-            /**
-             * Serializes a #GdkPixdata structure into a byte stream.
-             * The byte stream consists of a straightforward writeout of the
-             * #GdkPixdata fields in network byte order, plus the @pixel_data
-             * bytes the structure points to.
-             * @deprecated since 2.32 Use #GResource instead.
-             * @returns A newly-allocated string containing the serialized #GdkPixdata structure.
-             */
-            serialize(): Uint8Array
-            /**
-             * Generates C source code suitable for compiling images directly
-             * into programs.
-             *
-             * GdkPixbuf ships with a program called `gdk-pixbuf-csource`, which offers
-             * a command line interface to this function.
-             * @deprecated since 2.32 Use #GResource instead.
-             * @param name used for naming generated data structures or macros
-             * @param dump_type the kind of C source to be generated
-             * @returns a newly-allocated string buffer containing   the C source form of `pixdata`.
-             */
-            to_csource(name: string, dump_type: PixdataDumpType): GLib.String
-        }
-
-        interface $Exports {
-            Pixdata: PixdataStruct
-        }
-        
-        interface PixdataDumpTypeBitfield {
-            readonly $gtype: GObject.GType<PixdataDumpType>
-            /**
-             * Generate pixbuf data stream (a single
-             *    string containing a serialized #GdkPixdata structure in network byte
-             *    order).
-             */
-            readonly "PIXDATA_STREAM": 0
-            /**
-             * Generate #GdkPixdata structure (needs
-             *    the #GdkPixdata structure definition from gdk-pixdata.h).
-             */
-            readonly "PIXDATA_STRUCT": 1
-            /**
-             * Generate <function>*_ROWSTRIDE</function>,
-             *    <function>*_WIDTH</function>, <function>*_HEIGHT</function>,
-             *    <function>*_BYTES_PER_PIXEL</function> and
-             *    <function>*_RLE_PIXEL_DATA</function> or <function>*_PIXEL_DATA</function>
-             *    macro definitions for the image.
-             */
-            readonly "MACROS": 2
-            /**
-             * Generate GLib data types instead of
-             *    standard C data types.
-             */
-            readonly "GTYPES": 0
-            /**
-             * Generate standard C data types instead of
-             *    GLib data types.
-             */
-            readonly "CTYPES": 256
-            /**
-             * Generate static symbols.
-             */
-            readonly "STATIC": 512
-            /**
-             * Generate const symbols.
-             */
-            readonly "CONST": 1024
-            /**
-             * Provide a <function>*_RUN_LENGTH_DECODE(image_buf, rle_data, size, bpp)</function>
-             *    macro definition  to  decode  run-length encoded image data.
-             */
-            readonly "RLE_DECODER": 65536
-        }
-        type PixdataDumpType = number
-        interface $Exports {
-            /**
-             * An enumeration which is used by gdk_pixdata_to_csource() to
-             * determine the form of C source to be generated. The three values
-             * @GDK_PIXDATA_DUMP_PIXDATA_STREAM, @GDK_PIXDATA_DUMP_PIXDATA_STRUCT
-             * and @GDK_PIXDATA_DUMP_MACROS are mutually exclusive, as are
-             * @GDK_PIXBUF_DUMP_GTYPES and @GDK_PIXBUF_DUMP_CTYPES. The remaining
-             * elements are optional flags that can be freely added.
-             * @deprecated since 2.32
-             */
-            PixdataDumpType: PixdataDumpTypeBitfield
-        }
-        
-        interface PixdataTypeBitfield {
-            readonly $gtype: GObject.GType<PixdataType>
-            /**
-             * each pixel has red, green and blue samples.
-             */
-            readonly "COLOR_TYPE_RGB": 1
-            /**
-             * each pixel has red, green and blue samples
-             *    and an alpha value.
-             */
-            readonly "COLOR_TYPE_RGBA": 2
-            /**
-             * mask for the colortype flags of the enum.
-             */
-            readonly "COLOR_TYPE_MASK": 255
-            /**
-             * each sample has 8 bits.
-             */
-            readonly "SAMPLE_WIDTH_8": 65536
-            /**
-             * mask for the sample width flags of the enum.
-             */
-            readonly "SAMPLE_WIDTH_MASK": 983040
-            /**
-             * the pixel data is in raw form.
-             */
-            readonly "ENCODING_RAW": 16777216
-            /**
-             * the pixel data is run-length encoded. Runs may
-             *    be up to 127 bytes long; their length is stored in a single byte
-             *    preceding the pixel data for the run. If a run is constant, its length
-             *    byte has the high bit set and the pixel data consists of a single pixel
-             *    which must be repeated.
-             */
-            readonly "ENCODING_RLE": 33554432
-            /**
-             * mask for the encoding flags of the enum.
-             */
-            readonly "ENCODING_MASK": 251658240
-        }
-        type PixdataType = number
-        interface $Exports {
-            /**
-             * An enumeration containing three sets of flags for a #GdkPixdata struct:
-             * one for the used colorspace, one for the width of the samples and one
-             * for the encoding of the pixel data.
-             * @deprecated since 2.32
-             */
-            PixdataType: PixdataTypeBitfield
-        }
-
-        interface $Exports {
-            __name__: "GdkPixdata"
-            __version: "2.0"
-            PIXBUF_MAGIC_NUMBER: 1197763408
-            PIXDATA_HEADER_LENGTH: 24
-            /**
-             * Converts a `GdkPixdata` to a `GdkPixbuf`.
-             *
-             * If `copy_pixels` is `TRUE` or if the pixel data is run-length-encoded,
-             * the pixel data is copied into newly-allocated memory; otherwise it is
-             * reused.
-             * @throws {GLib.Error}
-             * @deprecated since 2.32 Use `GResource` instead.
-             * @param pixdata a #GdkPixdata to convert into a `GdkPixbuf`.
-             * @param copy_pixels whether to copy raw pixel data; run-length encoded
-              pixel data is always copied.
-             * @returns a new pixbuf
-             */
-            pixbuf_from_pixdata(pixdata: Pixdata, copy_pixels: boolean): GdkPixbuf.Pixbuf
-        }
+        const GdkPixdata: GdkPixdata.$Exports
     }
 
-    const GdkPixdata: GdkPixdata.$Exports
-    export default GdkPixdata
+    export default GI.GdkPixdata
 }

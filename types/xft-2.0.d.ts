@@ -12,71 +12,82 @@ declare module "gi://xft?version=2.0" {
     import type GObject from "gi://GObject?version=2.0"
     import type GLib from "gi://GLib?version=2.0"
 
-    
-
-    namespace xft {
+    /**
+     * Do **not** import this at runtime.
+     * This namespace is only exported for module augmentation.
+     */
+    export namespace GI {
         
 
-        interface ColorStruct {
-            readonly $gtype: GObject.GType<Color>
-            [Symbol.hasInstance](instance: unknown): instance is Color
+        namespace xft {
+            
+
+            interface ColorStruct {
+                readonly $gtype: GObject.GType<Color>
+                new (fields?: {
+                }): Color
+            }
+
+            interface Color {
+            }
+
+            interface $Exports {
+                Color: ColorStruct
+            }
+            
+
+            interface DrawStruct {
+                readonly $gtype: GObject.GType<Draw>
+                new (fields?: {
+                }): Draw
+            }
+
+            interface Draw {
+            }
+
+            interface $Exports {
+                Draw: DrawStruct
+            }
+            
+
+            interface FontStruct {
+                readonly $gtype: GObject.GType<Font>
+                new (fields?: {
+                }): Font
+            }
+
+            interface Font {
+            }
+
+            interface $Exports {
+                Font: FontStruct
+            }
+            
+
+            interface GlyphSpecStruct {
+                readonly $gtype: GObject.GType<GlyphSpec>
+                new (fields?: {
+                }): GlyphSpec
+            }
+
+            interface GlyphSpec {
+            }
+
+            interface $Exports {
+                GlyphSpec: GlyphSpecStruct
+            }
+
+            interface $Exports {
+                __name__: "xft"
+                __version__: "2.0"
+                /**
+                 */
+                init(): void
+            }
         }
 
-        interface Color {
-        }
-
-        interface $Exports {
-            Color: ColorStruct
-        }
-        
-
-        interface DrawStruct {
-            readonly $gtype: GObject.GType<Draw>
-            [Symbol.hasInstance](instance: unknown): instance is Draw
-        }
-
-        interface Draw {
-        }
-
-        interface $Exports {
-            Draw: DrawStruct
-        }
-        
-
-        interface FontStruct {
-            readonly $gtype: GObject.GType<Font>
-            [Symbol.hasInstance](instance: unknown): instance is Font
-        }
-
-        interface Font {
-        }
-
-        interface $Exports {
-            Font: FontStruct
-        }
-        
-
-        interface GlyphSpecStruct {
-            readonly $gtype: GObject.GType<GlyphSpec>
-            [Symbol.hasInstance](instance: unknown): instance is GlyphSpec
-        }
-
-        interface GlyphSpec {
-        }
-
-        interface $Exports {
-            GlyphSpec: GlyphSpecStruct
-        }
-
-        interface $Exports {
-            __name__: "xft"
-            __version: "2.0"
-            /**
-             */
-            init(): void
-        }
+        const xft: xft.$Exports
     }
 
-    const xft: xft.$Exports
-    export default xft
+    export default GI.xft
 }
