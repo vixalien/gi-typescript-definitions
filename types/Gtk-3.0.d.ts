@@ -61985,7 +61985,7 @@ declare module "gi://Gtk?version=3.0" {
              * gdk_screen_height () - window_height)` (note that this
              * example does not take multi-head scenarios into account).
              *
-             * The [Extended Window Manager Hints Specification](http://www.freedesktop.org/Standards/wm-spec)
+             * The [Extended Window Manager Hints Specification](https://specifications.freedesktop.org/wm/latest/)
              * has a nice table of gravities in the “implementation notes” section.
              *
              * The gtk_window_get_position() documentation may also be relevant.
@@ -62498,7 +62498,7 @@ declare module "gi://Gtk?version=3.0" {
              * on #GtkWidget.
              *
              * Note that, according to the
-             * [Extended Window Manager Hints Specification](http://www.freedesktop.org/Standards/wm-spec),
+             * [Extended Window Manager Hints Specification](https://specifications.freedesktop.org/wm/latest/),
              * the above state is mainly meant for user preferences and should not
              * be used by applications e.g. for drawing attention to their
              * dialogs.
@@ -62523,7 +62523,7 @@ declare module "gi://Gtk?version=3.0" {
              * on #GtkWidget.
              *
              * Note that, according to the
-             * [Extended Window Manager Hints Specification](http://www.freedesktop.org/Standards/wm-spec),
+             * [Extended Window Manager Hints Specification](https://specifications.freedesktop.org/wm/latest/),
              * the above state is mainly meant for user preferences and should not
              * be used by applications e.g. for drawing attention to their
              * dialogs.
@@ -80514,7 +80514,7 @@ declare module "gi://Gtk?version=3.0" {
         interface $Exports {
             __name__: "Gtk"
             __version: "3.0"
-            BINARY_AGE: 2452
+            BINARY_AGE: 2453
             INPUT_ERROR: -1
             INTERFACE_AGE: 32
             LEVEL_BAR_OFFSET_FULL: "full"
@@ -80522,7 +80522,7 @@ declare module "gi://Gtk?version=3.0" {
             LEVEL_BAR_OFFSET_LOW: "low"
             MAJOR_VERSION: 3
             MAX_COMPOSE_LEN: 7
-            MICRO_VERSION: 52
+            MICRO_VERSION: 53
             MINOR_VERSION: 24
             PAPER_NAME_A3: "iso_a3"
             PAPER_NAME_A4: "iso_a4"

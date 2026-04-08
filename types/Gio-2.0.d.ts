@@ -6467,17 +6467,17 @@ declare module "gi://Gio?version=2.0" {
                 "g-connection": DBusConnection
                 "g-default-timeout": number
                 "g-flags": DBusProxyFlags
-                "g-interface-info": DBusInterfaceInfo
+                "g-interface-info": DBusInterfaceInfo | null
                 "g-interface-name": string
-                "g-name": string
-                "g-name-owner": string
+                "g-name": string | null
+                "g-name-owner": string | null
                 "g-object-path": string
             }
 
             interface WritableProperties extends GObject.Object.WritableProperties, AsyncInitable.WritableProperties, DBusInterface.WritableProperties, Initable.WritableProperties {
                 "g-default-timeout": number
-                "g-interface-info": DBusInterfaceInfo
-                "g-name-owner": string
+                "g-interface-info": DBusInterfaceInfo | null
+                "g-name-owner": string | null
             }
 
             interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, AsyncInitable.ConstructOnlyProperties, DBusInterface.ConstructOnlyProperties, Initable.ConstructOnlyProperties {
@@ -6485,7 +6485,7 @@ declare module "gi://Gio?version=2.0" {
                 "g-connection": DBusConnection
                 "g-flags": DBusProxyFlags
                 "g-interface-name": string
-                "g-name": string
+                "g-name": string | null
                 "g-object-path": string
             }
         }
@@ -6558,8 +6558,8 @@ declare module "gi://Gio?version=2.0" {
              * service-side is not considered an ABI break.
              * @since 2.26
              */
-            get gInterfaceInfo(): DBusInterfaceInfo
-            set gInterfaceInfo(value: DBusInterfaceInfo)
+            get gInterfaceInfo(): DBusInterfaceInfo | null
+            set gInterfaceInfo(value: DBusInterfaceInfo | null)
             /**
              * The D-Bus interface name the proxy is for.
              * @since 2.26
@@ -6572,8 +6572,8 @@ declare module "gi://Gio?version=2.0" {
              * @since 2.26
              * @default NULL
              */
-            get gName(): string
-            set gName(value: string)
+            get gName(): string | null
+            set gName(value: string | null)
             /**
              * The unique name that owns #GDBusProxy:g-name or %NULL if no-one
              * currently owns that name. You may connect to #GObject::notify signal to
@@ -6581,8 +6581,8 @@ declare module "gi://Gio?version=2.0" {
              * @since 2.26
              * @default NULL
              */
-            get gNameOwner(): string
-            set gNameOwner(value: string)
+            get gNameOwner(): string | null
+            set gNameOwner(value: string | null)
             /**
              * The object path the proxy is for.
              * @since 2.26
@@ -9052,6 +9052,11 @@ declare module "gi://Gio?version=2.0" {
             get_icon(): Icon | null
             /**
              * Checks if a file is a backup file.
+             *
+             * The exact semantics of what constitutes a backup file are
+             * backend-specific. For local files, a file is considered a backup
+             * if its name ends with `~` and it is a regular file. This follows
+             * the POSIX convention used by text editors such as Emacs.
              *
              * It is an error to call this if the #GFileInfo does not contain
              * %G_FILE_ATTRIBUTE_STANDARD_IS_BACKUP.

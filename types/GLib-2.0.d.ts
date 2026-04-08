@@ -7571,6 +7571,29 @@ declare module "gi://GLib?version=2.0" {
              */
             free(): void
             /**
+             * Retrieves the start and end positions of an attribute assignment
+             * in a start tag.
+             *
+             * This function can be used in the `start_element` callback to
+             * obtain location information for error reporting.
+             *
+             * Calling it outside of the `start_element` callback
+             * has undefined results.
+             *
+             * Note that @line_number and @char_number are intended for human
+             * readable error messages and are therefore 1-based and in Unicode
+             * characters. @offset on the other hand is meant for programmatic
+             * use, and thus is 0-based and in bytes.
+             *
+             * The information is meant to accompany the values returned by
+             * [method@GLib.MarkupParseContext.get_position], and comes with the
+             * same accuracy guarantees.
+             * @since 2.90
+             * @param attr the index of the attribute to query
+             * @returns , return location for the line number of the attribute assignment start, return location for the character number of the attribute assignment start, return location for offset of the attribute assignment, return location for the line number of the attribute assignment end, return location for the character number of the attribute assignment end, return location for offset of the attribute assignment end
+             */
+            get_attribute_position(attr: number): [number, number, number, number, number, number]
+            /**
              * Retrieves the name of the currently open element.
              *
              * If called from the start_element or end_element handlers this will
@@ -7620,6 +7643,8 @@ declare module "gi://GLib?version=2.0" {
              *
              * This function can be used in the `start_element` or `end_element`
              * callbacks to obtain location information for error reporting.
+             *
+             * Calling it outside of these callbacks has undefined results.
              *
              * Note that @line_number and @char_number are intended for human
              * readable error messages and are therefore 1-based and in Unicode
@@ -19545,12 +19570,12 @@ declare module "gi://GLib?version=2.0" {
             MAXUINT32: 4294967295
             MAXUINT64: 18446744073709551615
             MAXUINT8: 255
-            MICRO_VERSION: 3
+            MICRO_VERSION: 0
             MININT16: -32768
             MININT32: -2147483648
             MININT64: -9223372036854775808
             MININT8: -128
-            MINOR_VERSION: 87
+            MINOR_VERSION: 89
             MODULE_SUFFIX: "so"
             NSEC_PER_SEC: 1000000000
             OPTION_REMAINING: ""
@@ -23576,8 +23601,9 @@ declare module "gi://GLib?version=2.0" {
              *
              * There can only be one writer function. It is an error to set more than one.
              * @since 2.50
+             * @param func log writer function, which must not be `NULL`
              */
-            log_set_writer_func(): void
+            log_set_writer_func(func: LogWriterFunc): void
             /**
              * Log a message with structured data.
              *

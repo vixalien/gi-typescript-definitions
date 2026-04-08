@@ -67,7 +67,7 @@ declare module "gi://Gdk?version=4.0" {
              *
              * This only works when running under a window manager that
              * supports multiple workspaces, as described in the
-             * [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec).
+             * [Extended Window Manager Hints](https://specifications.freedesktop.org/wm/latest/).
              * Specifically this sets the `_NET_WM_DESKTOP` property described
              * in that spec.
              *
@@ -2704,7 +2704,7 @@ declare module "gi://Gdk?version=4.0" {
              */
             get_display(): Display
             /**
-             * Gets the file descriptor for a plane.
+             * Gets the file descriptor for a plane or -1 if none.
              * @since 4.14
              * @param plane the plane to get the fd for
              * @returns the file descriptor
@@ -2800,7 +2800,7 @@ declare module "gi://Gdk?version=4.0" {
              */
             set_display(display: Display): void
             /**
-             * Sets the file descriptor for a plane.
+             * Sets the file descriptor for a plane or to -1 to unset it.
              * @since 4.14
              * @param plane the plane to set the fd for
              * @param fd the file descriptor
@@ -2931,8 +2931,10 @@ declare module "gi://Gdk?version=4.0" {
              * multiple planes, by specifying offsets from the beginning of the data.
              *
              * DMA buffers are exposed to user-space as file descriptors allowing to pass them
-             * between processes. If a DMA buffer has multiple planes, there is one file
-             * descriptor per plane.
+             * between processes. If a DMA buffer has multiple planes, more than one file
+             * descriptor may be present, up to the number of planes. If the number of file
+             * descriptors is less than the number of planes, the remaining ones should be set to
+             * -1.
              *
              * The format of the data (for graphics data, essentially its colorspace) is described
              * by a 32-bit integer. These format identifiers are defined in the header file `drm_fourcc.h`
@@ -10167,10 +10169,59 @@ declare module "gi://Gdk?version=4.0" {
              */
             readonly "G16_B16_R16_444": 64
             /**
+             * 4 bytes per pixel
+             *
+             * Bits 31..30 contain the alpha channel, 29..20 red, 19..10 green
+             * and 9..0 blue.
+             *
+             * The color values are premultiplied with the alpha value.
+             * @since 4.24
+             */
+            readonly "ARGB2101010_PREMULTIPLIED": 65
+            /**
+             * 4 bytes per pixel
+             *
+             * Bits 31..30 contain the alpha channel, 29..20 red, 19..10 green
+             * and 9..0 blue.
+             * @since 4.24
+             */
+            readonly "ARGB2101010": 66
+            /**
+             * 4 bytes per pixel
+             *
+             * Bits 31..30 are padding, bits 29..20 contain red, 19..10 green
+             * and 9..0 blue.
+             *
+             * The format is opaque.
+             * @since 4.24
+             */
+            readonly "XRGB2101010": 67
+            /**
+             */
+            readonly "ABGR2101010_PREMULTIPLIED": 68
+            /**
+             * 4 bytes per pixel
+             *
+             * Bits 31..30 contain the alpha channel, 29..20 blue, 19..10 green
+             * and 9..0 red.
+             * @since 4.24
+             */
+            readonly "ABGR2101010": 69
+            /**
+             * 4 bytes per pixel
+             *
+             * Bits 31..30 are padding, bits 29..20 contain blue, 19..10 green
+             * and 9..0 red.
+             *
+             * The format is opaque.
+             * @since 4.24
+             */
+            readonly "XBGR2101010": 70
+            /**
              * The number of formats. This value will change as
              *   more formats get added, so do not rely on its concrete integer.
              */
-            readonly "N_FORMATS": 65
+            readonly "N_FORMATS": 71
         }
         type MemoryFormat = MemoryFormatEnum[Exclude<keyof MemoryFormatEnum, "$gtype">]
         interface $Exports {
@@ -10183,9 +10234,28 @@ declare module "gi://Gdk?version=4.0" {
              * `CAIRO_FORMAT_ARGB32` is represented by different `GdkMemoryFormats`
              * on architectures with different endiannesses.
              *
-             * Its naming is modelled after
-             * [VkFormat](https://www.khronos.org/registry/vulkan/specs/1.0/html/vkspec.html#VkFormat)
-             * for details).
+             * # A note on naming
+             *
+             * The format names are roughly modelled after
+             * [VkFormat](https://www.khronos.org/registry/vulkan/specs/1.0/html/vkspec.html#VkFormat).
+             * A name follows `GDK_MEMORY_<CHANNELS>_<DATA_TYPE>_<SUBSAMPLING> <PREMULTIPLIED>`
+             * where CHANNELS describe how the RGBA channels are layed out in memory, with an
+             * X denoting padding. DATA_TYPE is unsigned normalized integer if not present, or
+             * otherwise FLOAT. The optional SUBSAMPLING defines the subsampling method used.
+             * The optional ENDIAN term describes the endianness if it is not
+             * host-endian. Finally, an optional PREMULTIPLIED term indicates that the color
+             * channels are premultiplied with the alpha value, if it is omitted, the data is
+             * not premultiplied or there is no alpha channel.
+             *
+             * The CHANNELS are given as a list of planes seperated by underscores where
+             * each plane is split into multiple elements describing one or more bytes of memory.
+             * Each element is given as the list of channels folowed by the amount of bits taken
+             * up.
+             *
+             * So the fictional format `RGB565_A8_PREMULTIPLIED` would describe a format with 2
+             * planes where the first plane is an unsigned 16 bit integer containing the RGB
+             * channels with 5, 6, and 5 bits respectively while the 2nd plane contains the
+             * alpha channel as an unisnged 8bit integer.
              */
             MemoryFormat: MemoryFormatEnum
         }

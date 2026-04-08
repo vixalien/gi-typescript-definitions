@@ -5155,15 +5155,15 @@ declare module "gi://GObject?version=2.0" {
         interface SignalFlagsBitfield {
             readonly $gtype: GObject.GType<SignalFlags>
             /**
-             * Invoke the object method handler in the first emission stage.
+             * Invoke the default signal handler in the first emission stage
              */
             readonly "RUN_FIRST": 1
             /**
-             * Invoke the object method handler in the third emission stage.
+             * Invoke the default signal handler in the third emission stage
              */
             readonly "RUN_LAST": 2
             /**
-             * Invoke the object method handler in the last emission stage.
+             * Invoke the default signal handler in the last emission stage
              */
             readonly "RUN_CLEANUP": 4
             /**
@@ -5173,13 +5173,13 @@ declare module "gi://GObject?version=2.0" {
              */
             readonly "NO_RECURSE": 8
             /**
-             * This signal supports "::detail" appendices to the signal name
+             * This signal supports `::detail` appendices to the signal name
              *  upon handler connections and emissions.
              */
             readonly "DETAILED": 16
             /**
              * Action signals are signals that may freely be emitted on alive
-             *  objects from user code via g_signal_emit() and friends, without
+             *  objects from user code via [func@GObject.signal_emit] and friends, without
              *  the need of being embedded into extra code that performs pre or
              *  post emission adjustments on the object. They can also be thought
              *  of as object methods which can be called generically by
