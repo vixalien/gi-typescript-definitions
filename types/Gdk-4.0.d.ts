@@ -1555,6 +1555,8 @@ declare module "gi://Gdk?version=4.0" {
                  * Will be -1 if there is no valid active layout.
                  *
                  * This is only relevant for keyboard devices.
+                 *
+                 * Value changes from compositor events, connect to notify if needed.
                  * @since 4.18
                  * @default 0
                  */
@@ -1599,6 +1601,8 @@ declare module "gi://Gdk?version=4.0" {
                  * The names of the keyboard layouts of a `GdkDevice`.
                  *
                  * This is only relevant for keyboard devices.
+                 *
+                 * Value changes from compositor events, connect to notify if needed.
                  * @since 4.18
                  */
                 get layoutNames(): string[] | null

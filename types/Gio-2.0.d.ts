@@ -20761,7 +20761,7 @@ declare module "gi://Gio?version=2.0" {
                  * This can be useful if you want to do something unusual on it
                  * not supported by the #GSocketConnection APIs.
                  * @since 2.22
-                 * @returns a #GSocket or %NULL on error.
+                 * @returns the underlying socket
                  */
                 get_socket(): Socket
                 /**

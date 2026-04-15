@@ -93,7 +93,7 @@ import "./Json-1.0.d.ts"
 import "./Libproxy-1.0.d.ts"
 import "./Manette-0.2.d.ts"
 import "./Manette-1.d.ts"
-import "./Ministream-0.d.ts"
+import "./Ministream-1.d.ts"
 import "./Nice-0.1.d.ts"
 import "./Notify-0.7.d.ts"
 import "./Pango-1.0.d.ts"
@@ -112,6 +112,9 @@ import "./WebKit-6.0.d.ts"
 import "./WebKit2-4.1.d.ts"
 import "./WebKit2WebExtension-4.1.d.ts"
 import "./WebKitWebProcessExtension-6.0.d.ts"
+import "./Xdp-1.0.d.ts"
+import "./XdpGtk3-1.0.d.ts"
+import "./XdpGtk4-1.0.d.ts"
 import "./Xmlb-2.0.d.ts"
 import "./cairo-1.0.d.ts"
 import "./fontconfig-2.0.d.ts"
@@ -203,7 +206,7 @@ declare global {
         Json:| typeof import("gi://Json?version=1.0").default
         Libproxy:| typeof import("gi://Libproxy?version=1.0").default
         Manette:| typeof import("gi://Manette?version=0.2").default| typeof import("gi://Manette?version=1").default
-        Ministream:| typeof import("gi://Ministream?version=0").default
+        Ministream:| typeof import("gi://Ministream?version=1").default
         Nice:| typeof import("gi://Nice?version=0.1").default
         Notify:| typeof import("gi://Notify?version=0.7").default
         Pango:| typeof import("gi://Pango?version=1.0").default
@@ -222,6 +225,9 @@ declare global {
         WebKit2:| typeof import("gi://WebKit2?version=4.1").default
         WebKit2WebExtension:| typeof import("gi://WebKit2WebExtension?version=4.1").default
         WebKitWebProcessExtension:| typeof import("gi://WebKitWebProcessExtension?version=6.0").default
+        Xdp:| typeof import("gi://Xdp?version=1.0").default
+        XdpGtk3:| typeof import("gi://XdpGtk3?version=1.0").default
+        XdpGtk4:| typeof import("gi://XdpGtk4?version=1.0").default
         Xmlb:| typeof import("gi://Xmlb?version=2.0").default
         cairo:| typeof import("gi://cairo?version=1.0").default
         fontconfig:| typeof import("gi://fontconfig?version=2.0").default
@@ -398,8 +404,8 @@ interface Gi {
     require(namespace: "Manette", version: "0.2"): typeof import("gi://Manette?version=0.2").default
     require(namespace: "Manette", version: "1"): typeof import("gi://Manette?version=1").default
     require(namespace: "Manette"):| typeof import("gi://Manette?version=0.2").default| typeof import("gi://Manette?version=1").default
-    require(namespace: "Ministream", version: "0"): typeof import("gi://Ministream?version=0").default
-    require(namespace: "Ministream"):| typeof import("gi://Ministream?version=0").default
+    require(namespace: "Ministream", version: "1"): typeof import("gi://Ministream?version=1").default
+    require(namespace: "Ministream"):| typeof import("gi://Ministream?version=1").default
     require(namespace: "Nice", version: "0.1"): typeof import("gi://Nice?version=0.1").default
     require(namespace: "Nice"):| typeof import("gi://Nice?version=0.1").default
     require(namespace: "Notify", version: "0.7"): typeof import("gi://Notify?version=0.7").default
@@ -436,6 +442,12 @@ interface Gi {
     require(namespace: "WebKit2WebExtension"):| typeof import("gi://WebKit2WebExtension?version=4.1").default
     require(namespace: "WebKitWebProcessExtension", version: "6.0"): typeof import("gi://WebKitWebProcessExtension?version=6.0").default
     require(namespace: "WebKitWebProcessExtension"):| typeof import("gi://WebKitWebProcessExtension?version=6.0").default
+    require(namespace: "Xdp", version: "1.0"): typeof import("gi://Xdp?version=1.0").default
+    require(namespace: "Xdp"):| typeof import("gi://Xdp?version=1.0").default
+    require(namespace: "XdpGtk3", version: "1.0"): typeof import("gi://XdpGtk3?version=1.0").default
+    require(namespace: "XdpGtk3"):| typeof import("gi://XdpGtk3?version=1.0").default
+    require(namespace: "XdpGtk4", version: "1.0"): typeof import("gi://XdpGtk4?version=1.0").default
+    require(namespace: "XdpGtk4"):| typeof import("gi://XdpGtk4?version=1.0").default
     require(namespace: "Xmlb", version: "2.0"): typeof import("gi://Xmlb?version=2.0").default
     require(namespace: "Xmlb"):| typeof import("gi://Xmlb?version=2.0").default
     require(namespace: "cairo", version: "1.0"): typeof import("gi://cairo?version=1.0").default
