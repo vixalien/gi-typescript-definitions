@@ -17376,6 +17376,182 @@ declare module "gi://Gtk?version=4.0" {
             }
             
 
+            namespace EnumList {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.ListModel.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties, Gio.ListModel.ReadableProperties {
+                    "enum-type": GObject.GType
+                    "item-type": GObject.GType
+                    "n-items": number
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties, Gio.ListModel.WritableProperties {
+                    "item-type": GObject.GType
+                    "n-items": number
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.ListModel.ConstructOnlyProperties {
+                    "enum-type": GObject.GType
+                }
+            }
+
+            interface EnumList extends GObject.Object, Gio.ListModel {
+                readonly $signals: EnumList.SignalSignatures
+                readonly $readableProperties: EnumList.ReadableProperties
+                readonly $writableProperties: EnumList.WritableProperties
+                readonly $constructOnlyProperties: EnumList.ConstructOnlyProperties
+                /**
+                 * The type of the enum represented by the model.
+                 * @since 4.24
+                 */
+                get enumType(): GObject.GType
+                set enumType(value: GObject.GType)
+                /**
+                 * The type of the items. See {@link Gio.ListModel.get_item_type}.
+                 * @since 4.24
+                 */
+                get itemType(): GObject.GType
+                set itemType(value: GObject.GType)
+                /**
+                 * The number of items. See {@link Gio.ListModel.get_n_items}.
+                 * @since 4.24
+                 * @default 0
+                 */
+                get nItems(): number
+                set nItems(value: number)
+                /**
+                 * Finds the position of a given enum value in `self`.
+                 *
+                 * If the value is not found, {@link Gtk.INVALID_LIST_POSITION} is returned.
+                 * @since 4.24
+                 * @param value an enum value
+                 * @returns the position of the value
+                 */
+                find(value: number): number
+                /**
+                 * Gets the type of the enum represented by `self`.
+                 * @since 4.24
+                 * @returns the enum type
+                 */
+                get_enum_type(): GObject.GType
+            }
+
+            interface EnumListClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<EnumList>
+                readonly prototype: EnumList
+
+                new (props?: Partial<GObject.ConstructorProps<EnumList>>): EnumList
+                /**
+                 * Creates a new `GtkEnumList` for `enum_type`.
+                 * @since 4.24
+                 * @param enum_type the type of the enum to construct the model from
+                 * @returns the newly created `GtkEnumList`
+                 */
+                "new"(enum_type: (GObject.GType | { $gtype: GObject.GType })): EnumList
+            }
+
+            interface $Exports {
+                /**
+                 * A {@link Gio.ListModel} representing values of a given enum.
+                 *
+                 * `GtkEnumList` contains objects of type {@link Gtk.EnumListItem}.
+                 *
+                 * A simple way to use a `GtkEnumList` is to populate a {@link Gtk.DropDown}
+                 * widget using the short name (or "nick") of the values of an
+                 * enumeration type:
+                 *
+                 * ```c
+                 * choices = gtk_drop_down_new (G_LIST_MODEL (gtk_enum_list_new (type)),
+                 *                              gtk_property_expression_new (GTK_TYPE_ENUM_LIST_ITEM,
+                 *                                                           NULL,
+                 *                                                           "nick"));
+                 * ```
+                 * @since 4.24
+                 */
+                EnumList: EnumListClass
+            }
+            
+
+            namespace EnumListItem {
+                interface SignalSignatures extends GObject.Object.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties {
+                    "name": string
+                    "nick": string
+                    "value": number
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties {
+                    "name": string
+                    "nick": string
+                    "value": number
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties {
+                }
+            }
+
+            interface EnumListItem extends GObject.Object {
+                readonly $signals: EnumListItem.SignalSignatures
+                readonly $readableProperties: EnumListItem.ReadableProperties
+                readonly $writableProperties: EnumListItem.WritableProperties
+                readonly $constructOnlyProperties: EnumListItem.ConstructOnlyProperties
+                /**
+                 * The enum value name.
+                 * @since 4.24
+                 * @default NULL
+                 */
+                get name(): string
+                set name(value: string)
+                /**
+                 * The enum value nick.
+                 * @since 4.24
+                 * @default NULL
+                 */
+                get nick(): string
+                set nick(value: string)
+                /**
+                 * The enum value.
+                 * @since 4.24
+                 * @default 0
+                 */
+                get value(): number
+                set value(value: number)
+                /**
+                 * Gets the enum value name.
+                 * @returns the enum value name
+                 */
+                get_name(): string
+                /**
+                 * Gets the enum value nick.
+                 * @returns the enum value nick
+                 */
+                get_nick(): string
+                /**
+                 * Gets the enum value.
+                 * @returns the enum value
+                 */
+                get_value(): number
+            }
+
+            interface EnumListItemClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<EnumListItem>
+                readonly prototype: EnumListItem
+
+                new (props?: Partial<GObject.ConstructorProps<EnumListItem>>): EnumListItem
+            }
+
+            interface $Exports {
+                /**
+                 * `GtkEnumListItem` is the type of items in a {@link Gtk.EnumList}.
+                 * @since 4.24
+                 */
+                EnumListItem: EnumListItemClass
+            }
+            
+
             namespace EventController {
                 interface SignalSignatures extends GObject.Object.SignalSignatures {
                 }
@@ -49476,6 +49652,7 @@ declare module "gi://Gtk?version=4.0" {
                     "playing": boolean
                     "resource": string
                     "state": number
+                    "stylesheet": GLib.Bytes | null
                     "weight": number
                 }
 
@@ -49485,6 +49662,7 @@ declare module "gi://Gtk?version=4.0" {
                     "playing": boolean
                     "resource": string
                     "state": number
+                    "stylesheet": GLib.Bytes | null
                     "weight": number
                 }
 
@@ -49544,6 +49722,12 @@ declare module "gi://Gtk?version=4.0" {
                 get state(): number
                 set state(value: number)
                 /**
+                 * A CSS stylesheet to apply to the SVG.
+                 * @since 4.24
+                 */
+                get stylesheet(): GLib.Bytes | null
+                set stylesheet(value: GLib.Bytes | null)
+                /**
                  * If not set to -1, this value overrides the weight used
                  * when rendering the paintable.
                  * @since 4.22
@@ -49582,6 +49766,12 @@ declare module "gi://Gtk?version=4.0" {
                  */
                 get_state_names(): [string[] | null, number | null]
                 /**
+                 * Gets the CSS user stylesheet.
+                 * @since 4.24
+                 * @returns a `GBytes` with the CSS data
+                 */
+                get_stylesheet(): GLib.Bytes | null
+                /**
                  * Gets the value of the weight property.
                  * @since 4.22
                  * @returns the weight
@@ -49612,14 +49802,14 @@ declare module "gi://Gtk?version=4.0" {
                 /**
                  * Stop any playing animations and state transitions.
                  *
-                 * Animations can be paused and started repeatedly.
+                 * SvgAnimations can be paused and started repeatedly.
                  * @since 4.22
                  */
                 pause(): void
                 /**
                  * Start playing animations and state transitions.
                  *
-                 * Animations can be paused and started repeatedly.
+                 * SvgAnimations can be paused and started repeatedly.
                  * @since 4.22
                  */
                 play(): void
@@ -49677,6 +49867,16 @@ declare module "gi://Gtk?version=4.0" {
                  * @param state the state to set, as a value between 0 and 63
                  */
                 set_state(state: number): void
+                /**
+                 * Sets a CSS user stylesheet to use.
+                 *
+                 * Note that styles are applied at load time,
+                 * so this function must be called before
+                 * loading SVG.
+                 * @since 4.24
+                 * @param bytes CSS data
+                 */
+                set_stylesheet(bytes: (GLib.Bytes | Uint8Array | null)): void
                 /**
                  * Sets the weight that is used when rendering.
                  *
@@ -49766,25 +49966,24 @@ declare module "gi://Gtk?version=4.0" {
                  *
                  * ## The supported subset of SVG
                  *
-                 * The paintable supports much of SVG 2, with some exceptions.
+                 * The paintable supports much of [SVG 2](https://svgwg.org/svg2-draft/),
+                 * including [animations](https://svgwg.org/specs/animations/), with some
+                 * exceptions.
                  *
-                 * Among the graphical elements, `<textPath>` and `<foreignObject>`
-                 * are not supported.
+                 * Among the graphical elements, `<textPath>` and `<foreignObject>` are
+                 * not supported.
                  *
-                 * Among the structural elements, `<view>` is not supported.
+                 * In the `<filter>` element, the following primitives are not supported:
+                 * feConvolveMatrix, feDiffuseLighting, feMorphology, feSpecularLighting
+                 * and feTurbulence.
                  *
-                 * In the `<filter>` element, the following primitives are not
-                 * supported: feConvolveMatrix, feDiffuseLighting,
-                 * feMorphology, feSpecularLighting and feTurbulence.
+                 * Support for the `mask` attribute is limited to just a url referring to
+                 * the `<mask>` element by ID.
                  *
-                 * Support for the `mask` attribute is limited to just a url
-                 * referring to the `<mask>` element by ID.
+                 * In animation elements, the parsing of `begin` and `end` attributes is
+                 * limited, and the `min` and `max` attributes are not supported.
                  *
-                 * In animation elements, the parsing of `begin` and `end` attributes
-                 * is limited, and the `min` and `max` attributes are not supported.
-                 *
-                 * Lastly, there is no interactivity, so links can't be activated
-                 * and pseudo-classes like :hover have no effect in CSS.
+                 * The interactive aspects of SVG are supported by {@link Gtk.SvgWidget}.
                  *
                  *
                  * ## SVG Extensions
@@ -49861,6 +50060,169 @@ declare module "gi://Gtk?version=4.0" {
                  * @since 4.22
                  */
                 Svg: SvgClass
+            }
+            
+
+            namespace SvgWidget {
+                interface SignalSignatures extends Widget.SignalSignatures, Accessible.SignalSignatures, Buildable.SignalSignatures, ConstraintTarget.SignalSignatures {
+                    /**
+                     * Emitted when a link or other element is activated.
+                     *
+                     * Activating elements can be achieved by clicking
+                     * or by hitting <kbd>Enter</kbd> while the element
+                     * has focus.
+                     * @since 4.24
+                     * @param id the ID of the element
+                     */
+                    "activate"(id: string | null): void
+                    /**
+                     * Signals that an error occurred.
+                     *
+                     * Errors can occur both during parsing and during rendering.
+                     *
+                     * The expected error values are in the {@link Gtk.SvgError} enumeration,
+                     * context information about the location of parsing errors can
+                     * be obtained with the various `gtk_svg_error` functions.
+                     *
+                     * Parsing errors are never fatal, so the parsing will resume after
+                     * the error. Errors may however cause parts of the given data or
+                     * even all of it to not be parsed at all. So it is a useful idea
+                     * to check that the parsing succeeds by connecting to this signal.
+                     *
+                     * ::: note
+                     *     This signal is emitted in the middle of parsing or rendering,
+                     *     and if you handle it, you must be careful. Logging the errors
+                     *     you receive is fine, but modifying the widget hierarchy or
+                     *     changing the paintable state definitively isn't.
+                     *
+                     *     If in doubt, defer to an idle.
+                     * @since 4.24
+                     * @param error the error
+                     */
+                    "error"(error: GLib.Error): void
+                }
+
+                interface ReadableProperties extends Widget.ReadableProperties, Accessible.ReadableProperties, Buildable.ReadableProperties, ConstraintTarget.ReadableProperties {
+                    "resource": string
+                    "state": number
+                    "stylesheet": GLib.Bytes | null
+                }
+
+                interface WritableProperties extends Widget.WritableProperties, Accessible.WritableProperties, Buildable.WritableProperties, ConstraintTarget.WritableProperties {
+                    "resource": string
+                    "state": number
+                    "stylesheet": GLib.Bytes | null
+                }
+
+                interface ConstructOnlyProperties extends Widget.ConstructOnlyProperties, Accessible.ConstructOnlyProperties, Buildable.ConstructOnlyProperties, ConstraintTarget.ConstructOnlyProperties {
+                }
+            }
+
+            interface SvgWidget extends Widget, Accessible, Buildable, ConstraintTarget {
+                readonly $signals: SvgWidget.SignalSignatures
+                readonly $readableProperties: SvgWidget.ReadableProperties
+                readonly $writableProperties: SvgWidget.WritableProperties
+                readonly $constructOnlyProperties: SvgWidget.ConstructOnlyProperties
+                /**
+                 * @default NULL
+                 */
+                get resource(): string
+                set resource(value: string)
+                /**
+                 * @default 0
+                 */
+                get state(): number
+                set state(value: number)
+                /**
+                 */
+                get stylesheet(): GLib.Bytes | null
+                set stylesheet(value: GLib.Bytes | null)
+                /**
+                 * Gets the current state of the widget.
+                 * @since 4.24
+                 * @returns the state
+                 */
+                get_state(): number
+                /**
+                 * Gets the CSS user stylesheet.
+                 * @since 4.24
+                 * @returns a `GBytes` with the CSS data
+                 */
+                get_stylesheet(): GLib.Bytes | null
+                /**
+                 * Loads SVG content into an existing SVG widget.
+                 *
+                 * To track errors while loading SVG content, connect
+                 * to the {@link Gtk.SvgWidget.SignalSignatures["error"]} signal.
+                 *
+                 * This clears any previously loaded content.
+                 * @since 4.24
+                 * @param bytes the data to data
+                 */
+                load_from_bytes(bytes: (GLib.Bytes | Uint8Array)): void
+                /**
+                 * Sets the state of the widget.
+                 *
+                 * If the paintable is currently playing, the state change
+                 * will apply transitions that are defined in the SVG. If
+                 * the paintable is not playing, the state change will take
+                 * effect instantaneously.
+                 * @since 4.24
+                 * @param state the state to set, as a value between 0 and 63
+                 */
+                set_state(state: number): void
+                /**
+                 * Sets a CSS user stylesheet to use.
+                 *
+                 * Note that styles are applied at load time, so this
+                 * function must be called before loading SVG.
+                 * @since 4.24
+                 * @param bytes CSS data
+                 */
+                set_stylesheet(bytes: (GLib.Bytes | Uint8Array | null)): void
+            }
+
+            interface SvgWidgetClass extends Omit<WidgetClass, "new"> {
+                readonly $gtype: GObject.GType<SvgWidget>
+                readonly prototype: SvgWidget
+
+                new (props?: Partial<GObject.ConstructorProps<SvgWidget>>): SvgWidget
+                /**
+                 * Creates a new, empty `GtkSvgWidget`.
+                 * @since 4.24
+                 * @returns the new widget
+                 */
+                "new"(): SvgWidget
+            }
+
+            interface $Exports {
+                /**
+                 * A widget that renders SVG, with animations and event handling.
+                 *
+                 * `GtkSvgWidget` uses {@link Gtk.Svg} internally, and should read
+                 * its documentation to learn about the supported SVG features and
+                 * extensions.
+                 *
+                 * On top of the `GtkSvg` rendering, `GtkSvgWidget` adds event handling.
+                 * <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys can be used
+                 * to move the focus and <kbd>Enter</kbd> and clicks will activate links
+                 * by emitting the {@link Gtk.SvgWidget.SignalSignatures["activate"]} signal.
+                 *
+                 * The `tabindex` attribute can be used to influence what elements
+                 * act as focus locations.
+                 *
+                 * The styling of the SVG content is following input-related pseudo
+                 * states such as `:focus`, `:hover` or `:visited` (for links).
+                 *
+                 * If {@link Gtk.Widget.hasTooltip} is set, then the content
+                 * of \<title\> elements will be shown as tooltips.
+                 *
+                 * SVG animations and different \<view\>s can be triggered by input events
+                 * as well. See the [SVG animation](https://svgwg.org/specs/animations/)
+                 * specification for details.
+                 * @since 4.24
+                 */
+                SvgWidget: SvgWidgetClass
             }
             
 
@@ -50679,10 +51041,9 @@ declare module "gi://Gtk?version=4.0" {
                  * ├── undershoot.left
                  * ├── undershoot.right
                  * ├── [selection]
-                 * ├── [cursor-handle[.top]
-                 * ├── [cursor-handle.bottom]
                  * ├── [block-cursor]
                  * ├── [cursor-handle[.top/.bottom][.insertion-cursor]]
+                 * ├── [preedit[.whole][.selection][.prediction][.prefix/.suffix][.spelling-error][.compose-error]]
                  * ╰── [window.popup]
                  * ```
                  *
@@ -50705,6 +51066,19 @@ declare module "gi://Gtk?version=4.0" {
                  * class depending on where they are shown in relation to the selection. If
                  * there is just a single handle for the text cursor, it gets the style class
                  * `.insertion-cursor`.
+                 *
+                 * If using an input method with a pre-edit buffer, this string will be styled
+                 * with the `preedit` CSS node, the different style classes express the possible
+                 * roles of a piece of text in the pre-edit buffer:
+                 *
+                 * - `.whole` denotes the parts of the pre-edit buffer without a special role
+                 * - `.selection`, `.prefix` and `.suffix` style classes will be used to
+                 *   highlight the specific portions of the pre-edit buffer being edited and its
+                 *   surroundings
+                 * - `.prediction` will be used for parts of the pre-edit buffer not typed by the
+                 *   user (e.g. autocompletion)
+                 * - `.spelling-error` and `.compose-error` will be respectively used to indicate
+                 *   errors in spelling or character composition (e.g. non-existent transliterations).
                  *
                  * # Accessibility
                  *
@@ -54349,6 +54723,7 @@ declare module "gi://Gtk?version=4.0" {
                  * ├── border.top
                  * ├── border.left
                  * ├── text
+                 * │   ├── [preedit[.whole][.selection][.prediction][.prefix/.suffix][.spelling-error][.compose-error]]
                  * │   ╰── [selection]
                  * ├── border.right
                  * ├── border.bottom
@@ -54364,6 +54739,19 @@ declare module "gi://Gtk?version=4.0" {
                  *
                  * If a context menu is opened, the window node will appear as a subnode
                  * of the main node.
+                 *
+                 * If using an input method with a pre-edit buffer, this string will be styled
+                 * with a `preedit` subnode of the `text` node. the different style classes
+                 * express the possible roles of a piece of text in the pre-edit buffer:
+                 *
+                 * - `.whole` denotes the parts of the pre-edit buffer without a special role
+                 * - `.selection`, `.prefix` and `.suffix` style classes will be used to
+                 *   highlight the specific portions of the pre-edit buffer being edited and its
+                 *   surroundings
+                 * - `.prediction` will be used for parts of the pre-edit buffer not typed by the
+                 *   user (e.g. autocompletion)
+                 * - `.spelling-error` and `.compose-error` will be respectively used to indicate
+                 *   errors in spelling or character composition (e.g. non-existent transliterations).
                  *
                  * ## Accessibility
                  *
@@ -65241,6 +65629,7 @@ declare module "gi://Gtk?version=4.0" {
                 }
 
                 interface ReadableProperties extends Widget.ReadableProperties {
+                    "complete-text": string
                     "cursor-position": number
                     "editable": boolean
                     "enable-undo": boolean
@@ -65252,6 +65641,7 @@ declare module "gi://Gtk?version=4.0" {
                 }
 
                 interface WritableProperties extends Widget.WritableProperties {
+                    "complete-text": string
                     "cursor-position": number
                     "editable": boolean
                     "enable-undo": boolean
@@ -65307,6 +65697,13 @@ declare module "gi://Gtk?version=4.0" {
                      * @returns , location of the position text will be inserted at
                      */
                     vfunc_do_insert_text(text: string, length: number, position: number): number
+                    /**
+                     * Retrieves the contents of `editable`, including *pseudo-content*
+                     * such as the preedit buffer.
+                     * @since 4.24
+                     * @returns the complete contents of the editable
+                     */
+                    vfunc_get_complete_text(): string
                     /**
                      * Gets the `GtkEditable` that `editable` is delegating its
                      * implementation to.
@@ -65366,6 +65763,13 @@ declare module "gi://Gtk?version=4.0" {
                 readonly $readableProperties: Editable.ReadableProperties
                 readonly $writableProperties: Editable.WritableProperties
                 readonly $constructOnlyProperties: Editable.ConstructOnlyProperties
+                /**
+                 * The contents of the entry, including uncommited content such as the
+                 * preedit.
+                 * @since 4.24
+                 */
+                get completeText(): string
+                set completeText(value: string)
                 /**
                  * The current position of the insertion cursor in chars.
                  * @default 0
@@ -65498,6 +65902,13 @@ declare module "gi://Gtk?version=4.0" {
                  * @returns a pointer to the contents of the widget as a   string. This string is allocated by the `GtkEditable` implementation   and should be freed by the caller.
                  */
                 get_chars(start_pos: number, end_pos: number): string
+                /**
+                 * Retrieves the contents of `editable`, including *pseudo-content*
+                 * such as the preedit buffer.
+                 * @since 4.24
+                 * @returns the complete contents of the editable
+                 */
+                get_complete_text(): string
                 /**
                  * Gets the `GtkEditable` that `editable` is delegating its
                  * implementation to.
@@ -73716,9 +74127,13 @@ declare module "gi://Gtk?version=4.0" {
                  */
                 readonly "PROP_ENABLE_UNDO": 7
                 /**
+                 * the property id for {@link Gtk.Editable.completeText}
+                 */
+                readonly "PROP_COMPLETE_TEXT": 8
+                /**
                  * the number of properties
                  */
-                readonly "NUM_PROPERTIES": 8
+                readonly "NUM_PROPERTIES": 9
             }
             type EditableProperties = EditablePropertiesEnum[Exclude<keyof EditablePropertiesEnum, "$gtype">]
             interface $Exports {
@@ -76137,6 +76552,14 @@ declare module "gi://Gtk?version=4.0" {
              * @returns the {@link Gtk.SvgLocation}
              */
             get_end: (error: GLib.Error) => SvgLocation | null
+                /**
+             * Returns a string describing the input source that
+             * the parsing error occurred in.
+             * @since 4.24
+             * @param error an error in the {@link Gtk.SvgError} domain
+             * @returns the input source
+             */
+            get_input: (error: GLib.Error) => string | null
                 /**
              * Returns context information about the start position
              * in the document where the parsing error occurred.
@@ -78801,6 +79224,14 @@ declare module "gi://Gtk?version=4.0" {
                  * @returns the {@link Gtk.SvgLocation}
                  */
                 svg_error_get_end(error: GLib.Error): SvgLocation | null
+                /**
+                 * Returns a string describing the input source that
+                 * the parsing error occurred in.
+                 * @since 4.24
+                 * @param error an error in the {@link Gtk.SvgError} domain
+                 * @returns the input source
+                 */
+                svg_error_get_input(error: GLib.Error): string | null
                 /**
                  * Returns context information about the start position
                  * in the document where the parsing error occurred.
