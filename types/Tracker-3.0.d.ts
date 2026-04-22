@@ -2690,7 +2690,7 @@ declare module "gi://Tracker?version=3.0" {
                 __name__: "Tracker"
                 __version__: "3.0"
                 MAJOR_VERSION: 3
-                MICRO_VERSION: 0
+                MICRO_VERSION: 1
                 MINOR_VERSION: 11
                 PREFIX_DC: "http://purl.org/dc/elements/1.1/"
                 PREFIX_MFO: "http://tracker.api.gnome.org/ontology/v3/mfo#"

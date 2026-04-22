@@ -764,7 +764,7 @@ declare module "gi://JavaScriptCore?version=4.1" {
                  *     g_error ("Only arrays of uint32_t are supported");
                  *
                  * gsize count = 0;
-                 * uint32_t *elements = jsc_value_typed_array_get_contents (value, &count);
+                 * uint32_t *elements = jsc_value_typed_array_get_data (value, &count);
                  * for (gsize i = 0; i < count; i++)
                  *      g_print ("index %zu, value %" PRIu32 "\n", i, elements[i]);
                  * ]|
@@ -1474,7 +1474,7 @@ declare module "gi://JavaScriptCore?version=4.1" {
                 __version__: "4.1"
                 MAJOR_VERSION: 2
                 MICRO_VERSION: 1
-                MINOR_VERSION: 52
+                MINOR_VERSION: 53
                 OPTIONS_USE_DFG: "useDFGJIT"
                 OPTIONS_USE_FTL: "useFTLJIT"
                 OPTIONS_USE_JIT: "useJIT"

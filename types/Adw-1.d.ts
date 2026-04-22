@@ -74,6 +74,7 @@ declare module "gi://Adw?version=1" {
                     "issue-url": string
                     "license": string
                     "license-type": Gtk.License
+                    "other-apps-title": string
                     "release-notes": string
                     "release-notes-version": string
                     "support-url": string
@@ -97,6 +98,7 @@ declare module "gi://Adw?version=1" {
                     "issue-url": string
                     "license": string
                     "license-type": Gtk.License
+                    "other-apps-title": string
                     "release-notes": string
                     "release-notes-version": string
                     "support-url": string
@@ -345,6 +347,16 @@ declare module "gi://Adw?version=1" {
                  */
                 get licenseType(): Gtk.License
                 set licenseType(value: Gtk.License)
+                /**
+                 * The "Other apps" section title.
+                 *
+                 * If not set, the section will say "Other Apps by (developer name)".
+                 *
+                 * See {@link AboutDialog.add_other_app}.
+                 * @since 1.10
+                 */
+                get otherAppsTitle(): string
+                set otherAppsTitle(value: string)
                 /**
                  * The release notes of the application.
                  *
@@ -664,6 +676,12 @@ declare module "gi://Adw?version=1" {
                  */
                 get_license_type(): Gtk.License
                 /**
+                 * Gets The other apps section title for `self`.
+                 * @since 1.10
+                 * @returns the section title
+                 */
+                get_other_apps_title(): string
+                /**
                  * Gets the release notes for `self`.
                  * @since 1.5
                  * @returns the release notes
@@ -911,6 +929,16 @@ declare module "gi://Adw?version=1" {
                  * @param license_type the license type
                  */
                 set_license_type(license_type: Gtk.License): void
+                /**
+                 * Sets the "Other apps" section title for `self`.
+                 *
+                 * If not set, the section will say "Other Apps by (developer name)".
+                 *
+                 * See {@link AboutDialog.add_other_app}.
+                 * @since 1.10
+                 * @param title the new title
+                 */
+                set_other_apps_title(title: string): void
                 /**
                  * Sets the release notes for `self`.
                  *
@@ -1187,6 +1215,10 @@ declare module "gi://Adw?version=1" {
                  *
                  * `AdwAboutDialog` can show links to your other apps at the end of the main
                  * page. To add them, use {@link AboutDialog.add_other_app}.
+                 *
+                 * By default the other apps section will have "Other Apps by
+                 * {@link AboutDialog.developerName}" as its title. Use
+                 * {@link AboutDialog.otherAppsTitle} to override it.
                  *
                  * ## Constructing
                  *
@@ -7556,34 +7588,40 @@ declare module "gi://Adw?version=1" {
                 readonly $constructOnlyProperties: EnumListItem.ConstructOnlyProperties
                 /**
                  * The enum value name.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumListItem}.
                  * @default NULL
                  */
                 get name(): string
                 set name(value: string)
                 /**
                  * The enum value nick.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumListItem}.
                  * @default NULL
                  */
                 get nick(): string
                 set nick(value: string)
                 /**
                  * The enum value.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumListItem}.
                  * @default 0
                  */
                 get value(): number
                 set value(value: number)
                 /**
                  * Gets the enum value name.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumListItem}.
                  * @returns the enum value name
                  */
                 get_name(): string
                 /**
                  * Gets the enum value nick.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumListItem}.
                  * @returns the enum value nick
                  */
                 get_nick(): string
                 /**
                  * Gets the enum value.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumListItem}.
                  * @returns the enum value
                  */
                 get_value(): number
@@ -7599,6 +7637,7 @@ declare module "gi://Adw?version=1" {
             interface $Exports {
                 /**
                  * `AdwEnumListItem` is the type of items in a {@link EnumListModel}.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumListItem}.
                  */
                 EnumListItem: EnumListItemClass
             }
@@ -7631,18 +7670,21 @@ declare module "gi://Adw?version=1" {
                 readonly $constructOnlyProperties: EnumListModel.ConstructOnlyProperties
                 /**
                  * The type of the enum represented by the model.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumList}.
                  */
                 get enumType(): GObject.GType
                 set enumType(value: GObject.GType)
                 /**
                  * The type of the items. See {@link Gio.ListModel.get_item_type}.
                  * @since 1.9
+                 * @deprecated since 1.10 Use {@link Gtk.EnumList}.
                  */
                 get itemType(): GObject.GType
                 set itemType(value: GObject.GType)
                 /**
                  * The number of items. See {@link Gio.ListModel.get_n_items}.
                  * @since 1.9
+                 * @deprecated since 1.10 Use {@link Gtk.EnumList}.
                  * @default 0
                  */
                 get nItems(): number
@@ -7651,12 +7693,14 @@ declare module "gi://Adw?version=1" {
                  * Finds the position of a given enum value in `self`.
                  *
                  * If the value is not found, {@link Gtk.INVALID_LIST_POSITION} is returned.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumList}.
                  * @param value an enum value
                  * @returns the position of the value
                  */
                 find_position(value: number): number
                 /**
                  * Gets the type of the enum represented by `self`.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumList}.
                  * @returns the enum type
                  */
                 get_enum_type(): GObject.GType
@@ -7669,6 +7713,7 @@ declare module "gi://Adw?version=1" {
                 new (props?: Partial<GObject.ConstructorProps<EnumListModel>>): EnumListModel
                 /**
                  * Creates a new `AdwEnumListModel` for `enum_type`.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumList}.
                  * @param enum_type the type of the enum to construct the model from
                  * @returns the newly created `AdwEnumListModel`
                  */
@@ -7680,6 +7725,7 @@ declare module "gi://Adw?version=1" {
                  * A {@link Gio.ListModel} representing values of a given enum.
                  *
                  * `AdwEnumListModel` contains objects of type {@link EnumListItem}.
+                 * @deprecated since 1.10 Use {@link Gtk.EnumList}.
                  */
                 EnumListModel: EnumListModelClass
             }

@@ -1735,7 +1735,7 @@ declare module "gi://GstPbutils?version=1.0" {
                 ENCODING_CATEGORY_ONLINE_SERVICE: "online-service"
                 ENCODING_CATEGORY_STORAGE_EDITING: "storage-editing"
                 PLUGINS_BASE_VERSION_MAJOR: 1
-                PLUGINS_BASE_VERSION_MICRO: 10
+                PLUGINS_BASE_VERSION_MICRO: 11
                 PLUGINS_BASE_VERSION_MINOR: 26
                 PLUGINS_BASE_VERSION_NANO: 0
                 /**

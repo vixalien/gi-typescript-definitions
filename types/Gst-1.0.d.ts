@@ -22403,7 +22403,7 @@ declare module "gi://Gst?version=1.0" {
                 VALUE_LESS_THAN: -1
                 VALUE_UNORDERED: 2
                 VERSION_MAJOR: 1
-                VERSION_MICRO: 10
+                VERSION_MICRO: 11
                 VERSION_MINOR: 26
                 VERSION_NANO: 0
                 /**
