@@ -2097,10 +2097,16 @@ declare module "gi://Gtk?version=4.0" {
                      * The handler for this signal should do the opposite of what the
                      * corresponding handler for {@link Gtk.Application.SignalSignatures["save-state"]}
                      * does.
+                     *
+                     * You must be careful to be robust in the face of app upgrades and downgrades:
+                     * the `state` might have been created by a previous or occasionally even a future
+                     * version of your app. Do not assume that a given key exists in the state.
+                     * Apps must try to restore state saved by a previous version, but are free to
+                     * discard state if it was written by a future version.
                      * @since 4.24
                      * @param reason the reason for restoring state
-                     * @param state an "a{sv}" `GVariant` with state to restore
-                     * @returns true to stop stop further handlers from running
+                     * @param state an `a{sv}` dictionary containing the state to restore, as saved by a {@link Gtk.Application.SignalSignatures["save-state"]} handler
+                     * @returns true to stop further handlers from running
                      */
                     "restore-state"(reason: RestoreReason, state: GLib.Variant): boolean
                     /**
@@ -2122,27 +2128,28 @@ declare module "gi://Gtk?version=4.0" {
                      *  `reason` means that only one window should be restored, you can reliably
                      * ignore emissions if a window already exists
                      *
-                     * Note that this signal is not emitted only during the app's initial launch.
-                     * If all windows are closed but the app keeps running, the signal will be
-                     * emitted the next time a new window is opened.
+                     * This signal will be emitted whenever the application needs to restore its
+                     * windows. This normally happens during the initial launch, but it can also
+                     * happen in the existing application instance if it is re-activated after all
+                     * application windows were closed.
                      * @since 4.24
                      * @param reason the reason this window is restored
-                     * @param state an "a{sv}" `GVariant` with state to restore, as saved by a {@link Gtk.ApplicationWindow.SignalSignatures["save-state"]} handler
+                     * @param state an `a{sv}` dictionary containing the state to restore, as saved by a {@link Gtk.ApplicationWindow.SignalSignatures["save-state"]} handler
                      */
                     "restore-window"(reason: RestoreReason, state: GLib.Variant): void
                     /**
                      * Emitted when the application is saving global state.
                      *
-                     * The handler for this signal should persist any
-                     * global state of `application` into `dict`.
+                     * The handler for this signal should persist any global state of
+                     *  `application` into `dict`.
                      *
                      * See {@link Gtk.Application.SignalSignatures["restore-state"]} for how to
                      * restore global state, and {@link Gtk.ApplicationWindow.SignalSignatures["save-state"]}
                      * and {@link Gtk.Application.SignalSignatures["restore-window"]} for handling
                      * per-window state.
                      * @since 4.24
-                     * @param dict a `GVariantDict`
-                     * @returns true to stop stop further handlers from running
+                     * @param dict a dictionary to populate with application state
+                     * @returns true to stop further handlers from running
                      */
                     "save-state"(dict: GLib.VariantDict): boolean
                     /**
@@ -2254,11 +2261,10 @@ declare module "gi://Gtk?version=4.0" {
                  */
                 add_window(window: Window): void
                 /**
-                 * Forget state that has been previously saved and prevent
-                 * further automatic state saving.
+                 * Forget state that has been previously saved and prevent further automatic
+                 * state saving.
                  *
-                 * In order to reenable state saving, call
-                 * {@link Gtk.Application.save}.
+                 * In order to re-enable state saving, call {@link Gtk.Application.save}.
                  * @since 4.24
                  */
                 forget(): void
@@ -2391,13 +2397,9 @@ declare module "gi://Gtk?version=4.0" {
                  */
                 remove_window(window: Window): void
                 /**
-                 * Saves the state of application.
+                 * Saves the state of the application.
                  *
                  * See {@link Gtk.Application.forget} for a way to forget the state.
-                 *
-                 * If {@link Gtk.Application.registerSession} is set, `GtkApplication`
-                 * calls this function automatically when the application is closed or
-                 * the session ends.
                  * @since 4.24
                  */
                 save(): void
@@ -2453,21 +2455,21 @@ declare module "gi://Gtk?version=4.0" {
                  * @since 4.24
                  * @param reason the reason for restoring state
                  * @param state a dictionary containing the application state to restore
-                 * @returns true to stop stop further handlers from running
+                 * @returns true to stop further handlers from running
                  */
                 vfunc_restore_state(reason: RestoreReason, state: GLib.Variant): boolean
                 /**
                  * Class closure for the {@link Application.SignalSignatures["restore-window"]} signal.
                  * @since 4.24
                  * @param reason the reason this window is restored
-                 * @param state the state to restore, as saved by a   {@link Gtk.ApplicationWindow.SignalSignatures["save-state"]} handler
+                 * @param state a dictionary containing the application window state to restore
                  */
-                vfunc_restore_window(reason: RestoreReason, state: GLib.Variant | null): void
+                vfunc_restore_window(reason: RestoreReason, state: GLib.Variant): void
                 /**
                  * Class closure for the {@link Application.SignalSignatures["save-state"]} signal.
                  * @since 4.24
-                 * @param state a dictionary where to store the application's state
-                 * @returns true to stop stop further handlers from running
+                 * @param state a dictionary to populate with application state
+                 * @returns true to stop further handlers from running
                  */
                 vfunc_save_state(state: GLib.VariantDict): boolean
                 /**
@@ -2639,22 +2641,16 @@ declare module "gi://Gtk?version=4.0" {
             namespace ApplicationWindow {
                 interface SignalSignatures extends Window.SignalSignatures, Gio.ActionGroup.SignalSignatures, Gio.ActionMap.SignalSignatures, Accessible.SignalSignatures, Buildable.SignalSignatures, ConstraintTarget.SignalSignatures, Native.SignalSignatures, Root.SignalSignatures, ShortcutManager.SignalSignatures {
                     /**
-                     * The handler for this signal should persist any
-                     * application-specific state of `window` into `dict`.
+                     * The handler for this signal should persist any application-specific
+                     * state of `window` into `dict`.
                      *
-                     * Note that window management state such as maximized,
-                     * fullscreen, or window size should not be saved as
-                     * part of this, they are handled by GTK.
-                     *
-                     * You must be careful to be robust in the face of app upgrades and downgrades:
-                     * the `state` might have been created by a previous or occasionally even a future
-                     * version of your app. Do not assume that a given key exists in the state.
-                     * Apps must try to restore state saved by a previous version, but are free to
-                     * discard state if it was written by a future version.
+                     * Note that window management state such as maximized, fullscreen,
+                     * or window size should not be saved as part of this. They are handled
+                     * by GTK.
                      *
                      * See {@link Gtk.Application.SignalSignatures["restore-window"]}.
                      * @since 4.24
-                     * @param dict a dictionary of type `a{sv}`
+                     * @param dict a dictionary to populate with application window state
                      * @returns true to stop stop further handlers from running
                      */
                     "save-state"(dict: GLib.VariantDict): boolean
@@ -2730,7 +2726,7 @@ declare module "gi://Gtk?version=4.0" {
                 /**
                  * Class closure for the {@link ApplicationWindow.SignalSignatures["save-state"]} signal.
                  * @since 4.24
-                 * @param dict a dictionary where to store the window's state
+                 * @param dict a dictionary to populate with application window state
                  * @returns true to stop stop further handlers from running
                  */
                 vfunc_save_state(dict: GLib.VariantDict): boolean
@@ -50163,10 +50159,9 @@ declare module "gi://Gtk?version=4.0" {
                 /**
                  * Sets the state of the widget.
                  *
-                 * If the paintable is currently playing, the state change
-                 * will apply transitions that are defined in the SVG. If
-                 * the paintable is not playing, the state change will take
-                 * effect instantaneously.
+                 * The state change will apply transitions that are defined
+                 * in the SVG. See {@link Gtk.Svg} for details about states
+                 * and transitions.
                  * @since 4.24
                  * @param state the state to set, as a value between 0 and 63
                  */
@@ -50208,17 +50203,19 @@ declare module "gi://Gtk?version=4.0" {
                  * to move the focus and <kbd>Enter</kbd> and clicks will activate links
                  * by emitting the {@link Gtk.SvgWidget.SignalSignatures["activate"]} signal.
                  *
-                 * The `tabindex` attribute can be used to influence what elements
-                 * act as focus locations.
+                 * The `tabindex` and `autofocus` attributes can be used to influence
+                 * what elements act as focus locations, and where focus goes initially.
                  *
                  * The styling of the SVG content is following input-related pseudo
-                 * states such as `:focus`, `:hover` or `:visited` (for links).
+                 * classes such as `:focus`, `:active`, `:hover` or `:visited`.
                  *
                  * If {@link Gtk.Widget.hasTooltip} is set, then the content
                  * of \<title\> elements will be shown as tooltips.
                  *
-                 * SVG animations and different \<view\>s can be triggered by input events
-                 * as well. See the [SVG animation](https://svgwg.org/specs/animations/)
+                 * SVG animations and different \<view\>s can be triggered by input
+                 * events as well. The following events are supported: focus, blur,
+                 * mouseenter, mouseleave, click.
+                 * See the [SVG animation](https://svgwg.org/specs/animations/)
                  * specification for details.
                  * @since 4.24
                  */
@@ -78329,7 +78326,7 @@ declare module "gi://Gtk?version=4.0" {
                 ACCESSIBLE_ATTRIBUTE_VARIANT_UNICASE: "unicase"
                 ACCESSIBLE_ATTRIBUTE_WEIGHT: "weight"
                 ACCESSIBLE_VALUE_UNDEFINED: -1
-                BINARY_AGE: 2300
+                BINARY_AGE: 2301
                 IM_MODULE_EXTENSION_POINT_NAME: "gtk-im-module"
                 INPUT_ERROR: -1
                 INTERFACE_AGE: 0
@@ -78340,7 +78337,7 @@ declare module "gi://Gtk?version=4.0" {
                 MAJOR_VERSION: 4
                 MAX_COMPOSE_LEN: 7
                 MEDIA_FILE_EXTENSION_POINT_NAME: "gtk-media-file"
-                MICRO_VERSION: 0
+                MICRO_VERSION: 1
                 MINOR_VERSION: 23
                 PAPER_NAME_A3: "iso_a3"
                 PAPER_NAME_A4: "iso_a4"

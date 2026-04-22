@@ -1601,6 +1601,27 @@ declare module "gi://WebKit?version=6.0" {
                  * @returns a newly allocated URI for the favicon, or %NULL if the database doesn't have a favicon for `page_uri`.
                  */
                 get_favicon_uri(page_uri: string): string
+                /**
+                 * Obtains the set of icons for a page.
+                 *
+                 * Starts an asynchronous operation to obtain the set of icons cached in the database for a given
+                 * page URI. Available icons will be read from the database and provided as a {@link ImageList}
+                 * that can be retrieved using {@link webkit_favicon_database_get_page_icons_finish} in the completion
+                 *  `callback`.
+                 * @since 2.54
+                 * @param page_uri URI of the page to get icons for
+                 * @param cancellable A #GCancellable ior %NULL
+                 * @param callback A #GAsyncReadyCallback to invoke when the request    is satisfied or %NULL to discard the result.
+                 */
+                get_page_icons(page_uri: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null): void
+                /**
+                 * Finishes an operation started with {@link webkit_favicon_database_get_page_icons}.
+                 * @throws {GLib.Error}
+                 * @since 2.54
+                 * @param result A #GAsyncResult obtained from the #GAsyncReadyCallback passed to {@link webkit_favicon_database_get_page_icons}.
+                 * @returns the set of icons for the page, or %NULL in case of error.
+                 */
+                get_page_icons_finish(result: Gio.AsyncResult): ImageList
             }
 
             interface FaviconDatabaseClass extends Omit<GObject.ObjectClass, "new"> {
@@ -2371,6 +2392,99 @@ declare module "gi://WebKit?version=6.0" {
                  * signal is emitted with a #WebKitHitTestResult.
                  */
                 HitTestResult: HitTestResultClass
+            }
+            
+
+            namespace Image {
+                interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.Icon.SignalSignatures, Gio.LoadableIcon.SignalSignatures {
+                }
+
+                interface ReadableProperties extends GObject.Object.ReadableProperties, Gio.Icon.ReadableProperties, Gio.LoadableIcon.ReadableProperties {
+                    "height": number
+                    "stride": number
+                    "width": number
+                }
+
+                interface WritableProperties extends GObject.Object.WritableProperties, Gio.Icon.WritableProperties, Gio.LoadableIcon.WritableProperties {
+                }
+
+                interface ConstructOnlyProperties extends GObject.Object.ConstructOnlyProperties, Gio.Icon.ConstructOnlyProperties, Gio.LoadableIcon.ConstructOnlyProperties {
+                    "height": number
+                    "stride": number
+                    "width": number
+                }
+            }
+
+            interface Image extends GObject.Object, Gio.Icon, Gio.LoadableIcon {
+                readonly $signals: Image.SignalSignatures
+                readonly $readableProperties: Image.ReadableProperties
+                readonly $writableProperties: Image.WritableProperties
+                readonly $constructOnlyProperties: Image.ConstructOnlyProperties
+                /**
+                 * The image height in pixels.
+                 * @since 2.52
+                 * @default 1
+                 */
+                get height(): number
+                set height(value: number)
+                /**
+                 * The image stride, in bytes. This value indicates the amount of
+                 * memory occupied by each row of pixels in the image. Note that
+                 * the stride may be larger than the image width multiplied by the
+                 * amount of bytes used to represent each pixel.
+                 * @since 2.52
+                 * @default 4
+                 */
+                get stride(): number
+                set stride(value: number)
+                /**
+                 * The image width in pixels.
+                 * @since 2.52
+                 * @default 1
+                 */
+                get width(): number
+                set width(value: number)
+                /**
+                 * Get the `image` pixel data as an array of bytes.
+                 *
+                 * The pixel format for the returned byte buffer is 32-bit per pixel
+                 * with 8-bit premultiplied alpha, in the preferred byte order for
+                 * the architecture.
+                 * @since 2.52
+                 * @returns a #GBytes
+                 */
+                as_bytes(): GLib.Bytes
+                /**
+                 * Get the `image` height in pixels.
+                 * @since 2.52
+                 * @returns the image height
+                 */
+                get_height(): number
+                /**
+                 * Get the `image` stride.
+                 * @since 2.52
+                 * @returns the image stride
+                 */
+                get_stride(): number
+                /**
+                 * Get the `image` width in pixels.
+                 * @since 2.52
+                 * @returns the image width
+                 */
+                get_width(): number
+            }
+
+            interface ImageClass extends Omit<GObject.ObjectClass, "new"> {
+                readonly $gtype: GObject.GType<Image>
+                readonly prototype: Image
+
+                new (props?: Partial<GObject.ConstructorProps<Image>>): Image
+            }
+
+            interface $Exports {
+                /**
+                 */
+                Image: ImageClass
             }
             
 
@@ -7828,6 +7942,7 @@ declare module "gi://WebKit?version=6.0" {
                     "is-web-process-responsive": boolean
                     "microphone-capture-state": MediaCaptureState
                     "network-session": NetworkSession
+                    "page-icons": ImageList | null
                     "page-id": number
                     "theme-color": Gdk.RGBA
                     "title": string
@@ -7851,6 +7966,7 @@ declare module "gi://WebKit?version=6.0" {
                     "is-playing-audio": boolean
                     "is-web-process-responsive": boolean
                     "microphone-capture-state": MediaCaptureState
+                    "page-icons": ImageList | null
                     "page-id": number
                     "settings": Settings
                     "theme-color": Gdk.RGBA
@@ -8045,6 +8161,12 @@ declare module "gi://WebKit?version=6.0" {
                  */
                 get networkSession(): NetworkSession
                 set networkSession(value: NetworkSession)
+                /**
+                 * The page icons (favicons) associated to the currently loaded content, if any.
+                 * @since 2.54
+                 */
+                get pageIcons(): ImageList | null
+                set pageIcons(value: ImageList | null)
                 /**
                  * The identifier of the #WebKitWebPage corresponding to the #WebKitWebView.
                  * @since 2.28
@@ -8452,6 +8574,16 @@ declare module "gi://WebKit?version=6.0" {
                  * @returns a #WebKitNetworkSession
                  */
                 get_network_session(): NetworkSession
+                /**
+                 * Returns the page icons for the content loaded in the web view.
+                 *
+                 * Gets the page icons associated with the content currently loaded in the
+                 *  `web_view`, if any, as a {@link ImageList}. Changes to the page icons
+                 * can be observed by connecting to the `notify::page-icons` signal.
+                 * @since 2.54
+                 * @returns a list of icons, or %NULL if there    are no icons for the content loaded in `web_view`.
+                 */
+                get_page_icons(): ImageList | null
                 /**
                  * Get the identifier of the #WebKitWebPage corresponding to
                  * the #WebKitWebView
@@ -10177,6 +10309,13 @@ declare module "gi://WebKit?version=6.0" {
 
             interface FeatureList {
                 /**
+                 * Finds a feature given its identifier.
+                 * @since 2.54
+                 * @param identifier a #WebKitFeature identifier
+                 * @returns The feature with the given     `identifier`, or `NULL` if it cannot be found.
+                 */
+                find(identifier: string): Feature | null
+                /**
                  * Gets a feature given its index.
                  * @since 2.42
                  * @param index index of the feature
@@ -10381,6 +10520,50 @@ declare module "gi://WebKit?version=6.0" {
 
             interface $Exports {
                 ITPThirdParty: ITPThirdPartyStruct
+            }
+            
+
+            interface ImageListStruct {
+                readonly $gtype: GObject.GType<ImageList>
+                [Symbol.hasInstance](instance: unknown): instance is ImageList
+            }
+
+            interface ImageList {
+                /**
+                 * Gets an image given its index.
+                 * @since 2.54
+                 * @param index index of the image
+                 * @returns The image at `index`.
+                 */
+                get(index: number): Image
+                /**
+                 * Gets the number of elements in the image list.
+                 * @since 2.54
+                 * @returns number of elements.
+                 */
+                get_length(): number
+                /**
+                 * Atomically acquires a reference on the given `image_list`.
+                 *
+                 * This function is MT-safe and may be called from any thread.
+                 * @since 2.54
+                 * @returns The same `image_list` with an additional reference.
+                 */
+                ref(): ImageList
+                /**
+                 * Atomically releases a reference on the given `image_list`.
+                 *
+                 * If the reference was the last, the resources associated with
+                 * the `image_list` are freed.
+                 *
+                 * This function is MT-safe and may be called from any thread.
+                 * @since 2.54
+                 */
+                unref(): void
+            }
+
+            interface $Exports {
+                ImageList: ImageListStruct
             }
             
 
@@ -13289,7 +13472,7 @@ declare module "gi://WebKit?version=6.0" {
                 EDITING_COMMAND_UNDO: "Undo"
                 MAJOR_VERSION: 2
                 MICRO_VERSION: 1
-                MINOR_VERSION: 52
+                MINOR_VERSION: 53
                 /**
                  * Gets the quark for the domain of download errors.
                  * @returns download error domain.

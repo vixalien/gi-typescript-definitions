@@ -10005,6 +10005,18 @@ declare module "gi://WebKit2?version=4.1" {
                  */
                 get_dom_cache_directory(): string | null
                 /**
+                 * Get the #WebKitFaviconDatabase of `manager`.
+                 * @since 2.40
+                 * @returns a #WebKitFaviconDatabase, or %NULL if website icons are disabled
+                 */
+                get_favicon_database(): FaviconDatabase | null
+                /**
+                 * Get whether website icons are enabled.
+                 * @since 2.40
+                 * @returns %TRUE if website icons are enabled, or %FALSE otherwise.
+                 */
+                get_favicons_enabled(): boolean
+                /**
                  * Get the #WebKitWebsiteDataManager:hsts-cache-directory property.
                  * @since 2.26
                  * @deprecated since 2.40 , use webkit_website_data_manager_get_base_cache_directory() instead.
@@ -10125,6 +10137,16 @@ declare module "gi://WebKit2?version=4.1" {
                  * @returns %TRUE if website data resources were successfully removed, or %FALSE otherwise.
                  */
                 remove_finish(result: Gio.AsyncResult): boolean
+                /**
+                 * Set whether website icons are enabled. Website icons are disabled by default.
+                 * When website icons are disabled, the #WebKitFaviconDatabase of `manager` is closed and
+                 * its reference removed, so webkit_website_data_manager_get_favicon_database() will
+                 * return %NULL. If website icons are enabled again, a new #WebKitFaviconDatabase will
+                 * be created.
+                 * @since 2.40
+                 * @param enabled value to set
+                 */
+                set_favicons_enabled(enabled: boolean): void
                 /**
                  * Enable or disable Intelligent Tracking Prevention (ITP).
                  *
@@ -11081,6 +11103,13 @@ declare module "gi://WebKit2?version=4.1" {
             }
 
             interface FeatureList {
+                /**
+                 * Finds a feature given its identifier.
+                 * @since 2.54
+                 * @param identifier a #WebKitFeature identifier
+                 * @returns The feature with the given     `identifier`, or `NULL` if it cannot be found.
+                 */
+                find(identifier: string): Feature | null
                 /**
                  * Gets a feature given its index.
                  * @since 2.42
@@ -13407,7 +13436,7 @@ declare module "gi://WebKit2?version=4.1" {
             interface HardwareAccelerationPolicyEnum {
                 readonly $gtype: GObject.GType<HardwareAccelerationPolicy>
                 /**
-                 * Hardware acceleration is enabled/disabled as request by web contents.
+                 * Hardware acceleration is enabled/disabled as request by web contents. Deprecated 2.54.
                  */
                 readonly "ON_DEMAND": 0
                 /**
@@ -14582,7 +14611,7 @@ declare module "gi://WebKit2?version=4.1" {
                 EDITING_COMMAND_UNDO: "Undo"
                 MAJOR_VERSION: 2
                 MICRO_VERSION: 1
-                MINOR_VERSION: 52
+                MINOR_VERSION: 53
                 /**
                  * Gets the quark for the domain of download errors.
                  * @returns download error domain.
