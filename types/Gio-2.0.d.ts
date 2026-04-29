@@ -884,6 +884,7 @@ declare module "gi://Gio?version=2.0" {
                  *
                  * It is important to use the proper GVariant format when retrieving
                  * the options with g_variant_dict_lookup():
+                 *
                  * - for %G_OPTION_ARG_NONE, use `b`
                  * - for %G_OPTION_ARG_STRING, use `&s`
                  * - for %G_OPTION_ARG_INT, use `i`
@@ -5061,15 +5062,16 @@ declare module "gi://Gio?version=2.0" {
                 get locked(): boolean
                 set locked(value: boolean)
                 /**
-                 * Copies `message`. The copy is a deep copy and the returned
-                 * #GDBusMessage is completely identical except that it is guaranteed
-                 * to not be locked.
+                 * Copies `message` with a deep copy.
                  *
-                 * This operation can fail if e.g. `message` contains file descriptors
+                 * The returned D-Bus message is completely identical to `message` except that it
+                 * is guaranteed to not be locked.
+                 *
+                 * This operation can fail if (for example) `message` contains file descriptors
                  * and the per-process or system-wide open files limit is reached.
                  * @throws {GLib.Error}
                  * @since 2.26
-                 * @returns A new #GDBusMessage or %NULL if `error` is set.     Free with g_object_unref().
+                 * @returns A new D-Bus message
                  */
                 copy(): DBusMessage
                 /**
@@ -5078,7 +5080,7 @@ declare module "gi://Gio?version=2.0" {
                  * See {@link Gio.DBusMessage.get_arg0_path} for returning object-path-typed
                  * arg0 values.
                  * @since 2.26
-                 * @returns The string item or %NULL if the first item in the body of `message` is not a string.
+                 * @returns The string item, or `NULL` if the first item in the body   of `message` is not a string
                  */
                 get_arg0(): string | null
                 /**
@@ -5086,116 +5088,129 @@ declare module "gi://Gio?version=2.0" {
                  *
                  * See {@link Gio.DBusMessage.get_arg0} for returning string-typed arg0 values.
                  * @since 2.80
-                 * @returns The object path item or `NULL` if the first item in the   body of `message` is not an object path.
+                 * @returns The object path item, or `NULL` if the first item in the   body of `message` is not an object path
                  */
                 get_arg0_path(): string | null
                 /**
                  * Gets the body of a message.
                  * @since 2.26
-                 * @returns A #GVariant or %NULL if the body is empty. Do not free, it is owned by `message`.
+                 * @returns A {@link GLib.Variant}, or `NULL` if the   body is empty
                  */
                 get_body(): GLib.Variant | null
                 /**
                  * Gets the byte order of `message`.
-                 * @returns The byte order.
+                 * @returns The byte order
                  */
                 get_byte_order(): DBusMessageByteOrder
                 /**
-                 * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_DESTINATION header field.
+                 * Convenience getter for the {@link Gio.DBusMessageHeaderField.DESTINATION}
+                 * header field.
                  * @since 2.26
-                 * @returns The value.
+                 * @returns The value
                  */
                 get_destination(): string | null
                 /**
-                 * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_ERROR_NAME header field.
+                 * Convenience getter for the {@link Gio.DBusMessageHeaderField.ERROR_NAME}
+                 * header field.
                  * @since 2.26
-                 * @returns The value.
+                 * @returns The value
                  */
                 get_error_name(): string | null
                 /**
                  * Gets the flags for `message`.
                  * @since 2.26
-                 * @returns Flags that are set (typically values from the #GDBusMessageFlags enumeration bitwise ORed together).
+                 * @returns Flags that are set (typically values from the   {@link Gio.DBusMessageFlags} enumeration bitwise ORed together)
                  */
                 get_flags(): DBusMessageFlags
                 /**
                  * Gets a header field on `message`.
                  *
-                 * The caller is responsible for checking the type of the returned #GVariant
-                 * matches what is expected.
+                 * The caller is responsible for checking the type of the returned
+                 * {@link GLib.Variant} matches what is expected.
                  * @since 2.26
-                 * @param header_field A 8-bit unsigned integer (typically a value from the #GDBusMessageHeaderField enumeration)
-                 * @returns A #GVariant with the value if the header was found, %NULL otherwise. Do not free, it is owned by `message`.
+                 * @param header_field a 8-bit unsigned integer (typically a value from the   {@link Gio.DBusMessageHeaderField} enumeration)
+                 * @returns A {@link GLib.Variant} with the value, or   `NULL` if the header was not found
                  */
                 get_header(header_field: DBusMessageHeaderField): GLib.Variant | null
                 /**
                  * Gets an array of all header fields on `message` that are set.
+                 *
+                 * Each element in the array is an `unsigned char`.
                  * @since 2.26
-                 * @returns An array of header fields terminated by %G_DBUS_MESSAGE_HEADER_FIELD_INVALID.  Each element is a #guchar. Free with g_free().
+                 * @returns An array of header   fields terminated by {@link Gio.DBusMessageHeaderField.INVALID}
                  */
                 get_header_fields(): Uint8Array
                 /**
-                 * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_INTERFACE header field.
+                 * Convenience getter for the {@link Gio.DBusMessageHeaderField.INTERFACE} header
+                 * field.
                  * @since 2.26
-                 * @returns The value.
+                 * @returns The value
                  */
                 get_interface(): string | null
                 /**
-                 * Checks whether `message` is locked. To monitor changes to this
-                 * value, connect to the #GObject::notify signal to listen for changes
-                 * on the #GDBusMessage:locked property.
+                 * Checks whether `message` is locked.
+                 *
+                 * To monitor changes to this value, connect to the
+                 * {@link GObject.Object.SignalSignatures["notify"]} signal to listen for changes on the
+                 * {@link Gio.DBusMessage.locked} property.
                  * @since 2.26
-                 * @returns %TRUE if `message` is locked, %FALSE otherwise.
+                 * @returns true if `message` is locked, false otherwise
                  */
                 get_locked(): boolean
                 /**
-                 * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_MEMBER header field.
+                 * Convenience getter for the {@link Gio.DBusMessageHeaderField.MEMBER} header
+                 * field.
                  * @since 2.26
-                 * @returns The value.
+                 * @returns The value
                  */
                 get_member(): string | null
                 /**
                  * Gets the type of `message`.
                  * @since 2.26
-                 * @returns A 8-bit unsigned integer (typically a value from the #GDBusMessageType enumeration).
+                 * @returns A 8-bit unsigned integer (typically a value from the   {@link Gio.DBusMessageType} enumeration)
                  */
                 get_message_type(): DBusMessageType
                 /**
-                 * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_NUM_UNIX_FDS header field.
+                 * Convenience getter for the {@link Gio.DBusMessageHeaderField.NUM_UNIX_FDS}
+                 * header field.
                  * @since 2.26
-                 * @returns The value.
+                 * @returns The value
                  */
                 get_num_unix_fds(): number
                 /**
-                 * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_PATH header field.
+                 * Convenience getter for the {@link Gio.DBusMessageHeaderField.PATH} header
+                 * field.
                  * @since 2.26
-                 * @returns The value.
+                 * @returns The value
                  */
                 get_path(): string | null
                 /**
-                 * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_REPLY_SERIAL header field.
+                 * Convenience getter for the {@link Gio.DBusMessageHeaderField.REPLY_SERIAL}
+                 * header field.
                  * @since 2.26
-                 * @returns The value.
+                 * @returns The value
                  */
                 get_reply_serial(): number
                 /**
-                 * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_SENDER header field.
+                 * Convenience getter for the {@link Gio.DBusMessageHeaderField.SENDER} header
+                 * field.
                  * @since 2.26
-                 * @returns The value.
+                 * @returns The value
                  */
                 get_sender(): string | null
                 /**
                  * Gets the serial for `message`.
                  * @since 2.26
-                 * @returns A #guint32.
+                 * @returns The serial number, which should not be zero
                  */
                 get_serial(): number
                 /**
-                 * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_SIGNATURE header field.
+                 * Convenience getter for the [enum@Gio.DBusMessageHeaderField.SIGNATURE header
+                 * field.
                  *
-                 * This will always be non-%NULL, but may be an empty string.
+                 * This will always be non-`NULL`, but may be an empty string.
                  * @since 2.26
-                 * @returns The value.
+                 * @returns The value
                  */
                 get_signature(): string
                 /**
@@ -5203,40 +5218,41 @@ declare module "gi://Gio?version=2.0" {
                  *
                  * This method is only available on UNIX.
                  *
-                 * The file descriptors normally correspond to %G_VARIANT_TYPE_HANDLE
-                 * values in the body of the message. For example,
-                 * if g_variant_get_handle() returns 5, that is intended to be a reference
-                 * to the file descriptor that can be accessed by
+                 * The file descriptors normally correspond to `G_VARIANT_TYPE_HANDLE`
+                 * values in the body of the message. For example, if
+                 * {@link GLib.Variant.get_handle} returns 5, that is intended to be a
+                 * reference to the file descriptor that can be accessed by
                  * `g_unix_fd_list_get (list, 5, ...)`.
                  * @since 2.26
-                 * @returns A #GUnixFDList or %NULL if no file descriptors are associated. Do not free, this object is owned by `message`.
+                 * @returns A {@link Gio.UnixFDList} or `NULL` if no   file descriptors are associated
                  */
                 get_unix_fd_list(): UnixFDList | null
                 /**
-                 * If `message` is locked, does nothing. Otherwise locks the message.
+                 * Locks the message.
+                 *
+                 * If `message` is locked already, this does nothing.
                  * @since 2.26
                  */
                 lock(): void
                 /**
-                 * Creates a new #GDBusMessage that is an error reply to `method_call_message`.
+                 * Creates a new D-Bus message that is an error reply to `method_call_message`.
                  * @since 2.26
-                 * @param error_name A valid D-Bus error name.
-                 * @param error_message The D-Bus error message.
-                 * @returns A #GDBusMessage. Free with g_object_unref().
+                 * @param error_name a valid D-Bus error name
+                 * @param error_message the D-Bus error message
+                 * @returns The D-Bus message
                  */
                 new_method_error_literal(error_name: string, error_message: string): DBusMessage
                 /**
-                 * Creates a new #GDBusMessage that is a reply to `method_call_message`.
+                 * Creates a new D-Bus message that is a reply to `method_call_message`.
                  * @since 2.26
-                 * @returns #GDBusMessage. Free with g_object_unref().
+                 * @returns The D-Bus message
                  */
                 new_method_reply(): DBusMessage
                 /**
                  * Produces a human-readable multi-line description of `message`.
                  *
-                 * The contents of the description has no ABI guarantees, the contents
-                 * and formatting is subject to change at any time. Typical output
-                 * looks something like this:
+                 * The contents and formatting are subject to change at any time and no ABI
+                 * guarantees are given. Typical output looks something like this:
                  * ```
                  * Flags:   none
                  * Version: 0
@@ -5265,41 +5281,44 @@ declare module "gi://Gio?version=2.0" {
                  *   fd 12: dev=0:10,mode=020620,ino=5,uid=500,gid=5,rdev=136:2,size=0,atime=1273085037,mtime=1273085851,ctime=1272982635
                  * ```
                  * @since 2.26
-                 * @param indent Indentation level.
-                 * @returns A string that should be freed with {@link GLib.free}.
+                 * @param indent indentation level
+                 * @returns Human readable description   of `message`
                  */
                 print(indent: number): string
                 /**
-                 * Sets the body `message`. As a side-effect the
-                 * %G_DBUS_MESSAGE_HEADER_FIELD_SIGNATURE header field is set to the
-                 * type string of `body` (or cleared if `body` is %NULL).
+                 * Sets the body of `message`.
+                 *
+                 * As a side-effect the {@link Gio.DBusMessageHeaderField.SIGNATURE} header field
+                 *   is set to the type string of `body` (or cleared if `body` is `NULL`).
                  *
                  * If `body` is floating, `message` assumes ownership of `body`.
                  * @since 2.26
-                 * @param body Either %NULL or a #GVariant that is a tuple.
+                 * @param body a {@link GLib.Variant} containing a tuple, or `NULL` if no body is   needed
                  */
                 set_body(body: GLib.Variant): void
                 /**
                  * Sets the byte order of `message`.
-                 * @param byte_order The byte order.
+                 * @param byte_order the byte order
                  */
                 set_byte_order(byte_order: DBusMessageByteOrder): void
                 /**
-                 * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_DESTINATION header field.
+                 * Convenience setter for the {@link Gio.DBusMessageHeaderField.DESTINATION}
+                 * header field.
                  * @since 2.26
-                 * @param value The value to set.
+                 * @param value the value to set
                  */
                 set_destination(value: string | null): void
                 /**
-                 * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_ERROR_NAME header field.
+                 * Convenience setter for the {@link Gio.DBusMessageHeaderField.ERROR_NAME}
+                 * header field.
                  * @since 2.26
-                 * @param value The value to set.
+                 * @param value the value to set
                  */
-                set_error_name(value: string): void
+                set_error_name(value: string | null): void
                 /**
                  * Sets the flags to set on `message`.
                  * @since 2.26
-                 * @param flags Flags for `message` that are set (typically values from the #GDBusMessageFlags enumeration bitwise ORed together).
+                 * @param flags flags for `message` that are set (typically values from the   {@link Gio.DBusMessageFlags} enumeration bitwise ORed together)
                  */
                 set_flags(flags: DBusMessageFlags): void
                 /**
@@ -5307,50 +5326,56 @@ declare module "gi://Gio?version=2.0" {
                  *
                  * If `value` is floating, `message` assumes ownership of `value`.
                  * @since 2.26
-                 * @param header_field A 8-bit unsigned integer (typically a value from the #GDBusMessageHeaderField enumeration)
-                 * @param value A #GVariant to set the header field or %NULL to clear the header field.
+                 * @param header_field a 8-bit unsigned integer (typically a value from the   [enum@Gio.DBusMessageHeaderField enumeration)
+                 * @param value a {@link GLib.Variant} to set the header field, or `NULL`   to clear the header field.
                  */
                 set_header(header_field: DBusMessageHeaderField, value: GLib.Variant | null): void
                 /**
-                 * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_INTERFACE header field.
+                 * Convenience setter for the {@link Gio.DBusMessageHeaderField.INTERFACE} header
+                 * field.
                  * @since 2.26
-                 * @param value The value to set.
+                 * @param value the value to set
                  */
                 set_interface(value: string | null): void
                 /**
-                 * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_MEMBER header field.
+                 * Convenience setter for the {@link Gio.DBusMessageHeaderField.MEMBER} header
+                 * field.
                  * @since 2.26
-                 * @param value The value to set.
+                 * @param value the value to set
                  */
                 set_member(value: string | null): void
                 /**
                  * Sets `message` to be of `type`.
                  * @since 2.26
-                 * @param type A 8-bit unsigned integer (typically a value from the #GDBusMessageType enumeration).
+                 * @param type a 8-bit unsigned integer (typically a value from the   {@link Gio.DBusMessageType} enumeration)
                  */
                 set_message_type(type: DBusMessageType): void
                 /**
-                 * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_NUM_UNIX_FDS header field.
+                 * Convenience setter for the {@link Gio.DBusMessageHeaderField.NUM_UNIX_FDS}
+                 * header field.
                  * @since 2.26
-                 * @param value The value to set.
+                 * @param value the value to set
                  */
                 set_num_unix_fds(value: number): void
                 /**
-                 * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_PATH header field.
+                 * Convenience setter for the {@link Gio.DBusMessageHeaderField.PATH} header
+                 * field.
                  * @since 2.26
-                 * @param value The value to set.
+                 * @param value the value to set
                  */
                 set_path(value: string | null): void
                 /**
-                 * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_REPLY_SERIAL header field.
+                 * Convenience setter for the {@link Gio.DBusMessageHeaderField.REPLY_SERIAL}
+                 * header field.
                  * @since 2.26
-                 * @param value The value to set.
+                 * @param value the value to set
                  */
                 set_reply_serial(value: number): void
                 /**
-                 * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_SENDER header field.
+                 * Convenience setter for the {@link Gio.DBusMessageHeaderField.SENDER} header
+                 * field.
                  * @since 2.26
-                 * @param value The value to set.
+                 * @param value the value to set
                  */
                 set_sender(value: string | null): void
                 /**
@@ -5359,51 +5384,57 @@ declare module "gi://Gio?version=2.0" {
                  * The [D-Bus specification](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-messages)
                  * does not allow the `serial` to be zero.
                  * @since 2.26
-                 * @param serial A #guint32, which must not be zero.
+                 * @param serial a serial number, which must not be zero
                  */
                 set_serial(serial: number): void
                 /**
-                 * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_SIGNATURE header field.
+                 * Convenience setter for the {@link Gio.DBusMessageHeaderField.SIGNATURE} header
+                 * field.
                  * @since 2.26
-                 * @param value The value to set.
+                 * @param value the value to set
                  */
                 set_signature(value: string | null): void
                 /**
-                 * Sets the UNIX file descriptors associated with `message`. As a
-                 * side-effect the %G_DBUS_MESSAGE_HEADER_FIELD_NUM_UNIX_FDS header
+                 * Sets the UNIX file descriptors associated with `message`.
+                 *
+                 * As a side-effect the {@link Gio.DBusMessageHeaderField.NUM_UNIX_FDS} header
                  * field is set to the number of fds in `fd_list` (or cleared if
-                 *  `fd_list` is %NULL).
+                 *  `fd_list` is `NULL`).
                  *
                  * This method is only available on UNIX.
                  *
                  * When designing D-Bus APIs that are intended to be interoperable,
                  * please note that non-GDBus implementations of D-Bus can usually only
                  * access file descriptors if they are referenced by a value of type
-                 * %G_VARIANT_TYPE_HANDLE in the body of the message.
+                 * `G_VARIANT_TYPE_HANDLE` in the body of the message.
                  * @since 2.26
-                 * @param fd_list A #GUnixFDList or %NULL.
+                 * @param fd_list A {@link Gio.UnixFDList}, or `NULL` to clear
                  */
                 set_unix_fd_list(fd_list: UnixFDList | null): void
                 /**
-                 * Serializes `message` to a blob. The byte order returned by
-                 * g_dbus_message_get_byte_order() will be used.
+                 * Serializes `message` to a blob.
+                 *
+                 * The byte order returned by {@link Gio.DBusMessage.get_byte_order} will be
+                 * used.
                  * @throws {GLib.Error}
                  * @since 2.26
-                 * @param capabilities A #GDBusCapabilityFlags describing what protocol features are supported.
-                 * @returns A pointer to a valid binary D-Bus message of `out_size` bytes generated by `message` or %NULL if `error` is set. Free with g_free().
+                 * @param capabilities flags describing what protocol features are supported
+                 * @returns A pointer to a   valid binary D-Bus message of `out_size` bytes generated by `message`
                  */
                 to_blob(capabilities: DBusCapabilityFlags): Uint8Array
                 /**
-                 * If `message` is not of type %G_DBUS_MESSAGE_TYPE_ERROR does
-                 * nothing and returns %FALSE.
+                 * Encodes the error in `message` as a {@link GLib.Error}.
                  *
-                 * Otherwise this method encodes the error in `message` as a #GError
-                 * using g_dbus_error_set_dbus_error() using the information in the
-                 * %G_DBUS_MESSAGE_HEADER_FIELD_ERROR_NAME header field of `message` as
-                 * well as the first string item in `message`'s body.
+                 * If `message` is of type {@link Gio.DBusMessageType.ERROR}, this function
+                 * calls {@link Gio.DBusError.set_dbus_error} using the information in the
+                 * {@link Gio.DBusMessageHeaderField.ERROR_NAME} header field of `message` as
+                 * well as the first string item in `message`’s body.
+                 *
+                 * If `message` is not of type {@link Gio.DBusMessageType.ERROR}, this function
+                 * does nothing and returns false.
                  * @throws {GLib.Error}
                  * @since 2.26
-                 * @returns %TRUE if `error` was set, %FALSE otherwise.
+                 * @returns true if `error` was set, false otherwise
                  */
                 to_gerror(): boolean
             }
@@ -5414,51 +5445,60 @@ declare module "gi://Gio?version=2.0" {
 
                 new (props?: Partial<GObject.ConstructorProps<DBusMessage>>): DBusMessage
                 /**
-                 * Creates a new empty #GDBusMessage.
+                 * Creates a new empty D-Bus message.
                  * @since 2.26
-                 * @returns A #GDBusMessage. Free with g_object_unref().
+                 * @returns The D-Bus message
                  */
                 "new"(): DBusMessage
                 /**
-                 * Creates a new #GDBusMessage from the data stored at `blob`. The byte
-                 * order that the message was in can be retrieved using
-                 * g_dbus_message_get_byte_order().
+                 * Creates a new D-Bus message from the data stored at `blob`.
+                 *
+                 * You must have previously called {@link Gio.DBusMessage.bytes_needed} on `blob`,
+                 * and ensure that `blob` is at least as long as the return value from that
+                 * function indicates. In particular, that means that `blob` must be at least 16
+                 * bytes long (but will typically be much longer).
+                 *
+                 * The byte order that the message was in can be retrieved using
+                 * {@link Gio.DBusMessage.get_byte_order}.
                  *
                  * If the `blob` cannot be parsed, contains invalid fields, or contains invalid
-                 * headers, %G_IO_ERROR_INVALID_ARGUMENT will be returned.
+                 * headers, {@link Gio.IOErrorEnum.INVALID_ARGUMENT} will be returned.
                  * @throws {GLib.Error}
                  * @since 2.26
-                 * @param blob A blob representing a binary D-Bus message.
-                 * @param capabilities A #GDBusCapabilityFlags describing what protocol features are supported.
-                 * @returns A new #GDBusMessage or %NULL if `error` is set. Free with g_object_unref().
+                 * @param blob a blob representing a   binary D-Bus message
+                 * @param capabilities flags describing what protocol features are supported
+                 * @returns The D-Bus message
                  */
                 new_from_blob(blob: Uint8Array, capabilities: DBusCapabilityFlags): DBusMessage
                 /**
-                 * Creates a new #GDBusMessage for a method call.
+                 * Creates a new D-Bus message for a method call.
                  * @since 2.26
-                 * @param name A valid D-Bus name or %NULL.
-                 * @param path A valid object path.
-                 * @param interface_ A valid D-Bus interface name or %NULL.
-                 * @param method A valid method name.
-                 * @returns A #GDBusMessage. Free with g_object_unref().
+                 * @param name a valid D-Bus name, or `NULL` if no destination is needed
+                 * @param path a valid object path
+                 * @param interface_ a valid D-Bus interface name, or `NULL` if none is   needed
+                 * @param method a valid method name
+                 * @returns The D-Bus message
                  */
                 new_method_call(name: string | null, path: string, interface_: string | null, method: string): DBusMessage
                 /**
-                 * Creates a new #GDBusMessage for a signal emission.
+                 * Creates a new D-Bus message for a signal emission.
                  * @since 2.26
-                 * @param path A valid object path.
-                 * @param interface_ A valid D-Bus interface name.
-                 * @param signal A valid signal name.
-                 * @returns A #GDBusMessage. Free with g_object_unref().
+                 * @param path a valid object path
+                 * @param interface_ a valid D-Bus interface name
+                 * @param signal a valid signal name
+                 * @returns The D-Bus message
                  */
                 new_signal(path: string, interface_: string, signal: string): DBusMessage
                 /**
                  * Utility function to calculate how many bytes are needed to
                  * completely deserialize the D-Bus message stored at `blob`.
+                 *
+                 * An error will be returned if `blob` contains invalid data, or if not enough
+                 * data is available to determine the size.
                  * @throws {GLib.Error}
                  * @since 2.26
-                 * @param blob A blob representing a binary D-Bus message.
-                 * @returns Number of bytes needed or -1 if `error` is set (e.g. if `blob` contains invalid data or not enough data is available to determine the size).
+                 * @param blob a blob representing a   binary D-Bus message.
+                 * @returns Number of bytes needed or `-1` if `error` is set
                  */
                 bytes_needed(blob: Uint8Array): number
             }
@@ -13070,6 +13110,7 @@ declare module "gi://Gio?version=2.0" {
                  * While a wide variety of stateful actions is possible, the following
                  * is the minimum that is expected to be supported by all users of exported
                  * menu information:
+                 *
                  * - an action with no parameter type and no state
                  * - an action with no parameter type and boolean state
                  * - an action with string parameter type and string state

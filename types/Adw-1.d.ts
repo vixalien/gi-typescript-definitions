@@ -14160,9 +14160,11 @@ declare module "gi://Adw?version=1" {
                     "menu-model": Gio.MenuModel | null
                     "mode": SidebarMode
                     "placeholder": Gtk.Widget | null
+                    "prefix": Gtk.Widget | null
                     "sections": Gio.ListModel
                     "selected": number
                     "selected-item": SidebarItem | null
+                    "suffix": Gtk.Widget | null
                 }
 
                 interface WritableProperties extends Gtk.Widget.WritableProperties, Gtk.Accessible.WritableProperties, Gtk.Buildable.WritableProperties, Gtk.ConstraintTarget.WritableProperties {
@@ -14172,9 +14174,11 @@ declare module "gi://Adw?version=1" {
                     "menu-model": Gio.MenuModel | null
                     "mode": SidebarMode
                     "placeholder": Gtk.Widget | null
+                    "prefix": Gtk.Widget | null
                     "sections": Gio.ListModel
                     "selected": number
                     "selected-item": SidebarItem | null
+                    "suffix": Gtk.Widget | null
                 }
 
                 interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties, Gtk.Accessible.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties, Gtk.ConstraintTarget.ConstructOnlyProperties {
@@ -14268,6 +14272,12 @@ declare module "gi://Adw?version=1" {
                 get placeholder(): Gtk.Widget | null
                 set placeholder(value: Gtk.Widget | null)
                 /**
+                 * A widget to be displayed before the sidebar items.
+                 * @since 1.10
+                 */
+                get prefix(): Gtk.Widget | null
+                set prefix(value: Gtk.Widget | null)
+                /**
                  * A list model with the sidebar's sections.
                  *
                  * This can be used to keep an up-to-date view.
@@ -14304,6 +14314,12 @@ declare module "gi://Adw?version=1" {
                  */
                 get selectedItem(): SidebarItem | null
                 set selectedItem(value: SidebarItem | null)
+                /**
+                 * A widget to be displayed after the sidebar items.
+                 * @since 1.10
+                 */
+                get suffix(): Gtk.Widget | null
+                set suffix(value: Gtk.Widget | null)
                 /**
                  * Appends `section` to `self`.
                  * @since 1.9
@@ -14369,6 +14385,12 @@ declare module "gi://Adw?version=1" {
                  */
                 get_placeholder(): Gtk.Widget | null
                 /**
+                 * Gets the widget displayed before the sidebar items.
+                 * @since 1.10
+                 * @returns the prefix widget
+                 */
+                get_prefix(): Gtk.Widget | null
+                /**
                  * Gets the section at `index` within `self`.
                  *
                  * Can return `NULL` if `index` is larger or equal to the number of sections.
@@ -14406,6 +14428,12 @@ declare module "gi://Adw?version=1" {
                  * @returns the selected item
                  */
                 get_selected_item(): SidebarItem | null
+                /**
+                 * Gets the widget displayed after sidebar items.
+                 * @since 1.10
+                 * @returns the suffix widget
+                 */
+                get_suffix(): Gtk.Widget | null
                 /**
                  * Inserts `section` at `position` to `self`.
                  *
@@ -14497,6 +14525,12 @@ declare module "gi://Adw?version=1" {
                  */
                 set_placeholder(placeholder: Gtk.Widget | null): void
                 /**
+                 * Sets the widget to be displayed before the sidebar items.
+                 * @since 1.10
+                 * @param prefix the prefix widget
+                 */
+                set_prefix(prefix: Gtk.Widget | null): void
+                /**
                  * Selects the item at `selected`.
                  *
                  * If set to {@link Gtk.INVALID_LIST_POSITION}, no item is selected.
@@ -14510,6 +14544,12 @@ declare module "gi://Adw?version=1" {
                  * @param selected index of the newly selected item
                  */
                 set_selected(selected: number): void
+                /**
+                 * Sets the widget to be displayed after the sidebar items.
+                 * @since 1.10
+                 * @param suffix the suffix widget
+                 */
+                set_suffix(suffix: Gtk.Widget | null): void
                 /**
                  * Sets up a drop target on the items.
                  *
@@ -14682,6 +14722,12 @@ declare module "gi://Adw?version=1" {
                  * Regardless of whether a drop target was set up, dragging content over sidebar
                  * items activates them after a timeout. To disable this behavior for specific
                  * items, set {@link SidebarItem.dragMotionActivate} to `FALSE` on them.
+                 *
+                 * ## Prefix and Suffix
+                 *
+                 * `AdwSidebar` can display additional widgets before and after the sidebar
+                 * items. Use the {@link Sidebar.prefix} and {@link Sidebar.suffix}
+                 * properties to add them.
                  *
                  * ## `AdwSidebar` as `GtkBuildable`
                  *
@@ -22766,14 +22812,18 @@ declare module "gi://Adw?version=1" {
                     "filter": Gtk.Filter | null
                     "mode": SidebarMode
                     "placeholder": Gtk.Widget | null
+                    "prefix": Gtk.Widget | null
                     "stack": ViewStack | null
+                    "suffix": Gtk.Widget | null
                 }
 
                 interface WritableProperties extends Gtk.Widget.WritableProperties, Gtk.Accessible.WritableProperties, Gtk.Buildable.WritableProperties, Gtk.ConstraintTarget.WritableProperties {
                     "filter": Gtk.Filter | null
                     "mode": SidebarMode
                     "placeholder": Gtk.Widget | null
+                    "prefix": Gtk.Widget | null
                     "stack": ViewStack | null
+                    "suffix": Gtk.Widget | null
                 }
 
                 interface ConstructOnlyProperties extends Gtk.Widget.ConstructOnlyProperties, Gtk.Accessible.ConstructOnlyProperties, Gtk.Buildable.ConstructOnlyProperties, Gtk.ConstraintTarget.ConstructOnlyProperties {
@@ -22834,11 +22884,27 @@ declare module "gi://Adw?version=1" {
                 get placeholder(): Gtk.Widget | null
                 set placeholder(value: Gtk.Widget | null)
                 /**
+                 * A widget to be displayed before the sidebar items.
+                 *
+                 * See {@link Sidebar.prefix}.
+                 * @since 1.10
+                 */
+                get prefix(): Gtk.Widget | null
+                set prefix(value: Gtk.Widget | null)
+                /**
                  * The stack the sidebar controls.
                  * @since 1.9
                  */
                 get stack(): ViewStack | null
                 set stack(value: ViewStack | null)
+                /**
+                 * A widget to be displayed after the sidebar items.
+                 *
+                 * See {@link Sidebar.suffix}.
+                 * @since 1.10
+                 */
+                get suffix(): Gtk.Widget | null
+                set suffix(value: Gtk.Widget | null)
                 /**
                  * Gets the item filter for `self`.
                  * @since 1.9
@@ -22860,11 +22926,23 @@ declare module "gi://Adw?version=1" {
                  */
                 get_placeholder(): Gtk.Widget | null
                 /**
+                 * Gets the widget displayed before the sidebar items.
+                 * @since 1.10
+                 * @returns the prefix widget
+                 */
+                get_prefix(): Gtk.Widget | null
+                /**
                  * Gets the stack `self` controls.
                  * @since 1.9
                  * @returns The stack of `self`
                  */
                 get_stack(): ViewStack | null
+                /**
+                 * Gets the widget displayed after sidebar items.
+                 * @since 1.10
+                 * @returns the suffix widget
+                 */
+                get_suffix(): Gtk.Widget | null
                 /**
                  * Sets the item filter for `self`.
                  *
@@ -22915,11 +22993,27 @@ declare module "gi://Adw?version=1" {
                  */
                 set_placeholder(placeholder: Gtk.Widget | null): void
                 /**
+                 * Sets the widget to be displayed before the sidebar items.
+                 *
+                 * See {@link Sidebar.set_prefix}.
+                 * @since 1.10
+                 * @param prefix the prefix widget
+                 */
+                set_prefix(prefix: Gtk.Widget | null): void
+                /**
                  * Sets the stack to control.
                  * @since 1.9
                  * @param stack a stack
                  */
                 set_stack(stack: ViewStack | null): void
+                /**
+                 * Sets the widget to be displayed after the sidebar items.
+                 *
+                 * See {@link Sidebar.set_suffix}.
+                 * @since 1.10
+                 * @param suffix the suffix widget
+                 */
+                set_suffix(suffix: Gtk.Widget | null): void
             }
 
             interface ViewSwitcherSidebarClass extends Omit<Gtk.WidgetClass, "new"> {
@@ -22972,6 +23066,10 @@ declare module "gi://Adw?version=1" {
                  * Use {@link ViewSwitcherSidebar.placeholder} to provide an empty state
                  * widget. It will be shown when all items have been filtered out, or the
                  * sidebar has no items otherwise.
+                 *
+                 * Like `AdwSidebar`, `AdwViewSwitcherSidebar` supports prefix and suffix
+                 * widgets via the {@link Sidebar.prefix} and {@link Sidebar.suffix}
+                 * properties.
                  *
                  * ## CSS nodes
                  *

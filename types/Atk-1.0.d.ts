@@ -7070,11 +7070,11 @@ declare module "gi://Atk?version=1.0" {
             interface $Exports {
                 __name__: "Atk"
                 __version__: "1.0"
-                BINARY_AGE: 26010
+                BINARY_AGE: 26110
                 INTERFACE_AGE: 1
                 MAJOR_VERSION: 2
                 MICRO_VERSION: 0
-                MINOR_VERSION: 60
+                MINOR_VERSION: 61
                 VERSION_MIN_REQUIRED: 2
                 /**
                  * Frees the memory used by an #AtkAttributeSet, including all its
