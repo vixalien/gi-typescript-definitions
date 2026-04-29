@@ -10316,11 +10316,11 @@ declare module "gi://GLib?version=2.0" {
                  *
                  * There are also escapes that changes the case of the following text:
                  *
-                 * - \l: Convert to lower case the next character
-                 * - \u: Convert to upper case the next character
-                 * - \L: Convert to lower case till \E
-                 * - \U: Convert to upper case till \E
-                 * - \E: End case modification
+                 * - `\l`: Convert to lower case the next character
+                 * - `\u`: Convert to upper case the next character
+                 * - `\L`: Convert to lower case until the next `\E`
+                 * - `\U`: Convert to upper case until the next `\E`
+                 * - `\E`: End case modification
                  *
                  * If you do not need to use backreferences use g_regex_replace_literal().
                  *
@@ -10330,7 +10330,7 @@ declare module "gi://GLib?version=2.0" {
                  *
                  * Setting `start_position` differs from just passing over a shortened
                  * string and setting %G_REGEX_MATCH_NOTBOL in the case of a pattern that
-                 * begins with any kind of lookbehind assertion, such as "\b".
+                 * begins with any kind of lookbehind assertion, such as `"\b"`.
                  * @throws {GLib.Error}
                  * @since 2.14
                  * @param string the string to perform matches against
@@ -15576,7 +15576,7 @@ declare module "gi://GLib?version=2.0" {
                 readonly "OPTIMIZE": 1
                 /**
                  * Replacement failed due to an ill-formed replacement
-                 *     string.
+                 *   string.
                  */
                 readonly "REPLACE": 2
                 /**
@@ -15585,45 +15585,45 @@ declare module "gi://GLib?version=2.0" {
                 readonly "MATCH": 3
                 /**
                  * Internal error of the regular expression engine.
-                 *     Since 2.16
+                 *   Since 2.16
                  */
                 readonly "INTERNAL": 4
                 /**
-                 * "\\" at end of pattern. Since 2.16
+                 * `\` at end of pattern. Since 2.16
                  */
                 readonly "STRAY_BACKSLASH": 101
                 /**
-                 * "\\c" at end of pattern. Since 2.16
+                 * `\c` at end of pattern. Since 2.16
                  */
                 readonly "MISSING_CONTROL_CHAR": 102
                 /**
-                 * Unrecognized character follows "\\".
-                 *     Since 2.16
+                 * Unrecognized character follows `\`.
+                 *   Since 2.16
                  */
                 readonly "UNRECOGNIZED_ESCAPE": 103
                 /**
-                 * Numbers out of order in "{}"
-                 *     quantifier. Since 2.16
+                 * Numbers out of order in `{}`
+                 *   quantifier. Since 2.16
                  */
                 readonly "QUANTIFIERS_OUT_OF_ORDER": 104
                 /**
-                 * Number too big in "{}" quantifier.
-                 *     Since 2.16
+                 * Number too big in `{}` quantifier.
+                 *   Since 2.16
                  */
                 readonly "QUANTIFIER_TOO_BIG": 105
                 /**
-                 * Missing terminating "]" for
-                 *     character class. Since 2.16
+                 * Missing terminating `]` for
+                 *   character class. Since 2.16
                  */
                 readonly "UNTERMINATED_CHARACTER_CLASS": 106
                 /**
                  * Invalid escape sequence
-                 *     in character class. Since 2.16
+                 *   in character class. Since 2.16
                  */
                 readonly "INVALID_ESCAPE_IN_CHARACTER_CLASS": 107
                 /**
                  * Range out of order in character class.
-                 *     Since 2.16
+                 *   Since 2.16
                  */
                 readonly "RANGE_OUT_OF_ORDER": 108
                 /**
@@ -15631,33 +15631,33 @@ declare module "gi://GLib?version=2.0" {
                  */
                 readonly "NOTHING_TO_REPEAT": 109
                 /**
-                 * Unrecognized character after "(?",
-                 *     "(?<" or "(?P". Since 2.16
+                 * Unrecognized character after `(?`,
+                 *   `(?<` or `(?P`. Since 2.16
                  */
                 readonly "UNRECOGNIZED_CHARACTER": 112
                 /**
                  * POSIX named classes are
-                 *     supported only within a class. Since 2.16
+                 *   supported only within a class. Since 2.16
                  */
                 readonly "POSIX_NAMED_CLASS_OUTSIDE_CLASS": 113
                 /**
-                 * Missing terminating ")" or ")"
-                 *     without opening "(". Since 2.16
+                 * Missing terminating `)` or `)`
+                 *   without opening `(`. Since 2.16
                  */
                 readonly "UNMATCHED_PARENTHESIS": 114
                 /**
                  * Reference to non-existent
-                 *     subpattern. Since 2.16
+                 *   subpattern. Since 2.16
                  */
                 readonly "INEXISTENT_SUBPATTERN_REFERENCE": 115
                 /**
-                 * Missing terminating ")" after comment.
-                 *     Since 2.16
+                 * Missing terminating `)` after comment.
+                 *   Since 2.16
                  */
                 readonly "UNTERMINATED_COMMENT": 118
                 /**
                  * Regular expression too large.
-                 *     Since 2.16
+                 *   Since 2.16
                  */
                 readonly "EXPRESSION_TOO_LARGE": 120
                 /**
@@ -15666,124 +15666,125 @@ declare module "gi://GLib?version=2.0" {
                 readonly "MEMORY_ERROR": 121
                 /**
                  * Lookbehind assertion is not
-                 *     fixed length. Since 2.16
+                 *   fixed length. Since 2.16
                  */
                 readonly "VARIABLE_LENGTH_LOOKBEHIND": 125
                 /**
-                 * Malformed number or name after "(?(".
-                 *     Since 2.16
+                 * Malformed number or name after `(?(`.
+                 *   Since 2.16
                  */
                 readonly "MALFORMED_CONDITION": 126
                 /**
                  * Conditional group contains
-                 *     more than two branches. Since 2.16
+                 *   more than two branches. Since 2.16
                  */
                 readonly "TOO_MANY_CONDITIONAL_BRANCHES": 127
                 /**
-                 * Assertion expected after "(?(".
-                 *     Since 2.16
+                 * Assertion expected after `(?(`.
+                 *   Since 2.16
                  */
                 readonly "ASSERTION_EXPECTED": 128
                 /**
                  * Unknown POSIX class name.
-                 *     Since 2.16
+                 *   Since 2.16
                  */
                 readonly "UNKNOWN_POSIX_CLASS_NAME": 130
                 /**
                  * POSIX collating
-                 *     elements are not supported. Since 2.16
+                 *   elements are not supported. Since 2.16
                  */
                 readonly "POSIX_COLLATING_ELEMENTS_NOT_SUPPORTED": 131
                 /**
-                 * Character value in "\\x{...}" sequence
-                 *     is too large. Since 2.16
+                 * Character value in `\x{...}` sequence
+                 *   is too large. Since 2.16
                  */
                 readonly "HEX_CODE_TOO_LARGE": 134
                 /**
-                 * Invalid condition "(?(0)". Since 2.16
+                 * Invalid condition `(?(0)`. Since 2.16
                  */
                 readonly "INVALID_CONDITION": 135
                 /**
-                 * \\C not allowed in
-                 *     lookbehind assertion. Since 2.16
+                 * `\C` not allowed in
+                 *   lookbehind assertion. Since 2.16
                  */
                 readonly "SINGLE_BYTE_MATCH_IN_LOOKBEHIND": 136
                 /**
                  * Recursive call could loop indefinitely.
-                 *     Since 2.16
+                 *   Since 2.16
                  */
                 readonly "INFINITE_LOOP": 140
                 /**
                  * Missing terminator
-                 *     in subpattern name. Since 2.16
+                 *   in subpattern name. Since 2.16
                  */
                 readonly "MISSING_SUBPATTERN_NAME_TERMINATOR": 142
                 /**
                  * Two named subpatterns have
-                 *     the same name. Since 2.16
+                 *   the same name. Since 2.16
                  */
                 readonly "DUPLICATE_SUBPATTERN_NAME": 143
                 /**
-                 * Malformed "\\P" or "\\p" sequence.
-                 *     Since 2.16
+                 * Malformed `\P` or `\p` sequence.
+                 *   Since 2.16
                  */
                 readonly "MALFORMED_PROPERTY": 146
                 /**
-                 * Unknown property name after "\\P" or
-                 *     "\\p". Since 2.16
+                 * Unknown property name after `\P` or
+                 *   `\p`. Since 2.16
                  */
                 readonly "UNKNOWN_PROPERTY": 147
                 /**
                  * Subpattern name is too long
-                 *     (maximum 32 characters). Since 2.16
+                 *   (maximum 32 characters). Since 2.16
                  */
                 readonly "SUBPATTERN_NAME_TOO_LONG": 148
                 /**
                  * Too many named subpatterns (maximum
-                 *     10,000). Since 2.16
+                 *   10,000). Since 2.16
                  */
                 readonly "TOO_MANY_SUBPATTERNS": 149
                 /**
-                 * Octal value is greater than "\\377".
-                 *     Since 2.16
+                 * Octal value is greater than `\377`.
+                 *   Since 2.16
                  */
                 readonly "INVALID_OCTAL_VALUE": 151
                 /**
-                 * "DEFINE" group contains more
-                 *     than one branch. Since 2.16
+                 * `DEFINE` group contains more
+                 *   than one branch. Since 2.16
                  */
                 readonly "TOO_MANY_BRANCHES_IN_DEFINE": 154
                 /**
-                 * Repeating a "DEFINE" group is not allowed.
-                 *     This error is never raised. Since: 2.16 Deprecated: 2.34
+                 * Repeating a `DEFINE` group is not allowed.
+                 *   This error is never raised. Since: 2.16 Deprecated: 2.34
                  */
                 readonly "DEFINE_REPETION": 155
                 /**
                  * Inconsistent newline options.
-                 *     Since 2.16
+                 *   Since 2.16
                  */
                 readonly "INCONSISTENT_NEWLINE_OPTIONS": 156
                 /**
-                 * "\\g" is not followed by a braced,
-                 *      angle-bracketed, or quoted name or number, or by a plain number. Since: 2.16
+                 * `\g` is not followed by a braced,
+                 *   angle-bracketed, or quoted name or number, or by a plain number. Since: 2.16
                  */
                 readonly "MISSING_BACK_REFERENCE": 157
                 /**
-                 * relative reference must not be zero. Since: 2.34
+                 * Relative reference must not be
+                 *   zero. Since: 2.34
                  */
                 readonly "INVALID_RELATIVE_REFERENCE": 158
                 /**
-                 * the backtracing
-                 *     control verb used does not allow an argument. Since: 2.34
+                 * The backtracing
+                 *   control verb used does not allow an argument. Since: 2.34
                  */
                 readonly "BACKTRACKING_CONTROL_VERB_ARGUMENT_FORBIDDEN": 159
                 /**
-                 * unknown backtracing
-                 *     control verb. Since: 2.34
+                 * Unknown backtracing
+                 *   control verb. Since: 2.34
                  */
                 readonly "UNKNOWN_BACKTRACKING_CONTROL_VERB": 160
                 /**
-                 * number is too big in escape sequence. Since: 2.34
+                 * Number is too big in escape sequence. Since: 2.34
                  */
                 readonly "NUMBER_TOO_BIG": 161
                 /**
@@ -15796,45 +15797,45 @@ declare module "gi://GLib?version=2.0" {
                 readonly "MISSING_DIGIT": 163
                 /**
                  * In JavaScript compatibility mode,
-                 *     "[" is an invalid data character. Since: 2.34
+                 *   `[` is an invalid data character. Since: 2.34
                  */
                 readonly "INVALID_DATA_CHARACTER": 164
                 /**
                  * different names for subpatterns of the
-                 *     same number are not allowed. Since: 2.34
+                 *   same number are not allowed. Since: 2.34
                  */
                 readonly "EXTRA_SUBPATTERN_NAME": 165
                 /**
-                 * the backtracing control
-                 *     verb requires an argument. Since: 2.34
+                 * The backtracing control
+                 *   verb requires an argument. Since: 2.34
                  */
                 readonly "BACKTRACKING_CONTROL_VERB_ARGUMENT_REQUIRED": 166
                 /**
-                 * "\\c" must be followed by an ASCII
-                 *     character. Since: 2.34
+                 * `\c` must be followed by an ASCII
+                 *   character. Since: 2.34
                  */
                 readonly "INVALID_CONTROL_CHAR": 168
                 /**
-                 * "\\k" is not followed by a braced, angle-bracketed, or
-                 *     quoted name. Since: 2.34
+                 * `\k` is not followed by a braced,
+                 *   angle-bracketed, or quoted name. Since: 2.34
                  */
                 readonly "MISSING_NAME": 169
                 /**
-                 * "\\N" is not supported in a class. Since: 2.34
+                 * `\N` is not supported in a class. Since: 2.34
                  */
                 readonly "NOT_SUPPORTED_IN_CLASS": 171
                 /**
-                 * too many forward references. Since: 2.34
+                 * Too many forward references. Since: 2.34
                  */
                 readonly "TOO_MANY_FORWARD_REFERENCES": 172
                 /**
-                 * the name is too long in "(*MARK)", "(*PRUNE)",
-                 *     "(*SKIP)", or "(*THEN)". Since: 2.34
+                 * The name is too long in `(*MARK)`, `(*PRUNE)`,
+                 *   `(*SKIP)`, or `(*THEN)`. Since: 2.34
                  */
                 readonly "NAME_TOO_LONG": 175
                 /**
-                 * the character value in the \\u sequence is
-                 *     too large. Since: 2.34
+                 * The character value in the `\u`
+                 *   sequence is too large. Since: 2.34
                  */
                 readonly "CHARACTER_VALUE_TOO_LARGE": 176
             }
@@ -18309,106 +18310,106 @@ declare module "gi://GLib?version=2.0" {
                 readonly "DEFAULT": 0
                 /**
                  * Letters in the pattern match both upper- and
-                 *     lowercase letters. This option can be changed within a pattern
-                 *     by a "(?i)" option setting.
+                 *   lowercase letters. This option can be changed within a pattern
+                 *   by a `(?i)` option setting.
                  */
                 readonly "CASELESS": 1
                 /**
-                 * By default, GRegex treats the strings as consisting
-                 *     of a single line of characters (even if it actually contains
-                 *     newlines). The "start of line" metacharacter ("^") matches only
-                 *     at the start of the string, while the "end of line" metacharacter
-                 *     ("$") matches only at the end of the string, or before a terminating
-                 *     newline (unless %G_REGEX_DOLLAR_ENDONLY is set). When
-                 *     %G_REGEX_MULTILINE is set, the "start of line" and "end of line"
-                 *     constructs match immediately following or immediately before any
-                 *     newline in the string, respectively, as well as at the very start
-                 *     and end. This can be changed within a pattern by a "(?m)" option
-                 *     setting.
+                 * By default, {@link GLib.Regex} treats the strings as consisting
+                 *   of a single line of characters (even if it actually contains
+                 *   newlines). The ‘start of line’ metacharacter (`^`) matches only
+                 *   at the start of the string, while the ‘end of line’ metacharacter
+                 *   (`$`) matches only at the end of the string, or before a terminating
+                 *   newline (unless {@link GLib.RegexCompileFlags.DOLLAR_ENDONLY} is set). When
+                 *   {@link GLib.RegexCompileFlags.MULTILINE} is set, the ‘start of line’ and
+                 *   ‘end of line’ constructs match immediately following or immediately before
+                 *   any newline in the string, respectively, as well as at the very start
+                 *   and end. This can be changed within a pattern by a `(?m)` option
+                 *   setting.
                  */
                 readonly "MULTILINE": 2
                 /**
-                 * A dot metacharacter (".") in the pattern matches all
-                 *     characters, including newlines. Without it, newlines are excluded.
-                 *     This option can be changed within a pattern by a ("?s") option setting.
+                 * A dot metacharacter (`.`) in the pattern matches all
+                 *   characters, including newlines. Without it, newlines are excluded.
+                 *   This option can be changed within a pattern by a `(?s)` option setting.
                  */
                 readonly "DOTALL": 4
                 /**
                  * Whitespace data characters in the pattern are
-                 *     totally ignored except when escaped or inside a character class.
-                 *     Whitespace does not include the VT character (code 11). In addition,
-                 *     characters between an unescaped "#" outside a character class and
-                 *     the next newline character, inclusive, are also ignored. This can
-                 *     be changed within a pattern by a "(?x)" option setting.
+                 *   totally ignored except when escaped or inside a character class.
+                 *   Whitespace does not include the VT character (code 11). In addition,
+                 *   characters between an unescaped `#` outside a character class and
+                 *   the next newline character, inclusive, are also ignored. This can
+                 *   be changed within a pattern by a `(?x)` option setting.
                  */
                 readonly "EXTENDED": 8
                 /**
-                 * The pattern is forced to be "anchored", that is,
-                 *     it is constrained to match only at the first matching point in the
-                 *     string that is being searched. This effect can also be achieved by
-                 *     appropriate constructs in the pattern itself such as the "^"
-                 *     metacharacter.
+                 * The pattern is forced to be ‘anchored’, that is,
+                 *   it is constrained to match only at the first matching point in the
+                 *   string that is being searched. This effect can also be achieved by
+                 *   appropriate constructs in the pattern itself such as the `^`
+                 *   metacharacter.
                  */
                 readonly "ANCHORED": 16
                 /**
-                 * A dollar metacharacter ("$") in the pattern
-                 *     matches only at the end of the string. Without this option, a
-                 *     dollar also matches immediately before the final character if
-                 *     it is a newline (but not before any other newlines). This option
-                 *     is ignored if %G_REGEX_MULTILINE is set.
+                 * A dollar metacharacter (`$`) in the pattern
+                 *   matches only at the end of the string. Without this option, a
+                 *   dollar also matches immediately before the final character if
+                 *   it is a newline (but not before any other newlines). This option
+                 *   is ignored if {@link GLib.RegexCompileFlags.MULTILINE} is set.
                  */
                 readonly "DOLLAR_ENDONLY": 32
                 /**
-                 * Inverts the "greediness" of the quantifiers so that
-                 *     they are not greedy by default, but become greedy if followed by "?".
-                 *     It can also be set by a "(?U)" option setting within the pattern.
+                 * Inverts the ‘greediness’ of the quantifiers so that
+                 *   they are not greedy by default, but become greedy if followed by `?`.
+                 *   It can also be set by a `(?U)` option setting within the pattern.
                  */
                 readonly "UNGREEDY": 512
                 /**
                  * Usually strings must be valid UTF-8 strings, using this
-                 *     flag they are considered as a raw sequence of bytes.
+                 *   flag they are considered as a raw sequence of bytes.
                  */
                 readonly "RAW": 2048
                 /**
                  * Disables the use of numbered capturing
-                 *     parentheses in the pattern. Any opening parenthesis that is not
-                 *     followed by "?" behaves as if it were followed by "?:" but named
-                 *     parentheses can still be used for capturing (and they acquire numbers
-                 *     in the usual way).
+                 *   parentheses in the pattern. Any opening parenthesis that is not
+                 *   followed by `?` behaves as if it were followed by `?:` but named
+                 *   parentheses can still be used for capturing (and they acquire numbers
+                 *   in the usual way).
                  */
                 readonly "NO_AUTO_CAPTURE": 4096
                 /**
                  * Since 2.74 and the port to pcre2, requests JIT
-                 *     compilation, which, if the just-in-time compiler is available, further
-                 *     processes a compiled pattern into machine code that executes much
-                 *     faster. However, it comes at the cost of extra processing before the
-                 *     match is performed, so it is most beneficial to use this when the same
-                 *     compiled pattern is used for matching many times. Before 2.74 this
-                 *     option used the built-in non-JIT optimizations in pcre1.
+                 *   compilation, which, if the just-in-time compiler is available, further
+                 *   processes a compiled pattern into machine code that executes much
+                 *   faster. However, it comes at the cost of extra processing before the
+                 *   match is performed, so it is most beneficial to use this when the same
+                 *   compiled pattern is used for matching many times. Before 2.74 this
+                 *   option used the built-in non-JIT optimizations in pcre1.
                  */
                 readonly "OPTIMIZE": 8192
                 /**
                  * Limits an unanchored pattern to match before (or at) the
-                 *     first newline. Since: 2.34
+                 *   first newline. Since: 2.34
                  */
                 readonly "FIRSTLINE": 262144
                 /**
                  * Names used to identify capturing subpatterns need not
-                 *     be unique. This can be helpful for certain types of pattern when it
-                 *     is known that only one instance of the named subpattern can ever be
-                 *     matched.
+                 *   be unique. This can be helpful for certain types of pattern when it
+                 *   is known that only one instance of the named subpattern can ever be
+                 *   matched.
                  */
                 readonly "DUPNAMES": 524288
                 /**
                  * Usually any newline character or character sequence is
-                 *     recognized. If this option is set, the only recognized newline character
-                 *     is '\r'.
+                 *   recognized. If this option is set, the only recognized newline character
+                 *   is `\r`.
                  */
                 readonly "NEWLINE_CR": 1048576
                 /**
                  * Usually any newline character or character sequence is
-                 *     recognized. If this option is set, the only recognized newline character
-                 *     is '\n'.
+                 *   recognized. If this option is set, the only recognized newline character
+                 *   is `\n`.
                  */
                 readonly "NEWLINE_LF": 2097152
                 /**
@@ -18431,107 +18432,114 @@ declare module "gi://GLib?version=2.0" {
                  */
                 readonly "DEFAULT": 0
                 /**
-                 * The pattern is forced to be "anchored", that is,
-                 *     it is constrained to match only at the first matching point in the
-                 *     string that is being searched. This effect can also be achieved by
-                 *     appropriate constructs in the pattern itself such as the "^"
-                 *     metacharacter.
+                 * The pattern is forced to be ‘anchored’, that is,
+                 *   it is constrained to match only at the first matching point in the
+                 *   string that is being searched. This effect can also be achieved by
+                 *   appropriate constructs in the pattern itself such as the `^`
+                 *   metacharacter.
                  */
                 readonly "ANCHORED": 16
                 /**
                  * Specifies that first character of the string is
-                 *     not the beginning of a line, so the circumflex metacharacter should
-                 *     not match before it. Setting this without %G_REGEX_MULTILINE (at
-                 *     compile time) causes circumflex never to match. This option affects
-                 *     only the behaviour of the circumflex metacharacter, it does not
-                 *     affect "\A".
+                 *   not the beginning of a line, so the circumflex metacharacter should
+                 *   not match before it. Setting this without
+                 *   {@link GLib.RegexCompileFlags.MULTILINE} (at
+                 *   compile time) causes circumflex never to match. This option affects
+                 *   only the behaviour of the circumflex metacharacter, it does not
+                 *   affect `\A`.
                  */
                 readonly "NOTBOL": 128
                 /**
                  * Specifies that the end of the subject string is
-                 *     not the end of a line, so the dollar metacharacter should not match
-                 *     it nor (except in multiline mode) a newline immediately before it.
-                 *     Setting this without %G_REGEX_MULTILINE (at compile time) causes
-                 *     dollar never to match. This option affects only the behaviour of
-                 *     the dollar metacharacter, it does not affect "\Z" or "\z".
+                 *   not the end of a line, so the dollar metacharacter should not match
+                 *   it nor (except in multiline mode) a newline immediately before it.
+                 *   Setting this without {@link GLib.RegexCompileFlags.MULTILINE}
+                 *   (at compile time) causes dollar never to match. This option affects only
+                 *   the behaviour of the dollar metacharacter, it does not affect `\Z` or `\z`.
                  */
                 readonly "NOTEOL": 256
                 /**
                  * An empty string is not considered to be a valid
-                 *     match if this option is set. If there are alternatives in the pattern,
-                 *     they are tried. If all the alternatives match the empty string, the
-                 *     entire match fails. For example, if the pattern "a?b?" is applied to
-                 *     a string not beginning with "a" or "b", it matches the empty string
-                 *     at the start of the string. With this flag set, this match is not
-                 *     valid, so GRegex searches further into the string for occurrences
-                 *     of "a" or "b".
+                 *   match if this option is set. If there are alternatives in the pattern,
+                 *   they are tried. If all the alternatives match the empty string, the
+                 *   entire match fails. For example, if the pattern `a?b?` is applied to
+                 *   a string not beginning with `a` or `b`, it matches the empty string
+                 *   at the start of the string. With this flag set, this match is not
+                 *   valid, so {@link GLib.Regex} searches further into the string for
+                 *   occurrences of `a` or `b`.
                  */
                 readonly "NOTEMPTY": 1024
                 /**
                  * Turns on the partial matching feature, for more
-                 *     documentation on partial matching see g_match_info_is_partial_match().
+                 *   documentation on partial matching see
+                 *   {@link GLib.MatchInfo.is_partial_match}.
                  */
                 readonly "PARTIAL": 32768
                 /**
                  * Overrides the newline definition set when
-                 *     creating a new #GRegex, setting the '\r' character as line terminator.
+                 *   creating a new {@link GLib.Regex}, setting the `\r` character as line
+                 *   terminator.
                  */
                 readonly "NEWLINE_CR": 1048576
                 /**
                  * Overrides the newline definition set when
-                 *     creating a new #GRegex, setting the '\n' character as line terminator.
+                 *   creating a new {@link GLib.Regex}, setting the `\n` character as line
+                 *   terminator.
                  */
                 readonly "NEWLINE_LF": 2097152
                 /**
                  * Overrides the newline definition set when
-                 *     creating a new #GRegex, setting the '\r\n' characters sequence as line terminator.
+                 *   creating a new {@link GLib.Regex}, setting the `\r\n` character sequence as
+                 *   line terminator.
                  */
                 readonly "NEWLINE_CRLF": 3145728
                 /**
                  * Overrides the newline definition set when
-                 *     creating a new #GRegex, any Unicode newline sequence
-                 *     is recognised as a newline. These are '\r', '\n' and '\rn', and the
-                 *     single characters U+000B LINE TABULATION, U+000C FORM FEED (FF),
-                 *     U+0085 NEXT LINE (NEL), U+2028 LINE SEPARATOR and
-                 *     U+2029 PARAGRAPH SEPARATOR.
+                 *   creating a new {@link GLib.Regex}, any Unicode newline sequence
+                 *   is recognised as a newline. These are `\r`, `\n` and `\r\n`, and the
+                 *   single characters U+000B LINE TABULATION, U+000C FORM FEED (FF),
+                 *   U+0085 NEXT LINE (NEL), U+2028 LINE SEPARATOR and
+                 *   U+2029 PARAGRAPH SEPARATOR.
                  */
                 readonly "NEWLINE_ANY": 4194304
                 /**
                  * Overrides the newline definition set when
-                 *     creating a new #GRegex; any '\r', '\n', or '\r\n' character sequence
-                 *     is recognized as a newline. Since: 2.34
+                 *   creating a new {@link GLib.Regex}; any `\r`, `\n`, or `\r\n` character
+                 *   sequence is recognized as a newline. Since: 2.34
                  */
                 readonly "NEWLINE_ANYCRLF": 5242880
                 /**
-                 * Overrides the newline definition for "\R" set when
-                 *     creating a new #GRegex; only '\r', '\n', or '\r\n' character sequences
-                 *     are recognized as a newline by "\R". Since: 2.34
+                 * Overrides the newline definition for `\R` set when
+                 *   creating a new {@link GLib.Regex}; only `\r`, `\n`, or `\r\n` character
+                 *   sequences are recognized as a newline by `\R`. Since: 2.34
                  */
                 readonly "BSR_ANYCRLF": 8388608
                 /**
-                 * Overrides the newline definition for "\R" set when
-                 *     creating a new #GRegex; any Unicode newline character or character sequence
-                 *     are recognized as a newline by "\R". These are '\r', '\n' and '\rn', and the
-                 *     single characters U+000B LINE TABULATION, U+000C FORM FEED (FF),
-                 *     U+0085 NEXT LINE (NEL), U+2028 LINE SEPARATOR and
-                 *     U+2029 PARAGRAPH SEPARATOR. Since: 2.34
+                 * Overrides the newline definition for `\R` set when
+                 *   creating a new {@link GLib.Regex}; any Unicode newline characters or
+                 *   character sequences are recognized as a newline by `\R`. These are `\r`,
+                 *   `\n` and `\r\n`, and the single characters U+000B LINE TABULATION,
+                 *   U+000C FORM FEED (FF), U+0085 NEXT LINE (NEL), U+2028 LINE SEPARATOR and
+                 *   U+2029 PARAGRAPH SEPARATOR. Since: 2.34
                  */
                 readonly "BSR_ANY": 16777216
                 /**
-                 * An alias for %G_REGEX_MATCH_PARTIAL. Since: 2.34
+                 * An alias for {@link GLib.RegexMatchFlags.PARTIAL}.
+                 *   Since: 2.34
                  */
                 readonly "PARTIAL_SOFT": 32768
                 /**
-                 * Turns on the partial matching feature. In contrast to
-                 *     to %G_REGEX_MATCH_PARTIAL_SOFT, this stops matching as soon as a partial match
-                 *     is found, without continuing to search for a possible complete match. See
-                 *     g_match_info_is_partial_match() for more information. Since: 2.34
+                 * Turns on the partial matching feature. In
+                 *   contrast to {@link GLib.RegexMatchFlags.PARTIAL_SOFT}, this stops matching
+                 *   as soon as a partial match is found, without continuing to search for a
+                 *   possible complete match. See {@link GLib.MatchInfo.is_partial_match} for
+                 *   more information. Since: 2.34
                  */
                 readonly "PARTIAL_HARD": 134217728
                 /**
-                 * Like %G_REGEX_MATCH_NOTEMPTY, but only applied to
-                 *     the start of the matched string. For anchored
-                 *     patterns this can only happen for pattern containing "\K". Since: 2.34
+                 * Like {@link GLib.RegexMatchFlags.NOTEMPTY},
+                 *   but only applied to the start of the matched string. For anchored
+                 *   patterns this can only happen for pattern containing `\K`. Since: 2.34
                  */
                 readonly "NOTEMPTY_ATSTART": 268435456
             }
@@ -19306,14 +19314,18 @@ declare module "gi://GLib?version=2.0" {
              */
             type PrintFunc = (string: string) => void
             /**
-             * Specifies the type of the function passed to g_regex_replace_eval().
+             * A callback passed to {@link GLib.Regex.replace_eval}.
+             *
              * It is called for each occurrence of the pattern in the string passed
-             * to g_regex_replace_eval(), and it should append the replacement to
+             * to {@link GLib.Regex.replace_eval}, and it should append the replacement to
              *  `result`.
+             *
+             * Use {@link GLib.MatchInfo.get_regex} and {@link GLib.MatchInfo.get_string}
+             * if you need the regex object itself, or the matched string.
              * @since 2.14
-             * @param match_info the #GMatchInfo generated by the match.     Use g_match_info_get_regex() and g_match_info_get_string() if you     need the #GRegex or the matched string.
-             * @param result a #GString containing the new string
-             * @returns %FALSE to continue the replacement process, %TRUE to stop it
+             * @param match_info the {@link GLib.MatchInfo} generated by the match
+             * @param result the new string
+             * @returns false to continue the replacement process; true to stop it
              */
             type RegexEvalCallback = (match_info: MatchInfo, result: String) => boolean
             /**

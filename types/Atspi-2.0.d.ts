@@ -5836,6 +5836,17 @@ declare module "gi://Atspi?version=2.0" {
                  */
                 role_get_name(role: Role): string
                 /**
+                 * This function is used to configure whether a GMainLoop is used when
+                 * making DBus calls. Enabling this might be needed if the caller needs to
+                 * be able to handle communication from another process as part of handling
+                 * an AT-SPI method call, or if it has a UI that uses a gdbus-based AT-SPI
+                 * implementation (as with GTK 4, for instance). This introduces reentrancy,
+                 * which could potentially have undesired side-effects, so it is disabled
+                 * by default, which matches the pre-2.62 behavior.
+                 * @param enabled A gboolean indicating whether a GMainLoop should be used when making DBus calls.
+                 */
+                set_g_main_loop_reentrancy(enabled: boolean): void
+                /**
                  * Sets the main loop context that AT-SPI should assume is in use when
                  * setting an idle callback.
                  * This function should be called by application-side implementors (ie,

@@ -50069,8 +50069,9 @@ declare module "gi://Gtk?version=4.0" {
                      * has focus.
                      * @since 4.24
                      * @param id the ID of the element
+                     * @param href the href, if the element is a link
                      */
-                    "activate"(id: string | null): void
+                    "activate"(id: string | null, href: string | null): void
                     /**
                      * Signals that an error occurred.
                      *
@@ -50120,16 +50121,26 @@ declare module "gi://Gtk?version=4.0" {
                 readonly $writableProperties: SvgWidget.WritableProperties
                 readonly $constructOnlyProperties: SvgWidget.ConstructOnlyProperties
                 /**
+                 * Resource to load SVG data from.
+                 *
+                 * This property is meant for use in ui files.
+                 * @since 4.24
                  * @default NULL
                  */
                 get resource(): string
                 set resource(value: string)
                 /**
+                 * The current state of the renderer.
+                 *
+                 * This can be a number between 0 and 63.
+                 * @since 4.24
                  * @default 0
                  */
                 get state(): number
                 set state(value: number)
                 /**
+                 * A CSS stylesheet to apply to the SVG.
+                 * @since 4.24
                  */
                 get stylesheet(): GLib.Bytes | null
                 set stylesheet(value: GLib.Bytes | null)
@@ -62440,6 +62451,13 @@ declare module "gi://Gtk?version=4.0" {
                      */
                     "enable-debugging"(toggle: boolean): boolean
                     /**
+                     * Emitted when the compositor has decided to eliminate a window.
+                     *
+                     *  `window` *has* to be in a hidden state after this signal was handled.
+                     * @since 4.24
+                     */
+                    "force-close"(): void
+                    /**
                      * Emitted when the set of accelerators or mnemonics that
                      * are associated with the window changes.
                      * @deprecated since 4.10 Use {@link Gtk.Shortcut} and {@link Gtk.EventController}   to implement keyboard shortcuts
@@ -63305,6 +63323,11 @@ declare module "gi://Gtk?version=4.0" {
                  * @param toggle
                  */
                 vfunc_enable_debugging(toggle: boolean): boolean
+                /**
+                 * Class handler for the {@link Window.SignalSignatures["force-close"]} signal.
+                 * @since 4.24
+                 */
+                vfunc_force_close(): void
                 /**
                  * Signal gets emitted when the set of accelerators or
                  *   mnemonics that are associated with window changes.
@@ -67656,6 +67679,12 @@ declare module "gi://Gtk?version=4.0" {
                      * items, they need to be queried manually. It is also not necessary for
                      * a model to change the selection state of any of the items in the selection
                      * model, though it would be rather useless to emit such a signal.
+                     *
+                     * ::: warning
+                     *     Note that you have to be careful when modifying the model in signal
+                     *     handlers, as it may cause reentrancy problems. This is also the
+                     *     case when you modify base models underneath the selection model.
+                     *     When in doubt, defer changes to an idle.
                      * @param position The first item that may have changed
                      * @param n_items number of items with changes
                      */
